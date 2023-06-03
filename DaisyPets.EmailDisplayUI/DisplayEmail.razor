@@ -1,0 +1,24 @@
+﻿<div class="emailDisplay">
+    <div class="emailHeader">
+        <div>
+            <label>From:</label> @Email.From
+        </div>
+        <div>
+            <label>To:</label> @Email.To
+        </div>
+        <div>
+            <label>Priority:</label> @(Email.IsImportant ? "High" : "Normal")
+        </div>
+        <div>
+            <label>Subject:</label> @Email.Subject
+        </div>
+    </div>
+    <div class="emailBody">
+        @Email.Body
+    </div>
+</div>
+
+@code
+{
+    [Parameter] public EmailData Email { get; set; }
+}

@@ -1,0 +1,20 @@
+﻿label {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.emailDisplay {
+    background-image: url('background.png');
+}
+
+.emailHeader {
+    border: 2px solid #808080;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.emailBody {
+    border: 1px solid #808080;
+    padding: 1em;
+    margin: 1em 0;
+}

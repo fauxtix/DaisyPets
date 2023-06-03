@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/NewProjects/DaisyPets/PetsDB.db3" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="3265"/><column_width id="4" width="0"/></tab_structure><tab_browse><current_table name="0,0:"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">CREATE VIEW vwPets
+AS
+SELECT 
+Nome, Raca.Descricao AS [Raça], Medicacao.Descricao AS [Medicação], Peso.Descricao AS [Peso]
+ FROM Pet
+INNER JOIN Raca ON Pet.IdRaca = Raca.Id
+INNER JOIN Medicacao ON Pet.IdMedicacao = Medicacao.Id
+INNER JOIN Peso ON Pet.IdPeso = Peso.Id
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
