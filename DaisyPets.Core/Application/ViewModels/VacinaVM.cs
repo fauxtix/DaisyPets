@@ -8,5 +8,11 @@
         public string Marca { get; set; } = string.Empty;
         public int ProximaTomaEmMeses { get; set; }
         public string NomePet { get; set; } = string.Empty;
+
+        public DateTime DataProximaToma
+        {
+            get { return DateTime.Parse(DataToma).AddMonths(ProximaTomaEmMeses); }
+        }
+
     }
 }

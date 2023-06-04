@@ -72,8 +72,8 @@ namespace DaisyPets.Infrastructure.Services
 
         public async Task<int> InsertAsync(VacinaDto Vacina)
         {
-            var VacinaIdentity = _mapper.Map<Vacina>(Vacina);
-            var insertedId = await _repository.InsertAsync(VacinaIdentity);
+            var vacinaEntity = _mapper.Map<Vacina>(Vacina);
+            var insertedId = await _repository.InsertAsync(vacinaEntity);
             return insertedId;
         }
 
@@ -86,9 +86,9 @@ namespace DaisyPets.Infrastructure.Services
                 if (VacinaEntity == null)
                     throw new KeyNotFoundException("Vacina not found");
 
-                _mapper.Map(Vacina, VacinaEntity);
+               var mappedModel =  _mapper.Map(Vacina, VacinaEntity);
 
-                await _repository.UpdateAsync(Id, VacinaEntity);
+                await _repository.UpdateAsync(Id, mappedModel);
 
             }
             catch (Exception ex)

@@ -240,7 +240,7 @@ namespace DaisyPets.WebApi.Controllers
 
 
         /// <summary>
-        /// Validate contact
+        /// Validate vaccine
         /// </summary>
         /// <param name="vacina"></param>
         /// <returns></returns>

@@ -55,7 +55,9 @@
             NomePet = new DataGridViewTextBoxColumn();
             DataToma = new DataGridViewTextBoxColumn();
             ProximaTomaEmMeses = new DataGridViewTextBoxColumn();
+            DataProximaToma = new DataGridViewTextBoxColumn();
             Marca = new DataGridViewTextBoxColumn();
+            PetId = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvVacinas).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gradientPanel1).BeginInit();
             gradientPanel1.SuspendLayout();
@@ -80,7 +82,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dgvVacinas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvVacinas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvVacinas.Columns.AddRange(new DataGridViewColumn[] { Id, NomePet, DataToma, ProximaTomaEmMeses, Marca });
+            dgvVacinas.Columns.AddRange(new DataGridViewColumn[] { Id, NomePet, DataToma, ProximaTomaEmMeses, DataProximaToma, Marca, PetId });
             dgvVacinas.Location = new Point(19, 275);
             dgvVacinas.Name = "dgvVacinas";
             dgvVacinas.ReadOnly = true;
@@ -259,7 +261,7 @@
             dtpToma.Calendar.BottomHeight = 30;
             dtpToma.Calendar.Culture = new System.Globalization.CultureInfo("pt-PT");
             dtpToma.Calendar.DayNamesFont = new Font("Verdana", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dtpToma.Calendar.DayNamesHeight = 119;
+            dtpToma.Calendar.DayNamesHeight = 137;
             dtpToma.Calendar.DaysFont = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             dtpToma.Calendar.Dock = DockStyle.Fill;
             dtpToma.Calendar.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -345,6 +347,13 @@
             ProximaTomaEmMeses.Name = "ProximaTomaEmMeses";
             ProximaTomaEmMeses.ReadOnly = true;
             // 
+            // DataProximaToma
+            // 
+            DataProximaToma.DataPropertyName = "DataProximaToma";
+            DataProximaToma.HeaderText = "Próxima";
+            DataProximaToma.Name = "DataProximaToma";
+            DataProximaToma.ReadOnly = true;
+            // 
             // Marca
             // 
             Marca.DataPropertyName = "Marca";
@@ -352,6 +361,14 @@
             Marca.Name = "Marca";
             Marca.ReadOnly = true;
             Marca.Width = 300;
+            // 
+            // PetId
+            // 
+            PetId.DataPropertyName = "IdPet";
+            PetId.HeaderText = "PetId";
+            PetId.Name = "PetId";
+            PetId.ReadOnly = true;
+            PetId.Visible = false;
             // 
             // frmPetVaccines
             // 
@@ -423,6 +440,8 @@
         private DataGridViewTextBoxColumn NomePet;
         private DataGridViewTextBoxColumn DataToma;
         private DataGridViewTextBoxColumn ProximaTomaEmMeses;
+        private DataGridViewTextBoxColumn DataProximaToma;
         private DataGridViewTextBoxColumn Marca;
+        private DataGridViewTextBoxColumn PetId;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Core.Domain;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
 using System.DirectoryServices;
@@ -17,7 +18,7 @@ namespace DaisyPets.UI
         private bool _sortDirection;
 
 
-        public frmPetVaccines(int petId = 4)
+        public frmPetVaccines(int petId = 0)
         {
             InitializeComponent();
             IdPet = petId;
@@ -82,7 +83,7 @@ namespace DaisyPets.UI
             try
             {
                 var vaccineData = await GetVaccine(Id);
-                if (vaccineData != null)
+                if (vaccineData.Id > 0)
                 {
                     txtId.Text = Id.ToString();
                     dtpToma.Value = Convert.ToDateTime(vaccineData.DataToma);
@@ -91,6 +92,11 @@ namespace DaisyPets.UI
 
                     SetToolbar(OpcoesRegisto.Gravar);
                     SelectRowInGrid();
+                }
+                else
+                {
+                    SetToolbar(OpcoesRegisto.Inserir);
+                    ClearForm();
                 }
             }
             catch (Exception ex)
@@ -307,6 +313,7 @@ namespace DaisyPets.UI
                     var response = task.Result;
 
                     task.Wait();
+                    task.Dispose();
                 }
 
                 FillGrid();
@@ -323,47 +330,6 @@ namespace DaisyPets.UI
 
         }
 
-        private async Task DeletePetVaccine()
-        {
-            string url = $"https://localhost:7161/api/Vacinacao/ {IdVacina}";
-            try
-            {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    var task = await httpClient.DeleteFromJsonAsync<VacinaDto>(url);
-                    if (task is null)
-                    {
-                        MessageBoxAdv.Show("Erro ao apagar registo,", "Daisy Pets - Vacinas", MessageBoxButtons.OK);
-                        return;
-
-                    }
-
-                    FillGrid();
-                    if (dgvVacinas.RowCount > 0)
-                    {
-                        ShowRecord(1);
-                    }
-                    else
-                    {
-                        dgvVacinas.DataSource = null;
-                        ClearForm();
-                    }
-                }
-
-                FillGrid();
-                dgvVacinas.Rows[0].Selected = true;
-                int petId = DataFormat.GetInteger(dgvVacinas.Rows[0].Cells["Id"].Value);
-                ShowRecord(petId);
-
-
-                MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro no API {ex.Message}", "Apagar Pet");
-            }
-
-        }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
@@ -404,8 +370,8 @@ namespace DaisyPets.UI
                 MessageBox.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
                 return new PetVM();
             }
-
         }
+
 
         private void dgvVacinas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -446,5 +412,55 @@ namespace DaisyPets.UI
             await DeletePetVaccine();
 
         }
+
+        private async Task DeletePetVaccine()
+        {
+            string url = $"https://localhost:7161/api/Vacinacao/{IdVacina}";
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    var response = await httpClient.DeleteAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+
+                        if (dgvVacinas.RowCount > 0)
+                        {
+                            ShowRecord(1);
+                        }
+                        else
+                        {
+                            dgvVacinas.DataSource = null;
+                            ClearForm();
+                        }
+
+                    }
+
+                    response.Dispose();
+                    FillGrid();
+
+                    if (dgvVacinas.RowCount > 0)
+                    {
+                        dgvVacinas.Rows[0].Selected = true;
+                        int petId = DataFormat.GetInteger(dgvVacinas.Rows[0].Cells["PetId"].Value);
+                        ShowRecord(petId);
+                    }
+                    else
+                    {
+                        dgvVacinas.DataSource = null;
+                        ClearForm();
+                    }
+                }
+
+                MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro no API {ex.Message}", "Apagar Pet");
+            }
+
+        }
+
     }
 }
