@@ -5,10 +5,8 @@ using DaisyPets.Core.Application.ViewModels.Pdfs;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
 using System.Collections;
-using System.ComponentModel;
 using System.Net.Http.Json;
 using System.Text;
-using System.Windows.Forms;
 using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.UI
@@ -21,6 +19,7 @@ namespace DaisyPets.UI
         private int IdSituacao = 0;
         private int IdTemperamento = 0;
         private int IdTamanho = 0;
+        private string IdGenero = "M";
 
         private int IdPet = 0;
 
@@ -95,6 +94,7 @@ namespace DaisyPets.UI
                 IdSituacao = IdSituacao,
                 IdTamanho = IdTamanho,
                 IdTemperamento = IdTemperamento,
+                Genero = IdGenero,
                 Nome = txtNome.Text,
                 Medicacao = txtMedicacao.Text,
                 Observacoes = txtObservacoes.Text,
@@ -117,15 +117,16 @@ namespace DaisyPets.UI
                     task.Wait();
                     task.Dispose();
 
-                    MessageBox.Show("Registo criado com sucesso", "Daisy Pets");
+                    MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets");
                     SetToolbar(OpcoesRegisto.Inserir);
                     FillGrid();
+                    ClearForm();
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Criação de Pet");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Criação de Pet");
             }
         }
 
@@ -175,7 +176,7 @@ namespace DaisyPets.UI
                 IdSituacao = cboSituacao.SelectedIndex + 1,
                 IdTemperamento = cboTemperamento.SelectedIndex + 1,
                 IdTamanho = cboTamanho.SelectedIndex + 1,
-
+                Genero = IdGenero,
                 Esterilizado = chkEsterilizado.Checked ? 1 : 0,
                 Padrinho = chkPadrinho.Checked ? 1 : 0,
 
@@ -203,7 +204,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Atualização de Pet");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Atualização de Pet");
             }
         }
 
@@ -256,7 +257,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Apagar Pet");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Apagar Pet");
             }
 
         }
@@ -296,7 +297,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
             }
         }
 
@@ -331,7 +332,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
                 return new PetVM();
             }
 
@@ -352,7 +353,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
             }
 
         }
@@ -417,6 +418,8 @@ namespace DaisyPets.UI
                     cboTemperamento.SelectedIndex = petData.IdTemperamento - 1;
                     cboTamanho.SelectedIndex = petData.IdTamanho - 1;
 
+                    cboGenero.SelectedItem = petData.Genero == "M" ? "Masculino" : "Feminino";
+
                     chkEsterilizado.Checked = petData.Esterilizado == 1 ? true : false;
                     chkPadrinho.Checked = petData.Padrinho == 1 ? true : false;
 
@@ -430,7 +433,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Visualizar registo");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Visualizar registo");
             }
         }
 
@@ -456,7 +459,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Pesquisar Pet");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Pesquisar Pet");
                 return new PetDto();
             }
         }
@@ -547,6 +550,7 @@ namespace DaisyPets.UI
             cboSituacao.SelectedIndex = -1;
             cboTemperamento.SelectedIndex = -1;
             cboTamanho.SelectedIndex = 0;
+            cboGenero.SelectedItem = "M";
             chkEsterilizado.Checked = false;
             chkPadrinho.Checked = false;
             dtpDataNascimento.Value = DateTime.Now.AddDays(-1);
@@ -631,12 +635,12 @@ namespace DaisyPets.UI
                 }
                 else
                 {
-                    MessageBox.Show("Please Upload document.");
+                    MessageBoxAdv.Show("Please Upload document.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBoxAdv.Show(ex.Message);
             }
         }
 
@@ -652,7 +656,7 @@ namespace DaisyPets.UI
             var now = DateTime.Now;
             if (dob > now)
             {
-                MessageBox.Show("Data inválida");
+                MessageBoxAdv.Show("Data inválida");
                 return;
             }
 
@@ -660,7 +664,7 @@ namespace DaisyPets.UI
             int size = cboTamanho.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboTamanho.SelectedItem)).Key) : -1;
             if (size < 1)
             {
-                //MessageBox.Show("Escolha tamanho, p.f.");
+                //MessageBoxAdv.Show("Escolha tamanho, p.f.");
                 return;
             }
 
@@ -923,21 +927,38 @@ namespace DaisyPets.UI
         private async void btnGeneratePdf_Click(object sender, EventArgs e)
         {
             var petVM = GetPetVM(IdPet);
+            var Idade = petVM.DataNascimento;
+            var dob = DateTime.Parse(petVM.DataNascimento);
+            var now = DateTime.Now;
+            string porte = "";
+            var months = GetMonthDifference(dob, now);
+            var years = months / 12;
+            var meses = months % 12;
+            var yearsAsString = years == 0 ? "" : years == 1 ? "Um ano" : $"{years} anos";
+            var monthsAsString = meses == 0 ? "" : meses == 1 && years == 0 ? "Um mês" : meses == 1 ? " e um mês" : years > 0 ? $" e {meses} meses" : $"{meses} meses";
+            var ageAsString = yearsAsString + monthsAsString;
 
-            var esterilizado = petVM.Esterilizado ? "Sim" : "Não";
+            var descricaoDesparasitado = petVM.Genero == "M" ? "Desparasitado" : "Desparasitada";
+            var descricaoEsterilizado = petVM.Genero == "M" ? "Esterilizado" : "Esterilizada";
+            var descricaoGenero = petVM.Genero == "M" ? "O" : "A";
+
             string[] aCampos = new string[] {
-                "Nome", "Raca", "Situacao", "NumeroChip", "DataChip","Esterilizado", "Foto"
+                "DescricaoGenero", "Nome", "Raca", "Situacao", "Idade", "Porte", "Temperamento", "GeneroDesparasitado", "GeneroEsterilizado","DoencaCronica", "Foto"
             };
 
-            var photo = petVM.Foto.Replace("\\", "/");
+            var photo = petVM.Foto; //.Replace("\\", "/");
             string[] aDados = new string[]
             {
+                descricaoGenero,
                 petVM.Nome,
                 petVM.RacaAnimal,
                 petVM.SituacaoAnimal,
-                petVM.NumeroChip,
-                petVM.DataChip,
-                esterilizado,
+                ageAsString,
+                petVM.TamanhoAnimal,
+                petVM.TemperamentoAnimal,
+                descricaoDesparasitado,
+                descricaoEsterilizado,
+                petVM.DoencaCronica,
                 photo
             };
 
@@ -1038,6 +1059,15 @@ namespace DaisyPets.UI
                 frmPetVaccines fVaccines = new frmPetVaccines(IdPet);
                 fVaccines.ShowDialog();
             }
+        }
+
+        private void cboGenero_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboGenero.SelectedItem == null)
+                return;
+
+            var genero = cboGenero.SelectedItem.ToString();
+            IdGenero = genero.Substring(0);
         }
     }
 }

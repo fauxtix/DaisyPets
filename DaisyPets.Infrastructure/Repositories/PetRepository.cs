@@ -28,10 +28,10 @@ namespace DaisyPets.Infrastructure.Repositories
 
             sb.Append("INSERT INTO Pet (");
             sb.Append("Chip, Chipado, DataChip, NumeroChip, Cor, DoencaCronica, Esterilizado, Foto, IdEspecie, DataNascimento, ");
-            sb.Append("Medicacao, IdPeso, IdRaca, IdTamanho, IdSituacao, IdTemperamento, Nome, ");
+            sb.Append("Medicacao, IdPeso, IdRaca, IdTamanho, IdSituacao, IdTemperamento, Genero, Nome, ");
             sb.Append("Observacoes, Padrinho) VALUES(");
             sb.Append("@Chip, @Chipado, @DataChip, @NumeroChip, @Cor, @DoencaCronica, @Esterilizado, @Foto, @IdEspecie, @DataNascimento, ");
-            sb.Append("@Medicacao, @IdPeso, @IdRaca, @IdTamanho, @IdSituacao, @IdTemperamento, @Nome, ");
+            sb.Append("@Medicacao, @IdPeso, @IdRaca, @IdTamanho, @IdSituacao, @IdTemperamento, @Genero, @Nome, ");
             sb.Append("@Observacoes, @Padrinho");
             sb.Append("); ");
             sb.Append("SELECT last_insert_rowid()");
@@ -72,6 +72,7 @@ namespace DaisyPets.Infrastructure.Repositories
             dynamicParameters.Add("@IdTamanho", pet.IdTamanho);
             dynamicParameters.Add("@IdSituacao", pet.IdSituacao);
             dynamicParameters.Add("@IdTemperamento", pet.IdTemperamento);
+            dynamicParameters.Add("@Genero", pet.Genero.Substring(0,1));
             dynamicParameters.Add("@Nome", pet.Nome);
             dynamicParameters.Add("@Observacoes", pet.Observacoes);
             dynamicParameters.Add("@Padrinho", pet.Padrinho);
@@ -94,6 +95,7 @@ namespace DaisyPets.Infrastructure.Repositories
             sb.Append("IdRaca = @IdRaca, ");
             sb.Append("IdSituacao = @IdSituacao, ");
             sb.Append("IdTemperamento = @IdTemperamento, ");
+            sb.Append("Genero = @Genero, ");
             sb.Append("Nome = @Nome, ");
             sb.Append("Observacoes = @Observacoes, ");
             sb.Append("Padrinho = @Padrinho ");
@@ -259,15 +261,17 @@ namespace DaisyPets.Infrastructure.Repositories
         private string GetPetsVM_Query()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Pet.Id, Pet.Nome, Pet.DoencaCronica, Pet.Observacoes, Pet.Foto, ");
+            sb.Append("SELECT Pet.Id, Pet.Nome, Pet.DoencaCronica, Pet.Observacoes, Pet.Foto, Pet.IdPeso, ");
             sb.Append("Pet.Chip, Pet.Chipado, Pet.DataChip, Pet.NumeroChip,  Pet.Esterilizado, ");
             sb.Append("R.Descricao AS [RacaAnimal], Pet.Medicacao AS [MedicacaoAnimal], ");
             sb.Append("E.Descricao AS [EspecieAnimal], T.Descricao AS [TamanhoAnimal], ");
-            sb.Append("S.Descricao AS [SituacaoAnimal] ");
+            sb.Append("Temp.Descricao AS [TemperamentoAnimal], Pet.Genero, ");
+            sb.Append("S.Descricao AS [SituacaoAnimal], Pet.DataNascimento ");
             sb.Append("FROM Pet INNER JOIN Raca R ON Pet.IdRaca = R.Id ");
             sb.Append("INNER JOIN Especie E ON Pet.IdEspecie = E.Id ");
             sb.Append("INNER JOIN Tamanho T ON Pet.IdTamanho = T.Id ");
-            sb.Append("INNER JOIN Situacao S ON Pet.IdSituacao = S.Id");
+            sb.Append("INNER JOIN Situacao S ON Pet.IdSituacao = S.Id ");
+            sb.Append("INNER JOIN Temperamento Temp ON Pet.IdTemperamento = Temp.Id");
 
             return sb.ToString();
         }

@@ -1,10 +1,12 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Core.Application.ViewModels.Pdfs;
 using DaisyPets.Core.Domain;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
 using System.DirectoryServices;
 using System.Net.Http.Json;
+using System.Security.Policy;
 using System.Text;
 using static DaisyPets.Core.Application.Enums.Common;
 
@@ -24,6 +26,7 @@ namespace DaisyPets.UI
             IdPet = petId;
             var petData = GetPetData(petId);
             txtPetName.Text = petData.Nome;
+            nupPrxToma.Value = 18;
 
             dgvVacinas.AutoGenerateColumns = false;
             if (dgvVacinas.RowCount > 0)
@@ -68,7 +71,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
             }
 
         }
@@ -101,7 +104,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Visualizar registo");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Visualizar registo");
             }
         }
 
@@ -212,15 +215,17 @@ namespace DaisyPets.UI
                     task.Wait();
                     task.Dispose();
 
-                    MessageBox.Show("Registo criado com sucesso", "Daisy Pets - Vacinação");
+                    MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets - Vacinação");
                     SetToolbar(OpcoesRegisto.Inserir);
                     FillGrid();
+                    ClearForm();
+
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Criação de Pet");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Criação de Pet");
             }
 
         }
@@ -325,7 +330,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Atualização de vacina");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Atualização de vacina");
             }
 
         }
@@ -367,7 +372,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
                 return new PetVM();
             }
         }
@@ -457,10 +462,44 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro no API {ex.Message}", "Apagar Pet");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Apagar Pet");
             }
 
         }
 
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+            var file = GetVaccines_InfoPdf();
+            if (!string.IsNullOrEmpty(file))
+            {
+                FormParameters.NomePdf = file;
+                FormParameters.TituloPdf = "Vaccines Info";
+                frmPdfViewer frmPdf = new frmPdfViewer();
+                frmPdf.ShowDialog();
+            }
+        }
+
+        private string GetVaccines_InfoPdf()
+        {
+            string url = $"https://localhost:7161/api/Vacinacao/Vaccines_Info_Pdf";
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    var task = httpClient.GetStringAsync(url);
+                    task.Wait();
+
+                    var response = task.Result;
+                    task.Dispose();
+
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxAdv.Show($"Erro no Api ({ex.Message})", "Vacinação");
+                return "";
+            }
+        }
     }
 }

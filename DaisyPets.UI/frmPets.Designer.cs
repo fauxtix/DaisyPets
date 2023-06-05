@@ -46,6 +46,8 @@
             HistoryInfo = new DataGridViewButtonColumn();
             btnInsert = new Button();
             panel1 = new Panel();
+            cboGenero = new ComboBox();
+            label8 = new Label();
             chkChipado = new CheckBox();
             txtNumeroChip = new TextBox();
             dtpChip = new DateTimePicker();
@@ -204,8 +206,9 @@
             HistoryInfo.HeaderText = "";
             HistoryInfo.Name = "HistoryInfo";
             HistoryInfo.ReadOnly = true;
-            HistoryInfo.Text = "History";
+            HistoryInfo.Text = "Vac";
             HistoryInfo.UseColumnTextForButtonValue = true;
+            HistoryInfo.Width = 70;
             // 
             // btnInsert
             // 
@@ -226,6 +229,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(224, 224, 224);
+            panel1.Controls.Add(cboGenero);
+            panel1.Controls.Add(label8);
             panel1.Controls.Add(chkChipado);
             panel1.Controls.Add(txtNumeroChip);
             panel1.Controls.Add(dtpChip);
@@ -270,6 +275,27 @@
             panel1.Size = new Size(1160, 399);
             panel1.TabIndex = 4;
             // 
+            // cboGenero
+            // 
+            cboGenero.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            cboGenero.FormattingEnabled = true;
+            cboGenero.Items.AddRange(new object[] { "Masculino", "Feminino" });
+            cboGenero.Location = new Point(106, 106);
+            cboGenero.Name = "cboGenero";
+            cboGenero.Size = new Size(111, 28);
+            cboGenero.TabIndex = 6;
+            cboGenero.SelectedIndexChanged += cboGenero_SelectedIndexChanged;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Location = new Point(106, 81);
+            label8.Name = "label8";
+            label8.Size = new Size(57, 20);
+            label8.TabIndex = 89;
+            label8.Text = "Género";
+            // 
             // chkChipado
             // 
             chkChipado.AutoSize = true;
@@ -277,7 +303,7 @@
             chkChipado.Location = new Point(12, 225);
             chkChipado.Name = "chkChipado";
             chkChipado.Size = new Size(84, 24);
-            chkChipado.TabIndex = 10;
+            chkChipado.TabIndex = 12;
             chkChipado.Text = "Chipado";
             chkChipado.UseVisualStyleBackColor = true;
             chkChipado.Click += chkChipado_Click;
@@ -285,21 +311,21 @@
             // txtNumeroChip
             // 
             txtNumeroChip.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtNumeroChip.Location = new Point(312, 223);
+            txtNumeroChip.Location = new Point(235, 221);
             txtNumeroChip.MaxLength = 15;
             txtNumeroChip.Name = "txtNumeroChip";
-            txtNumeroChip.Size = new Size(132, 27);
-            txtNumeroChip.TabIndex = 12;
+            txtNumeroChip.Size = new Size(235, 27);
+            txtNumeroChip.TabIndex = 14;
             txtNumeroChip.Visible = false;
             // 
             // dtpChip
             // 
             dtpChip.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             dtpChip.Format = DateTimePickerFormat.Short;
-            dtpChip.Location = new Point(189, 223);
+            dtpChip.Location = new Point(109, 221);
             dtpChip.Name = "dtpChip";
             dtpChip.Size = new Size(108, 27);
-            dtpChip.TabIndex = 11;
+            dtpChip.TabIndex = 13;
             dtpChip.Visible = false;
             // 
             // txtMedicacao
@@ -309,8 +335,8 @@
             txtMedicacao.Multiline = true;
             txtMedicacao.Name = "txtMedicacao";
             txtMedicacao.ScrollBars = ScrollBars.Vertical;
-            txtMedicacao.Size = new Size(345, 61);
-            txtMedicacao.TabIndex = 9;
+            txtMedicacao.Size = new Size(358, 61);
+            txtMedicacao.TabIndex = 11;
             // 
             // label5
             // 
@@ -426,7 +452,7 @@
             // 
             chkPadrinho.AutoSize = true;
             chkPadrinho.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            chkPadrinho.Location = new Point(747, 106);
+            chkPadrinho.Location = new Point(726, 124);
             chkPadrinho.Name = "chkPadrinho";
             chkPadrinho.Size = new Size(86, 24);
             chkPadrinho.TabIndex = 14;
@@ -437,7 +463,7 @@
             // 
             chkEsterilizado.AutoSize = true;
             chkEsterilizado.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            chkEsterilizado.Location = new Point(626, 106);
+            chkEsterilizado.Location = new Point(726, 94);
             chkEsterilizado.Name = "chkEsterilizado";
             chkEsterilizado.Size = new Size(105, 24);
             chkEsterilizado.TabIndex = 13;
@@ -448,17 +474,17 @@
             // 
             cboTemperamento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             cboTemperamento.FormattingEnabled = true;
-            cboTemperamento.Location = new Point(189, 174);
+            cboTemperamento.Location = new Point(235, 174);
             cboTemperamento.Name = "cboTemperamento";
-            cboTemperamento.Size = new Size(284, 28);
-            cboTemperamento.TabIndex = 8;
+            cboTemperamento.Size = new Size(235, 28);
+            cboTemperamento.TabIndex = 10;
             cboTemperamento.SelectedIndexChanged += cboTemperamento_SelectedIndexChanged;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(189, 151);
+            label3.Location = new Point(235, 151);
             label3.Name = "label3";
             label3.Size = new Size(110, 20);
             label3.TabIndex = 71;
@@ -480,8 +506,8 @@
             cboSituacao.FormattingEnabled = true;
             cboSituacao.Location = new Point(12, 174);
             cboSituacao.Name = "cboSituacao";
-            cboSituacao.Size = new Size(165, 28);
-            cboSituacao.TabIndex = 7;
+            cboSituacao.Size = new Size(205, 28);
+            cboSituacao.TabIndex = 9;
             cboSituacao.SelectedIndexChanged += cboSituacao_SelectedIndexChanged;
             // 
             // label19
@@ -498,17 +524,17 @@
             // 
             cboRaca.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             cboRaca.FormattingEnabled = true;
-            cboRaca.Location = new Point(105, 106);
+            cboRaca.Location = new Point(235, 105);
             cboRaca.Name = "cboRaca";
-            cboRaca.Size = new Size(252, 28);
-            cboRaca.TabIndex = 6;
+            cboRaca.Size = new Size(235, 28);
+            cboRaca.TabIndex = 7;
             cboRaca.SelectedIndexChanged += cboRaca_SelectedIndexChanged;
             // 
             // label18
             // 
             label18.AutoSize = true;
             label18.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label18.Location = new Point(105, 81);
+            label18.Location = new Point(238, 81);
             label18.Name = "label18";
             label18.Size = new Size(41, 20);
             label18.TabIndex = 66;
@@ -551,7 +577,7 @@
             txtObservacoes.Multiline = true;
             txtObservacoes.Name = "txtObservacoes";
             txtObservacoes.ScrollBars = ScrollBars.Vertical;
-            txtObservacoes.Size = new Size(345, 110);
+            txtObservacoes.Size = new Size(358, 110);
             txtObservacoes.TabIndex = 16;
             // 
             // label14
@@ -586,7 +612,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(377, 81);
+            label6.Location = new Point(488, 81);
             label6.Name = "label6";
             label6.Size = new Size(32, 20);
             label6.TabIndex = 56;
@@ -623,11 +649,11 @@
             // txtCor
             // 
             txtCor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtCor.Location = new Point(377, 107);
+            txtCor.Location = new Point(488, 106);
             txtCor.MaxLength = 40;
             txtCor.Name = "txtCor";
             txtCor.Size = new Size(213, 27);
-            txtCor.TabIndex = 4;
+            txtCor.TabIndex = 8;
             // 
             // label1
             // 
@@ -708,7 +734,7 @@
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClear.Location = new Point(500, 419);
+            btnClear.Location = new Point(461, 419);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(98, 39);
             btnClear.TabIndex = 21;
@@ -724,9 +750,9 @@
             btnGeneratePdf.ForeColor = Color.Black;
             btnGeneratePdf.Image = Properties.Resources.Adobe_PDF_Document_icon;
             btnGeneratePdf.ImageAlign = ContentAlignment.MiddleLeft;
-            btnGeneratePdf.Location = new Point(852, 419);
+            btnGeneratePdf.Location = new Point(1039, 413);
             btnGeneratePdf.Name = "btnGeneratePdf";
-            btnGeneratePdf.Size = new Size(98, 39);
+            btnGeneratePdf.Size = new Size(103, 48);
             btnGeneratePdf.TabIndex = 22;
             btnGeneratePdf.Text = "Pdf  ";
             btnGeneratePdf.TextAlign = ContentAlignment.MiddleRight;
@@ -768,6 +794,8 @@
             Controls.Add(panel1);
             Controls.Add(btnInsert);
             Controls.Add(gdvDados);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmPets";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -829,6 +857,8 @@
         private DateTimePicker dtpChip;
         private CheckBox chkChipado;
         private Button btnGeneratePdf;
+        private ComboBox cboGenero;
+        private Label label8;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Nome;
         private DataGridViewCheckBoxColumn Chipado;

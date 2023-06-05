@@ -19,17 +19,18 @@ namespace DaisyPets.WebApi.Controllers
     {
         private readonly IVacinasService _vacinacaoService;
         private readonly ILogger<VacinacaoController> _logger;
-
+        private readonly IWebHostEnvironment _environment;
 
         /// <summary>
         /// Contact controller constructor
         /// </summary>
         /// <param name="vacinacaoService"></param>
         /// <param name="logger"></param>
-        public VacinacaoController(IVacinasService vacinacaoService, ILogger<VacinacaoController> logger)
+        public VacinacaoController(IVacinasService vacinacaoService, ILogger<VacinacaoController> logger, IWebHostEnvironment environment)
         {
             _vacinacaoService = vacinacaoService;
             _logger = logger;
+            _environment = environment;
         }
 
         /// <summary>
@@ -260,6 +261,22 @@ namespace DaisyPets.WebApi.Controllers
 
             var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
             return BadRequest(errorMessages);
+        }
+
+        /// <summary>
+        /// Get pdf file (info about vaccines)
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Vaccines_Info_Pdf")]
+        public IActionResult GetVaccines_Info_Pdf()
+        {
+            var pdfSource = Path.Combine(_environment.ContentRootPath, "Reports", "Docs", "Info", "VacinacaoCaes.pdf");
+            if (!System.IO.File.Exists(pdfSource))
+            {
+                return NotFound();
+            }
+            else
+                return Ok(pdfSource);
         }
 
         private string GetControllerActionNames()

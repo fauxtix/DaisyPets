@@ -413,7 +413,7 @@ namespace DaisyPets.UI.Properties
                 else
                 {
                     RefreshContacts();
-                    MessageBox.Show("Registo apagado com sucesso");
+                    MessageBoxAdv.Show("Registo apagado com sucesso");
 
                     if (gdvContacts.RowCount > 0)
                     {

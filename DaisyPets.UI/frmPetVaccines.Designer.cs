@@ -28,19 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             dgvVacinas = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            NomePet = new DataGridViewTextBoxColumn();
+            DataToma = new DataGridViewTextBoxColumn();
+            ProximaTomaEmMeses = new DataGridViewTextBoxColumn();
+            DataProximaToma = new DataGridViewTextBoxColumn();
+            Marca = new DataGridViewTextBoxColumn();
+            PetId = new DataGridViewTextBoxColumn();
             btnClear = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
             btnInsert = new Button();
             gradientPanel1 = new Syncfusion.Windows.Forms.Tools.GradientPanel();
+            btnInfo = new Button();
+            dtpToma = new DateTimePicker();
             autoLabel5 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             txtId = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             autoLabel4 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
@@ -49,23 +58,13 @@
             autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             nupPrxToma = new Syncfusion.Windows.Forms.Tools.NumericUpDownExt();
             txtMarca = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
-            dtpToma = new Syncfusion.Windows.Forms.Tools.DateTimePickerAdv();
             txtPetName = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
-            Id = new DataGridViewTextBoxColumn();
-            NomePet = new DataGridViewTextBoxColumn();
-            DataToma = new DataGridViewTextBoxColumn();
-            ProximaTomaEmMeses = new DataGridViewTextBoxColumn();
-            DataProximaToma = new DataGridViewTextBoxColumn();
-            Marca = new DataGridViewTextBoxColumn();
-            PetId = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvVacinas).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gradientPanel1).BeginInit();
             gradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtId).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nupPrxToma).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtMarca).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dtpToma).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dtpToma.Calendar).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtPetName).BeginInit();
             SuspendLayout();
             // 
@@ -83,15 +82,81 @@
             dgvVacinas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvVacinas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvVacinas.Columns.AddRange(new DataGridViewColumn[] { Id, NomePet, DataToma, ProximaTomaEmMeses, DataProximaToma, Marca, PetId });
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dgvVacinas.DefaultCellStyle = dataGridViewCellStyle4;
             dgvVacinas.Location = new Point(19, 275);
             dgvVacinas.Name = "dgvVacinas";
             dgvVacinas.ReadOnly = true;
             dgvVacinas.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             dgvVacinas.RowTemplate.Height = 32;
-            dgvVacinas.Size = new Size(748, 122);
+            dgvVacinas.Size = new Size(650, 214);
             dgvVacinas.TabIndex = 8;
             dgvVacinas.CellClick += dgvVacinas_CellClick;
             dgvVacinas.ColumnHeaderMouseClick += dgvVacinas_ColumnHeaderMouseClick;
+            // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // NomePet
+            // 
+            NomePet.DataPropertyName = "NomePet";
+            NomePet.HeaderText = "Nome";
+            NomePet.Name = "NomePet";
+            NomePet.ReadOnly = true;
+            NomePet.Visible = false;
+            NomePet.Width = 200;
+            // 
+            // DataToma
+            // 
+            DataToma.DataPropertyName = "DataToma";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataToma.DefaultCellStyle = dataGridViewCellStyle2;
+            DataToma.HeaderText = "Data";
+            DataToma.Name = "DataToma";
+            DataToma.ReadOnly = true;
+            // 
+            // ProximaTomaEmMeses
+            // 
+            ProximaTomaEmMeses.DataPropertyName = "ProximaTomaEmMeses";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ProximaTomaEmMeses.DefaultCellStyle = dataGridViewCellStyle3;
+            ProximaTomaEmMeses.HeaderText = "Prx. Toma";
+            ProximaTomaEmMeses.Name = "ProximaTomaEmMeses";
+            ProximaTomaEmMeses.ReadOnly = true;
+            // 
+            // DataProximaToma
+            // 
+            DataProximaToma.DataPropertyName = "DataProximaToma";
+            DataProximaToma.HeaderText = "Próxima";
+            DataProximaToma.Name = "DataProximaToma";
+            DataProximaToma.ReadOnly = true;
+            // 
+            // Marca
+            // 
+            Marca.DataPropertyName = "Marca";
+            Marca.HeaderText = "Vacina";
+            Marca.Name = "Marca";
+            Marca.ReadOnly = true;
+            Marca.Width = 300;
+            // 
+            // PetId
+            // 
+            PetId.DataPropertyName = "IdPet";
+            PetId.HeaderText = "PetId";
+            PetId.Name = "PetId";
+            PetId.ReadOnly = true;
+            PetId.Visible = false;
             // 
             // btnClear
             // 
@@ -100,7 +165,7 @@
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClear.Location = new Point(513, 215);
+            btnClear.Location = new Point(441, 215);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(98, 39);
             btnClear.TabIndex = 25;
@@ -161,6 +226,8 @@
             // 
             gradientPanel1.BackColor = Color.Linen;
             gradientPanel1.BorderStyle = BorderStyle.FixedSingle;
+            gradientPanel1.Controls.Add(btnInfo);
+            gradientPanel1.Controls.Add(dtpToma);
             gradientPanel1.Controls.Add(autoLabel5);
             gradientPanel1.Controls.Add(txtId);
             gradientPanel1.Controls.Add(autoLabel4);
@@ -169,17 +236,42 @@
             gradientPanel1.Controls.Add(autoLabel1);
             gradientPanel1.Controls.Add(nupPrxToma);
             gradientPanel1.Controls.Add(txtMarca);
-            gradientPanel1.Controls.Add(dtpToma);
             gradientPanel1.Controls.Add(txtPetName);
             gradientPanel1.Location = new Point(19, 15);
             gradientPanel1.Name = "gradientPanel1";
-            gradientPanel1.Size = new Size(592, 173);
+            gradientPanel1.Size = new Size(562, 173);
             gradientPanel1.TabIndex = 26;
+            // 
+            // btnInfo
+            // 
+            btnInfo.BackColor = Color.White;
+            btnInfo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnInfo.ForeColor = Color.Black;
+            btnInfo.Image = Properties.Resources.Info_32;
+            btnInfo.ImageAlign = ContentAlignment.MiddleLeft;
+            btnInfo.Location = new Point(448, 81);
+            btnInfo.Name = "btnInfo";
+            btnInfo.Size = new Size(82, 40);
+            btnInfo.TabIndex = 26;
+            btnInfo.Text = "Info";
+            btnInfo.TextAlign = ContentAlignment.MiddleRight;
+            btnInfo.UseVisualStyleBackColor = false;
+            btnInfo.Click += btnInfo_Click;
+            // 
+            // dtpToma
+            // 
+            dtpToma.CalendarFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dtpToma.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dtpToma.Format = DateTimePickerFormat.Short;
+            dtpToma.Location = new Point(154, 50);
+            dtpToma.Name = "dtpToma";
+            dtpToma.Size = new Size(110, 27);
+            dtpToma.TabIndex = 18;
             // 
             // autoLabel5
             // 
             autoLabel5.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            autoLabel5.Location = new Point(203, 129);
+            autoLabel5.Location = new Point(215, 129);
             autoLabel5.Name = "autoLabel5";
             autoLabel5.Size = new Size(50, 20);
             autoLabel5.TabIndex = 17;
@@ -187,18 +279,18 @@
             // 
             // txtId
             // 
-            txtId.BeforeTouchSize = new Size(314, 27);
+            txtId.BeforeTouchSize = new Size(273, 27);
             txtId.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtId.Location = new Point(476, 126);
+            txtId.Location = new Point(511, 11);
             txtId.Name = "txtId";
-            txtId.Size = new Size(89, 27);
+            txtId.Size = new Size(41, 27);
             txtId.TabIndex = 16;
             txtId.Visible = false;
             // 
             // autoLabel4
             // 
             autoLabel4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            autoLabel4.Location = new Point(22, 50);
+            autoLabel4.Location = new Point(12, 50);
             autoLabel4.Name = "autoLabel4";
             autoLabel4.Size = new Size(101, 20);
             autoLabel4.TabIndex = 15;
@@ -207,25 +299,25 @@
             // autoLabel3
             // 
             autoLabel3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            autoLabel3.Location = new Point(22, 88);
+            autoLabel3.Location = new Point(12, 88);
             autoLabel3.Name = "autoLabel3";
-            autoLabel3.Size = new Size(50, 20);
+            autoLabel3.Size = new Size(52, 20);
             autoLabel3.TabIndex = 14;
-            autoLabel3.Text = "Marca";
+            autoLabel3.Text = "Vacina";
             // 
             // autoLabel2
             // 
             autoLabel2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            autoLabel2.Location = new Point(22, 129);
+            autoLabel2.Location = new Point(12, 129);
             autoLabel2.Name = "autoLabel2";
-            autoLabel2.Size = new Size(102, 20);
+            autoLabel2.Size = new Size(127, 20);
             autoLabel2.TabIndex = 13;
-            autoLabel2.Text = "Próxima toma";
+            autoLabel2.Text = "Próxima toma em";
             // 
             // autoLabel1
             // 
             autoLabel1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            autoLabel1.Location = new Point(22, 13);
+            autoLabel1.Location = new Point(12, 13);
             autoLabel1.Name = "autoLabel1";
             autoLabel1.Size = new Size(50, 20);
             autoLabel1.TabIndex = 12;
@@ -235,140 +327,30 @@
             // 
             nupPrxToma.BeforeTouchSize = new Size(53, 27);
             nupPrxToma.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            nupPrxToma.Location = new Point(142, 127);
+            nupPrxToma.Location = new Point(154, 127);
             nupPrxToma.Name = "nupPrxToma";
             nupPrxToma.Size = new Size(53, 27);
             nupPrxToma.TabIndex = 11;
+            nupPrxToma.Value = new decimal(new int[] { 18, 0, 0, 0 });
             // 
             // txtMarca
             // 
-            txtMarca.BeforeTouchSize = new Size(314, 27);
+            txtMarca.BeforeTouchSize = new Size(273, 27);
             txtMarca.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtMarca.Location = new Point(142, 88);
+            txtMarca.Location = new Point(154, 88);
             txtMarca.Name = "txtMarca";
-            txtMarca.Size = new Size(314, 27);
+            txtMarca.Size = new Size(273, 27);
             txtMarca.TabIndex = 10;
-            // 
-            // dtpToma
-            // 
-            dtpToma.BorderColor = Color.Empty;
-            dtpToma.BorderStyle = BorderStyle.FixedSingle;
-            // 
-            // 
-            // 
-            dtpToma.Calendar.AllowMultipleSelection = false;
-            dtpToma.Calendar.BorderColor = Color.FromArgb(209, 211, 212);
-            dtpToma.Calendar.BottomHeight = 30;
-            dtpToma.Calendar.Culture = new System.Globalization.CultureInfo("pt-PT");
-            dtpToma.Calendar.DayNamesFont = new Font("Verdana", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dtpToma.Calendar.DayNamesHeight = 137;
-            dtpToma.Calendar.DaysFont = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dtpToma.Calendar.Dock = DockStyle.Fill;
-            dtpToma.Calendar.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dtpToma.Calendar.HeaderFont = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dtpToma.Calendar.HeaderHeight = 38;
-            dtpToma.Calendar.Iso8601CalenderFormat = false;
-            dtpToma.Calendar.Location = new Point(0, 0);
-            dtpToma.Calendar.MetroColor = Color.FromArgb(22, 165, 220);
-            dtpToma.Calendar.Name = "monthCalendar";
-            // 
-            // 
-            // 
-            dtpToma.Calendar.NoneButton.AutoSize = true;
-            dtpToma.Calendar.NoneButton.Location = new Point(190, 0);
-            dtpToma.Calendar.NoneButton.Size = new Size(72, 30);
-            dtpToma.Calendar.NoneButton.Text = "None";
-            dtpToma.Calendar.Size = new Size(262, 249);
-            dtpToma.Calendar.SizeToFit = true;
-            dtpToma.Calendar.TabIndex = 0;
-            // 
-            // 
-            // 
-            dtpToma.Calendar.TodayButton.AutoSize = true;
-            dtpToma.Calendar.TodayButton.Location = new Point(0, 0);
-            dtpToma.Calendar.TodayButton.Size = new Size(190, 30);
-            dtpToma.Calendar.TodayButton.Text = "Today";
-            dtpToma.Calendar.WeekFont = new Font("Verdana", 8F, FontStyle.Regular, GraphicsUnit.Point);
-            dtpToma.CalendarSize = new Size(189, 176);
-            dtpToma.Checked = false;
-            dtpToma.Culture = new System.Globalization.CultureInfo("pt-PT");
-            dtpToma.DropDownImage = null;
-            dtpToma.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dtpToma.Format = DateTimePickerFormat.Short;
-            dtpToma.Location = new Point(144, 50);
-            dtpToma.MetroColor = Color.FromArgb(22, 165, 220);
-            dtpToma.MinValue = new DateTime(0L);
-            dtpToma.Name = "dtpToma";
-            dtpToma.Size = new Size(125, 32);
-            dtpToma.TabIndex = 9;
-            dtpToma.Value = new DateTime(2023, 6, 3, 16, 56, 18, 840);
             // 
             // txtPetName
             // 
-            txtPetName.BeforeTouchSize = new Size(314, 27);
+            txtPetName.BeforeTouchSize = new Size(273, 27);
             txtPetName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtPetName.Location = new Point(142, 10);
+            txtPetName.Location = new Point(154, 10);
             txtPetName.Name = "txtPetName";
             txtPetName.ReadOnly = true;
-            txtPetName.Size = new Size(314, 27);
+            txtPetName.Size = new Size(273, 27);
             txtPetName.TabIndex = 8;
-            // 
-            // Id
-            // 
-            Id.DataPropertyName = "Id";
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // NomePet
-            // 
-            NomePet.DataPropertyName = "NomePet";
-            NomePet.HeaderText = "Nome";
-            NomePet.Name = "NomePet";
-            NomePet.ReadOnly = true;
-            NomePet.Width = 200;
-            // 
-            // DataToma
-            // 
-            DataToma.DataPropertyName = "DataToma";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataToma.DefaultCellStyle = dataGridViewCellStyle2;
-            DataToma.HeaderText = "Data";
-            DataToma.Name = "DataToma";
-            DataToma.ReadOnly = true;
-            // 
-            // ProximaTomaEmMeses
-            // 
-            ProximaTomaEmMeses.DataPropertyName = "ProximaTomaEmMeses";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            ProximaTomaEmMeses.DefaultCellStyle = dataGridViewCellStyle3;
-            ProximaTomaEmMeses.HeaderText = "Prx. Toma";
-            ProximaTomaEmMeses.Name = "ProximaTomaEmMeses";
-            ProximaTomaEmMeses.ReadOnly = true;
-            // 
-            // DataProximaToma
-            // 
-            DataProximaToma.DataPropertyName = "DataProximaToma";
-            DataProximaToma.HeaderText = "Próxima";
-            DataProximaToma.Name = "DataProximaToma";
-            DataProximaToma.ReadOnly = true;
-            // 
-            // Marca
-            // 
-            Marca.DataPropertyName = "Marca";
-            Marca.HeaderText = "Marca";
-            Marca.Name = "Marca";
-            Marca.ReadOnly = true;
-            Marca.Width = 300;
-            // 
-            // PetId
-            // 
-            PetId.DataPropertyName = "IdPet";
-            PetId.HeaderText = "PetId";
-            PetId.Name = "PetId";
-            PetId.ReadOnly = true;
-            PetId.Visible = false;
             // 
             // frmPetVaccines
             // 
@@ -396,13 +378,15 @@
             captionLabel2.Text = "Registos de vacinação";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(780, 409);
+            ClientSize = new Size(676, 501);
             Controls.Add(gradientPanel1);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(btnInsert);
             Controls.Add(dgvVacinas);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmPetVaccines";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -413,8 +397,6 @@
             ((System.ComponentModel.ISupportInitialize)txtId).EndInit();
             ((System.ComponentModel.ISupportInitialize)nupPrxToma).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtMarca).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dtpToma.Calendar).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dtpToma).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtPetName).EndInit();
             ResumeLayout(false);
         }
@@ -432,10 +414,10 @@
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel1;
         private Syncfusion.Windows.Forms.Tools.NumericUpDownExt nupPrxToma;
         private Syncfusion.Windows.Forms.Tools.TextBoxExt txtMarca;
-        private Syncfusion.Windows.Forms.Tools.DateTimePickerAdv dtpToma;
         private Syncfusion.Windows.Forms.Tools.TextBoxExt txtPetName;
         private Syncfusion.Windows.Forms.Tools.TextBoxExt txtId;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel5;
+        private DateTimePicker dtpToma;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn NomePet;
         private DataGridViewTextBoxColumn DataToma;
@@ -443,5 +425,6 @@
         private DataGridViewTextBoxColumn DataProximaToma;
         private DataGridViewTextBoxColumn Marca;
         private DataGridViewTextBoxColumn PetId;
+        private Button btnInfo;
     }
 }
