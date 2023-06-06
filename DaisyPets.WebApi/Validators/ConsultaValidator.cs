@@ -1,0 +1,51 @@
+﻿using DaisyPets.Core.Application.Formatting;
+using DaisyPets.Core.Application.ViewModels;
+using FluentValidation;
+
+namespace DaisyPets.WebApi.Validators
+{
+    /// <summary>
+    /// Construtor de validador de contactos
+    /// </summary>
+    public class ConsultaValidator : AbstractValidator<ConsultaVeterinarioDto>
+    {
+        /// <summary>
+        /// Validador de contactos
+        /// </summary>
+        public ConsultaValidator()
+        {
+            RuleFor(p => p.Motivo)
+                .NotNull()
+                .NotEmpty().WithMessage("Preencha campo motivo, p.f.");
+            RuleFor(p => p.Diagnostico)
+                .NotNull()
+                .NotEmpty().WithMessage("Preencha campo diagnóstico, p.f.");
+
+            RuleFor(p => p.Tratamento)
+                .NotNull()
+                .NotEmpty().WithMessage("Preencha campo tratamento, p.f.");
+
+            RuleFor(p => p.DataConsulta)
+                .Must(BeAValidDate).WithMessage("Data da consulta deverá ser inferior à data corrente");
+
+        }
+
+        #region Custom Validators
+
+        protected bool BeAValidDate(string date)
+        {
+            var parsedDate = DateTime.Parse(date);
+            if (!DataFormat.IsValidDate(parsedDate))
+                return false;
+            else if (parsedDate.Date >= DateTime.Now.Date)
+                return false;
+
+
+            return true;
+        }
+
+        #endregion
+
+    }
+}
+

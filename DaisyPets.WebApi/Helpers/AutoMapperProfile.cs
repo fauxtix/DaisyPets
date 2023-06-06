@@ -18,6 +18,9 @@ public class AutoMapperProfile : Profile
         CreateMap<PetDto, Pet>().ReverseMap();
         CreateMap<PesoDto, Peso>().ReverseMap();
 
+        CreateMap<ConsultaVeterinario, ConsultaVeterinarioDto>().ReverseMap();
+        CreateMap<ConsultaVeterinarioDto, ConsultaVeterinarioVM>().ReverseMap();
+
         CreateMap<IdadeDto, Idade>().ReverseMap();
 
         CreateMap<ContactoVM, Contacto>().ReverseMap();

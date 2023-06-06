@@ -279,7 +279,7 @@
             // 
             // txtId
             // 
-            txtId.BeforeTouchSize = new Size(273, 27);
+            txtId.BeforeTouchSize = new Size(412, 91);
             txtId.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             txtId.Location = new Point(511, 11);
             txtId.Name = "txtId";
@@ -335,7 +335,7 @@
             // 
             // txtMarca
             // 
-            txtMarca.BeforeTouchSize = new Size(273, 27);
+            txtMarca.BeforeTouchSize = new Size(412, 91);
             txtMarca.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             txtMarca.Location = new Point(154, 88);
             txtMarca.Name = "txtMarca";
@@ -344,7 +344,7 @@
             // 
             // txtPetName
             // 
-            txtPetName.BeforeTouchSize = new Size(273, 27);
+            txtPetName.BeforeTouchSize = new Size(412, 91);
             txtPetName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             txtPetName.Location = new Point(154, 10);
             txtPetName.Name = "txtPetName";

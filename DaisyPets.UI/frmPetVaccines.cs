@@ -1,12 +1,9 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Pdfs;
-using DaisyPets.Core.Domain;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
-using System.DirectoryServices;
 using System.Net.Http.Json;
-using System.Security.Policy;
 using System.Text;
 using static DaisyPets.Core.Application.Enums.Common;
 
@@ -169,7 +166,7 @@ namespace DaisyPets.UI
             btnClear.Enabled = false;
         }
 
-        private async void btnInsert_Click(object sender, EventArgs e)
+        private void btnInsert_Click(object sender, EventArgs e)
         {
 
             string url = "https://localhost:7161/api/Vacinacao";

@@ -88,9 +88,9 @@ namespace DaisyPets.Infrastructure.Services
             if (petEntity == null)
                 throw new KeyNotFoundException("Pet not found");
 
-            _mapper.Map(pet, petEntity);
+           var mappedModel =  _mapper.Map(pet, petEntity);
 
-            await _repository.UpdateAsync(Id, petEntity);
+            await _repository.UpdateAsync(Id, mappedModel);
         }
     }
 }

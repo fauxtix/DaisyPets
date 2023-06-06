@@ -1041,13 +1041,15 @@ namespace DaisyPets.UI
         public List<PetVM> SortData(List<PetVM> list, string column, bool ascending)
         {
             return ascending ?
-                list.OrderBy(_ => _.GetType().GetProperty(column).GetValue(_)).ToList() :
-                list.OrderByDescending(_ => _.GetType().GetProperty(column).GetValue(_)).ToList();
+                list.OrderBy(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList() :
+                list.OrderByDescending(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList();
         }
 
         private void gdvDados_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
+            var colIndex = e.ColumnIndex;
+            var colName = senderGrid.Columns[colIndex].Name;
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
@@ -1056,8 +1058,16 @@ namespace DaisyPets.UI
                     return;
 
                 IdPet = DataFormat.GetInteger(gdvDados.Rows[e.RowIndex].Cells["Id"].Value);
-                frmPetVaccines fVaccines = new frmPetVaccines(IdPet);
-                fVaccines.ShowDialog();
+                if (colName.ToLower().Contains("appts"))
+                {
+                    frmPetVeterinaryAppointments fAppts = new frmPetVeterinaryAppointments(IdPet);
+                    fAppts.ShowDialog();
+                }
+                else
+                {
+                    frmPetVaccines fVaccines = new frmPetVaccines(IdPet);
+                    fVaccines.ShowDialog();
+                }
             }
         }
 
