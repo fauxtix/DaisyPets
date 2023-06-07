@@ -2,47 +2,46 @@
 using DaisyPets.Core.Application.ViewModels;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
-using System.Data;
 using System.Net.Http.Json;
 using System.Text;
 using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.UI
 {
-    public partial class frmPetVeterinaryAppointments : MetroForm
+    public partial class frmPetRacoes : MetroForm
     {
-        private int IdAppt = 0;
+        private int IdRacao = 0;
         private int IdPet = 0;
         private int _previousIndex;
         private bool _sortDirection;
 
-        public frmPetVeterinaryAppointments(int petId = 0)
+        public frmPetRacoes(int petId = 0)
         {
             IdPet = petId;
             InitializeComponent();
-
             var petData = GetPetData(petId);
             if (petData != null)
             {
                 txtPetName.Text = petData.Nome;
             }
 
-            dgvAppts.AutoGenerateColumns = false;
-            if (dgvAppts.RowCount > 0)
+            dgvRacoes.AutoGenerateColumns = false;
+            if (dgvRacoes.RowCount > 0)
             {
-                dgvAppts.CurrentCell = dgvAppts.Rows[0].Cells[0];
-                dgvAppts.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(dgvAppts.Rows[0].Cells[0].Value);
+                dgvRacoes.CurrentCell = dgvRacoes.Rows[0].Cells[0];
+                dgvRacoes.Rows[0].Selected = true;
+                int firstRowId = Convert.ToInt16(dgvRacoes.Rows[0].Cells[0].Value);
                 ShowRecord(firstRowId);
             }
 
             ClearForm();
             FillGrid();
+
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            string url = "https://localhost:7161/api/Consulta";
+            string url = "https://localhost:7161/api/racao";
 
             var validationErrors = ValidateAppointment();
 
@@ -58,35 +57,34 @@ namespace DaisyPets.UI
             }
 
             DialogResult dr = MessageBoxAdv.Show($"Confirma criação de registo?",
-                    "Consultas", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    "Rações", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr != DialogResult.Yes)
                 return;
 
-            ConsultaVeterinarioDto newAppt = new()
+            RacaoDto newRacao = new()
             {
                 IdPet = IdPet,
-                DataConsulta = dtpApptDate.Value.ToShortDateString(),
-                Diagnostico = txtDiagnostico.Text,
-                Motivo = txtMotivo.Text,
-                Tratamento = txtTratamento.Text
+                DataCompra = dtpBuyDate.Value.ToShortDateString(),
+                Marca = txtMarca.Text,
+                QuantidadeDiaria = (int)nupQtdDiaria.Value
             };
 
             try
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    var task = httpClient.PostAsJsonAsync(url, newAppt);
+                    var task = httpClient.PostAsJsonAsync(url, newRacao);
                     var response = task.Result;
 
                     var key = response.Content.ReadAsStringAsync().Result;
                     var definition = new { Id = 0 };
                     var obj = JsonConvert.DeserializeAnonymousType(key, definition);
-                    IdAppt = Convert.ToInt32(obj?.Id);
+                    IdRacao = Convert.ToInt32(obj?.Id);
 
                     task.Wait();
                     task.Dispose();
 
-                    MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets - Consultas");
+                    MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets - Rações");
                     SetToolbar(OpcoesRegisto.Inserir);
                     FillGrid();
                     ClearForm();
@@ -100,26 +98,103 @@ namespace DaisyPets.UI
             }
 
 
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            var validationErrors = ValidateAppointment();
+
+            if (validationErrors.Count() > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var errorMsg in validationErrors)
+                {
+                    sb.AppendLine(errorMsg);
+                }
+                MessageBoxAdv.Show(sb.ToString(), "Erro na validação");
+                return;
+            }
+
+            DialogResult dr = MessageBoxAdv.Show($"Confirma atualização de registo?",
+                "Rações - Pets", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dr != DialogResult.Yes)
+                return;
+            if (IdRacao == 0)
+                IdRacao = DataFormat.GetInteger(txtID.Text);
+
+            var selectedRowIndex = dgvRacoes.SelectedRows[0].Index;
+            var updateRacao = new RacaoDto()
+            {
+                Id = int.Parse(txtID.Text),
+                IdPet = IdPet,
+                DataCompra = dtpBuyDate.Value.ToShortDateString(),
+                Marca = txtMarca.Text,
+                QuantidadeDiaria = (int)nupQtdDiaria.Value
+            };
+
+            string url = $"https://localhost:7161/api/racao/{IdRacao}";
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    var task = httpClient.PutAsJsonAsync(url, updateRacao);
+                    var response = task.Result;
+
+                    task.Wait();
+                    task.Dispose();
+                }
+
+                FillGrid();
+                SetToolbar(OpcoesRegisto.Gravar);
+
+
+                dgvRacoes.Rows[selectedRowIndex].Selected = true;
+                MessageBoxAdv.Show("Operação terminada com sucesso,", "Atualização de dados", MessageBoxButtons.OK);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Atualização de ração");
+            }
+
+
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBoxAdv.Show($"Confirma operação?",
+                 "Apagar registo de ração", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dr != DialogResult.Yes)
+                return;
+
+            await DeletePetFeed();
+
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearForm();
         }
 
         private List<string> ValidateAppointment()
         {
             try
             {
-                ConsultaVeterinarioDto apptToValidate = new()
+                RacaoDto racaoToValidate = new()
                 {
                     IdPet = IdPet,
-                    DataConsulta = dtpApptDate.Value.ToShortDateString(),
-                    Diagnostico = txtDiagnostico.Text,
-                    Motivo = txtMotivo.Text,
-                    Tratamento = txtTratamento.Text
+                    DataCompra = dtpBuyDate.Value.ToShortDateString(),
+                    Marca = txtMarca.Text,
+                    QuantidadeDiaria = (int)nupQtdDiaria.Value,
                 };
 
-                string url = $"https://localhost:7161/api/consulta/ValidateAppointment";
+                string url = $"https://localhost:7161/api/racao/ValidateRacao";
                 using (HttpClient httpClient = new HttpClient())
                 {
 
-                    var task = httpClient.PostAsJsonAsync(url, apptToValidate);
+                    var task = httpClient.PostAsJsonAsync(url, racaoToValidate);
                     var response = task.Result;
 
                     task.Wait();
@@ -148,71 +223,11 @@ namespace DaisyPets.UI
             }
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            var validationErrors = ValidateAppointment();
-
-            if (validationErrors.Count() > 0)
-            {
-                StringBuilder sb = new StringBuilder();
-                foreach (var errorMsg in validationErrors)
-                {
-                    sb.AppendLine(errorMsg);
-                }
-                MessageBoxAdv.Show(sb.ToString(), "Erro na validação");
-                return;
-            }
-
-            DialogResult dr = MessageBoxAdv.Show($"Confirma atualização de registo?",
-                "Consultas - Pets", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (dr != DialogResult.Yes)
-                return;
-            if (IdAppt == 0)
-                IdAppt = DataFormat.GetInteger(txtID.Text);
-
-            var selectedRowIndex = dgvAppts.SelectedRows[0].Index;
-            var updateAppt = new ConsultaVeterinarioDto()
-            {
-                Id = int.Parse(txtID.Text),
-                IdPet = IdPet,
-                DataConsulta = dtpApptDate.Value.ToShortDateString(),
-                Diagnostico = txtDiagnostico.Text,
-                Motivo = txtMotivo.Text,
-                Tratamento = txtTratamento.Text
-            };
-
-            string url = $"https://localhost:7161/api/Consulta/{IdAppt}";
-            try
-            {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    var task = httpClient.PutAsJsonAsync(url, updateAppt);
-                    var response = task.Result;
-
-                    task.Wait();
-                    task.Dispose();
-                }
-
-                FillGrid();
-                SetToolbar(OpcoesRegisto.Gravar);
-
-
-                dgvAppts.Rows[selectedRowIndex].Selected = true;
-                MessageBoxAdv.Show("Operação terminada com sucesso,", "Atualização de dados", MessageBoxButtons.OK);
-            }
-            catch (Exception ex)
-            {
-                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Atualização de consulta");
-            }
-
-        }
-
         private void FillGrid()
         {
-            IEnumerable<ConsultaVeterinarioVM> appts;
+            IEnumerable<RacaoVM> racoes;
 
-            string url = $"https://localhost:7161/api/Consulta/PetAppointments/{IdPet}";
+            string url = $"https://localhost:7161/api/racao/PetFeeds/{IdPet}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -221,14 +236,14 @@ namespace DaisyPets.UI
                     var response = task.Result;
                     if (response.IsSuccessStatusCode)
                     {
-                        appts = response.Content.ReadAsAsync<IEnumerable<ConsultaVeterinarioVM>>().Result;
-                        if (appts != null)
+                        racoes = response.Content.ReadAsAsync<IEnumerable<RacaoVM>>().Result;
+                        if (racoes != null)
                         {
-                            dgvAppts.DataSource = appts?.ToList();
+                            dgvRacoes.DataSource = racoes?.ToList();
                         }
                         else
                         {
-                            dgvAppts.DataSource = new List<ConsultaVeterinarioVM>();
+                            dgvRacoes.DataSource = new List<RacaoVM>();
                         }
                     }
                     task.Wait();
@@ -243,27 +258,116 @@ namespace DaisyPets.UI
 
         }
 
+
+        private async Task DeletePetFeed()
+        {
+            string url = $"https://localhost:7161/api/racao/ {IdRacao}";
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    var response = await httpClient.DeleteAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    {
+
+                        if (dgvRacoes.RowCount > 0)
+                        {
+                            ShowRecord(1);
+                        }
+                        else
+                        {
+                            dgvRacoes.DataSource = null;
+                            ClearForm();
+                        }
+
+                    }
+
+                    response.Dispose();
+                    FillGrid();
+
+                    if (dgvRacoes.RowCount > 0)
+                    {
+                        dgvRacoes.Rows[0].Selected = true;
+                        int petId = DataFormat.GetInteger(dgvRacoes.Rows[0].Cells["IdPet"].Value);
+                        ShowRecord(petId);
+                    }
+                    else
+                    {
+                        dgvRacoes.DataSource = null;
+                        ClearForm();
+                    }
+                }
+
+                MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);
+            }
+            catch (Exception ex)
+            {
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Apagar Pet");
+            }
+        }
+
+        private async void ShowRecord(int Id)
+        {
+
+            if (Id < 1)
+                return;
+
+            try
+            {
+                var racaoData = await GetRacao(Id);
+                if (racaoData.Id > 0)
+                {
+                    txtID.Text = racaoData.Id.ToString();
+                    txtMarca.Text = racaoData.Marca.ToString();
+                    dtpBuyDate.Value = Convert.ToDateTime(racaoData.DataCompra);
+                    nupQtdDiaria.Value = (int)racaoData.QuantidadeDiaria;
+
+                    SetToolbar(OpcoesRegisto.Gravar);
+                    SelectRowInGrid();
+                }
+                else
+                {
+                    SetToolbar(OpcoesRegisto.Inserir);
+                    ClearForm();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Visualizar registo");
+            }
+        }
+
+
+        private async Task<RacaoDto> GetRacao(int Id)
+        {
+            string url = $"https://localhost:7161/api/racao/{Id}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var _racao = await httpClient.GetFromJsonAsync<RacaoDto>(url);
+                return _racao ?? new RacaoDto();
+            }
+        }
+
         private void SelectRowInGrid()
         {
-            dgvAppts.ClearSelection();
-            dgvAppts.CurrentCell = null;
+            dgvRacoes.ClearSelection();
+            dgvRacoes.CurrentCell = null;
 
-            dgvAppts.Rows
+            dgvRacoes.Rows
                 .OfType<DataGridViewRow>()
-                .Where(x => (int)x.Cells["Id"].Value == IdAppt)
+                .Where(x => (int)x.Cells["Id"].Value == IdRacao)
                 .ToArray<DataGridViewRow>()[0]
                 .Selected = true;
         }
 
-
         private void ClearForm()
         {
-            IdAppt = 0;
-            dtpApptDate.Value = DateTime.Now.AddDays(-1);
-            txtMotivo.Clear();
-            txtDiagnostico.Clear();
-            txtTratamento.Clear();
-            dtpApptDate.Focus();
+            IdRacao = 0;
+            dtpBuyDate.Value = DateTime.Now.AddDays(-1);
+            txtMarca.Clear();
+            nupQtdDiaria.Value = 1;
+            dtpBuyDate.Focus();
             SetToolbar_Clear();
         }
 
@@ -294,127 +398,33 @@ namespace DaisyPets.UI
             btnClear.Enabled = false;
         }
 
-        private async void btnDelete_Click(object sender, EventArgs e)
-        {
-            DialogResult dr = MessageBoxAdv.Show($"Confirma operação?",
-                "Apagar registo de consulta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (dr != DialogResult.Yes)
-                return;
-
-            await DeletePetAppt();
-
-        }
-
-        private async Task DeletePetAppt()
-        {
-            string url = $"https://localhost:7161/api/Consulta//{IdAppt}";
-            try
-            {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    var response = await httpClient.DeleteAsync(url);
-                    response.EnsureSuccessStatusCode();
-                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
-                    {
-
-                        if (dgvAppts.RowCount > 0)
-                        {
-                            ShowRecord(1);
-                        }
-                        else
-                        {
-                            dgvAppts.DataSource = null;
-                            ClearForm();
-                        }
-
-                    }
-
-                    response.Dispose();
-                    FillGrid();
-
-                    if (dgvAppts.RowCount > 0)
-                    {
-                        dgvAppts.Rows[0].Selected = true;
-                        int petId = DataFormat.GetInteger(dgvAppts.Rows[0].Cells["IdPet"].Value);
-                        ShowRecord(petId);
-                    }
-                    else
-                    {
-                        dgvAppts.DataSource = null;
-                        ClearForm();
-                    }
-                }
-
-                MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);
-            }
-            catch (Exception ex)
-            {
-                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Apagar Pet");
-            }
-
-        }
-
-        private async void ShowRecord(int Id)
-        {
-
-            if (Id < 1)
-                return;
-
-            try
-            {
-                var apptData = await GetAppt(Id);
-                if (apptData.Id > 0)
-                {
-                    txtID.Text = apptData.Id.ToString();
-                    txtDiagnostico.Text = apptData.Diagnostico.ToString();
-                    txtMotivo.Text = apptData.Motivo.ToString();
-                    txtTratamento.Text = apptData.Tratamento.ToString();
-                    dtpApptDate.Value = Convert.ToDateTime(apptData.DataConsulta);
-
-                    SetToolbar(OpcoesRegisto.Gravar);
-                    SelectRowInGrid();
-                }
-                else
-                {
-                    SetToolbar(OpcoesRegisto.Inserir);
-                    ClearForm();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Visualizar registo");
-            }
-        }
-
-        private async Task<ConsultaVeterinarioDto> GetAppt(int Id)
-        {
-            string url = $"https://localhost:7161/api/Consulta/{Id}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var appt = await httpClient.GetFromJsonAsync<ConsultaVeterinarioDto>(url);
-                return appt ?? new ConsultaVeterinarioDto();
-            }
-        }
-
-        private void dgvAppts_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvRacoes_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.ColumnIndex == _previousIndex)
                 _sortDirection ^= true; // toggle direction
 
-            dgvAppts.DataSource = SortData(
-                (List<ConsultaVeterinarioVM>)dgvAppts.DataSource, dgvAppts.Columns[e.ColumnIndex].Name, _sortDirection);
+            dgvRacoes.DataSource = SortData(
+                (List<RacaoVM>)dgvRacoes.DataSource, dgvRacoes.Columns[e.ColumnIndex].Name, _sortDirection);
 
             _previousIndex = e.ColumnIndex;
 
         }
-        public List<ConsultaVeterinarioVM> SortData(List<ConsultaVeterinarioVM> list, string column, bool ascending)
+        public List<RacaoVM> SortData(List<RacaoVM> list, string column, bool ascending)
         {
             return ascending ?
                 list.OrderBy(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList() :
                 list.OrderByDescending(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList();
+
         }
 
+        private void dgvRacoes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            IdRacao = DataFormat.GetInteger(dgvRacoes.Rows[e.RowIndex].Cells["Id"].Value);
+            ShowRecord(IdRacao);
+        }
 
         private PetVM GetPetData(int Id)
         {
@@ -452,19 +462,5 @@ namespace DaisyPets.UI
             }
         }
 
-        private void dgvAppts_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex == -1)
-                return;
-
-            IdAppt = DataFormat.GetInteger(dgvAppts.Rows[e.RowIndex].Cells["Id"].Value);
-            ShowRecord(IdAppt);
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            ClearForm();
-        }
     }
 }
-

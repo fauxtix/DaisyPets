@@ -37,13 +37,15 @@
             btnContactos = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripButton3 = new ToolStripButton();
+            toolStripSeparator3 = new ToolStripSeparator();
+            btnFechar = new ToolStripButton();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(48, 48);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnContactos, toolStripSeparator2, toolStripButton3 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnContactos, toolStripSeparator2, toolStripButton3, toolStripSeparator3, btnFechar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1384, 55);
@@ -89,6 +91,20 @@
             toolStripButton3.Size = new Size(150, 52);
             toolStripButton3.Text = "Configuração";
             toolStripButton3.Click += toolStripButton3_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 55);
+            // 
+            // btnFechar
+            // 
+            btnFechar.Image = Properties.Resources.Users_Exit_icon;
+            btnFechar.ImageTransparentColor = Color.Magenta;
+            btnFechar.Name = "btnFechar";
+            btnFechar.Size = new Size(78, 52);
+            btnFechar.Text = "Sair";
+            btnFechar.Click += btnFechar_Click;
             // 
             // frmMain
             // 
@@ -136,5 +152,7 @@
         private ToolStripButton btnContactos;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton toolStripButton3;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripButton btnFechar;
     }
 }

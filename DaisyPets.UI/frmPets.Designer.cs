@@ -94,6 +94,7 @@
             TamanhoAnimal = new DataGridViewTextBoxColumn();
             HistoryInfo = new DataGridViewButtonColumn();
             PetApptsHistory = new DataGridViewButtonColumn();
+            PetFeedHistory = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)gdvDados).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudPeso).BeginInit();
@@ -118,7 +119,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             gdvDados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             gdvDados.ColumnHeadersHeight = 40;
-            gdvDados.Columns.AddRange(new DataGridViewColumn[] { Id, Nome, Chipado, Esterilizado, SituacaoAnimal, EspecieAnimal, RacaAnimal, TamanhoAnimal, HistoryInfo, PetApptsHistory });
+            gdvDados.Columns.AddRange(new DataGridViewColumn[] { Id, Nome, Chipado, Esterilizado, SituacaoAnimal, EspecieAnimal, RacaAnimal, TamanhoAnimal, HistoryInfo, PetApptsHistory, PetFeedHistory });
             gdvDados.Location = new Point(33, 473);
             gdvDados.MultiSelect = false;
             gdvDados.Name = "gdvDados";
@@ -127,7 +128,7 @@
             gdvDados.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             gdvDados.RowTemplate.Height = 32;
             gdvDados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gdvDados.Size = new Size(1155, 221);
+            gdvDados.Size = new Size(1229, 221);
             gdvDados.TabIndex = 17;
             gdvDados.CellClick += gdvDados_CellClick;
             gdvDados.CellContentClick += gdvDados_CellContentClick;
@@ -771,6 +772,17 @@
             PetApptsHistory.UseColumnTextForButtonValue = true;
             PetApptsHistory.Width = 70;
             // 
+            // PetFeedHistory
+            // 
+            PetFeedHistory.HeaderText = "";
+            PetFeedHistory.Name = "PetFeedHistory";
+            PetFeedHistory.ReadOnly = true;
+            PetFeedHistory.Resizable = DataGridViewTriState.True;
+            PetFeedHistory.SortMode = DataGridViewColumnSortMode.Automatic;
+            PetFeedHistory.Text = "Rac";
+            PetFeedHistory.UseColumnTextForButtonValue = true;
+            PetFeedHistory.Width = 70;
+            // 
             // frmPets
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -798,7 +810,7 @@
             captionLabel2.Text = "Gestão da base de dados";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(1234, 694);
+            ClientSize = new Size(1259, 694);
             Controls.Add(btnGeneratePdf);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
@@ -881,5 +893,6 @@
         private DataGridViewTextBoxColumn TamanhoAnimal;
         private DataGridViewButtonColumn HistoryInfo;
         private DataGridViewButtonColumn PetApptsHistory;
+        private DataGridViewButtonColumn PetFeedHistory;
     }
 }

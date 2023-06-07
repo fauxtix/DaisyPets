@@ -1,5 +1,6 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Infrastructure.Services;
 using DaisyPets.WebApi.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -7,47 +8,46 @@ using Microsoft.CodeAnalysis;
 namespace DaisyPets.WebApi.Controllers
 {
     /// <summary>
-    /// Consulta controller
+    /// Controller para gestão de rações
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-
-
-    public class ConsultaController : ControllerBase
+    public class RacaoController : ControllerBase
     {
-        private readonly IConsultaService _consultaService;
-        private readonly ILogger<ConsultaController> _logger;
+        private readonly IRacaoService _racaoService;
+        private readonly ILogger<RacaoController> _logger;
 
         /// <summary>
-        /// Consulta controller constructor
+        /// Construtor
         /// </summary>
-        /// <param name="consultaService"></param>
-        public ConsultaController(IConsultaService consultaService, ILogger<ConsultaController> logger)
+        /// <param name="racaoService"></param>
+        /// <param name="logger"></param>
+        public RacaoController(IRacaoService racaoService, ILogger<RacaoController> logger)
         {
-            _consultaService = consultaService;
+            _racaoService = racaoService;
             _logger = logger;
         }
 
         /// <summary>
-        /// Create new appointment
+        /// Cria novo registo para Ração
         /// </summary>
-        /// <param name="appt"></param>
+        /// <param name="racao"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Insert(ConsultaVeterinarioDto appt)
+        public async Task<IActionResult> Insert(RacaoDto racao)
         {
             var location = GetControllerActionNames();
             try
             {
 
-                if (appt is null)
+                if (racao is null)
                 {
                     return BadRequest();
                 }
 
-                var insertedId = await _consultaService.InsertAsync(appt);
-                var viewAppt = await _consultaService.FindByIdAsync(insertedId);
-                var actionReturned = CreatedAtAction(nameof(Get), new { id = viewAppt.Id }, viewAppt);
+                var insertedId = await _racaoService.InsertAsync(racao);
+                var viewRacao = await _racaoService.FindByIdAsync(insertedId);
+                var actionReturned = CreatedAtAction(nameof(Get), new { id = viewRacao.Id }, viewRacao);
 
 
                 return Ok(new { Id = insertedId });
@@ -61,50 +61,50 @@ namespace DaisyPets.WebApi.Controllers
         }
 
         /// <summary>
-        /// Atualiza consulta
+        /// Atualiza registo de ração
         /// </summary>
-        /// <param name="Id">Id da consulta</param>
-        /// <param name="appt">Dados da consulta</param>
+        /// <param name="Id"></param>
+        /// <param name="racao"></param>
         /// <returns></returns>
         [HttpPut("{Id:int}")]
-        public async Task<IActionResult> Update(int Id, [FromBody] ConsultaVeterinarioDto appt)
+        public async Task<IActionResult> Update(int Id, [FromBody] RacaoDto racao)
         {
             var location = GetControllerActionNames();
 
             try
             {
 
-                if (appt == null)
+                if (racao == null)
                 {
                     string msg = "A Consulta passada como paràmetro é incorreto.";
                     _logger.LogWarning(msg);
                     return BadRequest(msg);
                 }
 
-                if (Id != appt.Id)
+                if (Id != racao.Id)
                 {
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewAppt = _consultaService.GetConsultaVMAsync(Id);
-                if (viewAppt == null)
+                var viewRacao = _racaoService.GetRacaoVMAsync(Id);
+                if (viewRacao == null)
                 {
                     return NotFound("Consulta não foi encontrada");
                 }
 
-                await _consultaService.UpdateAsync(Id, appt);
+                await _racaoService.UpdateAsync(Id, racao);
                 return NoContent();
 
             }
             catch (Exception e)
             {
-                _logger.LogError(e.Message, "Erro ao atualizar consulta (API)");
+                _logger.LogError(e.Message, "Erro ao atualizar ração (API)");
                 return InternalError($"{location}: {e.Message} - {e.InnerException}");
             }
         }
 
         /// <summary>
-        /// Delete Appointment
+        /// Apaga registo de ração
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -115,13 +115,13 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewAppt = _consultaService.GetConsultaVMAsync(Id);
-                if (viewAppt == null)
+                var viewRacao = _racaoService.GetRacaoVMAsync(Id);
+                if (viewRacao == null)
                 {
-                    return NotFound("Consulta não foi encontrada");
+                    return NotFound("Ração não foi encontrada");
                 }
 
-                await _consultaService.DeleteAsync(Id);
+                await _racaoService.DeleteAsync(Id);
                 return NoContent();
 
             }
@@ -133,8 +133,9 @@ namespace DaisyPets.WebApi.Controllers
         }
 
 
+
         /// <summary>
-        /// Get appt by Id
+        /// Pesquisa ração por Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -145,13 +146,13 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var appt = await _consultaService.FindByIdAsync(Id);
-                if (appt is null)
+                var racao = await _racaoService.FindByIdAsync(Id);
+                if (racao is null)
                 {
                     return NotFound();
                 }
 
-                return Ok(appt);
+                return Ok(racao);
 
             }
             catch (Exception ex)
@@ -161,102 +162,102 @@ namespace DaisyPets.WebApi.Controllers
             }
         }
 
+
         /// <summary>
-        /// Devolve todas consultas
+        /// Devolve todas as rações (VM - grid)
         /// </summary>
         /// <returns></returns>
-        [HttpGet("AllConsultaVM")]
-        public async Task<IActionResult> AllConsultaVM()
+        [HttpGet("AllRacoesVM")]
+        public async Task<IActionResult> AllRacoesVM()
         {
             try
             {
-                var listOfConsultas = await _consultaService.GetAllConsultaVMAsync();
-                if (listOfConsultas is null)
+                var listOfRacoes = await _racaoService.GetAllRacoesVMAsync();
+                if (listOfRacoes is null)
                 { return NotFound(); }
 
-                return Ok(listOfConsultas);
+                return Ok(listOfRacoes);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
-                return BadRequest("Dados das consultas não encontrados");
+                return BadRequest("Dados das rações não encontrados");
             }
         }
 
         /// <summary>
-        /// Devolve consulta por Id
+        /// Ração (VM) por Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpGet("ApptVMById/{Id:int}")]
-        public async Task<IActionResult> AppointmentVMById(int Id)
+        [HttpGet("RacaoVMById/{Id:int}")]
+        public async Task<IActionResult> RacaoVMById(int Id)
         {
             try
             {
-                var apptVM = await _consultaService.GetConsultaVMAsync(Id);
+                var racaoVM = await _racaoService.GetRacaoVMAsync(Id);
 
-                if (apptVM is null)
+                if (racaoVM is null)
                 { return NotFound(); }
 
-                return Ok(apptVM);
+                return Ok(racaoVM);
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
-                return BadRequest("Dados das consultas não encontrados");
+                return BadRequest("Dados das rações não encontrados");
             }
         }
 
+
         /// <summary>
-        /// Pet appointments
+        /// Devolve todas as rações de um 'Pet'
         /// </summary>
-        /// <param name="Id">Pet Id</param>
-        /// <returns>List of appointments</returns>
-        [HttpGet("PetAppointments/{Id:int}")]
-        public async Task<IActionResult> PetAppointments(int Id)
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("PetFeeds/{Id:int}")]
+        public async Task<IActionResult> PetFeeds(int Id)
         {
             try
             {
-                var petAppts = await _consultaService.GetConsultaVMAsync(Id);
+                var petFeeds = await _racaoService.GetRacaoVMAsync(Id);
 
-                if (petAppts is null)
+                if (petFeeds is null)
                 {
                     return NotFound();
                 }
 
-                return Ok(petAppts);
+                return Ok(petFeeds);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
-                return BadRequest("Dados das consultas não encontrados");
+                return BadRequest("Dados das rações não encontrados");
             }
         }
 
-
         /// <summary>
-        /// Validate Appointment
+        /// Valida rações
         /// </summary>
-        /// <param name="appt"></param>
+        /// <param name="racao"></param>
         /// <returns></returns>
-        [HttpPost("ValidateAppointment")]
-        public IActionResult ValidateConsulta([FromBody] ConsultaVeterinarioDto appt)
+        [HttpPost("ValidateRacao")]
+        public IActionResult ValidateRacao([FromBody] RacaoDto racao)
         {
-            // Create validator instance (or inject it)
-            var ConsultaValidator = new ConsultaValidator();
+            var racaoValidator = new RacaoValidator();
 
-            // Call Validate or ValidateAsync and pass the object which needs to be validated
-            var result = ConsultaValidator.Validate(appt);
+            var result = racaoValidator.Validate(racao);
 
             if (result.IsValid)
             {
-                return Ok(appt);
+                return Ok(racao);
             }
 
             var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
             return BadRequest(errorMessages);
         }
+
 
         private string GetControllerActionNames()
         {
@@ -271,5 +272,6 @@ namespace DaisyPets.WebApi.Controllers
             _logger.LogError(message);
             return StatusCode(500, $"Algo de errado ocorreu ({message}). Contacte o Administrador");
         }
+
     }
 }

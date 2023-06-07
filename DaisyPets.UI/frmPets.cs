@@ -946,13 +946,31 @@ namespace DaisyPets.UI
                 "DescricaoGenero", "Nome", "Raca", "Situacao", "Idade", "Porte", "Temperamento", "GeneroDesparasitado", "GeneroEsterilizado","DoencaCronica", "Foto"
             };
 
+
             var photo = petVM.Foto; //.Replace("\\", "/");
+
+            var situacao = petVM.SituacaoAnimal;
+            if (situacao.ToLower().Contains("fat"))
+                situacao = "em família de adoção temporária";
+            else if (situacao.ToLower().Contains("ado"))
+            {
+                if(petVM.Genero == "F")
+                {
+                    situacao = "adotada";
+                }
+            }
+            else
+            {
+                situacao = char.ToLower(situacao[0]) + situacao.Substring(1);
+            }
+
+
             string[] aDados = new string[]
             {
                 descricaoGenero,
                 petVM.Nome,
                 petVM.RacaAnimal,
-                petVM.SituacaoAnimal,
+                situacao,
                 ageAsString,
                 petVM.TamanhoAnimal,
                 petVM.TemperamentoAnimal,
@@ -1061,6 +1079,11 @@ namespace DaisyPets.UI
                 if (colName.ToLower().Contains("appts"))
                 {
                     frmPetVeterinaryAppointments fAppts = new frmPetVeterinaryAppointments(IdPet);
+                    fAppts.ShowDialog();
+                }
+                else if (colName.ToLower().Contains("feed"))
+                {
+                    frmPetRacoes fAppts = new frmPetRacoes(IdPet);
                     fAppts.ShowDialog();
                 }
                 else

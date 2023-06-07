@@ -8,8 +8,22 @@ namespace DaisyPets.UI
         public frmPdfViewer()
         {
             InitializeComponent();
-            CaptionLabels[1].Text = FormParameters.TituloPdf;
-            pdfViewerControl1.Load(FormParameters.NomePdf);
+            try
+            {
+                CaptionLabels[1].Text = FormParameters.TituloPdf;
+                pdfViewerControl1.Load(FormParameters.NomePdf);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        private void frmPdfViewer_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

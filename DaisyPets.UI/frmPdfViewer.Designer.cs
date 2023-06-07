@@ -107,9 +107,12 @@
             ClientSize = new Size(933, 498);
             Controls.Add(pdfViewerControl1);
             Margin = new Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmPdfViewer";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
+            FormClosed += frmPdfViewer_FormClosed;
             ResumeLayout(false);
         }
 

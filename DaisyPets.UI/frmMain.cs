@@ -1,14 +1,5 @@
 ﻿using DaisyPets.UI.Properties;
 using Syncfusion.Windows.Forms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace DaisyPets.UI
 {
@@ -36,7 +27,7 @@ namespace DaisyPets.UI
 
         private void Pets_FormClosed(object sender, FormClosedEventArgs e)
         {
-            fPets.Dispose();
+            fPets = null;
         }
 
         frmContacto fContactos;
@@ -56,7 +47,7 @@ namespace DaisyPets.UI
 
         private void Contacts_FormClosed(object sender, FormClosedEventArgs e)
         {
-            fContactos.Dispose();
+            fContactos = null;
         }
 
         frmPdfViewer fPdf;
@@ -75,7 +66,12 @@ namespace DaisyPets.UI
 
         private void CreatePdfs_FormClosed(object sender, FormClosedEventArgs e)
         {
-            fPdf.Dispose();
+            fPdf = null;
+        }
+
+        private void btnFechar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DaisyPets.UI
 {
-    partial class frmPetVeterinaryAppointments
+    partial class frmPetRacoes
     {
         /// <summary>
         /// Required designer variable.
@@ -29,72 +29,89 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPetVeterinaryAppointments));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPetRacoes));
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             gradientPanel1 = new Syncfusion.Windows.Forms.Tools.GradientPanel();
+            autoLabel4 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            nupQtdDiaria = new Syncfusion.Windows.Forms.Tools.NumericUpDownExt();
             autoLabel2 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             txtPetName = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
-            dtpApptDate = new DateTimePicker();
+            dtpBuyDate = new DateTimePicker();
             txtIdPet = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             autoLabel6 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             autoLabel5 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            autoLabel4 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            autoLabel3 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            txtMotivo = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
-            txtDiagnostico = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
-            txtTratamento = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
+            txtMarca = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             txtID = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             btnClear = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
             btnInsert = new Button();
-            dgvAppts = new DataGridView();
+            dgvRacoes = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
-            Nome = new DataGridViewTextBoxColumn();
-            DataConsulta = new DataGridViewTextBoxColumn();
-            Moitvo = new DataGridViewTextBoxColumn();
-            Diagnostico = new DataGridViewTextBoxColumn();
-            Tratamento = new DataGridViewTextBoxColumn();
+            NomePet = new DataGridViewTextBoxColumn();
+            DataCompra = new DataGridViewTextBoxColumn();
+            Marca = new DataGridViewTextBoxColumn();
+            QuantidadeDiaria = new DataGridViewTextBoxColumn();
             PetId = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)gradientPanel1).BeginInit();
             gradientPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nupQtdDiaria).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtPetName).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtIdPet).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtMotivo).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtDiagnostico).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtTratamento).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtMarca).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtID).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvAppts).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvRacoes).BeginInit();
             SuspendLayout();
             // 
             // gradientPanel1
             // 
             gradientPanel1.BackColor = Color.Gainsboro;
             gradientPanel1.BorderStyle = BorderStyle.FixedSingle;
+            gradientPanel1.Controls.Add(autoLabel4);
+            gradientPanel1.Controls.Add(nupQtdDiaria);
             gradientPanel1.Controls.Add(autoLabel2);
             gradientPanel1.Controls.Add(txtPetName);
-            gradientPanel1.Controls.Add(dtpApptDate);
+            gradientPanel1.Controls.Add(dtpBuyDate);
             gradientPanel1.Controls.Add(txtIdPet);
             gradientPanel1.Controls.Add(autoLabel6);
             gradientPanel1.Controls.Add(autoLabel5);
-            gradientPanel1.Controls.Add(autoLabel4);
-            gradientPanel1.Controls.Add(autoLabel3);
             gradientPanel1.Controls.Add(autoLabel1);
-            gradientPanel1.Controls.Add(txtMotivo);
-            gradientPanel1.Controls.Add(txtDiagnostico);
-            gradientPanel1.Controls.Add(txtTratamento);
+            gradientPanel1.Controls.Add(txtMarca);
             gradientPanel1.Controls.Add(txtID);
-            gradientPanel1.Location = new Point(22, 34);
+            gradientPanel1.Location = new Point(24, 38);
             gradientPanel1.Margin = new Padding(3, 4, 3, 4);
             gradientPanel1.Name = "gradientPanel1";
-            gradientPanel1.Size = new Size(591, 290);
-            gradientPanel1.TabIndex = 11;
+            gradientPanel1.Size = new Size(483, 181);
+            gradientPanel1.TabIndex = 12;
+            // 
+            // autoLabel4
+            // 
+            autoLabel4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            autoLabel4.Location = new Point(18, 136);
+            autoLabel4.Name = "autoLabel4";
+            autoLabel4.Size = new Size(129, 20);
+            autoLabel4.TabIndex = 31;
+            autoLabel4.Text = "Quantidade diária";
+            // 
+            // nupQtdDiaria
+            // 
+            nupQtdDiaria.BeforeTouchSize = new Size(53, 27);
+            nupQtdDiaria.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            nupQtdDiaria.Location = new Point(155, 134);
+            nupQtdDiaria.Maximum = new decimal(new int[] { 3, 0, 0, 0 });
+            nupQtdDiaria.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            nupQtdDiaria.Name = "nupQtdDiaria";
+            nupQtdDiaria.Size = new Size(53, 27);
+            nupQtdDiaria.TabIndex = 30;
+            nupQtdDiaria.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // autoLabel2
             // 
@@ -111,25 +128,25 @@
             // 
             txtPetName.BeforeTouchSize = new Size(412, 91);
             txtPetName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtPetName.Location = new Point(151, 40);
+            txtPetName.Location = new Point(155, 37);
             txtPetName.Name = "txtPetName";
             txtPetName.ReadOnly = true;
             txtPetName.Size = new Size(273, 27);
             txtPetName.TabIndex = 28;
             // 
-            // dtpApptDate
+            // dtpBuyDate
             // 
-            dtpApptDate.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dtpApptDate.Format = DateTimePickerFormat.Short;
-            dtpApptDate.Location = new Point(151, 73);
-            dtpApptDate.Name = "dtpApptDate";
-            dtpApptDate.Size = new Size(115, 27);
-            dtpApptDate.TabIndex = 27;
+            dtpBuyDate.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dtpBuyDate.Format = DateTimePickerFormat.Short;
+            dtpBuyDate.Location = new Point(155, 70);
+            dtpBuyDate.Name = "dtpBuyDate";
+            dtpBuyDate.Size = new Size(115, 27);
+            dtpBuyDate.TabIndex = 27;
             // 
             // txtIdPet
             // 
             txtIdPet.BeforeTouchSize = new Size(412, 91);
-            txtIdPet.Location = new Point(439, 11);
+            txtIdPet.Location = new Point(367, 7);
             txtIdPet.Margin = new Padding(3, 4, 3, 4);
             txtIdPet.Name = "txtIdPet";
             txtIdPet.Size = new Size(61, 23);
@@ -143,9 +160,9 @@
             autoLabel6.ForeColor = SystemColors.ControlText;
             autoLabel6.Location = new Point(18, 73);
             autoLabel6.Name = "autoLabel6";
-            autoLabel6.Size = new Size(41, 20);
+            autoLabel6.Size = new Size(97, 20);
             autoLabel6.TabIndex = 23;
-            autoLabel6.Text = "Data";
+            autoLabel6.Text = "Data compra";
             // 
             // autoLabel5
             // 
@@ -154,31 +171,9 @@
             autoLabel5.ForeColor = SystemColors.ControlText;
             autoLabel5.Location = new Point(18, 106);
             autoLabel5.Name = "autoLabel5";
-            autoLabel5.Size = new Size(58, 20);
+            autoLabel5.Size = new Size(52, 20);
             autoLabel5.TabIndex = 22;
-            autoLabel5.Text = "Motivo";
-            // 
-            // autoLabel4
-            // 
-            autoLabel4.BackColor = Color.Gainsboro;
-            autoLabel4.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            autoLabel4.ForeColor = SystemColors.ControlText;
-            autoLabel4.Location = new Point(18, 138);
-            autoLabel4.Name = "autoLabel4";
-            autoLabel4.Size = new Size(90, 20);
-            autoLabel4.TabIndex = 21;
-            autoLabel4.Text = "Diagnóstico";
-            // 
-            // autoLabel3
-            // 
-            autoLabel3.BackColor = Color.Gainsboro;
-            autoLabel3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            autoLabel3.ForeColor = SystemColors.ControlText;
-            autoLabel3.Location = new Point(18, 193);
-            autoLabel3.Name = "autoLabel3";
-            autoLabel3.Size = new Size(87, 20);
-            autoLabel3.TabIndex = 20;
-            autoLabel3.Text = "Tratamento";
+            autoLabel5.Text = "Marca";
             // 
             // autoLabel1
             // 
@@ -190,39 +185,15 @@
             autoLabel1.TabIndex = 18;
             autoLabel1.Text = "Id";
             // 
-            // txtMotivo
+            // txtMarca
             // 
-            txtMotivo.BeforeTouchSize = new Size(412, 91);
-            txtMotivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtMotivo.Location = new Point(151, 103);
-            txtMotivo.Margin = new Padding(3, 4, 3, 4);
-            txtMotivo.Name = "txtMotivo";
-            txtMotivo.Size = new Size(412, 27);
-            txtMotivo.TabIndex = 1;
-            // 
-            // txtDiagnostico
-            // 
-            txtDiagnostico.BeforeTouchSize = new Size(412, 91);
-            txtDiagnostico.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtDiagnostico.Location = new Point(151, 135);
-            txtDiagnostico.Margin = new Padding(3, 4, 3, 4);
-            txtDiagnostico.Multiline = true;
-            txtDiagnostico.Name = "txtDiagnostico";
-            txtDiagnostico.ScrollBars = ScrollBars.Vertical;
-            txtDiagnostico.Size = new Size(412, 47);
-            txtDiagnostico.TabIndex = 2;
-            // 
-            // txtTratamento
-            // 
-            txtTratamento.BeforeTouchSize = new Size(412, 91);
-            txtTratamento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtTratamento.Location = new Point(151, 190);
-            txtTratamento.Margin = new Padding(3, 4, 3, 4);
-            txtTratamento.Multiline = true;
-            txtTratamento.Name = "txtTratamento";
-            txtTratamento.ScrollBars = ScrollBars.Vertical;
-            txtTratamento.Size = new Size(412, 91);
-            txtTratamento.TabIndex = 3;
+            txtMarca.BeforeTouchSize = new Size(412, 91);
+            txtMarca.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txtMarca.Location = new Point(155, 100);
+            txtMarca.Margin = new Padding(3, 4, 3, 4);
+            txtMarca.Name = "txtMarca";
+            txtMarca.Size = new Size(273, 27);
+            txtMarca.TabIndex = 1;
             // 
             // txtID
             // 
@@ -230,7 +201,7 @@
             txtID.BeforeTouchSize = new Size(412, 91);
             txtID.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             txtID.ForeColor = Color.Black;
-            txtID.Location = new Point(151, 7);
+            txtID.Location = new Point(155, 4);
             txtID.Margin = new Padding(3, 4, 3, 4);
             txtID.Name = "txtID";
             txtID.ReadOnly = true;
@@ -247,10 +218,10 @@
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClear.Location = new Point(515, 351);
+            btnClear.Location = new Point(505, 246);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(98, 39);
-            btnClear.TabIndex = 15;
+            btnClear.TabIndex = 19;
             btnClear.Text = "Clear";
             btnClear.TextAlign = ContentAlignment.MiddleRight;
             btnClear.UseVisualStyleBackColor = true;
@@ -264,10 +235,10 @@
             btnDelete.ForeColor = Color.White;
             btnDelete.Image = Properties.Resources._678080_shield_error_32;
             btnDelete.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDelete.Location = new Point(282, 351);
+            btnDelete.Location = new Point(281, 246);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(98, 39);
-            btnDelete.TabIndex = 14;
+            btnDelete.TabIndex = 18;
             btnDelete.Text = "Delete";
             btnDelete.TextAlign = ContentAlignment.MiddleRight;
             btnDelete.UseVisualStyleBackColor = true;
@@ -281,10 +252,10 @@
             btnUpdate.ForeColor = Color.White;
             btnUpdate.Image = Properties.Resources.save32;
             btnUpdate.ImageAlign = ContentAlignment.MiddleLeft;
-            btnUpdate.Location = new Point(154, 351);
+            btnUpdate.Location = new Point(153, 246);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(98, 39);
-            btnUpdate.TabIndex = 13;
+            btnUpdate.TabIndex = 17;
             btnUpdate.Text = "Update";
             btnUpdate.TextAlign = ContentAlignment.MiddleRight;
             btnUpdate.UseVisualStyleBackColor = true;
@@ -298,22 +269,22 @@
             btnInsert.ForeColor = Color.White;
             btnInsert.Image = Properties.Resources.Clear;
             btnInsert.ImageAlign = ContentAlignment.MiddleLeft;
-            btnInsert.Location = new Point(26, 351);
+            btnInsert.Location = new Point(25, 246);
             btnInsert.Name = "btnInsert";
             btnInsert.Size = new Size(98, 39);
-            btnInsert.TabIndex = 12;
+            btnInsert.TabIndex = 16;
             btnInsert.Text = "Add";
             btnInsert.TextAlign = ContentAlignment.MiddleRight;
             btnInsert.UseVisualStyleBackColor = true;
             btnInsert.Click += btnInsert_Click;
             // 
-            // dgvAppts
+            // dgvRacoes
             // 
-            dgvAppts.AllowUserToAddRows = false;
-            dgvAppts.AllowUserToDeleteRows = false;
-            dgvAppts.AllowUserToOrderColumns = true;
-            dgvAppts.AllowUserToResizeColumns = false;
-            dgvAppts.AllowUserToResizeRows = false;
+            dgvRacoes.AllowUserToAddRows = false;
+            dgvRacoes.AllowUserToDeleteRows = false;
+            dgvRacoes.AllowUserToOrderColumns = true;
+            dgvRacoes.AllowUserToResizeColumns = false;
+            dgvRacoes.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -321,37 +292,37 @@
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvAppts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dgvAppts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAppts.Columns.AddRange(new DataGridViewColumn[] { ID, Nome, DataConsulta, Moitvo, Diagnostico, Tratamento, PetId });
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.Gray;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvAppts.DefaultCellStyle = dataGridViewCellStyle3;
-            dgvAppts.Location = new Point(25, 414);
-            dgvAppts.Margin = new Padding(3, 4, 3, 4);
-            dgvAppts.Name = "dgvAppts";
-            dgvAppts.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.White;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvAppts.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            dgvAppts.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            dgvAppts.RowTemplate.DividerHeight = 1;
-            dgvAppts.RowTemplate.Height = 32;
-            dgvAppts.ScrollBars = ScrollBars.Vertical;
-            dgvAppts.Size = new Size(910, 146);
-            dgvAppts.TabIndex = 16;
-            dgvAppts.CellClick += dgvAppts_CellClick;
-            dgvAppts.ColumnHeaderMouseClick += dgvAppts_ColumnHeaderMouseClick;
+            dgvRacoes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvRacoes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvRacoes.Columns.AddRange(new DataGridViewColumn[] { ID, NomePet, DataCompra, Marca, QuantidadeDiaria, PetId });
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = Color.Gray;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvRacoes.DefaultCellStyle = dataGridViewCellStyle5;
+            dgvRacoes.Location = new Point(24, 309);
+            dgvRacoes.Margin = new Padding(3, 4, 3, 4);
+            dgvRacoes.Name = "dgvRacoes";
+            dgvRacoes.ReadOnly = true;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.White;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvRacoes.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dgvRacoes.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgvRacoes.RowTemplate.DividerHeight = 1;
+            dgvRacoes.RowTemplate.Height = 32;
+            dgvRacoes.ScrollBars = ScrollBars.Vertical;
+            dgvRacoes.Size = new Size(579, 134);
+            dgvRacoes.TabIndex = 20;
+            dgvRacoes.CellClick += dgvRacoes_CellClick;
+            dgvRacoes.ColumnHeaderMouseClick += dgvRacoes_ColumnHeaderMouseClick;
             // 
             // ID
             // 
@@ -361,53 +332,47 @@
             ID.ReadOnly = true;
             ID.Visible = false;
             // 
-            // Nome
+            // NomePet
             // 
-            Nome.DataPropertyName = "Nome";
-            Nome.HeaderText = "Nome";
-            Nome.Name = "Nome";
-            Nome.ReadOnly = true;
-            Nome.Visible = false;
-            Nome.Width = 150;
+            NomePet.DataPropertyName = "NomePet";
+            NomePet.HeaderText = "Nome";
+            NomePet.Name = "NomePet";
+            NomePet.ReadOnly = true;
+            NomePet.Visible = false;
+            NomePet.Width = 150;
             // 
-            // DataConsulta
+            // DataCompra
             // 
-            DataConsulta.DataPropertyName = "DataConsulta";
-            DataConsulta.HeaderText = "Data";
-            DataConsulta.Name = "DataConsulta";
-            DataConsulta.ReadOnly = true;
-            DataConsulta.Resizable = DataGridViewTriState.False;
-            DataConsulta.Width = 110;
+            DataCompra.DataPropertyName = "DataCompra";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataCompra.DefaultCellStyle = dataGridViewCellStyle2;
+            DataCompra.HeaderText = "Data";
+            DataCompra.Name = "DataCompra";
+            DataCompra.ReadOnly = true;
+            DataCompra.Resizable = DataGridViewTriState.False;
             // 
-            // Moitvo
+            // Marca
             // 
-            Moitvo.DataPropertyName = "Motivo";
-            Moitvo.HeaderText = "Motivo";
-            Moitvo.Name = "Moitvo";
-            Moitvo.ReadOnly = true;
-            Moitvo.Resizable = DataGridViewTriState.False;
-            Moitvo.Width = 350;
+            Marca.DataPropertyName = "Marca";
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            Marca.DefaultCellStyle = dataGridViewCellStyle3;
+            Marca.HeaderText = "Marca";
+            Marca.Name = "Marca";
+            Marca.ReadOnly = true;
+            Marca.Resizable = DataGridViewTriState.False;
+            Marca.Width = 310;
             // 
-            // Diagnostico
+            // QuantidadeDiaria
             // 
-            Diagnostico.DataPropertyName = "Diagnostico";
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            Diagnostico.DefaultCellStyle = dataGridViewCellStyle2;
-            Diagnostico.HeaderText = "Diagnóstico";
-            Diagnostico.Name = "Diagnostico";
-            Diagnostico.ReadOnly = true;
-            Diagnostico.Resizable = DataGridViewTriState.False;
-            Diagnostico.Width = 400;
-            // 
-            // Tratamento
-            // 
-            Tratamento.DataPropertyName = "Tratamento";
-            Tratamento.HeaderText = "Tratamento";
-            Tratamento.Name = "Tratamento";
-            Tratamento.ReadOnly = true;
-            Tratamento.Resizable = DataGridViewTriState.False;
-            Tratamento.Visible = false;
-            Tratamento.Width = 300;
+            QuantidadeDiaria.DataPropertyName = "QuantidadeDiaria";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            QuantidadeDiaria.DefaultCellStyle = dataGridViewCellStyle4;
+            QuantidadeDiaria.HeaderText = "Qtd. Diária";
+            QuantidadeDiaria.Name = "QuantidadeDiaria";
+            QuantidadeDiaria.ReadOnly = true;
+            QuantidadeDiaria.Resizable = DataGridViewTriState.False;
+            QuantidadeDiaria.Width = 120;
             // 
             // PetId
             // 
@@ -418,85 +383,82 @@
             PetId.Resizable = DataGridViewTriState.False;
             PetId.Visible = false;
             // 
-            // frmPetVeterinaryAppointments
+            // frmPetRacoes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            CaptionBarColor = Color.Teal;
+            CaptionBarColor = Color.MistyRose;
             CaptionBarHeight = 51;
             captionImage1.BackColor = Color.Transparent;
             captionImage1.Image = (Image)resources.GetObject("captionImage1.Image");
-            captionImage1.Location = new Point(4, 4);
+            captionImage1.Location = new Point(8, 4);
             captionImage1.Name = "CaptionImage1";
-            captionImage1.Size = new Size(36, 36);
+            captionImage1.Size = new Size(48, 48);
             CaptionImages.Add(captionImage1);
             captionLabel1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            captionLabel1.ForeColor = Color.White;
-            captionLabel1.Location = new Point(60, 2);
+            captionLabel1.Location = new Point(70, 4);
             captionLabel1.Name = "CaptionLabel1";
             captionLabel1.Text = "Daisy Pets";
-            captionLabel2.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            captionLabel2.ForeColor = Color.White;
-            captionLabel2.Location = new Point(60, 25);
+            captionLabel2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            captionLabel2.Location = new Point(70, 24);
             captionLabel2.Name = "CaptionLabel2";
-            captionLabel2.Size = new Size(200, 24);
-            captionLabel2.Text = "Consultas no veterinário";
+            captionLabel2.Text = "Rações";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(947, 552);
-            Controls.Add(dgvAppts);
+            ClientSize = new Size(627, 443);
+            Controls.Add(dgvRacoes);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(btnInsert);
             Controls.Add(gradientPanel1);
-            ForeColor = Color.Gray;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "frmPetVeterinaryAppointments";
+            Name = "frmPetRacoes";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)gradientPanel1).EndInit();
             gradientPanel1.ResumeLayout(false);
             gradientPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nupQtdDiaria).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtPetName).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtIdPet).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtMotivo).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtDiagnostico).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtTratamento).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtMarca).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtID).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvAppts).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvRacoes).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Syncfusion.Windows.Forms.Tools.GradientPanel gradientPanel1;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel2;
+        private Syncfusion.Windows.Forms.Tools.TextBoxExt txtPetName;
+        private DateTimePicker dtpBuyDate;
         private Syncfusion.Windows.Forms.Tools.TextBoxExt txtIdPet;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel6;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel5;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel4;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel3;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel1;
-        private Syncfusion.Windows.Forms.Tools.TextBoxExt txtMotivo;
-        private Syncfusion.Windows.Forms.Tools.TextBoxExt txtDiagnostico;
-        private Syncfusion.Windows.Forms.Tools.TextBoxExt txtTratamento;
+        private Syncfusion.Windows.Forms.Tools.TextBoxExt txtMarca;
         private Syncfusion.Windows.Forms.Tools.TextBoxExt txtID;
-        private DateTimePicker dtpApptDate;
         private Button btnClear;
         private Button btnDelete;
         private Button btnUpdate;
         private Button btnInsert;
-        private DataGridView dgvAppts;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel2;
-        private Syncfusion.Windows.Forms.Tools.TextBoxExt txtPetName;
-        private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn Nome;
+        private DataGridView dgvRacoes;
         private DataGridViewTextBoxColumn DataConsulta;
         private DataGridViewTextBoxColumn Moitvo;
         private DataGridViewTextBoxColumn Diagnostico;
         private DataGridViewTextBoxColumn Tratamento;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel3;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel4;
+        private Syncfusion.Windows.Forms.Tools.NumericUpDownExt nupQtdDiaria;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn NomePet;
+        private DataGridViewTextBoxColumn DataCompra;
+        private DataGridViewTextBoxColumn Marca;
+        private DataGridViewTextBoxColumn QuantidadeDiaria;
         private DataGridViewTextBoxColumn PetId;
     }
 }
