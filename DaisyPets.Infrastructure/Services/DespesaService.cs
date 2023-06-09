@@ -81,7 +81,7 @@ namespace DaisyPets.Infrastructure.Services
             return output;
         }
 
-        public async Task<DespesaVM> GetVMByIdAsync(int Id)
+        public async Task<DespesaVM?> GetVMByIdAsync(int Id)
         {
             return await _repository.GetVMByIdAsync(Id);
         }
@@ -91,7 +91,7 @@ namespace DaisyPets.Infrastructure.Services
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<IEnumerable<DespesaDto>> GetAllAsync()
+        public async Task<IEnumerable<DespesaDto>?> GetAllAsync()
         {
             var resp = await _repository.GetAllAsync();
             var output = _mapper.Map<IEnumerable<DespesaDto>>(resp);
@@ -100,7 +100,7 @@ namespace DaisyPets.Infrastructure.Services
 
 
 
-        public async Task<IEnumerable<TipoDespesa>> GetTipoDespesa_ByCategoriaDespesa(int Id)
+        public async Task<IEnumerable<TipoDespesa>?> GetTipoDespesa_ByCategoriaDespesa(int Id)
         {
             return await _repository.GetTipoDespesa_ByCategoriaDespesa(Id);
         }
@@ -116,7 +116,7 @@ namespace DaisyPets.Infrastructure.Services
         }
 
 
-        public async Task<IEnumerable<DespesaVM>> GetAllVMAsync()
+        public async Task<IEnumerable<DespesaVM>?> GetAllVMAsync()
         {
             try
             {

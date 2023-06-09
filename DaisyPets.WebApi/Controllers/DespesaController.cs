@@ -1,4 +1,5 @@
 ﻿using DaisyPets.Core.Application.ViewModels.Despesas;
+using DaisyPets.Core.Domain;
 using DaisyPets.WebApi.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -191,7 +192,7 @@ namespace DaisyPets.WebApi.Controllers
                 var expenseVM = await _service.GetVMByIdAsync(Id);
                 if (expenseVM is null)
                 {
-                    return NotFound();
+                    return NotFound($"{Id} não encontrado");
                 }
 
                 return Ok(expenseVM);
@@ -210,8 +211,8 @@ namespace DaisyPets.WebApi.Controllers
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpGet("{AllAsync}")]
-        public async Task<IActionResult> GetAllAsync(int Id)
+        [HttpGet("AllAsync")]
+        public async Task<IActionResult> GetAllAsync()
         {
             var location = GetControllerActionNames();
 
@@ -233,8 +234,13 @@ namespace DaisyPets.WebApi.Controllers
             }
         }
 
-        [HttpGet("{AllVMAsync}")]
-        public async Task<IActionResult> GetAllVMAsync(int Id)
+        /// <summary>
+        /// Todas as despesas VM (preenchimento de grid)
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("AllVMAsync")]
+        public async Task<IActionResult> GetAllVMAsync()
         {
             var location = GetControllerActionNames();
 
@@ -269,8 +275,8 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var CategoryType = await _service.GetTipoDespesa_ByCategoriaDespesa(Id);
-                return CategoryType == null ? NotFound() : Ok(CategoryType);
+                var categoryType = await _service.GetTipoDespesa_ByCategoriaDespesa(Id);
+                return categoryType!.Any() == false ? NotFound() : Ok(categoryType);
 
             }
             catch (Exception ex)

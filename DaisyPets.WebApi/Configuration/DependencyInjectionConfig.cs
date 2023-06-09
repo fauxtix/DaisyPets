@@ -3,11 +3,15 @@ using DaisyPets.Core.Application.Interfaces.DapperContext;
 using DaisyPets.Core.Application.Interfaces.Repositories;
 using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Infrastructure.Context;
 using DaisyPets.Infrastructure.Repositories;
 using DaisyPets.Infrastructure.Services;
 using DaisyPets.WebApi.Validators;
 using FluentValidation;
+using PropertyManagerFL.Application.Interfaces.Repositories;
+using PropertyManagerFL.Application.Interfaces.Services;
+using PropertyManagerFL.Infrastructure.Repositories;
 
 namespace DaisyPets.WebApi.Configuration
 /// <summary>
@@ -42,6 +46,9 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<IRacaoRepository, RacaoRepository>();
             services.AddScoped<IRacaoService, RacaoService>();
 
+            services.AddScoped<IDespesaRepository, DespesaRepository>();
+            services.AddScoped<IDespesaService, DespesaService>();
+
             services.AddScoped<IDesparasitanteRepository, DesparasitanteRepository>();
             services.AddScoped<IDesparasitanteService, DesparasitanteService>();
 
@@ -54,6 +61,7 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<IValidator<VacinaDto>, VacinaValidator>();
             services.AddScoped<IValidator<ConsultaVeterinarioDto>, ConsultaValidator>();
             services.AddScoped<IValidator<RacaoDto>, RacaoValidator>();
+            services.AddScoped<IValidator<DespesaDto>,DespesaValidator>();
             services.AddScoped<IValidator<DesparasitanteDto>, DesparasitanteValidator>();
         }
     }

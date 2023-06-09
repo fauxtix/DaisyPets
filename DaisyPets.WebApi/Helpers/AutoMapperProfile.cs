@@ -2,6 +2,7 @@ namespace DaisyPets.WebApi.Helpers;
 
 using AutoMapper;
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
 
@@ -24,30 +25,43 @@ public class AutoMapperProfile : Profile
         CreateMap<Racao, RacaoDto>().ReverseMap();
         CreateMap<RacaoDto, RacaoVM>().ReverseMap();
 
+        CreateMap<Despesa, DespesaDto>().ReverseMap();
+        CreateMap<DespesaDto, DespesaVM>().ReverseMap();
+
         CreateMap<Desparasitante, DesparasitanteDto>().ReverseMap();
         CreateMap<DesparasitanteDto, DesparasitanteVM>().ReverseMap();
+
+        CreateMap<VacinaDto, Vacina>().ReverseMap();
+        CreateMap<VacinaVM, Vacina>().ReverseMap();
 
         CreateMap<IdadeDto, Idade>().ReverseMap();
 
         CreateMap<ContactoVM, Contacto>().ReverseMap();
+
         CreateMap<LookupTableVM, LookUp>().ReverseMap();
 
-        CreateMap<ConsultaVeterinarioDto, ConsultaVeterinario>().ReverseMap();
         CreateMap<DesparasitanteExternoDto, DesparasitanteExterno>().ReverseMap();
         CreateMap<DesparasitanteInternoDto, DesparasitanteInterno>().ReverseMap();
+
         CreateMap<EspecieDto, Especie>().ReverseMap();
+
         CreateMap<EsterilizacaoDto, Esterilizacao>().ReverseMap();
+
         CreateMap<GaleriaFotosDto, GaleriaFotos>().ReverseMap();
+
         CreateMap<IdadeDto, Idade>().ReverseMap();
+
         CreateMap<MarcaRacaoDto, MarcaRacao>().ReverseMap();
+
         CreateMap<MedicacaoDto, Medicacao>().ReverseMap();
+
         CreateMap<PesoDto, PesoDto>().ReverseMap();
+
         CreateMap<RacaDto, Raca>().ReverseMap();
-        CreateMap<RacaoDto, Racao>().ReverseMap();
+
         CreateMap<TemperamentoDto, Temperamento>().ReverseMap();
+
         CreateMap<TipoDesparasitanteExternoDto, TipoDesparasitanteExterno>().ReverseMap();
         CreateMap<TipoDesparasitanteInternoDto, TipoDesparasitanteInterno>().ReverseMap();
-        CreateMap<VacinaDto, Vacina>().ReverseMap();
-        CreateMap<VacinaVM, Vacina>().ReverseMap();
     }
 }

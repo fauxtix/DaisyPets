@@ -1,5 +1,4 @@
-﻿using DaisyPets.Core.Application.ViewModels;
-using DaisyPets.Core.Application.ViewModels.Despesas;
+﻿using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Domain;
 using DaisyPets.Infrastructure.Context;
 using Dapper;
@@ -69,7 +68,7 @@ namespace PropertyManagerFL.Infrastructure.Repositories
             sb.Append("NumeroDocumento = @NumeroDocumento, ");
             sb.Append("IdTipoDespesa = @IdTipoDespesa, ");
             sb.Append("IdCategoriaDespesa = @IdCategoriaDespesa, ");
-            sb.Append("Notas = @Notas");
+            sb.Append("Notas = @Notas ");
             sb.Append("WHERE Id = @Id");
 
 
@@ -109,11 +108,11 @@ namespace PropertyManagerFL.Infrastructure.Repositories
 
         }
 
-        public async Task<IEnumerable<Despesa>> GetAllAsync()
+        public async Task<IEnumerable<Despesa>?> GetAllAsync()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Despesa.Id, DataMovimento, ValorPago, ");
-            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa ");
+            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, Notas ");
             sb.Append("FROM Despesa");
             using (var connection = _context.CreateConnection())
             {
@@ -124,15 +123,15 @@ namespace PropertyManagerFL.Infrastructure.Repositories
                 }
                 else
                 {
-                    return Enumerable.Empty<Despesa>();
+                    return null;
                 }
             }
         }
-        public async Task<Despesa> GetByIdAsync(int Id)
+        public async Task<Despesa?> GetByIdAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Despesa.Id, DataMovimento, ValorPago, ");
-            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa ");
+            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, Notas ");
             sb.Append("FROM Despesa ");
             sb.Append($"WHERE Id = @Id");
 
@@ -147,7 +146,7 @@ namespace PropertyManagerFL.Infrastructure.Repositories
                     }
                     else
                     {
-                        return new Despesa();
+                        return null;
                     }
                 }
 
@@ -169,17 +168,23 @@ namespace PropertyManagerFL.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<TipoDespesa>> GetTipoDespesa_ByCategoriaDespesa(int id)
+        public async Task<IEnumerable<TipoDespesa>?> GetTipoDespesa_ByCategoriaDespesa(int Id)
         {
             try
             {
                 var parameters = new DynamicParameters();
-                parameters.Add("@Id", id);
+                parameters.Add("@Id", Id);
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append("SELECT id, Descricao ");
+                sb.Append("FROM TipoDespesa ");
+                sb.Append("WHERE Id_CategoriaDespesa = @Id");
+
 
                 using (var connection = _context.CreateConnection())
                 {
-                    return await connection.QueryAsync<TipoDespesa>("usp_Despesas_GetTipoDespesaByCategory",
-                     param: parameters, commandType: CommandType.StoredProcedure);
+                    var output = await connection.QueryAsync<TipoDespesa>(sb.ToString(), new { Id }) ?? null;
+                    return output;
                 }
 
             }
@@ -190,18 +195,18 @@ namespace PropertyManagerFL.Infrastructure.Repositories
             }
         }
 
-        public async Task<DespesaVM> GetVMByIdAsync(int Id)
+        public async Task<DespesaVM?> GetVMByIdAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Despesa.Id, DataMovimento, ValorPago, ");
-            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, ");
+            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, Notas, ");
             sb.Append("CD.Descricao AS [DescricaoCategoriaDespesa], ");
-            sb.Append("TD.Descricao AS [DescricaoTipoDespesa], ");
+            sb.Append("TD.Descricao AS [DescricaoTipoDespesa] ");
             sb.Append("FROM Despesa ");
             sb.Append("INNER JOIN CategoriaDespesa CD ON ");
             sb.Append("Despesa.IdCategoriaDespesa = CD.Id ");
-            sb.Append("INNER JOIN TipoCategoria TC ON ");
-            sb.Append("Despesa.IdCategoriaDespesa = CD.Id ");
+            sb.Append("INNER JOIN TipoDespesa TD ON ");
+            sb.Append("Despesa.IdTipoDespesa = TD.Id ");
             sb.Append("WHERE Despesa.Id = @Id");
 
             using (var connection = _context.CreateConnection())
@@ -213,24 +218,24 @@ namespace PropertyManagerFL.Infrastructure.Repositories
                 }
                 else
                 {
-                    return new DespesaVM();
+                    return null;
                 }
             }
 
         }
 
-        public async Task<IEnumerable<DespesaVM>> GetAllVMAsync()
+        public async Task<IEnumerable<DespesaVM>?> GetAllVMAsync()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Despesa.Id, DataMovimento, ValorPago, ");
-            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, ");
+            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, Notas, ");
             sb.Append("CD.Descricao AS [DescricaoCategoriaDespesa], ");
-            sb.Append("TD.Descricao AS [DescricaoTipoDespesa], ");
+            sb.Append("TD.Descricao AS [DescricaoTipoDespesa] ");
             sb.Append("FROM Despesa ");
             sb.Append("INNER JOIN CategoriaDespesa CD ON ");
             sb.Append("Despesa.IdCategoriaDespesa = CD.Id ");
-            sb.Append("INNER JOIN TipoCategoria TC ON ");
-            sb.Append("Despesa.IdCategoriaDespesa = CD.Id ");
+            sb.Append("INNER JOIN TipoDespesa TD ON ");
+            sb.Append("Despesa.IdTipoDespesa = TD.Id ");
 
             using (var connection = _context.CreateConnection())
             {
@@ -241,7 +246,7 @@ namespace PropertyManagerFL.Infrastructure.Repositories
                 }
                 else
                 {
-                    return Enumerable.Empty<DespesaVM>();
+                    return null;
                 }
             }
         }
