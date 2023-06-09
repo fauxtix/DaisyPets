@@ -1,5 +1,6 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Core.Domain;
 using DaisyPets.Infrastructure.Services;
 using DaisyPets.WebApi.Validators;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,14 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest();
                 }
 
+                var validator = new RacaoValidator();
+                var result = validator.Validate(racao);
+                if (result.IsValid == false)
+                {
+                    var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+                    return BadRequest(errorMessages);
+                }
+
                 var insertedId = await _racaoService.InsertAsync(racao);
                 var viewRacao = await _racaoService.FindByIdAsync(insertedId);
                 var actionReturned = CreatedAtAction(nameof(Get), new { id = viewRacao.Id }, viewRacao);
@@ -84,6 +93,14 @@ namespace DaisyPets.WebApi.Controllers
                 if (Id != racao.Id)
                 {
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
+                }
+
+                var validator = new RacaoValidator();
+                var result = validator.Validate(racao);
+                if (result.IsValid == false)
+                {
+                    var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+                    return BadRequest(errorMessages);
                 }
 
                 var viewRacao = _racaoService.GetRacaoVMAsync(Id);

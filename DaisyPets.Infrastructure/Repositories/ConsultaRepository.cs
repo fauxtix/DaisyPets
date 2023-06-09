@@ -21,6 +21,60 @@ namespace DaisyPets.Infrastructure.Repositories
             _logger = logger;
         }
 
+        public async Task<int> InsertAsync(ConsultaVeterinario Consulta)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("INSERT INTO ConsultaVeterinario (");
+            sb.Append("DataConsulta, Motivo, Diagnostico, Tratamento, IdPet) ");
+            sb.Append(" VALUES(");
+            sb.Append("@DataConsulta, @Motivo, @Diagnostico, @Tratamento, @IdPet");
+            sb.Append(");");
+            sb.Append("SELECT last_insert_rowid()");
+
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.QueryFirstAsync<int>(sb.ToString(), param: Consulta);
+                    return result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Error, ex.ToString());
+                return -1;
+            }
+
+        }
+
+        public async Task UpdateAsync(int Id, ConsultaVeterinario Consulta)
+        {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@Id", Consulta.Id);
+            dynamicParameters.Add("@DataConsulta", Consulta.DataConsulta);
+            dynamicParameters.Add("@Motivo", Consulta.Motivo);
+            dynamicParameters.Add("@Diagnostico", Consulta.Diagnostico);
+            dynamicParameters.Add("@Tratamento", Consulta.Tratamento);
+            dynamicParameters.Add("@IdPet", Consulta.IdPet);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("UPDATE ConsultaVeterinario SET ");
+            sb.Append("DataConsulta = @DataConsulta, ");
+            sb.Append("Motivo = @Motivo, ");
+            sb.Append("Diagnostico = @Diagnostico, ");
+            sb.Append("Tratamento = @Tratamento, ");
+            sb.Append("IdPet = @IdPet ");
+            sb.Append("WHERE Id = @Id");
+
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
+            }
+
+        }
+
         public async Task DeleteAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
@@ -135,58 +189,5 @@ namespace DaisyPets.Infrastructure.Repositories
             }
         }
 
-        public async Task<int> InsertAsync(ConsultaVeterinario Consulta)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("INSERT INTO ConsultaVeterinario (");
-            sb.Append("DataConsulta, Motivo, Diagnostico, Tratamento, IdPet) ");
-            sb.Append(" VALUES(");
-            sb.Append("@DataConsulta, @Motivo, @Diagnostico, @Tratamento, @IdPet");
-            sb.Append(");");
-            sb.Append("SELECT last_insert_rowid()");
-
-            try
-            {
-                using (var connection = _context.CreateConnection())
-                {
-                    var result = await connection.QueryFirstAsync<int>(sb.ToString(), param: Consulta);
-                    return result;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                _logger.Log(LogLevel.Error, ex.ToString());
-                return -1;
-            }
-
-        }
-
-        public async Task UpdateAsync(int Id, ConsultaVeterinario Consulta)
-        {
-            DynamicParameters dynamicParameters = new DynamicParameters();
-            dynamicParameters.Add("@Id", Consulta.Id);
-            dynamicParameters.Add("@DataConsulta", Consulta.DataConsulta);
-            dynamicParameters.Add("@Motivo", Consulta.Motivo);
-            dynamicParameters.Add("@Diagnostico", Consulta.Diagnostico);
-            dynamicParameters.Add("@Tratamento", Consulta.Tratamento);
-            dynamicParameters.Add("@IdPet", Consulta.IdPet);
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("UPDATE ConsultaVeterinario SET ");
-            sb.Append("DataConsulta = @DataConsulta, ");
-            sb.Append("Motivo = @Motivo, ");
-            sb.Append("Diagnostico = @Diagnostico, ");
-            sb.Append("Tratamento = @Tratamento, ");
-            sb.Append("IdPet = @IdPet ");
-            sb.Append("WHERE Id = @Id");
-
-            using (var connection = _context.CreateConnection())
-            {
-                await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
-            }
-
-        }
     }
 }

@@ -1,65 +1,60 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
-using DaisyPets.Core.Domain;
-using DaisyPets.Infrastructure.Services;
 using DaisyPets.WebApi.Validators;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 
 namespace DaisyPets.WebApi.Controllers
 {
     /// <summary>
-    /// Contact controller
+    /// Controller para gestão de desparasitantes
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-
-
-    public class ContactsController : ControllerBase
+    public class DesparasitanteController : ControllerBase
     {
-        private readonly IContactService _contactService;
-        private readonly ILogger<ContactsController> _logger;
-
+        private readonly IDesparasitanteService _desparasitanteService;
+        private readonly ILogger<DesparasitanteController> _logger;
 
         /// <summary>
-        /// Contact controller constructor
+        /// Construtor
         /// </summary>
-        /// <param name="contactService"></param>
-        public ContactsController(IContactService contactService, ILogger<ContactsController> logger)
+        /// <param name="desparasitanteService"></param>
+        /// <param name="logger"></param>
+        public DesparasitanteController(IDesparasitanteService desparasitanteService, ILogger<DesparasitanteController> logger)
         {
-            _contactService = contactService;
+            _desparasitanteService = desparasitanteService;
             _logger = logger;
         }
 
         /// <summary>
-        /// Create new contact
+        /// Cria novo registo para Desparasitante
         /// </summary>
-        /// <param name="contact"></param>
+        /// <param name="desparasitante"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Insert(ContactoVM contact)
+        public async Task<IActionResult> Insert(DesparasitanteDto desparasitante)
         {
             var location = GetControllerActionNames();
             try
             {
 
-                if (contact is null)
+                if (desparasitante is null)
                 {
                     return BadRequest();
                 }
 
-                var validator = new ContactValidator();
-                var result = validator.Validate(contact);
+                var validator = new DesparasitanteValidator();
+                var result = validator.Validate(desparasitante);
                 if (result.IsValid == false)
                 {
                     var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
                     return BadRequest(errorMessages);
                 }
 
-                var insertedId = await _contactService.InsertAsync(contact);
-                var viewContact = await _contactService.FindByIdAsync(insertedId);
-                var actionReturned = CreatedAtAction(nameof(Get), new { id = viewContact.Id }, viewContact);
+                var insertedId = await _desparasitanteService.InsertAsync(desparasitante);
+                var viewdesparasitante = await _desparasitanteService.FindByIdAsync(insertedId);
+                var actionReturned = CreatedAtAction(nameof(Get), new { id = viewdesparasitante.Id }, viewdesparasitante);
 
 
                 return Ok(new { Id = insertedId });
@@ -73,59 +68,58 @@ namespace DaisyPets.WebApi.Controllers
         }
 
         /// <summary>
-        /// Atualiza contacto
+        /// Atualiza registo de Desparasitante
         /// </summary>
-        /// <param name="Id">Id do contacto</param>
-        /// <param name="contact">Dados do contacto</param>
+        /// <param name="Id"></param>
+        /// <param name="desparasitante"></param>
         /// <returns></returns>
         [HttpPut("{Id:int}")]
-        public async Task<IActionResult> Update(int Id, [FromBody] ContactoVM contact)
+        public async Task<IActionResult> Update(int Id, [FromBody] DesparasitanteDto desparasitante)
         {
             var location = GetControllerActionNames();
 
             try
             {
 
-                if (contact == null)
+                if (desparasitante == null)
                 {
-                    string msg = "O Contacto passado como paràmetro é incorreto.";
+                    string msg = "Desparasitante passada como paràmetro é incorreto.";
                     _logger.LogWarning(msg);
                     return BadRequest(msg);
                 }
 
-                if (Id != contact.Id)
+                if (Id != desparasitante.Id)
                 {
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewContact = _contactService.GetContactVMAsync(Id);
-                if (viewContact == null)
+                var viewdesparasitante = _desparasitanteService.GetDesparasitanteVMAsync(Id);
+                if (viewdesparasitante == null)
                 {
-                    return NotFound("Contacto não foi encontrado");
+                    return NotFound("Desparasitante não foi encontrado");
                 }
 
-                var validator = new ContactValidator();
-                var result = validator.Validate(contact);
+                var validator = new DesparasitanteValidator();
+                var result = validator.Validate(desparasitante);
                 if (result.IsValid == false)
                 {
                     var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
                     return BadRequest(errorMessages);
                 }
 
-
-                await _contactService.UpdateAsync(Id, contact);
+                await _desparasitanteService.UpdateAsync(Id, desparasitante);
                 return NoContent();
 
             }
             catch (Exception e)
             {
-                _logger.LogError(e.Message, "Erro ao atualizar contacto (API)");
+                _logger.LogError(e.Message, "Erro ao atualizar desparasitante (API)");
                 return InternalError($"{location}: {e.Message} - {e.InnerException}");
             }
         }
 
         /// <summary>
-        /// Delete Pet
+        /// Apaga registo de Desparasitante
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -136,13 +130,13 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewContact = _contactService.GetContactVMAsync(Id);
-                if (viewContact == null)
+                var viewdesparasitante = _desparasitanteService.GetDesparasitanteVMAsync(Id);
+                if (viewdesparasitante == null)
                 {
-                    return NotFound("Contacto não foi encontrado");
+                    return NotFound("Desperasitante não foi encontrado");
                 }
 
-                await _contactService.DeleteAsync(Id);
+                await _desparasitanteService.DeleteAsync(Id);
                 return NoContent();
 
             }
@@ -154,8 +148,9 @@ namespace DaisyPets.WebApi.Controllers
         }
 
 
+
         /// <summary>
-        /// Get contact by Id
+        /// Pesquisa Desparasitante por Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -166,13 +161,13 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var contact = await _contactService.FindByIdAsync(Id);
-                if (contact is null)
+                var desparasitante = await _desparasitanteService.FindByIdAsync(Id);
+                if (desparasitante is null)
                 {
                     return NotFound();
                 }
 
-                return Ok(contact);
+                return Ok(desparasitante);
 
             }
             catch (Exception ex)
@@ -182,75 +177,102 @@ namespace DaisyPets.WebApi.Controllers
             }
         }
 
+
         /// <summary>
-        /// Devolve todos os contactos
+        /// Devolve todas os desparasitantes (VM - grid)
         /// </summary>
         /// <returns></returns>
-        [HttpGet("AllContactsVM")]
-        public async Task<IActionResult> AllContactsVM()
+        [HttpGet("AllRacoesVM")]
+        public async Task<IActionResult> AllRacoesVM()
         {
             try
             {
-                var listOfContacts = await _contactService.GetAllContactVMAsync();
-                if (listOfContacts is null)
+                var listOfRacoes = await _desparasitanteService.GetAllDesparasitantesVMAsync();
+                if (listOfRacoes is null)
                 { return NotFound(); }
 
-                return Ok(listOfContacts);
+                return Ok(listOfRacoes);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
-                return BadRequest("Dados dos contactos não encontrados");
+                return BadRequest("Dados das rações não encontrados");
             }
         }
 
         /// <summary>
-        /// Devolve contacto por Id
+        /// Desparasitante (VM) por Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpGet("ContactVMById/{Id:int}")]
-        public async Task<IActionResult> ContactVMById(int Id)
+        [HttpGet("desparasitanteVMById/{Id:int}")]
+        public async Task<IActionResult> desparasitanteVMById(int Id)
         {
             try
             {
-                var contactVM = await _contactService.GetContactVMAsync(Id);
+                var desparasitanteVM = await _desparasitanteService.GetDesparasitanteVMAsync(Id);
 
-                if (contactVM is null)
+                if (desparasitanteVM is null)
                 { return NotFound(); }
 
-                return Ok(contactVM);
+                return Ok(desparasitanteVM);
 
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message, ex);
-                return BadRequest("Dados dos contactos não encontrados");
+                return BadRequest("Dados das rações não encontrados");
+            }
+        }
+
+
+        /// <summary>
+        /// Devolve todas os desparasitantes de um 'Pet'
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("PetDewormers/{Id:int}")]
+        public async Task<IActionResult> PetDewormers(int Id)
+        {
+            try
+            {
+                var petDewormers = await _desparasitanteService.GetDesparasitanteVMAsync(Id);
+
+                if (petDewormers is null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(petDewormers);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest("Dados dos desparasitantes não encontrados");
             }
         }
 
         /// <summary>
-        /// Validate contact
+        /// Valida rações
         /// </summary>
-        /// <param name="contact"></param>
+        /// <param name="desparasitante"></param>
         /// <returns></returns>
-        [HttpPost("ValidateContacts")]
-        public IActionResult ValidateContacts([FromBody] ContactoVM contact)
+        [HttpPost("ValidateDesparasitantes")]
+        public IActionResult Validatedesparasitante([FromBody] DesparasitanteDto desparasitante)
         {
-            // Create validator instance (or inject it)
-            var contactsValidator = new ContactValidator();
+            var desparasitanteValidator = new DesparasitanteValidator();
 
-            // Call Validate or ValidateAsync and pass the object which needs to be validated
-            var result = contactsValidator.Validate(contact);
+            var result = desparasitanteValidator.Validate(desparasitante);
 
             if (result.IsValid)
             {
-                return Ok(contact);
+                return Ok(desparasitante);
             }
 
             var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
             return BadRequest(errorMessages);
         }
+
 
         private string GetControllerActionNames()
         {
@@ -265,6 +287,5 @@ namespace DaisyPets.WebApi.Controllers
             _logger.LogError(message);
             return StatusCode(500, $"Algo de errado ocorreu ({message}). Contacte o Administrador");
         }
-
     }
 }

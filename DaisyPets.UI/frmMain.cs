@@ -5,6 +5,8 @@ namespace DaisyPets.UI
 {
     public partial class frmMain : MetroForm
     {
+        private bool _isApplicationExit = false;
+
         public frmMain()
         {
             InitializeComponent();
@@ -72,6 +74,38 @@ namespace DaisyPets.UI
         private void btnFechar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!_isApplicationExit)
+            {
+                if (!DoLogOff())
+                    e.Cancel = true;
+                else
+                {
+                    Application.Exit();
+                }
+            }
+
+        }
+
+        private bool DoLogOff()
+        {
+
+            DialogResult dr = MessageBoxAdv.Show("Quer mesmo sair da aplicação?", "HouseRentalSoft",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            bool retValue = false;
+            if (dr == DialogResult.Yes)
+            {
+                _isApplicationExit = true;
+                (new ApplicationContext()).Dispose();
+                retValue = true;
+            }
+            else
+                retValue = false;
+
+            return retValue;
         }
     }
 }

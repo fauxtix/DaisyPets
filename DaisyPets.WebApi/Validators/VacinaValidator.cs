@@ -7,7 +7,7 @@ namespace DaisyPets.WebApi.Validators
     /// <summary>
     /// Construtor de validador de contactos
     /// </summary>
-    public class VacinaValidator : AbstractValidator<VacinaVM>
+    public class VacinaValidator : AbstractValidator<VacinaDto>
     {
         /// <summary>
         /// Validador de contactos

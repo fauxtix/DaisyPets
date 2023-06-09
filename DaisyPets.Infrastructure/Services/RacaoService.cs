@@ -30,11 +30,9 @@ namespace DaisyPets.Infrastructure.Services
 
         public async Task<RacaoDto> FindByIdAsync(int Id)
         {
-            {
-                var resp = await _repository.FindByIdAsync(Id);
-                var output = _mapper.Map<RacaoDto>(resp);
-                return output;
-            }
+            var resp = await _repository.FindByIdAsync(Id);
+            var output = _mapper.Map<RacaoDto>(resp);
+            return output;
         }
 
         public async Task<IEnumerable<RacaoDto>> GetAllAsync()

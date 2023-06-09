@@ -232,7 +232,7 @@ namespace DaisyPets.UI
 
             try
             {
-                VacinaVM vaccineToValidate = new()
+                VacinaDto vaccineToValidate = new()
                 {
                     IdPet = IdPet,
                     ProximaTomaEmMeses = (int)nupPrxToma.Value,

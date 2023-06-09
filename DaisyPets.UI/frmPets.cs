@@ -1004,7 +1004,7 @@ namespace DaisyPets.UI
             }
             else
             {
-                MessageBoxAdv.Show("Operação terminou com ERRO,", "Criar Pdf", MessageBoxButtons.OK);
+                MessageBoxAdv.Show("Operação terminou com ERRO, tente mais tarde, p.f.,", "Criar Pdf", MessageBoxButtons.OK);
             }
 
         }

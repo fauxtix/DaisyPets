@@ -138,6 +138,7 @@
             IsMdiContainer = true;
             Name = "frmMain";
             StartPosition = FormStartPosition.CenterScreen;
+            FormClosing += frmMain_FormClosing;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ResumeLayout(false);

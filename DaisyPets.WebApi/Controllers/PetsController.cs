@@ -1,5 +1,6 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Core.Domain;
 using DaisyPets.WebApi.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -45,6 +46,14 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest();
                 }
 
+                var validator = new PetValidator();
+                var result = validator.Validate(pet);
+                if (result.IsValid == false)
+                {
+                    var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+                    return BadRequest(errorMessages);
+                }
+
                 var insertedId = await _petService.InsertAsync(pet);
                 var viewPet = await _petService.FindByIdAsync(insertedId);
                 var actionReturned = CreatedAtAction(nameof(Get), new { id = viewPet.Id }, viewPet);
@@ -87,6 +96,13 @@ namespace DaisyPets.WebApi.Controllers
                     return NotFound("Registo não foi encontrado");
                 }
 
+                var validator = new PetValidator();
+                var result = validator.Validate(pet);
+                if (result.IsValid == false)
+                {
+                    var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+                    return BadRequest(errorMessages);
+                }
 
                 await _petService.UpdateAsync(Id, pet);
                 return NoContent();

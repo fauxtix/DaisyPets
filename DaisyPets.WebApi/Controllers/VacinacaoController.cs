@@ -1,7 +1,9 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Core.Domain;
 using DaisyPets.Infrastructure.Services;
 using DaisyPets.WebApi.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -50,6 +52,14 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest();
                 }
 
+                var validator = new VacinaValidator();
+                var result = validator.Validate(vacina);
+                if (result.IsValid == false)
+                {
+                    var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+                    return BadRequest(errorMessages);
+                }
+
                 var insertedId = await _vacinacaoService.InsertAsync(vacina);
                 var viewvacina = await _vacinacaoService.FindByIdAsync(insertedId);
                 var actionReturned = CreatedAtAction(nameof(Get), new { id = viewvacina.Id }, viewvacina);
@@ -95,6 +105,14 @@ namespace DaisyPets.WebApi.Controllers
                 if (viewContact == null)
                 {
                     return NotFound("Vacina não foi encontrada");
+                }
+
+                var validator = new VacinaValidator();
+                var result = validator.Validate(vacina);
+                if (result.IsValid == false)
+                {
+                    var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+                    return BadRequest(errorMessages);
                 }
 
                 await _vacinacaoService.UpdateAsync(Id, vacina);
@@ -246,7 +264,7 @@ namespace DaisyPets.WebApi.Controllers
         /// <param name="vacina"></param>
         /// <returns></returns>
         [HttpPost("ValidateVaccine")]
-        public IActionResult ValidateVaccine([FromBody] VacinaVM vacina)
+        public IActionResult ValidateVaccine([FromBody] VacinaDto vacina)
         {
             // Create validator instance (or inject it)
             var vacinaValidator = new VacinaValidator();

@@ -1,61 +1,59 @@
-﻿using DaisyPets.Core.Application.Interfaces.Services;
-using DaisyPets.Core.Application.ViewModels;
-using DaisyPets.Core.Domain;
+﻿using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.WebApi.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using PropertyManagerFL.Application.Interfaces.Services;
 
 namespace DaisyPets.WebApi.Controllers
 {
     /// <summary>
-    /// Consulta controller
+    /// Gestor de despesas
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-
-
-    public class ConsultaController : ControllerBase
+    public class DespesaController : ControllerBase
     {
-        private readonly IConsultaService _consultaService;
-        private readonly ILogger<ConsultaController> _logger;
+        private readonly IDespesaService _service;
+        private readonly ILogger<DespesaController> _logger;
 
         /// <summary>
-        /// Consulta controller constructor
+        /// Construtor
         /// </summary>
-        /// <param name="consultaService"></param>
-        public ConsultaController(IConsultaService consultaService, ILogger<ConsultaController> logger)
+        /// <param name="service"></param>
+        /// <param name="logger"></param>
+        public DespesaController(IDespesaService service, ILogger<DespesaController> logger)
         {
-            _consultaService = consultaService;
+            _service = service;
             _logger = logger;
         }
 
         /// <summary>
-        /// Create new appointment
+        /// Cria nova despesa
         /// </summary>
-        /// <param name="appt"></param>
+        /// <param name="expense"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Insert(ConsultaVeterinarioDto appt)
+        public async Task<IActionResult> Insert(DespesaDto expense)
         {
             var location = GetControllerActionNames();
             try
             {
 
-                if (appt is null)
+                if (expense is null)
                 {
                     return BadRequest();
                 }
 
-                var validator = new ConsultaValidator();
-                var result = validator.Validate(appt);
+                var validator = new DespesaValidator();
+                var result = validator.Validate(expense);
                 if (result.IsValid == false)
                 {
                     var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
                     return BadRequest(errorMessages);
                 }
 
-                var insertedId = await _consultaService.InsertAsync(appt);
-                var viewAppt = await _consultaService.FindByIdAsync(insertedId);
+                var insertedId = await _service.InsertAsync(expense);
+                var viewAppt = await _service.GetByIdAsync(insertedId);
                 var actionReturned = CreatedAtAction(nameof(Get), new { id = viewAppt.Id }, viewAppt);
 
 
@@ -70,46 +68,46 @@ namespace DaisyPets.WebApi.Controllers
         }
 
         /// <summary>
-        /// Atualiza consulta
+        /// Atualiza despesa
         /// </summary>
-        /// <param name="Id">Id da consulta</param>
-        /// <param name="appt">Dados da consulta</param>
+        /// <param name="Id"></param>
+        /// <param name="expense"></param>
         /// <returns></returns>
         [HttpPut("{Id:int}")]
-        public async Task<IActionResult> Update(int Id, [FromBody] ConsultaVeterinarioDto appt)
+        public async Task<IActionResult> Update(int Id, [FromBody] DespesaDto expense)
         {
             var location = GetControllerActionNames();
 
             try
             {
 
-                if (appt == null)
+                if (expense == null)
                 {
-                    string msg = "A Consulta passada como paràmetro é incorreto.";
+                    string msg = "A despesa passada como paràmetro é incorreto.";
                     _logger.LogWarning(msg);
                     return BadRequest(msg);
                 }
 
-                if (Id != appt.Id)
+                if (Id != expense.Id)
                 {
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewAppt = _consultaService.GetConsultaVMAsync(Id);
-                if (viewAppt == null)
+                var viewExpense = _service.GetByIdAsync(Id);
+                if (viewExpense == null)
                 {
-                    return NotFound("Consulta não foi encontrada");
+                    return NotFound("Despesa não foi encontrada");
                 }
 
-                var validator = new ConsultaValidator();
-                var result = validator.Validate(appt);
+                var validator = new DespesaValidator();
+                var result = validator.Validate(expense);
                 if (result.IsValid == false)
                 {
                     var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
                     return BadRequest(errorMessages);
                 }
 
-                await _consultaService.UpdateAsync(Id, appt);
+                await _service.UpdateAsync(Id, expense);
                 return NoContent();
 
             }
@@ -121,7 +119,7 @@ namespace DaisyPets.WebApi.Controllers
         }
 
         /// <summary>
-        /// Delete Appointment
+        ///  Apaga despesa
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -132,13 +130,13 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewAppt = _consultaService.GetConsultaVMAsync(Id);
-                if (viewAppt == null)
+                var viewExpense = _service.GetByIdAsync(Id);
+                if (viewExpense == null)
                 {
-                    return NotFound("Consulta não foi encontrada");
+                    return NotFound("Despesa não foi encontrada");
                 }
 
-                await _consultaService.DeleteAsync(Id);
+                await _service.DeleteAsync(Id);
                 return NoContent();
 
             }
@@ -151,7 +149,7 @@ namespace DaisyPets.WebApi.Controllers
 
 
         /// <summary>
-        /// Get appt by Id
+        /// Pesquisa despesa por Id
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
@@ -162,13 +160,13 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var appt = await _consultaService.FindByIdAsync(Id);
-                if (appt is null)
+                var expense = await _service.GetByIdAsync(Id);
+                if (expense is null)
                 {
                     return NotFound();
                 }
 
-                return Ok(appt);
+                return Ok(expense);
 
             }
             catch (Exception ex)
@@ -179,100 +177,108 @@ namespace DaisyPets.WebApi.Controllers
         }
 
         /// <summary>
-        /// Devolve todas consultas
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("AllConsultaVM")]
-        public async Task<IActionResult> AllConsultaVM()
-        {
-            try
-            {
-                var listOfConsultas = await _consultaService.GetAllConsultaVMAsync();
-                if (listOfConsultas is null)
-                { return NotFound(); }
-
-                return Ok(listOfConsultas);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message, ex);
-                return BadRequest("Dados das consultas não encontrados");
-            }
-        }
-
-        /// <summary>
-        /// Devolve consulta por Id
+        /// Get VM by Id (grid)
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpGet("ApptVMById/{Id:int}")]
-        public async Task<IActionResult> AppointmentVMById(int Id)
+        [HttpGet("VMExpenseByIdAsync/{Id:int}")]
+        public async Task<IActionResult> GetVMExpenseByIdAsync(int Id)
         {
+            var location = GetControllerActionNames();
+
             try
             {
-                var apptVM = await _consultaService.GetConsultaVMAsync(Id);
-
-                if (apptVM is null)
-                { return NotFound(); }
-
-                return Ok(apptVM);
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message, ex);
-                return BadRequest("Dados das consultas não encontrados");
-            }
-        }
-
-        /// <summary>
-        /// Pet appointments
-        /// </summary>
-        /// <param name="Id">Pet Id</param>
-        /// <returns>List of appointments</returns>
-        [HttpGet("PetAppointments/{Id:int}")]
-        public async Task<IActionResult> PetAppointments(int Id)
-        {
-            try
-            {
-                var petAppts = await _consultaService.GetConsultaVMAsync(Id);
-
-                if (petAppts is null)
+                var expenseVM = await _service.GetVMByIdAsync(Id);
+                if (expenseVM is null)
                 {
                     return NotFound();
                 }
 
-                return Ok(petAppts);
+                return Ok(expenseVM);
+
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
-                return BadRequest("Dados das consultas não encontrados");
+                _logger.LogError(ex.Message);
+                return InternalError($"{location}: {ex.Message} - {ex.InnerException}");
             }
         }
 
 
         /// <summary>
-        /// Validate Appointment
+        /// Todas as despesas
         /// </summary>
-        /// <param name="appt"></param>
+        /// <param name="Id"></param>
         /// <returns></returns>
-        [HttpPost("ValidateAppointment")]
-        public IActionResult ValidateConsulta([FromBody] ConsultaVeterinarioDto appt)
+        [HttpGet("{AllAsync}")]
+        public async Task<IActionResult> GetAllAsync(int Id)
         {
-            // Create validator instance (or inject it)
-            var ConsultaValidator = new ConsultaValidator();
+            var location = GetControllerActionNames();
 
-            // Call Validate or ValidateAsync and pass the object which needs to be validated
-            var result = ConsultaValidator.Validate(appt);
-
-            if (result.IsValid)
+            try
             {
-                return Ok(appt);
-            }
+                var expenses = await _service.GetAllAsync();
+                if (expenses is null)
+                {
+                    return NotFound();
+                }
 
-            var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
-            return BadRequest(errorMessages);
+                return Ok(expenses);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return InternalError($"{location}: {ex.Message} - {ex.InnerException}");
+            }
+        }
+
+        [HttpGet("{AllVMAsync}")]
+        public async Task<IActionResult> GetAllVMAsync(int Id)
+        {
+            var location = GetControllerActionNames();
+
+            try
+            {
+                var expensesVM = await _service.GetAllVMAsync();
+                if (expensesVM is null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(expensesVM);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return InternalError($"{location}: {ex.Message} - {ex.InnerException}");
+            }
+        }
+
+
+        /// <summary>
+        /// Despesas por categoria
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("TipoDespesa_ByCategoriaDespesa/{Id:int}")]
+        public async Task<IActionResult> GetTipoDespesa_ByCategoriaDespesa(int Id)
+        {
+            var location = GetControllerActionNames();
+
+            try
+            {
+                var CategoryType = await _service.GetTipoDespesa_ByCategoriaDespesa(Id);
+                return CategoryType == null ? NotFound() : Ok(CategoryType);
+
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex.Message);
+                return InternalError($"{location}: {ex.Message} - {ex.InnerException}");
+            }
         }
 
         private string GetControllerActionNames()
@@ -288,5 +294,7 @@ namespace DaisyPets.WebApi.Controllers
             _logger.LogError(message);
             return StatusCode(500, $"Algo de errado ocorreu ({message}). Contacte o Administrador");
         }
+
+
     }
 }

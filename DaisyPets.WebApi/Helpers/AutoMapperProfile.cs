@@ -24,6 +24,9 @@ public class AutoMapperProfile : Profile
         CreateMap<Racao, RacaoDto>().ReverseMap();
         CreateMap<RacaoDto, RacaoVM>().ReverseMap();
 
+        CreateMap<Desparasitante, DesparasitanteDto>().ReverseMap();
+        CreateMap<DesparasitanteDto, DesparasitanteVM>().ReverseMap();
+
         CreateMap<IdadeDto, Idade>().ReverseMap();
 
         CreateMap<ContactoVM, Contacto>().ReverseMap();

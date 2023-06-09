@@ -13,12 +13,12 @@ namespace DaisyPets.Infrastructure.Services
     public class VacinasService : IVacinasService
     {
         private readonly IVacinasRepository _repository;
-        private readonly IValidator<VacinaVM> _validator;
+        private readonly IValidator<VacinaDto> _validator;
 
         private readonly IMapper _mapper;
         private readonly ILogger<VacinasService> _logger;
 
-        public VacinasService(IVacinasRepository repository, IMapper mapper, IValidator<VacinaVM> validator, ILogger<VacinasService> logger)
+        public VacinasService(IVacinasRepository repository, IMapper mapper, IValidator<VacinaDto> validator, ILogger<VacinasService> logger)
         {
             _repository = repository;
             _mapper = mapper;
@@ -104,9 +104,9 @@ namespace DaisyPets.Infrastructure.Services
         /// </summary>
         /// <param name="Vacinao"></param>
         /// <returns></returns>
-        public string RegistoComErros(VacinaVM Vacinao)
+        public string RegistoComErros(VacinaDto vacina)
         {
-            ValidationResult results = _validator.Validate(Vacinao);
+            ValidationResult results = _validator.Validate(vacina);
 
             if (!results.IsValid)
             {

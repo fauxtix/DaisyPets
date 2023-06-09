@@ -10,7 +10,7 @@ namespace DaisyPets.Core.Application.Interfaces.Services
         Task<IEnumerable<VacinaVM>> GetAllVacinaVMAsync();
         Task<VacinaVM> GetVacinaVMAsync(int Id);
         Task<int> InsertAsync(VacinaDto Vacina);
-        string RegistoComErros(VacinaVM Vacinao);
+        string RegistoComErros(VacinaDto Vacinao);
         Task UpdateAsync(int Id, VacinaDto Vacina);
         Task<IEnumerable<VacinaVM>> GetPetVaccinesVMAsync(int petId);
     }
