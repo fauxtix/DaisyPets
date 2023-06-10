@@ -17,16 +17,19 @@ namespace DaisyPets.WebApi.Controllers
     {
         private readonly IRacaoService _racaoService;
         private readonly ILogger<RacaoController> _logger;
+        private readonly IWebHostEnvironment _environment;
+
 
         /// <summary>
         /// Construtor
         /// </summary>
         /// <param name="racaoService"></param>
         /// <param name="logger"></param>
-        public RacaoController(IRacaoService racaoService, ILogger<RacaoController> logger)
+        public RacaoController(IRacaoService racaoService, ILogger<RacaoController> logger, IWebHostEnvironment environment)
         {
             _racaoService = racaoService;
             _logger = logger;
+            _environment = environment;
         }
 
         /// <summary>
@@ -273,6 +276,22 @@ namespace DaisyPets.WebApi.Controllers
 
             var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
             return BadRequest(errorMessages);
+        }
+
+        /// <summary>
+        /// Info sobre alimentação do pet
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("DogFood_Info_Pdf")]
+        public IActionResult DogFood_Info_Pdf()
+        {
+            var pdfSource = Path.Combine(_environment.ContentRootPath, "Reports", "Docs", "Info", "AlimentacaoCaes.pdf");
+            if (!System.IO.File.Exists(pdfSource))
+            {
+                return NotFound();
+            }
+            else
+                return Ok(pdfSource);
         }
 
 

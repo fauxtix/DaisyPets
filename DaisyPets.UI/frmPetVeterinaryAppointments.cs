@@ -315,35 +315,27 @@ namespace DaisyPets.UI
                 {
                     var response = await httpClient.DeleteAsync(url);
                     response.EnsureSuccessStatusCode();
-                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                     {
-
+                        MessageBoxAdv.Show("Erro ao apagar registo", "Consultas no veterinário");
+                        return;
+                    }
+                    else
+                    {
+                        FillGrid();
                         if (dgvAppts.RowCount > 0)
                         {
-                            ShowRecord(1);
+                            dgvAppts.Rows[0].Selected = true;
+                            int petId = DataFormat.GetInteger(dgvAppts.Rows[0].Cells["IdPet"].Value);
+                            ShowRecord(petId);
                         }
                         else
                         {
                             dgvAppts.DataSource = null;
                             ClearForm();
                         }
-
                     }
-
                     response.Dispose();
-                    FillGrid();
-
-                    if (dgvAppts.RowCount > 0)
-                    {
-                        dgvAppts.Rows[0].Selected = true;
-                        int petId = DataFormat.GetInteger(dgvAppts.Rows[0].Cells["IdPet"].Value);
-                        ShowRecord(petId);
-                    }
-                    else
-                    {
-                        dgvAppts.DataSource = null;
-                        ClearForm();
-                    }
                 }
 
                 MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);

@@ -227,12 +227,12 @@ namespace DaisyPets.UI
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    var task = await httpClient.DeleteFromJsonAsync<PetDto>(url);
-                    if (task is null)
+                    var response = await httpClient.DeleteAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                     {
-                        MessageBoxAdv.Show("Erro ao apagar registo,", "Daisy Pets", MessageBoxButtons.OK);
+                        MessageBoxAdv.Show("Erro ao apagar registo", "Pets");
                         return;
-
                     }
 
                     FillGrid();
@@ -954,7 +954,7 @@ namespace DaisyPets.UI
                 situacao = "em família de adoção temporária";
             else if (situacao.ToLower().Contains("ado"))
             {
-                if(petVM.Genero == "F")
+                if (petVM.Genero == "F")
                 {
                     situacao = "adotada";
                 }
@@ -1086,6 +1086,11 @@ namespace DaisyPets.UI
                     frmPetRacoes fAppts = new frmPetRacoes(IdPet);
                     fAppts.ShowDialog();
                 }
+                else if (colName.ToLower().Contains("wormer"))
+                {
+                    frmPetDewormers fDewormers = new frmPetDewormers(IdPet);
+                    fDewormers.ShowDialog();
+                }
                 else
                 {
                     frmPetVaccines fVaccines = new frmPetVaccines(IdPet);
@@ -1100,7 +1105,7 @@ namespace DaisyPets.UI
                 return;
 
             var genero = cboGenero.SelectedItem.ToString();
-            IdGenero = genero.Substring(0);
+            IdGenero = genero!.Substring(0,1);
         }
     }
 }

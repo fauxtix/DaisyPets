@@ -1,10 +1,6 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
-using DaisyPets.Core.Domain;
-using DaisyPets.Infrastructure.Services;
 using DaisyPets.WebApi.Validators;
-using FluentValidation;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 
@@ -244,7 +240,7 @@ namespace DaisyPets.WebApi.Controllers
                 var petVaccines = await _vacinacaoService.GetPetVaccinesVMAsync(Id);
 
                 if (petVaccines is null)
-                { 
+                {
                     return NotFound();
                 }
 

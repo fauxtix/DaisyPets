@@ -61,6 +61,7 @@
             Marca = new DataGridViewTextBoxColumn();
             QuantidadeDiaria = new DataGridViewTextBoxColumn();
             PetId = new DataGridViewTextBoxColumn();
+            btnInfo = new Button();
             ((System.ComponentModel.ISupportInitialize)gradientPanel1).BeginInit();
             gradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nupQtdDiaria).BeginInit();
@@ -75,6 +76,7 @@
             // 
             gradientPanel1.BackColor = Color.Gainsboro;
             gradientPanel1.BorderStyle = BorderStyle.FixedSingle;
+            gradientPanel1.Controls.Add(btnInfo);
             gradientPanel1.Controls.Add(autoLabel4);
             gradientPanel1.Controls.Add(nupQtdDiaria);
             gradientPanel1.Controls.Add(autoLabel2);
@@ -89,7 +91,7 @@
             gradientPanel1.Location = new Point(24, 38);
             gradientPanel1.Margin = new Padding(3, 4, 3, 4);
             gradientPanel1.Name = "gradientPanel1";
-            gradientPanel1.Size = new Size(483, 181);
+            gradientPanel1.Size = new Size(557, 181);
             gradientPanel1.TabIndex = 12;
             // 
             // autoLabel4
@@ -126,7 +128,7 @@
             // 
             // txtPetName
             // 
-            txtPetName.BeforeTouchSize = new Size(412, 91);
+            txtPetName.BeforeTouchSize = new Size(70, 27);
             txtPetName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             txtPetName.Location = new Point(155, 37);
             txtPetName.Name = "txtPetName";
@@ -145,7 +147,7 @@
             // 
             // txtIdPet
             // 
-            txtIdPet.BeforeTouchSize = new Size(412, 91);
+            txtIdPet.BeforeTouchSize = new Size(70, 27);
             txtIdPet.Location = new Point(367, 7);
             txtIdPet.Margin = new Padding(3, 4, 3, 4);
             txtIdPet.Name = "txtIdPet";
@@ -187,7 +189,7 @@
             // 
             // txtMarca
             // 
-            txtMarca.BeforeTouchSize = new Size(412, 91);
+            txtMarca.BeforeTouchSize = new Size(70, 27);
             txtMarca.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             txtMarca.Location = new Point(155, 100);
             txtMarca.Margin = new Padding(3, 4, 3, 4);
@@ -198,7 +200,7 @@
             // txtID
             // 
             txtID.BackColor = Color.DarkGray;
-            txtID.BeforeTouchSize = new Size(412, 91);
+            txtID.BeforeTouchSize = new Size(70, 27);
             txtID.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             txtID.ForeColor = Color.Black;
             txtID.Location = new Point(155, 4);
@@ -383,6 +385,22 @@
             PetId.Resizable = DataGridViewTriState.False;
             PetId.Visible = false;
             // 
+            // btnInfo
+            // 
+            btnInfo.BackColor = Color.White;
+            btnInfo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnInfo.ForeColor = Color.Black;
+            btnInfo.Image = Properties.Resources.Info_32;
+            btnInfo.ImageAlign = ContentAlignment.MiddleLeft;
+            btnInfo.Location = new Point(460, 93);
+            btnInfo.Name = "btnInfo";
+            btnInfo.Size = new Size(82, 40);
+            btnInfo.TabIndex = 32;
+            btnInfo.Text = "Info";
+            btnInfo.TextAlign = ContentAlignment.MiddleRight;
+            btnInfo.UseVisualStyleBackColor = false;
+            btnInfo.Click += btnInfo_Click;
+            // 
             // frmPetRacoes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -460,5 +478,6 @@
         private DataGridViewTextBoxColumn Marca;
         private DataGridViewTextBoxColumn QuantidadeDiaria;
         private DataGridViewTextBoxColumn PetId;
+        private Button btnInfo;
     }
 }

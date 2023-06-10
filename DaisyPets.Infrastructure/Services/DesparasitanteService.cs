@@ -17,8 +17,8 @@ namespace DaisyPets.Infrastructure.Services
         private readonly ILogger<DesparasitanteService> _logger;
 
         public DesparasitanteService(IDesparasitanteRepository repository,
-            IValidator<DesparasitanteDto> validator, 
-            IMapper mapper, 
+            IValidator<DesparasitanteDto> validator,
+            IMapper mapper,
             ILogger<DesparasitanteService> logger)
         {
             _repository = repository;
@@ -45,7 +45,7 @@ namespace DaisyPets.Infrastructure.Services
             return output;
         }
 
-        public async Task<IEnumerable<DesparasitanteVM>> GetAllDesparasitantesVMAsync()
+        public async Task<IEnumerable<DesparasitanteVM>?> GetAllDesparasitantesVMAsync()
         {
             try
             {
@@ -56,7 +56,7 @@ namespace DaisyPets.Infrastructure.Services
             catch (Exception ex)
             {
                 _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                return null;
             }
         }
 
@@ -67,9 +67,18 @@ namespace DaisyPets.Infrastructure.Services
 
         public async Task<int> InsertAsync(DesparasitanteDto desparasitante)
         {
-            var identity = _mapper.Map<Desparasitante>(desparasitante);
-            var insertedId = await _repository.InsertAsync(identity);
-            return insertedId;
+            try
+            {
+                var identity = _mapper.Map<Desparasitante>(desparasitante);
+                var insertedId = await _repository.InsertAsync(identity);
+                return insertedId;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao inserir registo: {ex.Message}");
+                return -1;
+            }
         }
 
         public async Task UpdateAsync(int Id, DesparasitanteDto desparasitante)

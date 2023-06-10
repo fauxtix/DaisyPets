@@ -9,28 +9,28 @@ using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.UI
 {
-    public partial class frmPetVaccines : MetroForm
+    public partial class frmPetDewormers : MetroForm
     {
-        private int IdVacina = 0;
+        private int IdDesparasitante = 0;
         private int IdPet = 0;
+        private string IdTipo = "I";
         private int _previousIndex;
         private bool _sortDirection;
 
 
-        public frmPetVaccines(int petId = 0)
+        public frmPetDewormers(int petId = 0)
         {
             InitializeComponent();
             IdPet = petId;
             var petData = GetPetData(petId);
             txtPetName.Text = petData.Nome;
-            nupPrxToma.Value = 18;
 
-            dgvVacinas.AutoGenerateColumns = false;
-            if (dgvVacinas.RowCount > 0)
+            dgvDewormers.AutoGenerateColumns = false;
+            if (dgvDewormers.RowCount > 0)
             {
-                dgvVacinas.CurrentCell = dgvVacinas.Rows[0].Cells[0];
-                dgvVacinas.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(dgvVacinas.Rows[0].Cells[0].Value);
+                dgvDewormers.CurrentCell = dgvDewormers.Rows[0].Cells[0];
+                dgvDewormers.Rows[0].Selected = true;
+                int firstRowId = Convert.ToInt16(dgvDewormers.Rows[0].Cells[0].Value);
                 ShowRecord(firstRowId);
             }
 
@@ -40,9 +40,9 @@ namespace DaisyPets.UI
 
         private void FillGrid()
         {
-            IEnumerable<VacinaVM> vaccines;
+            IEnumerable<DesparasitanteVM> dewormers;
 
-            string url = $"https://localhost:7161/api/Vacinacao/PetVaccines/{IdPet}";
+            string url = $"https://localhost:7161/api/desparasitante/PetDewormers/{IdPet}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -51,14 +51,14 @@ namespace DaisyPets.UI
                     var response = task.Result;
                     if (response.IsSuccessStatusCode)
                     {
-                        vaccines = response.Content.ReadAsAsync<IEnumerable<VacinaVM>>().Result;
-                        if (vaccines != null)
+                        dewormers = response.Content.ReadAsAsync<IEnumerable<DesparasitanteVM>>().Result;
+                        if (dewormers != null)
                         {
-                            dgvVacinas.DataSource = vaccines?.ToList();
+                            dgvDewormers.DataSource = dewormers?.ToList();
                         }
                         else
                         {
-                            dgvVacinas.DataSource = new List<VacinaVM>();
+                            dgvDewormers.DataSource = new List<DesparasitanteVM>();
                         }
                     }
                     task.Wait();
@@ -82,13 +82,16 @@ namespace DaisyPets.UI
 
             try
             {
-                var vaccineData = await GetVaccine(Id);
-                if (vaccineData.Id > 0)
+                var dewormerData = await GetDewormer(Id);
+                if (dewormerData.Id > 0)
                 {
                     txtId.Text = Id.ToString();
-                    dtpToma.Value = Convert.ToDateTime(vaccineData.DataToma);
-                    txtMarca.Text = vaccineData.Marca;
-                    nupPrxToma.Value = vaccineData.ProximaTomaEmMeses;
+                    cboTipo.SelectedItem = dewormerData.Tipo;
+                    dtpAplicacao.Value = Convert.ToDateTime(dewormerData.DataAplicacao);
+                    txtMarca.Text = dewormerData.Marca;
+                    dtpProximaAplicacao.Value = Convert.ToDateTime(dewormerData.DataProximaAplicacao);
+
+                    cboTipo.SelectedItem = dewormerData.Tipo == "I" ? "Interno" : "Externo";
 
                     SetToolbar(OpcoesRegisto.Gravar);
                     SelectRowInGrid();
@@ -105,36 +108,37 @@ namespace DaisyPets.UI
             }
         }
 
-        private async Task<VacinaDto> GetVaccine(int Id)
+        private async Task<Core.Application.ViewModels.DesparasitanteDto> GetDewormer(int Id)
         {
-            string url = $"https://localhost:7161/api/Vacinacao/{Id}";
+            string url = $"https://localhost:7161/api/Desparasitante/{Id}";
             using (HttpClient httpClient = new HttpClient())
             {
-                var vaccine = await httpClient.GetFromJsonAsync<VacinaDto>(url);
-                return vaccine ?? new VacinaDto();
+                var dewormer = await httpClient.GetFromJsonAsync<Core.Application.ViewModels.DesparasitanteDto>(url);
+                return dewormer ?? new Core.Application.ViewModels.DesparasitanteDto();
             }
         }
 
 
         private void SelectRowInGrid()
         {
-            dgvVacinas.ClearSelection();
-            dgvVacinas.CurrentCell = null;
+            dgvDewormers.ClearSelection();
+            dgvDewormers.CurrentCell = null;
 
-            dgvVacinas.Rows
+            dgvDewormers.Rows
                 .OfType<DataGridViewRow>()
-                .Where(x => (int)x.Cells["Id"].Value == IdVacina)
+                .Where(x => (int)x.Cells["Id"].Value == IdDesparasitante)
                 .ToArray<DataGridViewRow>()[0]
                 .Selected = true;
         }
 
         private void ClearForm()
         {
-            IdVacina = 0;
-            dtpToma.Value = DateTime.Now.AddDays(-1);
+            IdDesparasitante = 0;
+            dtpAplicacao.Value = DateTime.Now.AddDays(-1);
+            dtpProximaAplicacao.Value = DateTime.Now.AddDays(-1);
             txtMarca.Clear();
-            nupPrxToma.Value = 1;
-            dtpToma.Focus();
+            cboTipo.SelectedItem = null;
+            cboTipo.Focus();
             SetToolbar_Clear();
         }
 
@@ -169,9 +173,9 @@ namespace DaisyPets.UI
         private void btnInsert_Click(object sender, EventArgs e)
         {
 
-            string url = "https://localhost:7161/api/Vacinacao";
+            string url = "https://localhost:7161/api/Desparasitante";
 
-            var validationErrors = ValidateVaccine();
+            var validationErrors = ValidateDewormer();
 
             if (validationErrors.Count() > 0)
             {
@@ -185,15 +189,16 @@ namespace DaisyPets.UI
             }
 
             DialogResult dr = MessageBoxAdv.Show($"Confirma criação de registo?",
-                    "Vacinas", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    "Desparasitantes", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr != DialogResult.Yes)
                 return;
 
-            VacinaDto newVaccine = new()
+            Core.Application.ViewModels.DesparasitanteDto newDewormer = new()
             {
                 IdPet = IdPet,
-                ProximaTomaEmMeses = (int)nupPrxToma.Value,
-                DataToma = dtpToma.Value.ToShortDateString(),
+                Tipo = IdTipo,
+                DataAplicacao = dtpAplicacao.Value.ToShortDateString(),
+                DataProximaAplicacao = dtpAplicacao.Value.AddMonths(3).ToShortDateString(),
                 Marca = txtMarca.Text,
             };
 
@@ -201,18 +206,18 @@ namespace DaisyPets.UI
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    var task = httpClient.PostAsJsonAsync(url, newVaccine);
+                    var task = httpClient.PostAsJsonAsync(url, newDewormer);
                     var response = task.Result;
 
                     var key = response.Content.ReadAsStringAsync().Result;
                     var definition = new { Id = 0 };
                     var obj = JsonConvert.DeserializeAnonymousType(key, definition);
-                    IdVacina = Convert.ToInt32(obj?.Id);
+                    IdDesparasitante = Convert.ToInt32(obj?.Id);
 
                     task.Wait();
                     task.Dispose();
 
-                    MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets - Vacinação");
+                    MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets - Desparasitantes");
                     SetToolbar(OpcoesRegisto.Inserir);
                     FillGrid();
                     ClearForm();
@@ -227,24 +232,25 @@ namespace DaisyPets.UI
 
         }
 
-        private List<string> ValidateVaccine()
+        private List<string> ValidateDewormer()
         {
 
             try
             {
-                VacinaDto vaccineToValidate = new()
+                Core.Application.ViewModels.DesparasitanteDto dewormerToValidate = new()
                 {
                     IdPet = IdPet,
-                    ProximaTomaEmMeses = (int)nupPrxToma.Value,
-                    DataToma = dtpToma.Value.ToShortDateString(),
+                    Tipo = IdTipo,
+                    DataAplicacao = dtpAplicacao.Value.ToShortDateString(),
+                    DataProximaAplicacao = dtpProximaAplicacao.Value.ToShortDateString(),
                     Marca = txtMarca.Text,
                 };
 
-                string url = $"https://localhost:7161/api/Vacinacao/ValidateVaccine";
+                string url = $"https://localhost:7161/api/Desparasitante/ValidateDesparasitantes";
                 using (HttpClient httpClient = new HttpClient())
                 {
 
-                    var task = httpClient.PostAsJsonAsync(url, vaccineToValidate);
+                    var task = httpClient.PostAsJsonAsync(url, dewormerToValidate);
                     var response = task.Result;
 
                     task.Wait();
@@ -275,7 +281,7 @@ namespace DaisyPets.UI
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            var validationErrors = ValidateVaccine();
+            var validationErrors = ValidateDewormer();
 
             if (validationErrors.Count() > 0)
             {
@@ -289,29 +295,30 @@ namespace DaisyPets.UI
             }
 
             DialogResult dr = MessageBoxAdv.Show($"Confirma atualização de registo?",
-                "Vacinação - Pets", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                "Desparasitantes - Pets", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (dr != DialogResult.Yes)
                 return;
-            if (IdVacina == 0)
-                IdVacina = DataFormat.GetInteger(txtId.Text);
+            if (IdDesparasitante == 0)
+                IdDesparasitante = DataFormat.GetInteger(txtId.Text);
 
-            var selectedRowIndex = dgvVacinas.SelectedRows[0].Index;
-            var updateVaccine = new VacinaDto()
+            var selectedRowIndex = dgvDewormers.SelectedRows[0].Index;
+            Core.Application.ViewModels.DesparasitanteDto dewormerDto = new()
             {
+                Id = IdDesparasitante,
                 IdPet = IdPet,
-                Id = IdVacina,
-                DataToma = dtpToma.Value.ToShortDateString(),
+                Tipo = IdTipo,
+                DataAplicacao = dtpAplicacao.Value.ToShortDateString(),
+                DataProximaAplicacao = dtpProximaAplicacao.Value.ToShortDateString(),
                 Marca = txtMarca.Text,
-                ProximaTomaEmMeses = (int)nupPrxToma.Value
             };
 
-            string url = $"https://localhost:7161/api/Vacinacao/{IdVacina}";
+            string url = $"https://localhost:7161/api/Desparasitante/{IdDesparasitante}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    var task = httpClient.PutAsJsonAsync(url, updateVaccine);
+                    var task = httpClient.PutAsJsonAsync(url, dewormerDto);
                     var response = task.Result;
 
                     task.Wait();
@@ -322,12 +329,12 @@ namespace DaisyPets.UI
                 SetToolbar(OpcoesRegisto.Gravar);
 
 
-                dgvVacinas.Rows[selectedRowIndex].Selected = true;
+                dgvDewormers.Rows[selectedRowIndex].Selected = true;
                 MessageBoxAdv.Show("Operação terminada com sucesso,", "Atualização de dados", MessageBoxButtons.OK);
             }
             catch (Exception ex)
             {
-                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Atualização de vacina");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Atualização de desparasitante");
             }
 
         }
@@ -375,28 +382,28 @@ namespace DaisyPets.UI
         }
 
 
-        private void dgvVacinas_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvDewormers_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex == -1)
                 return;
 
-            IdVacina = DataFormat.GetInteger(dgvVacinas.Rows[e.RowIndex].Cells["Id"].Value);
-            ShowRecord(IdVacina);
+            IdDesparasitante = DataFormat.GetInteger(dgvDewormers.Rows[e.RowIndex].Cells["Id"].Value);
+            ShowRecord(IdDesparasitante);
         }
 
-        private void dgvVacinas_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void dgvDewormers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.ColumnIndex == _previousIndex)
                 _sortDirection ^= true; // toggle direction
 
-            dgvVacinas.DataSource = SortData(
-                (List<VacinaVM>)dgvVacinas.DataSource, dgvVacinas.Columns[e.ColumnIndex].Name, _sortDirection);
+            dgvDewormers.DataSource = SortData(
+                (List<DesparasitanteVM>)dgvDewormers.DataSource, dgvDewormers.Columns[e.ColumnIndex].Name, _sortDirection);
 
             _previousIndex = e.ColumnIndex;
 
         }
 
-        public List<VacinaVM> SortData(List<VacinaVM> list, string column, bool ascending)
+        public List<DesparasitanteVM> SortData(List<DesparasitanteVM> list, string column, bool ascending)
         {
             return ascending ?
                 list.OrderBy(_ => _.GetType().GetProperty(column).GetValue(_)).ToList() :
@@ -406,49 +413,56 @@ namespace DaisyPets.UI
         private async void btnDelete_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBoxAdv.Show($"Confirma operação?",
-                "Apagar registo de vacinação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                "Apagar registo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (dr != DialogResult.Yes)
                 return;
 
-            await DeletePetVaccine();
+            await DeletePetDewormer();
 
         }
 
-        private async Task DeletePetVaccine()
+        private async Task DeletePetDewormer()
         {
-            string url = $"https://localhost:7161/api/Vacinacao/{IdVacina}";
+            string url = $"https://localhost:7161/api/Desparasitante/{IdDesparasitante}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
                     var response = await httpClient.DeleteAsync(url);
                     response.EnsureSuccessStatusCode();
-                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
+                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-                        MessageBoxAdv.Show("Erro ao apagar registo", "Vacinas");
-                        return;
-                    }
-                    else
-                    {
-                        if (dgvVacinas.RowCount > 0)
+
+                        if (dgvDewormers.RowCount > 0)
                         {
-                            dgvVacinas.Rows[0].Selected = true;
-                            int petId = DataFormat.GetInteger(dgvVacinas.Rows[0].Cells["PetId"].Value);
-                            ShowRecord(petId);
+                            ShowRecord(1);
                         }
                         else
                         {
-                            dgvVacinas.DataSource = null;
+                            dgvDewormers.DataSource = null;
                             ClearForm();
                         }
+
                     }
 
                     response.Dispose();
                     FillGrid();
+
+                    if (dgvDewormers.RowCount > 0)
+                    {
+                        dgvDewormers.Rows[0].Selected = true;
+                        int petId = DataFormat.GetInteger(dgvDewormers.Rows[0].Cells["PetId"].Value);
+                        ShowRecord(petId);
+                    }
+                    else
+                    {
+                        dgvDewormers.DataSource = null;
+                        ClearForm();
+                    }
                 }
 
-                MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo de vacinação", MessageBoxButtons.OK);
+                MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);
             }
             catch (Exception ex)
             {
@@ -459,19 +473,19 @@ namespace DaisyPets.UI
 
         private void btnInfo_Click(object sender, EventArgs e)
         {
-            var file = GetVaccines_InfoPdf();
+            var file = GetDewordmers_InfoPdf();
             if (!string.IsNullOrEmpty(file))
             {
                 FormParameters.NomePdf = file;
-                FormParameters.TituloPdf = "Vaccines Info";
+                FormParameters.TituloPdf = "Info Desparasitantes";
                 frmPdfViewer frmPdf = new frmPdfViewer();
                 frmPdf.ShowDialog();
             }
         }
 
-        private string GetVaccines_InfoPdf()
+        private string GetDewordmers_InfoPdf()
         {
-            string url = $"https://localhost:7161/api/Vacinacao/Vaccines_Info_Pdf";
+            string url = $"https://localhost:7161/api/Desparasitante/Desparasitante_Info_Pdf";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -487,8 +501,34 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBoxAdv.Show($"Erro no Api ({ex.Message})", "Vacinação");
+                MessageBoxAdv.Show($"Erro no Api ({ex.Message})", "Desparasitantes");
                 return "";
+            }
+        }
+
+        private void cboTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboTipo.SelectedItem == null)
+                return;
+
+            var _tipo = cboTipo.SelectedItem.ToString();
+            IdTipo = _tipo!.Substring(0, 1);
+
+        }
+
+        private void dtpAplicacao_ValueChanged(object sender, EventArgs e)
+        {
+            var dateSelected = dtpAplicacao.Value;
+            var isValidDate = DataFormat.IsValidDate(dateSelected);
+            if (isValidDate)
+            {
+                if (dateSelected.Date > DateTime.Now.Date)
+                {
+                    MessageBoxAdv.Show("Data da aplicação inválida", "Desparasitantes");
+                    return;
+                }
+
+                dtpProximaAplicacao.Value = dtpAplicacao.Value.AddMonths(3);
             }
         }
     }

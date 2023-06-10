@@ -1,5 +1,6 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Core.Application.ViewModels.Pdfs;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
 using System.Net.Http.Json;
@@ -268,12 +269,19 @@ namespace DaisyPets.UI
                 {
                     var response = await httpClient.DeleteAsync(url);
                     response.EnsureSuccessStatusCode();
-                    if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                    if(response.StatusCode != System.Net.HttpStatusCode.NoContent)
                     {
-
+                        MessageBoxAdv.Show("Erro ao apagar registo", "Rações");
+                        return;
+                    }
+                    else 
+                    {
+                        FillGrid();
                         if (dgvRacoes.RowCount > 0)
                         {
-                            ShowRecord(1);
+                            dgvRacoes.Rows[0].Selected = true;
+                            int petId = DataFormat.GetInteger(dgvRacoes.Rows[0].Cells["IdPet"].Value);
+                            ShowRecord(petId);
                         }
                         else
                         {
@@ -284,19 +292,6 @@ namespace DaisyPets.UI
                     }
 
                     response.Dispose();
-                    FillGrid();
-
-                    if (dgvRacoes.RowCount > 0)
-                    {
-                        dgvRacoes.Rows[0].Selected = true;
-                        int petId = DataFormat.GetInteger(dgvRacoes.Rows[0].Cells["IdPet"].Value);
-                        ShowRecord(petId);
-                    }
-                    else
-                    {
-                        dgvRacoes.DataSource = null;
-                        ClearForm();
-                    }
                 }
 
                 MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);
@@ -461,6 +456,43 @@ namespace DaisyPets.UI
                 return new PetVM();
             }
         }
+
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+            var file = GetPetFood_InfoPdf();
+            if (!string.IsNullOrEmpty(file))
+            {
+                FormParameters.NomePdf = file;
+                FormParameters.TituloPdf = "Info Rações";
+                frmPdfViewer frmPdf = new frmPdfViewer();
+                frmPdf.ShowDialog();
+            }
+
+        }
+
+        private string GetPetFood_InfoPdf()
+        {
+            string url = $"https://localhost:7161/api/Racao/DogFood_Info_Pdf";
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    var task = httpClient.GetStringAsync(url);
+                    task.Wait();
+
+                    var response = task.Result;
+                    task.Dispose();
+
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxAdv.Show($"Erro no Api ({ex.Message})", "Rações");
+                return "";
+            }
+        }
+
 
     }
 }

@@ -54,7 +54,7 @@ namespace DaisyPets.Infrastructure.Repositories
             DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("@Id", desparasitante.Id);
             dynamicParameters.Add("@DataAplicacao", desparasitante.DataAplicacao);
-            dynamicParameters.Add("@DataProximaAplicacao ", desparasitante.DataProximaAplicacao);
+            dynamicParameters.Add("@DataProximaAplicacao", desparasitante.DataProximaAplicacao);
             dynamicParameters.Add("@Marca", desparasitante.Marca);
             dynamicParameters.Add("@Tipo", desparasitante.Tipo);
             dynamicParameters.Add("@IdPet", desparasitante.IdPet);
@@ -62,15 +62,23 @@ namespace DaisyPets.Infrastructure.Repositories
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE Desparasitante SET ");
             sb.Append("DataAplicacao = @DataAplicacao, ");
-            sb.Append("DataProximaAplicacao = @DataProximaAplicacao , ");
+            sb.Append("DataProximaAplicacao = @DataProximaAplicacao, ");
             sb.Append("Marca = @Marca, ");
             sb.Append("Tipo = @Tipo, ");
             sb.Append("IdPet = @IdPet ");
             sb.Append("WHERE Id = @Id");
 
-            using (var connection = _context.CreateConnection())
+            try
             {
-                await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
+                using (var connection = _context.CreateConnection())
+                {
+                    await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
             }
         }
 
@@ -169,7 +177,7 @@ namespace DaisyPets.Infrastructure.Repositories
             sb.Append("SELECT Desparasitante.Id, DataAplicacao, DataProximaAplicacao, Marca, Tipo, IdPet, Pet.Nome AS [NomePet] ");
             sb.Append("FROM Desparasitante ");
             sb.Append("INNER JOIN Pet ON ");
-            sb.Append("DataAplicacao.IdPet = Pet.Id ");
+            sb.Append("Desparasitante.IdPet = Pet.Id ");
             sb.Append("WHERE Desparasitante.IdPet = @Id");
 
 

@@ -95,6 +95,7 @@
             HistoryInfo = new DataGridViewButtonColumn();
             PetApptsHistory = new DataGridViewButtonColumn();
             PetFeedHistory = new DataGridViewButtonColumn();
+            PetDewormerInfo = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)gdvDados).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudPeso).BeginInit();
@@ -119,7 +120,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             gdvDados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             gdvDados.ColumnHeadersHeight = 40;
-            gdvDados.Columns.AddRange(new DataGridViewColumn[] { Id, Nome, Chipado, Esterilizado, SituacaoAnimal, EspecieAnimal, RacaAnimal, TamanhoAnimal, HistoryInfo, PetApptsHistory, PetFeedHistory });
+            gdvDados.Columns.AddRange(new DataGridViewColumn[] { Id, Nome, Chipado, Esterilizado, SituacaoAnimal, EspecieAnimal, RacaAnimal, TamanhoAnimal, HistoryInfo, PetApptsHistory, PetFeedHistory, PetDewormerInfo });
             gdvDados.Location = new Point(33, 473);
             gdvDados.MultiSelect = false;
             gdvDados.Name = "gdvDados";
@@ -128,7 +129,7 @@
             gdvDados.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             gdvDados.RowTemplate.Height = 32;
             gdvDados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gdvDados.Size = new Size(1229, 221);
+            gdvDados.Size = new Size(1293, 221);
             gdvDados.TabIndex = 17;
             gdvDados.CellClick += gdvDados_CellClick;
             gdvDados.CellContentClick += gdvDados_CellContentClick;
@@ -759,6 +760,7 @@
             HistoryInfo.Name = "HistoryInfo";
             HistoryInfo.ReadOnly = true;
             HistoryInfo.Text = "Vac";
+            HistoryInfo.ToolTipText = "Vacinação";
             HistoryInfo.UseColumnTextForButtonValue = true;
             HistoryInfo.Width = 70;
             // 
@@ -769,6 +771,7 @@
             PetApptsHistory.ReadOnly = true;
             PetApptsHistory.Resizable = DataGridViewTriState.True;
             PetApptsHistory.Text = "Appts";
+            PetApptsHistory.ToolTipText = "Consultas veterinário";
             PetApptsHistory.UseColumnTextForButtonValue = true;
             PetApptsHistory.Width = 70;
             // 
@@ -780,8 +783,21 @@
             PetFeedHistory.Resizable = DataGridViewTriState.True;
             PetFeedHistory.SortMode = DataGridViewColumnSortMode.Automatic;
             PetFeedHistory.Text = "Rac";
+            PetFeedHistory.ToolTipText = "Rações";
             PetFeedHistory.UseColumnTextForButtonValue = true;
             PetFeedHistory.Width = 70;
+            // 
+            // PetDewormerInfo
+            // 
+            PetDewormerInfo.HeaderText = "";
+            PetDewormerInfo.Name = "PetDewormerInfo";
+            PetDewormerInfo.ReadOnly = true;
+            PetDewormerInfo.Resizable = DataGridViewTriState.True;
+            PetDewormerInfo.SortMode = DataGridViewColumnSortMode.Automatic;
+            PetDewormerInfo.Text = "Desp";
+            PetDewormerInfo.ToolTipText = "Desparasitantes";
+            PetDewormerInfo.UseColumnTextForButtonValue = true;
+            PetDewormerInfo.Width = 70;
             // 
             // frmPets
             // 
@@ -810,7 +826,7 @@
             captionLabel2.Text = "Gestão da base de dados";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(1259, 694);
+            ClientSize = new Size(1359, 694);
             Controls.Add(btnGeneratePdf);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
@@ -894,5 +910,6 @@
         private DataGridViewButtonColumn HistoryInfo;
         private DataGridViewButtonColumn PetApptsHistory;
         private DataGridViewButtonColumn PetFeedHistory;
+        private DataGridViewButtonColumn PetDewormerInfo;
     }
 }

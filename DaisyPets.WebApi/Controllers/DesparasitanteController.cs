@@ -15,16 +15,21 @@ namespace DaisyPets.WebApi.Controllers
     {
         private readonly IDesparasitanteService _desparasitanteService;
         private readonly ILogger<DesparasitanteController> _logger;
+        private readonly IWebHostEnvironment _environment;
 
         /// <summary>
         /// Construtor
         /// </summary>
         /// <param name="desparasitanteService"></param>
         /// <param name="logger"></param>
-        public DesparasitanteController(IDesparasitanteService desparasitanteService, ILogger<DesparasitanteController> logger)
+        /// <param name="environment"></param>
+        public DesparasitanteController(IDesparasitanteService desparasitanteService,
+            ILogger<DesparasitanteController> logger, 
+            IWebHostEnvironment environment)
         {
             _desparasitanteService = desparasitanteService;
             _logger = logger;
+            _environment = environment;
         }
 
         /// <summary>
@@ -182,7 +187,7 @@ namespace DaisyPets.WebApi.Controllers
         /// Devolve todas os desparasitantes (VM - grid)
         /// </summary>
         /// <returns></returns>
-        [HttpGet("AllRacoesVM")]
+        [HttpGet("AllWormersVM")]
         public async Task<IActionResult> AllRacoesVM()
         {
             try
@@ -271,6 +276,22 @@ namespace DaisyPets.WebApi.Controllers
 
             var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
             return BadRequest(errorMessages);
+        }
+
+        /// <summary>
+        /// Lê pdf com informação sobre desparasitantes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Desparasitante_Info_Pdf")]
+        public IActionResult Desparasitante_Info_Pdf()
+        {
+            var pdfSource = Path.Combine(_environment.ContentRootPath, "Reports", "Docs", "Info", "DesparasitantesCaes.pdf");
+            if (!System.IO.File.Exists(pdfSource))
+            {
+                return NotFound();
+            }
+            else
+                return Ok(pdfSource);
         }
 
 

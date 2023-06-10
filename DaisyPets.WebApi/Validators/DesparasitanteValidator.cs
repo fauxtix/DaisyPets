@@ -16,11 +16,10 @@ namespace DaisyPets.WebApi.Validators
         {
             RuleFor(p => p.Marca)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha campo marca, p.f.");
+                .NotEmpty().WithMessage("Preencha marca do desparasitante, p.f.");
             RuleFor(p => p.Tipo)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha tipo de desparasitante, p.f.")
-                .Must(BeAValidType).WithMessage("Tipo inválido (=> I ou E");
+                .NotEmpty().WithMessage("Preencha tipo de desparasitante, p.f.");
             RuleFor(p => p.DataAplicacao)
                 .Must(BeAValidDate).WithMessage("Data da aplicação deverá ser inferior à data corrente");
             RuleFor(p => p.DataProximaAplicacao)

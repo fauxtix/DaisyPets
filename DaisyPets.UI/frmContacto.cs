@@ -131,7 +131,7 @@ namespace DaisyPets.UI.Properties
             if (dr != DialogResult.Yes)
                 return;
 
-            DeletePet();
+            DeleteContact();
 
         }
 
@@ -396,19 +396,18 @@ namespace DaisyPets.UI.Properties
             FillGrid();
         }
 
-        private void DeletePet()
+        private async Task DeleteContact()
         {
             string url = $"https://localhost:7161/api/Contacts/{IdContacto}";
             using (HttpClient httpClient = new HttpClient())
             {
-                var task = httpClient.DeleteAsync(url);
-                var response = task.Result;
-                task.Wait();
-                task.Dispose();
+                var response = await  httpClient.DeleteAsync(url);
+                response.EnsureSuccessStatusCode();
 
-                if (response.IsSuccessStatusCode == false)
+                if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                 {
-
+                    MessageBoxAdv.Show("Erro ao apagar registo", "Contactos");
+                    return;
                 }
                 else
                 {
