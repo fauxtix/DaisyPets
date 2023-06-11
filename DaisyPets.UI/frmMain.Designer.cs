@@ -34,6 +34,8 @@
             toolStrip1 = new ToolStrip();
             btnPets = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
+            btnExpensesDonations = new ToolStripButton();
+            toolStripSeparator4 = new ToolStripSeparator();
             btnContactos = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripButton3 = new ToolStripButton();
@@ -45,7 +47,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(48, 48);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnContactos, toolStripSeparator2, toolStripButton3, toolStripSeparator3, btnFechar });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnExpensesDonations, toolStripSeparator4, btnContactos, toolStripSeparator2, toolStripButton3, toolStripSeparator3, btnFechar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1384, 55);
@@ -66,6 +68,20 @@
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 55);
+            // 
+            // btnExpensesDonations
+            // 
+            btnExpensesDonations.Image = Properties.Resources.iconfinder_71_5027865;
+            btnExpensesDonations.ImageTransparentColor = Color.Magenta;
+            btnExpensesDonations.Name = "btnExpensesDonations";
+            btnExpensesDonations.Size = new Size(171, 52);
+            btnExpensesDonations.Text = "Despesas / Donativos";
+            btnExpensesDonations.Click += btnExpensesDonations_Click;
+            // 
+            // toolStripSeparator4
+            // 
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(6, 55);
             // 
             // btnContactos
             // 
@@ -155,5 +171,7 @@
         private ToolStripButton toolStripButton3;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripButton btnFechar;
+        private ToolStripButton btnExpensesDonations;
+        private ToolStripSeparator toolStripSeparator4;
     }
 }

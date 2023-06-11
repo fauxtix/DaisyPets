@@ -26,9 +26,11 @@ namespace PropertyManagerFL.Infrastructure.Repositories
             StringBuilder sb = new StringBuilder();
 
             sb.Append("INSERT INTO Despesa (");
-            sb.Append("DataMovimento, ValorPago, NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, Notas) ");
+            sb.Append("DataMovimento, ValorPago, Descricao, IdTipoDespesa, ");
+            sb.Append("IdCategoriaDespesa, Notas, DataCriacao, TipoMovimento  ) ");
             sb.Append(" VALUES(");
-            sb.Append("@DataMovimento, @ValorPago, @NumeroDocumento, @IdTipoDespesa, @IdCategoriaDespesa, @Notas");
+            sb.Append("@DataMovimento, @ValorPago, @Descricao, @IdTipoDespesa, ");
+            sb.Append("@IdCategoriaDespesa, @Notas, @DataCriacao, @TipoMovimento");
             sb.Append(");");
             sb.Append("SELECT last_insert_rowid()");
 
@@ -56,18 +58,20 @@ namespace PropertyManagerFL.Infrastructure.Repositories
             dynamicParameters.Add("@Id", expense.Id);
             dynamicParameters.Add("@DataMovimento", expense.DataMovimento);
             dynamicParameters.Add("@ValorPago", expense.ValorPago);
-            dynamicParameters.Add("@NumeroDocumento", expense.NumeroDocumento);
+            dynamicParameters.Add("@Descricao", expense.Descricao);
             dynamicParameters.Add("@IdTipoDespesa", expense.IdTipoDespesa);
             dynamicParameters.Add("@IdCategoriaDespesa", expense.IdCategoriaDespesa);
+            dynamicParameters.Add("@TipoMovimento", expense.TipoMovimento);
             dynamicParameters.Add("@Notas", expense.Notas);
 
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE Despesa SET ");
             sb.Append("DataMovimento = @DataMovimento, ");
             sb.Append("ValorPago = @ValorPago, ");
-            sb.Append("NumeroDocumento = @NumeroDocumento, ");
+            sb.Append("Descricao = @Descricao, ");
             sb.Append("IdTipoDespesa = @IdTipoDespesa, ");
             sb.Append("IdCategoriaDespesa = @IdCategoriaDespesa, ");
+            sb.Append("TipoMovimento = @TipoMovimento, ");
             sb.Append("Notas = @Notas ");
             sb.Append("WHERE Id = @Id");
 
@@ -111,8 +115,8 @@ namespace PropertyManagerFL.Infrastructure.Repositories
         public async Task<IEnumerable<Despesa>?> GetAllAsync()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Despesa.Id, DataMovimento, ValorPago, ");
-            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, Notas ");
+            sb.Append("SELECT Despesa.Id, DataCriacao, DataMovimento, ValorPago, ");
+            sb.Append("Descricao, IdTipoDespesa, IdCategoriaDespesa, Notas, TipoMovimento ");
             sb.Append("FROM Despesa");
             using (var connection = _context.CreateConnection())
             {
@@ -130,8 +134,8 @@ namespace PropertyManagerFL.Infrastructure.Repositories
         public async Task<Despesa?> GetByIdAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Despesa.Id, DataMovimento, ValorPago, ");
-            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, Notas ");
+            sb.Append("SELECT Despesa.Id, DataCriacao, DataMovimento, ValorPago, ");
+            sb.Append("Descricao, IdTipoDespesa, IdCategoriaDespesa, Notas, TipoMovimento ");
             sb.Append("FROM Despesa ");
             sb.Append($"WHERE Id = @Id");
 
@@ -199,7 +203,7 @@ namespace PropertyManagerFL.Infrastructure.Repositories
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Despesa.Id, DataMovimento, ValorPago, ");
-            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, Notas, ");
+            sb.Append("Despesa.Descricao, IdTipoDespesa, IdCategoriaDespesa, Notas, TipoMovimento, ");
             sb.Append("CD.Descricao AS [DescricaoCategoriaDespesa], ");
             sb.Append("TD.Descricao AS [DescricaoTipoDespesa] ");
             sb.Append("FROM Despesa ");
@@ -228,7 +232,7 @@ namespace PropertyManagerFL.Infrastructure.Repositories
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Despesa.Id, DataMovimento, ValorPago, ");
-            sb.Append("NumeroDocumento, IdTipoDespesa, IdCategoriaDespesa, Notas, ");
+            sb.Append("Despesa.Descricao, IdTipoDespesa, IdCategoriaDespesa, Notas, TipoMovimento, ");
             sb.Append("CD.Descricao AS [DescricaoCategoriaDespesa], ");
             sb.Append("TD.Descricao AS [DescricaoTipoDespesa] ");
             sb.Append("FROM Despesa ");

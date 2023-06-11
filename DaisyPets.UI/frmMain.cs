@@ -1,4 +1,5 @@
-﻿using DaisyPets.UI.Properties;
+﻿using DaisyPets.UI.Expenses;
+using DaisyPets.UI.Properties;
 using Syncfusion.Windows.Forms;
 
 namespace DaisyPets.UI
@@ -50,6 +51,25 @@ namespace DaisyPets.UI
         private void Contacts_FormClosed(object sender, FormClosedEventArgs e)
         {
             fContactos = null;
+        }
+
+        frmExpensesMain fExpenses;
+        private void btnExpensesDonations_Click(object sender, EventArgs e)
+        {
+            if (fContactos == null)
+            {
+                fExpenses = new frmExpensesMain();
+                fExpenses.MdiParent = this;
+                fExpenses.FormClosed += Expenses_FormClosed;
+                fExpenses.Show();
+            }
+            else
+            { fExpenses.Activate(); }
+        }
+
+        private void Expenses_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            fExpenses = null;
         }
 
         frmPdfViewer fPdf;
@@ -107,6 +127,7 @@ namespace DaisyPets.UI
 
             return retValue;
         }
+
     }
 }
 
