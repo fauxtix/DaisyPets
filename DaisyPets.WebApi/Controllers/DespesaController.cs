@@ -287,6 +287,30 @@ namespace DaisyPets.WebApi.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Valida despesa
+        /// </summary>
+        /// <param name="_expense"></param>
+        /// <returns></returns>
+        /// 
+        [HttpPost("ValidateExpense")]
+        public IActionResult ValidateExpense([FromBody] DespesaDto _expense)
+        {
+            var expenseValidator = new DespesaValidator();
+
+            var result = expenseValidator.Validate(_expense);
+
+            if (result.IsValid)
+            {
+                return Ok(_expense);
+            }
+
+            var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+            return BadRequest(errorMessages);
+        }
+
+
         private string GetControllerActionNames()
         {
             var controller = ControllerContext.ActionDescriptor.ControllerName;
@@ -300,7 +324,5 @@ namespace DaisyPets.WebApi.Controllers
             _logger.LogError(message);
             return StatusCode(500, $"Algo de errado ocorreu ({message}). Contacte o Administrador");
         }
-
-
     }
 }

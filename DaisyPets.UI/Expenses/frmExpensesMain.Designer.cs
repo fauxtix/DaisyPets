@@ -97,6 +97,7 @@
             dgvExpenses.RowTemplate.Height = 25;
             dgvExpenses.Size = new Size(885, 409);
             dgvExpenses.TabIndex = 0;
+            dgvExpenses.CellDoubleClick += dgvExpenses_CellDoubleClick;
             // 
             // Id
             // 
@@ -299,6 +300,7 @@
             btnClear.Text = "Clear ";
             btnClear.TextAlign = ContentAlignment.MiddleRight;
             btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClear_Click;
             // 
             // btnDelete
             // 
@@ -329,6 +331,7 @@
             btnUpdate.Text = "Update ";
             btnUpdate.TextAlign = ContentAlignment.MiddleRight;
             btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnInsert
             // 

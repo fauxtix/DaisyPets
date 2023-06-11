@@ -1,7 +1,7 @@
-﻿using DaisyPets.Core.Application.ViewModels;
+﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels.Despesas;
 using Syncfusion.Windows.Forms;
-using System.Collections;
+using System.Net.Http.Json;
 using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.UI.Expenses
@@ -9,9 +9,6 @@ namespace DaisyPets.UI.Expenses
     public partial class frmExpensesMain : MetroForm
     {
         private int IdExpense = 0;
-        private string IdTipoMovimento = "S";
-        private int IdCategoriaDespesa = 0;
-        private int IdTipoDespesa = 0;
         private int _previousIndex;
         private bool _sortDirection;
 
@@ -100,69 +97,69 @@ namespace DaisyPets.UI.Expenses
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
+            DespesaDto expenseDto = new DespesaDto()
+            {
+                DataCriacao = DateTime.Now.Date.ToShortDateString(),
+                DataMovimento = DateTime.Now.Date.ToShortDateString(),
+                Descricao = "",
+                IdCategoriaDespesa = -1,
+                IdTipoDespesa = -1,
+                Notas = "",
+                TipoMovimento = "S",
+                ValorPago = 0M
+            };
 
+            frmNewEntry fNewEntry = new frmNewEntry(expenseDto);
+            var resp = fNewEntry.ShowDialog();
+            if (resp == DialogResult.OK)
+            {
+                FillGrid();
+            }
         }
 
-        private List<string> ValidateData()
+        private async Task<DespesaDto> GeExpense(int Id)
         {
-
-            try
+            string url = $"https://localhost:7161/api/despesa/{Id}";
+            using (HttpClient httpClient = new HttpClient())
             {
-                DespesaDto expenset2Validate = new()
-                {
-                    Nome = txtNome.Text,
-                    Chipado = chkChipado.Checked ? 1 : 0,
-                    NumeroChip = txtNumeroChip.Text,
-                    DataChip = dtpChip.Value.ToShortDateString(),
-                    IdEspecie = cboEspecies.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboEspecies.SelectedItem)).Key) : -1,
-                    IdRaca = cboRaca.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboRaca.SelectedItem)).Key) : -1,
-                    IdSituacao = cboSituacao.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboSituacao.SelectedItem)).Key) : -1,
-                    DataNascimento = dtpDataNascimento.Text,
-                    IdTamanho = cboTamanho.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboTamanho.SelectedItem)).Key) : -1,
-                    IdTemperamento = cboTemperamento.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboTemperamento.SelectedItem)).Key) : -1
-                };
-
-                string url = $"https://localhost:7161/api/Pets/ValidatePets";
-                using (HttpClient httpClient = new HttpClient())
-                {
-
-                    var task = httpClient.PostAsJsonAsync<PetDto>(url, pet2Validate);
-                    var response = task.Result;
-
-                    task.Wait();
-                    task.Dispose();
-
-                    if (response.IsSuccessStatusCode == false)
-                    {
-                        var errors = response.Content.ReadAsAsync<List<string>>().Result;
-                        if (errors.Count() > 0)
-                        {
-                            return errors;
-                        }
-
-                        else
-
-                            return new List<string>();
-                    }
-
-                    return new List<string>();
-
-                    //using (HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, pet2Validate))
-                    //{
-                    //    var isSuccess = response.IsSuccessStatusCode;
-
-                    //    var errors = response.Content.ReadAsAsync<List<string>>().Result;
-                    //    return errors ?? new List<string>();
-                    //}
-
-                }
-            }
-            catch (Exception ex)
-            {
-                var ddd = ex.Message;
-                throw;
+                var _expense = await httpClient.GetFromJsonAsync<DespesaDto>(url);
+                return _expense ?? new DespesaDto();
             }
         }
 
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+
+        private void ClearForm()
+        {
+            SetToolbar_Clear();
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            SetToolbar(OpcoesRegisto.Gravar);
+
+        }
+
+        private async void dgvExpenses_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            IdExpense = DataFormat.GetInteger(dgvExpenses.Rows[e.RowIndex].Cells["Id"].Value);
+            var expenseRecord = await GeExpense(IdExpense);
+
+
+            frmNewEntry fNewEntry = new frmNewEntry(expenseRecord);
+            var resp = fNewEntry.ShowDialog();
+            if (resp == DialogResult.OK)
+            {
+                FillGrid();
+            }
+
+        }
     }
 }
+
