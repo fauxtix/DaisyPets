@@ -39,6 +39,7 @@
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             gradientPanel1 = new Syncfusion.Windows.Forms.Tools.GradientPanel();
+            btnInfo = new Button();
             autoLabel4 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             nupQtdDiaria = new Syncfusion.Windows.Forms.Tools.NumericUpDownExt();
             autoLabel2 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
@@ -61,7 +62,6 @@
             Marca = new DataGridViewTextBoxColumn();
             QuantidadeDiaria = new DataGridViewTextBoxColumn();
             PetId = new DataGridViewTextBoxColumn();
-            btnInfo = new Button();
             ((System.ComponentModel.ISupportInitialize)gradientPanel1).BeginInit();
             gradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nupQtdDiaria).BeginInit();
@@ -94,6 +94,22 @@
             gradientPanel1.Size = new Size(557, 181);
             gradientPanel1.TabIndex = 12;
             // 
+            // btnInfo
+            // 
+            btnInfo.BackColor = Color.White;
+            btnInfo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnInfo.ForeColor = Color.Black;
+            btnInfo.Image = Properties.Resources.Info_32;
+            btnInfo.ImageAlign = ContentAlignment.MiddleLeft;
+            btnInfo.Location = new Point(460, 93);
+            btnInfo.Name = "btnInfo";
+            btnInfo.Size = new Size(82, 40);
+            btnInfo.TabIndex = 32;
+            btnInfo.Text = "Info";
+            btnInfo.TextAlign = ContentAlignment.MiddleRight;
+            btnInfo.UseVisualStyleBackColor = false;
+            btnInfo.Click += btnInfo_Click;
+            // 
             // autoLabel4
             // 
             autoLabel4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -105,15 +121,17 @@
             // 
             // nupQtdDiaria
             // 
-            nupQtdDiaria.BeforeTouchSize = new Size(53, 27);
+            nupQtdDiaria.BeforeTouchSize = new Size(70, 27);
             nupQtdDiaria.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             nupQtdDiaria.Location = new Point(155, 134);
-            nupQtdDiaria.Maximum = new decimal(new int[] { 3, 0, 0, 0 });
+            nupQtdDiaria.Maximum = new decimal(new int[] { 999, 0, 0, 0 });
             nupQtdDiaria.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             nupQtdDiaria.Name = "nupQtdDiaria";
-            nupQtdDiaria.Size = new Size(53, 27);
+            nupQtdDiaria.Size = new Size(70, 27);
             nupQtdDiaria.TabIndex = 30;
-            nupQtdDiaria.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            nupQtdDiaria.ThemeName = "VS2010";
+            nupQtdDiaria.Value = new decimal(new int[] { 200, 0, 0, 0 });
+            nupQtdDiaria.VisualStyle = Syncfusion.Windows.Forms.VisualStyle.VS2010;
             // 
             // autoLabel2
             // 
@@ -128,7 +146,7 @@
             // 
             // txtPetName
             // 
-            txtPetName.BeforeTouchSize = new Size(70, 27);
+            txtPetName.BeforeTouchSize = new Size(273, 27);
             txtPetName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             txtPetName.Location = new Point(155, 37);
             txtPetName.Name = "txtPetName";
@@ -147,7 +165,7 @@
             // 
             // txtIdPet
             // 
-            txtIdPet.BeforeTouchSize = new Size(70, 27);
+            txtIdPet.BeforeTouchSize = new Size(273, 27);
             txtIdPet.Location = new Point(367, 7);
             txtIdPet.Margin = new Padding(3, 4, 3, 4);
             txtIdPet.Name = "txtIdPet";
@@ -189,7 +207,7 @@
             // 
             // txtMarca
             // 
-            txtMarca.BeforeTouchSize = new Size(70, 27);
+            txtMarca.BeforeTouchSize = new Size(273, 27);
             txtMarca.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             txtMarca.Location = new Point(155, 100);
             txtMarca.Margin = new Padding(3, 4, 3, 4);
@@ -200,7 +218,7 @@
             // txtID
             // 
             txtID.BackColor = Color.DarkGray;
-            txtID.BeforeTouchSize = new Size(70, 27);
+            txtID.BeforeTouchSize = new Size(273, 27);
             txtID.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             txtID.ForeColor = Color.Black;
             txtID.Location = new Point(155, 4);
@@ -220,7 +238,7 @@
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClear.Location = new Point(505, 246);
+            btnClear.Location = new Point(483, 246);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(98, 39);
             btnClear.TabIndex = 19;
@@ -321,7 +339,7 @@
             dgvRacoes.RowTemplate.DividerHeight = 1;
             dgvRacoes.RowTemplate.Height = 32;
             dgvRacoes.ScrollBars = ScrollBars.Vertical;
-            dgvRacoes.Size = new Size(579, 134);
+            dgvRacoes.Size = new Size(591, 237);
             dgvRacoes.TabIndex = 20;
             dgvRacoes.CellClick += dgvRacoes_CellClick;
             dgvRacoes.ColumnHeaderMouseClick += dgvRacoes_ColumnHeaderMouseClick;
@@ -385,22 +403,6 @@
             PetId.Resizable = DataGridViewTriState.False;
             PetId.Visible = false;
             // 
-            // btnInfo
-            // 
-            btnInfo.BackColor = Color.White;
-            btnInfo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnInfo.ForeColor = Color.Black;
-            btnInfo.Image = Properties.Resources.Info_32;
-            btnInfo.ImageAlign = ContentAlignment.MiddleLeft;
-            btnInfo.Location = new Point(460, 93);
-            btnInfo.Name = "btnInfo";
-            btnInfo.Size = new Size(82, 40);
-            btnInfo.TabIndex = 32;
-            btnInfo.Text = "Info";
-            btnInfo.TextAlign = ContentAlignment.MiddleRight;
-            btnInfo.UseVisualStyleBackColor = false;
-            btnInfo.Click += btnInfo_Click;
-            // 
             // frmPetRacoes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -424,7 +426,7 @@
             captionLabel2.Text = "Rações";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(627, 443);
+            ClientSize = new Size(627, 559);
             Controls.Add(dgvRacoes);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
@@ -57,7 +58,7 @@
             // btnPets
             // 
             btnPets.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            btnPets.Image = Properties.Resources.database_px_png;
+            btnPets.Image = (Image)resources.GetObject("btnPets.Image");
             btnPets.ImageTransparentColor = Color.Magenta;
             btnPets.Name = "btnPets";
             btnPets.Size = new Size(87, 52);
@@ -74,8 +75,8 @@
             btnExpensesDonations.Image = Properties.Resources.iconfinder_71_5027865;
             btnExpensesDonations.ImageTransparentColor = Color.Magenta;
             btnExpensesDonations.Name = "btnExpensesDonations";
-            btnExpensesDonations.Size = new Size(171, 52);
-            btnExpensesDonations.Text = "Despesas / Donativos";
+            btnExpensesDonations.Size = new Size(107, 52);
+            btnExpensesDonations.Text = "Despesas";
             btnExpensesDonations.Click += btnExpensesDonations_Click;
             // 
             // toolStripSeparator4

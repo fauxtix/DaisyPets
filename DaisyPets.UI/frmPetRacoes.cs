@@ -35,6 +35,8 @@ namespace DaisyPets.UI
                 ShowRecord(firstRowId);
             }
 
+            nupQtdDiaria.Value = 200;
+
             ClearForm();
             FillGrid();
 
@@ -269,12 +271,12 @@ namespace DaisyPets.UI
                 {
                     var response = await httpClient.DeleteAsync(url);
                     response.EnsureSuccessStatusCode();
-                    if(response.StatusCode != System.Net.HttpStatusCode.NoContent)
+                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                     {
                         MessageBoxAdv.Show("Erro ao apagar registo", "Rações");
                         return;
                     }
-                    else 
+                    else
                     {
                         FillGrid();
                         if (dgvRacoes.RowCount > 0)
@@ -361,7 +363,7 @@ namespace DaisyPets.UI
             IdRacao = 0;
             dtpBuyDate.Value = DateTime.Now.AddDays(-1);
             txtMarca.Clear();
-            nupQtdDiaria.Value = 1;
+            nupQtdDiaria.Value = 200;
             dtpBuyDate.Focus();
             SetToolbar_Clear();
         }

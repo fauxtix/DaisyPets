@@ -50,20 +50,16 @@
             filterFromDateTime = new DateTimePicker();
             filterToDateTime = new DateTimePicker();
             autoLabel2 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            autoLabel3 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            radioButtonAll = new RadioButton();
-            radioButtonExpenses = new RadioButton();
-            radioButtonIncome = new RadioButton();
-            autoLabel4 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            comboBoxCategories = new ComboBox();
-            labelSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            labelVisibleSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            panel1 = new Panel();
             btnClear = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
             btnInsert = new Button();
+            labelVisibleSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            labelSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             ((System.ComponentModel.ISupportInitialize)dgvExpenses).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkBoxFilterDateTime).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvExpenses
@@ -93,11 +89,17 @@
             dgvExpenses.Location = new Point(22, 12);
             dgvExpenses.Name = "dgvExpenses";
             dgvExpenses.ReadOnly = true;
+            dgvExpenses.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dgvExpenses.RowHeadersWidth = 45;
             dgvExpenses.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dgvExpenses.RowTemplate.Height = 25;
-            dgvExpenses.Size = new Size(885, 409);
+            dgvExpenses.RowTemplate.DividerHeight = 1;
+            dgvExpenses.RowTemplate.Height = 28;
+            dgvExpenses.RowTemplate.ReadOnly = true;
+            dgvExpenses.ScrollBars = ScrollBars.Vertical;
+            dgvExpenses.Size = new Size(1047, 519);
             dgvExpenses.TabIndex = 0;
             dgvExpenses.CellDoubleClick += dgvExpenses_CellDoubleClick;
+            dgvExpenses.ColumnHeaderMouseClick += dgvExpenses_ColumnHeaderMouseClick;
             // 
             // Id
             // 
@@ -132,7 +134,7 @@
             Descricao.HeaderText = "Descricao";
             Descricao.Name = "Descricao";
             Descricao.ReadOnly = true;
-            Descricao.Width = 200;
+            Descricao.Width = 300;
             // 
             // DescricaoCategoriaDespesa
             // 
@@ -148,7 +150,7 @@
             DescricaoTipoDespesa.HeaderText = "Tipo despesa";
             DescricaoTipoDespesa.Name = "DescricaoTipoDespesa";
             DescricaoTipoDespesa.ReadOnly = true;
-            DescricaoTipoDespesa.Width = 150;
+            DescricaoTipoDespesa.Width = 200;
             // 
             // TipoMovimento
             // 
@@ -163,7 +165,7 @@
             // lblFilter
             // 
             lblFilter.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            lblFilter.Location = new Point(938, 12);
+            lblFilter.Location = new Point(1088, 12);
             lblFilter.Name = "lblFilter";
             lblFilter.Size = new Size(45, 17);
             lblFilter.TabIndex = 1;
@@ -172,7 +174,7 @@
             // checkBoxFilterDateTime
             // 
             checkBoxFilterDateTime.BeforeTouchSize = new Size(123, 21);
-            checkBoxFilterDateTime.Location = new Point(938, 47);
+            checkBoxFilterDateTime.Location = new Point(1088, 47);
             checkBoxFilterDateTime.Name = "checkBoxFilterDateTime";
             checkBoxFilterDateTime.Size = new Size(123, 21);
             checkBoxFilterDateTime.TabIndex = 2;
@@ -180,7 +182,7 @@
             // 
             // autoLabel1
             // 
-            autoLabel1.Location = new Point(938, 83);
+            autoLabel1.Location = new Point(1088, 83);
             autoLabel1.Name = "autoLabel1";
             autoLabel1.Size = new Size(62, 15);
             autoLabel1.TabIndex = 3;
@@ -190,7 +192,7 @@
             // 
             filterFromDateTime.CalendarFont = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             filterFromDateTime.Enabled = false;
-            filterFromDateTime.Location = new Point(938, 101);
+            filterFromDateTime.Location = new Point(1088, 101);
             filterFromDateTime.Name = "filterFromDateTime";
             filterFromDateTime.Size = new Size(222, 23);
             filterFromDateTime.TabIndex = 0;
@@ -200,7 +202,7 @@
             // 
             filterToDateTime.CalendarFont = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             filterToDateTime.Enabled = false;
-            filterToDateTime.Location = new Point(938, 158);
+            filterToDateTime.Location = new Point(1088, 158);
             filterToDateTime.Name = "filterToDateTime";
             filterToDateTime.Size = new Size(222, 23);
             filterToDateTime.TabIndex = 4;
@@ -208,83 +210,24 @@
             // 
             // autoLabel2
             // 
-            autoLabel2.Location = new Point(938, 140);
+            autoLabel2.Location = new Point(1088, 140);
             autoLabel2.Name = "autoLabel2";
             autoLabel2.Size = new Size(25, 15);
             autoLabel2.TabIndex = 5;
             autoLabel2.Text = "Até";
             // 
-            // autoLabel3
+            // panel1
             // 
-            autoLabel3.Location = new Point(938, 198);
-            autoLabel3.Name = "autoLabel3";
-            autoLabel3.Size = new Size(78, 15);
-            autoLabel3.TabIndex = 6;
-            autoLabel3.Text = "Filtra por tipo";
-            // 
-            // radioButtonAll
-            // 
-            radioButtonAll.AutoSize = true;
-            radioButtonAll.Checked = true;
-            radioButtonAll.Location = new Point(938, 226);
-            radioButtonAll.Name = "radioButtonAll";
-            radioButtonAll.Size = new Size(56, 19);
-            radioButtonAll.TabIndex = 7;
-            radioButtonAll.TabStop = true;
-            radioButtonAll.Text = "Todos";
-            radioButtonAll.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonExpenses
-            // 
-            radioButtonExpenses.AutoSize = true;
-            radioButtonExpenses.Location = new Point(1080, 226);
-            radioButtonExpenses.Name = "radioButtonExpenses";
-            radioButtonExpenses.Size = new Size(73, 19);
-            radioButtonExpenses.TabIndex = 8;
-            radioButtonExpenses.Text = "Despesas";
-            radioButtonExpenses.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonIncome
-            // 
-            radioButtonIncome.AutoSize = true;
-            radioButtonIncome.Location = new Point(996, 226);
-            radioButtonIncome.Name = "radioButtonIncome";
-            radioButtonIncome.Size = new Size(78, 19);
-            radioButtonIncome.TabIndex = 9;
-            radioButtonIncome.Text = "Donativos";
-            radioButtonIncome.UseVisualStyleBackColor = true;
-            // 
-            // autoLabel4
-            // 
-            autoLabel4.Location = new Point(938, 260);
-            autoLabel4.Name = "autoLabel4";
-            autoLabel4.Size = new Size(108, 15);
-            autoLabel4.TabIndex = 10;
-            autoLabel4.Text = "Filtra por Categoria";
-            // 
-            // comboBoxCategories
-            // 
-            comboBoxCategories.FormattingEnabled = true;
-            comboBoxCategories.Location = new Point(939, 282);
-            comboBoxCategories.Name = "comboBoxCategories";
-            comboBoxCategories.Size = new Size(221, 23);
-            comboBoxCategories.TabIndex = 11;
-            // 
-            // labelSummary
-            // 
-            labelSummary.Location = new Point(22, 527);
-            labelSummary.Name = "labelSummary";
-            labelSummary.Size = new Size(58, 15);
-            labelSummary.TabIndex = 14;
-            labelSummary.Text = "Summary";
-            // 
-            // labelVisibleSummary
-            // 
-            labelVisibleSummary.Location = new Point(22, 554);
-            labelVisibleSummary.Name = "labelVisibleSummary";
-            labelVisibleSummary.Size = new Size(97, 15);
-            labelVisibleSummary.TabIndex = 15;
-            labelVisibleSummary.Text = "FilteredSummary";
+            panel1.Controls.Add(btnClear);
+            panel1.Controls.Add(btnDelete);
+            panel1.Controls.Add(btnUpdate);
+            panel1.Controls.Add(btnInsert);
+            panel1.Controls.Add(labelVisibleSummary);
+            panel1.Controls.Add(labelSummary);
+            panel1.Location = new Point(22, 549);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1032, 143);
+            panel1.TabIndex = 12;
             // 
             // btnClear
             // 
@@ -293,10 +236,10 @@
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClear.Location = new Point(444, 450);
+            btnClear.Location = new Point(438, 12);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(98, 39);
-            btnClear.TabIndex = 29;
+            btnClear.TabIndex = 35;
             btnClear.Text = "Clear ";
             btnClear.TextAlign = ContentAlignment.MiddleRight;
             btnClear.UseVisualStyleBackColor = false;
@@ -309,10 +252,10 @@
             btnDelete.ForeColor = Color.White;
             btnDelete.Image = Properties.Resources._678080_shield_error_32;
             btnDelete.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDelete.Location = new Point(270, 450);
+            btnDelete.Location = new Point(264, 12);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(98, 39);
-            btnDelete.TabIndex = 28;
+            btnDelete.TabIndex = 34;
             btnDelete.Text = "Delete ";
             btnDelete.TextAlign = ContentAlignment.MiddleRight;
             btnDelete.UseVisualStyleBackColor = false;
@@ -324,10 +267,10 @@
             btnUpdate.ForeColor = Color.White;
             btnUpdate.Image = Properties.Resources.save32;
             btnUpdate.ImageAlign = ContentAlignment.MiddleLeft;
-            btnUpdate.Location = new Point(146, 450);
+            btnUpdate.Location = new Point(140, 12);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(98, 39);
-            btnUpdate.TabIndex = 27;
+            btnUpdate.TabIndex = 33;
             btnUpdate.Text = "Update ";
             btnUpdate.TextAlign = ContentAlignment.MiddleRight;
             btnUpdate.UseVisualStyleBackColor = false;
@@ -340,14 +283,30 @@
             btnInsert.ForeColor = Color.White;
             btnInsert.Image = Properties.Resources.Clear;
             btnInsert.ImageAlign = ContentAlignment.MiddleLeft;
-            btnInsert.Location = new Point(22, 450);
+            btnInsert.Location = new Point(16, 12);
             btnInsert.Name = "btnInsert";
             btnInsert.Size = new Size(98, 39);
-            btnInsert.TabIndex = 26;
+            btnInsert.TabIndex = 32;
             btnInsert.Text = "Add ";
             btnInsert.TextAlign = ContentAlignment.MiddleRight;
             btnInsert.UseVisualStyleBackColor = false;
             btnInsert.Click += btnInsert_Click;
+            // 
+            // labelVisibleSummary
+            // 
+            labelVisibleSummary.Location = new Point(16, 116);
+            labelVisibleSummary.Name = "labelVisibleSummary";
+            labelVisibleSummary.Size = new Size(97, 15);
+            labelVisibleSummary.TabIndex = 31;
+            labelVisibleSummary.Text = "FilteredSummary";
+            // 
+            // labelSummary
+            // 
+            labelSummary.Location = new Point(16, 89);
+            labelSummary.Name = "labelSummary";
+            labelSummary.Size = new Size(58, 15);
+            labelSummary.TabIndex = 30;
+            labelSummary.Text = "Summary";
             // 
             // frmExpensesMain
             // 
@@ -375,19 +334,8 @@
             captionLabel2.Text = "Despesas / Donativos";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(1184, 579);
-            Controls.Add(btnClear);
-            Controls.Add(btnDelete);
-            Controls.Add(btnUpdate);
-            Controls.Add(btnInsert);
-            Controls.Add(labelVisibleSummary);
-            Controls.Add(labelSummary);
-            Controls.Add(comboBoxCategories);
-            Controls.Add(autoLabel4);
-            Controls.Add(radioButtonIncome);
-            Controls.Add(radioButtonExpenses);
-            Controls.Add(radioButtonAll);
-            Controls.Add(autoLabel3);
+            ClientSize = new Size(1328, 696);
+            Controls.Add(panel1);
             Controls.Add(filterToDateTime);
             Controls.Add(autoLabel2);
             Controls.Add(filterFromDateTime);
@@ -402,6 +350,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             ((System.ComponentModel.ISupportInitialize)dgvExpenses).EndInit();
             ((System.ComponentModel.ISupportInitialize)checkBoxFilterDateTime).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -415,14 +365,6 @@
         private DateTimePicker filterFromDateTime;
         private DateTimePicker filterToDateTime;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel2;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel3;
-        private RadioButton radioButtonAll;
-        private RadioButton radioButtonExpenses;
-        private RadioButton radioButtonIncome;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel4;
-        private ComboBox comboBoxCategories;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel labelSummary;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel labelVisibleSummary;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn DataMovimento;
         private DataGridViewTextBoxColumn ValorPago;
@@ -430,9 +372,12 @@
         private DataGridViewTextBoxColumn DescricaoCategoriaDespesa;
         private DataGridViewTextBoxColumn DescricaoTipoDespesa;
         private DataGridViewTextBoxColumn TipoMovimento;
+        private Panel panel1;
         private Button btnClear;
         private Button btnDelete;
         private Button btnUpdate;
         private Button btnInsert;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel labelVisibleSummary;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel labelSummary;
     }
 }

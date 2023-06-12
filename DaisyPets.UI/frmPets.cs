@@ -1105,7 +1105,7 @@ namespace DaisyPets.UI
                 return;
 
             var genero = cboGenero.SelectedItem.ToString();
-            IdGenero = genero!.Substring(0,1);
+            IdGenero = genero!.Substring(0, 1);
         }
     }
 }

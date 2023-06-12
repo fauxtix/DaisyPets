@@ -18,6 +18,7 @@ namespace DaisyPets.UI.Expenses
         private string IdTipoMovimento = "S";
         private int IdCategoriaDespesa = -1;
         private int IdTipoDespesa = -1;
+        private IEnumerable<TipoDespesa>? ExpenseTypes { get; set; }
 
         public frmNewEntry(DespesaDto expense)
         {
@@ -25,6 +26,8 @@ namespace DaisyPets.UI.Expenses
 
             FillCombo(cboCategoriasDespesas, "CategoriaDespesa");
             FillCombo(cboTipoDespesa, "TipoDespesa");
+
+            ExpenseTypes = GetTipoDespesas();
 
             expenseId = expense.Id;
             if (expenseId == 0)
@@ -73,6 +76,7 @@ namespace DaisyPets.UI.Expenses
                     txtValor.Text = expenseData.ValorPago.ToString();
                     cboCategoriasDespesas.SelectedIndex = expenseData.IdCategoriaDespesa - 1;
                     cboTipoDespesa.SelectedIndex = expenseData.IdTipoDespesa - 1;
+                    txtNotas.Text = expenseData.Notas;
 
                     SetToolbar(OpcoesRegisto.Gravar);
                 }
@@ -102,6 +106,25 @@ namespace DaisyPets.UI.Expenses
             dtpDataMovimento.Value = DateTime.Now;
         }
 
+        private IEnumerable<TipoDespesa>? GetTipoDespesas()
+        {
+            string url = $"https://localhost:7161/api/despesa/TipoDespesas";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var task = httpClient.GetFromJsonAsync<IEnumerable<TipoDespesa>?>(url);
+                var _expenses = task.Result;
+
+                task.Wait();
+
+                if (_expenses is null)
+                {
+                    MessageBoxAdv.Show("Erro ao carregar tipo de despesas", "Daist Pets - Despesas");
+                }
+
+                return _expenses;
+            }
+
+        }
         private void FillCombo(ComboBox comboBox, string dataTable)
         {
             comboBox.Items.Clear();
@@ -273,7 +296,6 @@ namespace DaisyPets.UI.Expenses
 
         private List<string> ValidateExpense()
         {
-
             try
             {
                 DespesaDto expenseToValidate = GetFormData();
@@ -305,14 +327,14 @@ namespace DaisyPets.UI.Expenses
             }
             catch (Exception ex)
             {
-                var ddd = ex.Message;
-                throw;
+                var errMsg = ex.Message;
+                return new List<string> { errMsg };
             }
         }
 
         private DespesaDto GetFormData()
         {
-            var expenseData = new DespesaDto()
+            var formData = new DespesaDto()
             {
                 Id = expenseId,
                 DataCriacao = DateTime.Now.Date.ToShortDateString(),
@@ -320,26 +342,44 @@ namespace DaisyPets.UI.Expenses
                 Descricao = txtDescricao.Text,
                 IdCategoriaDespesa = cboCategoriasDespesas.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboCategoriasDespesas.SelectedItem)).Key) : -1,
                 IdTipoDespesa = cboTipoDespesa.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboTipoDespesa.SelectedItem)).Key) : -1,
-                Notas = "",
+                Notas = txtNotas.Text,
                 TipoMovimento = radioButtonExpenses.Checked ? "S" : "E",
                 ValorPago = decimal.Parse(txtValor.Text)
             };
 
-            return expenseData;
+            return formData;
         }
 
         private void cboCategoriasDespesas_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboCategoriasDespesas.SelectedItem == null)
                 return;
-            IdCategoriaDespesa = DataFormat.GetInteger(((DictionaryEntry)(cboCategoriasDespesas.SelectedItem)).Key);
-            cboTipoDespesa.Enabled = true;
 
-            //var tipoDespesas = cboTipoDespesa.DataSource as IEnumerable<LookupTableVM>;
-            //if(tipoDespesas != null)
-            //{
-            //    var x = tipoDespesas.ToList();
-            //}
+            IdCategoriaDespesa = DataFormat.GetInteger(((DictionaryEntry)(cboCategoriasDespesas.SelectedItem)).Key);
+            var tipoDespesas = ExpenseTypes?.Where(o => o.IdCategoriaDespesa == IdCategoriaDespesa).ToList();
+
+            if (tipoDespesas is not null && tipoDespesas.Any())
+            {
+                cboTipoDespesa.Enabled = true;
+                cboTipoDespesa.Items.Clear();
+                foreach (var item in tipoDespesas)
+                {
+                    cboTipoDespesa.Items.Add(new DictionaryEntry(item.Id, item.Descricao));
+                }
+
+                cboTipoDespesa.ValueMember = "Key";
+                cboTipoDespesa.DisplayMember = "Value";
+                cboTipoDespesa.SelectedIndex = 0;
+            }
+
+        }
+
+        private void cboTipoDespesa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboTipoDespesa.SelectedItem == null)
+                return;
+
+            IdTipoDespesa = DataFormat.GetInteger(((DictionaryEntry)(cboTipoDespesa.SelectedItem)).Key);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -347,5 +387,6 @@ namespace DaisyPets.UI.Expenses
             Dispose();
             Close();
         }
+
     }
 }

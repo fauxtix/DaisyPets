@@ -1,4 +1,5 @@
 ﻿using DaisyPets.Core.Application.Formatting;
+using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Despesas;
 using Syncfusion.Windows.Forms;
 using System.Net.Http.Json;
@@ -160,6 +161,26 @@ namespace DaisyPets.UI.Expenses
             }
 
         }
+
+        private void dgvExpenses_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == _previousIndex)
+                _sortDirection ^= true; // toggle direction
+
+            dgvExpenses.DataSource = SortData(
+                (List<DespesaVM>)dgvExpenses.DataSource, dgvExpenses.Columns[e.ColumnIndex].Name, _sortDirection);
+
+            _previousIndex = e.ColumnIndex;
+
+        }
+
+        private List<DespesaVM> SortData(List<DespesaVM> list, string column, bool ascending)
+        {
+            return ascending ?
+                list.OrderBy(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList() :
+                list.OrderByDescending(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList();
+        }
+
     }
 }
 

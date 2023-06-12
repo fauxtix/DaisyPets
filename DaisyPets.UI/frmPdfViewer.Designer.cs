@@ -65,7 +65,7 @@
             pdfViewerControl1.ShowHorizontalScrollBar = true;
             pdfViewerControl1.ShowToolBar = true;
             pdfViewerControl1.ShowVerticalScrollBar = true;
-            pdfViewerControl1.Size = new Size(933, 498);
+            pdfViewerControl1.Size = new Size(962, 653);
             pdfViewerControl1.SpaceBetweenPages = 8;
             pdfViewerControl1.TabIndex = 0;
             pdfViewerControl1.Text = "pdfViewerControl1";
@@ -104,7 +104,7 @@
             captionLabel2.Size = new Size(300, 26);
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(933, 498);
+            ClientSize = new Size(962, 653);
             Controls.Add(pdfViewerControl1);
             Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;

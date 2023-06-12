@@ -140,6 +140,23 @@ namespace DaisyPets.WebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Database structure (pdf)
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpGet("DatabaseStructure")]
+        public IActionResult GetDatabaseStructurePdf()
+        {
+            var pdfFile = Path.Combine(_environment.ContentRootPath, "Reports", "Docs", "Pdf", "DatabaseStructure.pdf" );
+            if (!System.IO.File.Exists(pdfFile))
+            {
+                return NotFound();
+            }
+            else
+                return Ok(pdfFile);
+        }
+
         private string GetControllerActionNames()
         {
             var controller = ControllerContext.ActionDescriptor.ControllerName;

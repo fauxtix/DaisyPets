@@ -121,7 +121,7 @@
             gdvDados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             gdvDados.ColumnHeadersHeight = 40;
             gdvDados.Columns.AddRange(new DataGridViewColumn[] { Id, Nome, Chipado, Esterilizado, SituacaoAnimal, EspecieAnimal, RacaAnimal, TamanhoAnimal, HistoryInfo, PetApptsHistory, PetFeedHistory, PetDewormerInfo });
-            gdvDados.Location = new Point(33, 473);
+            gdvDados.Location = new Point(40, 482);
             gdvDados.MultiSelect = false;
             gdvDados.Name = "gdvDados";
             gdvDados.ReadOnly = true;
@@ -129,7 +129,7 @@
             gdvDados.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             gdvDados.RowTemplate.Height = 32;
             gdvDados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gdvDados.Size = new Size(1293, 221);
+            gdvDados.Size = new Size(1294, 210);
             gdvDados.TabIndex = 17;
             gdvDados.CellClick += gdvDados_CellClick;
             gdvDados.CellContentClick += gdvDados_CellContentClick;
@@ -736,6 +736,7 @@
             EspecieAnimal.HeaderText = "Espécie";
             EspecieAnimal.Name = "EspecieAnimal";
             EspecieAnimal.ReadOnly = true;
+            EspecieAnimal.Visible = false;
             EspecieAnimal.Width = 80;
             // 
             // RacaAnimal
@@ -752,52 +753,52 @@
             TamanhoAnimal.HeaderText = "Tamanho";
             TamanhoAnimal.Name = "TamanhoAnimal";
             TamanhoAnimal.ReadOnly = true;
-            TamanhoAnimal.Width = 80;
+            TamanhoAnimal.Width = 90;
             // 
             // HistoryInfo
             // 
-            HistoryInfo.HeaderText = "";
+            HistoryInfo.HeaderText = "Vacinas";
             HistoryInfo.Name = "HistoryInfo";
             HistoryInfo.ReadOnly = true;
-            HistoryInfo.Text = "Vac";
+            HistoryInfo.Text = "...";
             HistoryInfo.ToolTipText = "Vacinação";
             HistoryInfo.UseColumnTextForButtonValue = true;
             HistoryInfo.Width = 70;
             // 
             // PetApptsHistory
             // 
-            PetApptsHistory.HeaderText = "";
+            PetApptsHistory.HeaderText = "Consultas";
             PetApptsHistory.Name = "PetApptsHistory";
             PetApptsHistory.ReadOnly = true;
             PetApptsHistory.Resizable = DataGridViewTriState.True;
-            PetApptsHistory.Text = "Appts";
+            PetApptsHistory.Text = "...";
             PetApptsHistory.ToolTipText = "Consultas veterinário";
             PetApptsHistory.UseColumnTextForButtonValue = true;
-            PetApptsHistory.Width = 70;
+            PetApptsHistory.Width = 80;
             // 
             // PetFeedHistory
             // 
-            PetFeedHistory.HeaderText = "";
+            PetFeedHistory.HeaderText = "Rações";
             PetFeedHistory.Name = "PetFeedHistory";
             PetFeedHistory.ReadOnly = true;
             PetFeedHistory.Resizable = DataGridViewTriState.True;
             PetFeedHistory.SortMode = DataGridViewColumnSortMode.Automatic;
-            PetFeedHistory.Text = "Rac";
+            PetFeedHistory.Text = "...";
             PetFeedHistory.ToolTipText = "Rações";
             PetFeedHistory.UseColumnTextForButtonValue = true;
             PetFeedHistory.Width = 70;
             // 
             // PetDewormerInfo
             // 
-            PetDewormerInfo.HeaderText = "";
+            PetDewormerInfo.HeaderText = "Desparasitantes";
             PetDewormerInfo.Name = "PetDewormerInfo";
             PetDewormerInfo.ReadOnly = true;
             PetDewormerInfo.Resizable = DataGridViewTriState.True;
             PetDewormerInfo.SortMode = DataGridViewColumnSortMode.Automatic;
-            PetDewormerInfo.Text = "Desp";
+            PetDewormerInfo.Text = "...";
             PetDewormerInfo.ToolTipText = "Desparasitantes";
             PetDewormerInfo.UseColumnTextForButtonValue = true;
-            PetDewormerInfo.Width = 70;
+            PetDewormerInfo.Width = 120;
             // 
             // frmPets
             // 

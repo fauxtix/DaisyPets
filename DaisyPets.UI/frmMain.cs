@@ -1,4 +1,5 @@
-﻿using DaisyPets.UI.Expenses;
+﻿using DaisyPets.Core.Application.ViewModels.Pdfs;
+using DaisyPets.UI.Expenses;
 using DaisyPets.UI.Properties;
 using Syncfusion.Windows.Forms;
 
@@ -77,6 +78,9 @@ namespace DaisyPets.UI
         {
             if (fPdf == null)
             {
+                FormParameters.TituloPdf = "Estrutura da base de dados";
+                FormParameters.NomePdf = GetDatabase_Info_Pdf();
+
                 fPdf = new frmPdfViewer();
                 fPdf.MdiParent = this;
                 fPdf.FormClosed += CreatePdfs_FormClosed;
@@ -127,6 +131,30 @@ namespace DaisyPets.UI
 
             return retValue;
         }
+
+        private string GetDatabase_Info_Pdf()
+        {
+            string url = $"https://localhost:7161/api/mailmerge/DatabaseStructure";
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    var task = httpClient.GetStringAsync(url);
+                    task.Wait();
+
+                    var response = task.Result;
+                    task.Dispose();
+
+                    return response;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxAdv.Show($"Erro no Api ({ex.Message})", "Rações");
+                return "";
+            }
+        }
+
 
     }
 }

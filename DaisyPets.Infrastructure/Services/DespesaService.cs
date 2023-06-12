@@ -105,6 +105,11 @@ namespace DaisyPets.Infrastructure.Services
             return await _repository.GetTipoDespesa_ByCategoriaDespesa(Id);
         }
 
+        public async Task<IEnumerable<TipoDespesa>?> GetTipoDespesas()
+        {
+            return await _repository.GetTipoDespesas();
+        }
+
         public List<DespesaVM> Query_ByYear(string year)
         {
             throw new NotImplementedException();

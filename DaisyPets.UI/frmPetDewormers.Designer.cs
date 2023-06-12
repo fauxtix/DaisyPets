@@ -38,6 +38,13 @@
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             dgvDewormers = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            NomePet = new DataGridViewTextBoxColumn();
+            Marca = new DataGridViewTextBoxColumn();
+            Tipo = new DataGridViewTextBoxColumn();
+            DataAplicacao = new DataGridViewTextBoxColumn();
+            DataProximaAplicacao = new DataGridViewTextBoxColumn();
+            PetId = new DataGridViewTextBoxColumn();
             btnClear = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
@@ -55,13 +62,6 @@
             autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             txtMarca = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             txtPetName = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
-            Id = new DataGridViewTextBoxColumn();
-            NomePet = new DataGridViewTextBoxColumn();
-            Marca = new DataGridViewTextBoxColumn();
-            Tipo = new DataGridViewTextBoxColumn();
-            DataAplicacao = new DataGridViewTextBoxColumn();
-            DataProximaAplicacao = new DataGridViewTextBoxColumn();
-            PetId = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvDewormers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gradientPanel1).BeginInit();
             gradientPanel1.SuspendLayout();
@@ -97,19 +97,82 @@
             dgvDewormers.ReadOnly = true;
             dgvDewormers.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             dgvDewormers.RowTemplate.Height = 32;
-            dgvDewormers.Size = new Size(780, 214);
+            dgvDewormers.Size = new Size(788, 261);
             dgvDewormers.TabIndex = 8;
             dgvDewormers.CellClick += dgvDewormers_CellClick;
             dgvDewormers.ColumnHeaderMouseClick += dgvDewormers_ColumnHeaderMouseClick;
             // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // NomePet
+            // 
+            NomePet.DataPropertyName = "NomePet";
+            NomePet.HeaderText = "Nome";
+            NomePet.Name = "NomePet";
+            NomePet.ReadOnly = true;
+            NomePet.Visible = false;
+            NomePet.Width = 200;
+            // 
+            // Marca
+            // 
+            Marca.DataPropertyName = "Marca";
+            Marca.HeaderText = "Desparasitante";
+            Marca.Name = "Marca";
+            Marca.ReadOnly = true;
+            Marca.Width = 300;
+            // 
+            // Tipo
+            // 
+            Tipo.DataPropertyName = "Tipo";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            Tipo.DefaultCellStyle = dataGridViewCellStyle2;
+            Tipo.HeaderText = "Tipo";
+            Tipo.Name = "Tipo";
+            Tipo.ReadOnly = true;
+            // 
+            // DataAplicacao
+            // 
+            DataAplicacao.DataPropertyName = "DataAplicacao";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataAplicacao.DefaultCellStyle = dataGridViewCellStyle3;
+            DataAplicacao.HeaderText = "Data aplicação";
+            DataAplicacao.Name = "DataAplicacao";
+            DataAplicacao.ReadOnly = true;
+            DataAplicacao.Width = 170;
+            // 
+            // DataProximaAplicacao
+            // 
+            DataProximaAplicacao.DataPropertyName = "DataProximaAplicacao";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataProximaAplicacao.DefaultCellStyle = dataGridViewCellStyle4;
+            DataProximaAplicacao.HeaderText = "Próxima aplicação";
+            DataProximaAplicacao.Name = "DataProximaAplicacao";
+            DataProximaAplicacao.ReadOnly = true;
+            DataProximaAplicacao.Width = 160;
+            // 
+            // PetId
+            // 
+            PetId.DataPropertyName = "IdPet";
+            PetId.HeaderText = "PetId";
+            PetId.Name = "PetId";
+            PetId.ReadOnly = true;
+            PetId.Visible = false;
+            // 
             // btnClear
             // 
             btnClear.BackColor = Color.White;
+            btnClear.FlatStyle = FlatStyle.Flat;
             btnClear.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClear.Location = new Point(442, 242);
+            btnClear.Location = new Point(581, 242);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(98, 39);
             btnClear.TabIndex = 25;
@@ -121,6 +184,7 @@
             // btnDelete
             // 
             btnDelete.BackColor = Color.Red;
+            btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnDelete.ForeColor = Color.White;
             btnDelete.Image = Properties.Resources._678080_shield_error_32;
@@ -137,6 +201,7 @@
             // btnUpdate
             // 
             btnUpdate.BackColor = Color.ForestGreen;
+            btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnUpdate.ForeColor = Color.White;
             btnUpdate.Image = Properties.Resources.save32;
@@ -153,6 +218,7 @@
             // btnInsert
             // 
             btnInsert.BackColor = Color.SteelBlue;
+            btnInsert.FlatStyle = FlatStyle.Flat;
             btnInsert.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnInsert.ForeColor = Color.White;
             btnInsert.Image = Properties.Resources.Clear;
@@ -184,7 +250,7 @@
             gradientPanel1.Controls.Add(txtPetName);
             gradientPanel1.Location = new Point(19, 15);
             gradientPanel1.Name = "gradientPanel1";
-            gradientPanel1.Size = new Size(634, 208);
+            gradientPanel1.Size = new Size(660, 208);
             gradientPanel1.TabIndex = 26;
             // 
             // autoLabel5
@@ -233,7 +299,7 @@
             btnInfo.ForeColor = Color.Black;
             btnInfo.Image = Properties.Resources.Info_32;
             btnInfo.ImageAlign = ContentAlignment.MiddleLeft;
-            btnInfo.Location = new Point(547, 121);
+            btnInfo.Location = new Point(554, 121);
             btnInfo.Name = "btnInfo";
             btnInfo.Size = new Size(82, 40);
             btnInfo.TabIndex = 26;
@@ -309,68 +375,6 @@
             txtPetName.Size = new Size(329, 27);
             txtPetName.TabIndex = 8;
             // 
-            // Id
-            // 
-            Id.DataPropertyName = "Id";
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // NomePet
-            // 
-            NomePet.DataPropertyName = "NomePet";
-            NomePet.HeaderText = "Nome";
-            NomePet.Name = "NomePet";
-            NomePet.ReadOnly = true;
-            NomePet.Visible = false;
-            NomePet.Width = 200;
-            // 
-            // Marca
-            // 
-            Marca.DataPropertyName = "Marca";
-            Marca.HeaderText = "Desparasitante";
-            Marca.Name = "Marca";
-            Marca.ReadOnly = true;
-            Marca.Width = 300;
-            // 
-            // Tipo
-            // 
-            Tipo.DataPropertyName = "Tipo";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Tipo.DefaultCellStyle = dataGridViewCellStyle2;
-            Tipo.HeaderText = "Tipo";
-            Tipo.Name = "Tipo";
-            Tipo.ReadOnly = true;
-            // 
-            // DataAplicacao
-            // 
-            DataAplicacao.DataPropertyName = "DataAplicacao";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataAplicacao.DefaultCellStyle = dataGridViewCellStyle3;
-            DataAplicacao.HeaderText = "Data aplicação";
-            DataAplicacao.Name = "DataAplicacao";
-            DataAplicacao.ReadOnly = true;
-            DataAplicacao.Width = 170;
-            // 
-            // DataProximaAplicacao
-            // 
-            DataProximaAplicacao.DataPropertyName = "DataProximaAplicacao";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataProximaAplicacao.DefaultCellStyle = dataGridViewCellStyle4;
-            DataProximaAplicacao.HeaderText = "Próxima aplicação";
-            DataProximaAplicacao.Name = "DataProximaAplicacao";
-            DataProximaAplicacao.ReadOnly = true;
-            DataProximaAplicacao.Width = 160;
-            // 
-            // PetId
-            // 
-            PetId.DataPropertyName = "IdPet";
-            PetId.HeaderText = "PetId";
-            PetId.Name = "PetId";
-            PetId.ReadOnly = true;
-            PetId.Visible = false;
-            // 
             // frmPetDewormers
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -396,7 +400,7 @@
             captionLabel2.Text = "Registo de desparasitantes";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(819, 514);
+            ClientSize = new Size(819, 570);
             Controls.Add(gradientPanel1);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);

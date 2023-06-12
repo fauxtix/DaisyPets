@@ -348,7 +348,7 @@
             dgvAppts.RowTemplate.DividerHeight = 1;
             dgvAppts.RowTemplate.Height = 32;
             dgvAppts.ScrollBars = ScrollBars.Vertical;
-            dgvAppts.Size = new Size(910, 146);
+            dgvAppts.Size = new Size(920, 285);
             dgvAppts.TabIndex = 16;
             dgvAppts.CellClick += dgvAppts_CellClick;
             dgvAppts.ColumnHeaderMouseClick += dgvAppts_ColumnHeaderMouseClick;
@@ -444,7 +444,7 @@
             captionLabel2.Text = "Consultas no veterinário";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(947, 552);
+            ClientSize = new Size(963, 704);
             Controls.Add(dgvAppts);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);

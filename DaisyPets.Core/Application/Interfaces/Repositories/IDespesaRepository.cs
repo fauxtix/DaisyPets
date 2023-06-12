@@ -15,5 +15,6 @@ namespace PropertyManagerFL.Application.Interfaces.Repositories
         Task<IEnumerable<TipoDespesa>?> GetTipoDespesa_ByCategoriaDespesa(int ID);
         decimal TotalDespesas(int iTipoDespesa = 0);
         List<DespesaVM> Query_ByYear(string sAno);
+        Task<IEnumerable<TipoDespesa>?> GetTipoDespesas();
     }
 }

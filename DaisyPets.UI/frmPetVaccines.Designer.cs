@@ -36,6 +36,13 @@
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             dgvVacinas = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            NomePet = new DataGridViewTextBoxColumn();
+            Marca = new DataGridViewTextBoxColumn();
+            DataToma = new DataGridViewTextBoxColumn();
+            ProximaTomaEmMeses = new DataGridViewTextBoxColumn();
+            DataProximaToma = new DataGridViewTextBoxColumn();
+            PetId = new DataGridViewTextBoxColumn();
             btnClear = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
@@ -52,13 +59,6 @@
             nupPrxToma = new Syncfusion.Windows.Forms.Tools.NumericUpDownExt();
             txtMarca = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             txtPetName = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
-            Id = new DataGridViewTextBoxColumn();
-            NomePet = new DataGridViewTextBoxColumn();
-            Marca = new DataGridViewTextBoxColumn();
-            DataToma = new DataGridViewTextBoxColumn();
-            ProximaTomaEmMeses = new DataGridViewTextBoxColumn();
-            DataProximaToma = new DataGridViewTextBoxColumn();
-            PetId = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvVacinas).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gradientPanel1).BeginInit();
             gradientPanel1.SuspendLayout();
@@ -95,10 +95,68 @@
             dgvVacinas.ReadOnly = true;
             dgvVacinas.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             dgvVacinas.RowTemplate.Height = 32;
-            dgvVacinas.Size = new Size(650, 214);
+            dgvVacinas.Size = new Size(650, 269);
             dgvVacinas.TabIndex = 8;
             dgvVacinas.CellClick += dgvVacinas_CellClick;
             dgvVacinas.ColumnHeaderMouseClick += dgvVacinas_ColumnHeaderMouseClick;
+            // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // NomePet
+            // 
+            NomePet.DataPropertyName = "NomePet";
+            NomePet.HeaderText = "Nome";
+            NomePet.Name = "NomePet";
+            NomePet.ReadOnly = true;
+            NomePet.Visible = false;
+            NomePet.Width = 200;
+            // 
+            // Marca
+            // 
+            Marca.DataPropertyName = "Marca";
+            Marca.HeaderText = "Vacina";
+            Marca.Name = "Marca";
+            Marca.ReadOnly = true;
+            Marca.Width = 300;
+            // 
+            // DataToma
+            // 
+            DataToma.DataPropertyName = "DataToma";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataToma.DefaultCellStyle = dataGridViewCellStyle2;
+            DataToma.HeaderText = "Data";
+            DataToma.Name = "DataToma";
+            DataToma.ReadOnly = true;
+            // 
+            // ProximaTomaEmMeses
+            // 
+            ProximaTomaEmMeses.DataPropertyName = "ProximaTomaEmMeses";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            ProximaTomaEmMeses.DefaultCellStyle = dataGridViewCellStyle3;
+            ProximaTomaEmMeses.HeaderText = "Prx. Toma";
+            ProximaTomaEmMeses.Name = "ProximaTomaEmMeses";
+            ProximaTomaEmMeses.ReadOnly = true;
+            // 
+            // DataProximaToma
+            // 
+            DataProximaToma.DataPropertyName = "DataProximaToma";
+            DataProximaToma.HeaderText = "Próxima";
+            DataProximaToma.Name = "DataProximaToma";
+            DataProximaToma.ReadOnly = true;
+            // 
+            // PetId
+            // 
+            PetId.DataPropertyName = "IdPet";
+            PetId.HeaderText = "PetId";
+            PetId.Name = "PetId";
+            PetId.ReadOnly = true;
+            PetId.Visible = false;
             // 
             // btnClear
             // 
@@ -107,7 +165,7 @@
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClear.Location = new Point(441, 215);
+            btnClear.Location = new Point(483, 215);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(98, 39);
             btnClear.TabIndex = 25;
@@ -294,64 +352,6 @@
             txtPetName.Size = new Size(273, 27);
             txtPetName.TabIndex = 8;
             // 
-            // Id
-            // 
-            Id.DataPropertyName = "Id";
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // NomePet
-            // 
-            NomePet.DataPropertyName = "NomePet";
-            NomePet.HeaderText = "Nome";
-            NomePet.Name = "NomePet";
-            NomePet.ReadOnly = true;
-            NomePet.Visible = false;
-            NomePet.Width = 200;
-            // 
-            // Marca
-            // 
-            Marca.DataPropertyName = "Marca";
-            Marca.HeaderText = "Vacina";
-            Marca.Name = "Marca";
-            Marca.ReadOnly = true;
-            Marca.Width = 300;
-            // 
-            // DataToma
-            // 
-            DataToma.DataPropertyName = "DataToma";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataToma.DefaultCellStyle = dataGridViewCellStyle2;
-            DataToma.HeaderText = "Data";
-            DataToma.Name = "DataToma";
-            DataToma.ReadOnly = true;
-            // 
-            // ProximaTomaEmMeses
-            // 
-            ProximaTomaEmMeses.DataPropertyName = "ProximaTomaEmMeses";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            ProximaTomaEmMeses.DefaultCellStyle = dataGridViewCellStyle3;
-            ProximaTomaEmMeses.HeaderText = "Prx. Toma";
-            ProximaTomaEmMeses.Name = "ProximaTomaEmMeses";
-            ProximaTomaEmMeses.ReadOnly = true;
-            // 
-            // DataProximaToma
-            // 
-            DataProximaToma.DataPropertyName = "DataProximaToma";
-            DataProximaToma.HeaderText = "Próxima";
-            DataProximaToma.Name = "DataProximaToma";
-            DataProximaToma.ReadOnly = true;
-            // 
-            // PetId
-            // 
-            PetId.DataPropertyName = "IdPet";
-            PetId.HeaderText = "PetId";
-            PetId.Name = "PetId";
-            PetId.ReadOnly = true;
-            PetId.Visible = false;
-            // 
             // frmPetVaccines
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -378,7 +378,7 @@
             captionLabel2.Text = "Registos de vacinação";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(676, 501);
+            ClientSize = new Size(676, 556);
             Controls.Add(gradientPanel1);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);

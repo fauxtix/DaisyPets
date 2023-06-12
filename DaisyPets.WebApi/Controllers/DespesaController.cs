@@ -287,6 +287,30 @@ namespace DaisyPets.WebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Tipo de despesas
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("TipoDespesas")]
+        public async Task<IActionResult> GetTipoDespesas()
+        {
+            var location = GetControllerActionNames();
+
+            try
+            {
+                var categoryType = await _service.GetTipoDespesas();
+                return categoryType!.Any() == false ? NotFound() : Ok(categoryType);
+
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex.Message);
+                return InternalError($"{location}: {ex.Message} - {ex.InnerException}");
+            }
+        }
+
+
 
         /// <summary>
         /// Valida despesa

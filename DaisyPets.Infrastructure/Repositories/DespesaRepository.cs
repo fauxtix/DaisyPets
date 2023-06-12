@@ -199,6 +199,19 @@ namespace PropertyManagerFL.Infrastructure.Repositories
             }
         }
 
+        public async Task<IEnumerable<TipoDespesa>?> GetTipoDespesas()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT Id, Descricao, IdCategoriaDespesa ");
+            sb.Append("FROM TipoDespesa ");
+
+            using (var connection = _context.CreateConnection())
+            {
+                var output = await connection.QueryAsync<TipoDespesa>(sb.ToString());
+                return output;
+            }
+        }
+
         public async Task<DespesaVM?> GetVMByIdAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
@@ -232,7 +245,7 @@ namespace PropertyManagerFL.Infrastructure.Repositories
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Despesa.Id, DataMovimento, ValorPago, ");
-            sb.Append("Despesa.Descricao, IdTipoDespesa, IdCategoriaDespesa, Notas, TipoMovimento, ");
+            sb.Append("Despesa.Descricao, Despesa.IdTipoDespesa, Despesa.IdCategoriaDespesa, Notas, TipoMovimento, ");
             sb.Append("CD.Descricao AS [DescricaoCategoriaDespesa], ");
             sb.Append("TD.Descricao AS [DescricaoTipoDespesa] ");
             sb.Append("FROM Despesa ");
