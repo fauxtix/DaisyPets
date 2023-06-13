@@ -26,19 +26,24 @@ namespace DaisyPets.WebApi.Validators
                 .NotEmpty().WithMessage("Preencha campo tratamento, p.f.");
 
             RuleFor(p => p.DataConsulta)
-                .Must(BeAValidDate).WithMessage("Data da consulta deverá ser inferior à data corrente");
+                .Must(BeAValidDate).WithMessage("Data inválida");
 
         }
 
         #region Custom Validators
 
+        /// <summary>
+        /// Valida data da consulta
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
         protected bool BeAValidDate(string date)
         {
             var parsedDate = DateTime.Parse(date);
             if (!DataFormat.IsValidDate(parsedDate))
                 return false;
-            else if (parsedDate.Date >= DateTime.Now.Date)
-                return false;
+            //else if (parsedDate.Date > DateTime.Now.Date)
+            //    return false;
 
 
             return true;

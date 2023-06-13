@@ -1,4 +1,5 @@
 ﻿using DaisyPets.Core.Application.ViewModels.Despesas;
+using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
 
 namespace PropertyManagerFL.Application.Interfaces.Services
@@ -16,5 +17,6 @@ namespace PropertyManagerFL.Application.Interfaces.Services
         decimal TotalDespesas(int tipoDespesa = 0);
         List<DespesaVM> Query_ByYear(string year);
         Task<IEnumerable<TipoDespesa>?> GetTipoDespesas();
+        Task<LookupTableVM> GetDescricaoCategoriaDespesa(int Id);
     }
 }

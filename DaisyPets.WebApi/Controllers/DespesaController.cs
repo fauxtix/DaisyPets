@@ -310,7 +310,20 @@ namespace DaisyPets.WebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Descrição de categoria de despesas
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("DescricaoCategoriaDespesa/{Id:int}")]
+        public async Task<IActionResult> GetDescricaoCategoriaDespesa(int Id)
+        {
+            var location = GetControllerActionNames();
+            var categoriaDespesa = await _service.GetDescricaoCategoriaDespesa(Id);
+            if(string.IsNullOrEmpty(categoriaDespesa.Descricao)) return NotFound();
 
+            return Ok(categoriaDespesa);
+        }
 
         /// <summary>
         /// Valida despesa

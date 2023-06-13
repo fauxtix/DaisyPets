@@ -29,21 +29,15 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             dgvExpenses = new DataGridView();
-            Id = new DataGridViewTextBoxColumn();
-            DataMovimento = new DataGridViewTextBoxColumn();
-            ValorPago = new DataGridViewTextBoxColumn();
-            Descricao = new DataGridViewTextBoxColumn();
-            DescricaoCategoriaDespesa = new DataGridViewTextBoxColumn();
-            DescricaoTipoDespesa = new DataGridViewTextBoxColumn();
-            TipoMovimento = new DataGridViewTextBoxColumn();
             lblFilter = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             checkBoxFilterDateTime = new Syncfusion.Windows.Forms.Tools.CheckBoxAdv();
             autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
@@ -57,6 +51,13 @@
             btnInsert = new Button();
             labelVisibleSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             labelSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            Id = new DataGridViewTextBoxColumn();
+            DataMovimento = new DataGridViewTextBoxColumn();
+            ValorPago = new DataGridViewTextBoxColumn();
+            Descricao = new DataGridViewTextBoxColumn();
+            DescricaoCategoriaDespesa = new DataGridViewTextBoxColumn();
+            DescricaoTipoDespesa = new DataGridViewTextBoxColumn();
+            TipoMovimento = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvExpenses).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkBoxFilterDateTime).BeginInit();
             panel1.SuspendLayout();
@@ -68,24 +69,26 @@
             dgvExpenses.AllowUserToDeleteRows = false;
             dgvExpenses.AllowUserToOrderColumns = true;
             dgvExpenses.AllowUserToResizeColumns = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvExpenses.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+            dgvExpenses.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvExpenses.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvExpenses.ColumnHeadersHeight = 40;
             dgvExpenses.Columns.AddRange(new DataGridViewColumn[] { Id, DataMovimento, ValorPago, Descricao, DescricaoCategoriaDespesa, DescricaoTipoDespesa, TipoMovimento });
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvExpenses.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dgvExpenses.DefaultCellStyle = dataGridViewCellStyle6;
             dgvExpenses.Location = new Point(22, 12);
             dgvExpenses.Name = "dgvExpenses";
             dgvExpenses.ReadOnly = true;
@@ -100,67 +103,6 @@
             dgvExpenses.TabIndex = 0;
             dgvExpenses.CellDoubleClick += dgvExpenses_CellDoubleClick;
             dgvExpenses.ColumnHeaderMouseClick += dgvExpenses_ColumnHeaderMouseClick;
-            // 
-            // Id
-            // 
-            Id.DataPropertyName = "Id";
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // DataMovimento
-            // 
-            DataMovimento.DataPropertyName = "DataMovimento";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataMovimento.DefaultCellStyle = dataGridViewCellStyle2;
-            DataMovimento.HeaderText = "Data";
-            DataMovimento.Name = "DataMovimento";
-            DataMovimento.ReadOnly = true;
-            // 
-            // ValorPago
-            // 
-            ValorPago.DataPropertyName = "ValorPago";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            ValorPago.DefaultCellStyle = dataGridViewCellStyle3;
-            ValorPago.HeaderText = "Valor";
-            ValorPago.Name = "ValorPago";
-            ValorPago.ReadOnly = true;
-            ValorPago.Width = 80;
-            // 
-            // Descricao
-            // 
-            Descricao.DataPropertyName = "Descricao";
-            Descricao.HeaderText = "Descricao";
-            Descricao.Name = "Descricao";
-            Descricao.ReadOnly = true;
-            Descricao.Width = 300;
-            // 
-            // DescricaoCategoriaDespesa
-            // 
-            DescricaoCategoriaDespesa.DataPropertyName = "DescricaoCategoriaDespesa";
-            DescricaoCategoriaDespesa.HeaderText = "Categoria";
-            DescricaoCategoriaDespesa.Name = "DescricaoCategoriaDespesa";
-            DescricaoCategoriaDespesa.ReadOnly = true;
-            DescricaoCategoriaDespesa.Width = 150;
-            // 
-            // DescricaoTipoDespesa
-            // 
-            DescricaoTipoDespesa.DataPropertyName = "DescricaoTipoDespesa";
-            DescricaoTipoDespesa.HeaderText = "Tipo despesa";
-            DescricaoTipoDespesa.Name = "DescricaoTipoDespesa";
-            DescricaoTipoDespesa.ReadOnly = true;
-            DescricaoTipoDespesa.Width = 200;
-            // 
-            // TipoMovimento
-            // 
-            TipoMovimento.DataPropertyName = "TipoMovimento";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            TipoMovimento.DefaultCellStyle = dataGridViewCellStyle4;
-            TipoMovimento.HeaderText = "Tipo Movimento";
-            TipoMovimento.Name = "TipoMovimento";
-            TipoMovimento.ReadOnly = true;
-            TipoMovimento.Width = 150;
             // 
             // lblFilter
             // 
@@ -308,6 +250,68 @@
             labelSummary.TabIndex = 30;
             labelSummary.Text = "Summary";
             // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // DataMovimento
+            // 
+            DataMovimento.DataPropertyName = "DataMovimento";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataMovimento.DefaultCellStyle = dataGridViewCellStyle3;
+            DataMovimento.HeaderText = "Data";
+            DataMovimento.Name = "DataMovimento";
+            DataMovimento.ReadOnly = true;
+            // 
+            // ValorPago
+            // 
+            ValorPago.DataPropertyName = "ValorPago";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ValorPago.DefaultCellStyle = dataGridViewCellStyle4;
+            ValorPago.HeaderText = "Valor";
+            ValorPago.Name = "ValorPago";
+            ValorPago.ReadOnly = true;
+            ValorPago.Width = 80;
+            // 
+            // Descricao
+            // 
+            Descricao.DataPropertyName = "Descricao";
+            Descricao.HeaderText = "Descricao";
+            Descricao.Name = "Descricao";
+            Descricao.ReadOnly = true;
+            Descricao.Width = 300;
+            // 
+            // DescricaoCategoriaDespesa
+            // 
+            DescricaoCategoriaDespesa.DataPropertyName = "DescricaoCategoriaDespesa";
+            DescricaoCategoriaDespesa.HeaderText = "Categoria";
+            DescricaoCategoriaDespesa.Name = "DescricaoCategoriaDespesa";
+            DescricaoCategoriaDespesa.ReadOnly = true;
+            DescricaoCategoriaDespesa.Width = 220;
+            // 
+            // DescricaoTipoDespesa
+            // 
+            DescricaoTipoDespesa.DataPropertyName = "DescricaoTipoDespesa";
+            DescricaoTipoDespesa.HeaderText = "Tipo despesa";
+            DescricaoTipoDespesa.Name = "DescricaoTipoDespesa";
+            DescricaoTipoDespesa.ReadOnly = true;
+            DescricaoTipoDespesa.Width = 280;
+            // 
+            // TipoMovimento
+            // 
+            TipoMovimento.DataPropertyName = "TipoMovimento";
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            TipoMovimento.DefaultCellStyle = dataGridViewCellStyle5;
+            TipoMovimento.HeaderText = "Tipo Movimento";
+            TipoMovimento.Name = "TipoMovimento";
+            TipoMovimento.ReadOnly = true;
+            TipoMovimento.Visible = false;
+            TipoMovimento.Width = 150;
+            // 
             // frmExpensesMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -331,7 +335,7 @@
             captionLabel2.Location = new Point(60, 28);
             captionLabel2.Name = "CaptionLabel2";
             captionLabel2.Size = new Size(200, 24);
-            captionLabel2.Text = "Despesas / Donativos";
+            captionLabel2.Text = "Gestão de Despesas";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
             ClientSize = new Size(1328, 696);
@@ -365,13 +369,6 @@
         private DateTimePicker filterFromDateTime;
         private DateTimePicker filterToDateTime;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel2;
-        private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn DataMovimento;
-        private DataGridViewTextBoxColumn ValorPago;
-        private DataGridViewTextBoxColumn Descricao;
-        private DataGridViewTextBoxColumn DescricaoCategoriaDespesa;
-        private DataGridViewTextBoxColumn DescricaoTipoDespesa;
-        private DataGridViewTextBoxColumn TipoMovimento;
         private Panel panel1;
         private Button btnClear;
         private Button btnDelete;
@@ -379,5 +376,12 @@
         private Button btnInsert;
         private Syncfusion.Windows.Forms.Tools.AutoLabel labelVisibleSummary;
         private Syncfusion.Windows.Forms.Tools.AutoLabel labelSummary;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn DataMovimento;
+        private DataGridViewTextBoxColumn ValorPago;
+        private DataGridViewTextBoxColumn Descricao;
+        private DataGridViewTextBoxColumn DescricaoCategoriaDespesa;
+        private DataGridViewTextBoxColumn DescricaoTipoDespesa;
+        private DataGridViewTextBoxColumn TipoMovimento;
     }
 }

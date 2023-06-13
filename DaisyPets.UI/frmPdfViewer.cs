@@ -16,8 +16,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-
-                throw;
+                MessageBoxAdv.Show(ex.Message, "Erro ao carregar pdf. Tente mais tarde, p.f.");               
             }
         }
 

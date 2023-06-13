@@ -1,4 +1,6 @@
-﻿using DaisyPets.Core.Application.ViewModels.Despesas;
+﻿using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Core.Application.ViewModels.Despesas;
+using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
 using DaisyPets.Infrastructure.Context;
 using Dapper;
@@ -176,13 +178,10 @@ namespace PropertyManagerFL.Infrastructure.Repositories
         {
             try
             {
-                var parameters = new DynamicParameters();
-                parameters.Add("@Id", Id);
-
                 StringBuilder sb = new StringBuilder();
-                sb.Append("SELECT id, Descricao ");
+                sb.Append("SELECT id, Descricao, IdCategoriaDespesa ");
                 sb.Append("FROM TipoDespesa ");
-                sb.Append("WHERE Id_CategoriaDespesa = @Id");
+                sb.Append("WHERE IdCategoriaDespesa = @Id");
 
 
                 using (var connection = _context.CreateConnection())
@@ -265,6 +264,20 @@ namespace PropertyManagerFL.Infrastructure.Repositories
                 {
                     return null;
                 }
+            }
+        }
+
+        public async Task<LookupTableVM> GetDescricaoCategoriaDespesa(int Id)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT Id, Descricao ");
+            sb.Append("FROM CategoriaDespesa ");
+            sb.Append("WHERE Id = @Id");
+
+            using (var connection = _context.CreateConnection())
+            {
+                var output = await connection.QuerySingleOrDefaultAsync<LookupTableVM>(sb.ToString(), new { Id });
+                return output ?? new LookupTableVM();
             }
         }
     }

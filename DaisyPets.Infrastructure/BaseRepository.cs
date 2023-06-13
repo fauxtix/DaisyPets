@@ -2,7 +2,6 @@
 using DaisyPets.Core.Application.Interfaces;
 using DaisyPets.Infrastructure.Context;
 using Dapper;
-using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Reflection;
@@ -12,9 +11,9 @@ namespace DaisyPets.Infrastructure
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        DataAccessStatus dataAccessStatus = new DataAccessStatus();
+        DataAccessStatus? dataAccessStatus = new DataAccessStatus();
         private readonly DapperContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger? _logger;
 
         public BaseRepository()
         {
@@ -34,7 +33,7 @@ namespace DaisyPets.Infrastructure
             var stringOfColumns = string.Join(", ", columns);
             var stringOfParameters = string.Join(", ", columns.Select(e => "@" + e));
 
-            StringBuilder sbInsert = new StringBuilder();
+            StringBuilder? sbInsert = new StringBuilder();
             sbInsert.Append($"INSERT INTO {typeof(T).Name} ");
             sbInsert.Append($"({stringOfColumns}) ");
             sbInsert.Append($"VALUES ({stringOfParameters})");
@@ -56,7 +55,7 @@ namespace DaisyPets.Infrastructure
                 ex.DataAccessStatusInfo.OperationSucceeded = false;
                 ex.DataAccessStatusInfo.CustomMessage = $"Erro na inserção de registo (tabela '{typeof(T).Name}').";
                 ex.DataAccessStatusInfo.ExceptionMessage = ex.Message;
-                ex.DataAccessStatusInfo.StackTrace = ex.StackTrace;;
+                ex.DataAccessStatusInfo.StackTrace = ex.StackTrace; ;
                 throw ex;
             }
         }
@@ -69,7 +68,7 @@ namespace DaisyPets.Infrastructure
             {
                 using (var connection = _context.CreateConnection())
                 {
-                   await  connection.ExecuteAsync(query, entity);
+                    await connection.ExecuteAsync(query, entity);
                 }
             }
             catch (DataAccessException ex)
@@ -107,7 +106,7 @@ namespace DaisyPets.Infrastructure
             }
         }
 
-        public async Task< IEnumerable<T>> Query(string where = null)
+        public async Task<IEnumerable<T>> Query(string where = null)
         {
             var query = $"SELECT * FROM {typeof(T).Name} ";
 
@@ -122,17 +121,17 @@ namespace DaisyPets.Infrastructure
             }
         }
 
-        public async Task< T> Query_ById(int Id)
+        public async Task<T> Query_ById(int Id)
         {
 
             using (var connection = _context.CreateConnection())
             {
-                return await  connection.QueryFirstAsync<T>($"SELECT * FROM {typeof(T).Name} WHERE Id=@Id",
+                return await connection.QueryFirstAsync<T>($"SELECT * FROM {typeof(T).Name} WHERE Id=@Id",
                     new { Id });
             }
         }
 
-        public async Task< bool> EntradaExiste_BD(string campo, string str)
+        public async Task<bool> EntradaExiste_BD(string campo, string str)
         {
             bool EntryExists = false;
             using (var connection = _context.CreateConnection())
@@ -158,7 +157,7 @@ namespace DaisyPets.Infrastructure
             }
         }
 
-        public async Task< int> GetFirstId()
+        public async Task<int> GetFirstId()
         {
             if (await TableHasData())
             {
@@ -216,7 +215,7 @@ namespace DaisyPets.Infrastructure
             {
                 using (var connection = _context.CreateConnection())
                 {
-                   await connection.ExecuteAsync(query, new { Id });
+                    await connection.ExecuteAsync(query, new { Id });
                 }
             }
             catch (DataAccessException ex)
@@ -238,7 +237,7 @@ namespace DaisyPets.Infrastructure
             {
                 using (var connection = _context.CreateConnection())
                 {
-                   await  connection.ExecuteAsync(query, new { Id });
+                    await connection.ExecuteAsync(query, new { Id });
                 }
             }
             catch (DataAccessException ex)

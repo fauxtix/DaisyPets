@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.9" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Syncfusion.Chart.Windows" Version="21.2.6" />
     <PackageReference Include="Syncfusion.Core.WinForms" Version="21.2.6" />
     <PackageReference Include="Syncfusion.DocIO.WinForms" Version="21.2.6" />
     <PackageReference Include="Syncfusion.DocToPDFConverter.WinForms" Version="21.2.6" />
@@ -61,6 +62,12 @@
 
   <ItemGroup>
     <Folder Include="LookupTables\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

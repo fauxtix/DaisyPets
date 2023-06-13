@@ -1,4 +1,5 @@
 ﻿using DaisyPets.Core.Application.ViewModels.Despesas;
+using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
 
 namespace PropertyManagerFL.Application.Interfaces.Repositories
@@ -11,8 +12,9 @@ namespace PropertyManagerFL.Application.Interfaces.Repositories
         Task<IEnumerable<Despesa>?> GetAllAsync();
         Task<IEnumerable<DespesaVM>?> GetAllVMAsync();
         Task<Despesa?> GetByIdAsync(int Id);
-        Task<DespesaVM?> GetVMByIdAsync(int ID);
-        Task<IEnumerable<TipoDespesa>?> GetTipoDespesa_ByCategoriaDespesa(int ID);
+        Task<DespesaVM?> GetVMByIdAsync(int Id);
+        Task<IEnumerable<TipoDespesa>?> GetTipoDespesa_ByCategoriaDespesa(int Id);
+        Task<LookupTableVM> GetDescricaoCategoriaDespesa(int Id);
         decimal TotalDespesas(int iTipoDespesa = 0);
         List<DespesaVM> Query_ByYear(string sAno);
         Task<IEnumerable<TipoDespesa>?> GetTipoDespesas();

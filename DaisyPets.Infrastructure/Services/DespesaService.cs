@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Despesas;
+using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
@@ -104,6 +105,12 @@ namespace DaisyPets.Infrastructure.Services
         {
             return await _repository.GetTipoDespesa_ByCategoriaDespesa(Id);
         }
+
+        public async Task<LookupTableVM> GetDescricaoCategoriaDespesa(int Id)
+        {
+            return await _repository.GetDescricaoCategoriaDespesa(Id);
+        }
+
 
         public async Task<IEnumerable<TipoDespesa>?> GetTipoDespesas()
         {

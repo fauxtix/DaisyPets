@@ -123,7 +123,7 @@ namespace DaisyPets.UI.Properties
             SetToolbar(OpcoesRegisto.Gravar);
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private async void btnDelete_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBoxAdv.Show($"Confirma operação?",
                 "Apagar Contacto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -131,7 +131,7 @@ namespace DaisyPets.UI.Properties
             if (dr != DialogResult.Yes)
                 return;
 
-            DeleteContact();
+            await DeleteContact();
 
         }
 

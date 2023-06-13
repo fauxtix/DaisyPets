@@ -2,9 +2,11 @@
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Application.ViewModels.Pdfs;
+using DaisyPets.UI.ApiServices;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
 using System.Collections;
+using System.Configuration;
 using System.Net.Http.Json;
 using System.Text;
 using static DaisyPets.Core.Application.Enums.Common;
@@ -24,6 +26,9 @@ namespace DaisyPets.UI
         private int IdPet = 0;
 
         private bool nonNumberEntered = false;
+        private string ApiBaseAddress { get; set; } = string.Empty;
+        private string PetsApiEndpoint { get; set; } = string.Empty;
+        private string MailMergeApiEndpoint { get; set; } = string.Empty;
 
         private int _previousIndex;
         private bool _sortDirection;
@@ -33,6 +38,11 @@ namespace DaisyPets.UI
         public frmPets()
         {
             InitializeComponent();
+
+            ApiBaseAddress = AccessSettingsService.BaseAddressSetting(); // $"{ReadSetting("ApiBaseAddress")}";
+            PetsApiEndpoint = AccessSettingsService.PetsEndpoint(); // $"{ApiBaseAddress}/Pets";
+            MailMergeApiEndpoint = AccessSettingsService.MailMergeEndpoint(); // $"{ ApiBaseAddress}/Mailmerge";
+
             gdvDados.AutoGenerateColumns = false;
             Pesos = GetPesos();
 
@@ -57,7 +67,7 @@ namespace DaisyPets.UI
 
         }
 
-        private async void btnInsert_Click(object sender, EventArgs e)
+        private void btnInsert_Click(object sender, EventArgs e)
         {
             var validationErrors = ValidateData();
 
@@ -101,7 +111,7 @@ namespace DaisyPets.UI
                 Padrinho = chkPadrinho.Checked ? 1 : 0
             };
 
-            string url = "https://localhost:7161/api/Pets";
+            string url = PetsApiEndpoint;
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -184,7 +194,7 @@ namespace DaisyPets.UI
                 Observacoes = txtObservacoes.Text
             };
 
-            string url = $"https://localhost:7161/api/Pets/{IdPet}";
+            string url = $"{PetsApiEndpoint}/{IdPet}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -222,7 +232,7 @@ namespace DaisyPets.UI
 
         private async Task DeletePet()
         {
-            string url = $"https://localhost:7161/api/Pets/{IdPet}";
+            string url = $"{PetsApiEndpoint}/{IdPet}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -270,8 +280,8 @@ namespace DaisyPets.UI
 
         private void FillGrid()
         {
-            IEnumerable<PetVM> pets;
-            string url = "https://localhost:7161/api/Pets/AllPetsVM";
+            string url = $"{PetsApiEndpoint}/AllPetsVM";
+            IEnumerable<PetVM> petsGridData;
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -280,10 +290,10 @@ namespace DaisyPets.UI
                     var response = task.Result;
                     if (response.IsSuccessStatusCode)
                     {
-                        pets = response.Content.ReadAsAsync<IEnumerable<PetVM>>().Result;
-                        if (pets != null)
+                        petsGridData = response.Content.ReadAsAsync<IEnumerable<PetVM>>().Result;
+                        if (petsGridData != null)
                         {
-                            gdvDados.DataSource = pets?.ToList();
+                            gdvDados.DataSource = petsGridData?.ToList();
                         }
                         else
                         {
@@ -304,7 +314,7 @@ namespace DaisyPets.UI
         private PetVM GetPetVM(int Id)
         {
             PetVM pet;
-            string url = $"https://localhost:7161/api/Pets/PetVMById/{Id}";
+            string url = $"{PetsApiEndpoint}/PetVMById/{Id}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -341,7 +351,7 @@ namespace DaisyPets.UI
         private async Task FillGrid2()
         {
             IEnumerable<PetVM>? pets;
-            string url = "https://localhost:7161/api/Pets/AllPetsVM";
+            string url = $"{PetsApiEndpoint}/AllPetsVM";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -441,7 +451,7 @@ namespace DaisyPets.UI
         {
             try
             {
-                string url = $"https://localhost:7161/api/Pets/{Id}";
+                string url = $"{PetsApiEndpoint}/{Id}";
                 using (HttpClient httpClient = new HttpClient())
                 {
                     var task = httpClient.GetAsync(url);
@@ -466,7 +476,7 @@ namespace DaisyPets.UI
 
         private async Task<PetDto> GetPet2(int Id)
         {
-            string url = $"https://localhost:7161/api/Pets/{Id}";
+            string url = $"{PetsApiEndpoint}/{Id}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var pet = await httpClient.GetFromJsonAsync<PetDto>(url);
@@ -476,7 +486,7 @@ namespace DaisyPets.UI
 
         private IEnumerable<PesoDto> GetPesos()
         {
-            string url = "https://localhost:7161/api/pets/Pesos";
+            string url = $"{PetsApiEndpoint}/Pesos";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetAsync(url);
@@ -510,7 +520,8 @@ namespace DaisyPets.UI
         private void FillCombo(ComboBox comboBox, string dataTable)
         {
             comboBox.Items.Clear();
-            string url = $"https://localhost:7161/api/LookupTables/GetAllRecords/{dataTable}";
+            var lookupEndpoint = AccessSettingsService.LookupTablesEndpoint();
+            string url = $"{lookupEndpoint}/GetAllRecords/{dataTable}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(url);
@@ -824,7 +835,7 @@ namespace DaisyPets.UI
                     IdTemperamento = cboTemperamento.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboTemperamento.SelectedItem)).Key) : -1
                 };
 
-                string url = $"https://localhost:7161/api/Pets/ValidatePets";
+                string url = $"{PetsApiEndpoint}/ValidatePets";
                 using (HttpClient httpClient = new HttpClient())
                 {
 
@@ -1013,7 +1024,7 @@ namespace DaisyPets.UI
         {
             try
             {
-                string url = "https://localhost:7161/api/MailMerge/MailMergeDocument";
+                string url = $"{MailMergeApiEndpoint}/MailMergeDocument";
                 using (HttpClient httpClient = new HttpClient())
                 {
 
@@ -1039,7 +1050,7 @@ namespace DaisyPets.UI
                 //return resultString;
 
             }
-            catch (Exception ex)
+            catch
             {
                 return "";
             }
@@ -1106,6 +1117,21 @@ namespace DaisyPets.UI
 
             var genero = cboGenero.SelectedItem.ToString();
             IdGenero = genero!.Substring(0, 1);
+        }
+
+        private string ReadSetting(string key)
+        {
+            try
+            {
+                var appSettings = ConfigurationManager.AppSettings;
+                string result = appSettings[key] ?? "Not Found";
+                return result;
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error reading app settings");
+                return "";
+            }
         }
     }
 }

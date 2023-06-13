@@ -14,7 +14,7 @@ namespace DaisyPets.UI
             InitializeComponent();
         }
 
-        frmPets fPets;
+        frmPets? fPets;
         private void btnPets_Click(object sender, EventArgs e)
         {
             if (fPets == null)
@@ -34,7 +34,7 @@ namespace DaisyPets.UI
             fPets = null;
         }
 
-        frmContacto fContactos;
+        frmContacto? fContactos;
 
         private void btnContactos_Click(object sender, EventArgs e)
         {
@@ -46,7 +46,7 @@ namespace DaisyPets.UI
                 fContactos.Show();
             }
             else
-            { fPets.Activate(); }
+            { fContactos.Activate(); }
         }
 
         private void Contacts_FormClosed(object sender, FormClosedEventArgs e)
@@ -54,10 +54,10 @@ namespace DaisyPets.UI
             fContactos = null;
         }
 
-        frmExpensesMain fExpenses;
+        frmExpensesMain? fExpenses;
         private void btnExpensesDonations_Click(object sender, EventArgs e)
         {
-            if (fContactos == null)
+            if (fExpenses == null)
             {
                 fExpenses = new frmExpensesMain();
                 fExpenses.MdiParent = this;
@@ -73,7 +73,7 @@ namespace DaisyPets.UI
             fExpenses = null;
         }
 
-        frmPdfViewer fPdf;
+        frmPdfViewer? fPdf;
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
             if (fPdf == null)
@@ -154,8 +154,6 @@ namespace DaisyPets.UI
                 return "";
             }
         }
-
-
     }
 }
 

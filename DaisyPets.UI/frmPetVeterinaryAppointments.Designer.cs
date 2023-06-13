@@ -29,14 +29,17 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPetVeterinaryAppointments));
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             gradientPanel1 = new Syncfusion.Windows.Forms.Tools.GradientPanel();
+            autoLabel7 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            txtNotas = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             autoLabel2 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             txtPetName = new Syncfusion.Windows.Forms.Tools.TextBoxExt();
             dtpApptDate = new DateTimePicker();
@@ -64,6 +67,7 @@
             PetId = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)gradientPanel1).BeginInit();
             gradientPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)txtNotas).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtPetName).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtIdPet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtMotivo).BeginInit();
@@ -77,6 +81,8 @@
             // 
             gradientPanel1.BackColor = Color.Gainsboro;
             gradientPanel1.BorderStyle = BorderStyle.FixedSingle;
+            gradientPanel1.Controls.Add(autoLabel7);
+            gradientPanel1.Controls.Add(txtNotas);
             gradientPanel1.Controls.Add(autoLabel2);
             gradientPanel1.Controls.Add(txtPetName);
             gradientPanel1.Controls.Add(dtpApptDate);
@@ -93,8 +99,33 @@
             gradientPanel1.Location = new Point(22, 34);
             gradientPanel1.Margin = new Padding(3, 4, 3, 4);
             gradientPanel1.Name = "gradientPanel1";
-            gradientPanel1.Size = new Size(591, 290);
+            gradientPanel1.Size = new Size(738, 357);
             gradientPanel1.TabIndex = 11;
+            // 
+            // autoLabel7
+            // 
+            autoLabel7.BackColor = Color.Gainsboro;
+            autoLabel7.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            autoLabel7.ForeColor = SystemColors.ControlText;
+            autoLabel7.Location = new Point(15, 300);
+            autoLabel7.Name = "autoLabel7";
+            autoLabel7.Size = new Size(49, 20);
+            autoLabel7.TabIndex = 31;
+            autoLabel7.Text = "Notas";
+            // 
+            // txtNotas
+            // 
+            txtNotas.BeforeTouchSize = new Size(552, 83);
+            txtNotas.Border3DStyle = Border3DStyle.Flat;
+            txtNotas.BorderStyle = BorderStyle.FixedSingle;
+            txtNotas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txtNotas.Location = new Point(148, 297);
+            txtNotas.Margin = new Padding(3, 4, 3, 4);
+            txtNotas.Multiline = true;
+            txtNotas.Name = "txtNotas";
+            txtNotas.ScrollBars = ScrollBars.Vertical;
+            txtNotas.Size = new Size(555, 52);
+            txtNotas.TabIndex = 30;
             // 
             // autoLabel2
             // 
@@ -109,7 +140,7 @@
             // 
             // txtPetName
             // 
-            txtPetName.BeforeTouchSize = new Size(412, 91);
+            txtPetName.BeforeTouchSize = new Size(552, 83);
             txtPetName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             txtPetName.Location = new Point(151, 40);
             txtPetName.Name = "txtPetName";
@@ -128,7 +159,7 @@
             // 
             // txtIdPet
             // 
-            txtIdPet.BeforeTouchSize = new Size(412, 91);
+            txtIdPet.BeforeTouchSize = new Size(552, 83);
             txtIdPet.Location = new Point(439, 11);
             txtIdPet.Margin = new Padding(3, 4, 3, 4);
             txtIdPet.Name = "txtIdPet";
@@ -152,7 +183,7 @@
             autoLabel5.BackColor = Color.Gainsboro;
             autoLabel5.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             autoLabel5.ForeColor = SystemColors.ControlText;
-            autoLabel5.Location = new Point(18, 106);
+            autoLabel5.Location = new Point(18, 110);
             autoLabel5.Name = "autoLabel5";
             autoLabel5.Size = new Size(58, 20);
             autoLabel5.TabIndex = 22;
@@ -163,7 +194,7 @@
             autoLabel4.BackColor = Color.Gainsboro;
             autoLabel4.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             autoLabel4.ForeColor = SystemColors.ControlText;
-            autoLabel4.Location = new Point(18, 138);
+            autoLabel4.Location = new Point(18, 147);
             autoLabel4.Name = "autoLabel4";
             autoLabel4.Size = new Size(90, 20);
             autoLabel4.TabIndex = 21;
@@ -174,7 +205,7 @@
             autoLabel3.BackColor = Color.Gainsboro;
             autoLabel3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             autoLabel3.ForeColor = SystemColors.ControlText;
-            autoLabel3.Location = new Point(18, 193);
+            autoLabel3.Location = new Point(18, 202);
             autoLabel3.Name = "autoLabel3";
             autoLabel3.Size = new Size(87, 20);
             autoLabel3.TabIndex = 20;
@@ -192,42 +223,48 @@
             // 
             // txtMotivo
             // 
-            txtMotivo.BeforeTouchSize = new Size(412, 91);
+            txtMotivo.BeforeTouchSize = new Size(552, 83);
+            txtMotivo.Border3DStyle = Border3DStyle.Flat;
+            txtMotivo.BorderStyle = BorderStyle.FixedSingle;
             txtMotivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtMotivo.Location = new Point(151, 103);
+            txtMotivo.Location = new Point(151, 110);
             txtMotivo.Margin = new Padding(3, 4, 3, 4);
             txtMotivo.Name = "txtMotivo";
-            txtMotivo.Size = new Size(412, 27);
+            txtMotivo.Size = new Size(552, 27);
             txtMotivo.TabIndex = 1;
             // 
             // txtDiagnostico
             // 
-            txtDiagnostico.BeforeTouchSize = new Size(412, 91);
+            txtDiagnostico.BeforeTouchSize = new Size(552, 83);
+            txtDiagnostico.Border3DStyle = Border3DStyle.Flat;
+            txtDiagnostico.BorderStyle = BorderStyle.FixedSingle;
             txtDiagnostico.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtDiagnostico.Location = new Point(151, 135);
+            txtDiagnostico.Location = new Point(151, 148);
             txtDiagnostico.Margin = new Padding(3, 4, 3, 4);
             txtDiagnostico.Multiline = true;
             txtDiagnostico.Name = "txtDiagnostico";
             txtDiagnostico.ScrollBars = ScrollBars.Vertical;
-            txtDiagnostico.Size = new Size(412, 47);
+            txtDiagnostico.Size = new Size(552, 47);
             txtDiagnostico.TabIndex = 2;
             // 
             // txtTratamento
             // 
-            txtTratamento.BeforeTouchSize = new Size(412, 91);
+            txtTratamento.BeforeTouchSize = new Size(552, 83);
+            txtTratamento.Border3DStyle = Border3DStyle.Flat;
+            txtTratamento.BorderStyle = BorderStyle.FixedSingle;
             txtTratamento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtTratamento.Location = new Point(151, 190);
+            txtTratamento.Location = new Point(151, 204);
             txtTratamento.Margin = new Padding(3, 4, 3, 4);
             txtTratamento.Multiline = true;
             txtTratamento.Name = "txtTratamento";
             txtTratamento.ScrollBars = ScrollBars.Vertical;
-            txtTratamento.Size = new Size(412, 91);
+            txtTratamento.Size = new Size(552, 83);
             txtTratamento.TabIndex = 3;
             // 
             // txtID
             // 
             txtID.BackColor = Color.DarkGray;
-            txtID.BeforeTouchSize = new Size(412, 91);
+            txtID.BeforeTouchSize = new Size(552, 83);
             txtID.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             txtID.ForeColor = Color.Black;
             txtID.Location = new Point(151, 7);
@@ -247,7 +284,7 @@
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClear.Location = new Point(515, 351);
+            btnClear.Location = new Point(662, 412);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(98, 39);
             btnClear.TabIndex = 15;
@@ -264,7 +301,7 @@
             btnDelete.ForeColor = Color.White;
             btnDelete.Image = Properties.Resources._678080_shield_error_32;
             btnDelete.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDelete.Location = new Point(282, 351);
+            btnDelete.Location = new Point(286, 412);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(98, 39);
             btnDelete.TabIndex = 14;
@@ -281,7 +318,7 @@
             btnUpdate.ForeColor = Color.White;
             btnUpdate.Image = Properties.Resources.save32;
             btnUpdate.ImageAlign = ContentAlignment.MiddleLeft;
-            btnUpdate.Location = new Point(154, 351);
+            btnUpdate.Location = new Point(158, 412);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(98, 39);
             btnUpdate.TabIndex = 13;
@@ -298,7 +335,7 @@
             btnInsert.ForeColor = Color.White;
             btnInsert.Image = Properties.Resources.Clear;
             btnInsert.ImageAlign = ContentAlignment.MiddleLeft;
-            btnInsert.Location = new Point(26, 351);
+            btnInsert.Location = new Point(30, 412);
             btnInsert.Name = "btnInsert";
             btnInsert.Size = new Size(98, 39);
             btnInsert.TabIndex = 12;
@@ -322,33 +359,35 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dgvAppts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dgvAppts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAppts.ColumnHeadersHeight = 32;
             dgvAppts.Columns.AddRange(new DataGridViewColumn[] { ID, Nome, DataConsulta, Moitvo, Diagnostico, Tratamento, PetId });
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = Color.Gray;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvAppts.DefaultCellStyle = dataGridViewCellStyle3;
-            dgvAppts.Location = new Point(25, 414);
-            dgvAppts.Margin = new Padding(3, 4, 3, 4);
-            dgvAppts.Name = "dgvAppts";
-            dgvAppts.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.White;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = Color.Gray;
             dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvAppts.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dgvAppts.DefaultCellStyle = dataGridViewCellStyle4;
+            dgvAppts.Location = new Point(22, 467);
+            dgvAppts.Margin = new Padding(3, 4, 3, 4);
+            dgvAppts.Name = "dgvAppts";
+            dgvAppts.ReadOnly = true;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.White;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dgvAppts.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dgvAppts.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgvAppts.RowTemplate.DividerHeight = 1;
-            dgvAppts.RowTemplate.Height = 32;
+            dgvAppts.RowTemplate.Height = 48;
+            dgvAppts.RowTemplate.ReadOnly = true;
+            dgvAppts.RowTemplate.Resizable = DataGridViewTriState.True;
             dgvAppts.ScrollBars = ScrollBars.Vertical;
-            dgvAppts.Size = new Size(920, 285);
+            dgvAppts.Size = new Size(920, 247);
             dgvAppts.TabIndex = 16;
             dgvAppts.CellClick += dgvAppts_CellClick;
             dgvAppts.ColumnHeaderMouseClick += dgvAppts_ColumnHeaderMouseClick;
@@ -382,6 +421,8 @@
             // Moitvo
             // 
             Moitvo.DataPropertyName = "Motivo";
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.TopLeft;
+            Moitvo.DefaultCellStyle = dataGridViewCellStyle2;
             Moitvo.HeaderText = "Motivo";
             Moitvo.Name = "Moitvo";
             Moitvo.ReadOnly = true;
@@ -391,8 +432,9 @@
             // Diagnostico
             // 
             Diagnostico.DataPropertyName = "Diagnostico";
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            Diagnostico.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.TopLeft;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            Diagnostico.DefaultCellStyle = dataGridViewCellStyle3;
             Diagnostico.HeaderText = "Diagnóstico";
             Diagnostico.Name = "Diagnostico";
             Diagnostico.ReadOnly = true;
@@ -444,7 +486,7 @@
             captionLabel2.Text = "Consultas no veterinário";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(963, 704);
+            ClientSize = new Size(963, 716);
             Controls.Add(dgvAppts);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
@@ -460,6 +502,7 @@
             ((System.ComponentModel.ISupportInitialize)gradientPanel1).EndInit();
             gradientPanel1.ResumeLayout(false);
             gradientPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)txtNotas).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtPetName).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtIdPet).EndInit();
             ((System.ComponentModel.ISupportInitialize)txtMotivo).EndInit();
@@ -491,6 +534,8 @@
         private DataGridView dgvAppts;
         private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel2;
         private Syncfusion.Windows.Forms.Tools.TextBoxExt txtPetName;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel7;
+        private Syncfusion.Windows.Forms.Tools.TextBoxExt txtNotas;
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn Nome;
         private DataGridViewTextBoxColumn DataConsulta;

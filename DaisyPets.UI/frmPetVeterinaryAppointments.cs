@@ -68,7 +68,8 @@ namespace DaisyPets.UI
                 DataConsulta = dtpApptDate.Value.ToShortDateString(),
                 Diagnostico = txtDiagnostico.Text,
                 Motivo = txtMotivo.Text,
-                Tratamento = txtTratamento.Text
+                Tratamento = txtTratamento.Text,
+                Notas = txtNotas.Text
             };
 
             try
@@ -96,7 +97,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Criação de Pet");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Criação de Consulta");
             }
 
 
@@ -179,7 +180,8 @@ namespace DaisyPets.UI
                 DataConsulta = dtpApptDate.Value.ToShortDateString(),
                 Diagnostico = txtDiagnostico.Text,
                 Motivo = txtMotivo.Text,
-                Tratamento = txtTratamento.Text
+                Tratamento = txtTratamento.Text,
+                Notas = txtNotas.Text
             };
 
             string url = $"https://localhost:7161/api/Consulta/{IdAppt}";
@@ -263,6 +265,7 @@ namespace DaisyPets.UI
             txtMotivo.Clear();
             txtDiagnostico.Clear();
             txtTratamento.Clear();
+            txtNotas.Clear();
             dtpApptDate.Focus();
             SetToolbar_Clear();
         }
@@ -308,7 +311,7 @@ namespace DaisyPets.UI
 
         private async Task DeletePetAppt()
         {
-            string url = $"https://localhost:7161/api/Consulta//{IdAppt}";
+            string url = $"https://localhost:7161/api/Consulta/{IdAppt}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -342,7 +345,7 @@ namespace DaisyPets.UI
             }
             catch (Exception ex)
             {
-                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Apagar Pet");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Apagar consulta");
             }
 
         }
@@ -363,6 +366,7 @@ namespace DaisyPets.UI
                     txtMotivo.Text = apptData.Motivo.ToString();
                     txtTratamento.Text = apptData.Tratamento.ToString();
                     dtpApptDate.Value = Convert.ToDateTime(apptData.DataConsulta);
+                    txtNotas.Text = apptData.Notas;
 
                     SetToolbar(OpcoesRegisto.Gravar);
                     SelectRowInGrid();

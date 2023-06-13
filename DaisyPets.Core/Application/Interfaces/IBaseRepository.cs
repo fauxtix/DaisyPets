@@ -19,6 +19,6 @@ namespace DaisyPets.Core.Application.Interfaces
        Task< T> Query_ById(int Id);
        Task< bool> RecInUse(int Id);
        Task< bool> TableHasData();
-       Task< IEnumerable<T>> Query(string where = null);
+       Task< IEnumerable<T>> Query(string where = "");
     }
 }

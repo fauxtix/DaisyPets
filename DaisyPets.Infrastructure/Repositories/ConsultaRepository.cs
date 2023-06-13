@@ -26,9 +26,9 @@ namespace DaisyPets.Infrastructure.Repositories
             StringBuilder sb = new StringBuilder();
 
             sb.Append("INSERT INTO ConsultaVeterinario (");
-            sb.Append("DataConsulta, Motivo, Diagnostico, Tratamento, IdPet) ");
+            sb.Append("DataConsulta, Motivo, Diagnostico, Tratamento, Notas, IdPet) ");
             sb.Append(" VALUES(");
-            sb.Append("@DataConsulta, @Motivo, @Diagnostico, @Tratamento, @IdPet");
+            sb.Append("@DataConsulta, @Motivo, @Diagnostico, @Tratamento, @Notas, @IdPet");
             sb.Append(");");
             sb.Append("SELECT last_insert_rowid()");
 
@@ -57,6 +57,7 @@ namespace DaisyPets.Infrastructure.Repositories
             dynamicParameters.Add("@Motivo", Consulta.Motivo);
             dynamicParameters.Add("@Diagnostico", Consulta.Diagnostico);
             dynamicParameters.Add("@Tratamento", Consulta.Tratamento);
+            dynamicParameters.Add("@Notas", Consulta.Notas);
             dynamicParameters.Add("@IdPet", Consulta.IdPet);
 
             StringBuilder sb = new StringBuilder();
@@ -65,6 +66,7 @@ namespace DaisyPets.Infrastructure.Repositories
             sb.Append("Motivo = @Motivo, ");
             sb.Append("Diagnostico = @Diagnostico, ");
             sb.Append("Tratamento = @Tratamento, ");
+            sb.Append("Notas = @Notas, ");
             sb.Append("IdPet = @IdPet ");
             sb.Append("WHERE Id = @Id");
 
@@ -168,7 +170,9 @@ namespace DaisyPets.Infrastructure.Repositories
         public async Task<IEnumerable<ConsultaVeterinarioVM>> GetConsultaVMAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT ConsultaVeterinario.Id, DataConsulta, Motivo, Diagnostico, Tratamento, IdPet, Pet.Nome AS [NomePet] ");
+            sb.Append("SELECT ConsultaVeterinario.Id, DataConsulta, Motivo, ");
+            sb.Append("Diagnostico, Tratamento, ");
+            sb.Append("IdPet, Pet.Nome AS [NomePet] ");
             sb.Append("FROM ConsultaVeterinario ");
             sb.Append("INNER JOIN Pet ON ");
             sb.Append("ConsultaVeterinario.IdPet = Pet.Id ");

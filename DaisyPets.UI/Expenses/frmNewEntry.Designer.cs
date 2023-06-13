@@ -112,6 +112,7 @@
             // 
             // txtNotas
             // 
+            txtNotas.BackColor = Color.White;
             txtNotas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             txtNotas.Location = new Point(17, 332);
             txtNotas.Multiline = true;
@@ -195,8 +196,11 @@
             // 
             // cboTipoDespesa
             // 
+            cboTipoDespesa.BackColor = Color.SteelBlue;
             cboTipoDespesa.Enabled = false;
+            cboTipoDespesa.FlatStyle = FlatStyle.Flat;
             cboTipoDespesa.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            cboTipoDespesa.ForeColor = Color.White;
             cboTipoDespesa.FormattingEnabled = true;
             cboTipoDespesa.Location = new Point(17, 272);
             cboTipoDespesa.Name = "cboTipoDespesa";
@@ -216,7 +220,10 @@
             // 
             // cboCategoriasDespesas
             // 
+            cboCategoriasDespesas.BackColor = Color.SteelBlue;
+            cboCategoriasDespesas.FlatStyle = FlatStyle.Flat;
             cboCategoriasDespesas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            cboCategoriasDespesas.ForeColor = Color.White;
             cboCategoriasDespesas.FormattingEnabled = true;
             cboCategoriasDespesas.Location = new Point(17, 212);
             cboCategoriasDespesas.Name = "cboCategoriasDespesas";
@@ -236,8 +243,9 @@
             // 
             // txtValor
             // 
+            txtValor.BackColor = Color.White;
             txtValor.BorderStyle = BorderStyle.FixedSingle;
-            txtValor.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txtValor.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             txtValor.Location = new Point(17, 153);
             txtValor.Name = "txtValor";
             txtValor.PlaceholderText = "Valor pago pela despesa";
@@ -257,7 +265,8 @@
             // 
             // txtDescricao
             // 
-            txtDescricao.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txtDescricao.BackColor = Color.White;
+            txtDescricao.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             txtDescricao.Location = new Point(17, 94);
             txtDescricao.Name = "txtDescricao";
             txtDescricao.Size = new Size(395, 27);

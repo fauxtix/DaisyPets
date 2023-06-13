@@ -18,6 +18,7 @@ namespace DaisyPets.UI.Expenses
         private string IdTipoMovimento = "S";
         private int IdCategoriaDespesa = -1;
         private int IdTipoDespesa = -1;
+
         private IEnumerable<TipoDespesa>? ExpenseTypes { get; set; }
 
         public frmNewEntry(DespesaDto expense)
@@ -74,8 +75,17 @@ namespace DaisyPets.UI.Expenses
 
                     }
                     txtValor.Text = expenseData.ValorPago.ToString();
-                    cboCategoriasDespesas.SelectedIndex = expenseData.IdCategoriaDespesa - 1;
-                    cboTipoDespesa.SelectedIndex = expenseData.IdTipoDespesa - 1;
+                    string categoryDescription = GetDescricaoCategoria(expenseData.IdCategoriaDespesa);
+                    string expenseTypeDescription = GetDescricaoTipoDespesa(expenseData.IdTipoDespesa, expenseData.IdCategoriaDespesa);
+
+                    var idxCategory = cboCategoriasDespesas.FindStringExact(categoryDescription);
+
+                    // Ao mudar o index, segunda combo fica automaticamente filtrada...
+                    cboCategoriasDespesas.SelectedIndex = idxCategory;
+
+                    var idxExpenseType = cboTipoDespesa.FindStringExact(expenseTypeDescription);
+                    cboTipoDespesa.SelectedIndex = idxExpenseType;
+
                     txtNotas.Text = expenseData.Notas;
 
                     SetToolbar(OpcoesRegisto.Gravar);
@@ -373,6 +383,56 @@ namespace DaisyPets.UI.Expenses
             }
 
         }
+
+        private string GetDescricaoCategoria(int categoryId)
+        {
+            string url = $"https://localhost:7161/api/despesa/DescricaoCategoriaDespesa/{categoryId}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+
+                var task = httpClient.GetAsync(url);
+                var response = task.Result;
+
+                task.Wait();
+                task.Dispose();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var category = response.Content.ReadAsAsync<LookupTableVM>().Result;
+                    return category.Descricao ?? "";
+                }
+
+                return "";
+            }
+        }
+
+        private string GetDescricaoTipoDespesa(int expenseTypeId, int categoryId)
+        {
+            string url = $"https://localhost:7161/api/despesa/TipoDespesa_ByCategoriaDespesa/{categoryId}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+
+                var task = httpClient.GetAsync(url);
+                var response = task.Result;
+
+                task.Wait();
+                task.Dispose();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var expenseTypes = response.Content.ReadAsAsync<IEnumerable<TipoDespesa>>().Result;
+                    if (expenseTypes.Any())
+                    {
+                        var tipoDespesa = expenseTypes.SingleOrDefault(o => o.Id == expenseTypeId);
+                        return tipoDespesa.Descricao;
+                    }
+                    return "";
+                }
+            }
+
+            return "";
+        }
+
 
         private void cboTipoDespesa_SelectedIndexChanged(object sender, EventArgs e)
         {
