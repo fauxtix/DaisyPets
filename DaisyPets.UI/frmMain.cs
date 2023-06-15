@@ -1,5 +1,7 @@
-﻿using DaisyPets.Core.Application.ViewModels.Pdfs;
+﻿using DaisyPets.Core.Application.Enums;
+using DaisyPets.Core.Application.ViewModels.Pdfs;
 using DaisyPets.UI.Expenses;
+using DaisyPets.UI.LookupTables;
 using DaisyPets.UI.Properties;
 using Syncfusion.Windows.Forms;
 
@@ -8,6 +10,7 @@ namespace DaisyPets.UI
     public partial class frmMain : MetroForm
     {
         private bool _isApplicationExit = false;
+        private string tableName = string.Empty;
 
         public frmMain()
         {
@@ -153,6 +156,42 @@ namespace DaisyPets.UI
                 MessageBoxAdv.Show($"Erro no Api ({ex.Message})", "Rações");
                 return "";
             }
+        }
+
+        private void optCategoriaDespesas_Click(object sender, EventArgs e)
+        {
+            tableName = "CategoriaDespesa";
+            OpenSettingsForm();
+
+        }
+        private void optRacas_Click(object sender, EventArgs e)
+        {
+            tableName = "Raca";
+            OpenSettingsForm();
+        }
+
+        private void optSituacao_Click(object sender, EventArgs e)
+        {
+            tableName = "Situacao";
+            OpenSettingsForm();
+        }
+
+        private void optTemperamento_Click(object sender, EventArgs e)
+        {
+            tableName = "Temperamento";
+            OpenSettingsForm();
+        }
+
+        private void OpenSettingsForm()
+        {
+            frmLookupTablesManager frmManut = new frmLookupTablesManager(tableName);
+            var resp = frmManut.ShowDialog();
+        }
+
+        private void optTipoDespesa_Click(object sender, EventArgs e)
+        {
+            Configuration fBackup = new Configuration();
+            fBackup.ShowDialog();
         }
     }
 }

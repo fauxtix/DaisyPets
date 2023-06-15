@@ -321,6 +321,7 @@
             gdvContacts.Size = new Size(753, 221);
             gdvContacts.TabIndex = 12;
             gdvContacts.CellClick += gdvContacts_CellClick;
+            gdvContacts.ColumnHeaderMouseClick += gdvContacts_ColumnHeaderMouseClick;
             // 
             // ID
             // 

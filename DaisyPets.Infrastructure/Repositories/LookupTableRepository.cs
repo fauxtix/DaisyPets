@@ -172,20 +172,16 @@ namespace DaisyPets.Infrastructure.Repositories
         /// <param name="Codigo"></param>
         /// <param name="Tabela"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteRegisto(int iCodigo, string Tabela)
+        public async Task<bool> DeleteRegisto(int Id, string tableName)
         {
-            string codigo = "Id";
 
-            string Query = $"DELETE {Tabela} WHERE {codigo} = @Codigo";
-
-            DynamicParameters paramCollection = new DynamicParameters();
-            paramCollection.Add("@Codigo", iCodigo);
+            string Query = $"DELETE FROM {tableName} WHERE Id = @Id";
 
             try
             {
                 using (var connection = _context.CreateConnection())
                 {
-                    await connection.ExecuteAsync(Query, paramCollection);
+                    await connection.ExecuteAsync(Query, new { Id });
                     return true;
                 }
             }

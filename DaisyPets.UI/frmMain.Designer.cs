@@ -41,6 +41,17 @@
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripButton3 = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
+            toolStripDropDownButton1 = new ToolStripDropDownButton();
+            optCategoriaDespesas = new ToolStripMenuItem();
+            toolStripSeparator5 = new ToolStripSeparator();
+            optRacas = new ToolStripMenuItem();
+            toolStripSeparator6 = new ToolStripSeparator();
+            optSituacao = new ToolStripMenuItem();
+            toolStripSeparator7 = new ToolStripSeparator();
+            optTemperamento = new ToolStripMenuItem();
+            toolStripSeparator8 = new ToolStripSeparator();
+            optTipoDespesa = new ToolStripMenuItem();
+            toolStripSeparator9 = new ToolStripSeparator();
             btnFechar = new ToolStripButton();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -48,7 +59,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(48, 48);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnExpensesDonations, toolStripSeparator4, btnContactos, toolStripSeparator2, toolStripButton3, toolStripSeparator3, btnFechar });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnExpensesDonations, toolStripSeparator4, btnContactos, toolStripSeparator2, toolStripButton3, toolStripSeparator3, toolStripDropDownButton1, toolStripSeparator9, btnFechar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1384, 55);
@@ -102,17 +113,97 @@
             // toolStripButton3
             // 
             toolStripButton3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            toolStripButton3.Image = Properties.Resources.iconfinder_ic_settings_48px_352095;
+            toolStripButton3.Image = Properties.Resources.Table_icon;
             toolStripButton3.ImageTransparentColor = Color.Magenta;
             toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(150, 52);
-            toolStripButton3.Text = "Configuração";
+            toolStripButton3.Size = new Size(263, 52);
+            toolStripButton3.Text = "Documentação base de dados";
             toolStripButton3.Click += toolStripButton3_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
             toolStripSeparator3.Size = new Size(6, 55);
+            // 
+            // toolStripDropDownButton1
+            // 
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { optCategoriaDespesas, toolStripSeparator5, optRacas, toolStripSeparator6, optSituacao, toolStripSeparator7, optTemperamento, toolStripSeparator8, optTipoDespesa });
+            toolStripDropDownButton1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            toolStripDropDownButton1.Image = Properties.Resources.iconfinder_ic_settings_48px_352095;
+            toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            toolStripDropDownButton1.Size = new Size(159, 52);
+            toolStripDropDownButton1.Text = "Configuração";
+            // 
+            // optCategoriaDespesas
+            // 
+            optCategoriaDespesas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            optCategoriaDespesas.Image = Properties.Resources.tool_box_icon;
+            optCategoriaDespesas.Name = "optCategoriaDespesas";
+            optCategoriaDespesas.Size = new Size(241, 54);
+            optCategoriaDespesas.Text = "Categoria Despesas";
+            optCategoriaDespesas.Click += optCategoriaDespesas_Click;
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new Size(238, 6);
+            // 
+            // optRacas
+            // 
+            optRacas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            optRacas.Image = Properties.Resources.tool_box_icon;
+            optRacas.Name = "optRacas";
+            optRacas.Size = new Size(241, 54);
+            optRacas.Text = "Raças";
+            optRacas.Click += optRacas_Click;
+            // 
+            // toolStripSeparator6
+            // 
+            toolStripSeparator6.Name = "toolStripSeparator6";
+            toolStripSeparator6.Size = new Size(238, 6);
+            // 
+            // optSituacao
+            // 
+            optSituacao.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            optSituacao.Image = Properties.Resources.tool_box_icon;
+            optSituacao.Name = "optSituacao";
+            optSituacao.Size = new Size(241, 54);
+            optSituacao.Text = "Situação";
+            optSituacao.Click += optSituacao_Click;
+            // 
+            // toolStripSeparator7
+            // 
+            toolStripSeparator7.Name = "toolStripSeparator7";
+            toolStripSeparator7.Size = new Size(238, 6);
+            // 
+            // optTemperamento
+            // 
+            optTemperamento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            optTemperamento.Image = Properties.Resources.tool_box_icon;
+            optTemperamento.Name = "optTemperamento";
+            optTemperamento.Size = new Size(241, 54);
+            optTemperamento.Text = "Temperamento";
+            optTemperamento.Click += optTemperamento_Click;
+            // 
+            // toolStripSeparator8
+            // 
+            toolStripSeparator8.Name = "toolStripSeparator8";
+            toolStripSeparator8.Size = new Size(238, 6);
+            // 
+            // optTipoDespesa
+            // 
+            optTipoDespesa.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            optTipoDespesa.Image = Properties.Resources.tool_box_icon;
+            optTipoDespesa.Name = "optTipoDespesa";
+            optTipoDespesa.Size = new Size(241, 54);
+            optTipoDespesa.Text = "Tipo de Despesa";
+            optTipoDespesa.Click += optTipoDespesa_Click;
+            // 
+            // toolStripSeparator9
+            // 
+            toolStripSeparator9.Name = "toolStripSeparator9";
+            toolStripSeparator9.Size = new Size(6, 55);
             // 
             // btnFechar
             // 
@@ -130,27 +221,27 @@
             BackgroundImage = Properties.Resources.catsanddogs;
             BackgroundImageLayout = ImageLayout.Center;
             CaptionBarColor = Color.SteelBlue;
-            CaptionBarHeight = 51;
+            CaptionBarHeight = 60;
             captionImage1.Image = Properties.Resources.catsanddogs;
-            captionImage1.Location = new Point(5, 0);
+            captionImage1.Location = new Point(5, 6);
             captionImage1.Name = "CaptionImage1";
             captionImage1.Size = new Size(48, 48);
             CaptionImages.Add(captionImage1);
-            captionLabel1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            captionLabel1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             captionLabel1.ForeColor = Color.White;
-            captionLabel1.Location = new Point(60, 4);
+            captionLabel1.Location = new Point(70, 4);
             captionLabel1.Name = "CaptionLabel1";
             captionLabel1.Size = new Size(300, 24);
             captionLabel1.Text = "Daisy Pets";
             captionLabel2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             captionLabel2.ForeColor = Color.White;
-            captionLabel2.Location = new Point(60, 24);
+            captionLabel2.Location = new Point(70, 28);
             captionLabel2.Name = "CaptionLabel2";
             captionLabel2.Size = new Size(350, 24);
             captionLabel2.Text = "Margarida Luís - 2023";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(1384, 874);
+            ClientSize = new Size(1384, 865);
             Controls.Add(toolStrip1);
             IsMdiContainer = true;
             Name = "frmMain";
@@ -174,5 +265,16 @@
         private ToolStripButton btnFechar;
         private ToolStripButton btnExpensesDonations;
         private ToolStripSeparator toolStripSeparator4;
+        private ToolStripDropDownButton toolStripDropDownButton1;
+        private ToolStripMenuItem optCategoriaDespesas;
+        private ToolStripMenuItem optRacas;
+        private ToolStripMenuItem optSituacao;
+        private ToolStripMenuItem optTemperamento;
+        private ToolStripMenuItem optTipoDespesa;
+        private ToolStripSeparator toolStripSeparator5;
+        private ToolStripSeparator toolStripSeparator6;
+        private ToolStripSeparator toolStripSeparator7;
+        private ToolStripSeparator toolStripSeparator8;
+        private ToolStripSeparator toolStripSeparator9;
     }
 }

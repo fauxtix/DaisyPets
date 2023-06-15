@@ -1,5 +1,6 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Domain;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
@@ -15,6 +16,10 @@ namespace DaisyPets.UI.Properties
     {
         int iTipoContacto = 0;
         int IdContacto = 0;
+
+        private int _previousIndex;
+        private bool _sortDirection;
+
         public frmContacto()
         {
 
@@ -401,7 +406,7 @@ namespace DaisyPets.UI.Properties
             string url = $"https://localhost:7161/api/Contacts/{IdContacto}";
             using (HttpClient httpClient = new HttpClient())
             {
-                var response = await  httpClient.DeleteAsync(url);
+                var response = await httpClient.DeleteAsync(url);
                 response.EnsureSuccessStatusCode();
 
                 if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
@@ -473,6 +478,24 @@ namespace DaisyPets.UI.Properties
                 .Where(x => (int)x.Cells["Id"].Value == IdContacto)
                 .ToArray()[0]
                 .Selected = true;
+        }
+
+        private void gdvContacts_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == _previousIndex)
+                _sortDirection ^= true; // toggle direction
+
+            gdvContacts.DataSource = SortData(
+                (List<ContactoVM>)gdvContacts.DataSource, gdvContacts.Columns[e.ColumnIndex].Name, _sortDirection);
+
+            _previousIndex = e.ColumnIndex;
+        }
+
+        private List<ContactoVM> SortData(List<ContactoVM> list, string column, bool ascending)
+        {
+            return ascending ?
+                list.OrderBy(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList() :
+                list.OrderByDescending(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList();
         }
 
     }

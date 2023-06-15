@@ -1,5 +1,4 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services;
-using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using Microsoft.AspNetCore.Mvc;
 
@@ -144,7 +143,7 @@ namespace DaisyPets.WebApi.Controllers
         /// <param name="id"></param>
         /// <param name="tableName"></param>
         /// <returns></returns>
-        [HttpGet("GetRecordById/{id:int}/{tableName}")]
+        [HttpGet("{id:int}/{tableName}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -221,7 +220,7 @@ namespace DaisyPets.WebApi.Controllers
         /// <param name="record"></param>
         /// <returns></returns>
 
-        [HttpPost("InsertRecord")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -266,7 +265,7 @@ namespace DaisyPets.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        [HttpPut("UpdateLookupTable/{id:int}")]
+        [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateLookupTable(int id, [FromBody] LookupTableVM lookupTable)
         {
             var location = GetControllerActionNames();
@@ -288,14 +287,14 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest($"O nome da tabela ({lookupTable.Tabela}) é incorreto");
                 }
 
-                var lookupTableToUpdate = await _service.GetRecordById(lookupTable.Id, lookupTable.Tabela);
+                var tableToVerify = await _service.GetRecordById(lookupTable.Id, lookupTable.Tabela);
 
-                if (lookupTableToUpdate == null)
+                if (tableToVerify == null)
                 {
                     return NotFound($"A tabela com o Id {id} não foi encontrada");
                 }
 
-                var tabelaAlterada = await _service.ActualizaDetalhes(lookupTable);
+                var tableToUpdate = await _service.ActualizaDetalhes(lookupTable);
                 return NoContent();
             }
             catch (Exception e)
@@ -310,7 +309,7 @@ namespace DaisyPets.WebApi.Controllers
         /// <param name="id"></param>
         /// <param name="tableName"></param>
         /// <returns></returns>
-        [HttpDelete("DeleteLookupRecord/{id:int}/{tableName}")]
+        [HttpDelete("{id:int}/{tableName}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
@@ -356,7 +355,7 @@ namespace DaisyPets.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public IActionResult CheckFkInuse(int idFK, string fieldToCheck, string tableToCheck)
+        public async Task<IActionResult> CheckFkInuse(int idFK, string fieldToCheck, string tableToCheck)
         {
             var location = GetControllerActionNames();
             try
@@ -366,7 +365,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest($"paràmetros em falta");
                 }
 
-                var fKInUse = _service.CheckFKInUse(idFK, fieldToCheck, tableToCheck);
+                var fKInUse = await _service.CheckFKInUse(idFK, fieldToCheck, tableToCheck);
                 return Ok(fKInUse);
             }
             catch (Exception e)
@@ -385,7 +384,7 @@ namespace DaisyPets.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-        public async Task< IActionResult> GetLastInsertedId(string tableToCheck)
+        public async Task<IActionResult> GetLastInsertedId(string tableToCheck)
         {
             var location = GetControllerActionNames();
             try

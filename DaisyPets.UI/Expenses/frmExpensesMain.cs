@@ -1,6 +1,6 @@
 ﻿using DaisyPets.Core.Application.Formatting;
-using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Despesas;
+using Syncfusion.DocIO.DLS;
 using Syncfusion.Windows.Forms;
 using System.Net.Http.Json;
 using static DaisyPets.Core.Application.Enums.Common;
@@ -12,17 +12,32 @@ namespace DaisyPets.UI.Expenses
         private int IdExpense = 0;
         private int _previousIndex;
         private bool _sortDirection;
+        private IEnumerable<DespesaVM> listOfExpenses;
+
 
         public frmExpensesMain()
         {
             InitializeComponent();
             dgvExpenses.AutoGenerateColumns = false;
+            listOfExpenses = GetExpenses();
             FillGrid();
+        }
+
+
+        private void FillGrid()
+        {
+            listOfExpenses = GetExpenses();
+            dgvExpenses.DataSource = listOfExpenses?.ToList();
+            if (dgvExpenses.RowCount > 0)
+            {
+                //dgvExpenses.CurrentCell = dgvExpenses.Rows[0].Cells[0];
+                dgvExpenses.Rows[0].Selected = true;
+                int firstRowId = Convert.ToInt16(dgvExpenses.Rows[0].Cells[0].Value);
+            }
         }
 
         private IEnumerable<DespesaVM> GetExpenses()
         {
-            IEnumerable<DespesaVM> expenses;
             string url = $"https://localhost:7161/api/Despesa/AllVMAsync";
             try
             {
@@ -32,10 +47,10 @@ namespace DaisyPets.UI.Expenses
                     var response = task.Result;
                     if (response.IsSuccessStatusCode)
                     {
-                        expenses = response.Content.ReadAsAsync<IEnumerable<DespesaVM>>().Result;
-                        if (expenses != null)
+                        var output = response.Content.ReadAsAsync<IEnumerable<DespesaVM>>().Result;
+                        if (output != null)
                         {
-                            return expenses;
+                            return output;
                         }
                         else
                         {
@@ -56,18 +71,6 @@ namespace DaisyPets.UI.Expenses
             }
         }
 
-        private void FillGrid()
-        {
-            IEnumerable<DespesaVM> expenses = GetExpenses();
-            dgvExpenses.DataSource = expenses?.ToList();
-            if (dgvExpenses.RowCount > 0)
-            {
-                //dgvExpenses.CurrentCell = dgvExpenses.Rows[0].Cells[0];
-                dgvExpenses.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(dgvExpenses.Rows[0].Cells[0].Value);
-            }
-
-        }
 
         private void SetToolbar(OpcoesRegisto opt)
         {
@@ -171,7 +174,6 @@ namespace DaisyPets.UI.Expenses
                 (List<DespesaVM>)dgvExpenses.DataSource, dgvExpenses.Columns[e.ColumnIndex].Name, _sortDirection);
 
             _previousIndex = e.ColumnIndex;
-
         }
 
         private List<DespesaVM> SortData(List<DespesaVM> list, string column, bool ascending)
@@ -181,6 +183,38 @@ namespace DaisyPets.UI.Expenses
                 list.OrderByDescending(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList();
         }
 
+        private void checkBoxFilterDateTime_CheckStateChanged(object sender, EventArgs e)
+        {
+            labelFilterFrom.Enabled = checkBoxFilterDateTime.Checked;
+            labelFilterTo.Enabled = checkBoxFilterDateTime.Checked;
+            filterFromDateTime.Enabled = checkBoxFilterDateTime.Checked;
+            filterToDateTime.Enabled = checkBoxFilterDateTime.Checked;
+            if (checkBoxFilterDateTime.Checked == false)
+            {
+                listOfExpenses = GetExpenses();
+            }
+        }
+
+        private void filterFromDateTime_ValueChanged(object sender, EventArgs e)
+        {
+            var fromDate = filterFromDateTime.Value;
+            var toDate = filterToDateTime.Value;
+            listOfExpenses = listOfExpenses.Where(o => DateTime.Parse(o.DataMovimento) >= fromDate && DateTime.Parse(o.DataMovimento) <= toDate);
+            FillGrid();
+        }
+
+        private void filterToDateTime_ValueChanged(object sender, EventArgs e)
+        {
+            var fromDate = filterFromDateTime.Value;
+            var toDate = filterToDateTime.Value;
+            listOfExpenses = listOfExpenses.Where(o => DateTime.Parse(o.DataMovimento) >= fromDate && DateTime.Parse(o.DataMovimento) <= toDate);
+            FillGrid();
+        }
+
+        private void dgvExpenses_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SetToolbar(OpcoesRegisto.Gravar);
+        }
     }
 }
 

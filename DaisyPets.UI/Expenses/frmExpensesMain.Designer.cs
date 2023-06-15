@@ -38,19 +38,6 @@
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             dgvExpenses = new DataGridView();
-            lblFilter = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            checkBoxFilterDateTime = new Syncfusion.Windows.Forms.Tools.CheckBoxAdv();
-            autoLabel1 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            filterFromDateTime = new DateTimePicker();
-            filterToDateTime = new DateTimePicker();
-            autoLabel2 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            panel1 = new Panel();
-            btnClear = new Button();
-            btnDelete = new Button();
-            btnUpdate = new Button();
-            btnInsert = new Button();
-            labelVisibleSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            labelSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             Id = new DataGridViewTextBoxColumn();
             DataMovimento = new DataGridViewTextBoxColumn();
             ValorPago = new DataGridViewTextBoxColumn();
@@ -58,6 +45,21 @@
             DescricaoCategoriaDespesa = new DataGridViewTextBoxColumn();
             DescricaoTipoDespesa = new DataGridViewTextBoxColumn();
             TipoMovimento = new DataGridViewTextBoxColumn();
+            lblFilter = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            checkBoxFilterDateTime = new Syncfusion.Windows.Forms.Tools.CheckBoxAdv();
+            labelFilterFrom = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            filterFromDateTime = new DateTimePicker();
+            filterToDateTime = new DateTimePicker();
+            labelFilterTo = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            panel1 = new Panel();
+            btnClear = new Button();
+            btnDelete = new Button();
+            btnUpdate = new Button();
+            btnInsert = new Button();
+            labelVisibleSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            labelSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            labelFilterByCategory = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            comboBoxCategories = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvExpenses).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkBoxFilterDateTime).BeginInit();
             panel1.SuspendLayout();
@@ -71,6 +73,7 @@
             dgvExpenses.AllowUserToResizeColumns = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
             dgvExpenses.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvExpenses.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Control;
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -90,19 +93,86 @@
             dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
             dgvExpenses.DefaultCellStyle = dataGridViewCellStyle6;
             dgvExpenses.Location = new Point(22, 12);
+            dgvExpenses.MultiSelect = false;
             dgvExpenses.Name = "dgvExpenses";
             dgvExpenses.ReadOnly = true;
             dgvExpenses.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dgvExpenses.RowHeadersWidth = 45;
             dgvExpenses.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dgvExpenses.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgvExpenses.RowTemplate.DividerHeight = 1;
             dgvExpenses.RowTemplate.Height = 28;
             dgvExpenses.RowTemplate.ReadOnly = true;
+            dgvExpenses.RowTemplate.Resizable = DataGridViewTriState.True;
             dgvExpenses.ScrollBars = ScrollBars.Vertical;
+            dgvExpenses.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvExpenses.Size = new Size(1047, 519);
             dgvExpenses.TabIndex = 0;
+            dgvExpenses.CellClick += dgvExpenses_CellClick;
             dgvExpenses.CellDoubleClick += dgvExpenses_CellDoubleClick;
             dgvExpenses.ColumnHeaderMouseClick += dgvExpenses_ColumnHeaderMouseClick;
+            // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // DataMovimento
+            // 
+            DataMovimento.DataPropertyName = "DataMovimento";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataMovimento.DefaultCellStyle = dataGridViewCellStyle3;
+            DataMovimento.HeaderText = "Data";
+            DataMovimento.Name = "DataMovimento";
+            DataMovimento.ReadOnly = true;
+            // 
+            // ValorPago
+            // 
+            ValorPago.DataPropertyName = "ValorPago";
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ValorPago.DefaultCellStyle = dataGridViewCellStyle4;
+            ValorPago.HeaderText = "Valor";
+            ValorPago.Name = "ValorPago";
+            ValorPago.ReadOnly = true;
+            ValorPago.Width = 80;
+            // 
+            // Descricao
+            // 
+            Descricao.DataPropertyName = "Descricao";
+            Descricao.HeaderText = "Descricao";
+            Descricao.Name = "Descricao";
+            Descricao.ReadOnly = true;
+            Descricao.Width = 300;
+            // 
+            // DescricaoCategoriaDespesa
+            // 
+            DescricaoCategoriaDespesa.DataPropertyName = "DescricaoCategoriaDespesa";
+            DescricaoCategoriaDespesa.HeaderText = "Categoria";
+            DescricaoCategoriaDespesa.Name = "DescricaoCategoriaDespesa";
+            DescricaoCategoriaDespesa.ReadOnly = true;
+            DescricaoCategoriaDespesa.Width = 220;
+            // 
+            // DescricaoTipoDespesa
+            // 
+            DescricaoTipoDespesa.DataPropertyName = "DescricaoTipoDespesa";
+            DescricaoTipoDespesa.HeaderText = "Tipo despesa";
+            DescricaoTipoDespesa.Name = "DescricaoTipoDespesa";
+            DescricaoTipoDespesa.ReadOnly = true;
+            DescricaoTipoDespesa.Width = 280;
+            // 
+            // TipoMovimento
+            // 
+            TipoMovimento.DataPropertyName = "TipoMovimento";
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            TipoMovimento.DefaultCellStyle = dataGridViewCellStyle5;
+            TipoMovimento.HeaderText = "Tipo Movimento";
+            TipoMovimento.Name = "TipoMovimento";
+            TipoMovimento.ReadOnly = true;
+            TipoMovimento.Visible = false;
+            TipoMovimento.Width = 150;
             // 
             // lblFilter
             // 
@@ -121,14 +191,15 @@
             checkBoxFilterDateTime.Size = new Size(123, 21);
             checkBoxFilterDateTime.TabIndex = 2;
             checkBoxFilterDateTime.Text = "Filter date range.";
+            checkBoxFilterDateTime.CheckStateChanged += checkBoxFilterDateTime_CheckStateChanged;
             // 
-            // autoLabel1
+            // labelFilterFrom
             // 
-            autoLabel1.Location = new Point(1088, 83);
-            autoLabel1.Name = "autoLabel1";
-            autoLabel1.Size = new Size(62, 15);
-            autoLabel1.TabIndex = 3;
-            autoLabel1.Text = "A partir de";
+            labelFilterFrom.Location = new Point(1088, 83);
+            labelFilterFrom.Name = "labelFilterFrom";
+            labelFilterFrom.Size = new Size(62, 15);
+            labelFilterFrom.TabIndex = 3;
+            labelFilterFrom.Text = "A partir de";
             // 
             // filterFromDateTime
             // 
@@ -138,7 +209,7 @@
             filterFromDateTime.Name = "filterFromDateTime";
             filterFromDateTime.Size = new Size(222, 23);
             filterFromDateTime.TabIndex = 0;
-            filterFromDateTime.Value = new DateTime(2023, 6, 11, 0, 0, 0, 0);
+            filterFromDateTime.Value = new DateTime(2023, 6, 1, 0, 0, 0, 0);
             // 
             // filterToDateTime
             // 
@@ -148,15 +219,15 @@
             filterToDateTime.Name = "filterToDateTime";
             filterToDateTime.Size = new Size(222, 23);
             filterToDateTime.TabIndex = 4;
-            filterToDateTime.Value = new DateTime(2099, 12, 31, 0, 0, 0, 0);
+            filterToDateTime.Value = new DateTime(2023, 6, 30, 0, 0, 0, 0);
             // 
-            // autoLabel2
+            // labelFilterTo
             // 
-            autoLabel2.Location = new Point(1088, 140);
-            autoLabel2.Name = "autoLabel2";
-            autoLabel2.Size = new Size(25, 15);
-            autoLabel2.TabIndex = 5;
-            autoLabel2.Text = "Até";
+            labelFilterTo.Location = new Point(1088, 140);
+            labelFilterTo.Name = "labelFilterTo";
+            labelFilterTo.Size = new Size(25, 15);
+            labelFilterTo.TabIndex = 5;
+            labelFilterTo.Text = "Até";
             // 
             // panel1
             // 
@@ -250,67 +321,21 @@
             labelSummary.TabIndex = 30;
             labelSummary.Text = "Summary";
             // 
-            // Id
+            // labelFilterByCategory
             // 
-            Id.DataPropertyName = "Id";
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
+            labelFilterByCategory.Location = new Point(1088, 235);
+            labelFilterByCategory.Name = "labelFilterByCategory";
+            labelFilterByCategory.Size = new Size(58, 15);
+            labelFilterByCategory.TabIndex = 13;
+            labelFilterByCategory.Text = "Categoria";
             // 
-            // DataMovimento
+            // comboBoxCategories
             // 
-            DataMovimento.DataPropertyName = "DataMovimento";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataMovimento.DefaultCellStyle = dataGridViewCellStyle3;
-            DataMovimento.HeaderText = "Data";
-            DataMovimento.Name = "DataMovimento";
-            DataMovimento.ReadOnly = true;
-            // 
-            // ValorPago
-            // 
-            ValorPago.DataPropertyName = "ValorPago";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
-            ValorPago.DefaultCellStyle = dataGridViewCellStyle4;
-            ValorPago.HeaderText = "Valor";
-            ValorPago.Name = "ValorPago";
-            ValorPago.ReadOnly = true;
-            ValorPago.Width = 80;
-            // 
-            // Descricao
-            // 
-            Descricao.DataPropertyName = "Descricao";
-            Descricao.HeaderText = "Descricao";
-            Descricao.Name = "Descricao";
-            Descricao.ReadOnly = true;
-            Descricao.Width = 300;
-            // 
-            // DescricaoCategoriaDespesa
-            // 
-            DescricaoCategoriaDespesa.DataPropertyName = "DescricaoCategoriaDespesa";
-            DescricaoCategoriaDespesa.HeaderText = "Categoria";
-            DescricaoCategoriaDespesa.Name = "DescricaoCategoriaDespesa";
-            DescricaoCategoriaDespesa.ReadOnly = true;
-            DescricaoCategoriaDespesa.Width = 220;
-            // 
-            // DescricaoTipoDespesa
-            // 
-            DescricaoTipoDespesa.DataPropertyName = "DescricaoTipoDespesa";
-            DescricaoTipoDespesa.HeaderText = "Tipo despesa";
-            DescricaoTipoDespesa.Name = "DescricaoTipoDespesa";
-            DescricaoTipoDespesa.ReadOnly = true;
-            DescricaoTipoDespesa.Width = 280;
-            // 
-            // TipoMovimento
-            // 
-            TipoMovimento.DataPropertyName = "TipoMovimento";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            TipoMovimento.DefaultCellStyle = dataGridViewCellStyle5;
-            TipoMovimento.HeaderText = "Tipo Movimento";
-            TipoMovimento.Name = "TipoMovimento";
-            TipoMovimento.ReadOnly = true;
-            TipoMovimento.Visible = false;
-            TipoMovimento.Width = 150;
+            comboBoxCategories.FormattingEnabled = true;
+            comboBoxCategories.Location = new Point(1088, 259);
+            comboBoxCategories.Name = "comboBoxCategories";
+            comboBoxCategories.Size = new Size(227, 23);
+            comboBoxCategories.TabIndex = 14;
             // 
             // frmExpensesMain
             // 
@@ -339,11 +364,13 @@
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
             ClientSize = new Size(1328, 696);
+            Controls.Add(comboBoxCategories);
+            Controls.Add(labelFilterByCategory);
             Controls.Add(panel1);
             Controls.Add(filterToDateTime);
-            Controls.Add(autoLabel2);
+            Controls.Add(labelFilterTo);
             Controls.Add(filterFromDateTime);
-            Controls.Add(autoLabel1);
+            Controls.Add(labelFilterFrom);
             Controls.Add(checkBoxFilterDateTime);
             Controls.Add(lblFilter);
             Controls.Add(dgvExpenses);
@@ -365,10 +392,10 @@
         private DataGridView dgvExpenses;
         private Syncfusion.Windows.Forms.Tools.AutoLabel lblFilter;
         private Syncfusion.Windows.Forms.Tools.CheckBoxAdv checkBoxFilterDateTime;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel1;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel labelFilterFrom;
         private DateTimePicker filterFromDateTime;
         private DateTimePicker filterToDateTime;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel autoLabel2;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel labelFilterTo;
         private Panel panel1;
         private Button btnClear;
         private Button btnDelete;
@@ -383,5 +410,7 @@
         private DataGridViewTextBoxColumn DescricaoCategoriaDespesa;
         private DataGridViewTextBoxColumn DescricaoTipoDespesa;
         private DataGridViewTextBoxColumn TipoMovimento;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel labelFilterByCategory;
+        private ComboBox comboBoxCategories;
     }
 }
