@@ -149,7 +149,7 @@ namespace DaisyPets.Infrastructure.Repositories
         public async Task<TipoDespesa?> GetTipoDespesa_ById(int Id)
         {
             sb.Clear();
-            sb.Append("SELECT TD.Id, TD.Descricao, TD.IdCategoriaDespesa, CD.Descricao CategoriaDespesa ");
+            sb.Append("SELECT TD.Id, TD.Descricao, TD.IdCategoriaDespesa  ");
             sb.Append("FROM  TipoDespesa TD ");
             sb.Append("WHERE TD.Id = @Id");
             try
@@ -201,7 +201,7 @@ namespace DaisyPets.Infrastructure.Repositories
             paramCollection.Add("@Id_CategoriaDespesa", novoTipoDespesa.IdCategoriaDespesa);
 
             sb.Clear();
-            sb.Append("INSERT INTO TipoDespesat(");
+            sb.Append("INSERT INTO TipoDespesa(");
             sb.Append("Descricao, [IdCategoriaDespesa]) ");
             sb.Append("VALUES (@Descricao, @Id_CategoriaDespesa); ");
             sb.Append("SELECT last_insert_rowid()");

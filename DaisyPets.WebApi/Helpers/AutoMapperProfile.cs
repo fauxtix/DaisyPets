@@ -34,6 +34,9 @@ public class AutoMapperProfile : Profile
         CreateMap<VacinaDto, Vacina>().ReverseMap();
         CreateMap<VacinaVM, Vacina>().ReverseMap();
 
+        CreateMap<TipoDespesaDto, TipoDespesa>().ReverseMap();
+        CreateMap<TipoDespesaVM, TipoDespesa>().ReverseMap();
+
         CreateMap<IdadeDto, Idade>().ReverseMap();
 
         CreateMap<ContactoVM, Contacto>().ReverseMap();

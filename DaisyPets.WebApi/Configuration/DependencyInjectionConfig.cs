@@ -49,6 +49,9 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<IDespesaRepository, DespesaRepository>();
             services.AddScoped<IDespesaService, DespesaService>();
 
+            services.AddScoped<ITipoDespesaRepository, TipoDespesaRepository>();
+            services.AddScoped<ITipoDespesaService, TipoDespesaService>();
+
             services.AddScoped<IDesparasitanteRepository, DesparasitanteRepository>();
             services.AddScoped<IDesparasitanteService, DesparasitanteService>();
 

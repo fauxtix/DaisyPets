@@ -189,7 +189,8 @@ namespace DaisyPets.UI
 
         private void optTipoDespesa_Click(object sender, EventArgs e)
         {
-            //UtilsService.BackupDatabase();
+            frmExpenseTypes fExpenseTypes = new frmExpenseTypes();
+            var resp = fExpenseTypes.ShowDialog();
         }
     }
 }

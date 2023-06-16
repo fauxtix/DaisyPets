@@ -15,7 +15,6 @@ namespace DaisyPets.WebApi.Controllers
     {
         private readonly ILogger<TipoDespesasController> _logger;
         private readonly ITipoDespesaService _service;
-        private readonly IMapper _mapper;
 
         /// <summary>
         /// Construtor
@@ -25,12 +24,10 @@ namespace DaisyPets.WebApi.Controllers
         /// <param name="mapper"></param>
 
         public TipoDespesasController(ILogger<TipoDespesasController> logger,
-                                      ITipoDespesaService service,
-                                      IMapper mapper)
+                                      ITipoDespesaService service)
         {
             _logger = logger;
             _service = service;
-            _mapper = mapper;
         }
 
         /// <summary>

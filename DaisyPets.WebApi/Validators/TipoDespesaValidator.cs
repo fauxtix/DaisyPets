@@ -18,6 +18,11 @@ namespace DaisyPets.WebApi.Validators
             RuleFor(p => p.Descricao)
                 .NotNull()
                 .NotEmpty().WithMessage("Preencha campo 'descrição', p.f.");
+
+            RuleFor(p => p.IdCategoriaDespesa)
+                .NotEmpty()
+                .NotNull().NotEmpty()
+                .GreaterThan(0).WithMessage("Selecione Categoria, p.f.");
         }
 
         #region Custom Validators
