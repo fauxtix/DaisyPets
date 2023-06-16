@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
@@ -98,8 +97,6 @@ namespace DaisyPets.Infrastructure.Services
             var output = _mapper.Map<IEnumerable<DespesaDto>>(resp);
             return output;
         }
-
-
 
         public async Task<IEnumerable<TipoDespesa>?> GetTipoDespesa_ByCategoriaDespesa(int Id)
         {

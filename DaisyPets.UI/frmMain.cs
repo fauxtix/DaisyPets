@@ -1,5 +1,4 @@
-﻿using DaisyPets.Core.Application.Enums;
-using DaisyPets.Core.Application.ViewModels.Pdfs;
+﻿using DaisyPets.Core.Application.ViewModels.Pdfs;
 using DaisyPets.UI.Expenses;
 using DaisyPets.UI.LookupTables;
 using DaisyPets.UI.Properties;
@@ -190,8 +189,7 @@ namespace DaisyPets.UI
 
         private void optTipoDespesa_Click(object sender, EventArgs e)
         {
-            Configuration fBackup = new Configuration();
-            fBackup.ShowDialog();
+            //UtilsService.BackupDatabase();
         }
     }
 }
