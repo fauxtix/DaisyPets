@@ -1133,6 +1133,12 @@ namespace DaisyPets.UI
                 return "";
             }
         }
+
+        private void btnUploadFile_Click(object sender, EventArgs e)
+        {
+            frmUploadDocument frmUploadDocument = new frmUploadDocument(IdPet);
+            frmUploadDocument.ShowDialog();
+        }
     }
 }
 

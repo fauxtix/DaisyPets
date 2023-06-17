@@ -201,6 +201,24 @@ namespace DaisyPets.WebApi.Controllers
             }
         }
 
+        [HttpPost("ValidateDocument")]
+        public IActionResult ValidateDocument([FromBody] DocumentoDto documento)
+        {
+            // Create validator instance (or inject it)
+            var documentsValidator = new DocumentoValidator();
+
+            // Call Validate or ValidateAsync and pass the object which needs to be validated
+            var result = documentsValidator.Validate(documento);
+
+            if (result.IsValid)
+            {
+                return Ok(documento);
+            }
+
+            var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+            return BadRequest(errorMessages);
+        }
+
         private string GetControllerActionNames()
         {
             var controller = ControllerContext.ActionDescriptor.ControllerName;
