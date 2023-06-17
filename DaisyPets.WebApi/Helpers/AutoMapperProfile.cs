@@ -25,6 +25,9 @@ public class AutoMapperProfile : Profile
         CreateMap<Racao, RacaoDto>().ReverseMap();
         CreateMap<RacaoDto, RacaoVM>().ReverseMap();
 
+        CreateMap<Documento, DocumentoDto>().ReverseMap();
+        CreateMap<DocumentoDto, DocumentoVM>().ReverseMap();
+
         CreateMap<Despesa, DespesaDto>().ReverseMap();
         CreateMap<DespesaDto, DespesaVM>().ReverseMap();
 

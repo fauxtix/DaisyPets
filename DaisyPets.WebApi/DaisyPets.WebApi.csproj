@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Reports\Docs\Pdf\" />
+    <Folder Include="Reports\Pets\" />
     <Folder Include="Resources\Images\Dogs\" />
     <Folder Include="Resources\Images\Cats\" />
   </ItemGroup>

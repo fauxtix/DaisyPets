@@ -34,6 +34,9 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetService, PetService>();
 
+            services.AddScoped<IDocumentsRepository, DocumentsRepository>();
+            services.AddScoped<IDocumentsService, DocumentsService>();
+
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<IContactService, ContactService>();
 
@@ -58,14 +61,14 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<ILookupTableRepository, LookupTableRepository>();
             services.AddScoped<ILookupTableService, LookupTableService>();
 
-            services.AddScoped<IValidator<PetDto>, PetValidator>(); // new 07/06/2023
-
+            services.AddScoped<IValidator<PetDto>, PetValidator>(); 
             services.AddScoped<IValidator<ContactoVM>, ContactValidator>();
             services.AddScoped<IValidator<VacinaDto>, VacinaValidator>();
             services.AddScoped<IValidator<ConsultaVeterinarioDto>, ConsultaValidator>();
             services.AddScoped<IValidator<RacaoDto>, RacaoValidator>();
             services.AddScoped<IValidator<DespesaDto>,DespesaValidator>();
             services.AddScoped<IValidator<DesparasitanteDto>, DesparasitanteValidator>();
+            services.AddScoped<IValidator<DocumentoDto>, DocumentoValidator>();
         }
     }
 }
