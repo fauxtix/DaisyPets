@@ -885,6 +885,8 @@ namespace DaisyPets.UI
                 btnClear.Enabled = true;
                 btnDelete.Enabled = true;
                 btnGeneratePdf.Enabled = true;
+                btnUploadFile.Enabled = true;
+
                 btnInsert.Enabled = false;
             }
             else if (opt == OpcoesRegisto.Inserir)
@@ -893,6 +895,7 @@ namespace DaisyPets.UI
                 btnDelete.Enabled = false;
                 btnUpdate.Enabled = false;
                 btnGeneratePdf.Enabled = false;
+                btnUploadFile.Enabled = false;
                 btnInsert.Enabled = true;
             }
         }
@@ -904,6 +907,7 @@ namespace DaisyPets.UI
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
             btnGeneratePdf.Enabled = false;
+            btnUploadFile.Enabled = false;
             btnClear.Enabled = false;
         }
 
@@ -1137,7 +1141,8 @@ namespace DaisyPets.UI
         private void btnUploadFile_Click(object sender, EventArgs e)
         {
             frmUploadDocument frmUploadDocument = new frmUploadDocument(IdPet);
-            frmUploadDocument.ShowDialog();
+            DialogResult = frmUploadDocument.ShowDialog();
+
         }
     }
 }

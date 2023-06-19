@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUploadDocument));
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
@@ -40,11 +41,24 @@
             lblFile = new Label();
             label6 = new Label();
             panel1 = new Panel();
+            txtId = new TextBox();
             label4 = new Label();
             label3 = new Label();
             txtDescription = new TextBox();
             txtTitle = new TextBox();
+            dgvDocuments = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            CreatedOn = new DataGridViewTextBoxColumn();
+            Title = new DataGridViewTextBoxColumn();
+            PetName = new DataGridViewTextBoxColumn();
+            Description = new DataGridViewTextBoxColumn();
+            DocumentPath = new DataGridViewTextBoxColumn();
+            optView = new DataGridViewButtonColumn();
+            btnClear = new Button();
+            btnDelete = new Button();
+            btnUpdate = new Button();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDocuments).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -69,7 +83,7 @@
             // btnBrowseDocument
             // 
             btnBrowseDocument.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            btnBrowseDocument.Location = new Point(34, 252);
+            btnBrowseDocument.Location = new Point(588, 12);
             btnBrowseDocument.Name = "btnBrowseDocument";
             btnBrowseDocument.Size = new Size(133, 38);
             btnBrowseDocument.TabIndex = 2;
@@ -79,10 +93,11 @@
             // 
             // btnUploadDocument
             // 
+            btnUploadDocument.Enabled = false;
             btnUploadDocument.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnUploadDocument.Location = new Point(342, 252);
+            btnUploadDocument.Location = new Point(588, 94);
             btnUploadDocument.Name = "btnUploadDocument";
-            btnUploadDocument.Size = new Size(181, 38);
+            btnUploadDocument.Size = new Size(133, 67);
             btnUploadDocument.TabIndex = 3;
             btnUploadDocument.Text = "Upload document";
             btnUploadDocument.UseVisualStyleBackColor = true;
@@ -113,6 +128,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(txtId);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(txtDescription);
@@ -121,6 +137,15 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(557, 153);
             panel1.TabIndex = 10;
+            // 
+            // txtId
+            // 
+            txtId.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txtId.Location = new Point(34, 97);
+            txtId.Name = "txtId";
+            txtId.Size = new Size(64, 27);
+            txtId.TabIndex = 12;
+            txtId.Visible = false;
             // 
             // label4
             // 
@@ -160,6 +185,141 @@
             txtTitle.Size = new Size(385, 27);
             txtTitle.TabIndex = 8;
             // 
+            // dgvDocuments
+            // 
+            dgvDocuments.AllowUserToAddRows = false;
+            dgvDocuments.AllowUserToDeleteRows = false;
+            dgvDocuments.AllowUserToOrderColumns = true;
+            dgvDocuments.AllowUserToResizeColumns = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvDocuments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvDocuments.ColumnHeadersHeight = 32;
+            dgvDocuments.Columns.AddRange(new DataGridViewColumn[] { Id, CreatedOn, Title, PetName, Description, DocumentPath, optView });
+            dgvDocuments.Location = new Point(21, 327);
+            dgvDocuments.Name = "dgvDocuments";
+            dgvDocuments.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            dgvDocuments.RowTemplate.Height = 32;
+            dgvDocuments.ScrollBars = ScrollBars.Vertical;
+            dgvDocuments.Size = new Size(919, 165);
+            dgvDocuments.TabIndex = 11;
+            dgvDocuments.CellClick += dgvDocuments_CellClick;
+            dgvDocuments.CellContentClick += dgvDocuments_CellContentClick;
+            dgvDocuments.ColumnHeaderMouseClick += dgvDocuments_ColumnHeaderMouseClick;
+            // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // CreatedOn
+            // 
+            CreatedOn.DataPropertyName = "CreatedOn";
+            CreatedOn.HeaderText = "Criado em";
+            CreatedOn.Name = "CreatedOn";
+            CreatedOn.ReadOnly = true;
+            // 
+            // Title
+            // 
+            Title.DataPropertyName = "Title";
+            Title.HeaderText = "Título";
+            Title.Name = "Title";
+            Title.ReadOnly = true;
+            Title.Width = 300;
+            // 
+            // PetName
+            // 
+            PetName.DataPropertyName = "PetName";
+            PetName.HeaderText = "Pet";
+            PetName.Name = "PetName";
+            PetName.ReadOnly = true;
+            PetName.Visible = false;
+            PetName.Width = 200;
+            // 
+            // Description
+            // 
+            Description.DataPropertyName = "Description";
+            Description.HeaderText = "Descrição";
+            Description.Name = "Description";
+            Description.ReadOnly = true;
+            Description.Width = 400;
+            // 
+            // DocumentPath
+            // 
+            DocumentPath.DataPropertyName = "DocumentPath";
+            DocumentPath.HeaderText = "Path";
+            DocumentPath.Name = "DocumentPath";
+            DocumentPath.ReadOnly = true;
+            DocumentPath.Visible = false;
+            // 
+            // optView
+            // 
+            optView.HeaderText = "Ver";
+            optView.Name = "optView";
+            optView.ReadOnly = true;
+            optView.Text = "...";
+            optView.UseColumnTextForButtonValue = true;
+            optView.Width = 60;
+            // 
+            // btnClear
+            // 
+            btnClear.BackColor = Color.White;
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnClear.ForeColor = Color.Black;
+            btnClear.Image = Properties.Resources.edit_clear_32x32;
+            btnClear.ImageAlign = ContentAlignment.MiddleLeft;
+            btnClear.Location = new Point(327, 270);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(98, 39);
+            btnClear.TabIndex = 23;
+            btnClear.Text = "Clear";
+            btnClear.TextAlign = ContentAlignment.MiddleRight;
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.Red;
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Image = Properties.Resources._678080_shield_error_32;
+            btnDelete.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDelete.Location = new Point(152, 270);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(98, 39);
+            btnDelete.TabIndex = 22;
+            btnDelete.Text = "Delete";
+            btnDelete.TextAlign = ContentAlignment.MiddleRight;
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.BackColor = Color.ForestGreen;
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnUpdate.ForeColor = Color.White;
+            btnUpdate.Image = Properties.Resources.save32;
+            btnUpdate.ImageAlign = ContentAlignment.MiddleLeft;
+            btnUpdate.Location = new Point(24, 270);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(98, 39);
+            btnUpdate.TabIndex = 21;
+            btnUpdate.Text = "Update";
+            btnUpdate.TextAlign = ContentAlignment.MiddleRight;
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
             // frmUploadDocument
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -183,7 +343,11 @@
             captionLabel2.Text = "Documentos";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(560, 312);
+            ClientSize = new Size(946, 504);
+            Controls.Add(btnClear);
+            Controls.Add(btnDelete);
+            Controls.Add(btnUpdate);
+            Controls.Add(dgvDocuments);
             Controls.Add(panel1);
             Controls.Add(lblFile);
             Controls.Add(label6);
@@ -191,11 +355,14 @@
             Controls.Add(btnBrowseDocument);
             Controls.Add(lblPath);
             Controls.Add(label1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmUploadDocument";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvDocuments).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -214,5 +381,17 @@
         private Label label3;
         private TextBox txtDescription;
         private TextBox txtTitle;
+        private DataGridView dgvDocuments;
+        private TextBox txtId;
+        private Button btnClear;
+        private Button btnDelete;
+        private Button btnUpdate;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn CreatedOn;
+        private DataGridViewTextBoxColumn Title;
+        private DataGridViewTextBoxColumn PetName;
+        private DataGridViewTextBoxColumn Description;
+        private DataGridViewTextBoxColumn DocumentPath;
+        private DataGridViewButtonColumn optView;
     }
 }

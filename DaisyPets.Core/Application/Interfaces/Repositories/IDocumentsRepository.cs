@@ -10,6 +10,6 @@ namespace DaisyPets.Core.Application.Interfaces.Repositories
         Task DeleteDocument(int id);
         Task<IEnumerable<Documento>> GetAll();
         Task<Documento> GetDocument_ById(int id);
-        Task<IEnumerable<DocumentoVM>> GetAllVM();
+        Task<IEnumerable<DocumentoVM>> GetAllVM(int Id);
     }
 }

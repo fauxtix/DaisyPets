@@ -31,7 +31,6 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPets));
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
@@ -791,7 +790,7 @@
             btnGeneratePdf.BackColor = Color.WhiteSmoke;
             btnGeneratePdf.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnGeneratePdf.ForeColor = Color.Black;
-            btnGeneratePdf.Image = Properties.Resources.Adobe_PDF_Document_icon;
+            btnGeneratePdf.Image = Properties.Resources.print_pdf2;
             btnGeneratePdf.ImageAlign = ContentAlignment.MiddleLeft;
             btnGeneratePdf.Location = new Point(1039, 413);
             btnGeneratePdf.Name = "btnGeneratePdf";
@@ -805,15 +804,17 @@
             // btnUploadFile
             // 
             btnUploadFile.BackColor = Color.WhiteSmoke;
-            btnUploadFile.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            btnUploadFile.BackgroundImageLayout = ImageLayout.None;
+            btnUploadFile.Enabled = false;
+            btnUploadFile.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnUploadFile.ForeColor = Color.Black;
-            btnUploadFile.Image = (Image)resources.GetObject("btnUploadFile.Image");
-            btnUploadFile.ImageAlign = ContentAlignment.MiddleLeft;
+            btnUploadFile.Image = Properties.Resources.folder_with_file_icon;
             btnUploadFile.Location = new Point(911, 414);
             btnUploadFile.Name = "btnUploadFile";
             btnUploadFile.Size = new Size(77, 48);
             btnUploadFile.TabIndex = 23;
-            btnUploadFile.TextAlign = ContentAlignment.MiddleRight;
+            btnUploadFile.Text = "Docs";
+            btnUploadFile.TextAlign = ContentAlignment.TopLeft;
             btnUploadFile.UseVisualStyleBackColor = false;
             btnUploadFile.Click += btnUploadFile_Click;
             // 

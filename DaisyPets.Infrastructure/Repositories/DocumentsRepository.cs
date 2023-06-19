@@ -23,10 +23,17 @@ namespace DaisyPets.Infrastructure.Repositories
         public async Task<int> InsertDocument(Documento newDocument)
         {
 
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@Title", newDocument.Title);
+            dynamicParameters.Add("@Description", newDocument.Description);
+            dynamicParameters.Add("@DocumentPath", newDocument.DocumentPath);
+            dynamicParameters.Add("@CreatedOn", newDocument.CreatedOn);
+            dynamicParameters.Add("@PetId", newDocument.PetId);
+
             StringBuilder sb = new StringBuilder();
             sb.Append("INSERT INTO Documento(");
             sb.Append("Title, Description, DocumentPath, CreatedOn, PetId) VALUES (");
-            sb.Append("@Title, @Description, @DocumentPath, @CreatedOn, @PetId); ");
+            sb.Append($"@Title, @Description, @DocumentPath, @CreatedOn, @PetId); ");
             sb.Append("SELECT last_insert_rowid()");
 
             try
@@ -34,9 +41,7 @@ namespace DaisyPets.Infrastructure.Repositories
                 newDocument.CreatedOn = DateTime.Now.ToShortDateString();
                 using (var connection = _context.CreateConnection())
                 {
-                    int insertedId = await connection.QueryFirstAsync<int>(sb.ToString(),
-                         param: newDocument);
-
+                    int insertedId = await connection.QueryFirstAsync<int>(sb.ToString(), param: dynamicParameters);
                     return insertedId;
                 }
 
@@ -53,8 +58,8 @@ namespace DaisyPets.Infrastructure.Repositories
 
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE Documento SET ");
-            sb.Append("Title = @Description, ");
-            sb.Append("Description = @Title, ");
+            sb.Append("Title = @Title, ");
+            sb.Append("Description = @Description, ");
             sb.Append("DocumentPath = @DocumentPath, ");
             sb.Append("PetId = @PetId ");
             sb.Append("WHERE Id = @Id");
@@ -152,19 +157,20 @@ namespace DaisyPets.Infrastructure.Repositories
         }
 
 
-        public async Task<IEnumerable<DocumentoVM>> GetAllVM()
+        public async Task<IEnumerable<DocumentoVM>> GetAllVM(int Id)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT D.Id, D.Title, D.Description, D.DocumentPath, D.CreatedOn, D.PetId, P.Nome AS [PetName] ");
             sb.Append("FROM Documento D ");
             sb.Append("INNER JOIN Pet P ON ");
-            sb.Append("D.PetId = P.Id");
+            sb.Append("D.PetId = P.Id ");
+            sb.Append("WHERE D.PetId = @Id");
 
             try
             {
                 using (var connection = _context.CreateConnection())
                 {
-                    var output = await connection.QueryAsync<DocumentoVM>(sb.ToString());
+                    var output = await connection.QueryAsync<DocumentoVM>(sb.ToString(), new { Id });
                     return output;
                 }
 

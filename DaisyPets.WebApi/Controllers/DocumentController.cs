@@ -148,14 +148,14 @@ namespace DaisyPets.WebApi.Controllers
         /// Dados do documento (extendidos)
         /// </summary>
         /// <returns></returns>
-        [HttpGet("AllDocumentsVM")]
-        public async Task<IActionResult> GetAllDocumentsVM()
+        [HttpGet("AllDocumentsVM/{Id:int}")]
+        public async Task<IActionResult> GetAllDocumentsVM(int Id)
         {
             var location = GetControllerActionNames();
 
             try
             {
-                var documentsVM = await _documentService.GetAllVM();
+                var documentsVM = await _documentService.GetAllVM(Id);
                 if (documentsVM is null)
                 {
                     return NotFound();

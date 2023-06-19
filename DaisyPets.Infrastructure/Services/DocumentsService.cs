@@ -31,9 +31,9 @@ namespace DaisyPets.Infrastructure.Services
             return output;
         }
 
-        public async Task<IEnumerable<DocumentoVM>> GetAllVM()
+        public async Task<IEnumerable<DocumentoVM>> GetAllVM(int Id)
         {
-            var documentsVM = await _repository.GetAllVM();
+            var documentsVM = await _repository.GetAllVM(Id);
             return documentsVM;
         }
 

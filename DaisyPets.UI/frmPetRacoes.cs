@@ -411,7 +411,6 @@ namespace DaisyPets.UI
             return ascending ?
                 list.OrderBy(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList() :
                 list.OrderByDescending(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList();
-
         }
 
         private void dgvRacoes_CellClick(object sender, DataGridViewCellEventArgs e)
