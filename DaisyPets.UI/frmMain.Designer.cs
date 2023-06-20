@@ -59,7 +59,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(48, 48);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnExpensesDonations, toolStripSeparator4, btnContactos, toolStripSeparator2, toolStripButton3, toolStripSeparator3, toolStripDropDownButton1, toolStripSeparator9, btnFechar });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnExpensesDonations, toolStripSeparator4, btnContactos, toolStripSeparator3, toolStripDropDownButton1, toolStripSeparator2, toolStripButton3, toolStripSeparator9, btnFechar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1384, 55);
@@ -113,11 +113,11 @@
             // toolStripButton3
             // 
             toolStripButton3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            toolStripButton3.Image = Properties.Resources.Table_icon;
+            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
             toolStripButton3.ImageTransparentColor = Color.Magenta;
             toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(263, 52);
-            toolStripButton3.Text = "Documentação base de dados";
+            toolStripButton3.Size = new Size(158, 52);
+            toolStripButton3.Text = "Base de dados";
             toolStripButton3.Click += toolStripButton3_Click;
             // 
             // toolStripSeparator3

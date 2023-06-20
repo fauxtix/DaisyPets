@@ -13,6 +13,10 @@ namespace DaisyPets.UI
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjIyMzE2MkAzMjMxMmUzMDJlMzBCdlcySmlaSjFFeU5BQjNaUDNYQ0R3VHFROCttQ3FiWi9TbStncWVGcGlFPQ ==");
 
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             MessageBoxAdv.DropShadow = true;
             MessageBoxAdv.MaximumSize = new Size(520, Screen.PrimaryScreen.WorkingArea.Size.Height);
             MessageBoxAdv.MessageBoxStyle = MessageBoxAdv.Style.Office2016;

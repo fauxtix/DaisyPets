@@ -77,20 +77,21 @@ namespace DaisyPets.Infrastructure.Repositories
             {
                 var parameters = new DynamicParameters();
                 parameters.Add("@Id", id);
-                parameters.Add("@OkToDelete", SqlDbType.Bit, direction: ParameterDirection.Output);
+                //parameters.Add("@OkToDelete", SqlDbType.Bit, direction: ParameterDirection.Output);
 
                 sb.Clear();
-                sb.Append("DECLARE @CanDelete bit; ");
-                sb.Append("SELECT @CanDelete = COUNT(1) FROM    Despesas ");
+                //sb.Append("DECLARE @CanDelete bit; ");
+                sb.Append("SELECT COUNT(1) FROM    Despesa ");
                 sb.Append("WHERE IDTipoDespesa = @Id; ");
-                sb.Append("SELECT @OkToDelete = @CanDelete");
+                //sb.Append("SELECT @OkToDelete = @CanDelete");
 
                 using (var connection = _context.CreateConnection())
                 {
                     var result = await connection.QuerySingleOrDefaultAsync<int>(sb.ToString(),
                         param: parameters);
-                    var areThereExpenses = parameters.Get<int>("@OkToDelete");
-                    return areThereExpenses == 0;
+                    return result == 0;
+                    //var areThereExpenses = parameters.Get<int>("@OkToDelete");
+                    //return areThereExpenses == 0;
                 }
 
             }

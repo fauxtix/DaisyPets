@@ -885,7 +885,13 @@ namespace DaisyPets.UI
                 btnClear.Enabled = true;
                 btnDelete.Enabled = true;
                 btnGeneratePdf.Enabled = true;
-                btnUploadFile.Enabled = true;
+
+                btnAppts.Enabled = true;
+                btnDewormers.Enabled = true;
+                btnDocs.Enabled = true;
+                btnDogFood.Enabled = true;
+                btnVaccines.Enabled = true;
+
 
                 btnInsert.Enabled = false;
             }
@@ -895,7 +901,14 @@ namespace DaisyPets.UI
                 btnDelete.Enabled = false;
                 btnUpdate.Enabled = false;
                 btnGeneratePdf.Enabled = false;
-                btnUploadFile.Enabled = false;
+
+                btnAppts.Enabled = false;
+                btnDewormers.Enabled = false;
+                btnDocs.Enabled = false;
+                btnDogFood.Enabled = false;
+                btnVaccines.Enabled = false;
+
+
                 btnInsert.Enabled = true;
             }
         }
@@ -907,8 +920,13 @@ namespace DaisyPets.UI
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
             btnGeneratePdf.Enabled = false;
-            btnUploadFile.Enabled = false;
             btnClear.Enabled = false;
+
+            btnAppts.Enabled = false;
+            btnDewormers.Enabled = false;
+            btnDocs.Enabled = false;
+            btnDogFood.Enabled = false;
+            btnVaccines.Enabled = false;
         }
 
         private void SelectRowInGrid()
@@ -1143,6 +1161,37 @@ namespace DaisyPets.UI
             frmUploadDocument frmUploadDocument = new frmUploadDocument(IdPet);
             DialogResult = frmUploadDocument.ShowDialog();
 
+        }
+
+        private void btnDocs_Click(object sender, EventArgs e)
+        {
+            frmUploadDocument frmUploadDocument = new frmUploadDocument(IdPet);
+            DialogResult = frmUploadDocument.ShowDialog();
+        }
+
+        private void btnVaccines_Click(object sender, EventArgs e)
+        {
+            frmPetVaccines fVaccines = new frmPetVaccines(IdPet);
+            fVaccines.ShowDialog();
+
+        }
+
+        private void btnAppts_Click(object sender, EventArgs e)
+        {
+            frmPetVeterinaryAppointments fAppts = new frmPetVeterinaryAppointments(IdPet);
+            fAppts.ShowDialog();
+        }
+
+        private void btnDogFood_Click(object sender, EventArgs e)
+        {
+            frmPetRacoes fAppts = new frmPetRacoes(IdPet);
+            fAppts.ShowDialog();
+        }
+
+        private void btnDewormers_Click(object sender, EventArgs e)
+        {
+            frmPetDewormers fDewormers = new frmPetDewormers(IdPet);
+            fDewormers.ShowDialog();
         }
     }
 }

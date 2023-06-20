@@ -30,23 +30,13 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPets));
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             gdvDados = new DataGridView();
-            Id = new DataGridViewTextBoxColumn();
-            Nome = new DataGridViewTextBoxColumn();
-            Chipado = new DataGridViewCheckBoxColumn();
-            Esterilizado = new DataGridViewCheckBoxColumn();
-            SituacaoAnimal = new DataGridViewTextBoxColumn();
-            EspecieAnimal = new DataGridViewTextBoxColumn();
-            RacaAnimal = new DataGridViewTextBoxColumn();
-            TamanhoAnimal = new DataGridViewTextBoxColumn();
-            HistoryInfo = new DataGridViewButtonColumn();
-            PetApptsHistory = new DataGridViewButtonColumn();
-            PetFeedHistory = new DataGridViewButtonColumn();
-            PetDewormerInfo = new DataGridViewButtonColumn();
             btnInsert = new Button();
             panel1 = new Panel();
             cboGenero = new ComboBox();
@@ -96,11 +86,26 @@
             openFileDialog1 = new OpenFileDialog();
             btnClear = new Button();
             btnGeneratePdf = new Button();
-            btnUploadFile = new Button();
+            btnVaccines = new Button();
+            panel2 = new Panel();
+            btnDocs = new Button();
+            btnDewormers = new Button();
+            btnDogFood = new Button();
+            btnAppts = new Button();
+            Id = new DataGridViewTextBoxColumn();
+            Nome = new DataGridViewTextBoxColumn();
+            EspecieAnimal = new DataGridViewTextBoxColumn();
+            Chipado = new DataGridViewCheckBoxColumn();
+            Esterilizado = new DataGridViewCheckBoxColumn();
+            SituacaoAnimal = new DataGridViewTextBoxColumn();
+            TemperamentoAnimal = new DataGridViewTextBoxColumn();
+            RacaAnimal = new DataGridViewTextBoxColumn();
+            TamanhoAnimal = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)gdvDados).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudPeso).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbPhoto).BeginInit();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // gdvDados
@@ -121,8 +126,8 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             gdvDados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             gdvDados.ColumnHeadersHeight = 40;
-            gdvDados.Columns.AddRange(new DataGridViewColumn[] { Id, Nome, Chipado, Esterilizado, SituacaoAnimal, EspecieAnimal, RacaAnimal, TamanhoAnimal, HistoryInfo, PetApptsHistory, PetFeedHistory, PetDewormerInfo });
-            gdvDados.Location = new Point(40, 482);
+            gdvDados.Columns.AddRange(new DataGridViewColumn[] { Id, Nome, EspecieAnimal, Chipado, Esterilizado, SituacaoAnimal, TemperamentoAnimal, RacaAnimal, TamanhoAnimal });
+            gdvDados.Location = new Point(28, 472);
             gdvDados.MultiSelect = false;
             gdvDados.Name = "gdvDados";
             gdvDados.ReadOnly = true;
@@ -130,127 +135,11 @@
             gdvDados.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             gdvDados.RowTemplate.Height = 32;
             gdvDados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gdvDados.Size = new Size(1294, 210);
+            gdvDados.Size = new Size(1216, 210);
             gdvDados.TabIndex = 17;
             gdvDados.CellClick += gdvDados_CellClick;
             gdvDados.CellContentClick += gdvDados_CellContentClick;
             gdvDados.ColumnHeaderMouseClick += gdvDados_ColumnHeaderMouseClick;
-            // 
-            // Id
-            // 
-            Id.DataPropertyName = "Id";
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            Id.Width = 50;
-            // 
-            // Nome
-            // 
-            Nome.DataPropertyName = "Nome";
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            Nome.DefaultCellStyle = dataGridViewCellStyle3;
-            Nome.HeaderText = "Nome";
-            Nome.Name = "Nome";
-            Nome.ReadOnly = true;
-            Nome.SortMode = DataGridViewColumnSortMode.Programmatic;
-            Nome.Width = 200;
-            // 
-            // Chipado
-            // 
-            Chipado.DataPropertyName = "Chipado";
-            Chipado.HeaderText = "Chip";
-            Chipado.Name = "Chipado";
-            Chipado.ReadOnly = true;
-            Chipado.SortMode = DataGridViewColumnSortMode.Automatic;
-            Chipado.Width = 60;
-            // 
-            // Esterilizado
-            // 
-            Esterilizado.DataPropertyName = "Esterilizado";
-            Esterilizado.HeaderText = "Esterilizado";
-            Esterilizado.Name = "Esterilizado";
-            Esterilizado.ReadOnly = true;
-            Esterilizado.Resizable = DataGridViewTriState.True;
-            Esterilizado.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
-            // SituacaoAnimal
-            // 
-            SituacaoAnimal.DataPropertyName = "SituacaoAnimal";
-            SituacaoAnimal.HeaderText = "Situação";
-            SituacaoAnimal.Name = "SituacaoAnimal";
-            SituacaoAnimal.ReadOnly = true;
-            SituacaoAnimal.Width = 200;
-            // 
-            // EspecieAnimal
-            // 
-            EspecieAnimal.DataPropertyName = "EspecieAnimal";
-            EspecieAnimal.HeaderText = "Espécie";
-            EspecieAnimal.Name = "EspecieAnimal";
-            EspecieAnimal.ReadOnly = true;
-            EspecieAnimal.Visible = false;
-            EspecieAnimal.Width = 80;
-            // 
-            // RacaAnimal
-            // 
-            RacaAnimal.DataPropertyName = "RacaAnimal";
-            RacaAnimal.HeaderText = "Raça";
-            RacaAnimal.Name = "RacaAnimal";
-            RacaAnimal.ReadOnly = true;
-            RacaAnimal.Width = 250;
-            // 
-            // TamanhoAnimal
-            // 
-            TamanhoAnimal.DataPropertyName = "TamanhoAnimal";
-            TamanhoAnimal.HeaderText = "Tamanho";
-            TamanhoAnimal.Name = "TamanhoAnimal";
-            TamanhoAnimal.ReadOnly = true;
-            TamanhoAnimal.Width = 90;
-            // 
-            // HistoryInfo
-            // 
-            HistoryInfo.HeaderText = "Vacinas";
-            HistoryInfo.Name = "HistoryInfo";
-            HistoryInfo.ReadOnly = true;
-            HistoryInfo.Text = "...";
-            HistoryInfo.ToolTipText = "Vacinação";
-            HistoryInfo.UseColumnTextForButtonValue = true;
-            HistoryInfo.Width = 70;
-            // 
-            // PetApptsHistory
-            // 
-            PetApptsHistory.HeaderText = "Consultas";
-            PetApptsHistory.Name = "PetApptsHistory";
-            PetApptsHistory.ReadOnly = true;
-            PetApptsHistory.Resizable = DataGridViewTriState.True;
-            PetApptsHistory.Text = "...";
-            PetApptsHistory.ToolTipText = "Consultas veterinário";
-            PetApptsHistory.UseColumnTextForButtonValue = true;
-            PetApptsHistory.Width = 80;
-            // 
-            // PetFeedHistory
-            // 
-            PetFeedHistory.HeaderText = "Rações";
-            PetFeedHistory.Name = "PetFeedHistory";
-            PetFeedHistory.ReadOnly = true;
-            PetFeedHistory.Resizable = DataGridViewTriState.True;
-            PetFeedHistory.SortMode = DataGridViewColumnSortMode.Automatic;
-            PetFeedHistory.Text = "...";
-            PetFeedHistory.ToolTipText = "Rações";
-            PetFeedHistory.UseColumnTextForButtonValue = true;
-            PetFeedHistory.Width = 70;
-            // 
-            // PetDewormerInfo
-            // 
-            PetDewormerInfo.HeaderText = "Desparasitantes";
-            PetDewormerInfo.Name = "PetDewormerInfo";
-            PetDewormerInfo.ReadOnly = true;
-            PetDewormerInfo.Resizable = DataGridViewTriState.True;
-            PetDewormerInfo.SortMode = DataGridViewColumnSortMode.Automatic;
-            PetDewormerInfo.Text = "...";
-            PetDewormerInfo.ToolTipText = "Desparasitantes";
-            PetDewormerInfo.UseColumnTextForButtonValue = true;
-            PetDewormerInfo.Width = 120;
             // 
             // btnInsert
             // 
@@ -314,7 +203,7 @@
             panel1.Controls.Add(txtNome);
             panel1.Location = new Point(28, 8);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1160, 399);
+            panel1.Size = new Size(1145, 392);
             panel1.TabIndex = 4;
             // 
             // cboGenero
@@ -411,6 +300,7 @@
             lblPorte.Size = new Size(69, 20);
             lblPorte.TabIndex = 85;
             lblPorte.Text = "Tamanho";
+            lblPorte.Visible = false;
             // 
             // txtPorte
             // 
@@ -420,6 +310,7 @@
             txtPorte.ReadOnly = true;
             txtPorte.Size = new Size(114, 27);
             txtPorte.TabIndex = 84;
+            txtPorte.Visible = false;
             // 
             // txtTipoCao
             // 
@@ -464,9 +355,9 @@
             // 
             pbPhoto.BorderStyle = BorderStyle.FixedSingle;
             pbPhoto.Image = Properties.Resources.NoImageAvailable;
-            pbPhoto.Location = new Point(874, 14);
+            pbPhoto.Location = new Point(883, 14);
             pbPhoto.Name = "pbPhoto";
-            pbPhoto.Size = new Size(273, 222);
+            pbPhoto.Size = new Size(247, 188);
             pbPhoto.SizeMode = PictureBoxSizeMode.StretchImage;
             pbPhoto.TabIndex = 78;
             pbPhoto.TabStop = false;
@@ -474,7 +365,7 @@
             // btnUploadPhoto
             // 
             btnUploadPhoto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnUploadPhoto.Location = new Point(933, 242);
+            btnUploadPhoto.Location = new Point(948, 208);
             btnUploadPhoto.Name = "btnUploadPhoto";
             btnUploadPhoto.Size = new Size(128, 31);
             btnUploadPhoto.TabIndex = 16;
@@ -484,7 +375,7 @@
             // 
             // txtId
             // 
-            txtId.Location = new Point(1066, 281);
+            txtId.Location = new Point(1011, 314);
             txtId.Name = "txtId";
             txtId.Size = new Size(65, 23);
             txtId.TabIndex = 75;
@@ -619,7 +510,7 @@
             txtObservacoes.Multiline = true;
             txtObservacoes.Name = "txtObservacoes";
             txtObservacoes.ScrollBars = ScrollBars.Vertical;
-            txtObservacoes.Size = new Size(358, 110);
+            txtObservacoes.Size = new Size(358, 94);
             txtObservacoes.TabIndex = 16;
             // 
             // label14
@@ -644,7 +535,7 @@
             // txtChip
             // 
             txtChip.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtChip.Location = new Point(1028, 310);
+            txtChip.Location = new Point(973, 343);
             txtChip.Name = "txtChip";
             txtChip.Size = new Size(103, 27);
             txtChip.TabIndex = 57;
@@ -682,7 +573,7 @@
             // 
             // txtFoto
             // 
-            txtFoto.Location = new Point(995, 281);
+            txtFoto.Location = new Point(940, 314);
             txtFoto.Name = "txtFoto";
             txtFoto.Size = new Size(40, 23);
             txtFoto.TabIndex = 51;
@@ -710,7 +601,7 @@
             // txtIdade
             // 
             txtIdade.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtIdade.Location = new Point(923, 281);
+            txtIdade.Location = new Point(868, 314);
             txtIdade.Name = "txtIdade";
             txtIdade.Size = new Size(49, 27);
             txtIdade.TabIndex = 48;
@@ -792,31 +683,202 @@
             btnGeneratePdf.ForeColor = Color.Black;
             btnGeneratePdf.Image = Properties.Resources.print_pdf2;
             btnGeneratePdf.ImageAlign = ContentAlignment.MiddleLeft;
-            btnGeneratePdf.Location = new Point(1039, 413);
+            btnGeneratePdf.Location = new Point(1070, 413);
             btnGeneratePdf.Name = "btnGeneratePdf";
-            btnGeneratePdf.Size = new Size(103, 48);
+            btnGeneratePdf.Size = new Size(103, 53);
             btnGeneratePdf.TabIndex = 22;
             btnGeneratePdf.Text = "Pdf  ";
             btnGeneratePdf.TextAlign = ContentAlignment.MiddleRight;
             btnGeneratePdf.UseVisualStyleBackColor = false;
             btnGeneratePdf.Click += btnGeneratePdf_Click;
             // 
-            // btnUploadFile
+            // btnVaccines
             // 
-            btnUploadFile.BackColor = Color.WhiteSmoke;
-            btnUploadFile.BackgroundImageLayout = ImageLayout.None;
-            btnUploadFile.Enabled = false;
-            btnUploadFile.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            btnUploadFile.ForeColor = Color.Black;
-            btnUploadFile.Image = Properties.Resources.folder_with_file_icon;
-            btnUploadFile.Location = new Point(911, 414);
-            btnUploadFile.Name = "btnUploadFile";
-            btnUploadFile.Size = new Size(77, 48);
-            btnUploadFile.TabIndex = 23;
-            btnUploadFile.Text = "Docs";
-            btnUploadFile.TextAlign = ContentAlignment.TopLeft;
-            btnUploadFile.UseVisualStyleBackColor = false;
-            btnUploadFile.Click += btnUploadFile_Click;
+            btnVaccines.BackColor = Color.White;
+            btnVaccines.BackgroundImageLayout = ImageLayout.None;
+            btnVaccines.Enabled = false;
+            btnVaccines.FlatStyle = FlatStyle.Flat;
+            btnVaccines.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnVaccines.ForeColor = Color.Black;
+            btnVaccines.Image = (Image)resources.GetObject("btnVaccines.Image");
+            btnVaccines.ImageAlign = ContentAlignment.MiddleRight;
+            btnVaccines.Location = new Point(19, 132);
+            btnVaccines.Name = "btnVaccines";
+            btnVaccines.Size = new Size(131, 48);
+            btnVaccines.TabIndex = 24;
+            btnVaccines.Text = "Vacinas";
+            btnVaccines.TextAlign = ContentAlignment.TopLeft;
+            btnVaccines.UseVisualStyleBackColor = false;
+            btnVaccines.Click += btnVaccines_Click;
+            // 
+            // panel2
+            // 
+            panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(btnDocs);
+            panel2.Controls.Add(btnDewormers);
+            panel2.Controls.Add(btnDogFood);
+            panel2.Controls.Add(btnAppts);
+            panel2.Controls.Add(btnVaccines);
+            panel2.Location = new Point(1183, 8);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(175, 400);
+            panel2.TabIndex = 25;
+            // 
+            // btnDocs
+            // 
+            btnDocs.BackColor = Color.White;
+            btnDocs.BackgroundImageLayout = ImageLayout.None;
+            btnDocs.Enabled = false;
+            btnDocs.FlatStyle = FlatStyle.Flat;
+            btnDocs.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDocs.ForeColor = Color.Black;
+            btnDocs.Image = (Image)resources.GetObject("btnDocs.Image");
+            btnDocs.ImageAlign = ContentAlignment.BottomRight;
+            btnDocs.Location = new Point(19, 13);
+            btnDocs.Name = "btnDocs";
+            btnDocs.Size = new Size(131, 69);
+            btnDocs.TabIndex = 28;
+            btnDocs.Text = "Documentos";
+            btnDocs.TextAlign = ContentAlignment.TopLeft;
+            btnDocs.UseVisualStyleBackColor = false;
+            btnDocs.Click += btnDocs_Click;
+            // 
+            // btnDewormers
+            // 
+            btnDewormers.BackColor = Color.White;
+            btnDewormers.BackgroundImageLayout = ImageLayout.None;
+            btnDewormers.Enabled = false;
+            btnDewormers.FlatStyle = FlatStyle.Flat;
+            btnDewormers.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDewormers.ForeColor = Color.Black;
+            btnDewormers.Image = (Image)resources.GetObject("btnDewormers.Image");
+            btnDewormers.ImageAlign = ContentAlignment.BottomRight;
+            btnDewormers.Location = new Point(19, 327);
+            btnDewormers.Name = "btnDewormers";
+            btnDewormers.Size = new Size(131, 64);
+            btnDewormers.TabIndex = 27;
+            btnDewormers.Text = "Desparasitantes";
+            btnDewormers.TextAlign = ContentAlignment.TopLeft;
+            btnDewormers.UseVisualStyleBackColor = false;
+            btnDewormers.Click += btnDewormers_Click;
+            // 
+            // btnDogFood
+            // 
+            btnDogFood.BackColor = Color.White;
+            btnDogFood.BackgroundImageLayout = ImageLayout.None;
+            btnDogFood.Enabled = false;
+            btnDogFood.FlatStyle = FlatStyle.Flat;
+            btnDogFood.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnDogFood.ForeColor = Color.Black;
+            btnDogFood.Image = (Image)resources.GetObject("btnDogFood.Image");
+            btnDogFood.ImageAlign = ContentAlignment.MiddleRight;
+            btnDogFood.Location = new Point(19, 262);
+            btnDogFood.Name = "btnDogFood";
+            btnDogFood.Size = new Size(131, 48);
+            btnDogFood.TabIndex = 26;
+            btnDogFood.Text = "Rações";
+            btnDogFood.TextAlign = ContentAlignment.TopLeft;
+            btnDogFood.UseVisualStyleBackColor = false;
+            btnDogFood.Click += btnDogFood_Click;
+            // 
+            // btnAppts
+            // 
+            btnAppts.BackColor = Color.White;
+            btnAppts.BackgroundImageLayout = ImageLayout.None;
+            btnAppts.Enabled = false;
+            btnAppts.FlatStyle = FlatStyle.Flat;
+            btnAppts.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAppts.ForeColor = Color.Black;
+            btnAppts.Image = (Image)resources.GetObject("btnAppts.Image");
+            btnAppts.ImageAlign = ContentAlignment.MiddleRight;
+            btnAppts.Location = new Point(19, 197);
+            btnAppts.Name = "btnAppts";
+            btnAppts.Size = new Size(131, 48);
+            btnAppts.TabIndex = 25;
+            btnAppts.Text = "Consultas";
+            btnAppts.TextAlign = ContentAlignment.TopLeft;
+            btnAppts.UseVisualStyleBackColor = false;
+            btnAppts.Click += btnAppts_Click;
+            // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
+            Id.DefaultCellStyle = dataGridViewCellStyle3;
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Width = 60;
+            // 
+            // Nome
+            // 
+            Nome.DataPropertyName = "Nome";
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            Nome.DefaultCellStyle = dataGridViewCellStyle4;
+            Nome.HeaderText = "Nome";
+            Nome.Name = "Nome";
+            Nome.ReadOnly = true;
+            Nome.SortMode = DataGridViewColumnSortMode.Programmatic;
+            Nome.Width = 200;
+            // 
+            // EspecieAnimal
+            // 
+            EspecieAnimal.DataPropertyName = "EspecieAnimal";
+            EspecieAnimal.HeaderText = "Espécie";
+            EspecieAnimal.Name = "EspecieAnimal";
+            EspecieAnimal.ReadOnly = true;
+            EspecieAnimal.Visible = false;
+            EspecieAnimal.Width = 80;
+            // 
+            // Chipado
+            // 
+            Chipado.DataPropertyName = "Chipado";
+            Chipado.HeaderText = "Chip";
+            Chipado.Name = "Chipado";
+            Chipado.ReadOnly = true;
+            Chipado.SortMode = DataGridViewColumnSortMode.Automatic;
+            Chipado.Width = 60;
+            // 
+            // Esterilizado
+            // 
+            Esterilizado.DataPropertyName = "Esterilizado";
+            Esterilizado.HeaderText = "Esterilizado";
+            Esterilizado.Name = "Esterilizado";
+            Esterilizado.ReadOnly = true;
+            Esterilizado.Resizable = DataGridViewTriState.True;
+            Esterilizado.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // SituacaoAnimal
+            // 
+            SituacaoAnimal.DataPropertyName = "SituacaoAnimal";
+            SituacaoAnimal.HeaderText = "Situação";
+            SituacaoAnimal.Name = "SituacaoAnimal";
+            SituacaoAnimal.ReadOnly = true;
+            SituacaoAnimal.Width = 200;
+            // 
+            // TemperamentoAnimal
+            // 
+            TemperamentoAnimal.DataPropertyName = "TemperamentoAnimal";
+            TemperamentoAnimal.HeaderText = "Temperamento";
+            TemperamentoAnimal.Name = "TemperamentoAnimal";
+            TemperamentoAnimal.ReadOnly = true;
+            TemperamentoAnimal.Width = 200;
+            // 
+            // RacaAnimal
+            // 
+            RacaAnimal.DataPropertyName = "RacaAnimal";
+            RacaAnimal.HeaderText = "Raça";
+            RacaAnimal.Name = "RacaAnimal";
+            RacaAnimal.ReadOnly = true;
+            RacaAnimal.Width = 250;
+            // 
+            // TamanhoAnimal
+            // 
+            TamanhoAnimal.DataPropertyName = "TamanhoAnimal";
+            TamanhoAnimal.HeaderText = "Tamanho";
+            TamanhoAnimal.Name = "TamanhoAnimal";
+            TamanhoAnimal.ReadOnly = true;
+            TamanhoAnimal.Width = 90;
             // 
             // frmPets
             // 
@@ -846,7 +908,7 @@
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
             ClientSize = new Size(1359, 694);
-            Controls.Add(btnUploadFile);
+            Controls.Add(panel2);
             Controls.Add(btnGeneratePdf);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
@@ -864,6 +926,7 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudPeso).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbPhoto).EndInit();
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -919,18 +982,20 @@
         private Button btnGeneratePdf;
         private ComboBox cboGenero;
         private Label label8;
+        private Button btnVaccines;
+        private Panel panel2;
+        private Button btnAppts;
+        private Button btnDewormers;
+        private Button btnDogFood;
+        private Button btnDocs;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Nome;
+        private DataGridViewTextBoxColumn EspecieAnimal;
         private DataGridViewCheckBoxColumn Chipado;
         private DataGridViewCheckBoxColumn Esterilizado;
         private DataGridViewTextBoxColumn SituacaoAnimal;
-        private DataGridViewTextBoxColumn EspecieAnimal;
+        private DataGridViewTextBoxColumn TemperamentoAnimal;
         private DataGridViewTextBoxColumn RacaAnimal;
         private DataGridViewTextBoxColumn TamanhoAnimal;
-        private DataGridViewButtonColumn HistoryInfo;
-        private DataGridViewButtonColumn PetApptsHistory;
-        private DataGridViewButtonColumn PetFeedHistory;
-        private DataGridViewButtonColumn PetDewormerInfo;
-        private Button btnUploadFile;
     }
 }

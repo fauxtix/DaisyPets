@@ -53,6 +53,7 @@ namespace DaisyPets.UI.Expenses
                 if (response.IsSuccessStatusCode)
                 {
                     var expenseTypes = response.Content.ReadAsAsync<IEnumerable<TipoDespesaVM>>().Result;
+                    expenseTypes = expenseTypes.OrderBy(o => o.CategoriaDespesa);
                     if (expenseTypes != null)
                     {
                         return expenseTypes;
@@ -192,7 +193,7 @@ namespace DaisyPets.UI.Expenses
                     task.Wait();
                     task.Dispose();
 
-                    MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets - Desparasitantes");
+                    MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets - Tipo de despesas");
                     SetToolbar(OpcoesRegisto.Inserir);
                     FillGrid();
                     ClearForm();
@@ -202,7 +203,7 @@ namespace DaisyPets.UI.Expenses
             }
             catch (Exception ex)
             {
-                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Criação de Pet");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Criação de Tipo de despesa");
             }
 
         }
@@ -300,7 +301,7 @@ namespace DaisyPets.UI.Expenses
             }
             catch (Exception ex)
             {
-                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Visualizar registo");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Visualizar tipo de despesa");
             }
         }
 
@@ -363,7 +364,7 @@ namespace DaisyPets.UI.Expenses
                 {
                     sb.AppendLine(errorMsg);
                 }
-                MessageBoxAdv.Show(sb.ToString(), "Erro na validação");
+                MessageBoxAdv.Show(sb.ToString(), "Erro na validação - Tipo de despesa");
                 return;
             }
 
@@ -404,7 +405,7 @@ namespace DaisyPets.UI.Expenses
             }
             catch (Exception ex)
             {
-                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Atualização de desparasitante");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Atualização de tipo de despesa");
             }
 
 
@@ -433,10 +434,16 @@ namespace DaisyPets.UI.Expenses
                 using (HttpClient httpClient = new HttpClient())
                 {
                     var response = await httpClient.DeleteAsync(url);
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    {
+                        MessageBoxAdv.Show("Tipo de despesa em uso na tabela de Despesas... Verifique, p.f.", "Apagar tipo de despesa");
+                        return;
+                    }
+
                     response.EnsureSuccessStatusCode();
+
                     if (response.StatusCode == System.Net.HttpStatusCode.NoContent)
                     {
-
                         if (dgvTipoDespesas.RowCount > 0)
                         {
                             ShowRecord(1);
@@ -450,25 +457,13 @@ namespace DaisyPets.UI.Expenses
 
                     response.Dispose();
                     FillGrid();
-
-                    if (dgvTipoDespesas.RowCount > 0)
-                    {
-                        dgvTipoDespesas.Rows[0].Selected = true;
-                        int petId = DataFormat.GetInteger(dgvTipoDespesas.Rows[0].Cells["PetId"].Value);
-                        ShowRecord(petId);
-                    }
-                    else
-                    {
-                        dgvTipoDespesas.DataSource = null;
-                        ClearForm();
-                    }
                 }
 
-                MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);
+                MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar tipo de despesa", MessageBoxButtons.OK);
             }
             catch (Exception ex)
             {
-                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Apagar Pet");
+                MessageBoxAdv.Show($"Erro no API {ex.Message}", "Apagar Tipo de despesa");
             }
 
         }
@@ -505,6 +500,5 @@ namespace DaisyPets.UI.Expenses
         {
             ClearForm();
         }
-
     }
 }

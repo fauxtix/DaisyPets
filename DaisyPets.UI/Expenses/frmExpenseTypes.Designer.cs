@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             dgvTipoDespesas = new DataGridView();
             Id = new DataGridViewTextBoxColumn();
+            CategoriaDespesa = new DataGridViewTextBoxColumn();
             Descricao = new DataGridViewTextBoxColumn();
             IdCategoriaDespesa = new DataGridViewTextBoxColumn();
-            CategoriaDespesa = new DataGridViewTextBoxColumn();
             btnClear = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
@@ -52,12 +54,26 @@
             // 
             // dgvTipoDespesas
             // 
-            dgvTipoDespesas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTipoDespesas.Columns.AddRange(new DataGridViewColumn[] { Id, Descricao, IdCategoriaDespesa, CategoriaDespesa });
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+            dgvTipoDespesas.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvTipoDespesas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvTipoDespesas.ColumnHeadersHeight = 32;
+            dgvTipoDespesas.Columns.AddRange(new DataGridViewColumn[] { Id, CategoriaDespesa, Descricao, IdCategoriaDespesa });
             dgvTipoDespesas.Location = new Point(21, 221);
             dgvTipoDespesas.Name = "dgvTipoDespesas";
-            dgvTipoDespesas.RowTemplate.Height = 25;
-            dgvTipoDespesas.Size = new Size(651, 254);
+            dgvTipoDespesas.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dgvTipoDespesas.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgvTipoDespesas.RowTemplate.DividerHeight = 1;
+            dgvTipoDespesas.RowTemplate.Height = 32;
+            dgvTipoDespesas.RowTemplate.Resizable = DataGridViewTriState.True;
+            dgvTipoDespesas.Size = new Size(651, 338);
             dgvTipoDespesas.TabIndex = 2;
             dgvTipoDespesas.CellClick += dgvTipoDespesas_CellClick;
             dgvTipoDespesas.ColumnHeaderMouseClick += dgvTipoDespesas_ColumnHeaderMouseClick;
@@ -70,13 +86,21 @@
             Id.ReadOnly = true;
             Id.Visible = false;
             // 
+            // CategoriaDespesa
+            // 
+            CategoriaDespesa.DataPropertyName = "CategoriaDespesa";
+            CategoriaDespesa.HeaderText = "Categoria";
+            CategoriaDespesa.Name = "CategoriaDespesa";
+            CategoriaDespesa.ReadOnly = true;
+            CategoriaDespesa.Width = 300;
+            // 
             // Descricao
             // 
             Descricao.DataPropertyName = "Descricao";
             Descricao.HeaderText = "Descrição";
             Descricao.Name = "Descricao";
             Descricao.ReadOnly = true;
-            Descricao.Width = 250;
+            Descricao.Width = 300;
             // 
             // IdCategoriaDespesa
             // 
@@ -84,14 +108,6 @@
             IdCategoriaDespesa.Name = "IdCategoriaDespesa";
             IdCategoriaDespesa.ReadOnly = true;
             IdCategoriaDespesa.Visible = false;
-            // 
-            // CategoriaDespesa
-            // 
-            CategoriaDespesa.DataPropertyName = "CategoriaDespesa";
-            CategoriaDespesa.HeaderText = "Categoria";
-            CategoriaDespesa.Name = "CategoriaDespesa";
-            CategoriaDespesa.ReadOnly = true;
-            CategoriaDespesa.Width = 350;
             // 
             // btnClear
             // 
@@ -170,15 +186,15 @@
             panel1.Controls.Add(cboCategories);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(681, 130);
+            panel1.Size = new Size(450, 130);
             panel1.TabIndex = 30;
             // 
             // txtId
             // 
             txtId.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtId.Location = new Point(496, 22);
+            txtId.Location = new Point(9, 3);
             txtId.Name = "txtId";
-            txtId.Size = new Size(60, 29);
+            txtId.Size = new Size(30, 29);
             txtId.TabIndex = 9;
             txtId.Visible = false;
             // 
@@ -207,7 +223,7 @@
             txtDescricao.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtDescricao.Location = new Point(201, 75);
             txtDescricao.Name = "txtDescricao";
-            txtDescricao.Size = new Size(355, 29);
+            txtDescricao.Size = new Size(235, 29);
             txtDescricao.TabIndex = 6;
             // 
             // cboCategories
@@ -216,7 +232,7 @@
             cboCategories.FormattingEnabled = true;
             cboCategories.Location = new Point(201, 27);
             cboCategories.Name = "cboCategories";
-            cboCategories.Size = new Size(192, 29);
+            cboCategories.Size = new Size(235, 29);
             cboCategories.TabIndex = 5;
             cboCategories.SelectedIndexChanged += cboCategories_SelectedIndexChanged;
             // 
@@ -234,17 +250,17 @@
             captionImage1.Size = new Size(48, 48);
             CaptionImages.Add(captionImage1);
             captionLabel1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            captionLabel1.Location = new Point(60, 4);
+            captionLabel1.Location = new Point(70, 4);
             captionLabel1.Name = "CaptionLabel1";
             captionLabel1.Text = "Daisy Pets";
             captionLabel2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            captionLabel2.Location = new Point(60, 26);
+            captionLabel2.Location = new Point(70, 26);
             captionLabel2.Name = "CaptionLabel2";
             captionLabel2.Size = new Size(200, 24);
             captionLabel2.Text = "Tipo de Despesas";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(696, 487);
+            ClientSize = new Size(696, 571);
             Controls.Add(panel1);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
@@ -264,10 +280,6 @@
 
         #endregion
         private DataGridView dgvTipoDespesas;
-        private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn Descricao;
-        private DataGridViewTextBoxColumn IdCategoriaDespesa;
-        private DataGridViewTextBoxColumn CategoriaDespesa;
         private Button btnClear;
         private Button btnDelete;
         private Button btnUpdate;
@@ -278,5 +290,9 @@
         private TextBox txtDescricao;
         private ComboBox cboCategories;
         private TextBox txtId;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn CategoriaDespesa;
+        private DataGridViewTextBoxColumn Descricao;
+        private DataGridViewTextBoxColumn IdCategoriaDespesa;
     }
 }
