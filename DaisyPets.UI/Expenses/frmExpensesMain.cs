@@ -1,7 +1,8 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels.Despesas;
-using Syncfusion.DocIO.DLS;
+using DaisyPets.Core.Application.ViewModels.LookupTables;
 using Syncfusion.Windows.Forms;
+using System.Collections;
 using System.Net.Http.Json;
 using static DaisyPets.Core.Application.Enums.Common;
 
@@ -10,17 +11,24 @@ namespace DaisyPets.UI.Expenses
     public partial class frmExpensesMain : MetroForm
     {
         private int IdExpense = 0;
+        private int IdCategoriaDespesa;
+        private decimal totalExpenses { get; set; }
+        private decimal totalFilteredExpenses { get; set; }
         private int _previousIndex;
         private bool _sortDirection;
-        private IEnumerable<DespesaVM> listOfExpenses;
+        private IEnumerable<DespesaVM> listOfExpenses { get; set; }
 
 
         public frmExpensesMain()
         {
             InitializeComponent();
             dgvExpenses.AutoGenerateColumns = false;
+            totalFilteredExpenses = 0M;
             listOfExpenses = GetExpenses();
+            FillCombo(cboCategoryTypes, "CategoriaDespesa");
+
             FillGrid();
+            ShowTotals();
         }
 
 
@@ -35,6 +43,33 @@ namespace DaisyPets.UI.Expenses
                 int firstRowId = Convert.ToInt16(dgvExpenses.Rows[0].Cells[0].Value);
             }
         }
+
+        private void FillCombo(ComboBox comboBox, string dataTable)
+        {
+            comboBox.Items.Clear();
+            string url = $"https://localhost:7161/api/LookupTables/GetAllRecords/{dataTable}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var task = httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(url);
+                var response = task.Result;
+
+                task.Wait();
+
+                if (response != null)
+                {
+                    cboCategoryTypes.Items.Add(new DictionaryEntry(0, " == Todos =="));
+                    response = response.OrderBy(o => o.Descricao).ToList();
+                    foreach (var entry in response)
+                    {
+                        comboBox.Items.Add(new DictionaryEntry(entry.Id, entry.Descricao));
+                    }
+                    comboBox.ValueMember = "Key";
+                    comboBox.DisplayMember = "Value";
+                    comboBox.SelectedIndex = 0;
+                }
+            }
+        }
+
 
         private IEnumerable<DespesaVM> GetExpenses()
         {
@@ -118,6 +153,7 @@ namespace DaisyPets.UI.Expenses
             if (resp == DialogResult.OK)
             {
                 FillGrid();
+                ShowTotals();
             }
         }
 
@@ -161,6 +197,7 @@ namespace DaisyPets.UI.Expenses
             if (resp == DialogResult.OK)
             {
                 FillGrid();
+                ShowTotals();
             }
 
         }
@@ -213,7 +250,97 @@ namespace DaisyPets.UI.Expenses
 
         private void dgvExpenses_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+
+            IdExpense = DataFormat.GetInteger(dgvExpenses.Rows[e.RowIndex].Cells["Id"].Value);
             SetToolbar(OpcoesRegisto.Gravar);
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBoxAdv.Show($"Confirma operação?",
+                "Apagar registo de despesa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (dr != DialogResult.Yes)
+                return;
+
+            await DeleteExpense();
+
+        }
+
+        private async Task DeleteExpense()
+        {
+            string url = $"https://localhost:7161/api/Despesa/{IdExpense}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var response = await httpClient.DeleteAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
+                {
+                    MessageBoxAdv.Show("Erro ao apagar registo", "Contactos");
+                    return;
+                }
+                else
+                {
+                    FillGrid();
+
+                    MessageBoxAdv.Show("Registo apagado com sucesso");
+                    ShowTotals();
+
+                    if (dgvExpenses.RowCount > 0)
+                    {
+                        IdExpense = DataFormat.GetInteger(dgvExpenses.Rows[0].Cells["Id"].Value);
+
+                        dgvExpenses.Rows[0].Selected = true;
+                    }
+                    else
+                    {
+                        dgvExpenses.DataSource = null;
+                        ClearForm();
+                    }
+                }
+            }
+
+        }
+
+        private void cboCategoryTypes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboCategoryTypes.SelectedItem == null)
+                return;
+
+            IdCategoriaDespesa = DataFormat.GetInteger(((DictionaryEntry)(cboCategoryTypes.SelectedItem)).Key);
+            var filteredExpenses = listOfExpenses.Where(x => x.IdCategoriaDespesa == IdCategoriaDespesa);
+
+            if (IdCategoriaDespesa == 0)
+            {
+                dgvExpenses.DataSource = listOfExpenses;
+                lblTotalFilteredExpenses.Text = "0";
+            }
+            else
+            {
+                dgvExpenses.DataSource = filteredExpenses?.ToList();
+            }
+
+            ShowTotals();
+        }
+
+        private void ShowTotals()
+        {
+            totalExpenses = listOfExpenses.Sum(o => o.ValorPago);
+            lblTotalExpenses.Text = String.Format("({0:N2})", totalExpenses);
+            totalFilteredExpenses = listOfExpenses.Where(o => o.IdCategoriaDespesa == IdCategoriaDespesa).Sum(x => x.ValorPago);
+            lblTotalFilteredExpenses.Text = String.Format("({0:N2})", totalFilteredExpenses);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmCalculator frmCalculator = new frmCalculator();
+            var resp = frmCalculator.ShowDialog();
+
         }
     }
 }

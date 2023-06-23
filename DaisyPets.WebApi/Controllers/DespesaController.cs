@@ -131,7 +131,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewExpense = _service.GetByIdAsync(Id);
+                var viewExpense = await _service.GetByIdAsync(Id);
                 if (viewExpense == null)
                 {
                     return NotFound("Despesa não foi encontrada");

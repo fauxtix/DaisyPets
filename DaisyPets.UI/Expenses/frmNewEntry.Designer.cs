@@ -57,11 +57,12 @@
             // btnClose
             // 
             btnClose.BackColor = Color.White;
+            btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnClose.ForeColor = Color.Black;
             btnClose.Image = (Image)resources.GetObject("btnClose.Image");
             btnClose.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClose.Location = new Point(231, 449);
+            btnClose.Location = new Point(318, 449);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(98, 39);
             btnClose.TabIndex = 23;
@@ -73,11 +74,12 @@
             // btnAddEdit
             // 
             btnAddEdit.BackColor = Color.ForestGreen;
+            btnAddEdit.FlatStyle = FlatStyle.Flat;
             btnAddEdit.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnAddEdit.ForeColor = Color.White;
             btnAddEdit.Image = Properties.Resources.save32;
             btnAddEdit.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAddEdit.Location = new Point(87, 449);
+            btnAddEdit.Location = new Point(207, 449);
             btnAddEdit.Name = "btnAddEdit";
             btnAddEdit.Size = new Size(98, 39);
             btnAddEdit.TabIndex = 22;
@@ -196,11 +198,11 @@
             // 
             // cboTipoDespesa
             // 
-            cboTipoDespesa.BackColor = Color.SteelBlue;
+            cboTipoDespesa.BackColor = Color.Khaki;
             cboTipoDespesa.Enabled = false;
             cboTipoDespesa.FlatStyle = FlatStyle.Flat;
             cboTipoDespesa.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            cboTipoDespesa.ForeColor = Color.White;
+            cboTipoDespesa.ForeColor = Color.Black;
             cboTipoDespesa.FormattingEnabled = true;
             cboTipoDespesa.Location = new Point(17, 272);
             cboTipoDespesa.Name = "cboTipoDespesa";
@@ -220,10 +222,10 @@
             // 
             // cboCategoriasDespesas
             // 
-            cboCategoriasDespesas.BackColor = Color.SteelBlue;
+            cboCategoriasDespesas.BackColor = Color.Khaki;
             cboCategoriasDespesas.FlatStyle = FlatStyle.Flat;
             cboCategoriasDespesas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            cboCategoriasDespesas.ForeColor = Color.White;
+            cboCategoriasDespesas.ForeColor = Color.Black;
             cboCategoriasDespesas.FormattingEnabled = true;
             cboCategoriasDespesas.Location = new Point(17, 212);
             cboCategoriasDespesas.Name = "cboCategoriasDespesas";
@@ -248,7 +250,6 @@
             txtValor.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             txtValor.Location = new Point(17, 153);
             txtValor.Name = "txtValor";
-            txtValor.PlaceholderText = "Valor pago pela despesa";
             txtValor.Size = new Size(88, 27);
             txtValor.TabIndex = 2;
             txtValor.TextAlign = HorizontalAlignment.Right;

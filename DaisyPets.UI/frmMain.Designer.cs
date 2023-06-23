@@ -38,9 +38,9 @@
             btnExpensesDonations = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
             btnContactos = new ToolStripButton();
-            toolStripSeparator2 = new ToolStripSeparator();
-            toolStripButton3 = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
+            optGallery = new ToolStripButton();
+            toolStripSeparator10 = new ToolStripSeparator();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             optCategoriaDespesas = new ToolStripMenuItem();
             toolStripSeparator5 = new ToolStripSeparator();
@@ -51,6 +51,8 @@
             optTemperamento = new ToolStripMenuItem();
             toolStripSeparator8 = new ToolStripSeparator();
             optTipoDespesa = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            toolStripButton3 = new ToolStripButton();
             toolStripSeparator9 = new ToolStripSeparator();
             btnFechar = new ToolStripButton();
             toolStrip1.SuspendLayout();
@@ -59,7 +61,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(48, 48);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnExpensesDonations, toolStripSeparator4, btnContactos, toolStripSeparator3, toolStripDropDownButton1, toolStripSeparator2, toolStripButton3, toolStripSeparator9, btnFechar });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnExpensesDonations, toolStripSeparator4, btnContactos, toolStripSeparator3, optGallery, toolStripSeparator10, toolStripDropDownButton1, toolStripSeparator2, toolStripButton3, toolStripSeparator9, btnFechar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1384, 55);
@@ -83,10 +85,11 @@
             // 
             // btnExpensesDonations
             // 
+            btnExpensesDonations.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnExpensesDonations.Image = Properties.Resources.iconfinder_71_5027865;
             btnExpensesDonations.ImageTransparentColor = Color.Magenta;
             btnExpensesDonations.Name = "btnExpensesDonations";
-            btnExpensesDonations.Size = new Size(107, 52);
+            btnExpensesDonations.Size = new Size(123, 52);
             btnExpensesDonations.Text = "Despesas";
             btnExpensesDonations.Click += btnExpensesDonations_Click;
             // 
@@ -105,25 +108,25 @@
             btnContactos.Text = "Contactos";
             btnContactos.Click += btnContactos_Click;
             // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 55);
-            // 
-            // toolStripButton3
-            // 
-            toolStripButton3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
-            toolStripButton3.ImageTransparentColor = Color.Magenta;
-            toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(158, 52);
-            toolStripButton3.Text = "Base de dados";
-            toolStripButton3.Click += toolStripButton3_Click;
-            // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
             toolStripSeparator3.Size = new Size(6, 55);
+            // 
+            // optGallery
+            // 
+            optGallery.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            optGallery.Image = (Image)resources.GetObject("optGallery.Image");
+            optGallery.ImageTransparentColor = Color.Magenta;
+            optGallery.Name = "optGallery";
+            optGallery.Size = new Size(189, 52);
+            optGallery.Text = "Galeria de imagens";
+            optGallery.Click += optGallery_Click;
+            // 
+            // toolStripSeparator10
+            // 
+            toolStripSeparator10.Name = "toolStripSeparator10";
+            toolStripSeparator10.Size = new Size(6, 55);
             // 
             // toolStripDropDownButton1
             // 
@@ -200,6 +203,21 @@
             optTipoDespesa.Text = "Tipo de Despesa";
             optTipoDespesa.Click += optTipoDespesa_Click;
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 55);
+            // 
+            // toolStripButton3
+            // 
+            toolStripButton3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
+            toolStripButton3.ImageTransparentColor = Color.Magenta;
+            toolStripButton3.Name = "toolStripButton3";
+            toolStripButton3.Size = new Size(158, 52);
+            toolStripButton3.Text = "Base de dados";
+            toolStripButton3.Click += toolStripButton3_Click;
+            // 
             // toolStripSeparator9
             // 
             toolStripSeparator9.Name = "toolStripSeparator9";
@@ -207,10 +225,11 @@
             // 
             // btnFechar
             // 
+            btnFechar.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnFechar.Image = Properties.Resources.Users_Exit_icon;
             btnFechar.ImageTransparentColor = Color.Magenta;
             btnFechar.Name = "btnFechar";
-            btnFechar.Size = new Size(78, 52);
+            btnFechar.Size = new Size(86, 52);
             btnFechar.Text = "Sair";
             btnFechar.Click += btnFechar_Click;
             // 
@@ -244,6 +263,8 @@
             ClientSize = new Size(1384, 865);
             Controls.Add(toolStrip1);
             IsMdiContainer = true;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmMain";
             StartPosition = FormStartPosition.CenterScreen;
             FormClosing += frmMain_FormClosing;
@@ -276,5 +297,7 @@
         private ToolStripSeparator toolStripSeparator7;
         private ToolStripSeparator toolStripSeparator8;
         private ToolStripSeparator toolStripSeparator9;
+        private ToolStripSeparator toolStripSeparator10;
+        private ToolStripButton optGallery;
     }
 }

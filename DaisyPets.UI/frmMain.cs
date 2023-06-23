@@ -36,6 +36,29 @@ namespace DaisyPets.UI
             fPets = null;
         }
 
+        frmPetCarousel? fCarousel;
+        private void optGallery_Click(object sender, EventArgs e)
+        {
+            {
+                if (fCarousel == null)
+                {
+                    fCarousel = new frmPetCarousel();
+                    fCarousel.MdiParent = this;
+                    fCarousel.FormClosed += Carousel_FormClosed;
+                    fCarousel.Show();
+                }
+                else
+                { fCarousel.Activate(); }
+            }
+
+        }
+
+        private void Carousel_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            fCarousel = null;
+        }
+
+
         frmContacto? fContactos;
 
         private void btnContactos_Click(object sender, EventArgs e)
@@ -192,6 +215,7 @@ namespace DaisyPets.UI
             frmExpenseTypes fExpenseTypes = new frmExpenseTypes();
             var resp = fExpenseTypes.ShowDialog();
         }
+
     }
 }
 

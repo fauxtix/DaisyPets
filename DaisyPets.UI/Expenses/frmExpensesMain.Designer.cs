@@ -34,6 +34,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmExpensesMain));
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
@@ -52,6 +53,9 @@
             filterToDateTime = new DateTimePicker();
             labelFilterTo = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             panel1 = new Panel();
+            button1 = new Button();
+            lblTotalFilteredExpenses = new Syncfusion.Windows.Forms.Tools.AutoLabel();
+            lblTotalExpenses = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             btnClear = new Button();
             btnDelete = new Button();
             btnUpdate = new Button();
@@ -59,7 +63,7 @@
             labelVisibleSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             labelSummary = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             labelFilterByCategory = new Syncfusion.Windows.Forms.Tools.AutoLabel();
-            comboBoxCategories = new ComboBox();
+            cboCategoryTypes = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvExpenses).BeginInit();
             ((System.ComponentModel.ISupportInitialize)checkBoxFilterDateTime).BeginInit();
             panel1.SuspendLayout();
@@ -176,10 +180,10 @@
             // 
             // lblFilter
             // 
-            lblFilter.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblFilter.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblFilter.Location = new Point(1088, 12);
             lblFilter.Name = "lblFilter";
-            lblFilter.Size = new Size(45, 17);
+            lblFilter.Size = new Size(53, 20);
             lblFilter.TabIndex = 1;
             lblFilter.Text = "Filtros";
             // 
@@ -231,6 +235,9 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(lblTotalFilteredExpenses);
+            panel1.Controls.Add(lblTotalExpenses);
             panel1.Controls.Add(btnClear);
             panel1.Controls.Add(btnDelete);
             panel1.Controls.Add(btnUpdate);
@@ -239,8 +246,38 @@
             panel1.Controls.Add(labelSummary);
             panel1.Location = new Point(22, 549);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1032, 143);
+            panel1.Size = new Size(1069, 143);
             panel1.TabIndex = 12;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.LightSalmon;
+            button1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.ForeColor = Color.Black;
+            button1.Image = (Image)resources.GetObject("button1.Image");
+            button1.ImageAlign = ContentAlignment.MiddleLeft;
+            button1.Location = new Point(920, 12);
+            button1.Name = "button1";
+            button1.Size = new Size(127, 39);
+            button1.TabIndex = 38;
+            button1.Text = "Calculator";
+            button1.TextAlign = ContentAlignment.MiddleRight;
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
+            // lblTotalFilteredExpenses
+            // 
+            lblTotalFilteredExpenses.Location = new Point(157, 116);
+            lblTotalFilteredExpenses.Name = "lblTotalFilteredExpenses";
+            lblTotalFilteredExpenses.Size = new Size(0, 15);
+            lblTotalFilteredExpenses.TabIndex = 37;
+            // 
+            // lblTotalExpenses
+            // 
+            lblTotalExpenses.Location = new Point(157, 89);
+            lblTotalExpenses.Name = "lblTotalExpenses";
+            lblTotalExpenses.Size = new Size(0, 15);
+            lblTotalExpenses.TabIndex = 36;
             // 
             // btnClear
             // 
@@ -272,6 +309,7 @@
             btnDelete.Text = "Delete ";
             btnDelete.TextAlign = ContentAlignment.MiddleRight;
             btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnUpdate
             // 
@@ -309,33 +347,36 @@
             // 
             labelVisibleSummary.Location = new Point(16, 116);
             labelVisibleSummary.Name = "labelVisibleSummary";
-            labelVisibleSummary.Size = new Size(97, 15);
+            labelVisibleSummary.Size = new Size(60, 15);
             labelVisibleSummary.TabIndex = 31;
-            labelVisibleSummary.Text = "FilteredSummary";
+            labelVisibleSummary.Text = "Total filtro";
             // 
             // labelSummary
             // 
             labelSummary.Location = new Point(16, 89);
             labelSummary.Name = "labelSummary";
-            labelSummary.Size = new Size(58, 15);
+            labelSummary.Size = new Size(98, 15);
             labelSummary.TabIndex = 30;
-            labelSummary.Text = "Summary";
+            labelSummary.Text = "Total de despesas";
             // 
             // labelFilterByCategory
             // 
+            labelFilterByCategory.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             labelFilterByCategory.Location = new Point(1088, 235);
             labelFilterByCategory.Name = "labelFilterByCategory";
-            labelFilterByCategory.Size = new Size(58, 15);
+            labelFilterByCategory.Size = new Size(75, 20);
             labelFilterByCategory.TabIndex = 13;
             labelFilterByCategory.Text = "Categoria";
             // 
-            // comboBoxCategories
+            // cboCategoryTypes
             // 
-            comboBoxCategories.FormattingEnabled = true;
-            comboBoxCategories.Location = new Point(1088, 259);
-            comboBoxCategories.Name = "comboBoxCategories";
-            comboBoxCategories.Size = new Size(227, 23);
-            comboBoxCategories.TabIndex = 14;
+            cboCategoryTypes.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            cboCategoryTypes.FormattingEnabled = true;
+            cboCategoryTypes.Location = new Point(1088, 259);
+            cboCategoryTypes.Name = "cboCategoryTypes";
+            cboCategoryTypes.Size = new Size(227, 28);
+            cboCategoryTypes.TabIndex = 14;
+            cboCategoryTypes.SelectedIndexChanged += cboCategoryTypes_SelectedIndexChanged;
             // 
             // frmExpensesMain
             // 
@@ -364,7 +405,7 @@
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
             ClientSize = new Size(1328, 696);
-            Controls.Add(comboBoxCategories);
+            Controls.Add(cboCategoryTypes);
             Controls.Add(labelFilterByCategory);
             Controls.Add(panel1);
             Controls.Add(filterToDateTime);
@@ -411,6 +452,9 @@
         private DataGridViewTextBoxColumn DescricaoTipoDespesa;
         private DataGridViewTextBoxColumn TipoMovimento;
         private Syncfusion.Windows.Forms.Tools.AutoLabel labelFilterByCategory;
-        private ComboBox comboBoxCategories;
+        private ComboBox cboCategoryTypes;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel lblTotalFilteredExpenses;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel lblTotalExpenses;
+        private Button button1;
     }
 }

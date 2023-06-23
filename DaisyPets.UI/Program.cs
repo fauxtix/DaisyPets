@@ -1,4 +1,3 @@
-using DaisyPets.UI.Properties;
 using Syncfusion.Windows.Forms;
 
 namespace DaisyPets.UI

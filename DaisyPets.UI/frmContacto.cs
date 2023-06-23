@@ -421,7 +421,7 @@ namespace DaisyPets.UI.Properties
 
                     if (gdvContacts.RowCount > 0)
                     {
-                        IdContacto = IdContacto = DataFormat.GetInteger(gdvContacts.Rows[0].Cells["Id"].Value);
+                        IdContacto = DataFormat.GetInteger(gdvContacts.Rows[0].Cells["Id"].Value);
 
                         gdvContacts.Rows[0].Selected = true;
                         ShowRecord(IdContacto);
