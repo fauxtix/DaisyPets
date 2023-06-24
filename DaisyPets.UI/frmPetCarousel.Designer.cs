@@ -28,19 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage1 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage11 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPetCarousel));
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage2 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage3 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage4 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage5 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage6 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage7 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage8 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage9 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage10 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage12 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage13 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage14 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage15 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage16 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage17 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage18 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage19 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage20 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
             PetCarousel = new Syncfusion.Windows.Forms.Tools.Carousel();
             panel1 = new Panel();
+            btnLoadImages = new Syncfusion.WinForms.Controls.SfButton();
             SuspendLayout();
             // 
             // PetCarousel
@@ -48,26 +49,26 @@
             PetCarousel.BackColor = Color.WhiteSmoke;
             PetCarousel.CanOverrideStyle = true;
             PetCarousel.HighlightColor = Color.White;
-            carouselImage1.ItemImage = (Image)resources.GetObject("carouselImage1.ItemImage");
-            carouselImage2.ItemImage = (Image)resources.GetObject("carouselImage2.ItemImage");
-            carouselImage3.ItemImage = (Image)resources.GetObject("carouselImage3.ItemImage");
-            carouselImage4.ItemImage = (Image)resources.GetObject("carouselImage4.ItemImage");
-            carouselImage5.ItemImage = (Image)resources.GetObject("carouselImage5.ItemImage");
-            carouselImage6.ItemImage = (Image)resources.GetObject("carouselImage6.ItemImage");
-            carouselImage7.ItemImage = (Image)resources.GetObject("carouselImage7.ItemImage");
-            carouselImage8.ItemImage = (Image)resources.GetObject("carouselImage8.ItemImage");
-            carouselImage9.ItemImage = (Image)resources.GetObject("carouselImage9.ItemImage");
-            carouselImage10.ItemImage = (Image)resources.GetObject("carouselImage10.ItemImage");
-            PetCarousel.ImageListCollection.Add(carouselImage1);
-            PetCarousel.ImageListCollection.Add(carouselImage2);
-            PetCarousel.ImageListCollection.Add(carouselImage3);
-            PetCarousel.ImageListCollection.Add(carouselImage4);
-            PetCarousel.ImageListCollection.Add(carouselImage5);
-            PetCarousel.ImageListCollection.Add(carouselImage6);
-            PetCarousel.ImageListCollection.Add(carouselImage7);
-            PetCarousel.ImageListCollection.Add(carouselImage8);
-            PetCarousel.ImageListCollection.Add(carouselImage9);
-            PetCarousel.ImageListCollection.Add(carouselImage10);
+            carouselImage11.ItemImage = (Image)resources.GetObject("carouselImage11.ItemImage");
+            carouselImage12.ItemImage = (Image)resources.GetObject("carouselImage12.ItemImage");
+            carouselImage13.ItemImage = (Image)resources.GetObject("carouselImage13.ItemImage");
+            carouselImage14.ItemImage = (Image)resources.GetObject("carouselImage14.ItemImage");
+            carouselImage15.ItemImage = (Image)resources.GetObject("carouselImage15.ItemImage");
+            carouselImage16.ItemImage = (Image)resources.GetObject("carouselImage16.ItemImage");
+            carouselImage17.ItemImage = (Image)resources.GetObject("carouselImage17.ItemImage");
+            carouselImage18.ItemImage = (Image)resources.GetObject("carouselImage18.ItemImage");
+            carouselImage19.ItemImage = (Image)resources.GetObject("carouselImage19.ItemImage");
+            carouselImage20.ItemImage = (Image)resources.GetObject("carouselImage20.ItemImage");
+            PetCarousel.ImageListCollection.Add(carouselImage11);
+            PetCarousel.ImageListCollection.Add(carouselImage12);
+            PetCarousel.ImageListCollection.Add(carouselImage13);
+            PetCarousel.ImageListCollection.Add(carouselImage14);
+            PetCarousel.ImageListCollection.Add(carouselImage15);
+            PetCarousel.ImageListCollection.Add(carouselImage16);
+            PetCarousel.ImageListCollection.Add(carouselImage17);
+            PetCarousel.ImageListCollection.Add(carouselImage18);
+            PetCarousel.ImageListCollection.Add(carouselImage19);
+            PetCarousel.ImageListCollection.Add(carouselImage20);
             PetCarousel.ImageshadeColor = Color.Black;
             PetCarousel.ImageSlides = true;
             PetCarousel.Location = new Point(0, 0);
@@ -93,11 +94,25 @@
             panel1.Size = new Size(170, 83);
             panel1.TabIndex = 1;
             // 
+            // btnLoadImages
+            // 
+            btnLoadImages.AccessibleName = "Button";
+            btnLoadImages.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnLoadImages.Location = new Point(921, 132);
+            btnLoadImages.Name = "btnLoadImages";
+            btnLoadImages.Size = new Size(144, 52);
+            btnLoadImages.Style.Image = Properties.Resources.Be_Folder_icon;
+            btnLoadImages.TabIndex = 2;
+            btnLoadImages.Text = "Load images";
+            btnLoadImages.UseVisualStyleBackColor = true;
+            btnLoadImages.Click += btnLoadImages_Click;
+            // 
             // frmPetCarousel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1097, 694);
+            Controls.Add(btnLoadImages);
             Controls.Add(panel1);
             Controls.Add(PetCarousel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -117,5 +132,6 @@
 
         private Syncfusion.Windows.Forms.Tools.Carousel PetCarousel;
         private Panel panel1;
+        private Syncfusion.WinForms.Controls.SfButton btnLoadImages;
     }
 }

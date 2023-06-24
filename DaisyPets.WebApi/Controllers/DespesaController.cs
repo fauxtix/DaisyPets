@@ -209,7 +209,6 @@ namespace DaisyPets.WebApi.Controllers
         /// <summary>
         /// Todas as despesas
         /// </summary>
-        /// <param name="Id"></param>
         /// <returns></returns>
         [HttpGet("AllAsync")]
         public async Task<IActionResult> GetAllAsync()

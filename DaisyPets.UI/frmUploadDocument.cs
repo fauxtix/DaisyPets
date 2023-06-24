@@ -59,8 +59,11 @@ namespace DaisyPets.UI
                         string path = Path.GetDirectoryName(openFileDialog1.FileName);
                         lblPath.Text = path;
                         lblFile.Text = Path.GetFileName(openFileDialog1.FileName);
+
+                        ShowHideFileUploadedInfo(true);
+
                         fileUploaded = true;
-                        btnUploadDocument.Enabled = true;
+                        btnInsert.Enabled = true;
                     }
                 }
                 else
@@ -110,7 +113,7 @@ namespace DaisyPets.UI
                         sb.AppendLine(errorMsg);
                     }
                     MessageBoxAdv.Show(sb.ToString(), "Erro na validação");
-                    btnUploadDocument.Enabled = false;
+                    btnInsert.Enabled = false;
                     return;
                 }
 
@@ -175,6 +178,8 @@ namespace DaisyPets.UI
                     txtDescription.Text = documentData?.Description?.ToString();
                     lblPath.Text = Path.GetDirectoryName(documentData.DocumentPath);
                     lblFile.Text = Path.GetFileName(documentData.DocumentPath);
+
+                    ShowHideFileUploadedInfo(true);
 
                     SetToolbar(OpcoesRegisto.Gravar);
                     SelectRowInGrid();
@@ -279,7 +284,13 @@ namespace DaisyPets.UI
                 btnClear.Enabled = true;
                 btnDelete.Enabled = true;
                 btnBrowseDocument.Visible = false;
-                btnUploadDocument.Visible = false;
+                lblSelect.Visible = false;
+                btnInsert.Enabled = false;
+
+                lblPetName.Visible = true;
+                txtPetName.Visible = true;
+
+                ShowHideFileUploadedInfo(true);
 
             }
             else if (opt == OpcoesRegisto.Inserir)
@@ -288,8 +299,14 @@ namespace DaisyPets.UI
                 btnDelete.Enabled = false;
                 btnUpdate.Enabled = false;
 
+                ShowHideFileUploadedInfo(false);
+
                 btnBrowseDocument.Visible = true;
-                btnUploadDocument.Visible = true;
+                lblSelect.Visible = true;
+                btnInsert.Enabled = true;
+
+                lblPetName.Visible = false;
+                txtPetName.Visible = false;
 
             }
         }
@@ -297,12 +314,17 @@ namespace DaisyPets.UI
         private void SetToolbar_Clear()
         {
             // mostra apenas opções para criar registo ou sair
+            btnInsert.Enabled = true;
             btnUpdate.Enabled = false;
             btnDelete.Enabled = false;
             btnClear.Enabled = false;
-            btnBrowseDocument.Visible = true;
-            btnUploadDocument.Visible = true;
 
+            ShowHideFileUploadedInfo(false);
+
+            lblSelect.Visible = true;
+            btnBrowseDocument.Visible = true;
+            lblPetName.Visible = false;
+            txtPetName.Visible = false;
         }
 
         private List<string> ValidateDocument()
@@ -377,6 +399,8 @@ namespace DaisyPets.UI
 
             DocumentId = DataFormat.GetInteger(dgvDocuments.Rows[e.RowIndex].Cells["Id"].Value);
             documentPath = DataFormat.GetString(dgvDocuments.Rows[e.RowIndex].Cells["DocumentPath"].Value);
+            var petName = DataFormat.GetString(dgvDocuments.Rows[e.RowIndex].Cells["PetName"].Value);
+            txtPetName.Text = petName;
             ShowRecord(DocumentId);
         }
 
@@ -532,6 +556,14 @@ namespace DaisyPets.UI
                 return;
 
             await DeleteDocument();
+        }
+
+        private void ShowHideFileUploadedInfo(bool show)
+        {
+            label1.Visible = show;
+            label6.Visible = show;
+            lblPath.Visible = show;
+            lblFile.Visible = show;
         }
     }
 }

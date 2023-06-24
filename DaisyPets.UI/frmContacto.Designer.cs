@@ -523,6 +523,8 @@
             Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.Gray;
             Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "frmContacto";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;

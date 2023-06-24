@@ -30,4 +30,10 @@
     <ProjectReference Include="..\DaisyPets.Infrastructure\DaisyPets.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="PetsDB.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
