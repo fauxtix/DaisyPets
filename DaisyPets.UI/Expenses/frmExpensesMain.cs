@@ -29,6 +29,7 @@ namespace DaisyPets.UI.Expenses
 
             FillGrid();
             ShowTotals();
+            ClearForm();
         }
 
 
@@ -57,7 +58,7 @@ namespace DaisyPets.UI.Expenses
 
                 if (response != null)
                 {
-                    cboCategoryTypes.Items.Add(new DictionaryEntry(0, " == Todos =="));
+                    cboCategoryTypes.Items.Add(new DictionaryEntry(0, " == Todas =="));
                     response = response.OrderBy(o => o.Descricao).ToList();
                     foreach (var entry in response)
                     {
@@ -180,7 +181,6 @@ namespace DaisyPets.UI.Expenses
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             SetToolbar(OpcoesRegisto.Gravar);
-
         }
 
         private async void dgvExpenses_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -261,8 +261,14 @@ namespace DaisyPets.UI.Expenses
 
         private async void btnDelete_Click(object sender, EventArgs e)
         {
+            if(dgvExpenses.Rows.Count == 0)
+            {
+                MessageBoxAdv.Show("Sem registos para apagar...", "Apagar despesa");
+                SetToolbar_Clear();
+                return;
+            }
             DialogResult dr = MessageBoxAdv.Show($"Confirma operação?",
-                "Apagar registo de despesa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                $"Apagar registo de despesa ({IdExpense})", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (dr != DialogResult.Yes)
                 return;

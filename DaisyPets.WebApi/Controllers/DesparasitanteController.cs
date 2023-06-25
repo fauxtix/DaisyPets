@@ -188,15 +188,15 @@ namespace DaisyPets.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("AllWormersVM")]
-        public async Task<IActionResult> AllRacoesVM()
+        public async Task<IActionResult> AllDewormersVM()
         {
             try
             {
-                var listOfRacoes = await _desparasitanteService.GetAllDesparasitantesVMAsync();
-                if (listOfRacoes is null)
+                var listOfDewormers = await _desparasitanteService.GetAllDesparasitantesVMAsync();
+                if (listOfDewormers is null)
                 { return NotFound(); }
 
-                return Ok(listOfRacoes);
+                return Ok(listOfDewormers);
             }
             catch (Exception ex)
             {

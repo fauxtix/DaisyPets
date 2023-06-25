@@ -151,10 +151,11 @@ namespace DaisyPets.Infrastructure.Repositories
         public async Task<IEnumerable<DesparasitanteVM>> GetAllDesparasitantesVMAsync()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Desparasitante.Id, DataAplicacao, DataProximaAplicacao, Marca, Tipo, IdPet, Pet.Nome AS [NomePet] ");
+            sb.Append("SELECT Desparasitante.Id, DataAplicacao, DataProximaAplicacao, ");
+            sb.Append("Marca, Tipo, IdPet, Pet.Nome AS [NomePet] ");
             sb.Append("FROM Desparasitante ");
             sb.Append("INNER JOIN Pet ON ");
-            sb.Append("DataAplicacao.IdPet = Pet.Id ");
+            sb.Append("Desparasitante.IdPet = Pet.Id ");
 
 
             using (var connection = _context.CreateConnection())

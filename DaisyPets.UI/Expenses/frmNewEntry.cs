@@ -34,11 +34,11 @@ namespace DaisyPets.UI.Expenses
             if (expenseId == 0)
             {
                 ClearForm();
-                btnAddEdit.Text = "Add";
+                btnAddEdit.Text = "Criar";
             }
             else
             {
-                btnAddEdit.Text = "Update";
+                btnAddEdit.Text = "Atualizar";
                 ShowRecord(expense);
             }
         }
@@ -348,7 +348,7 @@ namespace DaisyPets.UI.Expenses
             {
                 Id = expenseId,
                 DataCriacao = DateTime.Now.Date.ToShortDateString(),
-                DataMovimento = DateTime.Now.Date.ToShortDateString(),
+                DataMovimento = dtpDataMovimento.Value.ToShortDateString(),
                 Descricao = txtDescricao.Text,
                 IdCategoriaDespesa = cboCategoriasDespesas.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboCategoriasDespesas.SelectedItem)).Key) : -1,
                 IdTipoDespesa = cboTipoDespesa.SelectedItem is not null ? DataFormat.GetInteger(((DictionaryEntry)(cboTipoDespesa.SelectedItem)).Key) : -1,

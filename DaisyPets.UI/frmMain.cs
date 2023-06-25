@@ -2,6 +2,7 @@
 using DaisyPets.UI.Expenses;
 using DaisyPets.UI.LookupTables;
 using DaisyPets.UI.Properties;
+using DaisyPets.UI.Stats;
 using Syncfusion.Windows.Forms;
 
 namespace DaisyPets.UI
@@ -214,6 +215,25 @@ namespace DaisyPets.UI
         {
             frmExpenseTypes fExpenseTypes = new frmExpenseTypes();
             var resp = fExpenseTypes.ShowDialog();
+        }
+
+        frmPetStats fStats;
+        private void optStats_Click(object sender, EventArgs e)
+        {
+            if (fStats == null)
+            {
+                fStats = new frmPetStats();
+                fStats.MdiParent = this;
+                fStats.FormClosed += Stats_FormClosed;
+                fStats.Show();
+            }
+            else
+            { fStats.Activate(); }
+        }
+
+        private void Stats_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            fStats = null;
         }
 
     }

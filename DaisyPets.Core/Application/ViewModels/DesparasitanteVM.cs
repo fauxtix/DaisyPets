@@ -10,5 +10,10 @@
         public string DataAplicacao { get; set; } = string.Empty;
         public string DataProximaAplicacao { get; set; } = string.Empty;
         public string NomePet { get; set; } = string.Empty;
+
+        public int DiasParaProximaAplicacao
+        {
+            get { return (int)(DateTime.Parse(DataProximaAplicacao) - DateTime.Now).TotalDays; }
+        }
     }
 }

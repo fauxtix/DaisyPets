@@ -64,7 +64,7 @@
             btnClose.ImageAlign = ContentAlignment.MiddleLeft;
             btnClose.Location = new Point(318, 449);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(98, 39);
+            btnClose.Size = new Size(106, 39);
             btnClose.TabIndex = 23;
             btnClose.Text = "Cancelar";
             btnClose.TextAlign = ContentAlignment.MiddleRight;
@@ -79,9 +79,9 @@
             btnAddEdit.ForeColor = Color.White;
             btnAddEdit.Image = Properties.Resources.save32;
             btnAddEdit.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAddEdit.Location = new Point(207, 449);
+            btnAddEdit.Location = new Point(195, 449);
             btnAddEdit.Name = "btnAddEdit";
-            btnAddEdit.Size = new Size(98, 39);
+            btnAddEdit.Size = new Size(106, 39);
             btnAddEdit.TabIndex = 22;
             btnAddEdit.Text = "Update ";
             btnAddEdit.TextAlign = ContentAlignment.MiddleRight;
@@ -156,7 +156,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(17, 12);
+            label1.Location = new Point(17, 8);
             label1.Name = "label1";
             label1.Size = new Size(41, 20);
             label1.TabIndex = 37;
@@ -166,7 +166,7 @@
             // 
             dtpDataMovimento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             dtpDataMovimento.Format = DateTimePickerFormat.Short;
-            dtpDataMovimento.Location = new Point(17, 35);
+            dtpDataMovimento.Location = new Point(17, 31);
             dtpDataMovimento.Name = "dtpDataMovimento";
             dtpDataMovimento.Size = new Size(127, 27);
             dtpDataMovimento.TabIndex = 0;
@@ -200,7 +200,7 @@
             // 
             cboTipoDespesa.BackColor = Color.Khaki;
             cboTipoDespesa.Enabled = false;
-            cboTipoDespesa.FlatStyle = FlatStyle.Flat;
+            cboTipoDespesa.FlatStyle = FlatStyle.System;
             cboTipoDespesa.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             cboTipoDespesa.ForeColor = Color.Black;
             cboTipoDespesa.FormattingEnabled = true;
@@ -223,7 +223,7 @@
             // cboCategoriasDespesas
             // 
             cboCategoriasDespesas.BackColor = Color.Khaki;
-            cboCategoriasDespesas.FlatStyle = FlatStyle.Flat;
+            cboCategoriasDespesas.FlatStyle = FlatStyle.System;
             cboCategoriasDespesas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             cboCategoriasDespesas.ForeColor = Color.Black;
             cboCategoriasDespesas.FormattingEnabled = true;
@@ -279,9 +279,9 @@
             labelDescription.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             labelDescription.Location = new Point(17, 68);
             labelDescription.Name = "labelDescription";
-            labelDescription.Size = new Size(74, 20);
+            labelDescription.Size = new Size(84, 20);
             labelDescription.TabIndex = 26;
-            labelDescription.Text = "Descrição";
+            labelDescription.Text = "* Descrição";
             // 
             // frmNewEntry
             // 

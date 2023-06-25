@@ -1,5 +1,4 @@
 ﻿using DaisyPets.Core.Application.Formatting;
-using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Despesas;
 using FluentValidation;
 
@@ -19,10 +18,9 @@ namespace DaisyPets.WebApi.Validators
                 .NotNull()
                 .NotEmpty().WithMessage("Preencha Valor Pago, p.f.")
                 .GreaterThan(0).WithMessage("valor pago deve ser positivo")
-                .Must(BeAValidNumber).WithMessage("Valor deve um valor numérico")
-                .GreaterThan(0).WithMessage("Valor deve ter um valor positivo");
+                .Must(BeAValidNumber).WithMessage("Valor deve ser numérico");
             RuleFor(p => p.DataMovimento)
-                .Must(BeAValidDate).WithMessage("Data da compra deverá ser inferior ou igual à data corrente");
+                .Must(BeAValidDate).WithMessage("Data do movimento deverá ser inferior ou igual à data corrente");
         }
 
         #region Custom Validators

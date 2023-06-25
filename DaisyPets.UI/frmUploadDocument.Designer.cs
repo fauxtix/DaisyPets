@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            Syncfusion.Windows.Forms.CaptionImage captionImage2 = new Syncfusion.Windows.Forms.CaptionImage();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUploadDocument));
-            Syncfusion.Windows.Forms.CaptionLabel captionLabel3 = new Syncfusion.Windows.Forms.CaptionLabel();
-            Syncfusion.Windows.Forms.CaptionLabel captionLabel4 = new Syncfusion.Windows.Forms.CaptionLabel();
+            Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
+            Syncfusion.Windows.Forms.CaptionLabel captionLabel2 = new Syncfusion.Windows.Forms.CaptionLabel();
             btnBrowseDocument = new Button();
             openFileDialog1 = new OpenFileDialog();
             panel1 = new Panel();
@@ -151,14 +151,14 @@
             lblPetName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             lblPetName.Location = new Point(21, 116);
             lblPetName.Name = "lblPetName";
-            lblPetName.Size = new Size(50, 20);
+            lblPetName.Size = new Size(29, 20);
             lblPetName.TabIndex = 15;
-            lblPetName.Text = "Nome";
+            lblPetName.Text = "Pet";
             // 
             // txtPetName
             // 
             txtPetName.BeforeTouchSize = new Size(273, 27);
-            txtPetName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            txtPetName.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             txtPetName.Location = new Point(135, 113);
             txtPetName.Name = "txtPetName";
             txtPetName.ReadOnly = true;
@@ -228,14 +228,14 @@
             dgvDocuments.AllowUserToDeleteRows = false;
             dgvDocuments.AllowUserToOrderColumns = true;
             dgvDocuments.AllowUserToResizeColumns = false;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dgvDocuments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvDocuments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvDocuments.ColumnHeadersHeight = 32;
             dgvDocuments.Columns.AddRange(new DataGridViewColumn[] { Id, CreatedOn, Title, PetName, Description, DocumentPath, optView });
             dgvDocuments.Location = new Point(21, 356);
@@ -380,22 +380,22 @@
             BackColor = Color.WhiteSmoke;
             CaptionBarColor = Color.Gainsboro;
             CaptionBarHeight = 60;
-            captionImage2.BackColor = Color.Transparent;
-            captionImage2.Image = (Image)resources.GetObject("captionImage2.Image");
-            captionImage2.Location = new Point(2, 4);
-            captionImage2.Name = "CaptionImage1";
-            captionImage2.Size = new Size(48, 48);
-            CaptionImages.Add(captionImage2);
-            captionLabel3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            captionLabel3.Location = new Point(60, 4);
-            captionLabel3.Name = "CaptionLabel1";
-            captionLabel3.Text = "Daisy Pets";
-            captionLabel4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            captionLabel4.Location = new Point(60, 26);
-            captionLabel4.Name = "CaptionLabel2";
-            captionLabel4.Text = "Documentos";
-            CaptionLabels.Add(captionLabel3);
-            CaptionLabels.Add(captionLabel4);
+            captionImage1.BackColor = Color.Transparent;
+            captionImage1.Image = (Image)resources.GetObject("captionImage1.Image");
+            captionImage1.Location = new Point(2, 4);
+            captionImage1.Name = "CaptionImage1";
+            captionImage1.Size = new Size(48, 48);
+            CaptionImages.Add(captionImage1);
+            captionLabel1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            captionLabel1.Location = new Point(60, 4);
+            captionLabel1.Name = "CaptionLabel1";
+            captionLabel1.Text = "Daisy Pets";
+            captionLabel2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            captionLabel2.Location = new Point(60, 26);
+            captionLabel2.Name = "CaptionLabel2";
+            captionLabel2.Text = "Documentos";
+            CaptionLabels.Add(captionLabel1);
+            CaptionLabels.Add(captionLabel2);
             ClientSize = new Size(946, 561);
             Controls.Add(btnInsert);
             Controls.Add(btnClear);

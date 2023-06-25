@@ -117,7 +117,7 @@ namespace DaisyPets.Infrastructure.Repositories
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Vacina.Id, Vacina.IdPet, Vacina.DataToma, Vacina.Marca, ");
-            sb.Append("Vacina.ProximaTomaEmMeses, Vacina.ProximaTomaEmMeses, ");
+            sb.Append("Vacina.ProximaTomaEmMeses, ");
             sb.Append("Pet.Nome AS [NomePet] ");
             sb.Append("FROM Vacina ");
             sb.Append("INNER JOIN Pet ON ");

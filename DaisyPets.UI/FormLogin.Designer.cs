@@ -152,6 +152,7 @@
             btnLogin.TabIndex = 3;
             btnLogin.Text = "ACEDER";
             btnLogin.UseVisualStyleBackColor = false;
+            btnLogin.Click += btnLogin_Click;
             // 
             // linkpass
             // 

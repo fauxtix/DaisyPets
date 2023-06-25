@@ -37,7 +37,9 @@
             toolStripSeparator1 = new ToolStripSeparator();
             btnExpensesDonations = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
+            toolStripSeparator11 = new ToolStripSeparator();
             btnContactos = new ToolStripButton();
+            optStats = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
             optGallery = new ToolStripButton();
             toolStripSeparator10 = new ToolStripSeparator();
@@ -61,7 +63,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(48, 48);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnExpensesDonations, toolStripSeparator4, btnContactos, toolStripSeparator3, optGallery, toolStripSeparator10, toolStripDropDownButton1, toolStripSeparator2, toolStripButton3, toolStripSeparator9, btnFechar });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnPets, toolStripSeparator1, btnExpensesDonations, toolStripSeparator4, btnContactos, toolStripSeparator3, optStats, toolStripSeparator11, optGallery, toolStripSeparator10, toolStripDropDownButton1, toolStripSeparator2, toolStripButton3, toolStripSeparator9, btnFechar });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1384, 55);
@@ -98,6 +100,11 @@
             toolStripSeparator4.Name = "toolStripSeparator4";
             toolStripSeparator4.Size = new Size(6, 55);
             // 
+            // toolStripSeparator11
+            // 
+            toolStripSeparator11.Name = "toolStripSeparator11";
+            toolStripSeparator11.Size = new Size(6, 55);
+            // 
             // btnContactos
             // 
             btnContactos.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
@@ -107,6 +114,15 @@
             btnContactos.Size = new Size(127, 52);
             btnContactos.Text = "Contactos";
             btnContactos.Click += btnContactos_Click;
+            // 
+            // optStats
+            // 
+            optStats.Image = (Image)resources.GetObject("optStats.Image");
+            optStats.ImageTransparentColor = Color.Magenta;
+            optStats.Name = "optStats";
+            optStats.Size = new Size(116, 52);
+            optStats.Text = "Estatísticas";
+            optStats.Click += optStats_Click;
             // 
             // toolStripSeparator3
             // 
@@ -299,5 +315,7 @@
         private ToolStripSeparator toolStripSeparator9;
         private ToolStripSeparator toolStripSeparator10;
         private ToolStripButton optGallery;
+        private ToolStripSeparator toolStripSeparator11;
+        private ToolStripButton optStats;
     }
 }

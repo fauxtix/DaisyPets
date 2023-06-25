@@ -13,6 +13,9 @@
         {
             get { return DateTime.Parse(DataToma).AddMonths(ProximaTomaEmMeses); }
         }
-
+        public int DiasParaProximaToma
+        {
+            get { return (int)(DateTime.Parse(DataToma).AddMonths(ProximaTomaEmMeses) - DateTime.Now).TotalDays; }
+        }
     }
 }

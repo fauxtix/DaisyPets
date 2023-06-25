@@ -30,10 +30,11 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmExpensesMain));
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
             Syncfusion.Windows.Forms.CaptionLabel captionLabel1 = new Syncfusion.Windows.Forms.CaptionLabel();
@@ -88,14 +89,14 @@
             dgvExpenses.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dgvExpenses.ColumnHeadersHeight = 40;
             dgvExpenses.Columns.AddRange(new DataGridViewColumn[] { Id, DataMovimento, ValorPago, Descricao, DescricaoCategoriaDespesa, DescricaoTipoDespesa, TipoMovimento });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Window;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dgvExpenses.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.Window;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle7.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dgvExpenses.DefaultCellStyle = dataGridViewCellStyle7;
             dgvExpenses.Location = new Point(22, 12);
             dgvExpenses.MultiSelect = false;
             dgvExpenses.Name = "dgvExpenses";
@@ -110,7 +111,7 @@
             dgvExpenses.RowTemplate.Resizable = DataGridViewTriState.True;
             dgvExpenses.ScrollBars = ScrollBars.Vertical;
             dgvExpenses.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvExpenses.Size = new Size(1047, 519);
+            dgvExpenses.Size = new Size(1069, 519);
             dgvExpenses.TabIndex = 0;
             dgvExpenses.CellClick += dgvExpenses_CellClick;
             dgvExpenses.CellDoubleClick += dgvExpenses_CellDoubleClick;
@@ -119,16 +120,18 @@
             // Id
             // 
             Id.DataPropertyName = "Id";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
+            Id.DefaultCellStyle = dataGridViewCellStyle3;
             Id.HeaderText = "Id";
             Id.Name = "Id";
             Id.ReadOnly = true;
-            Id.Visible = false;
+            Id.Width = 60;
             // 
             // DataMovimento
             // 
             DataMovimento.DataPropertyName = "DataMovimento";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataMovimento.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataMovimento.DefaultCellStyle = dataGridViewCellStyle4;
             DataMovimento.HeaderText = "Data";
             DataMovimento.Name = "DataMovimento";
             DataMovimento.ReadOnly = true;
@@ -136,8 +139,8 @@
             // ValorPago
             // 
             ValorPago.DataPropertyName = "ValorPago";
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
-            ValorPago.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleRight;
+            ValorPago.DefaultCellStyle = dataGridViewCellStyle5;
             ValorPago.HeaderText = "Valor";
             ValorPago.Name = "ValorPago";
             ValorPago.ReadOnly = true;
@@ -165,13 +168,13 @@
             DescricaoTipoDespesa.HeaderText = "Tipo despesa";
             DescricaoTipoDespesa.Name = "DescricaoTipoDespesa";
             DescricaoTipoDespesa.ReadOnly = true;
-            DescricaoTipoDespesa.Width = 280;
+            DescricaoTipoDespesa.Width = 240;
             // 
             // TipoMovimento
             // 
             TipoMovimento.DataPropertyName = "TipoMovimento";
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            TipoMovimento.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            TipoMovimento.DefaultCellStyle = dataGridViewCellStyle6;
             TipoMovimento.HeaderText = "Tipo Movimento";
             TipoMovimento.Name = "TipoMovimento";
             TipoMovimento.ReadOnly = true;
@@ -181,7 +184,7 @@
             // lblFilter
             // 
             lblFilter.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            lblFilter.Location = new Point(1088, 12);
+            lblFilter.Location = new Point(1115, 12);
             lblFilter.Name = "lblFilter";
             lblFilter.Size = new Size(53, 20);
             lblFilter.TabIndex = 1;
@@ -190,7 +193,7 @@
             // checkBoxFilterDateTime
             // 
             checkBoxFilterDateTime.BeforeTouchSize = new Size(123, 21);
-            checkBoxFilterDateTime.Location = new Point(1088, 47);
+            checkBoxFilterDateTime.Location = new Point(1115, 47);
             checkBoxFilterDateTime.Name = "checkBoxFilterDateTime";
             checkBoxFilterDateTime.Size = new Size(123, 21);
             checkBoxFilterDateTime.TabIndex = 2;
@@ -199,7 +202,7 @@
             // 
             // labelFilterFrom
             // 
-            labelFilterFrom.Location = new Point(1088, 83);
+            labelFilterFrom.Location = new Point(1115, 83);
             labelFilterFrom.Name = "labelFilterFrom";
             labelFilterFrom.Size = new Size(62, 15);
             labelFilterFrom.TabIndex = 3;
@@ -209,7 +212,7 @@
             // 
             filterFromDateTime.CalendarFont = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             filterFromDateTime.Enabled = false;
-            filterFromDateTime.Location = new Point(1088, 101);
+            filterFromDateTime.Location = new Point(1115, 101);
             filterFromDateTime.Name = "filterFromDateTime";
             filterFromDateTime.Size = new Size(222, 23);
             filterFromDateTime.TabIndex = 0;
@@ -219,7 +222,7 @@
             // 
             filterToDateTime.CalendarFont = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             filterToDateTime.Enabled = false;
-            filterToDateTime.Location = new Point(1088, 158);
+            filterToDateTime.Location = new Point(1115, 158);
             filterToDateTime.Name = "filterToDateTime";
             filterToDateTime.Size = new Size(222, 23);
             filterToDateTime.TabIndex = 4;
@@ -227,7 +230,7 @@
             // 
             // labelFilterTo
             // 
-            labelFilterTo.Location = new Point(1088, 140);
+            labelFilterTo.Location = new Point(1115, 140);
             labelFilterTo.Name = "labelFilterTo";
             labelFilterTo.Size = new Size(25, 15);
             labelFilterTo.TabIndex = 5;
@@ -252,31 +255,34 @@
             // button1
             // 
             button1.BackColor = Color.LightSalmon;
+            button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             button1.ForeColor = Color.Black;
             button1.Image = (Image)resources.GetObject("button1.Image");
             button1.ImageAlign = ContentAlignment.MiddleLeft;
-            button1.Location = new Point(920, 12);
+            button1.Location = new Point(897, 12);
             button1.Name = "button1";
-            button1.Size = new Size(127, 39);
+            button1.Size = new Size(150, 39);
             button1.TabIndex = 38;
-            button1.Text = "Calculator";
+            button1.Text = "Calculadora";
             button1.TextAlign = ContentAlignment.MiddleRight;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // lblTotalFilteredExpenses
             // 
+            lblTotalFilteredExpenses.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             lblTotalFilteredExpenses.Location = new Point(157, 116);
             lblTotalFilteredExpenses.Name = "lblTotalFilteredExpenses";
-            lblTotalFilteredExpenses.Size = new Size(0, 15);
+            lblTotalFilteredExpenses.Size = new Size(0, 20);
             lblTotalFilteredExpenses.TabIndex = 37;
             // 
             // lblTotalExpenses
             // 
+            lblTotalExpenses.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             lblTotalExpenses.Location = new Point(157, 89);
             lblTotalExpenses.Name = "lblTotalExpenses";
-            lblTotalExpenses.Size = new Size(0, 15);
+            lblTotalExpenses.Size = new Size(0, 20);
             lblTotalExpenses.TabIndex = 36;
             // 
             // btnClear
@@ -286,7 +292,7 @@
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClear.Location = new Point(438, 12);
+            btnClear.Location = new Point(339, 12);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(98, 39);
             btnClear.TabIndex = 35;
@@ -302,7 +308,7 @@
             btnDelete.ForeColor = Color.White;
             btnDelete.Image = Properties.Resources._678080_shield_error_32;
             btnDelete.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDelete.Location = new Point(264, 12);
+            btnDelete.Location = new Point(137, 12);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(98, 39);
             btnDelete.TabIndex = 34;
@@ -318,13 +324,14 @@
             btnUpdate.ForeColor = Color.White;
             btnUpdate.Image = Properties.Resources.save32;
             btnUpdate.ImageAlign = ContentAlignment.MiddleLeft;
-            btnUpdate.Location = new Point(140, 12);
+            btnUpdate.Location = new Point(614, 12);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(98, 39);
             btnUpdate.TabIndex = 33;
             btnUpdate.Text = "Update ";
             btnUpdate.TextAlign = ContentAlignment.MiddleRight;
             btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Visible = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
             // btnInsert
@@ -345,24 +352,26 @@
             // 
             // labelVisibleSummary
             // 
+            labelVisibleSummary.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             labelVisibleSummary.Location = new Point(16, 116);
             labelVisibleSummary.Name = "labelVisibleSummary";
-            labelVisibleSummary.Size = new Size(60, 15);
+            labelVisibleSummary.Size = new Size(78, 20);
             labelVisibleSummary.TabIndex = 31;
             labelVisibleSummary.Text = "Total filtro";
             // 
             // labelSummary
             // 
+            labelSummary.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             labelSummary.Location = new Point(16, 89);
             labelSummary.Name = "labelSummary";
-            labelSummary.Size = new Size(98, 15);
+            labelSummary.Size = new Size(127, 20);
             labelSummary.TabIndex = 30;
             labelSummary.Text = "Total de despesas";
             // 
             // labelFilterByCategory
             // 
             labelFilterByCategory.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            labelFilterByCategory.Location = new Point(1088, 235);
+            labelFilterByCategory.Location = new Point(1115, 235);
             labelFilterByCategory.Name = "labelFilterByCategory";
             labelFilterByCategory.Size = new Size(75, 20);
             labelFilterByCategory.TabIndex = 13;
@@ -372,7 +381,7 @@
             // 
             cboCategoryTypes.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             cboCategoryTypes.FormattingEnabled = true;
-            cboCategoryTypes.Location = new Point(1088, 259);
+            cboCategoryTypes.Location = new Point(1115, 259);
             cboCategoryTypes.Name = "cboCategoryTypes";
             cboCategoryTypes.Size = new Size(227, 28);
             cboCategoryTypes.TabIndex = 14;
@@ -404,7 +413,7 @@
             captionLabel2.Text = "Gestão de Despesas";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(1328, 696);
+            ClientSize = new Size(1350, 696);
             Controls.Add(cboCategoryTypes);
             Controls.Add(labelFilterByCategory);
             Controls.Add(panel1);
@@ -444,6 +453,11 @@
         private Button btnInsert;
         private Syncfusion.Windows.Forms.Tools.AutoLabel labelVisibleSummary;
         private Syncfusion.Windows.Forms.Tools.AutoLabel labelSummary;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel labelFilterByCategory;
+        private ComboBox cboCategoryTypes;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel lblTotalFilteredExpenses;
+        private Syncfusion.Windows.Forms.Tools.AutoLabel lblTotalExpenses;
+        private Button button1;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn DataMovimento;
         private DataGridViewTextBoxColumn ValorPago;
@@ -451,10 +465,5 @@
         private DataGridViewTextBoxColumn DescricaoCategoriaDespesa;
         private DataGridViewTextBoxColumn DescricaoTipoDespesa;
         private DataGridViewTextBoxColumn TipoMovimento;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel labelFilterByCategory;
-        private ComboBox cboCategoryTypes;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel lblTotalFilteredExpenses;
-        private Syncfusion.Windows.Forms.Tools.AutoLabel lblTotalExpenses;
-        private Button button1;
     }
 }
