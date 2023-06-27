@@ -8,14 +8,23 @@
         public string Marca { get; set; } = string.Empty;
         public int ProximaTomaEmMeses { get; set; }
         public string NomePet { get; set; } = string.Empty;
+        public DateTime DataProximaToma { get; set; }
+        public int DiasParaProximaToma { get; set; }
 
-        public DateTime DataProximaToma
+        public VacinaVM()
         {
-            get { return DateTime.Parse(DataToma).AddMonths(ProximaTomaEmMeses); }
+            
         }
-        public int DiasParaProximaToma
+        public VacinaVM(int id, int idPet, string dataToma, string marca, int proximaTomaEmMeses, string nomePet, DateTime dataProximaToma, int diasproximaToma)
         {
-            get { return (int)(DateTime.Parse(DataToma).AddMonths(ProximaTomaEmMeses) - DateTime.Now).TotalDays; }
+            Id = id;
+            IdPet = idPet;
+            DataToma = dataToma;
+            Marca = marca;
+            ProximaTomaEmMeses = proximaTomaEmMeses;
+            NomePet = nomePet;
+            DataProximaToma = DateTime.Parse(DataToma).AddMonths(ProximaTomaEmMeses);
+            DiasParaProximaToma = (int)(DateTime.Parse(DataToma).AddMonths(ProximaTomaEmMeses) - DateTime.Now).TotalDays;
         }
     }
 }

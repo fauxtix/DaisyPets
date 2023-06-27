@@ -94,7 +94,7 @@ namespace DaisyPets.UI
                     cboTipo.SelectedItem = dewormerData.Tipo == "I" ? "Interno" : "Externo";
 
                     SetToolbar(OpcoesRegisto.Gravar);
-                    SelectRowInGrid();
+//                    SelectRowInGrid();
                 }
                 else
                 {

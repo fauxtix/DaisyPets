@@ -99,7 +99,7 @@
             gradientPanel1.Location = new Point(22, 34);
             gradientPanel1.Margin = new Padding(3, 4, 3, 4);
             gradientPanel1.Name = "gradientPanel1";
-            gradientPanel1.Size = new Size(738, 357);
+            gradientPanel1.Size = new Size(738, 374);
             gradientPanel1.TabIndex = 11;
             // 
             // autoLabel7
@@ -107,7 +107,7 @@
             autoLabel7.BackColor = Color.Gainsboro;
             autoLabel7.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             autoLabel7.ForeColor = SystemColors.ControlText;
-            autoLabel7.Location = new Point(15, 300);
+            autoLabel7.Location = new Point(18, 299);
             autoLabel7.Name = "autoLabel7";
             autoLabel7.Size = new Size(49, 20);
             autoLabel7.TabIndex = 31;
@@ -115,7 +115,7 @@
             // 
             // txtNotas
             // 
-            txtNotas.BeforeTouchSize = new Size(552, 83);
+            txtNotas.BeforeTouchSize = new Size(552, 78);
             txtNotas.Border3DStyle = Border3DStyle.Flat;
             txtNotas.BorderStyle = BorderStyle.FixedSingle;
             txtNotas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
@@ -140,9 +140,9 @@
             // 
             // txtPetName
             // 
-            txtPetName.BeforeTouchSize = new Size(552, 83);
+            txtPetName.BeforeTouchSize = new Size(552, 78);
             txtPetName.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtPetName.Location = new Point(151, 40);
+            txtPetName.Location = new Point(148, 40);
             txtPetName.Name = "txtPetName";
             txtPetName.ReadOnly = true;
             txtPetName.Size = new Size(273, 27);
@@ -152,14 +152,14 @@
             // 
             dtpApptDate.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             dtpApptDate.Format = DateTimePickerFormat.Short;
-            dtpApptDate.Location = new Point(151, 73);
+            dtpApptDate.Location = new Point(148, 75);
             dtpApptDate.Name = "dtpApptDate";
             dtpApptDate.Size = new Size(115, 27);
             dtpApptDate.TabIndex = 27;
             // 
             // txtIdPet
             // 
-            txtIdPet.BeforeTouchSize = new Size(552, 83);
+            txtIdPet.BeforeTouchSize = new Size(552, 78);
             txtIdPet.Location = new Point(439, 11);
             txtIdPet.Margin = new Padding(3, 4, 3, 4);
             txtIdPet.Name = "txtIdPet";
@@ -172,7 +172,7 @@
             autoLabel6.BackColor = Color.Gainsboro;
             autoLabel6.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             autoLabel6.ForeColor = SystemColors.ControlText;
-            autoLabel6.Location = new Point(18, 73);
+            autoLabel6.Location = new Point(18, 75);
             autoLabel6.Name = "autoLabel6";
             autoLabel6.Size = new Size(41, 20);
             autoLabel6.TabIndex = 23;
@@ -194,7 +194,7 @@
             autoLabel4.BackColor = Color.Gainsboro;
             autoLabel4.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             autoLabel4.ForeColor = SystemColors.ControlText;
-            autoLabel4.Location = new Point(18, 147);
+            autoLabel4.Location = new Point(18, 150);
             autoLabel4.Name = "autoLabel4";
             autoLabel4.Size = new Size(90, 20);
             autoLabel4.TabIndex = 21;
@@ -205,7 +205,7 @@
             autoLabel3.BackColor = Color.Gainsboro;
             autoLabel3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             autoLabel3.ForeColor = SystemColors.ControlText;
-            autoLabel3.Location = new Point(18, 202);
+            autoLabel3.Location = new Point(21, 213);
             autoLabel3.Name = "autoLabel3";
             autoLabel3.Size = new Size(87, 20);
             autoLabel3.TabIndex = 20;
@@ -223,11 +223,11 @@
             // 
             // txtMotivo
             // 
-            txtMotivo.BeforeTouchSize = new Size(552, 83);
+            txtMotivo.BeforeTouchSize = new Size(552, 78);
             txtMotivo.Border3DStyle = Border3DStyle.Flat;
             txtMotivo.BorderStyle = BorderStyle.FixedSingle;
             txtMotivo.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtMotivo.Location = new Point(151, 110);
+            txtMotivo.Location = new Point(148, 110);
             txtMotivo.Margin = new Padding(3, 4, 3, 4);
             txtMotivo.Name = "txtMotivo";
             txtMotivo.Size = new Size(552, 27);
@@ -235,39 +235,39 @@
             // 
             // txtDiagnostico
             // 
-            txtDiagnostico.BeforeTouchSize = new Size(552, 83);
+            txtDiagnostico.BeforeTouchSize = new Size(552, 78);
             txtDiagnostico.Border3DStyle = Border3DStyle.Flat;
             txtDiagnostico.BorderStyle = BorderStyle.FixedSingle;
             txtDiagnostico.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtDiagnostico.Location = new Point(151, 148);
+            txtDiagnostico.Location = new Point(148, 148);
             txtDiagnostico.Margin = new Padding(3, 4, 3, 4);
             txtDiagnostico.Multiline = true;
             txtDiagnostico.Name = "txtDiagnostico";
             txtDiagnostico.ScrollBars = ScrollBars.Vertical;
-            txtDiagnostico.Size = new Size(552, 47);
+            txtDiagnostico.Size = new Size(552, 55);
             txtDiagnostico.TabIndex = 2;
             // 
             // txtTratamento
             // 
-            txtTratamento.BeforeTouchSize = new Size(552, 83);
+            txtTratamento.BeforeTouchSize = new Size(552, 78);
             txtTratamento.Border3DStyle = Border3DStyle.Flat;
             txtTratamento.BorderStyle = BorderStyle.FixedSingle;
             txtTratamento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            txtTratamento.Location = new Point(151, 204);
+            txtTratamento.Location = new Point(148, 211);
             txtTratamento.Margin = new Padding(3, 4, 3, 4);
             txtTratamento.Multiline = true;
             txtTratamento.Name = "txtTratamento";
             txtTratamento.ScrollBars = ScrollBars.Vertical;
-            txtTratamento.Size = new Size(552, 83);
+            txtTratamento.Size = new Size(552, 78);
             txtTratamento.TabIndex = 3;
             // 
             // txtID
             // 
             txtID.BackColor = Color.DarkGray;
-            txtID.BeforeTouchSize = new Size(552, 83);
+            txtID.BeforeTouchSize = new Size(552, 78);
             txtID.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             txtID.ForeColor = Color.Black;
-            txtID.Location = new Point(151, 7);
+            txtID.Location = new Point(148, 7);
             txtID.Margin = new Padding(3, 4, 3, 4);
             txtID.Name = "txtID";
             txtID.ReadOnly = true;
@@ -284,7 +284,7 @@
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
-            btnClear.Location = new Point(662, 412);
+            btnClear.Location = new Point(662, 428);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(98, 39);
             btnClear.TabIndex = 15;
@@ -301,7 +301,7 @@
             btnDelete.ForeColor = Color.White;
             btnDelete.Image = Properties.Resources._678080_shield_error_32;
             btnDelete.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDelete.Location = new Point(286, 412);
+            btnDelete.Location = new Point(286, 428);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(98, 39);
             btnDelete.TabIndex = 14;
@@ -318,7 +318,7 @@
             btnUpdate.ForeColor = Color.White;
             btnUpdate.Image = Properties.Resources.save32;
             btnUpdate.ImageAlign = ContentAlignment.MiddleLeft;
-            btnUpdate.Location = new Point(158, 412);
+            btnUpdate.Location = new Point(158, 428);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(98, 39);
             btnUpdate.TabIndex = 13;
@@ -335,7 +335,7 @@
             btnInsert.ForeColor = Color.White;
             btnInsert.Image = Properties.Resources.Clear;
             btnInsert.ImageAlign = ContentAlignment.MiddleLeft;
-            btnInsert.Location = new Point(30, 412);
+            btnInsert.Location = new Point(30, 428);
             btnInsert.Name = "btnInsert";
             btnInsert.Size = new Size(98, 39);
             btnInsert.TabIndex = 12;
@@ -369,7 +369,7 @@
             dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
             dgvAppts.DefaultCellStyle = dataGridViewCellStyle4;
-            dgvAppts.Location = new Point(22, 467);
+            dgvAppts.Location = new Point(22, 478);
             dgvAppts.Margin = new Padding(3, 4, 3, 4);
             dgvAppts.Name = "dgvAppts";
             dgvAppts.ReadOnly = true;
@@ -383,11 +383,11 @@
             dgvAppts.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dgvAppts.RowTemplate.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             dgvAppts.RowTemplate.DividerHeight = 1;
-            dgvAppts.RowTemplate.Height = 48;
+            dgvAppts.RowTemplate.Height = 40;
             dgvAppts.RowTemplate.ReadOnly = true;
             dgvAppts.RowTemplate.Resizable = DataGridViewTriState.True;
             dgvAppts.ScrollBars = ScrollBars.Vertical;
-            dgvAppts.Size = new Size(920, 247);
+            dgvAppts.Size = new Size(920, 225);
             dgvAppts.TabIndex = 16;
             dgvAppts.CellClick += dgvAppts_CellClick;
             dgvAppts.ColumnHeaderMouseClick += dgvAppts_ColumnHeaderMouseClick;

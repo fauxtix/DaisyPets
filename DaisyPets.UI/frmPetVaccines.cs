@@ -58,7 +58,7 @@ namespace DaisyPets.UI
                         }
                         else
                         {
-                            dgvVacinas.DataSource = new List<VacinaVM>();
+                            dgvVacinas.DataSource = null;
                         }
                     }
                     task.Wait();
@@ -111,7 +111,10 @@ namespace DaisyPets.UI
             using (HttpClient httpClient = new HttpClient())
             {
                 var vaccine = await httpClient.GetFromJsonAsync<VacinaDto>(url);
-                return vaccine ?? new VacinaDto();
+                if (vaccine != null)
+                    return vaccine;
+                else
+                    return null;
             }
         }
 
@@ -133,7 +136,7 @@ namespace DaisyPets.UI
             IdVacina = 0;
             dtpToma.Value = DateTime.Now.AddDays(-1);
             txtMarca.Clear();
-            nupPrxToma.Value = 1;
+            nupPrxToma.Value = 18;
             dtpToma.Focus();
             SetToolbar_Clear();
         }

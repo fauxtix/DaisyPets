@@ -163,10 +163,15 @@ namespace DaisyPets.UI.Stats
 
         private void dgvVaccines_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
-            if (Convert.ToInt32(dgvVaccines.Rows[e.RowIndex].Cells[5].Value) < 400)
+            if (e.RowIndex == -1)
             {
-                dgvVaccines.Rows[e.RowIndex].Cells[5].Style.BackColor = Color.Red;
-                dgvVaccines.Rows[e.RowIndex].Cells[5].Style.ForeColor = Color.White;
+                return;
+            }
+
+            if (Convert.ToInt32(dgvVaccines.Rows[e.RowIndex].Cells["DiasParaProximaToma"].Value) < 400)
+            {
+                dgvVaccines.Rows[e.RowIndex].Cells["DiasParaProximaToma"].Style.BackColor = Color.Red;
+                dgvVaccines.Rows[e.RowIndex].Cells["DiasParaProximaToma"].Style.ForeColor = Color.White;
             }
         }
 
@@ -204,6 +209,27 @@ namespace DaisyPets.UI.Stats
                 (List<DesparasitanteVM>)dgvDewormers.DataSource, dgvDewormers.Columns[e.ColumnIndex].Name, _sortDirection);
 
             _previousIndex = e.ColumnIndex;
+
+        }
+
+        private void dgvDewormers_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+
+            var _days = Convert.ToInt32(dgvDewormers.Rows[e.RowIndex].Cells["DiasParaProximaAplicacao"].Value);
+            if (_days <= 15)
+            {
+                dgvDewormers.Rows[e.RowIndex].Cells["DiasParaProximaAplicacao"].Style.BackColor = Color.Red;
+                dgvDewormers.Rows[e.RowIndex].Cells["DiasParaProximaAplicacao"].Style.ForeColor = Color.White;
+            }
+            else if (_days > 15 && _days <= 60)
+            {
+                dgvDewormers.Rows[e.RowIndex].Cells["DiasParaProximaAplicacao"].Style.BackColor = Color.Orange;
+                dgvDewormers.Rows[e.RowIndex].Cells["DiasParaProximaAplicacao"].Style.ForeColor = Color.Black;
+            }
 
         }
     }

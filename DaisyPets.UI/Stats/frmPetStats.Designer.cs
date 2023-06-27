@@ -162,6 +162,7 @@
             dgvDewormers.Size = new Size(978, 201);
             dgvDewormers.TabIndex = 1;
             dgvDewormers.ColumnHeaderMouseClick += dgvDewormers_ColumnHeaderMouseClick;
+            dgvDewormers.RowPrePaint += dgvDewormers_RowPrePaint;
             // 
             // dataGridViewTextBoxColumn1
             // 

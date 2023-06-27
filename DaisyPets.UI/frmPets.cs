@@ -248,7 +248,10 @@ namespace DaisyPets.UI
                     FillGrid();
                     if (gdvDados.RowCount > 0)
                     {
-                        ShowRecord(1);
+                        FillGrid();
+                        gdvDados.Rows[0].Selected = true;
+                        int petId = DataFormat.GetInteger(gdvDados.Rows[0].Cells["Id"].Value);
+                        ShowRecord(petId);
                     }
                     else
                     {
@@ -256,12 +259,6 @@ namespace DaisyPets.UI
                         ClearForm();
                     }
                 }
-
-                FillGrid();
-                gdvDados.Rows[0].Selected = true;
-                int petId = DataFormat.GetInteger(gdvDados.Rows[0].Cells["Id"].Value);
-                ShowRecord(petId);
-
 
                 MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);
             }
@@ -438,7 +435,7 @@ namespace DaisyPets.UI
                     txtNome.Focus();
 
                     SetToolbar(OpcoesRegisto.Gravar);
-                    SelectRowInGrid();
+                    //SelectRowInGrid();
                 }
             }
             catch (Exception ex)

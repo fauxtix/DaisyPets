@@ -329,7 +329,7 @@ namespace DaisyPets.UI
                         if (dgvAppts.RowCount > 0)
                         {
                             dgvAppts.Rows[0].Selected = true;
-                            int petId = DataFormat.GetInteger(dgvAppts.Rows[0].Cells["IdPet"].Value);
+                            int petId = DataFormat.GetInteger(dgvAppts.Rows[0].Cells["PetId"].Value);
                             ShowRecord(petId);
                         }
                         else
@@ -369,7 +369,7 @@ namespace DaisyPets.UI
                     txtNotas.Text = apptData.Notas;
 
                     SetToolbar(OpcoesRegisto.Gravar);
-                    SelectRowInGrid();
+//                    SelectRowInGrid();
                 }
                 else
                 {
