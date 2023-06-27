@@ -1,4 +1,6 @@
-﻿namespace DaisyPets.UI
+﻿using DaisyPets.UI.Properties;
+
+namespace DaisyPets.UI
 {
     partial class Configuration
     {
@@ -75,7 +77,7 @@
             // bSearchFolder
             // 
             bSearchFolder.AutoSize = true;
-            bSearchFolder.Image = Properties.Resources.Be_Folder_icon;
+            bSearchFolder.Image = Resources.Be_Folder_icon;
             bSearchFolder.Location = new Point(607, 13);
             bSearchFolder.Margin = new Padding(4, 3, 4, 3);
             bSearchFolder.Name = "bSearchFolder";
