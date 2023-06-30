@@ -1,11 +1,12 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels;
-using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Domain;
+using DaisyPets.UI.ApiServices;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools;
 using System.Collections;
+using System.Configuration;
 using System.Net.Http.Json;
 using System.Text;
 using static DaisyPets.Core.Application.Enums.Common;
@@ -20,10 +21,21 @@ namespace DaisyPets.UI.Properties
         private int _previousIndex;
         private bool _sortDirection;
 
+        private string ContactsApiEndpoint { get; set; } = string.Empty;
+        private string LookupTablesApiEndpoint { get; set; } = string.Empty;
+        private string apiKey { get; set; } = string.Empty;
+
+
         public frmContacto()
         {
 
             InitializeComponent();
+
+            ContactsApiEndpoint = AccessSettingsService.ContactosEndpoint;
+            LookupTablesApiEndpoint = AccessSettingsService.LookupTablesEndpoint;
+
+            apiKey = ConfigurationManager.AppSettings["ApiKey"];
+
             gdvContacts.AutoGenerateColumns = false;
             FillCombo(cboTipoContacto, "TipoContacto");
 
@@ -68,7 +80,7 @@ namespace DaisyPets.UI.Properties
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                string url = "https://localhost:7161/api/Contacts/AllContactsVM";
+                string url = $"{ContactsApiEndpoint}/AllContactsVM?api_key={apiKey}";
 
                 var task = httpClient.GetAsync(url);
                 var response = task.Result;
@@ -94,7 +106,7 @@ namespace DaisyPets.UI.Properties
         private void FillCombo(ComboBoxAdv comboBox, string dataTable)
         {
             comboBox.Items.Clear();
-            string url = $"https://localhost:7161/api/LookupTables/GetAllRecords/{dataTable}";
+            string url = $"{LookupTablesApiEndpoint}/GetAllRecords/{dataTable}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetFromJsonAsync<IEnumerable<TipoContacto>>(url);
@@ -147,7 +159,7 @@ namespace DaisyPets.UI.Properties
 
         private void AddUpdate(OpcoesRegisto opcao)
         {
-            string url = $"https://localhost:7161/api/Contacts";
+            string url = ContactsApiEndpoint;
 
             string sMsg1 = "";
             if (opcao == OpcoesRegisto.Inserir)
@@ -225,7 +237,7 @@ namespace DaisyPets.UI.Properties
                     if (IdContacto == 0)
                         IdContacto = DataFormat.GetInteger(txtID.Text);
 
-                    url = $"https://localhost:7161/api/Contacts/{IdContacto}";
+                    url = $"{ContactsApiEndpoint}/{IdContacto}";
 
 
                     var keyId = int.Parse(txtID.Text);
@@ -293,7 +305,7 @@ namespace DaisyPets.UI.Properties
                     IdTipoContacto = iTipoContacto = DataFormat.GetInteger(((DictionaryEntry)(cboTipoContacto.SelectedItem)).Key)
                 };
 
-                string url = $"https://localhost:7161/api/Contacts/ValidateContacts";
+                string url = $"{ContactsApiEndpoint}/ValidateContacts";
                 using (HttpClient httpClient = new HttpClient())
                 {
                     var task = httpClient.PostAsJsonAsync<ContactoVM>(url, contacto2Validate);
@@ -329,7 +341,7 @@ namespace DaisyPets.UI.Properties
 
         private ContactoVM GetContactById(int Id)
         {
-            string url = $"https://localhost:7161/api/Contacts/{Id}";
+            string url = $"{ContactsApiEndpoint}/{Id}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetAsync(url);
@@ -353,7 +365,7 @@ namespace DaisyPets.UI.Properties
 
         private IEnumerable<ContactoVM> GetContacts()
         {
-            string url = $"https://localhost:7161/api/Contacts/AllContactsVM";
+            string url = $"{ContactsApiEndpoint}/AllContactsVM";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetAsync(url);
@@ -403,7 +415,7 @@ namespace DaisyPets.UI.Properties
 
         private async Task DeleteContact()
         {
-            string url = $"https://localhost:7161/api/Contacts/{IdContacto}";
+            string url = $"{ContactsApiEndpoint}/{IdContacto}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var response = await httpClient.DeleteAsync(url);

@@ -1,9 +1,7 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
-using DaisyPets.Core.Domain;
-using DaisyPets.Infrastructure.Services;
+using DaisyPets.WebApi.Attributes;
 using DaisyPets.WebApi.Validators;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 

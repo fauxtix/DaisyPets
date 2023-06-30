@@ -1,5 +1,6 @@
 ﻿using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Pdfs;
+using DaisyPets.UI.ApiServices;
 using Newtonsoft.Json;
 using Syncfusion.Pdf.Parsing;
 using Syncfusion.Windows.Forms;
@@ -17,6 +18,7 @@ namespace DaisyPets.UI
         private int DocumentId { get; set; }
         private string documentPath { get; set; }
         private bool fileUploaded { get; set; }
+        private string DocsApiEndpoint { get; set; } = string.Empty;
 
         private DateTime pdfCreationDate { get; set; }
 
@@ -26,6 +28,9 @@ namespace DaisyPets.UI
         public frmUploadDocument(int PetId = 0)
         {
             InitializeComponent();
+
+            DocsApiEndpoint = AccessSettingsService.DocumentosEndpoint;
+
             _petId = PetId;
             fileUploaded = false;
             dgvDocuments.AutoGenerateColumns = false;
@@ -84,7 +89,7 @@ namespace DaisyPets.UI
         private void btnUploadDocument_Click(object sender, EventArgs e)
         {
             // insert endpoint
-            string url = $"https://localhost:7161/api/document";
+            string url = DocsApiEndpoint;
 
             string filename = Path.GetFileName(openFileDialog1.FileName);
             string fullFilePath = openFileDialog1.FileName;
@@ -213,7 +218,7 @@ namespace DaisyPets.UI
 
         private async Task<DocumentoDto> GetDocument(int Id)
         {
-            string url = $"https://localhost:7161/api/document/{Id}";
+            string url = $"{DocsApiEndpoint}/{Id}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var _document = await httpClient.GetFromJsonAsync<DocumentoDto>(url);
@@ -237,7 +242,7 @@ namespace DaisyPets.UI
         private IEnumerable<DocumentoVM> GetGridData()
         {
             IEnumerable<DocumentoVM> documents;
-            string url = $"https://localhost:7161/api/document/AllDocumentsVM/{_petId}";
+            string url = $"{DocsApiEndpoint}/AllDocumentsVM/{_petId}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -331,7 +336,7 @@ namespace DaisyPets.UI
 
         private List<string> ValidateDocument()
         {
-            string url = $"https://localhost:7161/api/document/ValidateDocument";
+            string url = $"{DocsApiEndpoint}/ValidateDocument";
 
             try
             {
@@ -443,7 +448,7 @@ namespace DaisyPets.UI
                 Title = txtTitle.Text,
             };
 
-            string url = $"https://localhost:7161/api/Document/{DocumentId}";
+            string url = $"{DocsApiEndpoint}/{DocumentId}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -469,7 +474,7 @@ namespace DaisyPets.UI
 
         private async Task DeleteDocument()
         {
-            string url = $"https://localhost:7161/api/Document/{DocumentId}";
+            string url = $"{DocsApiEndpoint}/{DocumentId}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
