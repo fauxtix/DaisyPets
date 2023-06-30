@@ -18,8 +18,8 @@ namespace DaisyPets.UI
 
         public frmPetRacoes(int petId = 0)
         {
-            IdPet = petId;
             InitializeComponent();
+            IdPet = petId;
             var petData = GetPetData(petId);
             if (petData != null)
             {
@@ -27,19 +27,17 @@ namespace DaisyPets.UI
             }
 
             dgvRacoes.AutoGenerateColumns = false;
-            if (dgvRacoes.RowCount > 0)
-            {
-                dgvRacoes.CurrentCell = dgvRacoes.Rows[0].Cells[0];
-                dgvRacoes.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(dgvRacoes.Rows[0].Cells[0].Value);
-                ShowRecord(firstRowId);
-            }
-
-            nupQtdDiaria.Value = 200;
-
             ClearForm();
             FillGrid();
 
+            if (dgvRacoes.RowCount > 0)
+            {
+                dgvRacoes.Rows[0].Selected = true;
+                var arg = new DataGridViewCellEventArgs(0, 0);
+                dgvRacoes_CellClick(dgvRacoes, arg);
+            }
+
+            nupQtdDiaria.Value = 200;
         }
 
         private void btnInsert_Click(object sender, EventArgs e)

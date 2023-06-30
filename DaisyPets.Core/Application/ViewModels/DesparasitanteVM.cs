@@ -10,18 +10,14 @@
         public string DataAplicacao { get; set; } = string.Empty;
         public string DataProximaAplicacao { get; set; } = string.Empty;
         public string NomePet { get; set; } = string.Empty;
-        public int DiasParaProximaAplicacao { get; set; }
+        public int DiasParaProximaAplicacao
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(DataProximaAplicacao) ? (int)(DateTime.Parse(DataProximaAplicacao) - DateTime.Now).TotalDays : 0;
+            }
+        }
 
         public DesparasitanteVM() { }
-        public DesparasitanteVM(int id, int idPet, string tipo, string marca, string dataAplicacao, string dataProximaAplicacao, string nomePet, int diasParaProximaAplicacao)
-        {
-            Id = id;
-            IdPet = idPet;
-            Tipo = tipo;
-            Marca = marca;
-            DataAplicacao = dataAplicacao;
-            DataProximaAplicacao = dataProximaAplicacao;
-            DiasParaProximaAplicacao = (int)(DateTime.Parse(DataProximaAplicacao) - DateTime.Now).TotalDays;
-        }
     }
 }

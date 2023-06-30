@@ -72,7 +72,7 @@ namespace DaisyPets.Infrastructure.Repositories
             dynamicParameters.Add("@IdTamanho", pet.IdTamanho);
             dynamicParameters.Add("@IdSituacao", pet.IdSituacao);
             dynamicParameters.Add("@IdTemperamento", pet.IdTemperamento);
-            dynamicParameters.Add("@Genero", pet.Genero.Substring(0,1));
+            dynamicParameters.Add("@Genero", pet.Genero.Substring(0, 1));
             dynamicParameters.Add("@Nome", pet.Nome);
             dynamicParameters.Add("@Observacoes", pet.Observacoes);
             dynamicParameters.Add("@Padrinho", pet.Padrinho);
@@ -116,6 +116,35 @@ namespace DaisyPets.Infrastructure.Repositories
             using (var connection = _context.CreateConnection())
             {
                 await connection.ExecuteAsync(sb.ToString(), new { Id });
+            }
+        }
+
+        public async Task<bool> CanPetBeDeleted(int Id)
+        {
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("SELECT COUNT(pet.Id) ");
+                sb.Append("FROM Pet ");
+                sb.Append("WHERE (");
+                sb.Append("Pet.id IN (SELECT IdPet FROM vacina) OR ");
+                sb.Append("Pet.id IN (SELECT IdPet FROM racao) OR ");
+                sb.Append("Pet.id in (SELECT IdPet FROM Desparasitante) OR ");
+                sb.Append("Pet.id in (SELECT PetId FROM documento) OR ");
+                sb.Append("Pet.id in (SELECT IdPet FROM ConsultaVeterinario)) ");
+                sb.Append("AND Pet.id = @Id");
+
+                using (var connection = _context.CreateConnection())
+                {
+                    var oKToDeletePet = await connection.QuerySingleOrDefaultAsync<int>(sb.ToString(), new { Id });
+                    return oKToDeletePet == 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                throw;
             }
         }
 
@@ -220,7 +249,7 @@ namespace DaisyPets.Infrastructure.Repositories
 
             using (var connection = _context.CreateConnection())
             {
-                var ageDescription = await connection.QueryFirstAsync<string>(sb.ToString(), new {IdTamanho, meses});
+                var ageDescription = await connection.QueryFirstAsync<string>(sb.ToString(), new { IdTamanho, meses });
                 if (!string.IsNullOrEmpty(ageDescription))
                 {
                     return ageDescription;

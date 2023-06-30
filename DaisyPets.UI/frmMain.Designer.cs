@@ -37,10 +37,10 @@
             toolStripSeparator1 = new ToolStripSeparator();
             btnExpensesDonations = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
-            toolStripSeparator11 = new ToolStripSeparator();
             btnContactos = new ToolStripButton();
-            optStats = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
+            optStats = new ToolStripButton();
+            toolStripSeparator11 = new ToolStripSeparator();
             optGallery = new ToolStripButton();
             toolStripSeparator10 = new ToolStripSeparator();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
@@ -100,11 +100,6 @@
             toolStripSeparator4.Name = "toolStripSeparator4";
             toolStripSeparator4.Size = new Size(6, 55);
             // 
-            // toolStripSeparator11
-            // 
-            toolStripSeparator11.Name = "toolStripSeparator11";
-            toolStripSeparator11.Size = new Size(6, 55);
-            // 
             // btnContactos
             // 
             btnContactos.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
@@ -115,6 +110,11 @@
             btnContactos.Text = "Contactos";
             btnContactos.Click += btnContactos_Click;
             // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 55);
+            // 
             // optStats
             // 
             optStats.Image = (Image)resources.GetObject("optStats.Image");
@@ -124,10 +124,10 @@
             optStats.Text = "Estatísticas";
             optStats.Click += optStats_Click;
             // 
-            // toolStripSeparator3
+            // toolStripSeparator11
             // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(6, 55);
+            toolStripSeparator11.Name = "toolStripSeparator11";
+            toolStripSeparator11.Size = new Size(6, 55);
             // 
             // optGallery
             // 
@@ -159,63 +159,63 @@
             optCategoriaDespesas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             optCategoriaDespesas.Image = Properties.Resources.tool_box_icon;
             optCategoriaDespesas.Name = "optCategoriaDespesas";
-            optCategoriaDespesas.Size = new Size(241, 54);
+            optCategoriaDespesas.Size = new Size(209, 24);
             optCategoriaDespesas.Text = "Categoria Despesas";
             optCategoriaDespesas.Click += optCategoriaDespesas_Click;
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(238, 6);
+            toolStripSeparator5.Size = new Size(206, 6);
             // 
             // optRacas
             // 
             optRacas.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             optRacas.Image = Properties.Resources.tool_box_icon;
             optRacas.Name = "optRacas";
-            optRacas.Size = new Size(241, 54);
+            optRacas.Size = new Size(209, 24);
             optRacas.Text = "Raças";
             optRacas.Click += optRacas_Click;
             // 
             // toolStripSeparator6
             // 
             toolStripSeparator6.Name = "toolStripSeparator6";
-            toolStripSeparator6.Size = new Size(238, 6);
+            toolStripSeparator6.Size = new Size(206, 6);
             // 
             // optSituacao
             // 
             optSituacao.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             optSituacao.Image = Properties.Resources.tool_box_icon;
             optSituacao.Name = "optSituacao";
-            optSituacao.Size = new Size(241, 54);
+            optSituacao.Size = new Size(209, 24);
             optSituacao.Text = "Situação";
             optSituacao.Click += optSituacao_Click;
             // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(238, 6);
+            toolStripSeparator7.Size = new Size(206, 6);
             // 
             // optTemperamento
             // 
             optTemperamento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             optTemperamento.Image = Properties.Resources.tool_box_icon;
             optTemperamento.Name = "optTemperamento";
-            optTemperamento.Size = new Size(241, 54);
+            optTemperamento.Size = new Size(209, 24);
             optTemperamento.Text = "Temperamento";
             optTemperamento.Click += optTemperamento_Click;
             // 
             // toolStripSeparator8
             // 
             toolStripSeparator8.Name = "toolStripSeparator8";
-            toolStripSeparator8.Size = new Size(238, 6);
+            toolStripSeparator8.Size = new Size(206, 6);
             // 
             // optTipoDespesa
             // 
             optTipoDespesa.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             optTipoDespesa.Image = Properties.Resources.tool_box_icon;
             optTipoDespesa.Name = "optTipoDespesa";
-            optTipoDespesa.Size = new Size(241, 54);
+            optTipoDespesa.Size = new Size(209, 24);
             optTipoDespesa.Text = "Tipo de Despesa";
             optTipoDespesa.Click += optTipoDespesa_Click;
             // 
@@ -253,8 +253,8 @@
             // 
             AutoScaleMode = AutoScaleMode.None;
             AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            BackgroundImage = Properties.Resources.catsanddogs;
-            BackgroundImageLayout = ImageLayout.Center;
+            BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
+            BackgroundImageLayout = ImageLayout.Stretch;
             CaptionBarColor = Color.SteelBlue;
             CaptionBarHeight = 60;
             captionImage1.Image = Properties.Resources.catsanddogs;

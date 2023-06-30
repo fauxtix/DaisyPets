@@ -215,7 +215,7 @@ namespace PropertyManagerFL.Infrastructure.Repositories
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Despesa.Id, DataMovimento, ValorPago, ");
-            sb.Append("Despesa.Descricao, IdTipoDespesa, IdCategoriaDespesa, Notas, TipoMovimento, ");
+            sb.Append("Despesa.Descricao, Despesa.IdTipoDespesa, Despesa.IdCategoriaDespesa, Notas, TipoMovimento, ");
             sb.Append("CD.Descricao AS [DescricaoCategoriaDespesa], ");
             sb.Append("TD.Descricao AS [DescricaoTipoDespesa] ");
             sb.Append("FROM Despesa ");
@@ -225,19 +225,27 @@ namespace PropertyManagerFL.Infrastructure.Repositories
             sb.Append("Despesa.IdTipoDespesa = TD.Id ");
             sb.Append("WHERE Despesa.Id = @Id");
 
-            using (var connection = _context.CreateConnection())
+            try
             {
-                var expenseVM = await connection.QueryFirstOrDefaultAsync<DespesaVM>(sb.ToString(), new { Id });
-                if (expenseVM != null)
+                using (var connection = _context.CreateConnection())
                 {
-                    return expenseVM;
+                    var expenseVM = await connection.QueryFirstOrDefaultAsync<DespesaVM>(sb.ToString(), new { Id });
+                    if (expenseVM != null)
+                    {
+                        return expenseVM;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
-                else
-                {
-                    return null;
-                }
-            }
 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return null;
+            }
         }
 
         public async Task<IEnumerable<DespesaVM>?> GetAllVMAsync()

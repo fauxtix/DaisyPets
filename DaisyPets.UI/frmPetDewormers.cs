@@ -26,16 +26,16 @@ namespace DaisyPets.UI
             txtPetName.Text = petData.Nome;
 
             dgvDewormers.AutoGenerateColumns = false;
-            if (dgvDewormers.RowCount > 0)
-            {
-                dgvDewormers.CurrentCell = dgvDewormers.Rows[0].Cells[0];
-                dgvDewormers.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(dgvDewormers.Rows[0].Cells[0].Value);
-                ShowRecord(firstRowId);
-            }
-
             ClearForm();
             FillGrid();
+
+            if (dgvDewormers.RowCount > 0)
+            {
+                dgvDewormers.Rows[0].Selected = true;
+                var arg = new DataGridViewCellEventArgs(0, 0);
+                dgvDewormers_CellClick(dgvDewormers, arg);
+            }
+
         }
 
         private void FillGrid()

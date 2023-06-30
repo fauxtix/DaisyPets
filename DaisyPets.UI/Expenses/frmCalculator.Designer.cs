@@ -35,7 +35,7 @@
             // 
             calculator.AccessibleDescription = "Calculator control";
             calculator.AccessibleName = "Calculator Control";
-            calculator.BeforeTouchSize = new Size(363, 325);
+            calculator.BeforeTouchSize = new Size(317, 325);
             calculator.BorderStyle = Border3DStyle.Flat;
             calculator.Culture = new System.Globalization.CultureInfo("pt-PT");
             calculator.DoubleValue = 0D;
@@ -46,8 +46,9 @@
             calculator.MetroColor = SystemColors.Control;
             calculator.Name = "calculator";
             calculator.RightToLeft = RightToLeft.No;
-            calculator.Size = new Size(363, 325);
+            calculator.Size = new Size(317, 325);
             calculator.TabIndex = 0;
+            calculator.UseVerticalAndHorizontalSpacing = true;
             calculator.UseVisualStyle = true;
             // 
             // frmCalculator
@@ -55,7 +56,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(417, 361);
+            ClientSize = new Size(356, 361);
             Controls.Add(calculator);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;

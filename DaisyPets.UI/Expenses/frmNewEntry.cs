@@ -2,6 +2,7 @@
 using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
+using DaisyPets.UI.ApiServices;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
 using System.Collections;
@@ -19,11 +20,16 @@ namespace DaisyPets.UI.Expenses
         private int IdCategoriaDespesa = -1;
         private int IdTipoDespesa = -1;
 
+        private string LookupTablesApiEndpoint { get; set; } = string.Empty;
+        private string ExpensesApiEndpoint { get; set; } = string.Empty;
         private IEnumerable<TipoDespesa>? ExpenseTypes { get; set; }
 
         public frmNewEntry(DespesaDto expense)
         {
             InitializeComponent();
+
+            LookupTablesApiEndpoint = AccessSettingsService.LookupTablesEndpoint;
+            ExpensesApiEndpoint = AccessSettingsService.DespesasEndpoint;
 
             FillCombo(cboCategoriasDespesas, "CategoriaDespesa");
             FillCombo(cboTipoDespesa, "TipoDespesa");
@@ -46,7 +52,7 @@ namespace DaisyPets.UI.Expenses
 
         private async Task<DespesaDto> GetExpense(int Id)
         {
-            string url = $"https://localhost:7161/api/despesa/{Id}";
+            string url = $"{ExpensesApiEndpoint}/{Id}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var _expense = await httpClient.GetFromJsonAsync<DespesaDto>(url);
@@ -72,11 +78,12 @@ namespace DaisyPets.UI.Expenses
                     else
                     {
                         radioButtonIncome.Checked = true;
-
                     }
+
+
                     txtValor.Text = expenseData.ValorPago.ToString();
                     string categoryDescription = GetDescricaoCategoria(expenseData.IdCategoriaDespesa);
-                    string expenseTypeDescription = GetDescricaoTipoDespesa(expenseData.IdTipoDespesa, expenseData.IdCategoriaDespesa);
+                    string expenseTypeDescription = GeExpenseType();
 
                     var idxCategory = cboCategoriasDespesas.FindStringExact(categoryDescription);
 
@@ -118,7 +125,7 @@ namespace DaisyPets.UI.Expenses
 
         private IEnumerable<TipoDespesa>? GetTipoDespesas()
         {
-            string url = $"https://localhost:7161/api/despesa/TipoDespesas";
+            string url = $"{ExpensesApiEndpoint}/TipoDespesas";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetFromJsonAsync<IEnumerable<TipoDespesa>?>(url);
@@ -138,7 +145,7 @@ namespace DaisyPets.UI.Expenses
         private void FillCombo(ComboBox comboBox, string dataTable)
         {
             comboBox.Items.Clear();
-            string url = $"https://localhost:7161/api/LookupTables/GetAllRecords/{dataTable}";
+            string url = $"{LookupTablesApiEndpoint}/GetAllRecords/{dataTable}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(url);
@@ -207,7 +214,7 @@ namespace DaisyPets.UI.Expenses
 
             var newExpense = GetFormData();
 
-            string url = "https://localhost:7161/api/despesa";
+            string url = ExpensesApiEndpoint;
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -268,7 +275,7 @@ namespace DaisyPets.UI.Expenses
             if (expenseId == 0)
                 expenseId = DataFormat.GetInteger(txtId.Text);
 
-            string url = $"https://localhost:7161/api/Despesa/{expenseId}";
+            string url = $"{ExpensesApiEndpoint}/{expenseId}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -309,7 +316,7 @@ namespace DaisyPets.UI.Expenses
             try
             {
                 DespesaDto expenseToValidate = GetFormData();
-                string url = $"https://localhost:7161/api/despesa/ValidateExpense";
+                string url = $"{ExpensesApiEndpoint}/ValidateExpense";
                 using (HttpClient httpClient = new HttpClient())
                 {
 
@@ -386,7 +393,7 @@ namespace DaisyPets.UI.Expenses
 
         private string GetDescricaoCategoria(int categoryId)
         {
-            string url = $"https://localhost:7161/api/despesa/DescricaoCategoriaDespesa/{categoryId}";
+            string url = $"{ExpensesApiEndpoint}/DescricaoCategoriaDespesa/{categoryId}";
             using (HttpClient httpClient = new HttpClient())
             {
 
@@ -406,9 +413,9 @@ namespace DaisyPets.UI.Expenses
             }
         }
 
-        private string GetDescricaoTipoDespesa(int expenseTypeId, int categoryId)
+        private string GetDescricaoTipoDespesa(int expenseTypeId)
         {
-            string url = $"https://localhost:7161/api/despesa/TipoDespesa_ByCategoriaDespesa/{categoryId}";
+            string url = $"{ExpensesApiEndpoint}/{expenseId}";
             using (HttpClient httpClient = new HttpClient())
             {
 
@@ -433,6 +440,35 @@ namespace DaisyPets.UI.Expenses
             return "";
         }
 
+
+        private string GeExpenseType()
+        {
+            string url = $"{ExpensesApiEndpoint}/VMExpenseByIdAsync/{expenseId}";
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var task = httpClient.GetAsync(url);
+                var response = task.Result;
+
+                task.Wait();
+                task.Dispose();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var expense= response.Content.ReadAsAsync<DespesaVM>().Result;
+                    if (expense is not null)
+                    {
+                        var tipoDespesa = expense.DescricaoTipoDespesa;
+                        return tipoDespesa;
+                    }
+                    return "";
+                }
+            }
+
+            return "";
+
+        }
+    
 
         private void cboTipoDespesa_SelectedIndexChanged(object sender, EventArgs e)
         {

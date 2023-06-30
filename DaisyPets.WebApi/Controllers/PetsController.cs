@@ -133,7 +133,12 @@ namespace DaisyPets.WebApi.Controllers
                     return NotFound("Registo não foi encontrado");
                 }
 
-                await _petService.DeleteAsync(Id);
+                var okToDeletePet = await _petService.DeleteAsync(Id);
+                if ( okToDeletePet == false)
+                {
+                    return BadRequest("Pet tem registos associados. Operação cancelada");
+                }
+
                 return NoContent();
 
             }

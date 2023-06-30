@@ -30,18 +30,12 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPetStats));
             dgvVaccines = new DataGridView();
-            NomePet = new DataGridViewTextBoxColumn();
-            Marca = new DataGridViewTextBoxColumn();
-            DataToma = new DataGridViewTextBoxColumn();
-            ProximaTomaEmMeses = new DataGridViewTextBoxColumn();
-            DataProximaToma = new DataGridViewTextBoxColumn();
-            DiasParaProximaToma = new DataGridViewTextBoxColumn();
             dgvDewormers = new DataGridView();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
@@ -50,6 +44,12 @@
             DiasParaProximaAplicacao = new DataGridViewTextBoxColumn();
             label1 = new Label();
             label2 = new Label();
+            NomePet = new DataGridViewTextBoxColumn();
+            Marca = new DataGridViewTextBoxColumn();
+            DataToma = new DataGridViewTextBoxColumn();
+            ProximaTomaEmMeses = new DataGridViewTextBoxColumn();
+            DataProximaToma = new DataGridViewTextBoxColumn();
+            DiasParaProximaToma = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvVaccines).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvDewormers).BeginInit();
             SuspendLayout();
@@ -78,62 +78,10 @@
             dgvVaccines.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             dgvVaccines.RowTemplate.DividerHeight = 1;
             dgvVaccines.RowTemplate.Height = 32;
-            dgvVaccines.Size = new Size(978, 192);
+            dgvVaccines.Size = new Size(978, 233);
             dgvVaccines.TabIndex = 0;
             dgvVaccines.ColumnHeaderMouseClick += dgvVaccines_ColumnHeaderMouseClick;
             dgvVaccines.RowPrePaint += dgvVaccines_RowPrePaint;
-            // 
-            // NomePet
-            // 
-            NomePet.DataPropertyName = "NomePet";
-            NomePet.HeaderText = "Pet";
-            NomePet.Name = "NomePet";
-            NomePet.ReadOnly = true;
-            NomePet.Width = 230;
-            // 
-            // Marca
-            // 
-            Marca.DataPropertyName = "Marca";
-            Marca.HeaderText = "Marca";
-            Marca.Name = "Marca";
-            Marca.ReadOnly = true;
-            Marca.Width = 400;
-            // 
-            // DataToma
-            // 
-            DataToma.DataPropertyName = "DataToma";
-            DataToma.HeaderText = "Toma";
-            DataToma.Name = "DataToma";
-            DataToma.ReadOnly = true;
-            DataToma.Width = 120;
-            // 
-            // ProximaTomaEmMeses
-            // 
-            ProximaTomaEmMeses.DataPropertyName = "ProximaTomaEmMeses";
-            ProximaTomaEmMeses.HeaderText = "Meses";
-            ProximaTomaEmMeses.Name = "ProximaTomaEmMeses";
-            ProximaTomaEmMeses.ReadOnly = true;
-            ProximaTomaEmMeses.Visible = false;
-            // 
-            // DataProximaToma
-            // 
-            DataProximaToma.DataPropertyName = "DataProximaToma";
-            DataProximaToma.HeaderText = "Próxima";
-            DataProximaToma.Name = "DataProximaToma";
-            DataProximaToma.ReadOnly = true;
-            DataProximaToma.Width = 120;
-            // 
-            // DiasParaProximaToma
-            // 
-            DiasParaProximaToma.DataPropertyName = "DiasParaProximaToma";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(64, 64, 64);
-            DiasParaProximaToma.DefaultCellStyle = dataGridViewCellStyle3;
-            DiasParaProximaToma.HeaderText = "Dias";
-            DiasParaProximaToma.Name = "DiasParaProximaToma";
-            DiasParaProximaToma.ReadOnly = true;
-            DiasParaProximaToma.Width = 50;
             // 
             // dgvDewormers
             // 
@@ -152,14 +100,14 @@
             dgvDewormers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dgvDewormers.ColumnHeadersHeight = 32;
             dgvDewormers.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, DataAplicacao, DataProximaAplicacao, DiasParaProximaAplicacao });
-            dgvDewormers.Location = new Point(25, 276);
+            dgvDewormers.Location = new Point(25, 318);
             dgvDewormers.MultiSelect = false;
             dgvDewormers.Name = "dgvDewormers";
             dgvDewormers.ReadOnly = true;
             dgvDewormers.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             dgvDewormers.RowTemplate.DividerHeight = 1;
             dgvDewormers.RowTemplate.Height = 32;
-            dgvDewormers.Size = new Size(978, 201);
+            dgvDewormers.Size = new Size(978, 233);
             dgvDewormers.TabIndex = 1;
             dgvDewormers.ColumnHeaderMouseClick += dgvDewormers_ColumnHeaderMouseClick;
             dgvDewormers.RowPrePaint += dgvDewormers_RowPrePaint;
@@ -222,18 +170,70 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label2.Location = new Point(25, 245);
+            label2.Location = new Point(25, 290);
             label2.Name = "label2";
             label2.Size = new Size(148, 25);
             label2.TabIndex = 3;
             label2.Text = "Desparasitantes";
+            // 
+            // NomePet
+            // 
+            NomePet.DataPropertyName = "NomePet";
+            NomePet.HeaderText = "Pet";
+            NomePet.Name = "NomePet";
+            NomePet.ReadOnly = true;
+            NomePet.Width = 230;
+            // 
+            // Marca
+            // 
+            Marca.DataPropertyName = "Marca";
+            Marca.HeaderText = "Vacina";
+            Marca.Name = "Marca";
+            Marca.ReadOnly = true;
+            Marca.Width = 400;
+            // 
+            // DataToma
+            // 
+            DataToma.DataPropertyName = "DataToma";
+            DataToma.HeaderText = "Toma";
+            DataToma.Name = "DataToma";
+            DataToma.ReadOnly = true;
+            DataToma.Width = 120;
+            // 
+            // ProximaTomaEmMeses
+            // 
+            ProximaTomaEmMeses.DataPropertyName = "ProximaTomaEmMeses";
+            ProximaTomaEmMeses.HeaderText = "Meses";
+            ProximaTomaEmMeses.Name = "ProximaTomaEmMeses";
+            ProximaTomaEmMeses.ReadOnly = true;
+            ProximaTomaEmMeses.Visible = false;
+            // 
+            // DataProximaToma
+            // 
+            DataProximaToma.DataPropertyName = "DataProximaToma";
+            DataProximaToma.HeaderText = "Próxima";
+            DataProximaToma.Name = "DataProximaToma";
+            DataProximaToma.ReadOnly = true;
+            DataProximaToma.Width = 120;
+            // 
+            // DiasParaProximaToma
+            // 
+            DiasParaProximaToma.DataPropertyName = "DiasParaProximaToma";
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(64, 64, 64);
+            DiasParaProximaToma.DefaultCellStyle = dataGridViewCellStyle3;
+            DiasParaProximaToma.HeaderText = "Dias";
+            DiasParaProximaToma.Name = "DiasParaProximaToma";
+            DiasParaProximaToma.ReadOnly = true;
+            DiasParaProximaToma.Width = 50;
             // 
             // frmPetStats
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1026, 533);
+            ClientSize = new Size(1026, 556);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(dgvDewormers);
@@ -262,16 +262,16 @@
         private DataGridView dgvDewormers;
         private Label label1;
         private Label label2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn DataAplicacao;
+        private DataGridViewTextBoxColumn DataProximaAplicacao;
+        private DataGridViewTextBoxColumn DiasParaProximaAplicacao;
         private DataGridViewTextBoxColumn NomePet;
         private DataGridViewTextBoxColumn Marca;
         private DataGridViewTextBoxColumn DataToma;
         private DataGridViewTextBoxColumn ProximaTomaEmMeses;
         private DataGridViewTextBoxColumn DataProximaToma;
         private DataGridViewTextBoxColumn DiasParaProximaToma;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private DataGridViewTextBoxColumn DataAplicacao;
-        private DataGridViewTextBoxColumn DataProximaAplicacao;
-        private DataGridViewTextBoxColumn DiasParaProximaAplicacao;
     }
 }

@@ -2,6 +2,7 @@
 using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
+using DaisyPets.UI.ApiServices;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
 using System.Collections;
@@ -20,6 +21,9 @@ namespace DaisyPets.UI.Expenses
         protected int CategoryID { get; set; }
         protected int TipoDespesaId { get; set; }
 
+        private string ExpenseTypesApiEndpoint { get; set; } = string.Empty;
+        private string LookupTablesApiEndpoint { get; set; } = string.Empty;
+
         private int _previousIndex;
         private bool _sortDirection;
 
@@ -28,6 +32,9 @@ namespace DaisyPets.UI.Expenses
         {
             InitializeComponent();
             dgvTipoDespesas.AutoGenerateColumns = false;
+            ExpenseTypesApiEndpoint = AccessSettingsService.TipoDespesaEndpoint;
+            LookupTablesApiEndpoint = AccessSettingsService.LookupTablesEndpoint;
+
             FillCombo(cboCategories, "CategoriaDespesa");
 
             if (dgvTipoDespesas.RowCount > 0)
@@ -45,7 +52,7 @@ namespace DaisyPets.UI.Expenses
 
         private IEnumerable<TipoDespesaVM> GetExpenseTypesVM()
         {
-            string url = "https://localhost:7161/api/TipoDespesas/AllTipoDespesasVM";
+            string url = $"{ExpenseTypesApiEndpoint}/AllTipoDespesasVM";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetAsync(url);
@@ -70,7 +77,7 @@ namespace DaisyPets.UI.Expenses
 
         private IEnumerable<TipoDespesaDto> GetExpenseTypes()
         {
-            string url = $"https://localhost:7161/api/tipodespesas/AllTipoDespesas";
+            string url = $"{ExpenseTypesApiEndpoint}/AllTipoDespesas";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetAsync(url);
@@ -93,7 +100,7 @@ namespace DaisyPets.UI.Expenses
 
         private TipoDespesaDto GetExpenseType(int Id)
         {
-            string url = $"https://localhost:7161/api/tipodespesas/TipoDespesaById/{Id}";
+            string url = $"{ExpenseTypesApiEndpoint}/TipoDespesaById/{Id}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetAsync(url);
@@ -127,7 +134,7 @@ namespace DaisyPets.UI.Expenses
         private void FillCombo(ComboBox comboBox, string dataTable)
         {
             comboBox.Items.Clear();
-            string url = $"https://localhost:7161/api/LookupTables/GetAllRecords/{dataTable}";
+            string url = $"{LookupTablesApiEndpoint}/GetAllRecords/{dataTable}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetFromJsonAsync<IEnumerable<CategoriaDespesa>>(url);
@@ -151,7 +158,7 @@ namespace DaisyPets.UI.Expenses
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
-            string url = "https://localhost:7161/api/TipoDespesas";
+            string url = ExpenseTypesApiEndpoint;
 
             var validationErrors = ValidateExpenseType();
 
@@ -241,7 +248,7 @@ namespace DaisyPets.UI.Expenses
                     IdCategoriaDespesa = CategoryID
                 };
 
-                string url = $"https://localhost:7161/api/TipoDespesas/ValidateExpenseType";
+                string url = $"{ExpenseTypesApiEndpoint}/ValidateExpenseType";
                 using (HttpClient httpClient = new HttpClient())
                 {
 
@@ -384,7 +391,7 @@ namespace DaisyPets.UI.Expenses
                 IdCategoriaDespesa = CategoryID
             };
 
-            string url = $"https://localhost:7161/api/tipodespesas/{TipoDespesaId}";
+            string url = $"{ExpenseTypesApiEndpoint}/{TipoDespesaId}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -428,7 +435,7 @@ namespace DaisyPets.UI.Expenses
 
         private async Task DeleteExpenseType()
         {
-            string url = $"https://localhost:7161/api/tipodespesas/{TipoDespesaId}";
+            string url = $"{ExpenseTypesApiEndpoint}/{TipoDespesaId}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())

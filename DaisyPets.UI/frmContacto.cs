@@ -27,16 +27,16 @@ namespace DaisyPets.UI.Properties
             gdvContacts.AutoGenerateColumns = false;
             FillCombo(cboTipoContacto, "TipoContacto");
 
-            if (gdvContacts.RowCount > 0)
-            {
-                gdvContacts.CurrentCell = gdvContacts.Rows[0].Cells[0];
-                gdvContacts.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(gdvContacts.Rows[0].Cells[0].Value);
-                ShowRecord(firstRowId);
-            }
-
             ClearForm();
             RefreshContacts();
+
+            if (gdvContacts.RowCount > 0)
+            {
+                gdvContacts.Rows[0].Selected = true;
+                var arg = new DataGridViewCellEventArgs(0, 0);
+                gdvContacts_CellClick(gdvContacts, arg);
+            }
+
         }
 
         private void frmContacto_Load(object sender, EventArgs e)

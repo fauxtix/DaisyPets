@@ -5,6 +5,7 @@ using Syncfusion.Pdf.Parsing;
 using Syncfusion.Windows.Forms;
 using System.Net.Http.Json;
 using System.Text;
+using System.Windows.Forms;
 using static DaisyPets.Core.Application.Enums.Common;
 using DataFormat = DaisyPets.Core.Application.Formatting.DataFormat;
 
@@ -28,16 +29,17 @@ namespace DaisyPets.UI
             _petId = PetId;
             fileUploaded = false;
             dgvDocuments.AutoGenerateColumns = false;
+            ClearForm();
+            FillGrid();
+
             if (dgvDocuments.RowCount > 0)
             {
                 //dgvDocuments.CurrentCell = dgvDocuments.Rows[0].Cells[0];
                 dgvDocuments.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(dgvDocuments.Rows[0].Cells[0].Value);
-                ShowRecord(firstRowId);
+                var arg = new DataGridViewCellEventArgs(0, 0);
+                dgvDocuments_CellClick(dgvDocuments, arg);
             }
 
-            ClearForm();
-            FillGrid();
         }
 
         private void btnBrowseDocument_Click(object sender, EventArgs e)
@@ -182,7 +184,7 @@ namespace DaisyPets.UI
                     ShowHideFileUploadedInfo(true);
 
                     SetToolbar(OpcoesRegisto.Gravar);
-                    SelectRowInGrid();
+                    //SelectRowInGrid();
                 }
                 else
                 {
@@ -432,7 +434,6 @@ namespace DaisyPets.UI
             if (DocumentId == 0)
                 DocumentId = DataFormat.GetInteger(txtId.Text);
 
-            var selectedRowIndex = dgvDocuments.SelectedRows[0].Index;
             var updateAppt = new DocumentoDto()
             {
                 Id = int.Parse(txtId.Text),
@@ -458,7 +459,6 @@ namespace DaisyPets.UI
                 SetToolbar(OpcoesRegisto.Gravar);
 
 
-                dgvDocuments.Rows[selectedRowIndex].Selected = true;
                 MessageBoxAdv.Show("Operação terminada com sucesso,", "Atualização de dados", MessageBoxButtons.OK);
             }
             catch (Exception ex)

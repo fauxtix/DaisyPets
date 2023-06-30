@@ -14,5 +14,6 @@ namespace DaisyPets.Core.Application.Interfaces.Application
         Task<IEnumerable<PetVM>> GetAllVMAsync();
         Task<IEnumerable<Peso>> GetPesos();
         Task<string> GetDescriptionBySizeAndMonths(int IdTamanho, int meses);
+        Task<bool> CanPetBeDeleted(int Id);
     }
 }

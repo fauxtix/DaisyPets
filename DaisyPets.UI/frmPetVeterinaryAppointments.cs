@@ -28,16 +28,16 @@ namespace DaisyPets.UI
             }
 
             dgvAppts.AutoGenerateColumns = false;
-            if (dgvAppts.RowCount > 0)
-            {
-                dgvAppts.CurrentCell = dgvAppts.Rows[0].Cells[0];
-                dgvAppts.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(dgvAppts.Rows[0].Cells[0].Value);
-                ShowRecord(firstRowId);
-            }
-
             ClearForm();
             FillGrid();
+
+            if (dgvAppts.RowCount > 0)
+            {
+                dgvAppts.Rows[0].Selected = true;
+                var arg = new DataGridViewCellEventArgs(0, 0);
+                dgvAppts_CellClick(dgvAppts, arg);
+            }
+
         }
 
         private void btnInsert_Click(object sender, EventArgs e)

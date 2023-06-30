@@ -217,6 +217,7 @@
             filterFromDateTime.Size = new Size(222, 23);
             filterFromDateTime.TabIndex = 0;
             filterFromDateTime.Value = new DateTime(2023, 6, 1, 0, 0, 0, 0);
+            filterFromDateTime.ValueChanged += filterFromDateTime_ValueChanged;
             // 
             // filterToDateTime
             // 
@@ -227,6 +228,7 @@
             filterToDateTime.Size = new Size(222, 23);
             filterToDateTime.TabIndex = 4;
             filterToDateTime.Value = new DateTime(2023, 6, 30, 0, 0, 0, 0);
+            filterToDateTime.ValueChanged += filterToDateTime_ValueChanged;
             // 
             // labelFilterTo
             // 

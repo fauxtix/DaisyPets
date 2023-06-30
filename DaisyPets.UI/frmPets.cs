@@ -26,7 +26,6 @@ namespace DaisyPets.UI
         private int IdPet = 0;
 
         private bool nonNumberEntered = false;
-        private string ApiBaseAddress { get; set; } = string.Empty;
         private string PetsApiEndpoint { get; set; } = string.Empty;
         private string MailMergeApiEndpoint { get; set; } = string.Empty;
 
@@ -39,9 +38,8 @@ namespace DaisyPets.UI
         {
             InitializeComponent();
 
-            ApiBaseAddress = AccessSettingsService.BaseAddressSetting(); // $"{ReadSetting("ApiBaseAddress")}";
-            PetsApiEndpoint = AccessSettingsService.PetsEndpoint(); // $"{ApiBaseAddress}/Pets";
-            MailMergeApiEndpoint = AccessSettingsService.MailMergeEndpoint(); // $"{ ApiBaseAddress}/Mailmerge";
+            PetsApiEndpoint = AccessSettingsService.PetsEndpoint;
+            MailMergeApiEndpoint = AccessSettingsService.MailMergeEndpoint;
 
             gdvDados.AutoGenerateColumns = false;
             Pesos = GetPesos();
@@ -54,16 +52,16 @@ namespace DaisyPets.UI
 
             //FillComboPesos();
 
-            if (gdvDados.RowCount > 0)
-            {
-                gdvDados.CurrentCell = gdvDados.Rows[0].Cells[0];
-                gdvDados.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(gdvDados.Rows[0].Cells[0].Value);
-                ShowRecord(firstRowId);
-            }
-
             ClearForm();
             FillGrid();
+
+            if (gdvDados.RowCount > 0)
+            {
+                gdvDados.Rows[0].Selected = true;
+                var arg = new DataGridViewCellEventArgs(0, 0);
+                gdvDados_CellClick(gdvDados, arg);
+            }
+
 
         }
 
@@ -517,7 +515,7 @@ namespace DaisyPets.UI
         private void FillCombo(ComboBox comboBox, string dataTable)
         {
             comboBox.Items.Clear();
-            var lookupEndpoint = AccessSettingsService.LookupTablesEndpoint();
+            var lookupEndpoint = AccessSettingsService.LookupTablesEndpoint;
             string url = $"{lookupEndpoint}/GetAllRecords/{dataTable}";
             using (HttpClient httpClient = new HttpClient())
             {

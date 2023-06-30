@@ -16,9 +16,15 @@ namespace DaisyPets.Infrastructure.Services
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task DeleteAsync(int Id)
+        public async Task<bool> DeleteAsync(int Id)
         {
+            if(await _repository.CanPetBeDeleted(Id))
+            {
+                return false;
+            }
+
             await _repository.DeleteAsync(Id);
+            return true;
         }
 
         public async Task<PetDto> FindByIdAsync(int Id)

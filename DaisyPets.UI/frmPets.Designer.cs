@@ -135,7 +135,7 @@
             gdvDados.RowTemplate.DefaultCellStyle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             gdvDados.RowTemplate.Height = 32;
             gdvDados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            gdvDados.Size = new Size(1216, 210);
+            gdvDados.Size = new Size(1145, 210);
             gdvDados.TabIndex = 17;
             gdvDados.CellClick += gdvDados_CellClick;
             gdvDados.CellContentClick += gdvDados_CellContentClick;
@@ -144,13 +144,14 @@
             // btnInsert
             // 
             btnInsert.BackColor = Color.SteelBlue;
+            btnInsert.FlatStyle = FlatStyle.Flat;
             btnInsert.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnInsert.ForeColor = Color.White;
             btnInsert.Image = Properties.Resources.Clear;
             btnInsert.ImageAlign = ContentAlignment.MiddleLeft;
             btnInsert.Location = new Point(33, 419);
             btnInsert.Name = "btnInsert";
-            btnInsert.Size = new Size(98, 39);
+            btnInsert.Size = new Size(108, 39);
             btnInsert.TabIndex = 18;
             btnInsert.Text = "Add ";
             btnInsert.TextAlign = ContentAlignment.MiddleRight;
@@ -627,13 +628,14 @@
             // btnUpdate
             // 
             btnUpdate.BackColor = Color.ForestGreen;
+            btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnUpdate.ForeColor = Color.White;
             btnUpdate.Image = Properties.Resources.save32;
             btnUpdate.ImageAlign = ContentAlignment.MiddleLeft;
             btnUpdate.Location = new Point(157, 419);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(98, 39);
+            btnUpdate.Size = new Size(108, 39);
             btnUpdate.TabIndex = 19;
             btnUpdate.Text = "Update ";
             btnUpdate.TextAlign = ContentAlignment.MiddleRight;
@@ -643,13 +645,14 @@
             // btnDelete
             // 
             btnDelete.BackColor = Color.Red;
+            btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnDelete.ForeColor = Color.White;
             btnDelete.Image = Properties.Resources._678080_shield_error_32;
             btnDelete.ImageAlign = ContentAlignment.MiddleLeft;
             btnDelete.Location = new Point(281, 419);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(98, 39);
+            btnDelete.Size = new Size(108, 39);
             btnDelete.TabIndex = 20;
             btnDelete.Text = "Delete ";
             btnDelete.TextAlign = ContentAlignment.MiddleRight;
@@ -663,13 +666,14 @@
             // btnClear
             // 
             btnClear.BackColor = Color.White;
+            btnClear.FlatStyle = FlatStyle.Flat;
             btnClear.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnClear.ForeColor = Color.Black;
             btnClear.Image = Properties.Resources.edit_clear_32x32;
             btnClear.ImageAlign = ContentAlignment.MiddleLeft;
             btnClear.Location = new Point(461, 419);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(98, 39);
+            btnClear.Size = new Size(108, 39);
             btnClear.TabIndex = 21;
             btnClear.Text = "Clear ";
             btnClear.TextAlign = ContentAlignment.MiddleRight;
@@ -679,13 +683,14 @@
             // btnGeneratePdf
             // 
             btnGeneratePdf.BackColor = Color.WhiteSmoke;
+            btnGeneratePdf.FlatStyle = FlatStyle.Flat;
             btnGeneratePdf.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             btnGeneratePdf.ForeColor = Color.Black;
             btnGeneratePdf.Image = Properties.Resources.print_pdf2;
             btnGeneratePdf.ImageAlign = ContentAlignment.MiddleLeft;
-            btnGeneratePdf.Location = new Point(1070, 413);
+            btnGeneratePdf.Location = new Point(19, 403);
             btnGeneratePdf.Name = "btnGeneratePdf";
-            btnGeneratePdf.Size = new Size(103, 53);
+            btnGeneratePdf.Size = new Size(131, 53);
             btnGeneratePdf.TabIndex = 22;
             btnGeneratePdf.Text = "Pdf  ";
             btnGeneratePdf.TextAlign = ContentAlignment.MiddleRight;
@@ -702,7 +707,7 @@
             btnVaccines.ForeColor = Color.Black;
             btnVaccines.Image = (Image)resources.GetObject("btnVaccines.Image");
             btnVaccines.ImageAlign = ContentAlignment.MiddleRight;
-            btnVaccines.Location = new Point(19, 132);
+            btnVaccines.Location = new Point(19, 137);
             btnVaccines.Name = "btnVaccines";
             btnVaccines.Size = new Size(131, 48);
             btnVaccines.TabIndex = 24;
@@ -715,13 +720,14 @@
             // 
             panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(btnDocs);
+            panel2.Controls.Add(btnGeneratePdf);
             panel2.Controls.Add(btnDewormers);
             panel2.Controls.Add(btnDogFood);
             panel2.Controls.Add(btnAppts);
             panel2.Controls.Add(btnVaccines);
             panel2.Location = new Point(1183, 8);
             panel2.Name = "panel2";
-            panel2.Size = new Size(175, 400);
+            panel2.Size = new Size(175, 464);
             panel2.TabIndex = 25;
             // 
             // btnDocs
@@ -753,7 +759,7 @@
             btnDewormers.ForeColor = Color.Black;
             btnDewormers.Image = (Image)resources.GetObject("btnDewormers.Image");
             btnDewormers.ImageAlign = ContentAlignment.BottomRight;
-            btnDewormers.Location = new Point(19, 327);
+            btnDewormers.Location = new Point(19, 299);
             btnDewormers.Name = "btnDewormers";
             btnDewormers.Size = new Size(131, 64);
             btnDewormers.TabIndex = 27;
@@ -772,7 +778,7 @@
             btnDogFood.ForeColor = Color.Black;
             btnDogFood.Image = (Image)resources.GetObject("btnDogFood.Image");
             btnDogFood.ImageAlign = ContentAlignment.MiddleRight;
-            btnDogFood.Location = new Point(19, 262);
+            btnDogFood.Location = new Point(19, 245);
             btnDogFood.Name = "btnDogFood";
             btnDogFood.Size = new Size(131, 48);
             btnDogFood.TabIndex = 26;
@@ -791,7 +797,7 @@
             btnAppts.ForeColor = Color.Black;
             btnAppts.Image = (Image)resources.GetObject("btnAppts.Image");
             btnAppts.ImageAlign = ContentAlignment.MiddleRight;
-            btnAppts.Location = new Point(19, 197);
+            btnAppts.Location = new Point(19, 191);
             btnAppts.Name = "btnAppts";
             btnAppts.Size = new Size(131, 48);
             btnAppts.TabIndex = 25;
@@ -808,6 +814,7 @@
             Id.HeaderText = "Id";
             Id.Name = "Id";
             Id.ReadOnly = true;
+            Id.Visible = false;
             Id.Width = 60;
             // 
             // Nome
@@ -909,7 +916,6 @@
             CaptionLabels.Add(captionLabel2);
             ClientSize = new Size(1359, 694);
             Controls.Add(panel2);
-            Controls.Add(btnGeneratePdf);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);

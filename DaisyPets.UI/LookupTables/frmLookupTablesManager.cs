@@ -48,7 +48,7 @@ namespace DaisyPets.UI.LookupTables
 
             lblTableName.Text = tableDescription;
 
-            _apiEndPoint = AccessSettingsService.LookupTablesEndpoint();
+            _apiEndPoint = AccessSettingsService.LookupTablesEndpoint;
 
             if (dgvLookupTables.RowCount > 0)
             {

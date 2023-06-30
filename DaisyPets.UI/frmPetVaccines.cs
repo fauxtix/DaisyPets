@@ -26,16 +26,16 @@ namespace DaisyPets.UI
             nupPrxToma.Value = 18;
 
             dgvVacinas.AutoGenerateColumns = false;
-            if (dgvVacinas.RowCount > 0)
-            {
-                dgvVacinas.CurrentCell = dgvVacinas.Rows[0].Cells[0];
-                dgvVacinas.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(dgvVacinas.Rows[0].Cells[0].Value);
-                ShowRecord(firstRowId);
-            }
-
             ClearForm();
             FillGrid();
+
+            if (dgvVacinas.RowCount > 0)
+            {
+                dgvVacinas.Rows[0].Selected = true;
+                var arg = new DataGridViewCellEventArgs(0, 0);
+                dgvVacinas_CellClick(dgvVacinas, arg);
+            }
+
         }
 
         private void FillGrid()

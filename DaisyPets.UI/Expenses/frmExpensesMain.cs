@@ -1,6 +1,7 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
+using DaisyPets.UI.ApiServices;
 using Syncfusion.Windows.Forms;
 using System.Collections;
 using System.Net.Http.Json;
@@ -12,18 +13,25 @@ namespace DaisyPets.UI.Expenses
     {
         private int IdExpense = 0;
         private int IdCategoriaDespesa;
+        private string ExpensesApiEndpoint { get; set; } = string.Empty;
+        private string LookupTablesApiEndpoint { get; set; } = string.Empty;
+
         private decimal totalExpenses { get; set; }
         private decimal totalFilteredExpenses { get; set; }
         private int _previousIndex;
         private bool _sortDirection;
         private IEnumerable<DespesaVM> listOfExpenses { get; set; }
 
+        private DateTime dStart;
+        private DateTime dEnd;
 
         public frmExpensesMain()
         {
             InitializeComponent();
             dgvExpenses.AutoGenerateColumns = false;
             totalFilteredExpenses = 0M;
+            ExpensesApiEndpoint = AccessSettingsService.DespesasEndpoint;
+            LookupTablesApiEndpoint = AccessSettingsService.LookupTablesEndpoint;
             listOfExpenses = GetExpenses();
             FillCombo(cboCategoryTypes, "CategoriaDespesa");
 
@@ -48,7 +56,7 @@ namespace DaisyPets.UI.Expenses
         private void FillCombo(ComboBox comboBox, string dataTable)
         {
             comboBox.Items.Clear();
-            string url = $"https://localhost:7161/api/LookupTables/GetAllRecords/{dataTable}";
+            string url = $"{LookupTablesApiEndpoint}/GetAllRecords/{dataTable}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(url);
@@ -74,7 +82,7 @@ namespace DaisyPets.UI.Expenses
 
         private IEnumerable<DespesaVM> GetExpenses()
         {
-            string url = $"https://localhost:7161/api/Despesa/AllVMAsync";
+            string url = $"{ExpensesApiEndpoint}/AllVMAsync";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -160,7 +168,7 @@ namespace DaisyPets.UI.Expenses
 
         private async Task<DespesaDto> GeExpense(int Id)
         {
-            string url = $"https://localhost:7161/api/despesa/{Id}";
+            string url = $"{ExpensesApiEndpoint}/{Id}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var _expense = await httpClient.GetFromJsonAsync<DespesaDto>(url);
@@ -222,22 +230,28 @@ namespace DaisyPets.UI.Expenses
 
         private void checkBoxFilterDateTime_CheckStateChanged(object sender, EventArgs e)
         {
+            var dStart = filterFromDateTime.Value;
+
+            cboCategoryTypes.Enabled = checkBoxFilterDateTime.Checked;
+
             labelFilterFrom.Enabled = checkBoxFilterDateTime.Checked;
             labelFilterTo.Enabled = checkBoxFilterDateTime.Checked;
             filterFromDateTime.Enabled = checkBoxFilterDateTime.Checked;
             filterToDateTime.Enabled = checkBoxFilterDateTime.Checked;
             if (checkBoxFilterDateTime.Checked == false)
             {
-                listOfExpenses = GetExpenses();
+                cboCategoryTypes.Enabled = true;
+                FillGrid(); // all expenses
+            }
+            else
+            {
+                cboCategoryTypes.Enabled = false;
+
             }
         }
 
         private void filterFromDateTime_ValueChanged(object sender, EventArgs e)
         {
-            var fromDate = filterFromDateTime.Value;
-            var toDate = filterToDateTime.Value;
-            listOfExpenses = listOfExpenses.Where(o => DateTime.Parse(o.DataMovimento) >= fromDate && DateTime.Parse(o.DataMovimento) <= toDate);
-            FillGrid();
         }
 
         private void filterToDateTime_ValueChanged(object sender, EventArgs e)
@@ -245,7 +259,10 @@ namespace DaisyPets.UI.Expenses
             var fromDate = filterFromDateTime.Value;
             var toDate = filterToDateTime.Value;
             listOfExpenses = listOfExpenses.Where(o => DateTime.Parse(o.DataMovimento) >= fromDate && DateTime.Parse(o.DataMovimento) <= toDate);
-            FillGrid();
+            if (listOfExpenses.Any())
+            {
+                dgvExpenses.DataSource = listOfExpenses?.ToList();
+            }
         }
 
         private void dgvExpenses_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -261,7 +278,7 @@ namespace DaisyPets.UI.Expenses
 
         private async void btnDelete_Click(object sender, EventArgs e)
         {
-            if(dgvExpenses.Rows.Count == 0)
+            if (dgvExpenses.Rows.Count == 0)
             {
                 MessageBoxAdv.Show("Sem registos para apagar...", "Apagar despesa");
                 SetToolbar_Clear();
@@ -279,7 +296,7 @@ namespace DaisyPets.UI.Expenses
 
         private async Task DeleteExpense()
         {
-            string url = $"https://localhost:7161/api/Despesa/{IdExpense}";
+            string url = $"{ExpensesApiEndpoint}/{IdExpense}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var response = await httpClient.DeleteAsync(url);

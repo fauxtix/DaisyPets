@@ -1,7 +1,6 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels;
 using FluentValidation;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
 namespace DaisyPets.WebApi.Validators
 {
@@ -10,6 +9,9 @@ namespace DaisyPets.WebApi.Validators
     /// </summary>
     public class PetValidator : AbstractValidator<PetDto>
     {
+        /// <summary>
+        /// Pet Validator
+        /// </summary>
         public PetValidator()
         {
             RuleFor(p => p.Nome)
@@ -44,7 +46,7 @@ namespace DaisyPets.WebApi.Validators
             RuleFor(p => p.NumeroChip)
                 .NotNull()
                 .NotEmpty().WithMessage("Número do chip é requerido")
-                .Length(15).WithMessage("Número do Chip deverá ter 15 dígitos")
+                .MaximumLength(40).WithMessage("Número do Chip deverá ter, no máximo, 40 caracteres")
                 .Must(BeAValidNumber).WithMessage("Número do Chip deve ser numérico")
                 .When(o => o.Chipado == 1);
         }
@@ -59,9 +61,8 @@ namespace DaisyPets.WebApi.Validators
             var parsedDate = DateTime.Parse(date);
             if (!DataFormat.IsValidDate(parsedDate))
                 return false;
-            else if(parsedDate.Date >= DateTime.Now.Date)
+            else if (parsedDate.Date >= DateTime.Now.Date)
                 return false;
-
 
             return true;
         }
@@ -75,11 +76,9 @@ namespace DaisyPets.WebApi.Validators
         {
             if (!DataFormat.IsNumeric(numero))
                 return false;
-            else if(string.IsNullOrEmpty(numero))
+            else if (string.IsNullOrEmpty(numero))
                 return false;
             return true;
         }
-
-
     }
 }

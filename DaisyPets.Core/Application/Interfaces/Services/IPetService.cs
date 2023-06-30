@@ -7,7 +7,7 @@ namespace DaisyPets.Core.Application.Interfaces.Services
     {
         Task<int> InsertAsync(PetDto pet);
         Task UpdateAsync(int Id, PetDto pet);
-        Task DeleteAsync(int Id);
+        Task<bool> DeleteAsync(int Id);
         Task<IEnumerable<PetDto>> GetAllAsync();
         Task<PetDto> FindByIdAsync(int Id);
         Task<PetVM> GetPetVMAsync(int Id);

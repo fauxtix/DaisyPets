@@ -143,7 +143,7 @@ namespace DaisyPets.UI
         private bool DoLogOff()
         {
 
-            DialogResult dr = MessageBoxAdv.Show("Quer mesmo sair da aplicação?", "HouseRentalSoft",
+            DialogResult dr = MessageBoxAdv.Show("Quer mesmo sair da aplicação?", "Daisy Pets",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             bool retValue = false;
             if (dr == DialogResult.Yes)

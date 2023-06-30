@@ -1,8 +1,9 @@
 ﻿using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.UI.ApiServices;
 using Syncfusion.Windows.Forms;
 using Syncfusion.WinForms.Controls;
+using System.Configuration;
 using System.Data;
-using System.Windows.Forms;
 
 namespace DaisyPets.UI.Stats
 {
@@ -11,15 +12,26 @@ namespace DaisyPets.UI.Stats
         IEnumerable<VacinaVM> Vaccines { get; set; }
         IEnumerable<DesparasitanteVM> Dewormers { get; set; }
 
+        private string VaccinesApiEndpoint { get; set; } = string.Empty;
+        private string DewormersApiEndpoint { get; set; } = string.Empty;
+
+        private int daysToAlertVaccines = 0;
+        private int daysToAlertDewormers = 0;
+
         private int _previousIndex;
         private bool _sortDirection;
 
         public frmPetStats()
         {
             InitializeComponent();
+            daysToAlertVaccines = int.Parse(ConfigurationManager.AppSettings["DiasAvisoVacinas"]);
+            daysToAlertDewormers = int.Parse(ConfigurationManager.AppSettings["DiasAvisoDesparasitantes"]);
 
             dgvVaccines.AutoGenerateColumns = false;
             dgvDewormers.AutoGenerateColumns = false;
+
+            VaccinesApiEndpoint = AccessSettingsService.VacinacoesEndpoint;
+            DewormersApiEndpoint = AccessSettingsService.DesparasitantesEndpoint;
 
             Vaccines = GetVaccines();
             Dewormers = GetDewormers();
@@ -30,7 +42,7 @@ namespace DaisyPets.UI.Stats
 
         private IEnumerable<VacinaVM> GetVaccines()
         {
-            string url = $"https://localhost:7161/api/vacinacao/AllVacinasVM";
+            string url = $"{VaccinesApiEndpoint}/AllVacinasVM";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -89,7 +101,7 @@ namespace DaisyPets.UI.Stats
 
         private IEnumerable<DesparasitanteVM> GetDewormers()
         {
-            string url = $"https://localhost:7161/api/Desparasitante/AllWormersVM";
+            string url = $"{DewormersApiEndpoint}/AllWormersVM";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -168,11 +180,21 @@ namespace DaisyPets.UI.Stats
                 return;
             }
 
-            if (Convert.ToInt32(dgvVaccines.Rows[e.RowIndex].Cells["DiasParaProximaToma"].Value) < 400)
+            var _days = Convert.ToInt32(dgvVaccines.Rows[e.RowIndex].Cells["DiasParaProximaToma"].Value);
+            var orangeAlert = daysToAlertVaccines;
+            var redAlert = daysToAlertVaccines / 2;
+
+            if (_days <= redAlert)
             {
                 dgvVaccines.Rows[e.RowIndex].Cells["DiasParaProximaToma"].Style.BackColor = Color.Red;
                 dgvVaccines.Rows[e.RowIndex].Cells["DiasParaProximaToma"].Style.ForeColor = Color.White;
             }
+            else if (_days > redAlert && _days <= orangeAlert)
+            {
+                dgvVaccines.Rows[e.RowIndex].Cells["DiasParaProximaToma"].Style.BackColor = Color.Orange;
+                dgvVaccines.Rows[e.RowIndex].Cells["DiasParaProximaToma"].Style.ForeColor = Color.Black;
+            }
+
         }
 
         public List<VacinaVM> SortVaccines(List<VacinaVM> list, string column, bool ascending)
@@ -220,12 +242,14 @@ namespace DaisyPets.UI.Stats
             }
 
             var _days = Convert.ToInt32(dgvDewormers.Rows[e.RowIndex].Cells["DiasParaProximaAplicacao"].Value);
-            if (_days <= 15)
+            var orangeAlert = daysToAlertDewormers;
+            var redAlert = daysToAlertDewormers / 2;
+            if (_days <= redAlert)
             {
                 dgvDewormers.Rows[e.RowIndex].Cells["DiasParaProximaAplicacao"].Style.BackColor = Color.Red;
                 dgvDewormers.Rows[e.RowIndex].Cells["DiasParaProximaAplicacao"].Style.ForeColor = Color.White;
             }
-            else if (_days > 15 && _days <= 60)
+            else if (_days > redAlert && _days <= orangeAlert)
             {
                 dgvDewormers.Rows[e.RowIndex].Cells["DiasParaProximaAplicacao"].Style.BackColor = Color.Orange;
                 dgvDewormers.Rows[e.RowIndex].Cells["DiasParaProximaAplicacao"].Style.ForeColor = Color.Black;
