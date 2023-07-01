@@ -23,6 +23,7 @@ namespace DaisyPets.Infrastructure.Repositories
             StringBuilder sql = new StringBuilder();
             sql.Append("SELECT Id, Descricao ");
             sql.Append($"FROM {tableName} ");
+            sql.Append("ORDER BY Descricao");
 
             using (var connection = _context.CreateConnection())
             {
@@ -199,14 +200,11 @@ namespace DaisyPets.Infrastructure.Repositories
         /// <param name="Descricao"></param>
         /// <param name="Tabela"></param>
         /// <returns></returns>
-        public async Task<int> GetId(string Descricao, string Tabela)
+        public async Task<int> GetId(string descricao, string tabela)
         {
-            string descricao = "Descricao";
-            string codigo = "Id";
-
             DynamicParameters paramCollection = new DynamicParameters();
-            paramCollection.Add("@Descricao", Descricao);
-            string Query = $"SELECT {codigo} FROM {Tabela} WHERE {descricao} = @Descricao";
+            paramCollection.Add("@Descricao", descricao);
+            string Query = $"SELECT Id FROM {tabela} WHERE Descricao = @Descricao";
 
             try
             {

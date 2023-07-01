@@ -199,6 +199,7 @@
             dgvLookupTables.Size = new Size(545, 263);
             dgvLookupTables.TabIndex = 40;
             dgvLookupTables.CellClick += dgvLookupTables_CellClick;
+            dgvLookupTables.ColumnHeaderMouseClick += dgvLookupTables_ColumnHeaderMouseClick;
             // 
             // Id
             // 

@@ -16,7 +16,7 @@ namespace DaisyPets.UI.ApiServices
         public static readonly string PetsEndpoint = $"{BaseAddressSetting}/Pets";
         public static readonly string RacoesEndpoint = $"{BaseAddressSetting}/Racao";
         public static readonly string ServerPdfEndpoint = $"{BaseAddressSetting}/ServerPdf";
-        public static readonly string TipoDespesaEndpoint = $"{BaseAddressSetting}/TipoDespesa";
+        public static readonly string TipoDespesaEndpoint = $"{BaseAddressSetting}/TipoDespesas";
         public static readonly string VacinacoesEndpoint = $"{BaseAddressSetting}/Vacinacao";
 
 

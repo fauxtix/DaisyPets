@@ -1,4 +1,5 @@
 ﻿using DaisyPets.Core.Application.Formatting;
+using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.UI.ApiServices;
 using Newtonsoft.Json;
@@ -16,6 +17,10 @@ namespace DaisyPets.UI.LookupTables
         protected string tableToCheck = string.Empty;
         protected string tableDescription = string.Empty;
         protected string fieldToCheck = string.Empty;
+
+        private int _previousIndex;
+        private bool _sortDirection;
+
         public frmLookupTablesManager(string tableName = "")
         {
             InitializeComponent();
@@ -50,16 +55,16 @@ namespace DaisyPets.UI.LookupTables
 
             _apiEndPoint = AccessSettingsService.LookupTablesEndpoint;
 
-            if (dgvLookupTables.RowCount > 0)
-            {
-                dgvLookupTables.CurrentCell = dgvLookupTables.Rows[0].Cells[0];
-                dgvLookupTables.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(dgvLookupTables.Rows[0].Cells[0].Value);
-                ShowRecord(firstRowId);
-            }
-
             ClearForm();
             FillGrid();
+
+            if (dgvLookupTables.RowCount > 0)
+            {
+                dgvLookupTables.Rows[0].Selected = true;
+                var arg = new DataGridViewCellEventArgs(0, 0);
+                dgvLookupTables_CellClick(dgvLookupTables, arg);
+            }
+
 
         }
 
@@ -389,5 +394,25 @@ namespace DaisyPets.UI.LookupTables
                 return true;
             }
         }
+
+        private void dgvLookupTables_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == _previousIndex)
+                _sortDirection ^= true; // toggle direction
+
+            dgvLookupTables.DataSource = SortData(
+                (List<LookupTableVM>)dgvLookupTables.DataSource, dgvLookupTables.Columns[e.ColumnIndex].Name, _sortDirection);
+
+            _previousIndex = e.ColumnIndex;
+
+        }
+
+        public List<LookupTableVM> SortData(List<LookupTableVM> list, string column, bool ascending)
+        {
+            return ascending ?
+                list.OrderBy(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList() :
+                list.OrderByDescending(_ => _.GetType().GetProperty(column)?.GetValue(_)).ToList();
+        }
+
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             Syncfusion.Windows.Forms.CaptionImage captionImage1 = new Syncfusion.Windows.Forms.CaptionImage();
@@ -48,8 +49,10 @@
             label1 = new Label();
             txtDescricao = new TextBox();
             cboCategories = new ComboBox();
+            tipoDespesaVMBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)dgvTipoDespesas).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)tipoDespesaVMBindingSource).BeginInit();
             SuspendLayout();
             // 
             // dgvTipoDespesas
@@ -186,7 +189,7 @@
             panel1.Controls.Add(cboCategories);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(450, 130);
+            panel1.Size = new Size(487, 130);
             panel1.TabIndex = 30;
             // 
             // txtId
@@ -221,20 +224,24 @@
             // txtDescricao
             // 
             txtDescricao.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtDescricao.Location = new Point(201, 75);
+            txtDescricao.Location = new Point(187, 75);
             txtDescricao.Name = "txtDescricao";
-            txtDescricao.Size = new Size(235, 29);
+            txtDescricao.Size = new Size(272, 29);
             txtDescricao.TabIndex = 6;
             // 
             // cboCategories
             // 
             cboCategories.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             cboCategories.FormattingEnabled = true;
-            cboCategories.Location = new Point(201, 27);
+            cboCategories.Location = new Point(187, 27);
             cboCategories.Name = "cboCategories";
-            cboCategories.Size = new Size(235, 29);
+            cboCategories.Size = new Size(272, 29);
             cboCategories.TabIndex = 5;
             cboCategories.SelectedIndexChanged += cboCategories_SelectedIndexChanged;
+            // 
+            // tipoDespesaVMBindingSource
+            // 
+            tipoDespesaVMBindingSource.DataSource = typeof(Core.Application.ViewModels.Despesas.TipoDespesaVM);
             // 
             // frmExpenseTypes
             // 
@@ -260,7 +267,7 @@
             captionLabel2.Text = "Tipo de Despesas";
             CaptionLabels.Add(captionLabel1);
             CaptionLabels.Add(captionLabel2);
-            ClientSize = new Size(696, 571);
+            ClientSize = new Size(692, 571);
             Controls.Add(panel1);
             Controls.Add(btnClear);
             Controls.Add(btnDelete);
@@ -275,6 +282,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvTipoDespesas).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)tipoDespesaVMBindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -294,5 +302,6 @@
         private DataGridViewTextBoxColumn CategoriaDespesa;
         private DataGridViewTextBoxColumn Descricao;
         private DataGridViewTextBoxColumn IdCategoriaDespesa;
+        private BindingSource tipoDespesaVMBindingSource;
     }
 }

@@ -15,10 +15,11 @@ namespace DaisyPets.UI.Expenses
     public partial class frmExpenseTypes : MetroForm
     {
         protected TipoDespesaDto SelectedTipoDespesa = new();
-        protected IEnumerable<LookupTableVM>? CategoriesList { get; set; }
+        protected IEnumerable<CategoriaDespesa>? CategoriesList { get; set; }
 
         protected TipoDespesaVM TipoDespesa { get; set; }
         protected int CategoryID { get; set; }
+        protected string CategoryDescription { get; set; } = string.Empty;
         protected int TipoDespesaId { get; set; }
 
         private string ExpenseTypesApiEndpoint { get; set; } = string.Empty;
@@ -36,17 +37,16 @@ namespace DaisyPets.UI.Expenses
             LookupTablesApiEndpoint = AccessSettingsService.LookupTablesEndpoint;
 
             FillCombo(cboCategories, "CategoriaDespesa");
+            ClearForm();
+            FillGrid();
 
             if (dgvTipoDespesas.RowCount > 0)
             {
-                //dgvTipoDespesas.CurrentCell = dgvTipoDespesas.Rows[0].Cells[0];
                 dgvTipoDespesas.Rows[0].Selected = true;
-                int firstRowId = Convert.ToInt16(dgvTipoDespesas.Rows[0].Cells[0].Value);
-                ShowRecord(firstRowId);
+                var arg = new DataGridViewCellEventArgs(0, 0);
+                dgvTipoDespesas_CellClick(dgvTipoDespesas, arg);
             }
 
-            ClearForm();
-            FillGrid();
 
         }
 
@@ -138,20 +138,20 @@ namespace DaisyPets.UI.Expenses
             using (HttpClient httpClient = new HttpClient())
             {
                 var task = httpClient.GetFromJsonAsync<IEnumerable<CategoriaDespesa>>(url);
-                var response = task.Result;
+                CategoriesList = task.Result;
 
                 task.Wait();
                 task.Dispose();
 
-                if (response != null)
+                if (CategoriesList != null)
                 {
-                    foreach (var entry in response)
+                    foreach (var entry in CategoriesList)
                     {
                         comboBox.Items.Add(new DictionaryEntry(entry.Id, entry.Descricao));
                     }
                     comboBox.ValueMember = "Key";
                     comboBox.DisplayMember = "Value";
-                    comboBox.SelectedIndex = 0;
+                    comboBox.SelectedIndex = -1;
                 }
             }
         }
@@ -295,7 +295,9 @@ namespace DaisyPets.UI.Expenses
                     txtId.Text = Id.ToString();
                     txtDescricao.Text = expenseTypeData.Descricao;
                     CategoryID = expenseTypeData.IdCategoriaDespesa;
-                    cboCategories.SelectedIndex = expenseTypeData.IdCategoriaDespesa - 1;
+                    CategoryDescription = CategoriesList?.FirstOrDefault(c => c.Id == CategoryID)?.Descricao ?? "";
+                    var idx = cboCategories.FindStringExact(CategoryDescription);
+                    cboCategories.SelectedIndex = idx;
 
                     SetToolbar(OpcoesRegisto.Gravar);
                     SelectRowInGrid();
@@ -355,8 +357,10 @@ namespace DaisyPets.UI.Expenses
         {
             TipoDespesaId = 0;
             CategoryID = -1;
+            cboCategories.SelectedIndex = -1;
             txtDescricao.Clear();
-            txtDescricao.Focus();
+            cboCategories.Focus();
+            SendKeys.Send("{F4}");
             SetToolbar_Clear();
         }
 
