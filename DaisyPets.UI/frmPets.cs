@@ -958,7 +958,6 @@ namespace DaisyPets.UI
             var Idade = petVM.DataNascimento;
             var dob = DateTime.Parse(petVM.DataNascimento);
             var now = DateTime.Now;
-            string porte = "";
             var months = GetMonthDifference(dob, now);
             var years = months / 12;
             var meses = months % 12;

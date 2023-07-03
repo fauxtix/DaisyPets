@@ -16,7 +16,6 @@ namespace DaisyPets.UI.Expenses
     {
         private int expenseId = 0;
         private string tipoMovimento = string.Empty;
-        private string IdTipoMovimento = "S";
         private int IdCategoriaDespesa = -1;
         private int IdTipoDespesa = -1;
 

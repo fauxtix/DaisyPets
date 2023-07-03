@@ -55,6 +55,9 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<ITipoDespesaRepository, TipoDespesaRepository>();
             services.AddScoped<ITipoDespesaService, TipoDespesaService>();
 
+            services.AddScoped<IGaleriaFotosRepository, GaleriaFotosRepository>();
+            services.AddScoped<IGaleriaFotosService, GaleriaFotosService>();
+
             services.AddScoped<IDesparasitanteRepository, DesparasitanteRepository>();
             services.AddScoped<IDesparasitanteService, DesparasitanteService>();
 
@@ -69,6 +72,7 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<IValidator<DespesaDto>,DespesaValidator>();
             services.AddScoped<IValidator<DesparasitanteDto>, DesparasitanteValidator>();
             services.AddScoped<IValidator<DocumentoDto>, DocumentoValidator>();
+            services.AddScoped<IValidator<GaleriaFotosDto>, GaleriaFotosValidator>();
         }
     }
 }

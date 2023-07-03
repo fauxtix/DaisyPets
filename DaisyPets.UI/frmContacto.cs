@@ -302,7 +302,7 @@ namespace DaisyPets.UI.Properties
                     Notas = txtNotas.Text,
                     Movel = txtContacto.Text,
                     eMail = txtEMail.Text,
-                    IdTipoContacto = iTipoContacto = DataFormat.GetInteger(((DictionaryEntry)(cboTipoContacto.SelectedItem)).Key)
+                    IdTipoContacto = DataFormat.GetInteger(((DictionaryEntry)(cboTipoContacto.SelectedItem)).Key)
                 };
 
                 string url = $"{ContactsApiEndpoint}/ValidateContacts";

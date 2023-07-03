@@ -338,7 +338,6 @@ namespace DaisyPets.UI
             }
 
             string sSqLiteFile = @"c:\";
-            string sPathSqLiteBackup = @"c:\temp";
             string sPathFixed = selectedPath.EndsWith(@"\") ? selectedPath : selectedPath + @"\";
             string sourceFileName = sSqLiteFile;
             string targetFileName = sPathFixed + Path.GetFileName(sourceFileName);

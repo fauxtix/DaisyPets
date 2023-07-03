@@ -8,6 +8,7 @@ namespace DaisyPets.UI.ApiServices
 
         public static readonly string ConsultasEndpoint = $"{BaseAddressSetting}/Consulta";
         public static readonly string ContactosEndpoint = $"{BaseAddressSetting}/Contacts";
+        public static readonly string PhotoGalleryEndpoint = $"{BaseAddressSetting}/Carousel";
         public static readonly string DesparasitantesEndpoint = $"{BaseAddressSetting}/Desparasitante";
         public static readonly string DespesasEndpoint = $"{BaseAddressSetting}/Despesa";
         public static readonly string DocumentosEndpoint = $"{BaseAddressSetting}/Document";

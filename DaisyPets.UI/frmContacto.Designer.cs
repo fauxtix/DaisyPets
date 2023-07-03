@@ -111,7 +111,7 @@
             // 
             // txtIdContacto
             // 
-            txtIdContacto.BeforeTouchSize = new Size(412, 27);
+            txtIdContacto.BeforeTouchSize = new Size(273, 27);
             txtIdContacto.Location = new Point(502, 172);
             txtIdContacto.Margin = new Padding(3, 4, 3, 4);
             txtIdContacto.Name = "txtIdContacto";
@@ -193,7 +193,7 @@
             // 
             // txtNotas
             // 
-            txtNotas.BeforeTouchSize = new Size(412, 27);
+            txtNotas.BeforeTouchSize = new Size(273, 27);
             txtNotas.Location = new Point(151, 244);
             txtNotas.Margin = new Padding(3, 4, 3, 4);
             txtNotas.Multiline = true;
@@ -218,6 +218,7 @@
             // cboTipoContacto
             // 
             cboTipoContacto.BeforeTouchSize = new Size(172, 28);
+            cboTipoContacto.FlatStyle = Syncfusion.Windows.Forms.Tools.ComboFlatStyle.Flat;
             cboTipoContacto.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             cboTipoContacto.Location = new Point(151, 208);
             cboTipoContacto.Margin = new Padding(3, 4, 3, 4);
@@ -229,7 +230,7 @@
             // 
             // txtContacto
             // 
-            txtContacto.BeforeTouchSize = new Size(412, 27);
+            txtContacto.BeforeTouchSize = new Size(273, 27);
             txtContacto.Location = new Point(151, 172);
             txtContacto.Margin = new Padding(3, 4, 3, 4);
             txtContacto.Name = "txtContacto";
@@ -238,7 +239,7 @@
             // 
             // txtMorada
             // 
-            txtMorada.BeforeTouchSize = new Size(412, 27);
+            txtMorada.BeforeTouchSize = new Size(273, 27);
             txtMorada.Location = new Point(151, 74);
             txtMorada.Margin = new Padding(3, 4, 3, 4);
             txtMorada.Name = "txtMorada";
@@ -247,7 +248,7 @@
             // 
             // txtLocalidade
             // 
-            txtLocalidade.BeforeTouchSize = new Size(412, 27);
+            txtLocalidade.BeforeTouchSize = new Size(273, 27);
             txtLocalidade.Location = new Point(151, 106);
             txtLocalidade.Margin = new Padding(3, 4, 3, 4);
             txtLocalidade.Name = "txtLocalidade";
@@ -256,7 +257,7 @@
             // 
             // txtEMail
             // 
-            txtEMail.BeforeTouchSize = new Size(412, 27);
+            txtEMail.BeforeTouchSize = new Size(273, 27);
             txtEMail.Location = new Point(151, 137);
             txtEMail.Margin = new Padding(3, 4, 3, 4);
             txtEMail.Name = "txtEMail";
@@ -265,7 +266,7 @@
             // 
             // txtNome
             // 
-            txtNome.BeforeTouchSize = new Size(412, 27);
+            txtNome.BeforeTouchSize = new Size(273, 27);
             txtNome.Location = new Point(151, 41);
             txtNome.Margin = new Padding(3, 4, 3, 4);
             txtNome.Name = "txtNome";
@@ -275,7 +276,7 @@
             // txtID
             // 
             txtID.BackColor = Color.SteelBlue;
-            txtID.BeforeTouchSize = new Size(412, 27);
+            txtID.BeforeTouchSize = new Size(273, 27);
             txtID.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             txtID.ForeColor = Color.White;
             txtID.Location = new Point(151, 7);
