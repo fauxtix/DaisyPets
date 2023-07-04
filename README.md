@@ -26,12 +26,16 @@ Example
   -- Dewormers (1-N)
   
   -- Different uses of food brands (1-N)
+
+  -- Specie (Dog, Cat, ...)
   
   -- Breed
   
   -- Temperament
   
   -- Situation
+  
+  -- Genre
     
   -- ...
   
