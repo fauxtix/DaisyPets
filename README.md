@@ -8,7 +8,8 @@ that allows someone to manage their pets, using a SQLite database.
 I used windows forms to create a quick prototype, but I intend to test the Api by creating the front-end using React and Blazor.
 Maybe later I'll think about using .Net MAUI, when it's more stable...
 
-It's still a work in progress :-) (Photo Gallery, for instance...)
+It's still a work in progress :-) Localization, for instance; the front-end screenshots are shown in Portuguese, but I plan to include English, French and Spanish versions.
+Also, the Photo Gallery form needs some reworking.
  
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities that may be related to them (history), or not.
 
