@@ -13,19 +13,21 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 Example
 
 - Pet
-  
+
+  -- Documents (1-N)
+
   -- Veterinary consultations (1-N)
   
   -- Vaccines (1-N)
   
   -- Dewormers (1-N)
   
+  -- Dog food (1-N)
+  
   -- Breed
   
   -- Situation
-  
-  -- Documents (1-N)
-  
+    
   -- ...
   
 - Expenses
