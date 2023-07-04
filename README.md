@@ -5,16 +5,18 @@
 This project contains a .net application built using .Net 7 with C#. It comprises a web api and a desktop application (windows forms),
 that allows someone to manage their pets, using a SQLite database.
 
-I used windows forms to create a quick prototype, but I intend to test the Api by creating frontends in React and Blazor.
+I used windows forms to create a quick prototype, but I intend to test the Api by creating the front-end using React and Blazor.
 Maybe later I'll think about using .Net MAUI, but when it's more stable...
+
+It's still a work in progress :-) (Photo Gallery, for instance...)
  
-It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities that may be related to them, or not.
+It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities that may be related to them (history), or not.
 
 Example
 
-- Pet
+- # Pet
 
-  -- Documents (1-N)
+  -- Documents (results of lab tests, medical exams, ...) - (1-N)
 
   -- Veterinary consultations (1-N)
   
@@ -22,7 +24,7 @@ Example
   
   -- Dewormers (1-N)
   
-  -- Dog food (1-N)
+  -- Different uses of food brands (1-N)
   
   -- Breed
   
@@ -30,13 +32,13 @@ Example
     
   -- ...
   
-- Expenses
+- # Expenses
   
   -- Category type
   
   -- Expense Type
   
-- Contacts
+- # Contacts
   
   -- Contact type
   
