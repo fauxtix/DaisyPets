@@ -3,8 +3,29 @@
 # Daisy Pets 🐶🐱
 
 This project contains a .net application built using .Net 7 using C#. It comprises a web api and a desktop application (windows forms),
-that allows you to manage pets using a SQLite database.
+that allows someone to manage their pets, using a SQLite database.
+
+I used windows forms to create a quick prototype, but I intend to test the Api, creating frontends in React and Blazor.
+Maybe later I'll think about using .Net MAUI, but when it's more stable...
+ 
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities that may be related to them, or not.
+
+Example
+
+- Pet
+  -- Veterinary consultations (1-N)
+  -- Vaccines (1-N)
+  -- Dewormers (1-N)
+  -- Breed
+  -- Situation
+  -- Documents (1-N)
+  -- ...
+- Expenses
+  -- Category type
+  -- Expense Type
+- Contacts
+  -- Contact type
+... 
 
 # Screenshots
 
@@ -26,7 +47,7 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 
 # Tables
 
-== ConsultaVeterinario ==
+== ConsultaVeterinario (Veterinary consultations) ==
 
 CREATE TABLE "ConsultaVeterinario" ( "Id"
 INTEGER NOT NULL UNIQUE, "DataConsulta" TEXT NOT
@@ -40,7 +61,7 @@ Diagnostico TEXT "Diagnostico" TEXT
 Tratamento TEXT "Tratamento" TEXT
 IdPet INTEGER "IdPet" INTEGER NOT NULL
 
-== DesparasitanteExterno == 
+== DesparasitanteExterno (external dewormer) == 
 
 CREATE TABLE "DesparasitanteExterno" ( "Id"
 INTEGER NOT NULL UNIQUE, "IdPet" INTEGER NOT
@@ -52,7 +73,7 @@ IdPet INTEGER "IdPet" INTEGER NOT NULL
 IdDesparasitanteExterno INTEGER "IdDesparasitanteExterno" INTEGER NOT NULL
 Data TEXT "Data" TEXT NOT NULL
 
-== DesparasitanteInterno ==
+== DesparasitanteInterno (internal dewormer) ==
 
 CREATE TABLE "DesparasitanteInterno" ( "Id"
 INTEGER NOT NULL UNIQUE, "IdPet" INTEGER NOT
@@ -64,7 +85,7 @@ IdPet INTEGER "IdPet" INTEGER NOT NULL
 IdDesparasitanteInterno INTEGER "IdDesparasitanteInterno" INTEGER NOT NULL
 Data TEXT "Data" TEXT NOT NULL
 
-== Especie ==
+== Especie (dog or cat specie) ==
 
 CREATE TABLE "Especie" ( "Id" INTEGER NOT NULL
 UNIQUE, "Descricao" TEXT NOT NULL, PRIMARY
@@ -72,7 +93,7 @@ KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT NOT NULL
 
-== Esterilizacao == 
+== Esterilizacao (sterilization) == 
 
 CREATE TABLE "Esterilizacao" ( "Id" INTEGER NOT
 NULL UNIQUE, "IdPet" INTEGER NOT NULL,
@@ -82,7 +103,7 @@ Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 IdPet INTEGER "IdPet" INTEGER NOT NULL
 Veterinario TEXT "Veterinario" TEXT NOT NULL
 
-== GaleriaFotos == 
+== GaleriaFotos (Photo gallery) == 
 
 CREATE TABLE "GaleriaFotos" ( "Id" INTEGER NOT
 NULL UNIQUE, "IdPet" INTEGER NOT NULL, "Imagem"
@@ -93,7 +114,7 @@ IdPet INTEGER "IdPet" INTEGER NOT NULL
 Imagem TEXT "Imagem" TEXT NOT NULL
 Data TEXT "Data" TEXT
 
-== Idade == 
+== Idade (Age intervals) == 
 
 CREATE TABLE "Idade" ( "Id" INTEGER NOT NULL
 UNIQUE, "De" INTEGER NOT NULL, "A" INTEGER,
@@ -104,7 +125,7 @@ De INTEGER "De" INTEGER NOT NULL
 A INTEGER "A" INTEGER
 Descricao TEXT "Descricao" TEXT
 
-== MarcaRacao == 
+== MarcaRacao (food brand) == 
 
 CREATE TABLE "MarcaRacao" ( "Id" INTEGER NOT
 NULL UNIQUE, "Descricao" TEXT NOT NULL UNIQUE,
@@ -112,7 +133,7 @@ PRIMARY KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT NOT NULL UNIQUE
 
-== Medicacao ==
+== Medicacao (medication) ==
 
 CREATE TABLE "Medicacao" ( "Id" INTEGER NOT NULL
 UNIQUE, "Descricao" TEXT NOT NULL, PRIMARY
@@ -120,7 +141,7 @@ KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT NOT NULL
 
-== Peso ==
+== Peso (weight ranges) ==
 
 CREATE TABLE "Peso" ( "Id" INTEGER NOT NULL
 UNIQUE, "De" INTEGER NOT NULL, "A" INTEGER NOT
@@ -162,7 +183,7 @@ Padrinho INTEGER "Padrinho" INTEGER NOT NULL DEFAULT 0
 DoencaCronica TEXT "DoencaCronica" TEXT
 Observacoes TEXT "Observacoes" TEXT
 
-== Raca ==
+== Raca (breed) ==
 
 CREATE TABLE "Raca" ( "Id" INTEGER NOT NULL
 UNIQUE, "Descricao" TEXT NOT NULL UNIQUE,
@@ -170,7 +191,7 @@ PRIMARY KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT NOT NULL UNIQUE
 
-== Racao ==
+== Racao (food) ==
 
 CREATE TABLE "Racao" ( "Id" INTEGER NOT NULL
 UNIQUE, "IdPet" INTEGER NOT NULL, "DataCompra"
@@ -183,7 +204,7 @@ DataCompra TEXT "DataCompra" TEXT
 IdMarca INTEGER "IdMarca" INTEGER NOT NULL
 QuantidadeDiaria INTEGER "QuantidadeDiaria" INTEGER
 
-== Temperamento ==
+== Temperamento (Temperament) ==
 
 CREATE TABLE "Temperamento" ( "Id" INTEGER NOT
 NULL UNIQUE, "Descricao" TEXT NOT NULL,
@@ -193,7 +214,7 @@ Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT NOT NULL
 Observacoes TEXT "Observacoes" TEXT
 
-== TipoDesparasitanteExterno ==
+== TipoDesparasitanteExterno (type of external dewormer) ==
 
 CREATE TABLE "TipoDesparasitanteExterno" ( "Id"
 INTEGER NOT NULL UNIQUE, "Descricao" TEXT,
@@ -201,7 +222,7 @@ PRIMARY KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT
 
-== TipoDesparasitanteInterno == 
+== TipoDesparasitanteInterno (type of internal dewormer) == 
 
 CREATE TABLE "TipoDesparasitanteInterno" ( "Id"
 INTEGER NOT NULL UNIQUE, "Descricao" TEXT,
@@ -209,7 +230,7 @@ PRIMARY KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT
 
-== Vacina ==
+== Vacina (vaccine) ==
 
 CREATE TABLE "Vacina" ( "Id" INTEGER NOT NULL
 UNIQUE, "IdPet" INTEGER NOT NULL, "DataToma"
@@ -508,11 +529,11 @@ When contributing code, please follow the existing code style and submit a pull 
 
 ## ⚖ License
 
-The DaisyPets project is licensed under the MIT License. You can find more information in the [LICENSE](https://github.com/zangassis/pet-manager/blob/main/LICENSE) file.
+The DaisyPets project is licensed under the MIT License. You can find more information in the [LICENSE](https://github.com/fauxtix/daisypets/blob/main/LICENSE) file.
 
 ## 📞 Contact
 
-If you have any questions or need further assistance, you can reach out to the project maintainers:
+If you have any questions or need further assistance, you can reach out to the project maintainer:
 
 - 👨‍💻 Maintainer: Fausto Luís
 - ✉ Email: fauxtix.luix@hotmail.com
