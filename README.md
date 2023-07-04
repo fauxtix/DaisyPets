@@ -1,3 +1,15 @@
+![main](https://github.com/fauxtix/DaisyPets/assets/49880538/2a82e3aa-6c50-4a9d-8490-399afeceefa6)
+![Uploading Pets.png…]()
+![Uploading PetDocuments.png…]()
+![Uploading PetVaccines.png…]()
+![Uploading PetAppointments.png…]()
+![Uploading PetFood.png…]()
+![Uploading PetDewormers.png…]()
+![PetExpenses_Main](https://github.com/fauxtix/DaisyPets/assets/49880538/3885c5f8-874b-464b-a088-d6b26f8ac598)
+![Uploading PetExpenses_Editing.png…]()
+![Uploading PetContacts.png…]()
+![Uploading PetAlarms.png…]()
+![Uploading PetPhotoGallery.png…]()
 
 # Daisy Pets 🐶🐱
 
@@ -6,21 +18,9 @@ that allows you to manage pets using a SQLite database.
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities.
 
 # Screenshots
-
-![main](https://github.com/fauxtix/DaisyPets/assets/49880538/2c5e6c89-c437-46c6-a095-8f7c946d156a)
-![Uploading Pets.png…]()
-![Uploading PetDocuments.png…]()
-![Uploading PetVaccines.png…]()
-![Uploading PetAppointments.png…]()
-![Uploading PetFood.png…]()
-![Uploading PetDewormers.png…]()
-![PetExpenses_Main](https://github.com/fauxtix/DaisyPets/assets/49880538/4f8201fa-7bb9-48ea-a804-b5d9168a4890)
-![Uploading PetExpenses_Editing.png…]()
-![Uploading PetContacts.png…]()
-![PetAlarms](https://github.com/fauxtix/DaisyPets/assets/49880538/12727697-091a-4966-984f-feddd25b12f5)
-![Uploading PetPhotoGallery.png…]()
 ![Uploading PetLookupTables.png…]()
-![PetExpenseTypes](https://github.com/fauxtix/DaisyPets/assets/49880538/b0e84fce-24be-457d-b86a-0650658fb9ee)
+![Uploading PetExpenseTypes.png…]()
+
 
 # Tables
 
