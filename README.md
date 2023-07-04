@@ -13,18 +13,31 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 Example
 
 - Pet
+- 
   -- Veterinary consultations (1-N)
+  
   -- Vaccines (1-N)
+  
   -- Dewormers (1-N)
+  
   -- Breed
+  
   -- Situation
+  
   -- Documents (1-N)
+  
   -- ...
+  
 - Expenses
+  
   -- Category type
+  
   -- Expense Type
+  
 - Contacts
+  
   -- Contact type
+  
 ... 
 
 # Screenshots
