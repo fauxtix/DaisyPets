@@ -29,6 +29,8 @@ Example
   
   -- Breed
   
+  -- Temperament
+  
   -- Situation
     
   -- ...
