@@ -3,7 +3,7 @@
 # Daisy Pets 🐶🐱
 
 This project contains a .net application built using .Net 7 with C#. It comprises a web api and a desktop application (windows forms),
-that allows someone to manage their pets, using a SQLite database.
+that allows anyone to manage their pets, using a SQLite database.
 
 I used windows forms to create a quick prototype, but I intend to test the Api by creating the front-end using React and Blazor.
 Maybe later I'll think about using .Net MAUI, when it's more stable...
