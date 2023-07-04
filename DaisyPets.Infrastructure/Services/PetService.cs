@@ -18,7 +18,7 @@ namespace DaisyPets.Infrastructure.Services
         }
         public async Task<bool> DeleteAsync(int Id)
         {
-            if(await _repository.CanPetBeDeleted(Id))
+            if(! await _repository.CanPetBeDeleted(Id))
             {
                 return false;
             }
