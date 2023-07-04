@@ -1,10 +1,28 @@
+
 # Daisy Pets 🐶🐱
 
 This project contains a .net application built using .Net 7 using C#. It comprises a web api and a desktop application (windows forms),
 that allows you to manage pets using a SQLite database.
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities.
 
-Tables
+# Screenshots
+
+![main](https://github.com/fauxtix/DaisyPets/assets/49880538/2c5e6c89-c437-46c6-a095-8f7c946d156a)
+![Uploading Pets.png…]()
+![Uploading PetDocuments.png…]()
+![Uploading PetVaccines.png…]()
+![Uploading PetAppointments.png…]()
+![Uploading PetFood.png…]()
+![Uploading PetDewormers.png…]()
+![PetExpenses_Main](https://github.com/fauxtix/DaisyPets/assets/49880538/4f8201fa-7bb9-48ea-a804-b5d9168a4890)
+![Uploading PetExpenses_Editing.png…]()
+![Uploading PetContacts.png…]()
+![PetAlarms](https://github.com/fauxtix/DaisyPets/assets/49880538/12727697-091a-4966-984f-feddd25b12f5)
+![Uploading PetPhotoGallery.png…]()
+![Uploading PetLookupTables.png…]()
+![PetExpenseTypes](https://github.com/fauxtix/DaisyPets/assets/49880538/b0e84fce-24be-457d-b86a-0650658fb9ee)
+
+# Tables
 
 == ConsultaVeterinario ==
 
@@ -21,6 +39,7 @@ Tratamento TEXT "Tratamento" TEXT
 IdPet INTEGER "IdPet" INTEGER NOT NULL
 
 == DesparasitanteExterno == 
+
 CREATE TABLE "DesparasitanteExterno" ( "Id"
 INTEGER NOT NULL UNIQUE, "IdPet" INTEGER NOT
 NULL, "IdDesparasitanteExterno" INTEGER NOT
@@ -32,6 +51,7 @@ IdDesparasitanteExterno INTEGER "IdDesparasitanteExterno" INTEGER NOT NULL
 Data TEXT "Data" TEXT NOT NULL
 
 == DesparasitanteInterno ==
+
 CREATE TABLE "DesparasitanteInterno" ( "Id"
 INTEGER NOT NULL UNIQUE, "IdPet" INTEGER NOT
 NULL, "IdDesparasitanteInterno" INTEGER NOT
@@ -43,19 +63,26 @@ IdDesparasitanteInterno INTEGER "IdDesparasitanteInterno" INTEGER NOT NULL
 Data TEXT "Data" TEXT NOT NULL
 
 == Especie ==
+
 CREATE TABLE "Especie" ( "Id" INTEGER NOT NULL
 UNIQUE, "Descricao" TEXT NOT NULL, PRIMARY
 KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT NOT NULL
-Esterilizacao CREATE TABLE "Esterilizacao" ( "Id" INTEGER NOT
+
+== Esterilizacao == 
+
+CREATE TABLE "Esterilizacao" ( "Id" INTEGER NOT
 NULL UNIQUE, "IdPet" INTEGER NOT NULL,
 "Veterinario" TEXT NOT NULL, PRIMARY KEY("Id"
 AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 IdPet INTEGER "IdPet" INTEGER NOT NULL
 Veterinario TEXT "Veterinario" TEXT NOT NULL
-GaleriaFotos CREATE TABLE "GaleriaFotos" ( "Id" INTEGER NOT
+
+== GaleriaFotos == 
+
+CREATE TABLE "GaleriaFotos" ( "Id" INTEGER NOT
 NULL UNIQUE, "IdPet" INTEGER NOT NULL, "Imagem"
 TEXT NOT NULL, "Data" TEXT, PRIMARY KEY("Id"
 AUTOINCREMENT) )
@@ -63,17 +90,21 @@ Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 IdPet INTEGER "IdPet" INTEGER NOT NULL
 Imagem TEXT "Imagem" TEXT NOT NULL
 Data TEXT "Data" TEXT
-Idade CREATE TABLE "Idade" ( "Id" INTEGER NOT NULL
+
+== Idade == 
+
+CREATE TABLE "Idade" ( "Id" INTEGER NOT NULL
 UNIQUE, "De" INTEGER NOT NULL, "A" INTEGER,
 "Descricao" TEXT, PRIMARY KEY("Id"
 AUTOINCREMENT) )
-1
-Name Type Schema
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 De INTEGER "De" INTEGER NOT NULL
 A INTEGER "A" INTEGER
 Descricao TEXT "Descricao" TEXT
-MarcaRacao CREATE TABLE "MarcaRacao" ( "Id" INTEGER NOT
+
+== MarcaRacao == 
+
+CREATE TABLE "MarcaRacao" ( "Id" INTEGER NOT
 NULL UNIQUE, "Descricao" TEXT NOT NULL UNIQUE,
 PRIMARY KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
@@ -83,7 +114,10 @@ UNIQUE, "Descricao" TEXT NOT NULL, PRIMARY
 KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT NOT NULL
-Peso CREATE TABLE "Peso" ( "Id" INTEGER NOT NULL
+
+== Peso ==
+
+CREATE TABLE "Peso" ( "Id" INTEGER NOT NULL
 UNIQUE, "De" INTEGER NOT NULL, "A" INTEGER NOT
 NULL, "Descricao" TEXT, PRIMARY KEY("Id"
 AUTOINCREMENT) )
@@ -91,7 +125,10 @@ Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 De INTEGER "De" INTEGER NOT NULL
 A INTEGER "A" INTEGER NOT NULL
 Descricao TEXT "Descricao" TEXT
-Pet CREATE TABLE "Pet" ( "Id" INTEGER NOT NULL
+
+== Pet ==
+
+CREATE TABLE "Pet" ( "Id" INTEGER NOT NULL
 UNIQUE, "IdEspecie" INTEGER NOT NULL, "IdRaca"
 NUMERIC NOT NULL, "IdIdade" INTEGER NOT NULL,
 "IdSituacao" NUMERIC NOT NULL, "Nome" TEXT NOT
@@ -119,14 +156,17 @@ Esterilizado INTEGER "Esterilizado" INTEGER NOT NULL DEFAULT 0
 Padrinho INTEGER "Padrinho" INTEGER NOT NULL DEFAULT 0
 DoencaCronica TEXT "DoencaCronica" TEXT
 Observacoes TEXT "Observacoes" TEXT
-Raca CREATE TABLE "Raca" ( "Id" INTEGER NOT NULL
+
+== Raca ==
+CREATE TABLE "Raca" ( "Id" INTEGER NOT NULL
 UNIQUE, "Descricao" TEXT NOT NULL UNIQUE,
 PRIMARY KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-2
-Name Type Schema
 Descricao TEXT "Descricao" TEXT NOT NULL UNIQUE
-Racao CREATE TABLE "Racao" ( "Id" INTEGER NOT NULL
+
+== Racao ==
+
+CREATE TABLE "Racao" ( "Id" INTEGER NOT NULL
 UNIQUE, "IdPet" INTEGER NOT NULL, "DataCompra"
 TEXT, "IdMarca" INTEGER NOT NULL,
 "QuantidadeDiaria" INTEGER, PRIMARY KEY("Id"
@@ -136,24 +176,36 @@ IdPet INTEGER "IdPet" INTEGER NOT NULL
 DataCompra TEXT "DataCompra" TEXT
 IdMarca INTEGER "IdMarca" INTEGER NOT NULL
 QuantidadeDiaria INTEGER "QuantidadeDiaria" INTEGER
-Temperamento CREATE TABLE "Temperamento" ( "Id" INTEGER NOT
+
+== Temperamento ==
+
+CREATE TABLE "Temperamento" ( "Id" INTEGER NOT
 NULL UNIQUE, "Descricao" TEXT NOT NULL,
 "Observacoes" TEXT, PRIMARY KEY("Id"
 AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT NOT NULL
 Observacoes TEXT "Observacoes" TEXT
-TipoDesparasitanteExterno CREATE TABLE "TipoDesparasitanteExterno" ( "Id"
+
+== TipoDesparasitanteExterno ==
+
+CREATE TABLE "TipoDesparasitanteExterno" ( "Id"
 INTEGER NOT NULL UNIQUE, "Descricao" TEXT,
 PRIMARY KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT
-TipoDesparasitanteInterno CREATE TABLE "TipoDesparasitanteInterno" ( "Id"
+
+== TipoDesparasitanteInterno == 
+
+CREATE TABLE "TipoDesparasitanteInterno" ( "Id"
 INTEGER NOT NULL UNIQUE, "Descricao" TEXT,
 PRIMARY KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT
-Vacina CREATE TABLE "Vacina" ( "Id" INTEGER NOT NULL
+
+== Vacina ==
+
+CREATE TABLE "Vacina" ( "Id" INTEGER NOT NULL
 UNIQUE, "IdPet" INTEGER NOT NULL, "DataToma"
 TEXT NOT NULL, "ProximaTomaEmMeses" INTEGER NOT
 NULL, PRIMARY KEY("Id" AUTOINCREMENT) )
@@ -161,63 +213,81 @@ Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 IdPet INTEGER "IdPet" INTEGER NOT NULL
 DataToma TEXT "DataToma" TEXT NOT NULL
 ProximaTomaEmMeses INTEGER "ProximaTomaEmMeses" INTEGER NOT NULL
+
 sqlite_sequence CREATE TABLE sqlite_sequence(name,seq)
 name "name"
 seq "seq"
-Indices (18)
-Name Type Schema
+
+
+# Indexes
+
 FK_DespExterno_Tipo CREATE INDEX "FK_DespExterno_Tipo" ON
 "DesparasitanteExterno" (
 "IdDesparasitanteExterno" )
 IdDesparasitanteExterno "IdDesparasitanteExterno"
+
 FK_DespInterno_Tipo CREATE INDEX "FK_DespInterno_Tipo" ON
 "DesparasitanteInterno" (
 "IdDesparasitanteInterno" )
 IdDesparasitanteInterno "IdDesparasitanteInterno"
+
 FK_Especie CREATE INDEX "FK_Especie" ON "Pet" (
 "IdEspecie" )
 IdEspecie "IdEspecie"
-3
-Name Type Schema
+
 FK_Idade CREATE INDEX "FK_Idade" ON "Pet" ( "IdIdade" )
 IdIdade "IdIdade"
+
 FK_Medicacao CREATE INDEX "FK_Medicacao" ON "Pet" (
 "IdMedicacao" )
 IdMedicacao "IdMedicacao"
+
 FK_Peso CREATE INDEX "FK_Peso" ON "Pet" ( "IdPeso" )
 IdPeso "IdPeso"
+
 FK_Pet_Consulta CREATE INDEX "FK_Pet_Consulta" ON
 "ConsultaVeterinario" ( "IdPet" )
 IdPet "IdPet"
+
 FK_Pet_DesparasitanteExterno CREATE INDEX "FK_Pet_DesparasitanteExterno" ON
 "DesparasitanteExterno" ( "IdPet" )
 IdPet "IdPet"
+
 FK_Pet_DesparasitanteInterno CREATE INDEX "FK_Pet_DesparasitanteInterno" ON
 "DesparasitanteInterno" ( "IdPet" )
 IdPet "IdPet"
+
 FK_Pet_Esterilizacao CREATE INDEX "FK_Pet_Esterilizacao" ON
 "Esterilizacao" ( "IdPet" )
 IdPet "IdPet"
+
 FK_Pet_Foto CREATE INDEX "FK_Pet_Foto" ON "GaleriaFotos" (
 "IdPet" )
 IdPet "IdPet"
+
 FK_Pet_Vacina CREATE INDEX "FK_Pet_Vacina" ON "Vacina" (
 "IdPet" )
 IdPet "IdPet"
+
 FK_Raca CREATE INDEX "FK_Raca" ON "Pet" ( "IdRaca" )
 IdRaca "IdRaca"
+
 FK_Situacao CREATE INDEX "FK_Situacao" ON "Pet" (
 "IdSituacao" )
 IdSituacao "IdSituacao"
+
 FK_Temperamento CREATE INDEX "FK_Temperamento" ON "Pet" (
 "IdTemperamento" )
 IdTemperamento "IdTemperamento"
+
 IX_Data CREATE INDEX "IX_Data" ON "GaleriaFotos" (
 "Data" )
 Data "Data"
+
 IX_DataConsultaVeterinario CREATE INDEX "IX_DataConsultaVeterinario" ON
 "ConsultaVeterinario" ( "DataConsulta" )
 DataConsulta "DataConsulta"
+
 IX_Nome CREATE INDEX "IX_Nome" ON "Pet" ( "Nome" )
 Nome "Nome"
 
