@@ -5,7 +5,7 @@
 This project contains a .net application built using .Net 7 with C#. It comprises a web api and a desktop application (windows forms),
 that allows someone to manage their pets, using a SQLite database.
 
-I used windows forms to create a quick prototype, but I intend to test the Api, creating frontends in React and Blazor.
+I used windows forms to create a quick prototype, but I intend to test the Api by creating frontends in React and Blazor.
 Maybe later I'll think about using .Net MAUI, but when it's more stable...
  
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities that may be related to them, or not.
