@@ -4,7 +4,7 @@
 
 This project contains a .net application built using .Net 7 using C#. It comprises a web api and a desktop application (windows forms),
 that allows you to manage pets using a SQLite database.
-It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities.
+It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities that may be related to them, or not.
 
 # Screenshots
 
@@ -111,7 +111,10 @@ NULL UNIQUE, "Descricao" TEXT NOT NULL UNIQUE,
 PRIMARY KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
 Descricao TEXT "Descricao" TEXT NOT NULL UNIQUE
-Medicacao CREATE TABLE "Medicacao" ( "Id" INTEGER NOT NULL
+
+== Medicacao ==
+
+CREATE TABLE "Medicacao" ( "Id" INTEGER NOT NULL
 UNIQUE, "Descricao" TEXT NOT NULL, PRIMARY
 KEY("Id" AUTOINCREMENT) )
 Id INTEGER "Id" INTEGER NOT NULL UNIQUE
@@ -160,6 +163,7 @@ DoencaCronica TEXT "DoencaCronica" TEXT
 Observacoes TEXT "Observacoes" TEXT
 
 == Raca ==
+
 CREATE TABLE "Raca" ( "Id" INTEGER NOT NULL
 UNIQUE, "Descricao" TEXT NOT NULL UNIQUE,
 PRIMARY KEY("Id" AUTOINCREMENT) )
