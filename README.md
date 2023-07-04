@@ -13,7 +13,7 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 Example
 
 - Pet
-- 
+  
   -- Veterinary consultations (1-N)
   
   -- Vaccines (1-N)
