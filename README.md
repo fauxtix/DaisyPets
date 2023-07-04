@@ -1,15 +1,4 @@
-![main](https://github.com/fauxtix/DaisyPets/assets/49880538/2a82e3aa-6c50-4a9d-8490-399afeceefa6)
-![Uploading Pets.png…]()
-![Uploading PetDocuments.png…]()
-![Uploading PetVaccines.png…]()
-![Uploading PetAppointments.png…]()
-![Uploading PetFood.png…]()
-![Uploading PetDewormers.png…]()
-![PetExpenses_Main](https://github.com/fauxtix/DaisyPets/assets/49880538/3885c5f8-874b-464b-a088-d6b26f8ac598)
-![Uploading PetExpenses_Editing.png…]()
-![Uploading PetContacts.png…]()
-![Uploading PetAlarms.png…]()
-![Uploading PetPhotoGallery.png…]()
+
 
 # Daisy Pets 🐶🐱
 
@@ -18,8 +7,21 @@ that allows you to manage pets using a SQLite database.
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities.
 
 # Screenshots
-![Uploading PetLookupTables.png…]()
-![Uploading PetExpenseTypes.png…]()
+
+![main](https://github.com/fauxtix/DaisyPets/assets/49880538/399b2d8e-f5bd-4ac2-b4f9-4193b65aac8c)
+![Pets](https://github.com/fauxtix/DaisyPets/assets/49880538/959df5fe-395c-46bd-8d7c-f8f0c173ad88)
+![PetDocuments](https://github.com/fauxtix/DaisyPets/assets/49880538/46ed2fc4-9eb0-496e-a7ac-1269609be174)
+![PetVaccines](https://github.com/fauxtix/DaisyPets/assets/49880538/83dfa877-bc68-4c70-887e-fee0fc6dc265)
+![PetAppointments](https://github.com/fauxtix/DaisyPets/assets/49880538/8834a812-e3d0-402f-bcda-303f2f91c088)
+![PetFood](https://github.com/fauxtix/DaisyPets/assets/49880538/dd3d2752-29cf-40ef-959a-2dd36008f5d8)
+![PetDewormers](https://github.com/fauxtix/DaisyPets/assets/49880538/4399050f-7ac1-4ed6-b520-81dd213fff07)
+![PetExpenses_Main](https://github.com/fauxtix/DaisyPets/assets/49880538/fe0f2aa4-c340-4419-95ad-ad39cfafbba4)
+![PetExpenses_Editing](https://github.com/fauxtix/DaisyPets/assets/49880538/8c4458eb-97a6-403f-82d0-a88060dc5794)
+![PetContacts](https://github.com/fauxtix/DaisyPets/assets/49880538/732ef7b1-bcb5-4d0d-8b2e-6bcdf9e09f9c)
+![PetAlarms](https://github.com/fauxtix/DaisyPets/assets/49880538/a8a6bd7b-8cb8-4bda-a5a6-477ac5a737ef)
+![PetPhotoGallery](https://github.com/fauxtix/DaisyPets/assets/49880538/f430cbe0-b9ed-4b4c-adf4-7fe4eaccafb3)
+![PetLookupTables](https://github.com/fauxtix/DaisyPets/assets/49880538/a840a65a-aa1e-42b5-8002-92569ba78a2e)
+![PetExpenseTypes](https://github.com/fauxtix/DaisyPets/assets/49880538/e87ea274-ae9a-4c02-9627-a4cb45ee5a2e)
 
 
 # Tables
