@@ -534,7 +534,7 @@ curl -X POST -H "Content-Type: application/json" -d '{
 ' http://localhost:5000/api/pets
 ```
 
-This will create a new pet named "Shiva" with the species "Dog" (1) born in 2020.
+This will create a new pet named "Shiva".
 
 ## 🌟 Contributing
 
