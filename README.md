@@ -51,6 +51,14 @@ Example
   
 ... 
 
+# Key Features
+
+Easy to use
+
+Simple to upload documents
+
+Record Vaccinations and request medical records
+
 # Screenshots
 
 ![main](https://github.com/fauxtix/DaisyPets/assets/49880538/54768f18-9e6d-44f3-8a27-c4cffb7bbae7)
