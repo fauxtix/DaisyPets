@@ -53,11 +53,12 @@ Example
 
 # Key Features
 
-Easy to use
+- Easy to use
 
-Simple to upload documents
+- Simple to upload documents
 
-Record Vaccinations and request medical records
+- Record Vaccinations and request medical records
+
 
 # Screenshots
 
