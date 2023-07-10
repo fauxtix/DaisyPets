@@ -1,0 +1,151 @@
+﻿@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<App> L
+
+<div class="container col-md-12 col-sm-12 col-xs-12 col-lg-6 col-xl-@Colunas">
+    <div class="row py-2">
+        <div class="col-12 ml-2 mr-2">
+            <div class="card-counter @ColorCard">
+                <i class="@IconCard"></i>
+                <span class="count-numbers">@Resultado</span>
+                <span class="count-name">@Titulo</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public string Titulo { get; set; }
+    [Parameter] public string Resultado { get; set; }
+    [Parameter] public string IconCard { get; set; } = "fa fa-code-fork";
+    [Parameter] public string ColorCard { get; set; } = "info";
+    [Parameter] public int Colunas { get; set; } = 3;
+    [Parameter] public bool SpecialCaption { get; set; } = false;
+    [Parameter] public bool ShowCard { get; set; } = true;
+}
+
+<style>
+    .circle {
+        width: 60px;
+        height: 60px;
+        line-height: 55px;
+        border-radius: 50%;
+        font-size: 20px;
+        color: #fff;
+        padding-right: 2px;
+        padding-top: 1px;
+        text-align: center;
+        background: #2f659a;
+    }
+
+    .my-card {
+        position: absolute;
+        left: 40%;
+        top: -20px;
+        border-radius: 50%;
+    }
+
+
+    .card-counter {
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        /*box-shadow: 2px 2px 10px #DADADA;*/
+        margin: 5px;
+        padding: 20px 10px;
+        background-color: #fff;
+        height: 100px;
+        border-radius: 5px;
+        transition: .3s linear all;
+    }
+
+        .card-counter:hover {
+            box-shadow: rgba(0, 0, 0, 0.19) 0px 20px 40px, rgba(0, 0, 0, 0.46) 0px 12px 12px;
+            box-shadow: 4px 4px 20px #DADADA;
+            transition: .3s linear all;
+        }
+
+        .card-counter.primary {
+            background-color: #007bff;
+            color: #FFF;
+        }
+
+        .card-counter.danger {
+            background-color: #ef5350;
+            color: #FFF;
+        }
+
+        .card-counter.success {
+            background-color: #66bb6a;
+            color: #FFF;
+        }
+
+        .card-counter.warning {
+            background-color: #ff9966;
+            color: #000;
+        }
+
+        .card-counter.warninglight {
+            background-color: #ffcc00;
+            color: #000;
+        }
+
+        .card-counter.info {
+            background-color: #26c6da;
+            color: #FFF;
+        }
+
+        .card-counter i {
+            font-size: 5em;
+            opacity: 0.2;
+        }
+
+        .card-counter .count-numbers {
+            position: absolute;
+            right: 35px;
+            top: 65px;
+            font-size: 1.4rem;
+            display: block;
+        }
+
+        .card-counter .count-name {
+            position: absolute;
+            right: 35px;
+            top: 20px;
+            font-style: italic;
+            display: block;
+            font-size: 1.4rem;
+        }
+
+        .card-counter .count-numbers-special {
+            position: absolute;
+            right: 35px;
+            top: 65px;
+            font-size: 1rem;
+            display: compact;
+        }
+
+        .card-counter .count-name-special {
+            position: absolute;
+            right: 35px;
+            top: 20px;
+            font-style: italic;
+            display: block;
+            font-size: 1rem;
+        }
+
+    .e-grid .e-headercelldiv {
+        font-size: 0.7rem;
+    }
+
+    .e-grid .e-rowcell {
+        font-size: 0.7rem;
+    }
+
+    .flex-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        row-gap: 2px;
+        background-color: DodgerBlue;
+    }
+</style>

@@ -11,10 +11,10 @@ namespace DaisyPets.UI.Expenses
 {
     public partial class frmExpensesMain : MetroForm
     {
-        private int IdExpense = 0;
-        private int IdCategoriaDespesa;
-        private string ExpensesApiEndpoint { get; set; } = string.Empty;
-        private string LookupTablesApiEndpoint { get; set; } = string.Empty;
+        private int ExpenseId = 0;
+        private int ExpenseCategoryId;
+        private string ExpensesApiEndpoint { get; }
+        private string LookupTablesApiEndpoint { get; }
 
         private decimal totalExpenses { get; set; }
         private decimal totalFilteredExpenses { get; set; }
@@ -32,7 +32,9 @@ namespace DaisyPets.UI.Expenses
             totalFilteredExpenses = 0M;
             ExpensesApiEndpoint = AccessSettingsService.DespesasEndpoint;
             LookupTablesApiEndpoint = AccessSettingsService.LookupTablesEndpoint;
+
             listOfExpenses = GetExpenses();
+
             FillCombo(cboCategoryTypes, "CategoriaDespesa");
 
             FillGrid();
@@ -47,7 +49,6 @@ namespace DaisyPets.UI.Expenses
             dgvExpenses.DataSource = listOfExpenses?.ToList();
             if (dgvExpenses.RowCount > 0)
             {
-                //dgvExpenses.CurrentCell = dgvExpenses.Rows[0].Cells[0];
                 dgvExpenses.Rows[0].Selected = true;
                 int firstRowId = Convert.ToInt16(dgvExpenses.Rows[0].Cells[0].Value);
             }
@@ -196,8 +197,8 @@ namespace DaisyPets.UI.Expenses
             if (e.RowIndex == -1)
                 return;
 
-            IdExpense = DataFormat.GetInteger(dgvExpenses.Rows[e.RowIndex].Cells["Id"].Value);
-            var expenseRecord = await GeExpense(IdExpense);
+            ExpenseId = DataFormat.GetInteger(dgvExpenses.Rows[e.RowIndex].Cells["Id"].Value);
+            var expenseRecord = await GeExpense(ExpenseId);
 
 
             frmNewEntry fNewEntry = new frmNewEntry(expenseRecord);
@@ -272,7 +273,7 @@ namespace DaisyPets.UI.Expenses
                 return;
             }
 
-            IdExpense = DataFormat.GetInteger(dgvExpenses.Rows[e.RowIndex].Cells["Id"].Value);
+            ExpenseId = DataFormat.GetInteger(dgvExpenses.Rows[e.RowIndex].Cells["Id"].Value);
             SetToolbar(OpcoesRegisto.Gravar);
         }
 
@@ -285,7 +286,7 @@ namespace DaisyPets.UI.Expenses
                 return;
             }
             DialogResult dr = MessageBoxAdv.Show($"Confirma operação?",
-                $"Apagar registo de despesa ({IdExpense})", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                $"Apagar registo de despesa ({ExpenseId})", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (dr != DialogResult.Yes)
                 return;
@@ -296,7 +297,7 @@ namespace DaisyPets.UI.Expenses
 
         private async Task DeleteExpense()
         {
-            string url = $"{ExpensesApiEndpoint}/{IdExpense}";
+            string url = $"{ExpensesApiEndpoint}/{ExpenseId}";
             using (HttpClient httpClient = new HttpClient())
             {
                 var response = await httpClient.DeleteAsync(url);
@@ -316,7 +317,7 @@ namespace DaisyPets.UI.Expenses
 
                     if (dgvExpenses.RowCount > 0)
                     {
-                        IdExpense = DataFormat.GetInteger(dgvExpenses.Rows[0].Cells["Id"].Value);
+                        ExpenseId = DataFormat.GetInteger(dgvExpenses.Rows[0].Cells["Id"].Value);
 
                         dgvExpenses.Rows[0].Selected = true;
                     }
@@ -335,10 +336,10 @@ namespace DaisyPets.UI.Expenses
             if (cboCategoryTypes.SelectedItem == null)
                 return;
 
-            IdCategoriaDespesa = DataFormat.GetInteger(((DictionaryEntry)(cboCategoryTypes.SelectedItem)).Key);
-            var filteredExpenses = listOfExpenses.Where(x => x.IdCategoriaDespesa == IdCategoriaDespesa);
+            ExpenseCategoryId = DataFormat.GetInteger(((DictionaryEntry)(cboCategoryTypes.SelectedItem)).Key);
+            var filteredExpenses = listOfExpenses.Where(x => x.IdCategoriaDespesa == ExpenseCategoryId);
 
-            if (IdCategoriaDespesa == 0)
+            if (ExpenseCategoryId == 0)
             {
                 dgvExpenses.DataSource = listOfExpenses;
                 lblTotalFilteredExpenses.Text = "0";
@@ -355,7 +356,7 @@ namespace DaisyPets.UI.Expenses
         {
             totalExpenses = listOfExpenses.Sum(o => o.ValorPago);
             lblTotalExpenses.Text = String.Format("({0:N2})", totalExpenses);
-            totalFilteredExpenses = listOfExpenses.Where(o => o.IdCategoriaDespesa == IdCategoriaDespesa).Sum(x => x.ValorPago);
+            totalFilteredExpenses = listOfExpenses.Where(o => o.IdCategoriaDespesa == ExpenseCategoryId).Sum(x => x.ValorPago);
             lblTotalFilteredExpenses.Text = String.Format("({0:N2})", totalFilteredExpenses);
         }
 
@@ -363,7 +364,6 @@ namespace DaisyPets.UI.Expenses
         {
             frmCalculator frmCalculator = new frmCalculator();
             var resp = frmCalculator.ShowDialog();
-
         }
     }
 }

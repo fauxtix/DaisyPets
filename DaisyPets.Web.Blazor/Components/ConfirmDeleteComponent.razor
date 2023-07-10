@@ -1,0 +1,284 @@
+﻿@using DaisyPets.Core.Application.Enums
+@using Syncfusion.Blazor.Buttons
+@using static DaisyPets.Core.Application.Enums.Common;
+
+
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> Localizer
+
+<SfDialog CssClass="quick-info-header"
+          Width="@DialogWidth" IsModal = "true"
+          Height="@DialogHeight"
+          CloseOnEscape="false"
+          AllowDragging="true"
+          Visible="@Visible" 
+          ShowCloseIcon="false">
+    <DialogTemplates>
+        <Header>
+            <div class="ml-2; font-weight-bold" style="color:@TitleColor">@Localizer[DialogTitle]</div>
+        </Header>
+        <Content>
+            <div style="color:black; margin-left:4px;">[ <span style="font-style:italic">@Message</span> ]</div>
+            <hr />
+            <div class="row">
+                <div class="col-9">
+                    <div>
+                        <SfMessage ShowIcon="true" Severity="MessageSeverity.Error">@(Localizer[ConfirmationText])</SfMessage>
+@*                        <AlertMessage Message=""
+                                      MessageType="@AlertMessageType">
+                        </AlertMessage>*@
+                    </div>
+                </div>
+                <RightSideImageComponent Operation="@(Common.OpcoesRegisto.Apagar)" />
+            </div>
+        </Content>
+        <FooterTemplate>
+            <hr />
+            <div>
+                <SfButton CssClass="e-danger e-round-corner" IconCss="fas fa-trash"
+                          @onclick="OnConfirmYes" Content="@(Localizer["Sim"].Value)">
+                </SfButton>
+                <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times"
+                          @onclick="OnConfirmNo" Content="@(Localizer["Nao"].Value)">
+                </SfButton>
+            </div>
+        </FooterTemplate>
+    </DialogTemplates>
+    <DialogPositionData X="center" Y="center"></DialogPositionData>
+    <DialogAnimationSettings Effect="@Effects" Duration=600></DialogAnimationSettings>
+</SfDialog>
+
+
+
+@code {
+    [Parameter] public string DialogTitle { get; set; } = "";
+    [Parameter] public string DialogSubTitle { get; set; } = "";
+    [Parameter] public string ConfirmationText { get; set; } = "Confirma exclusão";
+    [Parameter] public string Message { get; set; } = "";
+    [Parameter] public Modules Module { get; set; }
+    [Parameter] public EventCallback OnConfirmationYes { get; set; }
+    [Parameter] public EventCallback OnConfirmationNo { get; set; }
+    [Parameter] public Common.AlertMessageType AlertMessageType { get; set; } = Common.AlertMessageType.Warning;
+    [Parameter] public string DialogWidth { get; set; } = "auto";
+    [Parameter] public string DialogHeight { get; set; } = "35%";
+    [Parameter] public bool Visible { get; set; } = false;
+
+    private string TitleColor { get; set; } = "cornflowerblue";
+
+    private string? cssClass;
+    private string? moduleDescription;
+
+    private DialogEffect Effects = DialogEffect.SlideBottom;
+
+    private Dictionary<string, object> ErrorTextBox_Rows = new Dictionary<string, object>()
+{
+        {"rows", 2}
+    };
+
+    protected override void OnInitialized()
+    {
+        cssClass = "notify-info";
+        TitleColor = "cornflowerblue";
+
+    }
+
+    protected override void OnParametersSet()
+    {
+        moduleDescription = GetModuleDescription(Module);
+
+        switch (AlertMessageType)
+        {
+            case Common.AlertMessageType.Error:
+                cssClass = "notify-error";
+                TitleColor = "Red";
+                break;
+            case Common.AlertMessageType.Warning:
+                cssClass = "notify-warning";
+                TitleColor = "#cc3300";
+                break;
+            case Common.AlertMessageType.Info:
+                cssClass = "notify-info";
+                TitleColor = "cornflowerblue";
+                break;
+            default:
+                cssClass = "notify-warning";
+                TitleColor = "Red";
+                break;
+        }
+    }
+
+    protected void OnConfirmYes()
+    {
+        OnConfirmationYes.InvokeAsync();
+    }
+    protected void OnConfirmNo()
+    {
+        OnConfirmationNo.InvokeAsync();
+    }
+
+    private string GetModuleDescription(Modules modelo)
+    {
+        string result = "";
+        switch (modelo)
+        {
+            case Modules.Inquilinos:
+                result = Localizer["Msg_Inquilinos"];
+                break;
+            case Modules.Imoveis:
+                result = Localizer["Msg_Imoveis"];
+                break;
+            case Modules.Fracoes:
+                result = Localizer["MSG_Fracoes"];
+                break;
+        }
+
+        return result;
+    }
+
+}
+
+<style>
+
+    .card-box {
+        padding: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 25px;
+        -moz-border-radius: 5px;
+        background-clip: padding-box;
+        margin-bottom: 0px;
+        background-color: #ffffff;
+        box-shadow: 0 0px 12px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+    }
+
+    @@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+    .notify-info, .notify-success, .notify-warning, .notify-error {
+        padding: 5px;
+        margin: 6px 4px 6px 4px;
+        box-shadow: 1px 1px 3px #888;
+    }
+
+        .notify-info:before, .notify-success:before, .notify-warning:before, .notify-error:before {
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: 400;
+            speak: none;
+            display: inline-block;
+            text-decoration: inherit;
+            width: 1em;
+            margin-right: .2em;
+            text-align: center;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1em;
+            margin-left: .2em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
+        }
+
+        .notify-info:before {
+            content: "\f05a";
+        }
+
+        .notify-success:before {
+            content: '\f00c';
+        }
+
+        .notify-warning:before {
+            content: '\f071';
+        }
+
+        .notify-error:before {
+            content: '\f057';
+        }
+
+    .notify-info {
+        color: #00529B;
+        background-color: #BDE5F8;
+    }
+
+    .notify-success {
+        color: #4F8A10;
+        background-color: #DFF2BF;
+    }
+
+    .notify-warning {
+        color: #9F6000;
+        background-color: #FEEFB3;
+    }
+
+    .notify-error {
+        color: #D8000C;
+        background-color: #FFD2D2;
+    }
+
+    /*Syncfusion*/
+    .e-btn.e-flat.e-primary, .e-btn.e-flat.e-primary:focus {
+        background-color: #317ab9;
+        border-color: #265f91;
+        color: #fff;
+    }
+
+        .e-btn.e-flat.e-primary:hover, .e-btn.e-flat.e-primary:active {
+            background-color: #21527d;
+            border-color: #163854;
+            color: #fff;
+        }
+
+    .close-icon {
+        width: 24px;
+        height: 24px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .error-msg {
+        color: #66afe9;
+        display: inline-block;
+        position: relative;
+        top: -20px;
+        left: 10px;
+    }
+
+    .error-detail {
+        position: relative;
+        left: 56px;
+        margin: 0 0 21px;
+    }
+
+    .e-icons.close-icon.col-lg-2:before {
+        content: '\e761';
+        font-size: 32px;
+        color: #d9534f;
+        position: relative;
+        left: 1px;
+        bottom: 10px;
+    }
+
+    .e-dialog .e-footer-content {
+        background-color: #f8f8f8;
+    }
+
+    .e-dialog.e-control.e-popup, .e-dialog.e-control.e-popup .e-dlg-header-content {
+        background-color: #d9edf7;
+    }
+
+    .e-dialog.e-control.e-popup {
+        padding: 3px;
+    }
+
+    .e-dialog.e-control .e-dlg-header-content {
+        padding: 10px;
+    }
+
+    .e-dialog.e-control .e-footer-content {
+        padding: 8px 12px;
+    }
+
+    .e-dialog.e-control .e-dlg-content {
+        padding: 15px 0 0;
+    }
+
+    .msg-wrapper.col-lg-12 {
+        margin-top: 20px;
+    }
+</style>

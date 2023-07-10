@@ -1,0 +1,233 @@
+﻿@using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+
+@inject IJSRuntime JSRuntime
+@inject NavigationManager navigationManager
+@inject IStringLocalizer<App> L
+
+@implements IDisposable
+@*@attribute [Authorize(Roles = "Admin")]*@
+
+
+<div id="spinnerContainer"></div>
+<SfSpinner @ref="SpinnerObj"
+           Label="@L["MSG_PreparandoDados"]" Size="50"
+           Type="SpinnerType.Bootstrap4"
+           CssClass="e-spin-overlay">
+</SfSpinner>
+
+
+<SfCard ID="table-card">
+    <CardHeader Title="@cardTitle" ImageUrl="images/database-table-icon.png"></CardHeader>
+    <CardFooter>
+        <CardFooterContent>
+            <hr />
+            <div style="text-align:center;">
+                <SfButton CssClass="e-info e-round-corner p-2" IconCss="e-icons e-settings"
+                          @onclick="@(e => NavigateToUrlAsync(tableParam!))" Content="@L["lblManutencao"]">
+                </SfButton>
+            </div>
+        </CardFooterContent>
+    </CardFooter>
+</SfCard>
+
+
+<SfDialog Target="#target"
+          Width="50%"
+          Height="85%"
+          IsModal="true"
+          ShowCloseIcon="false"
+          CloseOnEscape="true"
+          @bind-Visible="PdfViewerVisibility">
+    <DialogTemplates>
+        <Content>
+            @if (!string.IsNullOrEmpty(PdfFilePath))
+            {
+                <PdfViewer PdfPath="@PdfFilePath" />
+            }
+        </Content>
+        <FooterTemplate>
+            <div>
+                <SfButton CssClass="e-outline e-round-corner"
+                          IconCss="fas fa-times"
+                          @onclick="CloseEditDialog">
+                    Voltar
+                </SfButton>
+            </div>
+        </FooterTemplate>
+    </DialogTemplates>
+    <DialogAnimationSettings Effect="@Effects" Duration=400></DialogAnimationSettings>
+</SfDialog>
+
+@code {
+    [Parameter] public string? tableParam { get; set; }
+    [Parameter] public string? cardContent { get; set; }
+    [Parameter] public string? cardTitle { get; set; }
+    [Parameter] public string? cardImage { get; set; }
+
+    protected DialogEffect Effects = DialogEffect.Zoom;
+
+    protected Modules modulo { get; set; }
+    protected string? PdfFilePath { get; set; }
+
+    string? sDataTable;
+    string? PageTitle;
+    string? TableToValidate;
+    string? FkToValidate;
+
+    protected SfSpinner? SpinnerObj;
+
+    protected bool PdfViewerVisibility { get; set; } = false;
+
+
+
+    protected Dictionary<string, object> htmlAttribute = new Dictionary<string, object>()
+{
+        {"overflow", "auto" }
+    };
+
+    // not async, javascript replaced
+    private void NavigateToUrlAsync(string tableName)
+    {
+        string url = GetUrl(tableName);
+        //        await JSRuntime.InvokeAsync<object>("open", url, "_blank");
+        navigationManager.NavigateTo(url);
+    }
+
+    public void CloseEditDialog()
+    {
+        switch (modulo)
+        {
+            case Modules.PdfViewer:
+                PdfViewerVisibility = false;
+                break;
+        }
+    }
+
+
+    private string GetUrl(string tableName)
+    {
+        PageTitle = cardTitle;
+        TableToValidate = "";
+        FkToValidate = "";
+
+        string SqlTable = tableName; // GetDataTableName(tableName);
+
+        switch (tableName.ToLower())
+        {
+            case "estadocivil":
+                TableToValidate = "Proprietarios";
+                FkToValidate = "ID_EstadoCivil";
+                break;
+            case "estadoconservacao":
+                TableToValidate = "Fracoes";
+                FkToValidate = "Conservacao";
+                break;
+            case "formapagamento":
+                TableToValidate = "Recebimentos";
+                FkToValidate = "ID_TipoRecebimento";
+
+                break;
+            case "situacaofracao":
+                TableToValidate = "Fracoes";
+                FkToValidate = "Situacao";
+
+                break;
+            case "tipocontacto":
+                TableToValidate = "Contactos";
+                FkToValidate = "ID_TipoContacto";
+
+                break;
+            case "tipodespesa":
+                TableToValidate = "Despesas";
+                FkToValidate = "ID_TipoDespesa";
+
+                break;
+            case "tipologiafracao":
+                TableToValidate = "Fracoes";
+                FkToValidate = "Tipologia";
+
+                break;
+
+            case "tipopropriedade":
+                TableToValidate = "Fracoes";
+                FkToValidate = "ID_TipoPropriedade";
+
+                break;
+                //case "tiporecebimento":
+                //    TableToValidate = "Recebimentos";
+                //    FkToValidate = "ID_TipoRecebimento";
+
+                //    break;
+        }
+
+        string url = $"/admin/adminpanel?" + $"DataTable={SqlTable}&PageTitle={PageTitle}&" +
+                     $"TableToValidate={TableToValidate}&FieldToValidate={FkToValidate}";
+
+        return url;
+    }
+
+    void IDisposable.Dispose()
+    {
+        SpinnerObj?.Dispose();
+    }
+}
+<style>
+
+    /*.e-close-wf-icon::before {
+                        content: '\e745';
+                    }*/
+
+    #table-card .e-card .e-card-content {
+        font-size: 14px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        line-height: initial;
+        font-weight: normal;
+        height: 70px;
+        justify-content: flex-end;
+    }
+    /*Tile view card customization */
+    #table-card .tile_layout.card-control-section .row.filter .tile_search {
+        justify-content: flex-end;
+    }
+
+    #table-card .tile_layout.card-control-section .row .e-card {
+        text-align: left;
+        margin: 10px;
+        background: radial-gradient(#1fe4f5, #3fbafe);
+    }
+
+    #table-card *, ::after, ::before {
+        box-sizing: content-box
+    }
+
+    #table-card .card-control-section.tile_layout .e-card-layout {
+        max-width: 890px;
+    }
+
+    #table-card .e-card .e-card-header .e-card-header-image {
+        height: 48px;
+        width: 48px;
+    }
+
+
+    .cards {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        gap: 1rem;
+    }
+
+    @@media (min-width: 600px) {
+        .cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media (min-width: 900px) {
+        .cards {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+</style>

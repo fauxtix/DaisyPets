@@ -6,4 +6,52 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DaisyPets.Core\DaisyPets.Core.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="blazored.menu" Version="2.2.0" />
+		<PackageReference Include="BlazorGoogleMaps" Version="2.4.4" />
+		<PackageReference Include="Blazorized.AdminLte" Version="0.1.8" />
+		<PackageReference Include="Blazorized.AdminLte.Content" Version="3.0.7" />
+		<PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="5.7.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.13" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.13" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.13" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.13">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.11" />
+		<PackageReference Include="ReportViewerCore.NETCore" Version="15.1.17" />
+		<PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+		<PackageReference Include="Serilog.Extensions.Hosting" Version="5.0.1" />
+		<PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
+		<PackageReference Include="Serilog.Sinks.MSSqlServer" Version="6.2.0" />
+		<PackageReference Include="SharpZipLib" Version="1.4.2" />
+		<PackageReference Include="Syncfusion.Blazor.Buttons" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Calendars" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Cards" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Charts" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.CircularGauge" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.DropDowns" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.FileManager" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.FileManager.PhysicalFileProvider" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Grid" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Inputs" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Lists" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Navigations" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Notifications" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.PdfViewerServer.Windows" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Popups" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.ProgressBar" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Schedule" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Spinner" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.Themes" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.WordProcessor" Version="20.3.0.56" />
+	</ItemGroup>
+
 </Project>

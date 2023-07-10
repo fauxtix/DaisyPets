@@ -1,0 +1,89 @@
+﻿@using DaisyPets.Core.Application.Enums;
+@using Microsoft.Extensions.Localization;
+@using Syncfusion.Blazor.Notifications
+
+@inject IStringLocalizer<App> L
+
+<div class="quick-info-header">
+    <SfDialog Width="@DialogWidth"
+              IsModal="true"
+              Visible="@Visibility"
+              CloseOnEscape="true"
+              ShowCloseIcon="false">
+        <DialogTemplates>
+            <Header>
+                <div class="ml-2 font-weight-bold" style="font-size:1.1rem; color:@TitleColor">@Title</div>
+            </Header>
+            <Content>
+                <div class="row m-2">
+                    <div class="col-9">
+                        @if (!string.IsNullOrEmpty(MessageNote))
+                        {
+                            <div class="mb-2">
+                                <SfMessage Severity="MessageSeverity.Info"
+                                       ShowIcon="false"
+                                       Variant="MessageVariant.Outlined"
+                                       ShowCloseIcon="false">
+                                    @MessageNote
+                                </SfMessage>
+                                <hr class="my-2" style="color:black" />
+                            </div>
+                        }
+                        <div>
+                            <SfMessage ShowIcon="true" Severity="MessageSeverity.Warning">@(Message)</SfMessage>
+                            </div>
+                        </div>
+                        <RightSideImageComponent Operation="@OperationType" />
+                    </div>
+                </Content>
+                <FooterTemplate>
+                    <div class="mb-3">
+                        <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times"
+                              @onclick="OnClose" Content="@L["btnOK"]">
+                        </SfButton>
+                    </div>
+                </FooterTemplate>
+            </DialogTemplates>
+            <DialogPositionData X="@XPosition" Y="@YPosition"></DialogPositionData>
+            <DialogAnimationSettings Effect="@Effects" Duration=600></DialogAnimationSettings>
+        </SfDialog>
+    </div>
+
+    @code {
+    [Parameter] public bool Visibility { get; set; } = false;
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public string Message { get; set; } = "";
+    [Parameter] public string MessageNote { get; set; } = "";
+    [Parameter] public string DialogWidth { get; set; } = "25%";
+    [Parameter] public string XPosition { get; set; } = "center";
+    [Parameter] public string YPosition { get; set; } = "center";
+    [Parameter] public Common.AlertMessageType AlertMessageType { get; set; } = Common.AlertMessageType.Info;
+    [Parameter] public Common.OpcoesRegisto OperationType { get; set; } = Common.OpcoesRegisto.Info;
+
+    [Parameter] public EventCallback OnCloseDialog { get; set; }
+
+    private DialogEffect Effects = DialogEffect.FadeZoom;
+
+    private string TitleColor { get; set; } = "cornflowerblue";
+    private string cssClass = "notify-info";
+
+    protected void OnClose()
+    {
+        OnCloseDialog.InvokeAsync();
+    }
+
+}
+
+<style>
+    .e-dialog.e-control.e-popup, .e-dialog.e-control.e-popup .e-dlg-header-content {
+        background-color: #d9edf7;
+    }
+
+    .e-dialog .e-dlg-content {
+        color: white;
+        background-color: #f8f8f8;
+        font-size: 0.8rem;
+        font-weight: normal;
+        line-height: normal;
+    }
+</style>

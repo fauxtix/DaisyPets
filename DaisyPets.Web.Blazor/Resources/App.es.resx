@@ -1,0 +1,2398 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnCancelar" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="btnCopiar_error" xml:space="preserve">
+    <value>Copiar</value>
+  </data>
+  <data name="btnExcluir" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="btnFechar" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="btnHelp" xml:space="preserve">
+    <value>Ayuda</value>
+  </data>
+  <data name="btnListar" xml:space="preserve">
+    <value>Listado</value>
+  </data>
+  <data name="btnLocalizar" xml:space="preserve">
+    <value>Localizar</value>
+  </data>
+  <data name="btnNovo" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="btnSair_error" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="btnSalvar" xml:space="preserve">
+    <value>Registrar</value>
+  </data>
+  <data name="btnSendEmail" xml:space="preserve">
+    <value>Informe de Problema</value>
+  </data>
+  <data name="frmAutores" xml:space="preserve">
+    <value>Autores</value>
+  </data>
+  <data name="frmCategorias" xml:space="preserve">
+    <value>Categorias</value>
+  </data>
+  <data name="frmLivros" xml:space="preserve">
+    <value>Libros</value>
+  </data>
+  <data name="frmUsers" xml:space="preserve">
+    <value>Usuários</value>
+  </data>
+  <data name="lblCodigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="lblExplanation" xml:space="preserve">
+    <value>Se produjo una excepción controlada por el programa encontrado.
+Puede copiar el detalle o informar del problema a través de correo electrónico.</value>
+  </data>
+  <data name="lblMessage" xml:space="preserve">
+    <value>¿Qué sucedió?</value>
+  </data>
+  <data name="lblNascAutor" xml:space="preserve">
+    <value>Fecha de nacimiento</value>
+  </data>
+  <data name="lblNomeAutor" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="lblSobreAutor" xml:space="preserve">
+    <value>Sobre el autor</value>
+  </data>
+  <data name="toolStripErro" xml:space="preserve">
+    <value>ToolStrip</value>
+  </data>
+  <data name="lblDescricaoCategoria" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="txtCodigo" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="lblAnoEdicao" xml:space="preserve">
+    <value>Año de publicación</value>
+  </data>
+  <data name="lblAutor" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="lblCategoria" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="lblPaginas" xml:space="preserve">
+    <value>Páginas</value>
+  </data>
+  <data name="lblPreco" xml:space="preserve">
+    <value>Precio</value>
+  </data>
+  <data name="lblSinopse" xml:space="preserve">
+    <value>Synopsis</value>
+  </data>
+  <data name="lblTitulo" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="BtnIngresar" xml:space="preserve">
+    <value>Ingressar</value>
+  </data>
+  <data name="BtnSalir" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="gpLogin" xml:space="preserve">
+    <value>Accesso al sistema</value>
+  </data>
+  <data name="lblHora" xml:space="preserve">
+    <value>Hora</value>
+  </data>
+  <data name="lblPassword" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="lblTituloLogin" xml:space="preserve">
+    <value>Biblioteca</value>
+  </data>
+  <data name="lblUtilizador" xml:space="preserve">
+    <value>Usuário</value>
+  </data>
+  <data name="btnOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="btnPesquisar" xml:space="preserve">
+    <value>Localizar</value>
+  </data>
+  <data name="columnHeader1" xml:space="preserve">
+    <value>Códigp</value>
+  </data>
+  <data name="columnHeader2" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="gpPesquisaBase" xml:space="preserve">
+    <value>Tipo de búsqueda</value>
+  </data>
+  <data name="lblDescricao" xml:space="preserve">
+    <value>Introduzca el texto que desea buscar y pulse ENTER</value>
+  </data>
+  <data name="rbtCodigo" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="rbtDescricao" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="chkActive" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="lblConfirmarPassword" xml:space="preserve">
+    <value>Confirmar contraseña:</value>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>e-mail:</value>
+  </data>
+  <data name="lblTelemovel" xml:space="preserve">
+    <value>Mobile:</value>
+  </data>
+  <data name="lblTipoUtilizador" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="lblUltAltPassord" xml:space="preserve">
+    <value>Último cambio de contraseña</value>
+  </data>
+  <data name="lblUltLogin" xml:space="preserve">
+    <value>Ult. entrada</value>
+  </data>
+  <data name="lblUserName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="aboutToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Sobre</value>
+  </data>
+  <data name="arrangeIconsToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Organizar los iconos</value>
+  </data>
+  <data name="btnAutores" xml:space="preserve">
+    <value>Autores</value>
+  </data>
+  <data name="btnCategorias" xml:space="preserve">
+    <value>Categorias</value>
+  </data>
+  <data name="btnLivros" xml:space="preserve">
+    <value>Publicaciones</value>
+  </data>
+  <data name="btnUsers" xml:space="preserve">
+    <value>Usuários</value>
+  </data>
+  <data name="cascadeToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Cascata</value>
+  </data>
+  <data name="closeAllToolStripMenuItem" xml:space="preserve">
+    <value>Cerrar &amp;Todas</value>
+  </data>
+  <data name="helpMenu" xml:space="preserve">
+    <value>Ayuda</value>
+  </data>
+  <data name="indexToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Indice</value>
+  </data>
+  <data name="MainMenuStrip" xml:space="preserve">
+    <value>MenuStrip</value>
+  </data>
+  <data name="mnuAlterarPwd" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="mnuAutores" xml:space="preserve">
+    <value>Autores</value>
+  </data>
+  <data name="mnuBackup" xml:space="preserve">
+    <value>Backup BD</value>
+  </data>
+  <data name="mnuCategorias" xml:space="preserve">
+    <value>Categorias</value>
+  </data>
+  <data name="MnuHerramientas" xml:space="preserve">
+    <value>Herramientas</value>
+  </data>
+  <data name="mnuLivros" xml:space="preserve">
+    <value>Publicaciones</value>
+  </data>
+  <data name="MnuSistema" xml:space="preserve">
+    <value>Biblioteca</value>
+  </data>
+  <data name="mnuUtilizadores" xml:space="preserve">
+    <value>Usuários</value>
+  </data>
+  <data name="MnuVentanas" xml:space="preserve">
+    <value>&amp;Ventanas</value>
+  </data>
+  <data name="MnuVer" xml:space="preserve">
+    <value>&amp;Ver</value>
+  </data>
+  <data name="newWindowToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Nueva ventana</value>
+  </data>
+  <data name="salirToolStripMenuItem" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="statusBarToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Barra de estado</value>
+  </data>
+  <data name="statusStrip" xml:space="preserve">
+    <value>StatusStrip</value>
+  </data>
+  <data name="tileHorizontalToolStripMenuItem" xml:space="preserve">
+    <value>Horizontal</value>
+  </data>
+  <data name="tileVerticalToolStripMenuItem" xml:space="preserve">
+    <value>Verticalle</value>
+  </data>
+  <data name="toolBarToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Barra de herramientas</value>
+  </data>
+  <data name="toolStrip" xml:space="preserve">
+    <value>ToolStrip</value>
+  </data>
+  <data name="toolStripStatusLabel" xml:space="preserve">
+    <value>Biblioteca personal de Fausto Luis - 2016</value>
+  </data>
+  <data name="AvisoSistema" xml:space="preserve">
+    <value>Aviso do sistema</value>
+  </data>
+  <data name="ErroGeral" xml:space="preserve">
+    <value>Errore</value>
+  </data>
+  <data name="ErroListagem" xml:space="preserve">
+    <value>Error en el listado. Compruebe los errores</value>
+  </data>
+  <data name="FalhaCriacaoRegisto" xml:space="preserve">
+    <value>El registro no se ha creado con éxito</value>
+  </data>
+  <data name="FalhaGravacaoRegisto" xml:space="preserve">
+    <value>Registro no se actualiza. Compruebe los errores.</value>
+  </data>
+  <data name="RegistoCriadoSucesso" xml:space="preserve">
+    <value>Registro insertado con éxito</value>
+  </data>
+  <data name="RegistoGravadoSucesso" xml:space="preserve">
+    <value>Registro actualizado con éxito</value>
+  </data>
+  <data name="FalhaAnulacaoRegisto" xml:space="preserve">
+    <value>Error en la exclusión del registro</value>
+  </data>
+  <data name="RegistoAnuladoSucesso" xml:space="preserve">
+    <value>Registro borrado correctamente</value>
+  </data>
+  <data name="TituloPesquisa" xml:space="preserve">
+    <value>Pesquisa de</value>
+  </data>
+  <data name="TituloPesquisaAutores" xml:space="preserve">
+    <value>Búsqueda de Autores</value>
+  </data>
+  <data name="TituloPesquisaCategorias" xml:space="preserve">
+    <value>Búsqueda de Categorias</value>
+  </data>
+  <data name="TituloPesquisaLivros" xml:space="preserve">
+    <value>Búsqueda de Libros</value>
+  </data>
+  <data name="TituloPesquisaUtilizadores" xml:space="preserve">
+    <value>Búsqueda de Usuários</value>
+  </data>
+  <data name="RegistosEncontrados" xml:space="preserve">
+    <value>registros que se encuentran con la palabra</value>
+  </data>
+  <data name="lblEscolhaLinguagem" xml:space="preserve">
+    <value>Elegir el idioma</value>
+  </data>
+  <data name="SaidaPrograma" xml:space="preserve">
+    <value>¿De verdad quieres salir de la aplicación?</value>
+  </data>
+  <data name="TituloCampo1Autores" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="TituloCampo1Categorias" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="TituloCampo1Livros" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="TituloCampo1Utilizadores" xml:space="preserve">
+    <value>Nombre de usuário</value>
+  </data>
+  <data name="TituloCampo2Autores" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
+  <data name="TituloCampo2Categorias" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="TituloCampo2Livros" xml:space="preserve">
+    <value>Título</value>
+  </data>
+  <data name="TituloCampo2Utilizadores" xml:space="preserve">
+    <value>Último ingresso</value>
+  </data>
+  <data name="TituloCampo3Livros" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
+  <data name="TituloCampo3Utilizadores" xml:space="preserve">
+    <value>Contraseña actualizada</value>
+  </data>
+  <data name="TituloListagemAutores" xml:space="preserve">
+    <value>Lista general de Autores</value>
+  </data>
+  <data name="TituloListagemCategorias" xml:space="preserve">
+    <value>Lista general de Categorias</value>
+  </data>
+  <data name="TituloListagemLivros" xml:space="preserve">
+    <value>Lista general de Libros</value>
+  </data>
+  <data name="frmPreviewAutoresGenerico" xml:space="preserve">
+    <value>Lista de Autores</value>
+  </data>
+  <data name="frmPreviewCategoriasGenerico" xml:space="preserve">
+    <value>Lista de Categorias</value>
+  </data>
+  <data name="frmPreviewLivrosGenerico" xml:space="preserve">
+    <value>Lista de Libros</value>
+  </data>
+  <data name="frmPreviewUtilizadoresGenerico" xml:space="preserve">
+    <value>Lista de Usuários</value>
+  </data>
+  <data name="TituloListagemUtilizadores" xml:space="preserve">
+    <value>Lista general de los Usuarios</value>
+  </data>
+  <data name="TituloCampo4Utilizadores" xml:space="preserve">
+    <value>Papel</value>
+  </data>
+  <data name="lblEditora" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="TituloCampo4Livros" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="frmEditoras" xml:space="preserve">
+    <value>Editores</value>
+  </data>
+  <data name="btnEditoras" xml:space="preserve">
+    <value>Editores</value>
+  </data>
+  <data name="TituloListagemEditoras" xml:space="preserve">
+    <value>Listado de Editores</value>
+  </data>
+  <data name="TituloCampo1Editoras" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="TituloCampo2Editoras" xml:space="preserve">
+    <value>correo electrónico</value>
+  </data>
+  <data name="TituloCampo3Editoras" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="frmPreviewEditorasGenerico" xml:space="preserve">
+    <value>Listado de Editores</value>
+  </data>
+  <data name="TituloPesquisaEditoras" xml:space="preserve">
+    <value>Búsqueda de Editores</value>
+  </data>
+  <data name="MSG_UserNameRequired" xml:space="preserve">
+    <value>Nombre de usuario debe ser llenado.</value>
+  </data>
+  <data name="MSG_UserPasswordRequired" xml:space="preserve">
+    <value>Introduzca la contraseña, por favor</value>
+  </data>
+  <data name="MSG_UserPasswordsNotEqual" xml:space="preserve">
+    <value>Las contraseñas no son iguales</value>
+  </data>
+  <data name="MSG_PublisherDeleteCaptionError" xml:space="preserve">
+    <value>Borrar publicador</value>
+  </data>
+  <data name="MSG_PublisherDeleteError" xml:space="preserve">
+    <value>Hay libros con este editor ...</value>
+  </data>
+  <data name="MSG_PublisherNameRequired" xml:space="preserve">
+    <value>Complete el nombre de la Editora, por favor</value>
+  </data>
+  <data name="MSG_UserConfirmationPasswordRequired" xml:space="preserve">
+    <value>Confirmar contraseña, por favor</value>
+  </data>
+  <data name="MSG_UserIDRequired" xml:space="preserve">
+    <value>ID del usuario debe ser llenado.</value>
+  </data>
+  <data name="MSG_CategoryNameRequired" xml:space="preserve">
+    <value>Debe completar la Categoria</value>
+  </data>
+  <data name="MSG_CategoryDeleteCaptionError" xml:space="preserve">
+    <value>Borrar Categoria</value>
+  </data>
+  <data name="MSG_CategoryDeleteError" xml:space="preserve">
+    <value>Hay libros con esta Categoria...</value>
+  </data>
+  <data name="MSG_BookAuthorRequired" xml:space="preserve">
+    <value>Debe elegir el publicador</value>
+  </data>
+  <data name="MSG_BookCategoryRequired" xml:space="preserve">
+    <value>Debe elegir la Categoria</value>
+  </data>
+  <data name="MSG_BookPublisherrRequired" xml:space="preserve">
+    <value>Debe elegir el publicador</value>
+  </data>
+  <data name="MSG_BookTitleRequired" xml:space="preserve">
+    <value>Debe completarbel título del libro</value>
+  </data>
+  <data name="MSG_AuthorNameRequired" xml:space="preserve">
+    <value>Llene nombre de autor, por favor</value>
+  </data>
+  <data name="MSG_PatientDeleteCaptionError" xml:space="preserve">
+    <value>Borar paciente</value>
+  </data>
+  <data name="MSG_AuthorDeleteError" xml:space="preserve">
+    <value>Hay libros de este autor ...</value>
+  </data>
+  <data name="MSG_AuthorDOBInvalid" xml:space="preserve">
+    <value>Fecha de nacimiento inválida</value>
+  </data>
+  <data name="ConfirmarExclusao" xml:space="preserve">
+    <value>¿Quieres eliminar el registro?</value>
+  </data>
+  <data name="SaidaAplicacao" xml:space="preserve">
+    <value>Usted realmente desea salir del programa?</value>
+  </data>
+  <data name="MSG_UserAlreadyExist" xml:space="preserve">
+    <value>ID de Usuário {0} ya existe. Elige un nuevo favor</value>
+  </data>
+  <data name="InvalidYear" xml:space="preserve">
+    <value>Año invalido</value>
+  </data>
+  <data name="lblEMailEditora" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="lblMoradaEditora" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="lblSiteEditora" xml:space="preserve">
+    <value>sitio web</value>
+  </data>
+  <data name="lblTelefoneEditora" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="lblNomeEditora" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="lblDescricaoLocalArquivo" xml:space="preserve">
+    <value>Guardado en</value>
+  </data>
+  <data name="MSG_StorageDeleteCaptionError" xml:space="preserve">
+    <value>Borra local de archivo</value>
+  </data>
+  <data name="MSG_StorageDeleteError" xml:space="preserve">
+    <value>Hay libros com ese tipo de local de archivo</value>
+  </data>
+  <data name="TituloListagemLocaisArquivo" xml:space="preserve">
+    <value>Listado de archivos</value>
+  </data>
+  <data name="frmPreviewLocalArquivoGenerico" xml:space="preserve">
+    <value>Busquéda archivos</value>
+  </data>
+  <data name="frmLocaisArquivo" xml:space="preserve">
+    <value>Guardado en</value>
+  </data>
+  <data name="lblFormato" xml:space="preserve">
+    <value>Formato</value>
+  </data>
+  <data name="lblRating" xml:space="preserve">
+    <value>Classificación</value>
+  </data>
+  <data name="MSG_BookStorageRequired" xml:space="preserve">
+    <value>Debe completar local de archivo</value>
+  </data>
+  <data name="TituloCampo5Livros" xml:space="preserve">
+    <value>Año</value>
+  </data>
+  <data name="frmPrincipal" xml:space="preserve">
+    <value>Gestión de Publicaciones</value>
+  </data>
+  <data name="frmPublicacoes" xml:space="preserve">
+    <value>Publicaciones</value>
+  </data>
+  <data name="lblLido" xml:space="preserve">
+    <value>¿leído?</value>
+  </data>
+  <data name="btnLimpar" xml:space="preserve">
+    <value>Limpiar</value>
+  </data>
+  <data name="btnManutBD" xml:space="preserve">
+    <value>Base de datos</value>
+  </data>
+  <data name="lblGuardadoEm" xml:space="preserve">
+    <value>Guardado en</value>
+  </data>
+  <data name="lblLocalArquivo" xml:space="preserve">
+    <value>Ubicación</value>
+  </data>
+  <data name="lblMovimento" xml:space="preserve">
+    <value>Creado en</value>
+  </data>
+  <data name="lblPubCover" xml:space="preserve">
+    <value>Portada</value>
+  </data>
+  <data name="Nao" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="Sim" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="btnFormatos" xml:space="preserve">
+    <value>Formatos</value>
+  </data>
+  <data name="frmFormatos" xml:space="preserve">
+    <value>Formatos</value>
+  </data>
+  <data name="frmPreviewFormatosGenerico" xml:space="preserve">
+    <value>Listado de Formatos</value>
+  </data>
+  <data name="TituloCampo1Formatos" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="TituloCampo2Formatos" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="TituloListagemFormatos" xml:space="preserve">
+    <value>Listado de Formatos</value>
+  </data>
+  <data name="DeleteMsg" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="EditMsg" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="LerPdf" xml:space="preserve">
+    <value>Ler Pdf</value>
+  </data>
+  <data name="NewMsg" xml:space="preserve">
+    <value>Nuevo</value>
+  </data>
+  <data name="PlayMp3" xml:space="preserve">
+    <value>Ouvir</value>
+  </data>
+  <data name="PlayVideo" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>Registro</value>
+  </data>
+  <data name="RegistosCatalogados" xml:space="preserve">
+    <value>registros catalogados.</value>
+  </data>
+  <data name="OperacaoCancelada" xml:space="preserve">
+    <value>Operación cancelada.</value>
+  </data>
+  <data name="DadosEmFalta" xml:space="preserve">
+    <value>Operación no válida / Datos faltantes o no válidos</value>
+  </data>
+  <data name="SuccessDelete" xml:space="preserve">
+    <value>El registro se ha eliminado correctamente.</value>
+  </data>
+  <data name="SuccessInsert" xml:space="preserve">
+    <value>El registro se creó correctamente.</value>
+  </data>
+  <data name="SuccessUpdate" xml:space="preserve">
+    <value>El registro se registró con éxito.</value>
+  </data>
+  <data name="creationMsg" xml:space="preserve">
+    <value>Criação de </value>
+  </data>
+  <data name="deletionMsg" xml:space="preserve">
+    <value>Eliminación de</value>
+  </data>
+  <data name="editionMsg" xml:space="preserve">
+    <value>Edición</value>
+  </data>
+  <data name="msgAll" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="msgBlankCover" xml:space="preserve">
+    <value>Sem Capa</value>
+  </data>
+  <data name="msgBlankPages" xml:space="preserve">
+    <value>Páginas = 0</value>
+  </data>
+  <data name="msgDuplicated" xml:space="preserve">
+    <value>Duplicados</value>
+  </data>
+  <data name="msgReaded" xml:space="preserve">
+    <value>Lidos</value>
+  </data>
+  <data name="msgUpdateCategories" xml:space="preserve">
+    <value>Atualiza Categorias</value>
+  </data>
+  <data name="msgUpdateFormats" xml:space="preserve">
+    <value>Atualiza Formatos</value>
+  </data>
+  <data name="msgUpdatePublishers" xml:space="preserve">
+    <value>Atualiza Editoras</value>
+  </data>
+  <data name="msgUpdateStoragePlaces" xml:space="preserve">
+    <value>Atualiza Locais de Arquivo</value>
+  </data>
+  <data name="msgUpload" xml:space="preserve">
+    <value>Importação de ficheiros</value>
+  </data>
+  <data name="msgUploadError" xml:space="preserve">
+    <value>Ficheiro não tem a extensão Pdf/Docx</value>
+  </data>
+  <data name="msgUploadCreationError" xml:space="preserve">
+    <value>Registo não foi criado, título já existe na base de dados</value>
+  </data>
+  <data name="msgUploadAuthorCreation_Error" xml:space="preserve">
+    <value>Erro ao criação de Autor (processamento em 'batch').</value>
+  </data>
+  <data name="msgUploadAuthor_AboutMsg" xml:space="preserve">
+    <value>Registo criado automáticamente em </value>
+  </data>
+  <data name="msgUploadCountingPdfPages" xml:space="preserve">
+    <value>Erro ao contagem de páginas (PDF).</value>
+  </data>
+  <data name="msgUploadCreationMsg" xml:space="preserve">
+    <value>Criação de Publicação, via Upload</value>
+  </data>
+  <data name="msgUploadCreationSuccess" xml:space="preserve">
+    <value>Processo de Upload concluído.</value>
+  </data>
+  <data name="msgUploadKeywords" xml:space="preserve">
+    <value>Palavras-chave</value>
+  </data>
+  <data name="msgUploadStorageFileNotInDisk" xml:space="preserve">
+    <value>Local do arquivo não existe no disco.</value>
+  </data>
+  <data name="msgUploadSubject" xml:space="preserve">
+    <value>Assunto</value>
+  </data>
+  <data name="msgSelect" xml:space="preserve">
+    <value>Selecione opção</value>
+  </data>
+  <data name="ConfirmarAtualizacao" xml:space="preserve">
+    <value>Confirma atualização dos registos marcados?</value>
+  </data>
+  <data name="SuccessUpdates" xml:space="preserve">
+    <value>Registo(s) atualizado(s) com sucesso.</value>
+  </data>
+  <data name="updateRecordsMsg" xml:space="preserve">
+    <value>Actualización de registros</value>
+  </data>
+  <data name="TituloAusencias" xml:space="preserve">
+    <value>Ausências</value>
+  </data>
+  <data name="TituloCasa" xml:space="preserve">
+    <value>Casa</value>
+  </data>
+  <data name="TituloCedula" xml:space="preserve">
+    <value>Cédula</value>
+  </data>
+  <data name="TituloDias" xml:space="preserve">
+    <value>Dias</value>
+  </data>
+  <data name="TituloDoentes" xml:space="preserve">
+    <value>Gestão de Doentes</value>
+  </data>
+  <data name="TituloDoentesSemAcordo" xml:space="preserve">
+    <value>Doentes sem Acordo (Particulares)</value>
+  </data>
+  <data name="TituloDuracao" xml:space="preserve">
+    <value>Duração</value>
+  </data>
+  <data name="TituloEscolhaCor" xml:space="preserve">
+    <value>Escolha uma cor</value>
+  </data>
+  <data name="TituloEspecialidades" xml:space="preserve">
+    <value>Especialidades</value>
+  </data>
+  <data name="TituloFim" xml:space="preserve">
+    <value>Fim</value>
+  </data>
+  <data name="TituloIdentificacao" xml:space="preserve">
+    <value>Identificación</value>
+  </data>
+  <data name="TituloInicio" xml:space="preserve">
+    <value>Início</value>
+  </data>
+  <data name="TituloMarcacoes" xml:space="preserve">
+    <value>Reserva de citas médicas</value>
+  </data>
+  <data name="TituloMedico" xml:space="preserve">
+    <value>Médico</value>
+  </data>
+  <data name="TituloMedicoRecebe" xml:space="preserve">
+    <value>Médico recebe</value>
+  </data>
+  <data name="TituloMedicos" xml:space="preserve">
+    <value>Gestão de Médicos</value>
+  </data>
+  <data name="TituloMorada" xml:space="preserve">
+    <value>Morada</value>
+  </data>
+  <data name="TituloMotivo" xml:space="preserve">
+    <value>Motivo</value>
+  </data>
+  <data name="TituloNome" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="TituloNotas" xml:space="preserve">
+    <value>Razón</value>
+  </data>
+  <data name="TituloObservacoes" xml:space="preserve">
+    <value>Observaciones</value>
+  </data>
+  <data name="TituloPainel" xml:space="preserve">
+    <value>Painel</value>
+  </data>
+  <data name="TituloPlanoConsultas" xml:space="preserve">
+    <value>Plano de Consultas</value>
+  </data>
+  <data name="TituloPrecoConsulta" xml:space="preserve">
+    <value>Preço consulta</value>
+  </data>
+  <data name="TituloQuarta" xml:space="preserve">
+    <value>Quarta</value>
+  </data>
+  <data name="TituloQuinta" xml:space="preserve">
+    <value>Quinta</value>
+  </data>
+  <data name="TituloRetencao" xml:space="preserve">
+    <value>Retenção na fonte?</value>
+  </data>
+  <data name="TituloSegunda" xml:space="preserve">
+    <value>Segunda</value>
+  </data>
+  <data name="TituloSexta" xml:space="preserve">
+    <value>Sexta</value>
+  </data>
+  <data name="TituloTerca" xml:space="preserve">
+    <value>Terça</value>
+  </data>
+  <data name="menu-admin-dashoard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="menu-admin-lookup-tables" xml:space="preserve">
+    <value>Tabelas</value>
+  </data>
+  <data name="menu-admin-main" xml:space="preserve">
+    <value>Configuração</value>
+  </data>
+  <data name="menu-admin-management" xml:space="preserve">
+    <value>Utilizadores</value>
+  </data>
+  <data name="menu-patients-main" xml:space="preserve">
+    <value>Gestão de doentes</value>
+  </data>
+  <data name="menu-patients-management" xml:space="preserve">
+    <value>Fichas Clínicas</value>
+  </data>
+  <data name="menu-patients-report-medicalexams" xml:space="preserve">
+    <value>Exames passados</value>
+  </data>
+  <data name="menu-patients-report-patientsandguides" xml:space="preserve">
+    <value>Listar Pacientes y Guías</value>
+  </data>
+  <data name="menu-patients-report-riskpatologies" xml:space="preserve">
+    <value>Patologias de Risco</value>
+  </data>
+  <data name="menu-patients-tasks" xml:space="preserve">
+    <value>Tarefas/lembretes</value>
+  </data>
+  <data name="menu-recepction-appointments" xml:space="preserve">
+    <value>Marcações</value>
+  </data>
+  <data name="menu-recepction-doctors-absents" xml:space="preserve">
+    <value>Médicos - Ausências</value>
+  </data>
+  <data name="menu-recepction-doctors-management" xml:space="preserve">
+    <value>Médicos - Manutenção</value>
+  </data>
+  <data name="menu-recepction-main" xml:space="preserve">
+    <value>Recepção</value>
+  </data>
+  <data name="TituloEspecialidade" xml:space="preserve">
+    <value>Especialidad</value>
+  </data>
+  <data name="menu-patients-report-search-medicines" xml:space="preserve">
+    <value>Busque medicamentos</value>
+  </data>
+  <data name="MSG_ConsultasTitulo" xml:space="preserve">
+    <value>Registros Clínicos</value>
+  </data>
+  <data name="MSG_Consultas_Listar" xml:space="preserve">
+    <value>Lista de citas de pacientes</value>
+  </data>
+  <data name="MSG_DoentesAtivos" xml:space="preserve">
+    <value>Pacientes activos</value>
+  </data>
+  <data name="MSG_DoentesNaoAtivos" xml:space="preserve">
+    <value>Pacientes no activos</value>
+  </data>
+  <data name="MSG_DoentesTodos" xml:space="preserve">
+    <value>Todos los pacientes</value>
+  </data>
+  <data name="MSG_ExamesMedicosDelete" xml:space="preserve">
+    <value>Eliminar examen médico</value>
+  </data>
+  <data name="MSG_FichasClinicasTitulo" xml:space="preserve">
+    <value>Historias Clínicas de Pacientes</value>
+  </data>
+  <data name="MSG_GoBack" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="MSG_GuiaTratamentoDelete" xml:space="preserve">
+    <value>Borrar Guía de Tratamiento</value>
+  </data>
+  <data name="MSG_PreparandoDados" xml:space="preserve">
+    <value>Preparando datos...</value>
+  </data>
+  <data name="MSG_ReferenciacaoDelete" xml:space="preserve">
+    <value>Borrar Referencia</value>
+  </data>
+  <data name="MSG_RegistoClinicoDelete" xml:space="preserve">
+    <value>Borar Historia Clínica</value>
+  </data>
+  <data name="MSG_Abertura" xml:space="preserve">
+    <value>Creado en</value>
+  </data>
+  <data name="MSG_Acordo" xml:space="preserve">
+    <value>Acuerdo medico</value>
+  </data>
+  <data name="MSG_Alerta" xml:space="preserve">
+    <value>Alerta</value>
+  </data>
+  <data name="MSG_Altura" xml:space="preserve">
+    <value>Altura</value>
+  </data>
+  <data name="MSG_Diastolica" xml:space="preserve">
+    <value>Diastólica</value>
+  </data>
+  <data name="MSG_EstadoCivil" xml:space="preserve">
+    <value>Estado Civil</value>
+  </data>
+  <data name="MSG_Glicemia" xml:space="preserve">
+    <value>Glucose</value>
+  </data>
+  <data name="MSG_Idade" xml:space="preserve">
+    <value>Edad</value>
+  </data>
+  <data name="MSG_IMC" xml:space="preserve">
+    <value>IMC</value>
+  </data>
+  <data name="MSG_MedicoAssistente" xml:space="preserve">
+    <value>Medico assistente</value>
+  </data>
+  <data name="MSG_Peso" xml:space="preserve">
+    <value>Peso</value>
+  </data>
+  <data name="MSG_Profissao" xml:space="preserve">
+    <value>Profesión</value>
+  </data>
+  <data name="MSG_Sistolica" xml:space="preserve">
+    <value>Sistólica</value>
+  </data>
+  <data name="MSG_Opcoes" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="MSG_Doente" xml:space="preserve">
+    <value>Paciente</value>
+  </data>
+  <data name="MSG_CriadoEm" xml:space="preserve">
+    <value>Creado en</value>
+  </data>
+  <data name="MSG_Diagnostico" xml:space="preserve">
+    <value>Diagnóstico</value>
+  </data>
+  <data name="MSG_DocumentosIndexados" xml:space="preserve">
+    <value>Documentos Indexados</value>
+  </data>
+  <data name="MSG_Duplicar" xml:space="preserve">
+    <value>Duplicar</value>
+  </data>
+  <data name="MSG_Exame" xml:space="preserve">
+    <value>Examen</value>
+  </data>
+  <data name="MSG_Ficheiro" xml:space="preserve">
+    <value>Archivo</value>
+  </data>
+  <data name="MSG_ExamesMedicosTitulo" xml:space="preserve">
+    <value>Exámenes médicos</value>
+  </data>
+  <data name="MSG_GuiasReferenciasTitulo" xml:space="preserve">
+    <value>Solicitudes de referencia</value>
+  </data>
+  <data name="MSG_GuiasTratamentoTitulo" xml:space="preserve">
+    <value>Guías de tratamiento</value>
+  </data>
+  <data name="MSG_GuiasTratamento_Listar" xml:space="preserve">
+    <value>Lista de Guias para los enfermos</value>
+  </data>
+  <data name="MSG_IndexadoEm" xml:space="preserve">
+    <value>Indexed in</value>
+  </data>
+  <data name="MSG_Tipo" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="MSG_TipoDocumento" xml:space="preserve">
+    <value>Tipo Documento</value>
+  </data>
+  <data name="MSG_ReferenciasTitulo" xml:space="preserve">
+    <value>Solicitudes de referencia</value>
+  </data>
+  <data name="TituloAcordos" xml:space="preserve">
+    <value>Acuerdos de Salud</value>
+  </data>
+  <data name="MSG_AbreAplicaModelo" xml:space="preserve">
+    <value>Abrir y aplicar Plantilla</value>
+  </data>
+  <data name="MSG_ConfirmarOperacao" xml:space="preserve">
+    <value>¿Confirmar operación?</value>
+  </data>
+  <data name="MSG_EscolherAcordo" xml:space="preserve">
+    <value>Elija Acuerdo</value>
+  </data>
+  <data name="MSG_GuardarModelo" xml:space="preserve">
+    <value>Guardar modelo</value>
+  </data>
+  <data name="MSG_PercentagemRecebidaClinica" xml:space="preserve">
+    <value>Porcentaje recibido de la clínica</value>
+  </data>
+  <data name="TituloEspecial" xml:space="preserve">
+    <value>Especial</value>
+  </data>
+  <data name="EscolherEspecialidade" xml:space="preserve">
+    <value>Elige Especialidad</value>
+  </data>
+  <data name="MSG_MedicoDelete" xml:space="preserve">
+    <value>Eliminar médico</value>
+  </data>
+  <data name="MSG_Cor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="TituloAlmoco" xml:space="preserve">
+    <value>Pausa para almorzar</value>
+  </data>
+  <data name="TituloAusente" xml:space="preserve">
+    <value>Ausente</value>
+  </data>
+  <data name="TituloBloquearDesbloquearPeriodo" xml:space="preserve">
+    <value>Bloqueo y desbloqueo de período</value>
+  </data>
+  <data name="TituloFeriado" xml:space="preserve">
+    <value>Feriado</value>
+  </data>
+  <data name="TituloMostraMarcacoes" xml:space="preserve">
+    <value>Obtener citas</value>
+  </data>
+  <data name="TituloNovaMarcacao" xml:space="preserve">
+    <value>Nueva cita</value>
+  </data>
+  <data name="MSG_EscolherDoente" xml:space="preserve">
+    <value>Elegir paciente</value>
+  </data>
+  <data name="MSG_PrimeiraConta" xml:space="preserve">
+    <value>Es la primera cita?</value>
+  </data>
+  <data name="TituloEstado" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="TituloIniciativa" xml:space="preserve">
+    <value>Iniciativa</value>
+  </data>
+  <data name="MSG_EscolherMedico" xml:space="preserve">
+    <value>Elegir medico</value>
+  </data>
+  <data name="TituloHorario" xml:space="preserve">
+    <value>Hora</value>
+  </data>
+  <data name="TituloPeriodo" xml:space="preserve">
+    <value>Periodo</value>
+  </data>
+  <data name="menu-admin-clinic-data" xml:space="preserve">
+    <value>Datos de la clínica</value>
+  </data>
+  <data name="MSG_Appt_Validation_Doctor" xml:space="preserve">
+    <value>Médico</value>
+  </data>
+  <data name="MSG_Appt_Validation_EndTime" xml:space="preserve">
+    <value>Fecha/hora inválida o incompleta</value>
+  </data>
+  <data name="MSG_Appt_Validation_Initiative" xml:space="preserve">
+    <value>Iniciativa de consulta</value>
+  </data>
+  <data name="MSG_Appt_Validation_LunchTime" xml:space="preserve">
+    <value>Cita a la hora del almuerzo...</value>
+  </data>
+  <data name="MSG_Appt_Validation_PatientName" xml:space="preserve">
+    <value>Nombre del paciente</value>
+  </data>
+  <data name="MSG_Appt_Validation_Reason" xml:space="preserve">
+    <value>Motivo de consulta</value>
+  </data>
+  <data name="MSG_Appt_Validation_Remarks" xml:space="preserve">
+    <value>Nota</value>
+  </data>
+  <data name="MSG_Appt_Validation_StartTime" xml:space="preserve">
+    <value>La fecha de inicio debe ser en el futuro</value>
+  </data>
+  <data name="MSG_Appt_Validation_StartTimeInvalid" xml:space="preserve">
+    <value>Data/Horário inválidos ou não preenchidos</value>
+  </data>
+  <data name="MSG_Appt_Validation_Status" xml:space="preserve">
+    <value>Estado de la consulta</value>
+  </data>
+  <data name="MSG_AbsenceDeleteCaptionError" xml:space="preserve">
+    <value>Borrar ausencia</value>
+  </data>
+  <data name="MSG_Absence_Free" xml:space="preserve">
+    <value>Libre</value>
+  </data>
+  <data name="MSG_Absence_OneDay" xml:space="preserve">
+    <value>1 día</value>
+  </data>
+  <data name="MSG_Absence_OneMonth" xml:space="preserve">
+    <value>1 mes</value>
+  </data>
+  <data name="MSG_Absence_OneWeek" xml:space="preserve">
+    <value>1 semana</value>
+  </data>
+  <data name="MSG_AgreementDeleteCaptionError" xml:space="preserve">
+    <value>Borrar acuerdo del medico</value>
+  </data>
+  <data name="MSG_E" xml:space="preserve">
+    <value>y</value>
+  </data>
+  <data name="MSG_Entre" xml:space="preserve">
+    <value>Entre</value>
+  </data>
+  <data name="TituloAusencia" xml:space="preserve">
+    <value>Ausencia</value>
+  </data>
+  <data name="MSG_AgreementsDeleteError" xml:space="preserve">
+    <value>Hay medicos con este convenio</value>
+  </data>
+  <data name="MSG_Consulta" xml:space="preserve">
+    <value>Consulta</value>
+  </data>
+  <data name="lblExportar" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
+  <data name="lblApelido" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="lblEscolhaRole" xml:space="preserve">
+    <value>Elegir rol</value>
+  </data>
+  <data name="lblPatologias" xml:space="preserve">
+    <value>Patologias</value>
+  </data>
+  <data name="lblManutencao" xml:space="preserve">
+    <value>Mantenimiento</value>
+  </data>
+  <data name="Site_Menu_Contactos" xml:space="preserve">
+    <value>Contactos</value>
+  </data>
+  <data name="Site_Menu_Inicio" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="Site_Menu_Login" xml:space="preserve">
+    <value>Acceso (Login)</value>
+  </data>
+  <data name="Site_Menu_MarcacaoConsulta" xml:space="preserve">
+    <value>Reserva de citas médicas</value>
+  </data>
+  <data name="Site_Menu_QuadroMedico" xml:space="preserve">
+    <value>Junta medica</value>
+  </data>
+  <data name="Site_Menu_QuadroMedico_Descricao" xml:space="preserve">
+    <value>Cuadro médico y Especialidades</value>
+  </data>
+  <data name="Site_Menu_QuemSomos" xml:space="preserve">
+    <value>Quienes somos</value>
+  </data>
+  <data name="Site_Menu_QuemSomos_Descricao" xml:space="preserve">
+    <value>Sobre esta clínica</value>
+  </data>
+  <data name="MSG_Appt_DeleteCaption" xml:space="preserve">
+    <value>Borrar cita medica</value>
+  </data>
+  <data name="MSG_Staff_DeleteCaption" xml:space="preserve">
+    <value>Borrar miembro del personal</value>
+  </data>
+  <data name="MSG_IndexedDoc_DeleteCaption" xml:space="preserve">
+    <value>Borrar documento indexado</value>
+  </data>
+  <data name="TituloAnalisesClinicas" xml:space="preserve">
+    <value>Análisis de laboratorio</value>
+  </data>
+  <data name="TituloAtestado" xml:space="preserve">
+    <value>Certificado</value>
+  </data>
+  <data name="TituloData" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="TituloDtNascimento" xml:space="preserve">
+    <value>Fecha de nacimiento</value>
+  </data>
+  <data name="TituloEncaminhamento" xml:space="preserve">
+    <value>Remisión médica</value>
+  </data>
+  <data name="TituloEnviarEmail" xml:space="preserve">
+    <value>Enviar correo electrónico al paciente</value>
+  </data>
+  <data name="TituloImagem" xml:space="preserve">
+    <value>Imagen</value>
+  </data>
+  <data name="TituloIndexacaoDocumentos" xml:space="preserve">
+    <value>Indexación de documentos</value>
+  </data>
+  <data name="TituloIndexarDocumento" xml:space="preserve">
+    <value>Indexar el documento</value>
+  </data>
+  <data name="TituloListarExamesMedicos" xml:space="preserve">
+    <value>Lista de Exámenes Médicos</value>
+  </data>
+  <data name="TituloListarGuiasTratamento" xml:space="preserve">
+    <value>Lista de guías de tratamiento</value>
+  </data>
+  <data name="TituloListarRegistosClínicos" xml:space="preserve">
+    <value>Lista de Registros Clínicos</value>
+  </data>
+  <data name="TituloMedicamentoConsultado" xml:space="preserve">
+    <value>Medicamento consultado</value>
+  </data>
+  <data name="TituloReferenciacao" xml:space="preserve">
+    <value>Motivo de la derivación médica</value>
+  </data>
+  <data name="TituloEstadoGeralConsulta" xml:space="preserve">
+    <value>Estado General / Evolución de la Enfermedad</value>
+  </data>
+  <data name="TituloListaProblemasConsulta" xml:space="preserve">
+    <value>Lista de problemas/hallazgos clínicos</value>
+  </data>
+  <data name="TituloMotivoConsulta" xml:space="preserve">
+    <value>Motivo de esta consulta</value>
+  </data>
+  <data name="TituloDadosBiometricos" xml:space="preserve">
+    <value>Información biométrica</value>
+  </data>
+  <data name="TituloBMI" xml:space="preserve">
+    <value>IMC</value>
+  </data>
+  <data name="TituloPulsacao" xml:space="preserve">
+    <value>Pulsación</value>
+  </data>
+  <data name="TituloRespiracao" xml:space="preserve">
+    <value>Respiración</value>
+  </data>
+  <data name="TituloResultado" xml:space="preserve">
+    <value>Resultado</value>
+  </data>
+  <data name="TituloTemperatura" xml:space="preserve">
+    <value>Temperatura</value>
+  </data>
+  <data name="MSG_CorpulenciaDadosEmFalta" xml:space="preserve">
+    <value>Para calcular el IMC, proporcione Peso y Altura...</value>
+  </data>
+  <data name="MSG_CorpulenciaDesnutricao" xml:space="preserve">
+    <value>Desnutrición</value>
+  </data>
+  <data name="MSG_CorpulenciaExcessoPeso" xml:space="preserve">
+    <value>Sobrepeso</value>
+  </data>
+  <data name="MSG_CorpulenciaMagreza" xml:space="preserve">
+    <value>Delgadez</value>
+  </data>
+  <data name="MSG_CorpulenciaNormal" xml:space="preserve">
+    <value>Corpulencia normal</value>
+  </data>
+  <data name="MSG_CorpulenciaObesidadeModerada" xml:space="preserve">
+    <value>Obesidad moderada</value>
+  </data>
+  <data name="MSG_CorpulenciaObesidadeMorbidaExcessiva" xml:space="preserve">
+    <value>Obesidad mórbida o masiva</value>
+  </data>
+  <data name="MSG_CorpulenciaObesidadeSevera" xml:space="preserve">
+    <value>Obesidad severa</value>
+  </data>
+  <data name="MSG_DadosNaoNumericos" xml:space="preserve">
+    <value>Los valores deben ser numéricos</value>
+  </data>
+  <data name="MSG_Diabetes_PodeRequererVigilancia" xml:space="preserve">
+    <value>Puede requerir vigilancia médica</value>
+  </data>
+  <data name="MSG_Diabetes_RequerVigilancia" xml:space="preserve">
+    <value>Requiere vigilancia médica</value>
+  </data>
+  <data name="MSG_Diabetes_ValorNormal" xml:space="preserve">
+    <value>Valor normal</value>
+  </data>
+  <data name="MSG_TA_DiastolicaInvalida" xml:space="preserve">
+    <value>El valor 'Máximo' puede no ser válido...</value>
+  </data>
+  <data name="MSG_TA_FormatoInvalido" xml:space="preserve">
+    <value>Formato no válido (V1-V2, V1 V2, V1,V2)</value>
+  </data>
+  <data name="MSG_TA_Grau1" xml:space="preserve">
+    <value>Hipertensión de grado 1</value>
+  </data>
+  <data name="MSG_TA_Grau2" xml:space="preserve">
+    <value>Hipertensión de grado 2</value>
+  </data>
+  <data name="MSG_TA_Grau3" xml:space="preserve">
+    <value>Hipertensión de grado 3</value>
+  </data>
+  <data name="MSG_TA_SistolicaAlto" xml:space="preserve">
+    <value>Valor de 'mínimo' demasiado alto...</value>
+  </data>
+  <data name="MSG_TA_SistolicaBaixo" xml:space="preserve">
+    <value>Valor de 'mínimo' demasiado bajo...</value>
+  </data>
+  <data name="MSG_TA_SistolicaInvalida" xml:space="preserve">
+    <value>El valor de 'mínimo' puede no ser válido...</value>
+  </data>
+  <data name="MSG_TA_SistolicaIsolada" xml:space="preserve">
+    <value>Hipertensión sistólica aislada</value>
+  </data>
+  <data name="MSG_TA_SistolicaNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="MSG_TA_SistolicaNormalAlta" xml:space="preserve">
+    <value>Normal Alto</value>
+  </data>
+  <data name="MSG_TA_ValoresInvalidos" xml:space="preserve">
+    <value>Los valores no parecen ser correctos (dif. &lt; 15)</value>
+  </data>
+  <data name="MSG_TA_ValoresNaoFornecidos" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MSG_TA_ValoresOtimos" xml:space="preserve">
+    <value>Valores óptimos</value>
+  </data>
+  <data name="TituloIMC" xml:space="preserve">
+    <value>IMC</value>
+  </data>
+  <data name="MSG_EscolherTipoDocumento" xml:space="preserve">
+    <value>Elija el tipo de documento</value>
+  </data>
+  <data name="TituloDocumento" xml:space="preserve">
+    <value>Documento</value>
+  </data>
+  <data name="TituloGrupo" xml:space="preserve">
+    <value>Grupo</value>
+  </data>
+  <data name="TituloServicosPrestados" xml:space="preserve">
+    <value>Servicios prestados</value>
+  </data>
+  <data name="MSG_HistoriaAtualDoenca" xml:space="preserve">
+    <value>Historial actual de enfermedad</value>
+  </data>
+  <data name="MSG_Medicacao" xml:space="preserve">
+    <value>Ultimos medicamentos</value>
+  </data>
+  <data name="MSG_MotivoReferenciacao" xml:space="preserve">
+    <value>Motivo de esta referencia</value>
+  </data>
+  <data name="MSG_UltimosExames" xml:space="preserve">
+    <value>Ultimos exámenes</value>
+  </data>
+  <data name="TituloUnidade" xml:space="preserve">
+    <value>Unidad medica</value>
+  </data>
+  <data name="TituloGerarGT" xml:space="preserve">
+    <value>Generar Guía de Tratamiento (Pdf)</value>
+  </data>
+  <data name="TituloBeneficiario" xml:space="preserve">
+    <value>Beneficiario</value>
+  </data>
+  <data name="TituloDocumentacao" xml:space="preserve">
+    <value>Documentación</value>
+  </data>
+  <data name="TituloEmergencia" xml:space="preserve">
+    <value>Emergencia</value>
+  </data>
+  <data name="TituloFeminino" xml:space="preserve">
+    <value>Femenino</value>
+  </data>
+  <data name="TituloMasculino" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
+  <data name="TituloMedicoAssistente" xml:space="preserve">
+    <value>Medico Assistente</value>
+  </data>
+  <data name="TituloNaturalidade" xml:space="preserve">
+    <value>Naturalidad</value>
+  </data>
+  <data name="TituloParticular" xml:space="preserve">
+    <value>Sin acuerdo</value>
+  </data>
+  <data name="TituloUtente" xml:space="preserve">
+    <value>Tarjeta de usuario</value>
+  </data>
+  <data name="TituloValidade" xml:space="preserve">
+    <value>Caducidad</value>
+  </data>
+  <data name="TituloDespesas" xml:space="preserve">
+    <value>Gastos</value>
+  </data>
+  <data name="TituloMetodoPagamento" xml:space="preserve">
+    <value>Método de pago</value>
+  </data>
+  <data name="TituloCategoria" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="TituloSubCategoria" xml:space="preserve">
+    <value>Subcategoría</value>
+  </data>
+  <data name="TituloValor" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="TituloSubCategorias" xml:space="preserve">
+    <value>Subcategorías</value>
+  </data>
+  <data name="MSG_ApiError" xml:space="preserve">
+    <value>Error de API. Póngase en contacto con el administrador.</value>
+  </data>
+  <data name="TituloAlergias" xml:space="preserve">
+    <value>Alergias</value>
+  </data>
+  <data name="TituloAtipica" xml:space="preserve">
+    <value>Atípico</value>
+  </data>
+  <data name="TituloAtividadeSexual" xml:space="preserve">
+    <value>Atividad sexual</value>
+  </data>
+  <data name="TituloDiabetes" xml:space="preserve">
+    <value>Diabetes</value>
+  </data>
+  <data name="TituloDietaExercicios" xml:space="preserve">
+    <value>Dieta e exercícios</value>
+  </data>
+  <data name="TituloDislipidemia" xml:space="preserve">
+    <value>Dislipidemia</value>
+  </data>
+  <data name="TituloEndocrina" xml:space="preserve">
+    <value>Endócrina</value>
+  </data>
+  <data name="TituloEtilismo" xml:space="preserve">
+    <value>Etilismo</value>
+  </data>
+  <data name="TituloHipertensao" xml:space="preserve">
+    <value>Hipertensão</value>
+  </data>
+  <data name="TituloHistoriaClinicaPatologia" xml:space="preserve">
+    <value>Historia Clínica y Patológica</value>
+  </data>
+  <data name="TituloHistoriaOcupacional" xml:space="preserve">
+    <value>História Ocupacional</value>
+  </data>
+  <data name="TituloInfecciosa" xml:space="preserve">
+    <value>Infecciosa</value>
+  </data>
+  <data name="TituloInteressesPessoais" xml:space="preserve">
+    <value>Interesses pessoais</value>
+  </data>
+  <data name="TituloMedicamento" xml:space="preserve">
+    <value>Medicamento</value>
+  </data>
+  <data name="TituloNivelEducacional" xml:space="preserve">
+    <value>Nível Educacional</value>
+  </data>
+  <data name="TituloObesidade" xml:space="preserve">
+    <value>Obesidade</value>
+  </data>
+  <data name="TituloPequenoAlmoco" xml:space="preserve">
+    <value>P. Almoço</value>
+  </data>
+  <data name="TituloPrimeiraConsulta" xml:space="preserve">
+    <value>1ª Consulta?</value>
+  </data>
+  <data name="TituloPulmonar" xml:space="preserve">
+    <value>Pulmonar</value>
+  </data>
+  <data name="TituloQueixaPrincipal" xml:space="preserve">
+    <value>Queja principal</value>
+  </data>
+  <data name="TituloReferenciacoes" xml:space="preserve">
+    <value>Referencias</value>
+  </data>
+  <data name="TituloSemConsultaHa" xml:space="preserve">
+    <value>Sem consulta há</value>
+  </data>
+  <data name="TituloTabagismo" xml:space="preserve">
+    <value>Tabagismo</value>
+  </data>
+  <data name="TituloTipoSangue" xml:space="preserve">
+    <value>Tipo de Sangue</value>
+  </data>
+  <data name="TituloUltimaConsulta" xml:space="preserve">
+    <value>Última consulta</value>
+  </data>
+  <data name="TituloUltimoGuiaTratamento" xml:space="preserve">
+    <value>Último Guia de Tratamento</value>
+  </data>
+  <data name="TituloUsoDrogas" xml:space="preserve">
+    <value>Uso de drogas</value>
+  </data>
+  <data name="TituloVacinacao" xml:space="preserve">
+    <value>Vacinação</value>
+  </data>
+  <data name="MSG_PrimeiraConsulta" xml:space="preserve">
+    <value>Primera cita</value>
+  </data>
+  <data name="TituloDeitar" xml:space="preserve">
+    <value>Acostarse</value>
+  </data>
+  <data name="TituloEstruturaSuporteFamiliar" xml:space="preserve">
+    <value>Estructura y apoyo familiar</value>
+  </data>
+  <data name="TituloGTAlmoco" xml:space="preserve">
+    <value>Almuerzo</value>
+  </data>
+  <data name="TituloJantar" xml:space="preserve">
+    <value>Cena</value>
+  </data>
+  <data name="TituloPerfilSocialFisiologico" xml:space="preserve">
+    <value>Perfil social y fisiológico</value>
+  </data>
+  <data name="TituloTensaoArterial" xml:space="preserve">
+    <value>Tensión Arterial</value>
+  </data>
+  <data name="TituloDespesasCategoriaComMaisGastos" xml:space="preserve">
+    <value>Categoría con más gasto</value>
+  </data>
+  <data name="TituloDespesasEstaSemana" xml:space="preserve">
+    <value>Esta semana</value>
+  </data>
+  <data name="TituloDespesasEsteAno" xml:space="preserve">
+    <value>Este año</value>
+  </data>
+  <data name="TituloDespesasEsteMes" xml:space="preserve">
+    <value>Este mes</value>
+  </data>
+  <data name="TituloDespesasHoje" xml:space="preserve">
+    <value>Este Dia</value>
+  </data>
+  <data name="TituloDespesasPorCategoria" xml:space="preserve">
+    <value>Gastos por Categoría</value>
+  </data>
+  <data name="TituloDespesasPorMes" xml:space="preserve">
+    <value>Gastos por Mes</value>
+  </data>
+  <data name="TituloDespesasSegundaCategoriaComMaisGastos" xml:space="preserve">
+    <value>2da Categoría con más gastos</value>
+  </data>
+  <data name="TituloPainelDespesas" xml:space="preserve">
+    <value>Tablero de gastos</value>
+  </data>
+  <data name="TituloTotalDespesas" xml:space="preserve">
+    <value>Gastos totales</value>
+  </data>
+  <data name="TituloDespesasNumeroDocumento" xml:space="preserve">
+    <value>Número del documento</value>
+  </data>
+  <data name="TituloDespesasTodasDespesas" xml:space="preserve">
+    <value>Toutes les dépenses</value>
+  </data>
+  <data name="TituloTarefa" xml:space="preserve">
+    <value>Tarea</value>
+  </data>
+  <data name="TituloOperacaoOk" xml:space="preserve">
+    <value>El proceso finalizó con éxito</value>
+  </data>
+  <data name="TituloMarcacoesAgenda" xml:space="preserve">
+    <value>Citas médicas en el diario</value>
+  </data>
+  <data name="TituloMovimentoDiario" xml:space="preserve">
+    <value>Movimiento diario</value>
+  </data>
+  <data name="TituloTotais" xml:space="preserve">
+    <value>Totales</value>
+  </data>
+  <data name="TituloTotaisAtestados" xml:space="preserve">
+    <value>Certificados</value>
+  </data>
+  <data name="TituloTotaisNovasFichas" xml:space="preserve">
+    <value>Fichas nuevas</value>
+  </data>
+  <data name="TituloTotalDoentes" xml:space="preserve">
+    <value>Pacientes</value>
+  </data>
+  <data name="TituloTotalRegistosClinicos" xml:space="preserve">
+    <value>Historias clínicas</value>
+  </data>
+  <data name="TituloTotaisAcordosAtivos" xml:space="preserve">
+    <value>Acuerdos (A)</value>
+  </data>
+  <data name="TituloTotaisAcordosNaoAtivos" xml:space="preserve">
+    <value>Acuerdos (NA)</value>
+  </data>
+  <data name="TituloTotaisComAcordo" xml:space="preserve">
+    <value>Con acuerdo</value>
+  </data>
+  <data name="TituloTotaisEspecialidadesAtivas" xml:space="preserve">
+    <value>Especialidades (A)</value>
+  </data>
+  <data name="TituloTotaisEspecialidadesNaoAtivas" xml:space="preserve">
+    <value>Especialidades (NA)</value>
+  </data>
+  <data name="TituloTotaisEstatisticas" xml:space="preserve">
+    <value>Estadísticas</value>
+  </data>
+  <data name="TituloTotaisMedicosAtivos" xml:space="preserve">
+    <value>Medicos (A)</value>
+  </data>
+  <data name="TituloTotaisMedicosNaoAtivos" xml:space="preserve">
+    <value>Medicos (NA)</value>
+  </data>
+  <data name="TituloTotaisSemAcordo" xml:space="preserve">
+    <value>Sin acuerdo</value>
+  </data>
+  <data name="TituloPendentes" xml:space="preserve">
+    <value>Pendientes</value>
+  </data>
+  <data name="TituloAplicarModelo" xml:space="preserve">
+    <value>Aplicar modelo guardado</value>
+  </data>
+  <data name="TituloCriacaoAcordosMedicos" xml:space="preserve">
+    <value>Creación de Convenios Médicos</value>
+  </data>
+  <data name="TituloGuardarComoModelo" xml:space="preserve">
+    <value>Guardar entradas como plantilla</value>
+  </data>
+  <data name="TituloMedicosPlanoConsultas" xml:space="preserve">
+    <value>Médicos y Planes de Consulta</value>
+  </data>
+  <data name="TituloMedicoComDoentes" xml:space="preserve">
+    <value>Doctor con pacientes asignados!</value>
+  </data>
+  <data name="TituloMedicoPassouNaoAtivo" xml:space="preserve">
+    <value>Médico cambiado a 'No activo</value>
+  </data>
+  <data name="TituloInativacaoMedico" xml:space="preserve">
+    <value>Inativação de Médico</value>
+  </data>
+  <data name="TituloMarcacoesPendentes" xml:space="preserve">
+    <value>Citas pendientes</value>
+  </data>
+  <data name="TituloProfissoes" xml:space="preserve">
+    <value>Profesiones</value>
+  </data>
+  <data name="TituloTipoConsulta" xml:space="preserve">
+    <value>Tipo de cita médica</value>
+  </data>
+  <data name="TituloTotaisMedicosEspecialidadesAcordos" xml:space="preserve">
+    <value>Doctores, Especialidades y Convenios</value>
+  </data>
+  <data name="TituloSexo" xml:space="preserve">
+    <value>Género</value>
+  </data>
+  <data name="TituloApagarFichaSemPermissao" xml:space="preserve">
+    <value>No se puede realizar la operación. El usuario no es el médico del paciente</value>
+  </data>
+  <data name="TituloAtosMedicos" xml:space="preserve">
+    <value>Servicios de la Clínica</value>
+  </data>
+  <data name="TituloAtoMedico" xml:space="preserve">
+    <value>Acto Médico</value>
+  </data>
+  <data name="TituloClinicaRecebe" xml:space="preserve">
+    <value>Clínica recibe (%)</value>
+  </data>
+  <data name="TituloCoPagamento" xml:space="preserve">
+    <value>CoPago</value>
+  </data>
+  <data name="TituloQuantidadeAbr" xml:space="preserve">
+    <value>Ctd</value>
+  </data>
+  <data name="TituloRecebeDoAcordo" xml:space="preserve">
+    <value>Recibe del Acuerdo</value>
+  </data>
+  <data name="TituloReembolso" xml:space="preserve">
+    <value>Reembolso</value>
+  </data>
+  <data name="TituloSelecao" xml:space="preserve">
+    <value>Seleccione</value>
+  </data>
+  <data name="TituloValorAPagar" xml:space="preserve">
+    <value>Valor a pagar</value>
+  </data>
+  <data name="TituloValorPago" xml:space="preserve">
+    <value>Valor Pago</value>
+  </data>
+  <data name="TituloPagamentoAtosMedicos" xml:space="preserve">
+    <value>Pago de Actos Médicos</value>
+  </data>
+  <data name="TituloFaturar" xml:space="preserve">
+    <value>Pago</value>
+  </data>
+  <data name="TituloHeaderPagamentos" xml:space="preserve">
+    <value>Facturar citas médicas y/o actos</value>
+  </data>
+  <data name="MSG_DadosEmFaltaOuInvalidos" xml:space="preserve">
+    <value>Datos faltantes o inválidos</value>
+  </data>
+  <data name="MSG_HoraMarcacaoInvalida" xml:space="preserve">
+    <value>Hora de cita inválida.</value>
+  </data>
+  <data name="MSG_MarcacaoPassado" xml:space="preserve">
+    <value>Reserva de citas en el pasado!</value>
+  </data>
+  <data name="MSG_MedicoAusente" xml:space="preserve">
+    <value>Doctor ausente</value>
+  </data>
+  <data name="MSG_MedicoNaoDaConsultasNessaData" xml:space="preserve">
+    <value>El doctor no da citas ese día.</value>
+  </data>
+  <data name="TituloMarcada" xml:space="preserve">
+    <value>Programada</value>
+  </data>
+  <data name="MSG_AgreementInsertCaptionError" xml:space="preserve">
+    <value>Incluir acuerdo para el médico</value>
+  </data>
+  <data name="MSG_AgreementUpdateCaptionError" xml:space="preserve">
+    <value>Cambiar el acuerdo médico existente</value>
+  </data>
+  <data name="MSG_Acordos_Medico" xml:space="preserve">
+    <value>Acuerdos de doctores</value>
+  </data>
+  <data name="MSG_DoentesDoMedico_Listar" xml:space="preserve">
+    <value>Lista de pacientes del doctor</value>
+  </data>
+  <data name="TituloListagemPagamentos" xml:space="preserve">
+    <value>Lista de pagos</value>
+  </data>
+  <data name="TituloValorDivida" xml:space="preserve">
+    <value>En deuda</value>
+  </data>
+  <data name="TituloValorPagar" xml:space="preserve">
+    <value>A pagar</value>
+  </data>
+  <data name="TituloValorReembolso" xml:space="preserve">
+    <value>Reembolso</value>
+  </data>
+  <data name="TituloMarcacao" xml:space="preserve">
+    <value>Cita</value>
+  </data>
+  <data name="TituloAcertarPagamento" xml:space="preserve">
+    <value>Arreglo de pago</value>
+  </data>
+  <data name="MSG_DeleteExpenseCaption" xml:space="preserve">
+    <value>Supprimer la dépense</value>
+  </data>
+  <data name="TituloPagamentos" xml:space="preserve">
+    <value>Pagos</value>
+  </data>
+  <data name="TituloCoresMarcacoes" xml:space="preserve">
+    <value>Colores para citas</value>
+  </data>
+  <data name="TituloGestaoColaboradores" xml:space="preserve">
+    <value>Gestión de empleados</value>
+  </data>
+  <data name="TituloManutencaoAcordos" xml:space="preserve">
+    <value>Acuerdos - mantenimiento</value>
+  </data>
+  <data name="TituloDoentesMesmoNome" xml:space="preserve">
+    <value>Pacientes con el mismo nombre</value>
+  </data>
+  <data name="TituloEscolherExame" xml:space="preserve">
+    <value>Eligir examen</value>
+  </data>
+  <data name="TituloListaExamesDoente" xml:space="preserve">
+    <value>Lista examenes del paciente</value>
+  </data>
+  <data name="TituloRelatorioMedico" xml:space="preserve">
+    <value>Historia clínica</value>
+  </data>
+  <data name="TituloResumo" xml:space="preserve">
+    <value>Resumen</value>
+  </data>
+  <data name="TituloVerAnexo" xml:space="preserve">
+    <value>Ver archivo adjunto</value>
+  </data>
+  <data name="TituloAlteracoesNaoSeraoGuardadas" xml:space="preserve">
+    <value>Los cambios no se guardarán. ¿Confirmar ?</value>
+  </data>
+  <data name="TituloDadosAlterados" xml:space="preserve">
+    <value>¡Los datos han sido cambiados!</value>
+  </data>
+  <data name="TituloAplicarFiltro" xml:space="preserve">
+    <value>Aplicar filtro</value>
+  </data>
+  <data name="TituloRealizada" xml:space="preserve">
+    <value>Terminada</value>
+  </data>
+  <data name="TituloFiltrar" xml:space="preserve">
+    <value>Filtrar</value>
+  </data>
+  <data name="TituloImportante" xml:space="preserve">
+    <value>Importante</value>
+  </data>
+  <data name="TituloMuitoImportante" xml:space="preserve">
+    <value>Muy Importante</value>
+  </data>
+  <data name="TituloNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="TituloSemClassificacao" xml:space="preserve">
+    <value>Sin clasificación</value>
+  </data>
+  <data name="TituloListagens" xml:space="preserve">
+    <value>Listados</value>
+  </data>
+  <data name="TituloOutraPatologia" xml:space="preserve">
+    <value>Otra patología</value>
+  </data>
+  <data name="TituloPatologia" xml:space="preserve">
+    <value>Patología</value>
+  </data>
+  <data name="TituloAsma" xml:space="preserve">
+    <value>Asma</value>
+  </data>
+  <data name="TituloCardioVasculares" xml:space="preserve">
+    <value>Cardio-Vascular</value>
+  </data>
+  <data name="TituloCoagulacao" xml:space="preserve">
+    <value>Coagulación</value>
+  </data>
+  <data name="TituloEpilepsia" xml:space="preserve">
+    <value>Epilepsia</value>
+  </data>
+  <data name="TituloMorteSubita" xml:space="preserve">
+    <value>Muerte súbita</value>
+  </data>
+  <data name="TituloOutrasPatologias" xml:space="preserve">
+    <value>Otros</value>
+  </data>
+  <data name="TituloTumores" xml:space="preserve">
+    <value>Tumores</value>
+  </data>
+  <data name="TituloImprimir" xml:space="preserve">
+    <value>Imprimir</value>
+  </data>
+  <data name="TituloIdiomaEspanhol" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="TituloIdiomaFrances" xml:space="preserve">
+    <value>Francés</value>
+  </data>
+  <data name="TituloIdiomaIngles" xml:space="preserve">
+    <value>Inglés</value>
+  </data>
+  <data name="TituloIdiomaPortugues" xml:space="preserve">
+    <value>Portugués</value>
+  </data>
+  <data name="CancelarMarcacao" xml:space="preserve">
+    <value>Cancelar cita</value>
+  </data>
+  <data name="ConfirmarMarcacao" xml:space="preserve">
+    <value>Confirmar cita</value>
+  </data>
+  <data name="FaltaMarcacao" xml:space="preserve">
+    <value>Paciente faltó</value>
+  </data>
+  <data name="TituloPagamentosEmDivida" xml:space="preserve">
+    <value>Pagos parciales</value>
+  </data>
+  <data name="TituloCancelada" xml:space="preserve">
+    <value>Cancelada</value>
+  </data>
+  <data name="TituloFaltou" xml:space="preserve">
+    <value>Faltó</value>
+  </data>
+  <data name="TituloFaturada" xml:space="preserve">
+    <value>Pagada</value>
+  </data>
+  <data name="TituloConfirmada" xml:space="preserve">
+    <value>Confirmada</value>
+  </data>
+  <data name="TituloPainelPagamentos" xml:space="preserve">
+    <value>Panel de pagos</value>
+  </data>
+  <data name="TituloPagamentoIntegral" xml:space="preserve">
+    <value>Pago completo</value>
+  </data>
+  <data name="TituloOrigem" xml:space="preserve">
+    <value>Origen</value>
+  </data>
+  <data name="TituloDespesasAnoAnterior" xml:space="preserve">
+    <value>El año pasado</value>
+  </data>
+  <data name="TituloMenuArrendamentos" xml:space="preserve">
+    <value>Arrendamientos</value>
+  </data>
+  <data name="TituloMenuImoveis" xml:space="preserve">
+    <value>Propiedades</value>
+  </data>
+  <data name="TituloMenuInquilinos" xml:space="preserve">
+    <value>Inquilinos</value>
+  </data>
+  <data name="TituloMenuProprietario" xml:space="preserve">
+    <value>Propietario</value>
+  </data>
+  <data name="TituloMenuFracoes" xml:space="preserve">
+    <value>Fracciones</value>
+  </data>
+  <data name="TituloConfirmar" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="TituloInquilino" xml:space="preserve">
+    <value>Inquilino</value>
+  </data>
+  <data name="TituloOperacaoBatch" xml:space="preserve">
+    <value>Revise los valores generados, antes de finalizar el proceso. Si es necesario, modifique la columna "Importe pagado" y elija la opción "Actualizar"".</value>
+  </data>
+  <data name="TituloValorEmFalta" xml:space="preserve">
+    <value>No recibido</value>
+  </data>
+  <data name="TituloValorPrevisto" xml:space="preserve">
+    <value>Valor esperado</value>
+  </data>
+  <data name="TituloProcessamentoRendas" xml:space="preserve">
+    <value>Tramitación mensual de los alquileres</value>
+  </data>
+  <data name="TituloValorNaoPago" xml:space="preserve">
+    <value>No pagó</value>
+  </data>
+  <data name="TituloValorPagoParcialmente" xml:space="preserve">
+    <value>Pagado parcialmente</value>
+  </data>
+  <data name="TituloValorPorConfirmar" xml:space="preserve">
+    <value>Por confirmar</value>
+  </data>
+  <data name="TituloVerificar" xml:space="preserve">
+    <value>Por favor, compruebe</value>
+  </data>
+  <data name="TituloAlertaSemArrendamentos" xml:space="preserve">
+    <value>No hay registro de alquileres! Por favor, compruébelo.</value>
+  </data>
+  <data name="TituloAlertaSemFracoes" xml:space="preserve">
+    <value>No es posible continuar. ¡No hay registro de la propiedad!</value>
+  </data>
+  <data name="TituloCancelamentoProcessamentoRendas" xml:space="preserve">
+    <value>Cancelación de la tramitación del alquileres</value>
+  </data>
+  <data name="TituloErroCriacaoPagamentos" xml:space="preserve">
+    <value>Error al crear pagos. Por favor, compruebe el registro.</value>
+  </data>
+  <data name="TituloGerarPagamentos" xml:space="preserve">
+    <value>Generar pagos</value>
+  </data>
+  <data name="TituloProcessoTerminado" xml:space="preserve">
+    <value>Proceso finalizado</value>
+  </data>
+  <data name="TituloSucesso" xml:space="preserve">
+    <value>Éxito</value>
+  </data>
+  <data name="TituloProcessamentoRendasCancelado" xml:space="preserve">
+    <value>Tramitación de alquileres anulada</value>
+  </data>
+  <data name="TituloMarcaRendaComoNaoPaga" xml:space="preserve">
+    <value>Marcar el alquiler como impagado</value>
+  </data>
+  <data name="TituloMenuAtualizacaoRendas" xml:space="preserve">
+    <value>Actualizar los alquileres</value>
+  </data>
+  <data name="TituloMenuCoeficientesRendas" xml:space="preserve">
+    <value>Coeficientes de los alquileres</value>
+  </data>
+  <data name="TituloMenuProcessaRendas" xml:space="preserve">
+    <value>Tratamiento de alquileres</value>
+  </data>
+  <data name="TituloEmFalta" xml:space="preserve">
+    <value>En falta</value>
+  </data>
+  <data name="TituloFracao" xml:space="preserve">
+    <value>Propriedad</value>
+  </data>
+  <data name="TituloMesAnterior" xml:space="preserve">
+    <value>Mes anterior</value>
+  </data>
+  <data name="TituloPagamentosAcertar" xml:space="preserve">
+    <value>Liquidar</value>
+  </data>
+  <data name="TituloPagamentosOutrosPagamentos" xml:space="preserve">
+    <value>Otros pagos</value>
+  </data>
+  <data name="TituloPagamentosTodosPagamentos" xml:space="preserve">
+    <value>Todos los pagos</value>
+  </data>
+  <data name="TituloRecebimentos" xml:space="preserve">
+    <value>TituloRecebimentos	Ingresos</value>
+  </data>
+  <data name="TituloRenda" xml:space="preserve">
+    <value>Renta</value>
+  </data>
+  <data name="TituloSituacao" xml:space="preserve">
+    <value>Situación</value>
+  </data>
+  <data name="TituloTipo" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="TituloProcessandoPedido" xml:space="preserve">
+    <value>Solicitud de procesamiento</value>
+  </data>
+  <data name="TituloMensagem" xml:space="preserve">
+    <value>Mensage</value>
+  </data>
+  <data name="TituloContaCorrente" xml:space="preserve">
+    <value>Cuenta corriente</value>
+  </data>
+  <data name="TituloDiferenca" xml:space="preserve">
+    <value>Diferencia</value>
+  </data>
+  <data name="TituloFiador" xml:space="preserve">
+    <value>Garante del contrato</value>
+  </data>
+  <data name="TituloIrsAnual" xml:space="preserve">
+    <value>IRPF anual</value>
+  </data>
+  <data name="TituloMovimento" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="TituloPagamento" xml:space="preserve">
+    <value>Pago</value>
+  </data>
+  <data name="TituloSaldoCorrente" xml:space="preserve">
+    <value>Saldo actual</value>
+  </data>
+  <data name="TituloSaldoPrevisto" xml:space="preserve">
+    <value>Saldo previsto</value>
+  </data>
+  <data name="TituloUltimoMesPago" xml:space="preserve">
+    <value>El mes pasado pagó</value>
+  </data>
+  <data name="TituloVencimento" xml:space="preserve">
+    <value>Salario</value>
+  </data>
+  <data name="TituloPagamentoRendaEmAtraso" xml:space="preserve">
+    <value>Pago del alquiler en mora</value>
+  </data>
+  <data name="TituloAndar" xml:space="preserve">
+    <value>Piso</value>
+  </data>
+  <data name="TituloAnoConstrucao" xml:space="preserve">
+    <value>Año construcción</value>
+  </data>
+  <data name="TituloConcelho" xml:space="preserve">
+    <value>Provincia</value>
+  </data>
+  <data name="TituloConservacao" xml:space="preserve">
+    <value>Conservación</value>
+  </data>
+  <data name="TituloFreguesia" xml:space="preserve">
+    <value>Parroquia</value>
+  </data>
+  <data name="TituloLado" xml:space="preserve">
+    <value>Lado</value>
+  </data>
+  <data name="TituloPorta" xml:space="preserve">
+    <value>Puerta</value>
+  </data>
+  <data name="TituloTipologia" xml:space="preserve">
+    <value>Tipología</value>
+  </data>
+  <data name="TituloElevador" xml:space="preserve">
+    <value>Ascensor</value>
+  </data>
+  <data name="TituloFoto" xml:space="preserve">
+    <value>Foto</value>
+  </data>
+  <data name="TituloProximaInspecao" xml:space="preserve">
+    <value>Próxima inspección</value>
+  </data>
+  <data name="TituloProximaInspecaoEm" xml:space="preserve">
+    <value>Próxima inspección en</value>
+  </data>
+  <data name="TituloUltimaInspecao" xml:space="preserve">
+    <value>Última inspección</value>
+  </data>
+  <data name="TituloAno" xml:space="preserve">
+    <value>Año</value>
+  </data>
+  <data name="TituloMes" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="TituloMesesProcessados" xml:space="preserve">
+    <value>Meses procesados</value>
+  </data>
+  <data name="TituloNaoHaMesesProcessados" xml:space="preserve">
+    <value>Ningún mes tramitado</value>
+  </data>
+  <data name="TituloNaoHaPagamentosAProcessar" xml:space="preserve">
+    <value>No hay pagos de alquiler para procesar. Por favor, compruébelo.</value>
+  </data>
+  <data name="TituloPagamentoRendasJaEfetuado" xml:space="preserve">
+    <value>Ya se ha tramitado el alquiler de este mes. Por favor, compruébelo.</value>
+  </data>
+  <data name="TituloErroProcessarAlteracoes" xml:space="preserve">
+    <value>Erro ao processar alterações</value>
+  </data>
+  <data name="TituloErroValorRecebidoInvalido" xml:space="preserve">
+    <value>Valor recebido inválido</value>
+  </data>
+  <data name="TituloErroValorRecebidoNaoPositivoRenda" xml:space="preserve">
+    <value>Valor recebido deverá ser positivo. Alterações rejeitadas</value>
+  </data>
+  <data name="TituloErroValorRecebidoSuperiorARenda" xml:space="preserve">
+    <value>Valor recebido superior ao valor da renda. Alterações rejeitadas</value>
+  </data>
+  <data name="TituloValorRecebido" xml:space="preserve">
+    <value>Valor recibido</value>
+  </data>
+  <data name="TituloAreaDependente" xml:space="preserve">
+    <value>Zona dependiente</value>
+  </data>
+  <data name="TituloAreaPrivativa" xml:space="preserve">
+    <value>Espacio privado</value>
+  </data>
+  <data name="TituloArrecadacao" xml:space="preserve">
+    <value>Recogida</value>
+  </data>
+  <data name="TituloArtigoMatricial" xml:space="preserve">
+    <value>Artículo de matriz</value>
+  </data>
+  <data name="TituloAtiva" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="TituloCasasBanho" xml:space="preserve">
+    <value>Cuartos de baño</value>
+  </data>
+  <data name="TituloCertificacaoEnergetica" xml:space="preserve">
+    <value>Certificación energética</value>
+  </data>
+  <data name="TituloCincoUltimosMovimentos" xml:space="preserve">
+    <value>5 últimos movimientos</value>
+  </data>
+  <data name="TituloContagem" xml:space="preserve">
+    <value>Recuento</value>
+  </data>
+  <data name="TituloCozinhaEquipada" xml:space="preserve">
+    <value>Cozinha equipada</value>
+  </data>
+  <data name="TituloDespesa" xml:space="preserve">
+    <value>Gasto</value>
+  </data>
+  <data name="TituloDespesasPorCategoria_Ano" xml:space="preserve">
+    <value>Gastos por categoría - Año</value>
+  </data>
+  <data name="TituloEmitidaEm" xml:space="preserve">
+    <value>Emitida en</value>
+  </data>
+  <data name="TituloErroImputacaoDespesas" xml:space="preserve">
+    <value>No es posible introducir gastos, cuando no hay ningún registro de Propiedades creado. Operación anulada</value>
+  </data>
+  <data name="TituloEstacionamento" xml:space="preserve">
+    <value>Aparcamiento</value>
+  </data>
+  <data name="TituloEstadoConservacao" xml:space="preserve">
+    <value>Estado de conservación</value>
+  </data>
+  <data name="TituloGaragem" xml:space="preserve">
+    <value>Garaje</value>
+  </data>
+  <data name="TituloGasCanalizado" xml:space="preserve">
+    <value>Gas canalizado</value>
+  </data>
+  <data name="TituloImagens" xml:space="preserve">
+    <value>Imágenes</value>
+  </data>
+  <data name="TituloImovel" xml:space="preserve">
+    <value>Propiedad</value>
+  </data>
+  <data name="TituloImputacaoDespesas" xml:space="preserve">
+    <value>Asignación de gastos</value>
+  </data>
+  <data name="TituloLicencaHabitacao" xml:space="preserve">
+    <value>Licencia de alojamiento</value>
+  </data>
+  <data name="TituloManutencaoDespesas" xml:space="preserve">
+    <value>Mantenimiento de Gastos</value>
+  </data>
+  <data name="TituloModoPagamento" xml:space="preserve">
+    <value>Forma de pago</value>
+  </data>
+  <data name="TituloNovaDespesaPorDuplicacao" xml:space="preserve">
+    <value>Nuevo gasto (por duplicación)</value>
+  </data>
+  <data name="TituloNumero" xml:space="preserve">
+    <value>Número</value>
+  </data>
+  <data name="TituloNumeroDocumento" xml:space="preserve">
+    <value>Número del documento</value>
+  </data>
+  <data name="TituloPagamentoRenda" xml:space="preserve">
+    <value>Pago del alquiler</value>
+  </data>
+  <data name="TituloPropriedade" xml:space="preserve">
+    <value>Propiedad</value>
+  </data>
+  <data name="TituloSemDadosParaMostrar" xml:space="preserve">
+    <value>No hay datos que demostrar</value>
+  </data>
+  <data name="TituloTerraco" xml:space="preserve">
+    <value>Terraza</value>
+  </data>
+  <data name="TituloTipoFracao" xml:space="preserve">
+    <value>Tipo de fracción</value>
+  </data>
+  <data name="TituloUltimaAvaliacao" xml:space="preserve">
+    <value>Última calificación</value>
+  </data>
+  <data name="TituloUltrapassado" xml:space="preserve">
+    <value>superado</value>
+  </data>
+  <data name="TituloValorAvaliacao" xml:space="preserve">
+    <value>Valor de evaluación</value>
+  </data>
+  <data name="TituloValoresEmDivida" xml:space="preserve">
+    <value>Importes debidos</value>
+  </data>
+  <data name="TituloValorMaximoPermitido" xml:space="preserve">
+    <value>Valeur maximale admissible</value>
+  </data>
+  <data name="TituloValorRenda" xml:space="preserve">
+    <value>Valor del alquiler</value>
+  </data>
+  <data name="TituloVaranda" xml:space="preserve">
+    <value>Balcón</value>
+  </data>
+  <data name="TituloComprovativoIRS" xml:space="preserve">
+    <value>Prueba del IRS</value>
+  </data>
+  <data name="TituloContratoNovo" xml:space="preserve">
+    <value>Nuevo contrato</value>
+  </data>
+  <data name="TituloDataInicio" xml:space="preserve">
+    <value>Fecha de inicio</value>
+  </data>
+  <data name="TituloEntregaCaucao" xml:space="preserve">
+    <value>Fianza entregada</value>
+  </data>
+  <data name="TituloFimContrato" xml:space="preserve">
+    <value>Fin del alquiler</value>
+  </data>
+  <data name="TituloPagamentosEmDia" xml:space="preserve">
+    <value>Pagos al día</value>
+  </data>
+  <data name="TituloReciboVencimento" xml:space="preserve">
+    <value>Recibo de salario</value>
+  </data>
+  <data name="TituloRenovacao" xml:space="preserve">
+    <value>Renovación automática</value>
+  </data>
+  <data name="TituloTipoPagamento" xml:space="preserve">
+    <value>Forma de pago</value>
+  </data>
+  <data name="TituloUltimoPagamento" xml:space="preserve">
+    <value>Último pago</value>
+  </data>
+  <data name="TituloCategoriaDespesa" xml:space="preserve">
+    <value>Categoría de gasto</value>
+  </data>
+  <data name="TituloSituacaoFracao" xml:space="preserve">
+    <value>Situación del piso</value>
+  </data>
+  <data name="TituloTipoContacto" xml:space="preserve">
+    <value>Tipo de contacto</value>
+  </data>
+  <data name="TituloTipoPropriedade" xml:space="preserve">
+    <value>Tipo de propiedad</value>
+  </data>
+  <data name="TituloTipoRecebimento" xml:space="preserve">
+    <value>Tipo de pago</value>
+  </data>
+  <data name="TituloGestaoTabelas" xml:space="preserve">
+    <value>Tablas auxiliares</value>
+  </data>
+  <data name="TituloContratoExistente" xml:space="preserve">
+    <value>Existente</value>
+  </data>
+  <data name="TituloContratoEmitido" xml:space="preserve">
+    <value>Contrato expedido</value>
+  </data>
+  <data name="TituloContratoTerminado" xml:space="preserve">
+    <value>Fin del alquiler</value>
+  </data>
+  <data name="TituloDataAtualizacao" xml:space="preserve">
+    <value>Fecha de actualización</value>
+  </data>
+  <data name="TituloMesesDecorridos" xml:space="preserve">
+    <value>Meses transcurridos</value>
+  </data>
+  <data name="TituloPrazoEmMeses" xml:space="preserve">
+    <value>Plazo en meses</value>
+  </data>
+  <data name="TituloEnvioCartaInquilino" xml:space="preserve">
+    <value>Envío de una carta al inquilino</value>
+  </data>
+  <data name="TituloEstenderPrazoContrato" xml:space="preserve">
+    <value>Prolongar el contrato de alquiler</value>
+  </data>
+  <data name="TituloArrendamento" xml:space="preserve">
+    <value>Alquiler</value>
+  </data>
+  <data name="TituloAtualizacaoRendas" xml:space="preserve">
+    <value>Actualización de los alquileres</value>
+  </data>
+  <data name="TituloCartaRevogacao" xml:space="preserve">
+    <value>Carta de revocación del contrato</value>
+  </data>
+  <data name="TituloCoeficiente" xml:space="preserve">
+    <value>Coeficiente</value>
+  </data>
+  <data name="TituloConsultar" xml:space="preserve">
+    <value>Consultar</value>
+  </data>
+  <data name="TituloDiplomaLegal" xml:space="preserve">
+    <value>Diploma legal</value>
+  </data>
+  <data name="TituloLei" xml:space="preserve">
+    <value>Ley</value>
+  </data>
+  <data name="TituloPublicadoEm" xml:space="preserve">
+    <value>Publicado en</value>
+  </data>
+  <data name="TituloCartaNaoGerada" xml:space="preserve">
+    <value>Carta NO hay sido generada para el contrato seleccionado</value>
+  </data>
+  <data name="TituloOperacaoComErro" xml:space="preserve">
+    <value>Operación finalizada con error</value>
+  </data>
+  <data name="TituloOperacaoComSucesso" xml:space="preserve">
+    <value>Operación concluida con éxito</value>
+  </data>
+  <data name="TituloRendasJaProcessadasParaOAno" xml:space="preserve">
+    <value>Ya se han tramitado las actualizaciones de alquiler del año indicado</value>
+  </data>
+  <data name="TituloVerificarLog" xml:space="preserve">
+    <value>Compruebe el Log, por favor.</value>
+  </data>
+  <data name="TituloDataEmissao" xml:space="preserve">
+    <value>Fecha de emisión</value>
+  </data>
+  <data name="TituloAtualizarValorRenda" xml:space="preserve">
+    <value>Actualización del alquiler</value>
+  </data>
+  <data name="TituloCartaAtrasoPagamento" xml:space="preserve">
+    <value>Carta de demora en el pago del alquiler</value>
+  </data>
+  <data name="TituloCartaAtualizacaoRendas" xml:space="preserve">
+    <value>Carta de actualización del alquiler</value>
+  </data>
+</root>

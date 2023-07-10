@@ -1,9 +1,56 @@
 ﻿@page "/"
+@using DaisyPets.Core.Application.ViewModels;
+
+@inject IConfiguration config
 
 <PageTitle>Index</PageTitle>
+@if(Pets is null)
+{
+    <LoadingData/>
+}
+else
+{
+    @foreach (var item in Pets)
+    {
+        <p>@item.Nome</p>
+    }
+}
 
-<h1>Hello, world!</h1>
+@code {
+    protected string? urlBaseAddress;
+    protected IEnumerable<PetVM>? Pets { get; set; }
+    protected string? petsEndpoint;
+    protected override async Task OnInitializedAsync()
+    {
+        urlBaseAddress = config["ApiSettings:UrlBase"];
+        petsEndpoint = $"{urlBaseAddress}/Pets/AllPetsVM";
+        Pets = await GetAllPets();
+    }
 
-Welcome to your new app.
+    private async Task<IEnumerable<PetVM>?> GetAllPets()
+    {
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+        using (HttpClient httpClient = new HttpClient())
+        {
+            try
+            {
+                var response = await httpClient.GetFromJsonAsync<IEnumerable<PetVM>>(petsEndpoint);
+                return response;
+            }
+            catch (System.Net.Http.HttpRequestException exa)
+            {
+                var msg = exa.Message;
+                return Enumerable.Empty<PetVM>();
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                return Enumerable.Empty<PetVM>();
+            }
+        }
+    }
+}
+
+
+
+

@@ -1,0 +1,222 @@
+﻿@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<App> L
+
+<SfDialog Width="30%"
+          Height="auto"
+          IsModal="true"
+          CloseOnEscape="false"
+          AllowDragging="true"
+          Visible="@Visible"
+          ShowCloseIcon="false">
+    <DialogTemplates>
+        <Header>
+            <div>
+                @{
+                    if (string.IsNullOrEmpty(DialogTitle))
+                    {
+                        <SfMessage Severity="MessageSeverity.Warning" ShowIcon="true">@L["MSG_DadosEmFaltaOuInvalidos"]</SfMessage>
+                    }
+                    else
+                    {
+                        <SfMessage Severity="MessageSeverity.Warning" ShowIcon="true">@DialogTitle</SfMessage>
+                    }
+                }
+            </div>
+        </Header>
+        <Content>
+            @if (!string.IsNullOrEmpty(DialogSubTitle))
+            {
+                <div class="card-box">[ <span class="font-weight-bold">@DialogSubTitle</span> ]</div>
+            }
+            @if (ValidationMessages != null)
+            {
+                <div class="card-box">
+                    <div class="row mx-2">
+                        <div class="col-12">
+                            @foreach (string ValidationMessage in ValidationMessages)
+                            {
+                                <SfMessage Severity="MessageSeverity.Info" ShowIcon="false">@ValidationMessage</SfMessage>
+                                @*                                <div class="notify-info px-2"> @(ValidationMessage)</div>*@
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </Content>
+
+        <FooterTemplate>
+            <div class="modal-footer">
+                <SfButton CssClass="e-btn e-outline e-round-corner" IconCss="fas fa-times"
+                          @onclick="OnClose" Content="@L["BtnSalir"]">
+                </SfButton>
+            </div>
+        </FooterTemplate>
+    </DialogTemplates>
+    <DialogPositionData X="center" Y="center"></DialogPositionData>
+    <DialogAnimationSettings Effect="@DialogEffect" Duration=@DialogDuration />
+</SfDialog>
+
+
+@code {
+    [Parameter] public List<string> ValidationMessages { get; set; }
+    [Parameter] public int DialogDuration { get; set; } = 600;
+    [Parameter] public Syncfusion.Blazor.Popups.DialogEffect DialogEffect { get; set; } = DialogEffect.FadeZoom;
+    [Parameter] public EventCallback OnCloseDialog { get; set; }
+    [Parameter] public bool Visible { get; set; } = false;
+    [Parameter] public string DialogTitle { get; set; } = "";
+    [Parameter] public string DialogSubTitle { get; set; } = "";
+
+    private string TitleColor { get; set; } = "grey";
+
+    protected void OnClose()
+    {
+        OnCloseDialog.InvokeAsync();
+    }
+}
+
+<style>
+
+    .card-box {
+        padding: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 25px;
+        -moz-border-radius: 5px;
+        background-clip: padding-box;
+        margin-bottom: 0px;
+        background-color: #ffffff;
+        box-shadow: 0 0px 12px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+    }
+
+    @@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+    .notify-info, .notify-success, .notify-warning, .notify-error {
+        padding: 5px;
+        margin: 6px 4px 6px 4px;
+        box-shadow: 1px 1px 3px #888;
+    }
+
+        .notify-info:before, .notify-success:before, .notify-warning:before, .notify-error:before {
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: 400;
+            speak: none;
+            display: inline-block;
+            text-decoration: inherit;
+            width: 1em;
+            margin-right: .2em;
+            text-align: center;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1em;
+            margin-left: .2em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale
+        }
+
+        .notify-info:before {
+            content: "\f05a";
+        }
+
+        .notify-success:before {
+            content: '\f00c';
+        }
+
+        .notify-warning:before {
+            content: '\f071';
+        }
+
+        .notify-error:before {
+            content: '\f057';
+        }
+
+    .notify-info {
+        color: #00529B;
+        background-color: #BDE5F8;
+    }
+
+    .notify-success {
+        color: #4F8A10;
+        background-color: #DFF2BF;
+    }
+
+    .notify-warning {
+        color: #9F6000;
+        background-color: #FEEFB3;
+    }
+
+    .notify-error {
+        color: #D8000C;
+        background-color: #FFD2D2;
+    }
+
+    /*Syncfusion*/
+    .e-btn.e-flat.e-primary, .e-btn.e-flat.e-primary:focus {
+        background-color: #317ab9;
+        border-color: #265f91;
+        color: #fff;
+    }
+
+        .e-btn.e-flat.e-primary:hover, .e-btn.e-flat.e-primary:active {
+            background-color: #21527d;
+            border-color: #163854;
+            color: #fff;
+        }
+
+    .close-icon {
+        width: 24px;
+        height: 24px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .error-msg {
+        color: #66afe9;
+        display: inline-block;
+        position: relative;
+        top: -20px;
+        left: 10px;
+    }
+
+    .error-detail {
+        position: relative;
+        left: 56px;
+        margin: 0 0 21px;
+    }
+
+    .e-icons.close-icon.col-lg-2:before {
+        content: '\e761';
+        font-size: 32px;
+        color: #d9534f;
+        position: relative;
+        left: 1px;
+        bottom: 10px;
+    }
+
+    .e-dialog .e-footer-content {
+        background-color: #f8f8f8;
+    }
+
+    .e-dialog.e-control.e-popup, .e-dialog.e-control.e-popup .e-dlg-header-content {
+        background-color: #d9edf7;
+    }
+
+    .e-dialog.e-control.e-popup {
+        padding: 3px;
+    }
+
+    .e-dialog.e-control .e-dlg-header-content {
+        padding: 10px;
+    }
+
+    .e-dialog.e-control .e-footer-content {
+        padding: 8px 12px;
+    }
+
+    .e-dialog.e-control .e-dlg-content {
+        padding: 15px 0 0;
+    }
+
+    .msg-wrapper.col-lg-12 {
+        margin-top: 20px;
+    }
+</style>

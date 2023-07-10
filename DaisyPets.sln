@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.WebApi", "DaisyPets.WebApi\DaisyPets.WebApi.csproj", "{24B9C1D2-2230-4082-8CC6-4F025A02C8FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaisyPets.Web.Blazor", "DaisyPets.Web.Blazor\DaisyPets.Web.Blazor.csproj", "{D1AFD951-787C-4ED4-83E0-6F84344B9CE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaisyPets.Web.Blazor", "DaisyPets.Web.Blazor\DaisyPets.Web.Blazor.csproj", "{CAEA4050-901F-417C-B799-CEA951577016}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{24B9C1D2-2230-4082-8CC6-4F025A02C8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24B9C1D2-2230-4082-8CC6-4F025A02C8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24B9C1D2-2230-4082-8CC6-4F025A02C8FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1AFD951-787C-4ED4-83E0-6F84344B9CE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1AFD951-787C-4ED4-83E0-6F84344B9CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1AFD951-787C-4ED4-83E0-6F84344B9CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1AFD951-787C-4ED4-83E0-6F84344B9CE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAEA4050-901F-417C-B799-CEA951577016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAEA4050-901F-417C-B799-CEA951577016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAEA4050-901F-417C-B799-CEA951577016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAEA4050-901F-417C-B799-CEA951577016}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

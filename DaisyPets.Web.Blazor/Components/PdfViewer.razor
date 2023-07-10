@@ -1,0 +1,59 @@
+﻿@using System.IO
+@using System.Text.RegularExpressions
+@using Microsoft.AspNetCore.Hosting
+@using Microsoft.Extensions.Localization;
+@using Syncfusion.Blazor.PdfViewer
+
+@inject IStringLocalizer<App> L
+
+@*@attribute [Authorize(Roles = "Admin, Medicos")]*@
+
+<SfSpinner @ref="SpinnerObj"
+           @bind-Visible="@VisibleProperty"
+           Label="@L["MSG_PreparandoDados"]" Size="50"
+           Type="SpinnerType.Material" />
+
+
+<div class="container-fluid">
+    <hr />
+    <div>
+        <SfPdfViewerServer @ref="@Viewer"
+                           Width="100%"
+                           Height="800px"
+                           DocumentPath="@PdfPath"
+                           EnablePrint="true"
+                           ZoomValue="100"
+                           EnableDownload="true">
+            <PdfViewerEvents DocumentLoaded="@OnDocumentLoaded" Created="OnCreate"></PdfViewerEvents>
+        </SfPdfViewerServer>
+
+    </div>
+</div>
+
+@code {
+    [Parameter] public string? PdfPath { get; set; }
+
+    private SfPdfViewerServer? Viewer { get; set; }
+    private SfSpinner? SpinnerObj { get; set; }
+    private bool VisibleProperty;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await Task.Delay(3000);
+        await Viewer!.LoadAsync(PdfPath, null);
+    }
+    private void OnDocumentLoaded(LoadEventArgs args)
+    {
+        VisibleProperty = false;
+    }
+    private void OnCreate()
+    {
+        VisibleProperty = true;
+    }
+}
+
+<style>
+    .e-spinner-pane .e-spinner-inner .e-spin-material {
+        stroke: #808080;
+    }
+</style>

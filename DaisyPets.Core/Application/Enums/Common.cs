@@ -8,26 +8,23 @@
             Utilizador = 2,
         }
 
-        public enum SituacaoFracao
+        public enum AlertMessageType
         {
-            Livre,
-            Alugada,
-            Reservada,
-            Vendida
+            Error, Warning, Success, Info
         }
 
-        public enum EstadoConservacaoImovel
-        {
-            Bom,
-            PrecisaObras,
-            Degradado
-        }
 
-        public enum EstadoConservacaoFracao
+        public enum Modules
         {
-            Bom,
-            PrecisaObras,
-            Degradado
+            Inquilinos,
+            Fiadores,
+            Fracoes,
+            Imoveis,
+            Recebimentos,
+            Pagamentos,
+            Contactos,
+            Arrendamentos,
+            PdfViewer
         }
 
         public enum TipoBackup
@@ -35,19 +32,6 @@
             SqLiteBackup,
             AccessBackup,
             SqlServerBackup
-        }
-
-        /// <summary>
-        /// Tabelas a carregar nas comboboxes
-        /// </summary>
-        public enum ComboBoxItem
-        {
-            TipoDespesas,
-            Role,
-            TipoContacto,
-            TipoPropriedade,
-            TipoRecebimento,
-            Utilizadores
         }
 
         /// <summary>
@@ -59,8 +43,13 @@
             Gravar,
             Apagar,
             Duplicar,
+            Warning,
             Navegar,
-            CriandoNovoRegisto
+            Backup,
+            CriandoNovoRegisto,
+            Info,
+            Error,
+            Zip
         }
 
         /// <summary>
@@ -71,22 +60,6 @@
             Admin, GeneralUser
         }
 
-        public enum TipoPesquisa
-        {
-            Todos,
-            Autor,
-            Editora,
-            Genero,
-            Formato,
-            Arquivo,
-            Lido,
-            SemPaginas,
-            SemCapa,
-            Pago,
-            Duplicados,
-            Utilizador,
-            Titulo
-        }
 
         public enum OpcaoCRUD
         {
@@ -115,13 +88,6 @@
         {
             Backup,
             Restore
-        }
-
-        public enum ImputacaoDespesa
-        {
-            Imovel = 1,
-            Fracao = 2,
-            Geral = 3
         }
 
         public enum OpcaoAlteracao

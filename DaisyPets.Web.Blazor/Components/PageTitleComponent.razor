@@ -1,0 +1,76 @@
+﻿<div class="mt-0">
+    <header>
+        <div class="module-title">
+            <div class="title">
+                @PageTitle
+                @if (WithBadge)
+                {
+                    <span class="@CssBadgeSubTitle">@PageSubTitle</span>
+                    <div class="underline mt-2"></div>
+                }
+                else
+                {
+                    <div class="underline"></div>
+                }
+            </div>
+        </div>
+    </header>
+</div>
+<hr />
+
+@code {
+    [Parameter] public string PageTitle { get; set; } = "";
+    [Parameter] public string PageSubTitle { get; set; } = "";
+    [Parameter] public string Css { get; set; } = "planner-patient-wrapper";
+    [Parameter] public bool WithBadge { get; set; } = false;
+
+    private string CssBadgeSubTitle { get; set; } = "pb-4 e-badge e-badge-success e-badge-pill size_2";
+}
+
+<style>
+
+    .card-box-title {
+        -webkit-border-radius: 5px;
+        border-radius: 10px;
+        -moz-border-radius: 5px;
+        background-clip: padding-box;
+        margin-bottom: 5px;
+        background-color: #ffffff;
+        box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+    }
+
+        .card-box-title span {
+            padding: 8px;
+            margin-left: 10px;
+            font-size: 16px;
+        }
+
+
+    .e-badge.blue {
+        background: #5f65b8;
+        color: #fff;
+    }
+
+    .e-badge.size_1 {
+        font-size: 12px;
+        margin-top: 4px;
+        margin-left: 4px;
+    }
+
+    .e-badge.size_2 {
+        font-size: 16px;
+        margin-top: 4px;
+        margin-left: 14px;
+    }
+
+    .e-badge.size_3 {
+        font-size: 18px;
+    }
+
+    .module-title {
+        /*font-size: 12px;*/
+        padding: 2px;
+        margin: 0px 2px 5px 3px;
+    }
+</style>
+

@@ -1,0 +1,48 @@
+﻿@using DaisyPets.Core.Application.Enums
+
+@if (!string.IsNullOrWhiteSpace(Message))
+{
+    <div class="alert @alertClass">@Message <span @onclick="HideMessage"></span></div>
+}
+
+@code {
+    [Parameter]
+    public string Message { get; set; }
+
+    private Common.AlertMessageType messageType;
+
+    [Parameter]
+    public Common.AlertMessageType MessageType
+    {
+        get => messageType;
+        set
+        {
+            messageType = value;
+            switch (messageType)
+            {
+                case Common.AlertMessageType.Error:
+                    alertClass = "alert-danger";
+                    break;
+                case Common.AlertMessageType.Warning:
+                    alertClass = "alert-warning";
+                    break;
+                case Common.AlertMessageType.Success:
+                    alertClass = "alert-success";
+                    break;
+                case Common.AlertMessageType.Info:
+                    alertClass = "alert-info";
+                    break;
+                default:
+                    alertClass = "alert-danger";
+                    break;
+            }
+        }       
+    }
+
+    protected string alertClass { get; set; } = "alert-info";
+
+    void HideMessage()
+    {
+        Message = string.Empty;
+    }
+}

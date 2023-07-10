@@ -1,0 +1,2400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnCancelar" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="btnCopiar_error" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="btnExcluir" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="btnFechar" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="btnHelp" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="BtnIngresar" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="btnListar" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="btnLocalizar" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="btnNovo" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="btnOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="btnPesquisar" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="btnSair_error" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="BtnSalir" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="btnSalvar" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="btnSendEmail" xml:space="preserve">
+    <value>Report a problem</value>
+  </data>
+  <data name="chkActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="columnHeader1" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="columnHeader2" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="frmAutores" xml:space="preserve">
+    <value>Authors</value>
+  </data>
+  <data name="frmCategorias" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="frmLivros" xml:space="preserve">
+    <value>Publications</value>
+  </data>
+  <data name="frmUsers" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="gpLogin" xml:space="preserve">
+    <value>System access</value>
+  </data>
+  <data name="gpPesquisaBase" xml:space="preserve">
+    <value>Search type:</value>
+  </data>
+  <data name="lblAnoEdicao" xml:space="preserve">
+    <value>Published in</value>
+  </data>
+  <data name="lblAutor" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="lblCategoria" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="lblCodigo" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="lblConfirmarPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="lblDescricao" xml:space="preserve">
+    <value>Type text to search and hit ENTER</value>
+  </data>
+  <data name="lblDescricaoCategoria" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="lblExplanation" xml:space="preserve">
+    <value>Uncontrolled exception was found by the program. You copy the detail and report the problem by e.mail.</value>
+  </data>
+  <data name="lblHora" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="lblMessage" xml:space="preserve">
+    <value>What happened?</value>
+  </data>
+  <data name="lblNascAutor" xml:space="preserve">
+    <value>Birth date</value>
+  </data>
+  <data name="lblNomeAutor" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="lblPaginas" xml:space="preserve">
+    <value>Pages</value>
+  </data>
+  <data name="lblPassword" xml:space="preserve">
+    <value>Password:</value>
+  </data>
+  <data name="lblPreco" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="lblSinopse" xml:space="preserve">
+    <value>Synopsis</value>
+  </data>
+  <data name="lblSobreAutor" xml:space="preserve">
+    <value>About the Author</value>
+  </data>
+  <data name="lblTelemovel" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="lblTipoUtilizador" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="lblTitulo" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="lblTituloLogin" xml:space="preserve">
+    <value>Library</value>
+  </data>
+  <data name="lblUltAltPassord" xml:space="preserve">
+    <value>Pwd last updated</value>
+  </data>
+  <data name="lblUltLogin" xml:space="preserve">
+    <value>Last login</value>
+  </data>
+  <data name="lblUserName" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="lblUtilizador" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="rbtCodigo" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="rbtDescricao" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="toolStripErro" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="txtCodigo" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="aboutToolStripMenuItem" xml:space="preserve">
+    <value>&amp;About...</value>
+  </data>
+  <data name="arrangeIconsToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Organize icons</value>
+  </data>
+  <data name="btnAutores" xml:space="preserve">
+    <value>Authors</value>
+  </data>
+  <data name="btnCategorias" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="btnLivros" xml:space="preserve">
+    <value>Publications</value>
+  </data>
+  <data name="btnUsers" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="cascadeToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Cascade</value>
+  </data>
+  <data name="closeAllToolStripMenuItem" xml:space="preserve">
+    <value>C&amp;lose All</value>
+  </data>
+  <data name="helpMenu" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="indexToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Index</value>
+  </data>
+  <data name="MainMenuStrip" xml:space="preserve">
+    <value>MenuStrip</value>
+  </data>
+  <data name="mnuAlterarPwd" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="mnuAutores" xml:space="preserve">
+    <value>Authors</value>
+  </data>
+  <data name="mnuBackup" xml:space="preserve">
+    <value>Backup Database</value>
+  </data>
+  <data name="mnuCategorias" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="MnuHerramientas" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="mnuLivros" xml:space="preserve">
+    <value>Publications</value>
+  </data>
+  <data name="MnuSistema" xml:space="preserve">
+    <value>Library</value>
+  </data>
+  <data name="mnuUtilizadores" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="MnuVentanas" xml:space="preserve">
+    <value>&amp;Windows</value>
+  </data>
+  <data name="MnuVer" xml:space="preserve">
+    <value>&amp;View</value>
+  </data>
+  <data name="newWindowToolStripMenuItem" xml:space="preserve">
+    <value>&amp;New window</value>
+  </data>
+  <data name="salirToolStripMenuItem" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="statusBarToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Statusbar</value>
+  </data>
+  <data name="statusStrip" xml:space="preserve">
+    <value>StatusStrip</value>
+  </data>
+  <data name="tileHorizontalToolStripMenuItem" xml:space="preserve">
+    <value>Mosaico &amp;horizontal</value>
+  </data>
+  <data name="tileVerticalToolStripMenuItem" xml:space="preserve">
+    <value>Mosaico &amp;vertical</value>
+  </data>
+  <data name="toolBarToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Toolbars</value>
+  </data>
+  <data name="toolStrip" xml:space="preserve">
+    <value>ToolStrip</value>
+  </data>
+  <data name="toolStripStatusLabel" xml:space="preserve">
+    <value>Personal library system by Fausto Luís - 2016</value>
+  </data>
+  <data name="AvisoSistema" xml:space="preserve">
+    <value>System alert</value>
+  </data>
+  <data name="ConfirmarExclusao" xml:space="preserve">
+    <value>Delete current record?</value>
+  </data>
+  <data name="ErroGeral" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErroListagem" xml:space="preserve">
+    <value>Listing error. Check errors, please</value>
+  </data>
+  <data name="FalhaCriacaoRegisto" xml:space="preserve">
+    <value>Error creating record</value>
+  </data>
+  <data name="FalhaGravacaoRegisto" xml:space="preserve">
+    <value>Update error. Check errors, please</value>
+  </data>
+  <data name="RegistoCriadoSucesso" xml:space="preserve">
+    <value>Record successfully inserted.</value>
+  </data>
+  <data name="RegistoGravadoSucesso" xml:space="preserve">
+    <value>Record successfully updated</value>
+  </data>
+  <data name="FalhaAnulacaoRegisto" xml:space="preserve">
+    <value>Delete Error. Please check error messages</value>
+  </data>
+  <data name="RegistoAnuladoSucesso" xml:space="preserve">
+    <value>Record successfully deleted</value>
+  </data>
+  <data name="TituloPesquisa" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="TituloPesquisaAutores" xml:space="preserve">
+    <value>Search Authors</value>
+  </data>
+  <data name="TituloPesquisaCategorias" xml:space="preserve">
+    <value>Search Categories</value>
+  </data>
+  <data name="TituloPesquisaLivros" xml:space="preserve">
+    <value>Search Books</value>
+  </data>
+  <data name="TituloPesquisaUtilizadores" xml:space="preserve">
+    <value>Search Users</value>
+  </data>
+  <data name="RegistosEncontrados" xml:space="preserve">
+    <value>records found with the word</value>
+  </data>
+  <data name="lblEscolhaLinguagem" xml:space="preserve">
+    <value>Choose language</value>
+  </data>
+  <data name="SaidaPrograma" xml:space="preserve">
+    <value>Do you really want to exit the application?</value>
+  </data>
+  <data name="TituloCampo1Autores" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="TituloCampo1Categorias" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="TituloCampo1Livros" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="TituloCampo1Utilizadores" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="TituloCampo2Autores" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="TituloCampo2Categorias" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="TituloCampo2Livros" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="TituloCampo2Utilizadores" xml:space="preserve">
+    <value>Last login</value>
+  </data>
+  <data name="TituloCampo3Livros" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="TituloCampo3Utilizadores" xml:space="preserve">
+    <value>Pwd last change</value>
+  </data>
+  <data name="TituloListagemAutores" xml:space="preserve">
+    <value>Authors report</value>
+  </data>
+  <data name="TituloListagemCategorias" xml:space="preserve">
+    <value>Categories report</value>
+  </data>
+  <data name="TituloListagemLivros" xml:space="preserve">
+    <value>Books report</value>
+  </data>
+  <data name="frmPreviewAutoresGenerico" xml:space="preserve">
+    <value>List of Authors</value>
+  </data>
+  <data name="frmPreviewCategoriasGenerico" xml:space="preserve">
+    <value>List of Categories</value>
+  </data>
+  <data name="frmPreviewLivrosGenerico" xml:space="preserve">
+    <value>List of books</value>
+  </data>
+  <data name="frmPreviewUtilizadoresGenerico" xml:space="preserve">
+    <value>List of Users</value>
+  </data>
+  <data name="TituloCampo4Utilizadores" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="lblEditora" xml:space="preserve">
+    <value>Publisher</value>
+  </data>
+  <data name="TituloCampo4Livros" xml:space="preserve">
+    <value>Publisher</value>
+  </data>
+  <data name="frmEditoras" xml:space="preserve">
+    <value>Publishers</value>
+  </data>
+  <data name="btnEditoras" xml:space="preserve">
+    <value>Publishers</value>
+  </data>
+  <data name="TituloListagemEditoras" xml:space="preserve">
+    <value>Publishers report</value>
+  </data>
+  <data name="TituloCampo1Editoras" xml:space="preserve">
+    <value>Publisher</value>
+  </data>
+  <data name="TituloCampo2Editoras" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="TituloCampo3Editoras" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="frmPreviewEditorasGenerico" xml:space="preserve">
+    <value>Publishers report</value>
+  </data>
+  <data name="TituloPesquisaEditoras" xml:space="preserve">
+    <value>Search Publishers</value>
+  </data>
+  <data name="TituloListagemUtilizadores" xml:space="preserve">
+    <value>Users report</value>
+  </data>
+  <data name="MSG_UserNameRequired" xml:space="preserve">
+    <value>Fill Username, please</value>
+  </data>
+  <data name="MSG_UserPasswordRequired" xml:space="preserve">
+    <value>Enter password, please</value>
+  </data>
+  <data name="MSG_UserPasswordsNotEqual" xml:space="preserve">
+    <value>Passwords are not equal</value>
+  </data>
+  <data name="MSG_PublisherDeleteCaptionError" xml:space="preserve">
+    <value>Delete Publisher</value>
+  </data>
+  <data name="MSG_PublisherDeleteError" xml:space="preserve">
+    <value>There are books with this Publisher ...</value>
+  </data>
+  <data name="MSG_PublisherNameRequired" xml:space="preserve">
+    <value>Fill Puplisher name, please</value>
+  </data>
+  <data name="MSG_UserConfirmationPasswordRequired" xml:space="preserve">
+    <value>Confirm password, please</value>
+  </data>
+  <data name="MSG_UserIDRequired" xml:space="preserve">
+    <value>Fill UserID, please</value>
+  </data>
+  <data name="MSG_CategoryNameRequired" xml:space="preserve">
+    <value>Fill Category name, please</value>
+  </data>
+  <data name="MSG_CategoryDeleteCaptionError" xml:space="preserve">
+    <value>Delete Category</value>
+  </data>
+  <data name="MSG_CategoryDeleteError" xml:space="preserve">
+    <value>There are books with this Categorie...</value>
+  </data>
+  <data name="MSG_BookAuthorRequired" xml:space="preserve">
+    <value>You should choose the Author</value>
+  </data>
+  <data name="MSG_BookCategoryRequired" xml:space="preserve">
+    <value>You should choose the Category</value>
+  </data>
+  <data name="MSG_BookPublisherrRequired" xml:space="preserve">
+    <value>You should choose the Publisher</value>
+  </data>
+  <data name="MSG_BookTitleRequired" xml:space="preserve">
+    <value>Fill Book Title, please</value>
+  </data>
+  <data name="MSG_AuthorNameRequired" xml:space="preserve">
+    <value>Fill Author's name, please</value>
+  </data>
+  <data name="MSG_PatientDeleteCaptionError" xml:space="preserve">
+    <value>Delete Patient</value>
+  </data>
+  <data name="MSG_AuthorDeleteError" xml:space="preserve">
+    <value>There are books to this author ...</value>
+  </data>
+  <data name="MSG_AuthorDOBInvalid" xml:space="preserve">
+    <value>Invalid Date of Birth</value>
+  </data>
+  <data name="SaidaAplicacao" xml:space="preserve">
+    <value>You really want to exit the program?</value>
+  </data>
+  <data name="MSG_UserAlreadyExist" xml:space="preserve">
+    <value>UserID {0} already exist. Please choose another name</value>
+  </data>
+  <data name="InvalidYear" xml:space="preserve">
+    <value>Invalid year</value>
+  </data>
+  <data name="lblEMailEditora" xml:space="preserve">
+    <value>e-mail</value>
+  </data>
+  <data name="lblMoradaEditora" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="lblSiteEditora" xml:space="preserve">
+    <value>site</value>
+  </data>
+  <data name="lblTelefoneEditora" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="lblNomeEditora" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="lblDescricaoLocalArquivo" xml:space="preserve">
+    <value>Stored in</value>
+  </data>
+  <data name="MSG_StorageDeleteCaptionError" xml:space="preserve">
+    <value>Delete storage name</value>
+  </data>
+  <data name="MSG_StorageDeleteError" xml:space="preserve">
+    <value>There are books with that storage name</value>
+  </data>
+  <data name="TituloListagemLocaisArquivo" xml:space="preserve">
+    <value>Storage names report</value>
+  </data>
+  <data name="frmPreviewLocalArquivoGenerico" xml:space="preserve">
+    <value>Search storage names</value>
+  </data>
+  <data name="frmLocaisArquivo" xml:space="preserve">
+    <value>Storage places</value>
+  </data>
+  <data name="lblFormato" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="lblRating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="MSG_BookStorageRequired" xml:space="preserve">
+    <value>Fill storage type, please</value>
+  </data>
+  <data name="TituloCampo5Livros" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="frmPrincipal" xml:space="preserve">
+    <value>Publications Manager</value>
+  </data>
+  <data name="frmPublicacoes" xml:space="preserve">
+    <value>Publications manager</value>
+  </data>
+  <data name="lblLido" xml:space="preserve">
+    <value>Read?</value>
+  </data>
+  <data name="btnLimpar" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="btnManutBD" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="lblGuardadoEm" xml:space="preserve">
+    <value>Saved in</value>
+  </data>
+  <data name="lblLocalArquivo" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="lblMovimento" xml:space="preserve">
+    <value>Created on</value>
+  </data>
+  <data name="lblPubCover" xml:space="preserve">
+    <value>Cover</value>
+  </data>
+  <data name="Nao" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Sim" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="btnFormatos" xml:space="preserve">
+    <value>Formats</value>
+  </data>
+  <data name="frmFormatos" xml:space="preserve">
+    <value>Formats</value>
+  </data>
+  <data name="frmPreviewFormatosGenerico" xml:space="preserve">
+    <value>Book Format/Type of Cover</value>
+  </data>
+  <data name="TituloCampo1Formatos" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="TituloCampo2Formatos" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="TituloListagemFormatos" xml:space="preserve">
+    <value>Book Format/Cover report</value>
+  </data>
+  <data name="DeleteMsg" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="EditMsg" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="LerPdf" xml:space="preserve">
+    <value>Read Pdf</value>
+  </data>
+  <data name="NewMsg" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="PlayMp3" xml:space="preserve">
+    <value>Hear</value>
+  </data>
+  <data name="PlayVideo" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="Record" xml:space="preserve">
+    <value>Record</value>
+  </data>
+  <data name="RegistosCatalogados" xml:space="preserve">
+    <value>cataloged records.</value>
+  </data>
+  <data name="OperacaoCancelada" xml:space="preserve">
+    <value>Operation was canceled.</value>
+  </data>
+  <data name="DadosEmFalta" xml:space="preserve">
+    <value>Invalid operation /  Invalid data or missing</value>
+  </data>
+  <data name="SuccessDelete" xml:space="preserve">
+    <value>Record deleted successfully</value>
+  </data>
+  <data name="SuccessInsert" xml:space="preserve">
+    <value>Record Inserted successfully</value>
+  </data>
+  <data name="SuccessUpdate" xml:space="preserve">
+    <value>Record Updated successfully</value>
+  </data>
+  <data name="creationMsg" xml:space="preserve">
+    <value>Creation of</value>
+  </data>
+  <data name="deletionMsg" xml:space="preserve">
+    <value>Deletion of </value>
+  </data>
+  <data name="editionMsg" xml:space="preserve">
+    <value>Editing of </value>
+  </data>
+  <data name="msgAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="msgBlankCover" xml:space="preserve">
+    <value>Wihout cover</value>
+  </data>
+  <data name="msgBlankPages" xml:space="preserve">
+    <value>Blank pages</value>
+  </data>
+  <data name="msgDuplicated" xml:space="preserve">
+    <value>Duplicated</value>
+  </data>
+  <data name="msgReaded" xml:space="preserve">
+    <value>Readed</value>
+  </data>
+  <data name="msgUpdateCategories" xml:space="preserve">
+    <value>Update Categories</value>
+  </data>
+  <data name="msgUpdateFormats" xml:space="preserve">
+    <value>Update Formats</value>
+  </data>
+  <data name="msgUpdatePublishers" xml:space="preserve">
+    <value>Update Publishers</value>
+  </data>
+  <data name="msgUpdateStoragePlaces" xml:space="preserve">
+    <value>Update Storage Places</value>
+  </data>
+  <data name="msgUpload" xml:space="preserve">
+    <value>Upload Files</value>
+  </data>
+  <data name="msgUploadError" xml:space="preserve">
+    <value>File type not allowed (Pdf/Docs)</value>
+  </data>
+  <data name="msgUploadCreationError" xml:space="preserve">
+    <value>Record was not created, already exists in the database.</value>
+  </data>
+  <data name="msgUploadAuthorCreation_Error" xml:space="preserve">
+    <value>Error creating Author (Upload).</value>
+  </data>
+  <data name="msgUploadAuthor_AboutMsg" xml:space="preserve">
+    <value>Created automatically in </value>
+  </data>
+  <data name="msgUploadCountingPdfPages" xml:space="preserve">
+    <value>Error counting pages (Pdf)</value>
+  </data>
+  <data name="msgUploadCreationMsg" xml:space="preserve">
+    <value>Creation of publication, via Upload</value>
+  </data>
+  <data name="msgUploadCreationSuccess" xml:space="preserve">
+    <value>Upload process terminated.</value>
+  </data>
+  <data name="msgUploadKeywords" xml:space="preserve">
+    <value>Keywords</value>
+  </data>
+  <data name="msgUploadStorageFileNotInDisk" xml:space="preserve">
+    <value>Storage place path nor in disk.</value>
+  </data>
+  <data name="msgUploadSubject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="msgSelect" xml:space="preserve">
+    <value>Please select</value>
+  </data>
+  <data name="ConfirmarAtualizacao" xml:space="preserve">
+    <value>Update selected records?</value>
+  </data>
+  <data name="SuccessUpdates" xml:space="preserve">
+    <value>Update operation terminated with success</value>
+  </data>
+  <data name="updateRecordsMsg" xml:space="preserve">
+    <value>Update records</value>
+  </data>
+  <data name="TituloAusencias" xml:space="preserve">
+    <value>Absences</value>
+  </data>
+  <data name="TituloCasa" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="TituloCedula" xml:space="preserve">
+    <value>Identification</value>
+  </data>
+  <data name="TituloDias" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="TituloDoentes" xml:space="preserve">
+    <value>Patients manager</value>
+  </data>
+  <data name="TituloDoentesSemAcordo" xml:space="preserve">
+    <value>Patients without Agreement (Individuals)</value>
+  </data>
+  <data name="TituloDuracao" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="TituloEscolhaCor" xml:space="preserve">
+    <value>Choose a color</value>
+  </data>
+  <data name="TituloEspecialidades" xml:space="preserve">
+    <value>Specialties</value>
+  </data>
+  <data name="TituloFim" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="TituloIdentificacao" xml:space="preserve">
+    <value>Identification</value>
+  </data>
+  <data name="TituloInicio" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="TituloMarcacoes" xml:space="preserve">
+    <value>Appointment booking</value>
+  </data>
+  <data name="TituloMedico" xml:space="preserve">
+    <value>Doctors</value>
+  </data>
+  <data name="TituloMedicoRecebe" xml:space="preserve">
+    <value>Doctor receives</value>
+  </data>
+  <data name="TituloMedicos" xml:space="preserve">
+    <value>Doctors manager</value>
+  </data>
+  <data name="TituloMorada" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="TituloMotivo" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="TituloNome" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TituloNotas" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="TituloObservacoes" xml:space="preserve">
+    <value>Observations</value>
+  </data>
+  <data name="TituloPainel" xml:space="preserve">
+    <value>Painel</value>
+  </data>
+  <data name="TituloPlanoConsultas" xml:space="preserve">
+    <value>Appointments Plan</value>
+  </data>
+  <data name="TituloPrecoConsulta" xml:space="preserve">
+    <value>Appointment price</value>
+  </data>
+  <data name="TituloQuarta" xml:space="preserve">
+    <value>Wednesday</value>
+  </data>
+  <data name="TituloQuinta" xml:space="preserve">
+    <value>Thursday</value>
+  </data>
+  <data name="TituloRetencao" xml:space="preserve">
+    <value>Withholding?</value>
+  </data>
+  <data name="TituloSegunda" xml:space="preserve">
+    <value>Monday</value>
+  </data>
+  <data name="TituloSexta" xml:space="preserve">
+    <value>Friday</value>
+  </data>
+  <data name="TituloTerca" xml:space="preserve">
+    <value>Tuesday</value>
+  </data>
+  <data name="menu-admin-dashoard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="menu-admin-lookup-tables" xml:space="preserve">
+    <value>Lookup Tables</value>
+  </data>
+  <data name="menu-admin-main" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="menu-admin-management" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="menu-patients-main" xml:space="preserve">
+    <value>Patients manager</value>
+  </data>
+  <data name="menu-patients-management" xml:space="preserve">
+    <value>Clinical records</value>
+  </data>
+  <data name="menu-patients-report-medicalexams" xml:space="preserve">
+    <value>Prescribed exams</value>
+  </data>
+  <data name="menu-patients-report-patientsandguides" xml:space="preserve">
+    <value>List Patients and Guides</value>
+  </data>
+  <data name="menu-patients-report-riskpatologies" xml:space="preserve">
+    <value>Risk pathologies</value>
+  </data>
+  <data name="menu-patients-tasks" xml:space="preserve">
+    <value>Tasks / Reminders</value>
+  </data>
+  <data name="menu-recepction-appointments" xml:space="preserve">
+    <value>Appointments</value>
+  </data>
+  <data name="menu-recepction-doctors-absents" xml:space="preserve">
+    <value>Doctors - Absences</value>
+  </data>
+  <data name="menu-recepction-doctors-management" xml:space="preserve">
+    <value>Doctors - Management</value>
+  </data>
+  <data name="menu-recepction-main" xml:space="preserve">
+    <value>Office reception</value>
+  </data>
+  <data name="TituloEspecialidade" xml:space="preserve">
+    <value>Specialty</value>
+  </data>
+  <data name="menu-patients-report-search-medicines" xml:space="preserve">
+    <value>Search for medicines</value>
+  </data>
+  <data name="MSG_ConsultasTitulo" xml:space="preserve">
+    <value>Clinical Records</value>
+  </data>
+  <data name="MSG_Consultas_Listar" xml:space="preserve">
+    <value>Patient Clinical Records List</value>
+  </data>
+  <data name="MSG_DoentesAtivos" xml:space="preserve">
+    <value>Active Patients</value>
+  </data>
+  <data name="MSG_DoentesNaoAtivos" xml:space="preserve">
+    <value>Non Active Patients</value>
+  </data>
+  <data name="MSG_DoentesTodos" xml:space="preserve">
+    <value>All Patients</value>
+  </data>
+  <data name="MSG_ExamesMedicosDelete" xml:space="preserve">
+    <value>Delete Medical Exam</value>
+  </data>
+  <data name="MSG_FichasClinicasTitulo" xml:space="preserve">
+    <value>Patients Clinical Records</value>
+  </data>
+  <data name="MSG_GoBack" xml:space="preserve">
+    <value>Go back</value>
+  </data>
+  <data name="MSG_GuiaTratamentoDelete" xml:space="preserve">
+    <value>Delete Treatment Guide</value>
+  </data>
+  <data name="MSG_PreparandoDados" xml:space="preserve">
+    <value>Preparing Data...</value>
+  </data>
+  <data name="MSG_ReferenciacaoDelete" xml:space="preserve">
+    <value>Delete Referral</value>
+  </data>
+  <data name="MSG_RegistoClinicoDelete" xml:space="preserve">
+    <value>Delete Clinical Record</value>
+  </data>
+  <data name="MSG_Abertura" xml:space="preserve">
+    <value>Created in</value>
+  </data>
+  <data name="MSG_Acordo" xml:space="preserve">
+    <value>Insurance</value>
+  </data>
+  <data name="MSG_Alerta" xml:space="preserve">
+    <value>Alert</value>
+  </data>
+  <data name="MSG_Altura" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="MSG_Diastolica" xml:space="preserve">
+    <value>Diastolic</value>
+  </data>
+  <data name="MSG_EstadoCivil" xml:space="preserve">
+    <value>Marital Status</value>
+  </data>
+  <data name="MSG_Glicemia" xml:space="preserve">
+    <value>Glucose</value>
+  </data>
+  <data name="MSG_Idade" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="MSG_IMC" xml:space="preserve">
+    <value>BMI</value>
+  </data>
+  <data name="MSG_MedicoAssistente" xml:space="preserve">
+    <value>Assistant doctor</value>
+  </data>
+  <data name="MSG_Peso" xml:space="preserve">
+    <value>Weight</value>
+  </data>
+  <data name="MSG_Profissao" xml:space="preserve">
+    <value>Occupation</value>
+  </data>
+  <data name="MSG_Sistolica" xml:space="preserve">
+    <value>Sistolic</value>
+  </data>
+  <data name="MSG_Opcoes" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="MSG_Doente" xml:space="preserve">
+    <value>Patient</value>
+  </data>
+  <data name="MSG_CriadoEm" xml:space="preserve">
+    <value>Created in</value>
+  </data>
+  <data name="MSG_Diagnostico" xml:space="preserve">
+    <value>Diagnosis</value>
+  </data>
+  <data name="MSG_DocumentosIndexados" xml:space="preserve">
+    <value>Indexed Documents</value>
+  </data>
+  <data name="MSG_Duplicar" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="MSG_Exame" xml:space="preserve">
+    <value>Exam</value>
+  </data>
+  <data name="MSG_Ficheiro" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="MSG_ExamesMedicosTitulo" xml:space="preserve">
+    <value>Medical Exams</value>
+  </data>
+  <data name="MSG_GuiasReferenciasTitulo" xml:space="preserve">
+    <value>Referrals</value>
+  </data>
+  <data name="MSG_GuiasTratamentoTitulo" xml:space="preserve">
+    <value>Treatment Guides</value>
+  </data>
+  <data name="MSG_GuiasTratamento_Listar" xml:space="preserve">
+    <value>List Patient Guides</value>
+  </data>
+  <data name="MSG_IndexadoEm" xml:space="preserve">
+    <value>Indexed In</value>
+  </data>
+  <data name="MSG_Tipo" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="MSG_TipoDocumento" xml:space="preserve">
+    <value>Document type</value>
+  </data>
+  <data name="MSG_ReferenciasTitulo" xml:space="preserve">
+    <value>Referral requests</value>
+  </data>
+  <data name="TituloAcordos" xml:space="preserve">
+    <value>Health Agreements</value>
+  </data>
+  <data name="MSG_AbreAplicaModelo" xml:space="preserve">
+    <value>Open and apply Template</value>
+  </data>
+  <data name="MSG_ConfirmarOperacao" xml:space="preserve">
+    <value>Confirm operation?</value>
+  </data>
+  <data name="MSG_EscolherAcordo" xml:space="preserve">
+    <value>Choose Agreement</value>
+  </data>
+  <data name="MSG_GuardarModelo" xml:space="preserve">
+    <value>Save as model</value>
+  </data>
+  <data name="MSG_PercentagemRecebidaClinica" xml:space="preserve">
+    <value>Percentage received from the clinic</value>
+  </data>
+  <data name="TituloEspecial" xml:space="preserve">
+    <value>Special</value>
+  </data>
+  <data name="EscolherEspecialidade" xml:space="preserve">
+    <value>Choose Specialty</value>
+  </data>
+  <data name="MSG_MedicoDelete" xml:space="preserve">
+    <value>Delete Doctor</value>
+  </data>
+  <data name="MSG_Cor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="TituloAlmoco" xml:space="preserve">
+    <value>Lunch break</value>
+  </data>
+  <data name="TituloAusente" xml:space="preserve">
+    <value>Absent</value>
+  </data>
+  <data name="TituloBloquearDesbloquearPeriodo" xml:space="preserve">
+    <value>Block/Unblock period</value>
+  </data>
+  <data name="TituloFeriado" xml:space="preserve">
+    <value>Holiday</value>
+  </data>
+  <data name="TituloMostraMarcacoes" xml:space="preserve">
+    <value>Get Appointments</value>
+  </data>
+  <data name="TituloNovaMarcacao" xml:space="preserve">
+    <value>New appointment</value>
+  </data>
+  <data name="MSG_EscolherDoente" xml:space="preserve">
+    <value>Choose patient</value>
+  </data>
+  <data name="MSG_PrimeiraConta" xml:space="preserve">
+    <value>First appointment?</value>
+  </data>
+  <data name="TituloEstado" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TituloIniciativa" xml:space="preserve">
+    <value>Initiative</value>
+  </data>
+  <data name="MSG_EscolherMedico" xml:space="preserve">
+    <value>Choose Doctor</value>
+  </data>
+  <data name="TituloHorario" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="TituloPeriodo" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="menu-admin-clinic-data" xml:space="preserve">
+    <value>Clinic Data</value>
+  </data>
+  <data name="MSG_Appt_Validation_Doctor" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
+  <data name="MSG_Appt_Validation_EndTime" xml:space="preserve">
+    <value>Invalid end time</value>
+  </data>
+  <data name="MSG_Appt_Validation_Initiative" xml:space="preserve">
+    <value>Appointment Initiative</value>
+  </data>
+  <data name="MSG_Appt_Validation_LunchTime" xml:space="preserve">
+    <value>Lunch break appointment...</value>
+  </data>
+  <data name="MSG_Appt_Validation_PatientName" xml:space="preserve">
+    <value>Patient Name</value>
+  </data>
+  <data name="MSG_Appt_Validation_Reason" xml:space="preserve">
+    <value>Appointment Reason</value>
+  </data>
+  <data name="MSG_Appt_Validation_Remarks" xml:space="preserve">
+    <value>Reminder/Note</value>
+  </data>
+  <data name="MSG_Appt_Validation_StartTime" xml:space="preserve">
+    <value>Start Date should be in the future</value>
+  </data>
+  <data name="MSG_Appt_Validation_StartTimeInvalid" xml:space="preserve">
+    <value>Date time invalid or empty</value>
+  </data>
+  <data name="MSG_Appt_Validation_Status" xml:space="preserve">
+    <value>Appointment state</value>
+  </data>
+  <data name="MSG_AbsenceDeleteCaptionError" xml:space="preserve">
+    <value>Delete doctor absence</value>
+  </data>
+  <data name="MSG_Absence_Free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="MSG_Absence_OneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="MSG_Absence_OneMonth" xml:space="preserve">
+    <value>1 month</value>
+  </data>
+  <data name="MSG_Absence_OneWeek" xml:space="preserve">
+    <value>1 week</value>
+  </data>
+  <data name="MSG_AgreementDeleteCaptionError" xml:space="preserve">
+    <value>Delete doctor agreement</value>
+  </data>
+  <data name="MSG_E" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="MSG_Entre" xml:space="preserve">
+    <value>Between</value>
+  </data>
+  <data name="TituloAusencia" xml:space="preserve">
+    <value>Absence</value>
+  </data>
+  <data name="MSG_AgreementsDeleteError" xml:space="preserve">
+    <value>There are doctors with this agreement</value>
+  </data>
+  <data name="MSG_Consulta" xml:space="preserve">
+    <value>Consultation</value>
+  </data>
+  <data name="lblExportar" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="lblApelido" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="lblEscolhaRole" xml:space="preserve">
+    <value>Choose Role</value>
+  </data>
+  <data name="lblPatologias" xml:space="preserve">
+    <value>Pathologies</value>
+  </data>
+  <data name="lblManutencao" xml:space="preserve">
+    <value>Maintenance</value>
+  </data>
+  <data name="Site_Menu_Contactos" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="Site_Menu_Inicio" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Site_Menu_Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Site_Menu_MarcacaoConsulta" xml:space="preserve">
+    <value>Appointment booking</value>
+  </data>
+  <data name="Site_Menu_QuadroMedico" xml:space="preserve">
+    <value>Medical staff</value>
+  </data>
+  <data name="Site_Menu_QuadroMedico_Descricao" xml:space="preserve">
+    <value>Medical staff and clinic Specialties</value>
+  </data>
+  <data name="Site_Menu_QuemSomos" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="Site_Menu_QuemSomos_Descricao" xml:space="preserve">
+    <value>About this clinic</value>
+  </data>
+  <data name="MSG_Appt_DeleteCaption" xml:space="preserve">
+    <value>Delete appointment</value>
+  </data>
+  <data name="MSG_Staff_DeleteCaption" xml:space="preserve">
+    <value>Delete staff member</value>
+  </data>
+  <data name="MSG_IndexedDoc_DeleteCaption" xml:space="preserve">
+    <value>Delete indexed document</value>
+  </data>
+  <data name="TituloAnalisesClinicas" xml:space="preserve">
+    <value>Tests</value>
+  </data>
+  <data name="TituloAtestado" xml:space="preserve">
+    <value>Certtificate</value>
+  </data>
+  <data name="TituloData" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="TituloDtNascimento" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="TituloEncaminhamento" xml:space="preserve">
+    <value>Referral</value>
+  </data>
+  <data name="TituloEnviarEmail" xml:space="preserve">
+    <value>Send document by email to the patient</value>
+  </data>
+  <data name="TituloImagem" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="TituloIndexacaoDocumentos" xml:space="preserve">
+    <value>Document indexing</value>
+  </data>
+  <data name="TituloIndexarDocumento" xml:space="preserve">
+    <value>Send email to the patient</value>
+  </data>
+  <data name="TituloListarExamesMedicos" xml:space="preserve">
+    <value>List of Medical Exams</value>
+  </data>
+  <data name="TituloListarGuiasTratamento" xml:space="preserve">
+    <value>List of Treatment Guides</value>
+  </data>
+  <data name="TituloListarRegistosClínicos" xml:space="preserve">
+    <value>List of Clinical Records</value>
+  </data>
+  <data name="TituloMedicamentoConsultado" xml:space="preserve">
+    <value>Researched drug</value>
+  </data>
+  <data name="TituloReferenciacao" xml:space="preserve">
+    <value>Reason for medical referral</value>
+  </data>
+  <data name="TituloEstadoGeralConsulta" xml:space="preserve">
+    <value>General Status / Disease Evolution</value>
+  </data>
+  <data name="TituloListaProblemasConsulta" xml:space="preserve">
+    <value>List of Problems / Clinical Findings</value>
+  </data>
+  <data name="TituloMotivoConsulta" xml:space="preserve">
+    <value>Reason for this consultation</value>
+  </data>
+  <data name="TituloDadosBiometricos" xml:space="preserve">
+    <value>Biometric Data</value>
+  </data>
+  <data name="TituloBMI" xml:space="preserve">
+    <value>BMI</value>
+  </data>
+  <data name="TituloPulsacao" xml:space="preserve">
+    <value>Pulse</value>
+  </data>
+  <data name="TituloRespiracao" xml:space="preserve">
+    <value>Breathing</value>
+  </data>
+  <data name="TituloResultado" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="TituloTemperatura" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="MSG_CorpulenciaDadosEmFalta" xml:space="preserve">
+    <value>To calculate BMI, provide Weight and Height...</value>
+  </data>
+  <data name="MSG_CorpulenciaDesnutricao" xml:space="preserve">
+    <value>Malnutrition</value>
+  </data>
+  <data name="MSG_CorpulenciaExcessoPeso" xml:space="preserve">
+    <value>Overweight</value>
+  </data>
+  <data name="MSG_CorpulenciaMagreza" xml:space="preserve">
+    <value>Thinness</value>
+  </data>
+  <data name="MSG_CorpulenciaNormal" xml:space="preserve">
+    <value>Normal corpulence</value>
+  </data>
+  <data name="MSG_CorpulenciaObesidadeModerada" xml:space="preserve">
+    <value>Moderate obesity</value>
+  </data>
+  <data name="MSG_CorpulenciaObesidadeMorbidaExcessiva" xml:space="preserve">
+    <value>Morbid or massive obesity</value>
+  </data>
+  <data name="MSG_CorpulenciaObesidadeSevera" xml:space="preserve">
+    <value>Severe obesity</value>
+  </data>
+  <data name="MSG_DadosNaoNumericos" xml:space="preserve">
+    <value>Values ​​must be numeric</value>
+  </data>
+  <data name="MSG_Diabetes_PodeRequererVigilancia" xml:space="preserve">
+    <value>May require medical surveillance</value>
+  </data>
+  <data name="MSG_Diabetes_RequerVigilancia" xml:space="preserve">
+    <value>Requires medical surveillance</value>
+  </data>
+  <data name="MSG_Diabetes_ValorNormal" xml:space="preserve">
+    <value>Normal value</value>
+  </data>
+  <data name="MSG_TA_DiastolicaInvalida" xml:space="preserve">
+    <value>'Maximum' value may be invalid...</value>
+  </data>
+  <data name="MSG_TA_FormatoInvalido" xml:space="preserve">
+    <value>Invalid format (V1-V2, V1 V2, V1,V2)</value>
+  </data>
+  <data name="MSG_TA_Grau1" xml:space="preserve">
+    <value>Grade 1 hypertension</value>
+  </data>
+  <data name="MSG_TA_Grau2" xml:space="preserve">
+    <value>Grade 2 hypertension</value>
+  </data>
+  <data name="MSG_TA_Grau3" xml:space="preserve">
+    <value>Grade 3 hypertension</value>
+  </data>
+  <data name="MSG_TA_SistolicaAlto" xml:space="preserve">
+    <value>Value of 'minimum' too high...</value>
+  </data>
+  <data name="MSG_TA_SistolicaBaixo" xml:space="preserve">
+    <value>Value of 'minimum' too low...</value>
+  </data>
+  <data name="MSG_TA_SistolicaInvalida" xml:space="preserve">
+    <value>Value of 'minimum' may be invalid...</value>
+  </data>
+  <data name="MSG_TA_SistolicaIsolada" xml:space="preserve">
+    <value>Isolated systolic hypertension</value>
+  </data>
+  <data name="MSG_TA_SistolicaNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="MSG_TA_SistolicaNormalAlta" xml:space="preserve">
+    <value>Normal High</value>
+  </data>
+  <data name="MSG_TA_ValoresInvalidos" xml:space="preserve">
+    <value>Values ​​don't seem to be correct (diff. &lt; 15)</value>
+  </data>
+  <data name="MSG_TA_ValoresNaoFornecidos" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MSG_TA_ValoresOtimos" xml:space="preserve">
+    <value>Optimal values</value>
+  </data>
+  <data name="TituloIMC" xml:space="preserve">
+    <value>BMI</value>
+  </data>
+  <data name="MSG_EscolherTipoDocumento" xml:space="preserve">
+    <value>Choose document type</value>
+  </data>
+  <data name="TituloDocumento" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="TituloGrupo" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="TituloServicosPrestados" xml:space="preserve">
+    <value>Services provided</value>
+  </data>
+  <data name="MSG_HistoriaAtualDoenca" xml:space="preserve">
+    <value>Current history of illness</value>
+  </data>
+  <data name="MSG_Medicacao" xml:space="preserve">
+    <value>Last medication</value>
+  </data>
+  <data name="MSG_MotivoReferenciacao" xml:space="preserve">
+    <value>Reason for this referral</value>
+  </data>
+  <data name="MSG_UltimosExames" xml:space="preserve">
+    <value>Latest exams</value>
+  </data>
+  <data name="TituloUnidade" xml:space="preserve">
+    <value>Medical Unit</value>
+  </data>
+  <data name="TituloGerarGT" xml:space="preserve">
+    <value>Generate Treatment Guide (Pdf)</value>
+  </data>
+  <data name="TituloBeneficiario" xml:space="preserve">
+    <value>Beneficiary Number</value>
+  </data>
+  <data name="TituloDocumentacao" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="TituloEmergencia" xml:space="preserve">
+    <value>Emergency</value>
+  </data>
+  <data name="TituloFeminino" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="TituloMasculino" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="TituloMedicoAssistente" xml:space="preserve">
+    <value>Assistant Physician</value>
+  </data>
+  <data name="TituloNaturalidade" xml:space="preserve">
+    <value>Birthplace</value>
+  </data>
+  <data name="TituloParticular" xml:space="preserve">
+    <value>No agreement</value>
+  </data>
+  <data name="TituloUtente" xml:space="preserve">
+    <value>Patient Card</value>
+  </data>
+  <data name="TituloValidade" xml:space="preserve">
+    <value>Expiration date</value>
+  </data>
+  <data name="TituloDespesas" xml:space="preserve">
+    <value>Expenses</value>
+  </data>
+  <data name="TituloMetodoPagamento" xml:space="preserve">
+    <value>Payment method</value>
+  </data>
+  <data name="TituloCategoria" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="TituloSubCategoria" xml:space="preserve">
+    <value>Category type</value>
+  </data>
+  <data name="TituloSubCategorias" xml:space="preserve">
+    <value>Subcategories</value>
+  </data>
+  <data name="TituloValor" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="MSG_ApiError" xml:space="preserve">
+    <value>API error. Please contact the Administrator.</value>
+  </data>
+  <data name="TituloAlergias" xml:space="preserve">
+    <value>Allergies</value>
+  </data>
+  <data name="TituloAtipica" xml:space="preserve">
+    <value>Atypical</value>
+  </data>
+  <data name="TituloAtividadeSexual" xml:space="preserve">
+    <value>Sexual activity</value>
+  </data>
+  <data name="TituloDiabetes" xml:space="preserve">
+    <value>Diabetes</value>
+  </data>
+  <data name="TituloDietaExercicios" xml:space="preserve">
+    <value>Diet and exercise</value>
+  </data>
+  <data name="TituloDislipidemia" xml:space="preserve">
+    <value>Dyslipidemia</value>
+  </data>
+  <data name="TituloEndocrina" xml:space="preserve">
+    <value>Endocrine</value>
+  </data>
+  <data name="TituloEtilismo" xml:space="preserve">
+    <value>Alcoholism</value>
+  </data>
+  <data name="TituloHipertensao" xml:space="preserve">
+    <value>Hypertension</value>
+  </data>
+  <data name="TituloHistoriaClinicaPatologia" xml:space="preserve">
+    <value>Clinical and Pathological History</value>
+  </data>
+  <data name="TituloHistoriaOcupacional" xml:space="preserve">
+    <value>Occupational History</value>
+  </data>
+  <data name="TituloInfecciosa" xml:space="preserve">
+    <value>Infectious</value>
+  </data>
+  <data name="TituloInteressesPessoais" xml:space="preserve">
+    <value>Personal interests</value>
+  </data>
+  <data name="TituloMedicamento" xml:space="preserve">
+    <value>Medication</value>
+  </data>
+  <data name="TituloNivelEducacional" xml:space="preserve">
+    <value>Educational level</value>
+  </data>
+  <data name="TituloObesidade" xml:space="preserve">
+    <value>Obesity</value>
+  </data>
+  <data name="TituloPequenoAlmoco" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+  <data name="TituloPrimeiraConsulta" xml:space="preserve">
+    <value>First appointment?</value>
+  </data>
+  <data name="TituloPulmonar" xml:space="preserve">
+    <value>Pulmonar</value>
+  </data>
+  <data name="TituloQueixaPrincipal" xml:space="preserve">
+    <value>Chief Complaint</value>
+  </data>
+  <data name="TituloReferenciacoes" xml:space="preserve">
+    <value>Referrals</value>
+  </data>
+  <data name="TituloSemConsultaHa" xml:space="preserve">
+    <value>Without consultation</value>
+  </data>
+  <data name="TituloTabagismo" xml:space="preserve">
+    <value>Smoking</value>
+  </data>
+  <data name="TituloTipoSangue" xml:space="preserve">
+    <value>Blood Type</value>
+  </data>
+  <data name="TituloUltimaConsulta" xml:space="preserve">
+    <value>Last appt.</value>
+  </data>
+  <data name="TituloUltimoGuiaTratamento" xml:space="preserve">
+    <value>Latest Treatment Guide</value>
+  </data>
+  <data name="TituloUsoDrogas" xml:space="preserve">
+    <value>Use of drugs</value>
+  </data>
+  <data name="TituloVacinacao" xml:space="preserve">
+    <value>Vaccination</value>
+  </data>
+  <data name="MSG_PrimeiraConsulta" xml:space="preserve">
+    <value>First visit</value>
+  </data>
+  <data name="TituloDeitar" xml:space="preserve">
+    <value>Bedtime</value>
+  </data>
+  <data name="TituloEstruturaSuporteFamiliar" xml:space="preserve">
+    <value>Family Structure and Support</value>
+  </data>
+  <data name="TituloGTAlmoco" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="TituloJantar" xml:space="preserve">
+    <value>Dinner</value>
+  </data>
+  <data name="TituloPerfilSocialFisiologico" xml:space="preserve">
+    <value>Social and Physiological Profile</value>
+  </data>
+  <data name="TituloTensaoArterial" xml:space="preserve">
+    <value>Blood Pressure</value>
+  </data>
+  <data name="TituloDespesasCategoriaComMaisGastos" xml:space="preserve">
+    <value>Category with the most spend</value>
+  </data>
+  <data name="TituloDespesasEstaSemana" xml:space="preserve">
+    <value>This week</value>
+  </data>
+  <data name="TituloDespesasEsteAno" xml:space="preserve">
+    <value>This year</value>
+  </data>
+  <data name="TituloDespesasEsteMes" xml:space="preserve">
+    <value>This month</value>
+  </data>
+  <data name="TituloDespesasHoje" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="TituloDespesasPorCategoria" xml:space="preserve">
+    <value>Expenses by Categorie</value>
+  </data>
+  <data name="TituloDespesasPorMes" xml:space="preserve">
+    <value>Expenses by Month</value>
+  </data>
+  <data name="TituloDespesasSegundaCategoriaComMaisGastos" xml:space="preserve">
+    <value>2nd Category with the most expenses</value>
+  </data>
+  <data name="TituloPainelDespesas" xml:space="preserve">
+    <value>Expenses dashboard</value>
+  </data>
+  <data name="TituloTotalDespesas" xml:space="preserve">
+    <value>Total expenses</value>
+  </data>
+  <data name="TituloDespesasNumeroDocumento" xml:space="preserve">
+    <value>Document number</value>
+  </data>
+  <data name="TituloDespesasTodasDespesas" xml:space="preserve">
+    <value>All the expenses</value>
+  </data>
+  <data name="TituloTarefa" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="TituloOperacaoOk" xml:space="preserve">
+    <value>Process ended successfully</value>
+  </data>
+  <data name="TituloMarcacoesAgenda" xml:space="preserve">
+    <value>Schedule appointments</value>
+  </data>
+  <data name="TituloMovimentoDiario" xml:space="preserve">
+    <value>Daily movement</value>
+  </data>
+  <data name="TituloTotais" xml:space="preserve">
+    <value>Totals</value>
+  </data>
+  <data name="TituloTotaisAtestados" xml:space="preserve">
+    <value>Certificates</value>
+  </data>
+  <data name="TituloTotaisNovasFichas" xml:space="preserve">
+    <value>New Patient records</value>
+  </data>
+  <data name="TituloTotalDoentes" xml:space="preserve">
+    <value>Patients</value>
+  </data>
+  <data name="TituloTotalRegistosClinicos" xml:space="preserve">
+    <value>Clinical Records</value>
+  </data>
+  <data name="TituloTotaisAcordosAtivos" xml:space="preserve">
+    <value>Agreements (A)</value>
+  </data>
+  <data name="TituloTotaisAcordosNaoAtivos" xml:space="preserve">
+    <value>Agreements (NA)</value>
+  </data>
+  <data name="TituloTotaisComAcordo" xml:space="preserve">
+    <value>With agreement</value>
+  </data>
+  <data name="TituloTotaisEspecialidadesAtivas" xml:space="preserve">
+    <value>Specialties (A)</value>
+  </data>
+  <data name="TituloTotaisEspecialidadesNaoAtivas" xml:space="preserve">
+    <value>Specialties (NA)</value>
+  </data>
+  <data name="TituloTotaisEstatisticas" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="TituloTotaisMedicosAtivos" xml:space="preserve">
+    <value>Doctors (A)</value>
+  </data>
+  <data name="TituloTotaisMedicosNaoAtivos" xml:space="preserve">
+    <value>Doctors (NA)</value>
+  </data>
+  <data name="TituloTotaisSemAcordo" xml:space="preserve">
+    <value>No agreement</value>
+  </data>
+  <data name="TituloPendentes" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="TituloAplicarModelo" xml:space="preserve">
+    <value>Apply saved model</value>
+  </data>
+  <data name="TituloCriacaoAcordosMedicos" xml:space="preserve">
+    <value>Creation of Doctors' Agreements</value>
+  </data>
+  <data name="TituloGuardarComoModelo" xml:space="preserve">
+    <value>Save entries as Template</value>
+  </data>
+  <data name="TituloMedicosPlanoConsultas" xml:space="preserve">
+    <value>Doctors and Consultation Plans</value>
+  </data>
+  <data name="TituloMedicoComDoentes" xml:space="preserve">
+    <value>Doctor with assigned patients!</value>
+  </data>
+  <data name="TituloMedicoPassouNaoAtivo" xml:space="preserve">
+    <value>Doctor changed to 'Not Active</value>
+  </data>
+  <data name="TituloInativacaoMedico" xml:space="preserve">
+    <value>Doctor inactivation</value>
+  </data>
+  <data name="TituloMarcacoesPendentes" xml:space="preserve">
+    <value>Pending appointments</value>
+  </data>
+  <data name="TituloProfissoes" xml:space="preserve">
+    <value>Professions</value>
+  </data>
+  <data name="TituloTipoConsulta" xml:space="preserve">
+    <value>Type of medical consultation</value>
+  </data>
+  <data name="TituloTotaisMedicosEspecialidadesAcordos" xml:space="preserve">
+    <value>Doctors, Specialties and Agreements</value>
+  </data>
+  <data name="TituloSexo" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="TituloApagarFichaSemPermissao" xml:space="preserve">
+    <value>Could not perform operation. User is not the patient's doctor</value>
+  </data>
+  <data name="TituloAtosMedicos" xml:space="preserve">
+    <value>Clinic Services</value>
+  </data>
+  <data name="TituloAtoMedico" xml:space="preserve">
+    <value>Medical Act</value>
+  </data>
+  <data name="TituloClinicaRecebe" xml:space="preserve">
+    <value>Clinic Receives (%)</value>
+  </data>
+  <data name="TituloCoPagamento" xml:space="preserve">
+    <value>Co-Payment</value>
+  </data>
+  <data name="TituloQuantidadeAbr" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="TituloRecebeDoAcordo" xml:space="preserve">
+    <value>Receive from the Agreement</value>
+  </data>
+  <data name="TituloReembolso" xml:space="preserve">
+    <value>Reimbursement</value>
+  </data>
+  <data name="TituloSelecao" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="TituloValorAPagar" xml:space="preserve">
+    <value>Amount payable</value>
+  </data>
+  <data name="TituloValorPago" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="TituloPagamentoAtosMedicos" xml:space="preserve">
+    <value>Payment of Medical Acts</value>
+  </data>
+  <data name="TituloFaturar" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="TituloHeaderPagamentos" xml:space="preserve">
+    <value>Pay for consultation and/or medical acts</value>
+  </data>
+  <data name="MSG_DadosEmFaltaOuInvalidos" xml:space="preserve">
+    <value>Missing or invalid data</value>
+  </data>
+  <data name="MSG_HoraMarcacaoInvalida" xml:space="preserve">
+    <value>Invalid appointment time.</value>
+  </data>
+  <data name="MSG_MarcacaoPassado" xml:space="preserve">
+    <value>Bookmarking in the past!</value>
+  </data>
+  <data name="MSG_MedicoAusente" xml:space="preserve">
+    <value>Doctor is absent</value>
+  </data>
+  <data name="MSG_MedicoNaoDaConsultasNessaData" xml:space="preserve">
+    <value>Doctor does not give appointments that day.</value>
+  </data>
+  <data name="TituloMarcada" xml:space="preserve">
+    <value>Scheduled</value>
+  </data>
+  <data name="MSG_AgreementInsertCaptionError" xml:space="preserve">
+    <value>Include agreement for the doctor</value>
+  </data>
+  <data name="MSG_AgreementUpdateCaptionError" xml:space="preserve">
+    <value>Change existing doctor agreement</value>
+  </data>
+  <data name="MSG_Acordos_Medico" xml:space="preserve">
+    <value>Doctors' agreements</value>
+  </data>
+  <data name="MSG_DoentesDoMedico_Listar" xml:space="preserve">
+    <value>List doctor's patients</value>
+  </data>
+  <data name="TituloListagemPagamentos" xml:space="preserve">
+    <value>Payments report</value>
+  </data>
+  <data name="TituloValorDivida" xml:space="preserve">
+    <value>In debt</value>
+  </data>
+  <data name="TituloValorPagar" xml:space="preserve">
+    <value>Payable</value>
+  </data>
+  <data name="TituloValorReembolso" xml:space="preserve">
+    <value>Reimbursement</value>
+  </data>
+  <data name="TituloMarcacao" xml:space="preserve">
+    <value>Appointment</value>
+  </data>
+  <data name="TituloAcertarPagamento" xml:space="preserve">
+    <value>Settle payment</value>
+  </data>
+  <data name="MSG_DeleteExpenseCaption" xml:space="preserve">
+    <value>Delete expense</value>
+  </data>
+  <data name="TituloPagamentos" xml:space="preserve">
+    <value>Payments</value>
+  </data>
+  <data name="TituloCoresMarcacoes" xml:space="preserve">
+    <value>Appointments colors</value>
+  </data>
+  <data name="TituloGestaoColaboradores" xml:space="preserve">
+    <value>Employee manager</value>
+  </data>
+  <data name="TituloManutencaoAcordos" xml:space="preserve">
+    <value>Agreements - maintenance</value>
+  </data>
+  <data name="TituloDoentesMesmoNome" xml:space="preserve">
+    <value>Patients with the same Name</value>
+  </data>
+  <data name="TituloEscolherExame" xml:space="preserve">
+    <value>Choose Exam</value>
+  </data>
+  <data name="TituloListaExamesDoente" xml:space="preserve">
+    <value>Report patient exams</value>
+  </data>
+  <data name="TituloRelatorioMedico" xml:space="preserve">
+    <value>Medical report</value>
+  </data>
+  <data name="TituloResumo" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="TituloVerAnexo" xml:space="preserve">
+    <value>View attachment</value>
+  </data>
+  <data name="TituloAlteracoesNaoSeraoGuardadas" xml:space="preserve">
+    <value>Changes will not be saved. Confirm?</value>
+  </data>
+  <data name="TituloDadosAlterados" xml:space="preserve">
+    <value>Data has been changed!</value>
+  </data>
+  <data name="TituloAplicarFiltro" xml:space="preserve">
+    <value>Apply filter</value>
+  </data>
+  <data name="TituloRealizada" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="TituloFiltrar" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="TituloImportante" xml:space="preserve">
+    <value>Important</value>
+  </data>
+  <data name="TituloMuitoImportante" xml:space="preserve">
+    <value>Very important</value>
+  </data>
+  <data name="TituloNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="TituloSemClassificacao" xml:space="preserve">
+    <value>Not classified</value>
+  </data>
+  <data name="TituloListagens" xml:space="preserve">
+    <value>Listings</value>
+  </data>
+  <data name="TituloOutraPatologia" xml:space="preserve">
+    <value>Other pathology</value>
+  </data>
+  <data name="TituloPatologia" xml:space="preserve">
+    <value>Pathology</value>
+  </data>
+  <data name="TituloAsma" xml:space="preserve">
+    <value>asthma</value>
+  </data>
+  <data name="TituloCardioVasculares" xml:space="preserve">
+    <value>Cardio-Vascular</value>
+  </data>
+  <data name="TituloCoagulacao" xml:space="preserve">
+    <value>Coagulation</value>
+  </data>
+  <data name="TituloEpilepsia" xml:space="preserve">
+    <value>Epilepsy</value>
+  </data>
+  <data name="TituloMorteSubita" xml:space="preserve">
+    <value>Sudden death</value>
+  </data>
+  <data name="TituloOutrasPatologias" xml:space="preserve">
+    <value>Others</value>
+  </data>
+  <data name="TituloTumores" xml:space="preserve">
+    <value>Tumors</value>
+  </data>
+  <data name="TituloImprimir" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="TituloIdiomaEspanhol" xml:space="preserve">
+    <value>Spanish</value>
+  </data>
+  <data name="TituloIdiomaFrances" xml:space="preserve">
+    <value>French</value>
+  </data>
+  <data name="TituloIdiomaIngles" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="TituloIdiomaPortugues" xml:space="preserve">
+    <value>Portuguese</value>
+  </data>
+  <data name="CancelarMarcacao" xml:space="preserve">
+    <value>Cancel appointment</value>
+  </data>
+  <data name="ConfirmarMarcacao" xml:space="preserve">
+    <value>Confirm appointment</value>
+  </data>
+  <data name="FaltaMarcacao" xml:space="preserve">
+    <value>Patient missed</value>
+  </data>
+  <data name="TituloPagamentosEmDivida" xml:space="preserve">
+    <value>Partial payments</value>
+  </data>
+  <data name="TituloCancelada" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="TituloFaltou" xml:space="preserve">
+    <value>Missed</value>
+  </data>
+  <data name="TituloFaturada" xml:space="preserve">
+    <value>Billed</value>
+  </data>
+  <data name="TituloConfirmada" xml:space="preserve">
+    <value>Confirmed</value>
+  </data>
+  <data name="TituloPainelPagamentos" xml:space="preserve">
+    <value>Payments dashboard</value>
+  </data>
+  <data name="TituloPagamentoIntegral" xml:space="preserve">
+    <value>Full payment</value>
+  </data>
+  <data name="TituloOrigem" xml:space="preserve">
+    <value>Origin</value>
+  </data>
+  <data name="TituloDespesasAnoAnterior" xml:space="preserve">
+    <value>Last year</value>
+  </data>
+  <data name="TituloMenuArrendamentos" xml:space="preserve">
+    <value>Leases</value>
+  </data>
+  <data name="TituloMenuImoveis" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="TituloMenuInquilinos" xml:space="preserve">
+    <value>Tenants</value>
+  </data>
+  <data name="TituloMenuProprietario" xml:space="preserve">
+    <value>Landlord</value>
+  </data>
+  <data name="TituloMenuFracoes" xml:space="preserve">
+    <value>Units</value>
+  </data>
+  <data name="TituloConfirmar" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="TituloInquilino" xml:space="preserve">
+    <value>Tenant</value>
+  </data>
+  <data name="TituloOperacaoBatch" xml:space="preserve">
+    <value>Review the generated values, before finalizing the process. If necessary, change the 'Amount Paid' column and choose the 'Update' option</value>
+  </data>
+  <data name="TituloValorEmFalta" xml:space="preserve">
+    <value>Not paid</value>
+  </data>
+  <data name="TituloValorPrevisto" xml:space="preserve">
+    <value>Expected Value</value>
+  </data>
+  <data name="TituloProcessamentoRendas" xml:space="preserve">
+    <value>Monthly rents processing</value>
+  </data>
+  <data name="TituloValorNaoPago" xml:space="preserve">
+    <value>Didn't pay</value>
+  </data>
+  <data name="TituloValorPagoParcialmente" xml:space="preserve">
+    <value>Partially paid</value>
+  </data>
+  <data name="TituloValorPorConfirmar" xml:space="preserve">
+    <value>To be confirmed</value>
+  </data>
+  <data name="TituloVerificar" xml:space="preserve">
+    <value>Please check</value>
+  </data>
+  <data name="TituloAlertaSemArrendamentos" xml:space="preserve">
+    <value>No registration of Leases! Please check.</value>
+  </data>
+  <data name="TituloAlertaSemFracoes" xml:space="preserve">
+    <value>No registration of Units! Please check.</value>
+  </data>
+  <data name="TituloCancelamentoProcessamentoRendas" xml:space="preserve">
+    <value>Cancellation of Rent Processing</value>
+  </data>
+  <data name="TituloErroCriacaoPagamentos" xml:space="preserve">
+    <value>Error when creating payments! Please check log.</value>
+  </data>
+  <data name="TituloGerarPagamentos" xml:space="preserve">
+    <value>Generate payments</value>
+  </data>
+  <data name="TituloProcessoTerminado" xml:space="preserve">
+    <value>Process completed</value>
+  </data>
+  <data name="TituloSucesso" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="TituloProcessamentoRendasCancelado" xml:space="preserve">
+    <value>Rent processing canceled</value>
+  </data>
+  <data name="TituloConfirmar1" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="TituloMarcaRendaComoNaoPaga" xml:space="preserve">
+    <value>Marks rent as unpaid</value>
+  </data>
+  <data name="TituloMenuAtualizacaoRendas" xml:space="preserve">
+    <value>Update Rents</value>
+  </data>
+  <data name="TituloMenuCoeficientesRendas" xml:space="preserve">
+    <value>Update coefficients</value>
+  </data>
+  <data name="TituloMenuProcessaRendas" xml:space="preserve">
+    <value>Rent processing</value>
+  </data>
+  <data name="TituloEmFalta" xml:space="preserve">
+    <value>Due value</value>
+  </data>
+  <data name="TituloFracao" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="TituloMesAnterior" xml:space="preserve">
+    <value>Previous month</value>
+  </data>
+  <data name="TituloPagamentosAcertar" xml:space="preserve">
+    <value>Settle</value>
+  </data>
+  <data name="TituloPagamentosOutrosPagamentos" xml:space="preserve">
+    <value>Other payments</value>
+  </data>
+  <data name="TituloPagamentosTodosPagamentos" xml:space="preserve">
+    <value>All payments</value>
+  </data>
+  <data name="TituloRecebimentos" xml:space="preserve">
+    <value>Rental income</value>
+  </data>
+  <data name="TituloRenda" xml:space="preserve">
+    <value>Rent</value>
+  </data>
+  <data name="TituloSituacao" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TituloTipo" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="TituloProcessandoPedido" xml:space="preserve">
+    <value>Processing request</value>
+  </data>
+  <data name="TituloMensagem" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="TituloContaCorrente" xml:space="preserve">
+    <value>Checking account</value>
+  </data>
+  <data name="TituloDiferenca" xml:space="preserve">
+    <value>Difference</value>
+  </data>
+  <data name="TituloFiador" xml:space="preserve">
+    <value>Guarantor</value>
+  </data>
+  <data name="TituloIrsAnual" xml:space="preserve">
+    <value>Annual IRS</value>
+  </data>
+  <data name="TituloMovimento" xml:space="preserve">
+    <value>Payment date</value>
+  </data>
+  <data name="TituloPagamento" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="TituloSaldoCorrente" xml:space="preserve">
+    <value>Current Balance</value>
+  </data>
+  <data name="TituloSaldoPrevisto" xml:space="preserve">
+    <value>Expected balance</value>
+  </data>
+  <data name="TituloUltimoMesPago" xml:space="preserve">
+    <value>Last month paid</value>
+  </data>
+  <data name="TituloVencimento" xml:space="preserve">
+    <value>Salary</value>
+  </data>
+  <data name="TituloPagamentoRendaEmAtraso" xml:space="preserve">
+    <value>Payment of outstanding rent</value>
+  </data>
+  <data name="TituloAndar" xml:space="preserve">
+    <value>Floor</value>
+  </data>
+  <data name="TituloAnoConstrucao" xml:space="preserve">
+    <value>Year Built</value>
+  </data>
+  <data name="TituloConcelho" xml:space="preserve">
+    <value>County</value>
+  </data>
+  <data name="TituloConservacao" xml:space="preserve">
+    <value>Condition</value>
+  </data>
+  <data name="TituloFreguesia" xml:space="preserve">
+    <value>Parish</value>
+  </data>
+  <data name="TituloLado" xml:space="preserve">
+    <value>Side</value>
+  </data>
+  <data name="TituloPorta" xml:space="preserve">
+    <value>Door</value>
+  </data>
+  <data name="TituloTipologia" xml:space="preserve">
+    <value>Typology</value>
+  </data>
+  <data name="TituloElevador" xml:space="preserve">
+    <value>Lift</value>
+  </data>
+  <data name="TituloFoto" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="TituloProximaInspecao" xml:space="preserve">
+    <value>Next inspection</value>
+  </data>
+  <data name="TituloProximaInspecaoEm" xml:space="preserve">
+    <value>Next inspection in</value>
+  </data>
+  <data name="TituloUltimaInspecao" xml:space="preserve">
+    <value>Last inspection</value>
+  </data>
+  <data name="TituloAno" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="TituloMes" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="TituloMesesProcessados" xml:space="preserve">
+    <value>Months processed</value>
+  </data>
+  <data name="TituloNaoHaMesesProcessados" xml:space="preserve">
+    <value>No months processed</value>
+  </data>
+  <data name="TituloNaoHaPagamentosAProcessar" xml:space="preserve">
+    <value>There are no rent payments to process. Please check.</value>
+  </data>
+  <data name="TituloPagamentoRendasJaEfetuado" xml:space="preserve">
+    <value>Rent processing for the month has already been done! Please check.</value>
+  </data>
+  <data name="TituloErroProcessarAlteracoes" xml:space="preserve">
+    <value>Error when processing changes</value>
+  </data>
+  <data name="TituloErroValorRecebidoInvalido" xml:space="preserve">
+    <value>Invalid amount received</value>
+  </data>
+  <data name="TituloErroValorRecebidoNaoPositivoRenda" xml:space="preserve">
+    <value>Value received should be positive. Rejected amendments</value>
+  </data>
+  <data name="TituloErroValorRecebidoSuperiorARenda" xml:space="preserve">
+    <value>Amount received in excess of the rent. Rejected amendments</value>
+  </data>
+  <data name="TituloValorRecebido" xml:space="preserve">
+    <value>Value received</value>
+  </data>
+  <data name="TituloUltrapassado" xml:space="preserve">
+    <value>Exceeded</value>
+  </data>
+  <data name="TituloValoresEmDivida" xml:space="preserve">
+    <value>Amounts owed</value>
+  </data>
+  <data name="TituloValorMaximoPermitido" xml:space="preserve">
+    <value>Maximum permitted value</value>
+  </data>
+  <data name="TituloAreaDependente" xml:space="preserve">
+    <value>Dependent area</value>
+  </data>
+  <data name="TituloAreaPrivativa" xml:space="preserve">
+    <value>Private area</value>
+  </data>
+  <data name="TituloArrecadacao" xml:space="preserve">
+    <value>Storage room</value>
+  </data>
+  <data name="TituloArtigoMatricial" xml:space="preserve">
+    <value>Matrix article</value>
+  </data>
+  <data name="TituloAtiva" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="TituloCasasBanho" xml:space="preserve">
+    <value>Bathrooms</value>
+  </data>
+  <data name="TituloCertificacaoEnergetica" xml:space="preserve">
+    <value>Energy certification</value>
+  </data>
+  <data name="TituloCincoUltimosMovimentos" xml:space="preserve">
+    <value>5 last movements</value>
+  </data>
+  <data name="TituloContagem" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="TituloCozinhaEquipada" xml:space="preserve">
+    <value>Equipped kitchen</value>
+  </data>
+  <data name="TituloDespesa" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="TituloDespesasPorCategoria_Ano" xml:space="preserve">
+    <value>Expenses by Category - Year of</value>
+  </data>
+  <data name="TituloEmitidaEm" xml:space="preserve">
+    <value>Issued at</value>
+  </data>
+  <data name="TituloErroImputacaoDespesas" xml:space="preserve">
+    <value>It is not possible to input expenses, when there is no record of Properties created. Operation cancelled</value>
+  </data>
+  <data name="TituloEstacionamento" xml:space="preserve">
+    <value>Parking</value>
+  </data>
+  <data name="TituloEstadoConservacao" xml:space="preserve">
+    <value>Preservation status</value>
+  </data>
+  <data name="TituloGaragem" xml:space="preserve">
+    <value>Garage</value>
+  </data>
+  <data name="TituloGasCanalizado" xml:space="preserve">
+    <value>Piped gas</value>
+  </data>
+  <data name="TituloImagens" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="TituloImovel" xml:space="preserve">
+    <value>Property</value>
+  </data>
+  <data name="TituloImputacaoDespesas" xml:space="preserve">
+    <value>Allocation of expenses</value>
+  </data>
+  <data name="TituloLicencaHabitacao" xml:space="preserve">
+    <value>Housing Licence</value>
+  </data>
+  <data name="TituloManutencaoDespesas" xml:space="preserve">
+    <value>Maintenance of expenses</value>
+  </data>
+  <data name="TituloModoPagamento" xml:space="preserve">
+    <value>Payment type</value>
+  </data>
+  <data name="TituloNovaDespesaPorDuplicacao" xml:space="preserve">
+    <value>New expense (by duplication)</value>
+  </data>
+  <data name="TituloNumero" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="TituloNumeroDocumento" xml:space="preserve">
+    <value>Document number</value>
+  </data>
+  <data name="TituloPagamentoRenda" xml:space="preserve">
+    <value>Rent payment</value>
+  </data>
+  <data name="TituloPropriedade" xml:space="preserve">
+    <value>Property</value>
+  </data>
+  <data name="TituloSemDadosParaMostrar" xml:space="preserve">
+    <value>No data to display</value>
+  </data>
+  <data name="TituloTerraco" xml:space="preserve">
+    <value>Terrace</value>
+  </data>
+  <data name="TituloTipoFracao" xml:space="preserve">
+    <value>Unit type</value>
+  </data>
+  <data name="TituloUltimaAvaliacao" xml:space="preserve">
+    <value>Last review</value>
+  </data>
+  <data name="TituloValorAvaliacao" xml:space="preserve">
+    <value>Valuation value</value>
+  </data>
+  <data name="TituloValorRenda" xml:space="preserve">
+    <value>Rent value</value>
+  </data>
+  <data name="TituloVaranda" xml:space="preserve">
+    <value>Balcony</value>
+  </data>
+  <data name="TituloComprovativoIRS" xml:space="preserve">
+    <value>IRS proof</value>
+  </data>
+  <data name="TituloContratoNovo" xml:space="preserve">
+    <value>New lease</value>
+  </data>
+  <data name="TituloDataInicio" xml:space="preserve">
+    <value>Starting date</value>
+  </data>
+  <data name="TituloEntregaCaucao" xml:space="preserve">
+    <value>Handed over security deposit</value>
+  </data>
+  <data name="TituloFimContrato" xml:space="preserve">
+    <value>Lease ends</value>
+  </data>
+  <data name="TituloPagamentosEmDia" xml:space="preserve">
+    <value>Up-to-date payments</value>
+  </data>
+  <data name="TituloReciboVencimento" xml:space="preserve">
+    <value>Salary Receipt</value>
+  </data>
+  <data name="TituloRenovacao" xml:space="preserve">
+    <value>Automatic renewal</value>
+  </data>
+  <data name="TituloTipoPagamento" xml:space="preserve">
+    <value>Payment method</value>
+  </data>
+  <data name="TituloUltimoPagamento" xml:space="preserve">
+    <value>Last payment</value>
+  </data>
+  <data name="TituloCategoriaDespesa" xml:space="preserve">
+    <value>Expense Category</value>
+  </data>
+  <data name="TituloSituacaoFracao" xml:space="preserve">
+    <value>Unit status</value>
+  </data>
+  <data name="TituloTipoContacto" xml:space="preserve">
+    <value>Contact type</value>
+  </data>
+  <data name="TituloTipoPropriedade" xml:space="preserve">
+    <value>Property type</value>
+  </data>
+  <data name="TituloTipoRecebimento" xml:space="preserve">
+    <value>Payment type</value>
+  </data>
+  <data name="TituloGestaoTabelas" xml:space="preserve">
+    <value>Lookup tables</value>
+  </data>
+  <data name="TituloContratoExistente" xml:space="preserve">
+    <value>Existing</value>
+  </data>
+  <data name="TituloContratoEmitido" xml:space="preserve">
+    <value>Lease issued</value>
+  </data>
+  <data name="TituloContratoTerminado" xml:space="preserve">
+    <value>Lease ended</value>
+  </data>
+  <data name="TituloDataAtualizacao" xml:space="preserve">
+    <value>Rent update date</value>
+  </data>
+  <data name="TituloMesesDecorridos" xml:space="preserve">
+    <value>Months elapsed</value>
+  </data>
+  <data name="TituloPrazoEmMeses" xml:space="preserve">
+    <value>Term in months</value>
+  </data>
+  <data name="TituloEnvioCartaInquilino" xml:space="preserve">
+    <value>Sending a letter to the Tenant</value>
+  </data>
+  <data name="TituloEstenderPrazoContrato" xml:space="preserve">
+    <value>Extend lease term</value>
+  </data>
+  <data name="TituloArrendamento" xml:space="preserve">
+    <value>Lease</value>
+  </data>
+  <data name="TituloAtualizacaoRendas" xml:space="preserve">
+    <value>Update of rentals</value>
+  </data>
+  <data name="TituloCartaRevogacao" xml:space="preserve">
+    <value>Contract revocation letter</value>
+  </data>
+  <data name="TituloCoeficiente" xml:space="preserve">
+    <value>Coefficient</value>
+  </data>
+  <data name="TituloConsultar" xml:space="preserve">
+    <value>Visit</value>
+  </data>
+  <data name="TituloDiplomaLegal" xml:space="preserve">
+    <value>Legal diploma</value>
+  </data>
+  <data name="TituloLei" xml:space="preserve">
+    <value>Law</value>
+  </data>
+  <data name="TituloPublicadoEm" xml:space="preserve">
+    <value>Published in</value>
+  </data>
+  <data name="TituloCartaNaoGerada" xml:space="preserve">
+    <value>Letter NOT generated for the selected contract</value>
+  </data>
+  <data name="TituloOperacaoComErro" xml:space="preserve">
+    <value>Operation terminated with error</value>
+  </data>
+  <data name="TituloOperacaoComSucesso" xml:space="preserve">
+    <value>Operation successfully completed</value>
+  </data>
+  <data name="TituloRendasJaProcessadasParaOAno" xml:space="preserve">
+    <value>Rent updates for the year indicated have already been processed</value>
+  </data>
+  <data name="TituloVerificarLog" xml:space="preserve">
+    <value>Check Log, please.</value>
+  </data>
+  <data name="TituloDataEmissao" xml:space="preserve">
+    <value>Issue date</value>
+  </data>
+  <data name="TituloAtualizarValorRenda" xml:space="preserve">
+    <value>Update the rent value</value>
+  </data>
+  <data name="TituloCartaAtrasoPagamento" xml:space="preserve">
+    <value>Late rent payment letter</value>
+  </data>
+  <data name="TituloCartaAtualizacaoRendas" xml:space="preserve">
+    <value>Rent update letter</value>
+  </data>
+</root>

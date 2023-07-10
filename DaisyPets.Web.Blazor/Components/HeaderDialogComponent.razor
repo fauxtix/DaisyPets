@@ -1,0 +1,29 @@
+﻿<div class="d-flex">
+        <img style="width: 40px; height: 40px; border-radius: 50%;" src="@imageSource"/>
+        <span style="color: black;font-size:1.2rem; margin-top:6px;">&nbsp;&nbsp;@HeaderCaption</span>
+</div>
+
+@code {
+
+    [Parameter] public string? ImageName { get; set; }
+    [Parameter] public string? HeaderCaption { get; set; }
+
+    private string? imageSource;
+
+
+    protected override void OnParametersSet()
+    {
+        var folderName = "/images/";
+        string? fileName = Path.GetFileName(ImageName);
+        if(!string.IsNullOrEmpty(fileName))
+        {
+            if (fileName.EndsWith(".png"))
+                imageSource = fileName;
+            else
+                imageSource = $"{ImageName}.png";
+        }
+        if (!fileName.StartsWith("/images"))
+            imageSource = $"/images/{imageSource}";
+    }
+}
+
