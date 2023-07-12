@@ -3,18 +3,21 @@
 # Daisy Pets 🐶🐱
 
 This project contains a .net application built using .Net 7 with C#. It comprises a web api and a desktop application (windows forms),
-that allows someone to manage their pets, using a SQLite database.
+that allows anyone to manage their pets, using a SQLite database.
 
-I used windows forms to create a quick prototype, but I intend to test the Api by creating frontends in React and Blazor.
-Maybe later I'll think about using .Net MAUI, but when it's more stable...
+I used windows forms to create a quick prototype, but I intend to test the Api by creating the front-end using React and Blazor.
+Maybe later I'll think about using .Net MAUI, when it's more stable...
+
+It's still a work in progress :-) Localization, for instance; the front-end screenshots are shown in Portuguese, but I plan to include English, French and Spanish versions.
+Also, the Photo Gallery form needs some reworking.
  
-It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities that may be related to them, or not.
+It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities that may be related to them (history), or not.
 
 Example
 
-- Pet
+- # Pet
 
-  -- Documents (1-N)
+  -- Documents (results of lab tests, medical exams, ...) - (1-N)
 
   -- Veterinary consultations (1-N)
   
@@ -22,42 +25,57 @@ Example
   
   -- Dewormers (1-N)
   
-  -- Dog food (1-N)
+  -- Different uses of food brands (1-N)
+
+  -- Specie (Dog, Cat, ...)
   
   -- Breed
   
+  -- Temperament
+  
   -- Situation
+  
+  -- Genre
     
   -- ...
   
-- Expenses
+- # Expenses
   
   -- Category type
   
   -- Expense Type
   
-- Contacts
+- # Contacts
   
   -- Contact type
   
 ... 
 
+# Key Features
+
+- Easy to use
+
+- Simple to upload documents
+
+- Record Vaccinations and request medical records
+
+
 # Screenshots
 
-![main](https://github.com/fauxtix/DaisyPets/assets/49880538/399b2d8e-f5bd-4ac2-b4f9-4193b65aac8c)
-![Pets](https://github.com/fauxtix/DaisyPets/assets/49880538/959df5fe-395c-46bd-8d7c-f8f0c173ad88)
-![PetDocuments](https://github.com/fauxtix/DaisyPets/assets/49880538/46ed2fc4-9eb0-496e-a7ac-1269609be174)
-![PetVaccines](https://github.com/fauxtix/DaisyPets/assets/49880538/83dfa877-bc68-4c70-887e-fee0fc6dc265)
-![PetAppointments](https://github.com/fauxtix/DaisyPets/assets/49880538/8834a812-e3d0-402f-bcda-303f2f91c088)
-![PetFood](https://github.com/fauxtix/DaisyPets/assets/49880538/dd3d2752-29cf-40ef-959a-2dd36008f5d8)
-![PetDewormers](https://github.com/fauxtix/DaisyPets/assets/49880538/4399050f-7ac1-4ed6-b520-81dd213fff07)
-![PetExpenses_Main](https://github.com/fauxtix/DaisyPets/assets/49880538/fe0f2aa4-c340-4419-95ad-ad39cfafbba4)
-![PetExpenses_Editing](https://github.com/fauxtix/DaisyPets/assets/49880538/8c4458eb-97a6-403f-82d0-a88060dc5794)
-![PetContacts](https://github.com/fauxtix/DaisyPets/assets/49880538/732ef7b1-bcb5-4d0d-8b2e-6bcdf9e09f9c)
-![PetAlarms](https://github.com/fauxtix/DaisyPets/assets/49880538/a8a6bd7b-8cb8-4bda-a5a6-477ac5a737ef)
-![PetPhotoGallery](https://github.com/fauxtix/DaisyPets/assets/49880538/f430cbe0-b9ed-4b4c-adf4-7fe4eaccafb3)
-![PetLookupTables](https://github.com/fauxtix/DaisyPets/assets/49880538/a840a65a-aa1e-42b5-8002-92569ba78a2e)
-![PetExpenseTypes](https://github.com/fauxtix/DaisyPets/assets/49880538/e87ea274-ae9a-4c02-9627-a4cb45ee5a2e)
+![main](https://github.com/fauxtix/DaisyPets/assets/49880538/54768f18-9e6d-44f3-8a27-c4cffb7bbae7)
+![Pets](https://github.com/fauxtix/DaisyPets/assets/49880538/e9d904d9-1a33-415f-b12e-0833f17e8b85)
+![PetDocuments](https://github.com/fauxtix/DaisyPets/assets/49880538/a6eebe33-7f55-4a86-a708-3152a895f176)
+![PetVaccines](https://github.com/fauxtix/DaisyPets/assets/49880538/0e52e4e5-7350-45a8-99a5-c960c5be90ae)
+![PetAppointments](https://github.com/fauxtix/DaisyPets/assets/49880538/db77a23e-38cf-4e8f-9b35-abb008ef07f8)
+![PetFood](https://github.com/fauxtix/DaisyPets/assets/49880538/0575bf89-6340-4ecf-a3ab-f8de6d8733dc)
+![PetDewormers](https://github.com/fauxtix/DaisyPets/assets/49880538/1db1de46-f160-41db-816f-7795523d399b)
+![PetExpenses_Main](https://github.com/fauxtix/DaisyPets/assets/49880538/c15af416-de2c-40b2-8358-09a075e03a87)
+![PetExpenses_Editing](https://github.com/fauxtix/DaisyPets/assets/49880538/d1eaabf7-1b45-46eb-8f3f-4b2dbd97061b)
+![PetContacts](https://github.com/fauxtix/DaisyPets/assets/49880538/76f184ce-4087-4dc7-b698-a2739a4271bb)
+![PetAlarms](https://github.com/fauxtix/DaisyPets/assets/49880538/2e098b56-ad77-4941-b293-b9eb2fa0106f)
+![PetPhotoGallery](https://github.com/fauxtix/DaisyPets/assets/49880538/ebe49d35-2e82-4218-a629-c13d2507ac4f)
+![PetLookupTables](https://github.com/fauxtix/DaisyPets/assets/49880538/b583900e-9230-478f-bf26-593cf3064a04)
+![PetExpenseTypes](https://github.com/fauxtix/DaisyPets/assets/49880538/fa820aa0-ae98-484e-896c-5f4eda2b2ce3)
 
 
 # Tables
