@@ -23,14 +23,6 @@
         @bind-Value="@UserSelectedPet!.Cor" Width="300px">
         </SfTextBox>
     </div>
-    <div class="form-group">
-        <SfTextBox Enabled="true"
-                   Placeholder="Doença crónica"
-                   CssClass="e-field  e-corner"
-                   FloatLabelType="@FloatLabelType.Always"
-        @bind-Value="@UserSelectedPet!.DoencaCronica" Multiline="true" Width="300px">
-        </SfTextBox>
-    </div>
     <div class="group-box mt-2">
         <SfDatePicker Placeholder="@L["TituloDataNascimento"]"
                       Width="150px"
@@ -84,6 +76,7 @@
             <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
         </SfDropDownList>
     </div>
+
 
 </div>
 
