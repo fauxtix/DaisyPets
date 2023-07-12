@@ -16,14 +16,12 @@
 
         public enum Modules
         {
-            Inquilinos,
-            Fiadores,
-            Fracoes,
-            Imoveis,
-            Recebimentos,
-            Pagamentos,
-            Contactos,
-            Arrendamentos,
+            Pets,
+            Dewormers,
+            PetFood,
+            Vaccines,
+            Documents,
+            Consultations,
             PdfViewer
         }
 

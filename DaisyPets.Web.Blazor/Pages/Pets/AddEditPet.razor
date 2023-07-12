@@ -1,0 +1,142 @@
+﻿@using DaisyPets.Core.Application.ViewModels;
+@using DaisyPets.Core.Application.ViewModels.LookupTables;
+@using DaisyPets.Web.Blazor.Pages.CodeBehind.Pets;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+@inherits PetsMainPageBase
+
+<div class="container">
+    <div class="form-group">
+        <SfTextBox Enabled="true"
+                   Placeholder="Nome"
+                   CssClass="e-field  e-corner"
+                   FloatLabelType="@FloatLabelType.Always"
+        @bind-Value="@UserSelectedPet!.Nome"
+                   Width="300px">
+        </SfTextBox>
+    </div>
+    <div class="form-group">
+        <SfTextBox Enabled="true"
+                   Placeholder="Cor"
+                   CssClass="e-field  e-corner"
+                   FloatLabelType="@FloatLabelType.Always"
+        @bind-Value="@UserSelectedPet!.Cor" Width="300px">
+        </SfTextBox>
+    </div>
+    <div class="form-group">
+        <SfTextBox Enabled="true"
+                   Placeholder="Doença crónica"
+                   CssClass="e-field  e-corner"
+                   FloatLabelType="@FloatLabelType.Always"
+        @bind-Value="@UserSelectedPet!.DoencaCronica" Multiline="true" Width="300px">
+        </SfTextBox>
+    </div>
+    <div class="group-box mt-2">
+        <SfDatePicker Placeholder="@L["TituloDataNascimento"]"
+                      Width="150px"
+                      CssClass="e-align-middle e-corner"
+                      FloatLabelType="FloatLabelType.Always"
+        @bind-Value="@dNascimento">
+            <DatePickerEvents TValue="DateTime" ValueChange="DataNascimentoChanged"></DatePickerEvents>
+        </SfDatePicker>
+    </div>
+    <div class="group-box">
+        <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                        Value="@idxBreed" ShowClearButton="true" Width="250px"
+                        FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                        Placeholder="Raça" DataSource="@Breeds" FloatLabelType="FloatLabelType.Always">
+            <DropDownListTemplates TItem="LookupTableVM">
+            </DropDownListTemplates>
+            <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeBreed"></DropDownListEvents>
+            <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+    <div class="group-box">
+        <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                        Value="@idxSituation" ShowClearButton="true" Width="250px"
+                        FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                        Placeholder="Situação" DataSource="@Situations" FloatLabelType="FloatLabelType.Always">
+            <DropDownListTemplates TItem="LookupTableVM">
+            </DropDownListTemplates>
+            <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeSituation"></DropDownListEvents>
+            <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+    <div class="group-box">
+        <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                        Value="@idxSize" ShowClearButton="true" Width="250px"
+                        FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                        Placeholder="Tamanho" DataSource="@Sizes" FloatLabelType="FloatLabelType.Always">
+            <DropDownListTemplates TItem="LookupTableVM">
+            </DropDownListTemplates>
+            <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeSize"></DropDownListEvents>
+            <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+    <div class="group-box">
+        <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                        Value="@idxTemperament" ShowClearButton="true" Width="250px"
+                        FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                        Placeholder="Temperamento" DataSource="@Temperaments" FloatLabelType="FloatLabelType.Always">
+            <DropDownListTemplates TItem="LookupTableVM">
+            </DropDownListTemplates>
+            <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeTemperament"></DropDownListEvents>
+            <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+        </SfDropDownList>
+    </div>
+
+</div>
+
+
+@code {
+
+    [Parameter] public PetDto? UserSelectedPet { get; set; }
+    [Parameter] public OpcoesRegisto EditMode { get; set; }
+    [Parameter] public string? HeaderCaption { get; set; }
+
+    protected int idxBreed;
+    protected int idxSituation;
+    protected int idxSize;
+    protected int idxTemperament;
+    protected int idxSpecie;
+
+    public DateTime dNascimento { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        idxBreed = UserSelectedPet.IdRaca;
+        idxSituation = UserSelectedPet.IdSituacao;
+        idxSize = UserSelectedPet.IdTamanho;
+        idxTemperament = UserSelectedPet.IdTemperamento;
+        idxSpecie = UserSelectedPet.IdEspecie;
+
+        dNascimento = DateTime.Parse(UserSelectedPet.DataNascimento);
+    }
+
+    protected void onChangeBreed(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
+    {
+        idxBreed = args.Value;
+        UserSelectedPet!.IdRaca = idxBreed;
+    }
+    protected void onChangeSize(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
+    {
+        idxSize = args.Value;
+        UserSelectedPet!.IdTamanho = idxSize;
+    }
+    protected void onChangeSituation(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
+    {
+        idxSituation = args.Value;
+        UserSelectedPet!.IdSituacao = idxSituation;
+    }
+    protected void onChangeTemperament(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
+    {
+        idxTemperament = args.Value;
+        UserSelectedPet!.IdTemperamento = idxTemperament;
+    }
+
+    protected void DataNascimentoChanged(ChangedEventArgs<DateTime> args)
+    {
+        UserSelectedPet.DataNascimento = args.Value.ToShortDateString();
+    }
+
+}

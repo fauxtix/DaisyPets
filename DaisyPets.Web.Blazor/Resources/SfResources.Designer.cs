@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PropertyManagerFL.UI.Resources {
+namespace DaisyPets.Web.Blazor.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace PropertyManagerFL.UI.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PropertyManagerFL.UI.Resources.SfResources", typeof(SfResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DaisyPets.Web.Blazor.Resources.SfResources", typeof(SfResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

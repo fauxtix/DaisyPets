@@ -1,0 +1,171 @@
+﻿@using Microsoft.Extensions.Localization;
+@using Microsoft.AspNetCore.Components.Authorization;
+@using Microsoft.AspNetCore.Identity;
+
+@inject NavigationManager Navigation
+@inject IStringLocalizer<App> L
+@inject IConfiguration Config
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">Daisy Pets</a><i class="fa fa-house"></i>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+<div class="scrollbar-auto">
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        <BlazoredMenu IconClassToClose="oi oi-arrow-circle-top mt-3"
+                      IconClassToOpen="oi oi-arrow-circle-bottom mt-3">
+            <BlazoredMenuItem>
+                <NavLink class="navbar-link" href="" Match="NavLinkMatch.All">
+                    <i class="fa fa-home" aria-hidden="true" /> Home
+                </NavLink>
+            </BlazoredMenuItem>
+            <BlazoredMenuItem>
+                <div>
+                    <p class="dropdown-divider m-0" />
+                </div>
+            </BlazoredMenuItem>
+            <BlazoredMenuItem Css="nav-item px-3">
+                <NavLink href="PetsMainPage">
+                    <i class="fa fa-house" aria-hidden="true" />&nbsp;&nbsp;Pets
+                </NavLink>
+            </BlazoredMenuItem>
+        </BlazoredMenu>
+    </div>
+</div>
+
+@code {
+
+    [CascadingParameter]
+    protected Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    protected System.Security.Claims.ClaimsPrincipal CurrentUser;
+    protected int doctorId;
+    protected string urlStats;
+
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    //protected async override Task OnInitializedAsync()
+    //{
+    //    try
+    //    {
+    //        CurrentUser = (await authenticationStateTask).User;
+
+    //        var user = await _UserManager.FindByNameAsync(CurrentUser.Identity.Name);
+    //        if (user.IsDoctor)
+    //        {
+    //            doctorId = user.CodMedico;
+    //            urlStats = $"/doctors/stats/{doctorId}";
+    //            StateHasChanged();
+    //        }
+
+    //    }
+    //    catch
+    //    {
+    //        urlStats = $"/error";
+    //        StateHasChanged();
+
+    //    }
+    //}
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
+
+    }
+<style>
+    .separator {
+        border: 1px solid #FFFFFF;
+        opacity: 0.14;
+        width: 247px;
+        margin: 1rem;
+        margin-top: 0px;
+    }
+
+    ﻿.blazored-menu {
+        list-style: none;
+        display: block;
+        padding: 1rem 0;
+    }
+
+    .blazored-menu li.hidden {
+        display: none;
+    }
+
+    .blazored-menu li a {
+        display: block;
+        padding: .75rem 1rem;
+        color: #333;
+        cursor: pointer;
+    }
+
+        .blazored-menu li a:hover {
+            text-decoration: none;
+        }
+
+        .blazored-menu li a.active {
+            color: white;
+            background-image: linear-gradient(90deg, #71818e 0%, #122d42 70%);
+        }
+
+    .blazored-menu .disabled {
+        display: block;
+        padding: .75rem 1rem;
+        color: #d6d5d5;
+        cursor: not-allowed;
+    }
+
+    .blazored-sub-menu-header {
+        display: block;
+        color: #fff;
+        cursor: pointer;
+    }
+
+        .blazored-sub-menu-header span:hover {
+            text-decoration: none;
+        }
+
+        .blazored-sub-menu-header span {
+            display: block;
+            padding: .75rem 1rem;
+            position: relative;
+        }
+
+            .blazored-sub-menu-header span i {
+                position: absolute;
+                right: 0;
+            }
+
+        .blazored-sub-menu-header.open span {
+            padding-bottom: .75rem;
+        }
+
+    .blazored-sub-menu {
+        display: none;
+        padding: 0;
+        margin-left: 1rem;
+        list-style: none;
+    }
+
+
+    .blazored-sub-menu-header.open .blazored-sub-menu {
+        display: block;
+    }
+
+    .nav-active {
+        background-color: orange;
+        color: black;
+        font-style: normal;
+    }
+
+    /*scrollbar*/
+    div.scrollbar-auto {
+        max-height: 95%;
+        overflow-y: auto;
+    }
+</style>

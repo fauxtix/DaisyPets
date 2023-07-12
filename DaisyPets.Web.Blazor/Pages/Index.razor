@@ -1,55 +1,27 @@
 ﻿@page "/"
-@using DaisyPets.Core.Application.ViewModels;
 
-@inject IConfiguration config
+<PageTitle>Properties Manager FL</PageTitle>
+<div>
+    <img class="house-image" src="images/DaisyPetsLandscape.jpg" />
+</div>
 
-<PageTitle>Index</PageTitle>
-@if(Pets is null)
-{
-    <LoadingData/>
-}
-else
-{
-    @foreach (var item in Pets)
-    {
-        <p>@item.Nome</p>
-    }
-}
-
-@code {
-    protected string? urlBaseAddress;
-    protected IEnumerable<PetVM>? Pets { get; set; }
-    protected string? petsEndpoint;
-    protected override async Task OnInitializedAsync()
-    {
-        urlBaseAddress = config["ApiSettings:UrlBase"];
-        petsEndpoint = $"{urlBaseAddress}/Pets/AllPetsVM";
-        Pets = await GetAllPets();
+<style>
+    .house-image {
+        position: fixed;
+        width:100%;
+        height: auto;
+        bottom: 0;
     }
 
-    private async Task<IEnumerable<PetVM>?> GetAllPets()
-    {
-
-        using (HttpClient httpClient = new HttpClient())
-        {
-            try
-            {
-                var response = await httpClient.GetFromJsonAsync<IEnumerable<PetVM>>(petsEndpoint);
-                return response;
-            }
-            catch (System.Net.Http.HttpRequestException exa)
-            {
-                var msg = exa.Message;
-                return Enumerable.Empty<PetVM>();
-            }
-            catch (Exception ex)
-            {
-                var msg = ex.Message;
-                return Enumerable.Empty<PetVM>();
-            }
-        }
+    .responsive {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: auto;
+        overflow-y: hidden;
     }
-}
+</style>
 
 
 

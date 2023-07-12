@@ -1,6 +1,8 @@
 using DaisyPets.Web.Blazor.Data;
+using DaisyPets.Web.Blazor.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
+builder.Services.AddSyncfusionBlazor(options => { options.IgnoreScriptIsolation = false; });
+
 builder.Services.AddCors();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddSingleton(typeof(ISyncfusionStringLocalizer), typeof(SyncfusionLocalizer));
+
 
 var app = builder.Build();
 
@@ -21,11 +28,36 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+#region Localization
+
+
+// defines the list of cultures that the app will support
+var supportedCultures = new[] { "en-US", "es", "fr", "pt-PT" };
+
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization("pt-PT");
+
+#region Localization
+
+app.UseRequestLocalization(localizationOptions);
+
+#endregion
+
+
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Nzc5NTM3QDMyMzAyZTMzMmUzMGI2eGIzS0JKL2lpZGllaytQQ2NvcHFYN2dXWG5tcUtyRDdoODI1TEpsOEU9");
+
+#endregion
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
 app.UseRouting();
+
 app.UseCors(builder =>
 {
     builder.WithOrigins("*")
@@ -33,6 +65,9 @@ app.UseCors(builder =>
     .AllowAnyHeader();
 
 });
+
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 
 app.MapControllers();

@@ -1,0 +1,285 @@
+﻿@inject NavigationManager NavigationManager
+@inject IStringLocalizer<App> Loc
+@*@inject Blazored.LocalStorage.ILocalStorageService localStorage;*@
+
+@using Microsoft.Extensions.Localization;
+@using Syncfusion.Blazor.DropDowns
+
+
+<div class="navbar-nav ml-auto my-2 my-lg-0 mr-2">
+    <SfDropDownList TValue="string" CssClass="template"
+                    TItem="CountryModel" Placeholder="@Loc["lblEscolhaLinguagem"]" DataSource="@CountryData" Value="@selectedCulture">
+        <DropDownListTemplates TItem="CountryModel">
+            <ItemTemplate>
+                <div>
+                    <img class="empImage" src="images/@((context as CountryModel).Pic).png" alt="país" />
+                    <div class="ename"> @Loc[((context as CountryModel).Text)] </div>
+                </div>
+            </ItemTemplate>
+            <ValueTemplate>
+                <div class="dropdown-width" style="width:100%;height:100%;">
+                    <img class="value" src="images/@((context as CountryModel).Pic).png" height="26" width="26" alt="país">
+                    <div class="name"> @Loc[((context as CountryModel).Text)] </div>
+                </div>
+            </ValueTemplate>
+        </DropDownListTemplates>
+        <DropDownListFieldSettings Value="ID" Text="Text"></DropDownListFieldSettings>
+        <DropDownListEvents TItem="CountryModel" TValue="string" ValueChange="OnSelected"></DropDownListEvents>
+    </SfDropDownList>
+</div>
+
+
+@code {
+    //private string storedCulture;
+    private string culture;
+    private string selectedCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
+
+    private string portugues;
+    //protected async override Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if(firstRender)
+    //    {
+    //        storedCulture = await localStorage.GetItemAsync<string>("culture");
+    //        if (storedCulture is null)
+    //        {
+    //            await localStorage.SetItemAsync("culture", selectedCulture);
+    //            culture = await localStorage.GetItemAsync<string>("culture");
+    //        }
+    //        culture = storedCulture;
+    //        selectedCulture = culture;
+    //        StateHasChanged();
+    //    }
+    //}
+
+    protected override void OnInitialized()
+    {
+        portugues = Loc["TituloIdiomaPortugues"]; // TODO set languages
+    }
+    private void OnSelected(Syncfusion.Blazor.DropDowns.ChangeEventArgs<string, CountryModel> e)
+    {
+        if (e.Value == null)
+            return;
+
+        culture = e.Value.ToString();
+
+        selectedCulture = culture;
+
+        var uri = new Uri(NavigationManager.Uri)
+            .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+        var query = $"?culture={Uri.EscapeDataString(culture)}&" +
+            $"redirectUri={Uri.EscapeDataString(uri)}";
+
+        NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+    }
+
+
+
+    public List<CountryModel> CountryData = new List<CountryModel>
+{
+            new CountryModel { ID ="pt-PT", Text = "TituloIdiomaPortugues", Pic = "portugal" },
+            new CountryModel { ID = "es", Text = "TituloIdiomaEspanhol", Pic = "espanha", },
+            new CountryModel { ID ="en-US", Text = "TituloIdiomaIngles", Pic = "american_flag",},
+            new CountryModel { ID ="fr", Text = "TituloIdiomaFrances", Pic = "franca" }
+        };
+
+    public class CountryModel
+    {
+        public string ID { get; set; }
+        public string Text { get; set; }
+        public string Pic { get; set; }
+    }
+}
+
+<style>
+    .control-wrapper {
+        margin: 0 auto;
+        width: 300px;
+    }
+
+    .header {
+        font-weight: 600;
+        color: rgba(0, 0, 0, .54);
+        height: 24px;
+        padding: 15px 0 0 16px;
+        font-size: 12px;
+        background-color: #f5f5f5;
+        font-family: "Segoe UI", "GeezaPro", "DejaVu Serif";
+    }
+
+    .fabric .header {
+        background-color: #fff;
+        border-bottom: 1px solid #ccc;
+        color: #0078d7;
+        font-weight: 400;
+    }
+
+    .bootstrap .header {
+        background-color: #fff;
+        border-bottom: 1px solid #ccc;
+        color: #777;
+        font-family: "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 30px;
+        height: 30px;
+        padding: 0 0 0 24px;
+    }
+
+    .e-bigger.bootstrap .header {
+        line-height: 44px;
+        height: 44px;
+        font-size: 13px;
+    }
+
+    .highcontrast .header {
+        color: #fff;
+        background-color: #000;
+    }
+
+    .bootstrap4 .header {
+        color: #6c757d;
+    }
+
+    .bootstrap .info,
+    .e-bigger.bootstrap .info {
+        margin-left: 25px;
+    }
+
+    .bootstrap .job {
+        opacity: .54;
+        font-size: 14px;
+        margin-top: -25px;
+        margin-bottom: 20px;
+    }
+
+    .e-bigger.bootstrap .job {
+        font-size: 15px;
+        margin-top: -32px;
+        margin-bottom: 17px;
+    }
+
+    .bootstrap .ename {
+        font-size: 15px;
+        margin-top: 20px;
+        opacity: .87;
+        padding: 3px 0 20px;
+    }
+
+    .e-bigger.bootstrap .ename {
+        font-size: 12px;
+        padding-bottom: 15px;
+    }
+
+    .bootstrap .empImage,
+    .e-bigger.bootstrap .empImage {
+        margin: 0px 10px 0 20px;
+    }
+
+    .bootstrap .value {
+        margin-top: 3px;
+        margin-left: 3px;
+    }
+
+    .e-bigger.bootstrap .value {
+        margin-top: 5px;
+        margin-left: 5px;
+    }
+
+    .bootstrap .name,
+    .bootstrap4 .name {
+        padding: 7px 42px;
+    }
+
+    .e-bigger.bootstrap .name {
+        padding: 12px 42px;
+    }
+
+    .info {
+        margin-left: 34px;
+    }
+
+    .ename {
+        display: block !important;
+        opacity: .87;
+        font-size: 16px;
+        margin-top: 8px;
+    }
+
+    .name {
+        padding: 5px 42px;
+        opacity: .87;
+        line-height: 1.063em;
+    }
+
+    .job {
+        opacity: .54;
+        font-size: 14px;
+        margin-top: -15px;
+        margin-bottom: 7px;
+    }
+
+    .empImage {
+        margin: 6px 16px;
+        float: left;
+        width: 25px;
+        height: 25px;
+    }
+
+    .value {
+        border-radius: 50%;
+        float: left;
+        margin-top: 2px;
+        margin-left: 2px;
+    }
+
+    .e-bigger:not(.bootstrap) .value {
+        margin-top: 7px;
+    }
+
+    .e-bigger:not(.bootstrap) .name {
+        padding: 11px 42px;
+    }
+
+    .template.e-popup .e-list-item * {
+        display: block;
+        text-indent: 0;
+    }
+
+    .e-bigger:not(.bootstrap) .template .e-dropdownbase .e-list-item {
+        line-height: 42px;
+        height: 80px;
+    }
+
+    .e-bigger:not(.bootstrap) .template.e-popup .empImage {
+        margin: 10px 16px;
+    }
+
+    .bootstrap4 .template.e-popup .empImage {
+        margin: 0px 16px;
+    }
+
+    .bootstrap4 .template.e-popup .job {
+        margin-top: 0;
+    }
+
+    .e-bigger.bootstrap4 .template.e-popup .job {
+        margin-top: -15px;
+    }
+
+    .template .e-dropdownbase.e-content {
+        max-height: 200px !important;
+    }
+
+    .dropdown-height {
+        height: 400px;
+    }
+
+    .padding-top {
+        padding-top: 55px;
+    }
+
+    .dropdown-width {
+        width: 100%;
+        height: 100%;
+    }
+</style>
