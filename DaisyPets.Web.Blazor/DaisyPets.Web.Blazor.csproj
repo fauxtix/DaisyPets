@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\uploads\ac-ageas.png" />
+    <Content Remove="wwwroot\uploads\shiva.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DaisyPets.Core\DaisyPets.Core.csproj" />
   </ItemGroup>
 
@@ -70,7 +75,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="uploads\" />
 	  <Folder Include="wwwroot\EstateAgency\images\" />
 	  <Folder Include="wwwroot\EstateAgency\js\" />
 	  <Folder Include="wwwroot\images\Properties\" />
@@ -1955,55 +1959,8 @@
 	  <None Include="wwwroot\scss\bootstrap\_utilities.scss" />
 	  <None Include="wwwroot\scss\bootstrap\_variables.scss" />
 	  <None Include="wwwroot\scss\style.scss" />
-	  <None Include="wwwroot\uploads\properties\ContratosArrendaMentoGeral.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\13_2019_CorrigirDesiquilibriosArrendatarioSenhorio.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\ActRendas_2023_JJM_3E.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\AlugarImovel.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Atualizacaorendas.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\AtualizacaoRendas2023.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Cad17_JJM_3_Dto.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Cad18_JJM_3_Esq.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Cad19_CGG_Loja.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Carta-para-Rescisão-de-Contrato-de-Arrendamento.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Cartas-tipo para senhorio.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\CertEnergetico.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\CertificacaoEnergetica.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\ComoQandoAtualizacaoRendas.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\ComoSaoTributadasRendasIRS.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Contrato de arrendamento com prazo certo %281%29.docx" />
-	  <None Include="wwwroot\uploads\Tenants\Contratos de arrendamento.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\DeclaracaoEncargosCondominio.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\DocumentosNecessarios.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\ExcelDataEntry-2.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Fatura_Dezembro.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Fetching Data and Content Negotiation with HttpClient in ASP.docx" />
-	  <None Include="wwwroot\uploads\Tenants\impatient-js-preview-book.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\InfoContratosArrendamento.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\LicencasHabitacao.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\LicencaUtilizacao.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\MINUTA 2 - ARRENDAMENTO ACESSIVEL PARA RESIDÊNCIA PERMANENTE - art. 13.º.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\MINUTA+2+-+ARRENDAMENTO+ACESSIVEL+PARA+RESIDÊNCIA+PERMANENTE+-+art.+13.º_abcdpdf_pdf_para_word.docx" />
-	  <None Include="wwwroot\uploads\Tenants\Minuta-de-Contrato-de-Arrendamento-Para-Habitação.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Pagamento do IMI.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\PagamentoRendas.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Partial Payment Agreement.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\ProcedimentoDespejo.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\ReactForAccessingAPIs.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\RecibosRenda_E_Despesas.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\RegistarContratoArrendamento.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\RescisaoContratoArrendamento.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\RescisaoContratoArrendamento2.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Residential Rental Inspection Report.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Senhorios2023.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\The Landlord’s Guide to Managing Income and Expenses.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\The Ultimate Guide To Online Rent Collection.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\Tipo de Recebimento.pdf" />
-	  <None Include="wwwroot\uploads\Tenants\VencimentoRendas.pdf" />
-	  <None Include="wwwroot\uploads\unit_images\Cad15_JJM_2_Fte_Escrit.pdf" />
-	  <None Include="wwwroot\uploads\unit_images\Cad17_JJM_3_Dto.pdf" />
-	  <None Include="wwwroot\uploads\unit_images\Cad18_JJM_3_Esq.pdf" />
-	  <None Include="wwwroot\uploads\unit_images\Cad20_CGG_B.pdf" />
-	  <None Include="wwwroot\uploads\unit_images\Cad21_CGG_D.pdf" />
+	  <None Include="wwwroot\uploads\Pets\ac-ageas.png" />
+	  <None Include="wwwroot\uploads\Pets\shiva.jpg" />
 	</ItemGroup>
 
 </Project>

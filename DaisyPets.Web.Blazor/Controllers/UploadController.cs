@@ -21,7 +21,7 @@ namespace DaisyPets.Web.Blazor.Controllers
             {
                 foreach (var file in UploadFiles)
                 {
-                    var filename = HostingEnvironment.ContentRootPath + $@"\uploads\{file.FileName}";
+                    var filename = HostingEnvironment.WebRootPath + $@"\uploads\Pets\{file.FileName}";
                     if (!System.IO.File.Exists(filename))
                     {
                         using (FileStream fs = System.IO.File.Create(filename))
@@ -54,7 +54,7 @@ namespace DaisyPets.Web.Blazor.Controllers
         {
             try
             {
-                var filename = HostingEnvironment.ContentRootPath + $@"\{UploadFiles[0].FileName}";
+                var filename = HostingEnvironment.WebRootPath + $@"\{UploadFiles[0].FileName}";
                 if (System.IO.File.Exists(filename))
                 {
                     System.IO.File.Delete(filename);

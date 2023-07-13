@@ -5,80 +5,212 @@
 
 @inherits PetsMainPageBase
 
-<div class="container">
-    <div class="form-group">
-        <SfTextBox Enabled="true"
-                   Placeholder="Nome"
-                   CssClass="e-field  e-corner"
-                   FloatLabelType="@FloatLabelType.Always"
-        @bind-Value="@UserSelectedPet!.Nome"
-                   Width="300px">
-        </SfTextBox>
+<div class="d-md-flex flex-column">
+    <div>
+        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="property48"></HeaderDialogComponent>
+        <hr />
     </div>
-    <div class="form-group">
-        <SfTextBox Enabled="true"
-                   Placeholder="Cor"
-                   CssClass="e-field  e-corner"
-                   FloatLabelType="@FloatLabelType.Always"
-        @bind-Value="@UserSelectedPet!.Cor" Width="300px">
-        </SfTextBox>
-    </div>
-    <div class="group-box mt-2">
-        <SfDatePicker Placeholder="@L["TituloDataNascimento"]"
-                      Width="150px"
-                      CssClass="e-align-middle e-corner"
-                      FloatLabelType="FloatLabelType.Always"
-        @bind-Value="@dNascimento">
-            <DatePickerEvents TValue="DateTime" ValueChange="DataNascimentoChanged"></DatePickerEvents>
-        </SfDatePicker>
-    </div>
-    <div class="group-box">
-        <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
-                        Value="@idxBreed" ShowClearButton="true" Width="250px"
-                        FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
-                        Placeholder="Raça" DataSource="@Breeds" FloatLabelType="FloatLabelType.Always">
-            <DropDownListTemplates TItem="LookupTableVM">
-            </DropDownListTemplates>
-            <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeBreed"></DropDownListEvents>
-            <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
-        </SfDropDownList>
-    </div>
-    <div class="group-box">
-        <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
-                        Value="@idxSituation" ShowClearButton="true" Width="250px"
-                        FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
-                        Placeholder="Situação" DataSource="@Situations" FloatLabelType="FloatLabelType.Always">
-            <DropDownListTemplates TItem="LookupTableVM">
-            </DropDownListTemplates>
-            <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeSituation"></DropDownListEvents>
-            <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
-        </SfDropDownList>
-    </div>
-    <div class="group-box">
-        <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
-                        Value="@idxSize" ShowClearButton="true" Width="250px"
-                        FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
-                        Placeholder="Tamanho" DataSource="@Sizes" FloatLabelType="FloatLabelType.Always">
-            <DropDownListTemplates TItem="LookupTableVM">
-            </DropDownListTemplates>
-            <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeSize"></DropDownListEvents>
-            <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
-        </SfDropDownList>
-    </div>
-    <div class="group-box">
-        <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
-                        Value="@idxTemperament" ShowClearButton="true" Width="250px"
-                        FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
-                        Placeholder="Temperamento" DataSource="@Temperaments" FloatLabelType="FloatLabelType.Always">
-            <DropDownListTemplates TItem="LookupTableVM">
-            </DropDownListTemplates>
-            <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeTemperament"></DropDownListEvents>
-            <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
-        </SfDropDownList>
-    </div>
+    <EditForm Model="UserSelectedPet">
+        <div class="row mt-2">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <SfTextBox Enabled="true"
+                               Placeholder="Nome"
+                               CssClass="e-field  e-corner"
+                               FloatLabelType="@FloatLabelType.Always"
+                    @bind-Value="@UserSelectedPet!.Nome"
+                               Width="300px">
+                    </SfTextBox>
+                </div>
+                <div class="form-group">
+                    <SfTextBox Enabled="true"
+                               Placeholder="Cor"
+                               CssClass="e-field  e-corner"
+                               FloatLabelType="@FloatLabelType.Always"
+                    @bind-Value="@UserSelectedPet!.Cor" Width="300px">
+                    </SfTextBox>
+                </div>
+                <div class="group-box mt-2">
+                    <SfDatePicker Placeholder="@L["TituloDtNascimento"]"
+                                  Width="150px"
+                                  CssClass="e-align-middle e-corner"
+                                  FloatLabelType="FloatLabelType.Always"
+                    @bind-Value="@dNascimento">
+                        <DatePickerEvents TValue="DateTime" ValueChange="DataNascimentoChanged"></DatePickerEvents>
+                    </SfDatePicker>
+                </div>
+                <div class="d-flex mt-3">
+                    <SfRadioButton Label="Feminino" Name="Gender"
+                    @onchange="onChangeGender"
+                                   TChecked="string" Value="F" @bind-Checked="@UserSelectedPet.Genero"></SfRadioButton>&nbsp;&nbsp;
+                    <SfRadioButton Label="Masculino" Name="Gender"
+                    @onchange="onChangeGender"
+                                   TChecked="string" Value="M" @bind-Checked="@UserSelectedPet.Genero"></SfRadioButton>
+                </div>
+            </div>
+            <div class="col-md-6">
+                @if (string.IsNullOrEmpty(UserSelectedPet.Foto))
+                {
+                    <div class="form-group my-3">
+                        <SfUploader ID="UploadFiles" @ref="sfUploader" AutoUpload=true
+                                    DropArea=".control-fluid"
+                                    AllowMultiple="false" AllowedExtensions=".jpg, .jpeg, .png"
+                                    MaxFileSize="@MaxFileSize">
+                            <UploaderAsyncSettings SaveUrl="api/upload/save"
+                                                   RemoveUrl="api/upload/remove" />
+                            <UploaderEvents OnActionComplete="@OnActionCompleteHandler" />
+                        </SfUploader>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex align-items-center">
+                        <div class="img-responsive mx-auto">
+                            <img class="rounded mx-auto" src="/uploads/pets/@UserSelectedPet?.Foto" width="180" height="180" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <hr class="divider" />
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <SfCheckBox Label="Chipado" @bind-Checked=@chipado @onchange="onChangeChipado"></SfCheckBox>
+                </div>
+            </div>
+            @if (UserSelectedPet.Chipado == 1)
+            {
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <SfDatePicker Placeholder="@L["TituloData"]"
+                                      Width="150px"
+                                      CssClass="e-align-middle e-corner"
+                                      FloatLabelType="FloatLabelType.Always"
+                        @bind-Value="@dChipagem">
+                            <DatePickerEvents TValue="DateTime" ValueChange="DataChipChanged"></DatePickerEvents>
+                        </SfDatePicker>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <SfTextBox Enabled="true"
+                                   Placeholder="Número"
+                                   CssClass="e-field  e-corner"
+                                   Width="200px"
+                                   FloatLabelType="@FloatLabelType.Always"
+                        @bind-Value="@UserSelectedPet!.NumeroChip">
+                        </SfTextBox>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <SfCheckBox Label="Esterilizado" @bind-Checked=@esterilizado @onchange="onChangeEsterilizado"></SfCheckBox>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <SfCheckBox Label="Padrinho" @bind-Checked=@padrinho @onchange="onChangePadrinho"></SfCheckBox>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <SfTextBox Enabled="true"
+                               Placeholder="Medicação"
+                               CssClass="e-field  e-corner" Multiline="true"
+                               FloatLabelType="@FloatLabelType.Always"
+                    @bind-Value="@UserSelectedPet!.Medicacao"
+                               Width="300px">
+                    </SfTextBox>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <SfTextBox Enabled="true"
+                               Placeholder="Doença crónica"
+                               CssClass="e-field  e-corner" Multiline="true"
+                               FloatLabelType="@FloatLabelType.Always"
+                    @bind-Value="@UserSelectedPet!.DoencaCronica"
+                               Width="300px">
+                    </SfTextBox>
+                </div>
+            </div>
+        </div>
 
-
+        <div class="row">
+            <div class="col-md-6">
+                <div class="group-box">
+                    <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                                    Value="@idxBreed" ShowClearButton="true" Width="250px"
+                                    FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                                    Placeholder="Raça" DataSource="@Breeds" FloatLabelType="FloatLabelType.Always">
+                        <DropDownListTemplates TItem="LookupTableVM">
+                        </DropDownListTemplates>
+                        <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeBreed"></DropDownListEvents>
+                        <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="group-box">
+                    <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                                    Value="@idxSituation" ShowClearButton="true" Width="250px"
+                                    FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                                    Placeholder="Situação" DataSource="@Situations" FloatLabelType="FloatLabelType.Always">
+                        <DropDownListTemplates TItem="LookupTableVM">
+                        </DropDownListTemplates>
+                        <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeSituation"></DropDownListEvents>
+                        <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="group-box">
+                    <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                                    Value="@idxSize" ShowClearButton="true" Width="250px"
+                                    FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                                    Placeholder="Tamanho" DataSource="@Sizes" FloatLabelType="FloatLabelType.Always">
+                        <DropDownListTemplates TItem="LookupTableVM">
+                        </DropDownListTemplates>
+                        <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeSize"></DropDownListEvents>
+                        <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="group-box">
+                    <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                                    Value="@idxTemperament" ShowClearButton="true" Width="250px"
+                                    FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                                    Placeholder="Temperamento" DataSource="@Temperaments" FloatLabelType="FloatLabelType.Always">
+                        <DropDownListTemplates TItem="LookupTableVM">
+                        </DropDownListTemplates>
+                        <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeTemperament"></DropDownListEvents>
+                        <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+        </div>
+        <div class="row cols-12">
+            <div class="form-group">
+                <SfTextBox Enabled="true"
+                           Placeholder="Observações"
+                           CssClass="e-field  e-corner" Multiline="true"
+                           FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@UserSelectedPet!.Observacoes">
+                </SfTextBox>
+            </div>
+        </div>
+    </EditForm>
 </div>
+
 
 
 @code {
@@ -93,7 +225,11 @@
     protected int idxTemperament;
     protected int idxSpecie;
 
-    public DateTime dNascimento { get; set; }
+    protected DateTime dNascimento { get; set; }
+    protected DateTime dChipagem { get; set; } = DateTime.Now.Date;
+    protected bool? chipado { get; set; } = null;
+    protected bool? esterilizado { get; set; } = null;
+    protected bool? padrinho { get; set; } = null;
 
     protected override void OnParametersSet()
     {
@@ -104,6 +240,14 @@
         idxSpecie = UserSelectedPet.IdEspecie;
 
         dNascimento = DateTime.Parse(UserSelectedPet.DataNascimento);
+        chipado = Convert.ToBoolean(UserSelectedPet.Chipado);
+        esterilizado = Convert.ToBoolean(UserSelectedPet.Esterilizado);
+        padrinho = Convert.ToBoolean(UserSelectedPet.Padrinho);
+
+        if (UserSelectedPet.Chipado == 1)
+        {
+            dChipagem = DateTime.Parse(UserSelectedPet.DataChip);
+        }
     }
 
     protected void onChangeBreed(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
@@ -131,5 +275,38 @@
     {
         UserSelectedPet.DataNascimento = args.Value.ToShortDateString();
     }
+    protected void DataChipChanged(ChangedEventArgs<DateTime> args)
+    {
+        UserSelectedPet.DataChip = args.Value.ToShortDateString();
+    }
 
+    protected void OnActionCompleteHandler(Syncfusion.Blazor.Inputs.ActionCompleteEventArgs args)
+    {
+        if (args.FileData.Count() == 0) return;
+
+        uploadedFile = args.FileData.Select(p => p.Name).FirstOrDefault();
+        UserSelectedPet.Foto = uploadedFile ?? "";
+
+        StateHasChanged();
+    }
+
+    private void onChangeGender(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+    {
+        UserSelectedPet.Genero = args.Value.ToString();
+    }
+    private void onChangeChipado(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+    {
+        chipado = Convert.ToBoolean(args.Value);
+        UserSelectedPet.Chipado = chipado.Value ? 1 : 0;
+    }
+    private void onChangeEsterilizado(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+    {
+        esterilizado = Convert.ToBoolean(args.Value);
+        UserSelectedPet.Esterilizado = chipado.Value ? 1 : 0;
+    }
+    private void onChangePadrinho(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+    {
+        padrinho = Convert.ToBoolean(args.Value);
+        UserSelectedPet.Padrinho = padrinho.Value ? 1 : 0;
+    }
 }

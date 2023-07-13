@@ -19,6 +19,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         [Inject] IConfiguration? config { get; set; }
         [Inject] public IStringLocalizer<App>? L { get; set; }
         [Inject] ILogger<App>? logger { get; set; } = null;
+        [Inject] public IWebHostEnvironment _env { get; set; }
 
         protected string? urlBaseAddress;
         protected IEnumerable<PetVM>? Pets { get; set; }
@@ -585,17 +586,6 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             }
         }
 
-        protected void OnActionCompleteHandler(Syncfusion.Blazor.Inputs.ActionCompleteEventArgs args)
-        {
-            if (args.FileData.Count() == 0) return;
-
-            uploadedFile = args.FileData.Select(p => p.Name).FirstOrDefault();
-            //HideUploadedFile = false;
-
-            //Document!.URL = uploadedFile;
-
-            StateHasChanged();
-        }
 
         protected async Task HideToast()
         {

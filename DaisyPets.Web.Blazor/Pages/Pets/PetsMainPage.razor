@@ -366,17 +366,6 @@ else
         </SfGrid>
     </div>
 
-    <div class="form-group my-3">
-        <SfUploader ID="UploadFiles" @ref="sfUploader" AutoUpload=true
-                    DropArea=".control-fluid"
-                    AllowMultiple="false" AllowedExtensions=".jpg, .jpeg, .png"
-                    MaxFileSize="@MaxFileSize">
-            <UploaderAsyncSettings SaveUrl="api/upload/save"
-                                   RemoveUrl="api/upload/remove" />
-            <UploaderEvents OnActionComplete="@OnActionCompleteHandler" />
-        </SfUploader>
-    </div>
-
     <SfDialog CssClass="responsive-dialog-40"
               IsModal="true"
               ShowCloseIcon="false"
