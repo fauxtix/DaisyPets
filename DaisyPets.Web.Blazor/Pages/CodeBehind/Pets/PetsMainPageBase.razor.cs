@@ -4,14 +4,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Inputs;
-using System.Net.Http;
-using System;
-using System.Security.Policy;
-using static DaisyPets.Core.Application.Enums.Common;
-using Syncfusion.Blazor.Popups;
 using Syncfusion.Blazor.Notifications;
-using Syncfusion.Blazor.Calendars;
-using Syncfusion.Blazor.Notifications.Internal;
+using Syncfusion.Blazor.Popups;
+using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 {
@@ -173,7 +168,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             if (RecordMode == OpcoesRegisto.Gravar)
             {
-                ToastTitle = $"{L["btnSalvar"]} {L["TituloInquilino"]}";
+                ToastTitle = $"{L["btnSalvar"]} {L["Pet_Title"]}";
                 try
                 {
                     using (HttpClient httpClient = new HttpClient())
@@ -183,7 +178,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                         if (!success)
                         {
                             AlertVisibility = true;
-                            alertTitle = "Atualização de dados do Pet";
+                            alertTitle = L["FalhaGravacaoRegisto"];
                             WarningMessage = $"{L["MSG_ApiError"]}";
                         }
                         else
@@ -204,13 +199,13 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 }
                 catch (Exception exc)
                 {
-                    logger.LogError(exc.Message, "Erro ao atualizar Pet)");
+                    logger.LogError(exc.Message, $"{L["MSG_ApiError"]}");
                     return false;
                 }
             }
             else // Insert
             {
-                ToastTitle = $"{L["creationMsg"]} {L["TituloInquilino"]}";
+                ToastTitle = $"{L["creationMsg"]} {L["Pet_Title"]}";
                 try
                 {
                     using (HttpClient httpClient = new HttpClient())
@@ -220,7 +215,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                         if (!success)
                         {
                             AlertVisibility = true;
-                            alertTitle = "Criação de Pet";
+                            alertTitle = L["FalhaCriacaoRegisto"];
                             WarningMessage = $"{L["MSG_ApiError"]}";
                         }
                         else
@@ -243,7 +238,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 }
                 catch (Exception exc)
                 {
-                    logger.LogError(exc.Message, "Erro ao atualizar Pet)");
+                    logger.LogError(exc.Message, $"{L["MSG_ApiError"]}");
                     return false;
                 }
             }
@@ -425,7 +420,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         public void onAddPet(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
             RecordMode = OpcoesRegisto.Inserir;
-            NewCaption = $"{L["NewMsg"]} {L["TituloFiador"]}";
+            NewCaption = $"{L["NewMsg"]} {L["Pet_Title"]}";
             modulo = Modules.Pets;
 
             SelectedPet = new()
@@ -458,7 +453,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         public void onAddDocument(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
             RecordMode = OpcoesRegisto.Inserir;
-            NewCaption = $"{L["NewMsg"]} {L["TituloFiador"]}";
+            NewCaption = $"{L["NewMsg"]} ({L["TituloDocumento"]})";
             modulo = Modules.Documents;
 
             SelectedDocument = new()
@@ -475,7 +470,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         public void onAddConsultation(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
             RecordMode = OpcoesRegisto.Inserir;
-            NewCaption = $"{L["NewMsg"]} {L["TituloFiador"]}";
+            NewCaption = $"{L["NewMsg"]} ({L["Pet_Dewormers"]})";
             modulo = Modules.Consultations;
 
             SelectedConsultation = new()
@@ -494,7 +489,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         public void onAddVaccine(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
             RecordMode = OpcoesRegisto.Inserir;
-            NewCaption = $"{L["NewMsg"]} {L["TituloFiador"]}";
+            NewCaption = $"{L["NewMsg"]} ({L["Pet_Vaccinnes"]})";
             modulo = Modules.Vaccines;
 
             SelectedVaccine = new()
@@ -510,7 +505,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         public void onAddPetFood(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
             RecordMode = OpcoesRegisto.Inserir;
-            NewCaption = $"{L["NewMsg"]} {L["TituloFiador"]}";
+            NewCaption = $"{L["NewMsg"]} ({L["Pet_Food"]})";
             modulo = Modules.PetFood;
 
             SelectedPetFood = new()
@@ -527,7 +522,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         public void onAddDewormer(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
             RecordMode = OpcoesRegisto.Inserir;
-            NewCaption = $"{L["NewMsg"]} {L["TituloFiador"]}";
+            NewCaption = $"{L["NewMsg"]} ({L["Pet_Dewormers"]})";
             modulo = Modules.Dewormers;
 
             SelectedDewormer = new()
@@ -603,13 +598,13 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 SelectedPet = await GetPetById(PetId);
 
                 AddEditPetVisibility = true;
-                EditCaption = $"{L["EditMsg"]} {L["TituloInquilino"]}";
+                EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
                 RecordMode = OpcoesRegisto.Gravar;
             }
 
             if (args.CommandColumn.Type == CommandButtonType.Delete)
             {
-                WarningTitle = "Apaga Pet?";
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Title"]}?";
                 DeletePetVisibility = true;
                 DeleteCaption = SelectedPet?.Nome;
             }
@@ -643,7 +638,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         protected async Task ConfirmDeleteYes()
         {
-            ToastTitle = $"{L["DeleteMsg"]} {L["TituloDespesa"]}";
+            ToastTitle = $"{L["DeleteMsg"]} {L["Pet_Title"]}";
 
             await DeletePet();
 
@@ -666,7 +661,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                     response.EnsureSuccessStatusCode();
                     if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                     {
-                        ValidationsMessages = new List<string>() { "Erro ao apagar registo" };
+                        ValidationsMessages = new List<string>() { L["FalhaAnulacaoRegisto"] };
                         ErrorVisibility = true;
                         return;
                     }
@@ -676,12 +671,12 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
                 DeletePetVisibility = false;
                 alertTitle = "Apagar Pet";
-                WarningMessage = "Operação terminada com sucesso";
+                WarningMessage = L["SuccessDelete"];
                 AlertVisibility = true;
             }
             catch (Exception ex)
             {
-                alertTitle = "Apagar Pet";
+                alertTitle = $"{L["DeleteMsg"]} {L["Pet_Title"]}";
                 WarningMessage = $"Erro ({ex.Message})";
                 AlertVisibility = true;
             }

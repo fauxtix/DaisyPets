@@ -2440,4 +2440,19 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="TituloQtdDiaria" xml:space="preserve">
     <value>Ctd. por día</value>
   </data>
+  <data name="TituloCor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="TituloDoencaCronica" xml:space="preserve">
+    <value>Doença Crónica</value>
+  </data>
+  <data name="TituloEspecie" xml:space="preserve">
+    <value>Espécie</value>
+  </data>
+  <data name="TituloMedicacao" xml:space="preserve">
+    <value>Medicação</value>
+  </data>
+  <data name="TituloPadrinho" xml:space="preserve">
+    <value>Padrino</value>
+  </data>
 </root>

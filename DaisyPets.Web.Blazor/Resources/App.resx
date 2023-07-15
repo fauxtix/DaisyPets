@@ -1397,7 +1397,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
     <value>Marca</value>
   </data>
   <data name="Pet_Breed" xml:space="preserve">
-    <value>Race</value>
+    <value>Raça</value>
   </data>
   <data name="Pet_Consultations" xml:space="preserve">
     <value>Consultas</value>
@@ -1434,5 +1434,20 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   </data>
   <data name="TituloQtdDiaria" xml:space="preserve">
     <value>Qtd. diária</value>
+  </data>
+  <data name="TituloCor" xml:space="preserve">
+    <value>Cor</value>
+  </data>
+  <data name="TituloDoencaCronica" xml:space="preserve">
+    <value>Doença Crónica</value>
+  </data>
+  <data name="TituloEspecie" xml:space="preserve">
+    <value>Espécie</value>
+  </data>
+  <data name="TituloMedicacao" xml:space="preserve">
+    <value>Medicação</value>
+  </data>
+  <data name="TituloPadrinho" xml:space="preserve">
+    <value>Padrinho</value>
   </data>
 </root>

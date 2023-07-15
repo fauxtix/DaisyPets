@@ -2442,4 +2442,19 @@
   <data name="TituloQtdDiaria" xml:space="preserve">
     <value>Qty per day</value>
   </data>
+  <data name="TituloCor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="TituloDoencaCronica" xml:space="preserve">
+    <value>Chronic Disease</value>
+  </data>
+  <data name="TituloEspecie" xml:space="preserve">
+    <value>Species</value>
+  </data>
+  <data name="TituloMedicacao" xml:space="preserve">
+    <value>Medication</value>
+  </data>
+  <data name="TituloPadrinho" xml:space="preserve">
+    <value>Godfather</value>
+  </data>
 </root>

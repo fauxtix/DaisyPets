@@ -2456,4 +2456,19 @@ Vérifiez les erreurs, s'il vous plaît</value>
   <data name="TituloSexo" xml:space="preserve">
     <value>Genre</value>
   </data>
+  <data name="TituloCor" xml:space="preserve">
+    <value>Couleur</value>
+  </data>
+  <data name="TituloDoencaCronica" xml:space="preserve">
+    <value>Maladie chronique</value>
+  </data>
+  <data name="TituloEspecie" xml:space="preserve">
+    <value>Espèce</value>
+  </data>
+  <data name="TituloMedicacao" xml:space="preserve">
+    <value>Médication</value>
+  </data>
+  <data name="TituloPadrinho" xml:space="preserve">
+    <value>Parrain</value>
+  </data>
 </root>

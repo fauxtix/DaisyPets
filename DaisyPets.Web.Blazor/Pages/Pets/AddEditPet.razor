@@ -16,7 +16,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <SfTextBox Enabled="true"
-                               Placeholder="Nome"
+                               Placeholder="@L["TituloNome"]"
                                CssClass="e-field  e-corner"
                                FloatLabelType="@FloatLabelType.Always"
                     @bind-Value="@UserSelectedPet!.Nome"
@@ -25,7 +25,7 @@
                 </div>
                 <div class="form-group">
                     <SfTextBox Enabled="true"
-                               Placeholder="Cor"
+                               Placeholder="@L["TituloCor"]"
                                CssClass="e-field  e-corner"
                                FloatLabelType="@FloatLabelType.Always"
                     @bind-Value="@UserSelectedPet!.Cor" Width="300px">
@@ -41,10 +41,10 @@
                     </SfDatePicker>
                 </div>
                 <div class="d-flex mt-3">
-                    <SfRadioButton Label="Feminino" Name="Gender"
+                    <SfRadioButton Label="@L["TituloFeminino"]" Name="Gender"
                     @onchange="onChangeGender"
                                    TChecked="string" Value="F" @bind-Checked="@UserSelectedPet.Genero"></SfRadioButton>&nbsp;&nbsp;
-                    <SfRadioButton Label="Masculino" Name="Gender"
+                    <SfRadioButton Label="@L["TituloMasculino"]" Name="Gender"
                     @onchange="onChangeGender"
                                    TChecked="string" Value="M" @bind-Checked="@UserSelectedPet.Genero"></SfRadioButton>
                 </div>
@@ -77,7 +77,7 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
-                    <SfCheckBox Label="Chipado" @bind-Checked=@chipado @onchange="onChangeChipado"></SfCheckBox>
+                    <SfCheckBox Label="Chip" @bind-Checked=@chipado @onchange="onChangeChipado"></SfCheckBox>
                 </div>
             </div>
             @if (UserSelectedPet.Chipado == 1)
@@ -96,7 +96,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <SfTextBox Enabled="true"
-                                   Placeholder="Número"
+                                   Placeholder="@L["TituloNumero"]"
                                    CssClass="e-field  e-corner"
                                    Width="200px"
                                    FloatLabelType="@FloatLabelType.Always"
@@ -109,12 +109,12 @@
         <div class="row mt-3">
             <div class="col-md-3">
                 <div class="form-group">
-                    <SfCheckBox Label="Esterilizado" @bind-Checked=@esterilizado @onchange="onChangeEsterilizado"></SfCheckBox>
+                    <SfCheckBox Label="@L["Pet_Sterilised"]" @bind-Checked=@esterilizado @onchange="onChangeEsterilizado"></SfCheckBox>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <SfCheckBox Label="Padrinho" @bind-Checked=@padrinho @onchange="onChangePadrinho"></SfCheckBox>
+                    <SfCheckBox Label="@L["TituloPadrinho"]" @bind-Checked=@padrinho @onchange="onChangePadrinho"></SfCheckBox>
                 </div>
             </div>
         </div>
@@ -122,7 +122,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <SfTextBox Enabled="true"
-                               Placeholder="Medicação"
+                               Placeholder="@L["TituloMedicacao"]"
                                CssClass="e-field  e-corner" Multiline="true"
                                FloatLabelType="@FloatLabelType.Always"
                     @bind-Value="@UserSelectedPet!.Medicacao"
@@ -133,7 +133,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <SfTextBox Enabled="true"
-                               Placeholder="Doença crónica"
+                               Placeholder="@L["TituloDoencaCronica"]"
                                CssClass="e-field  e-corner" Multiline="true"
                                FloatLabelType="@FloatLabelType.Always"
                     @bind-Value="@UserSelectedPet!.DoencaCronica"
@@ -149,7 +149,7 @@
                     <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
                                     Value="@idxSpecie" ShowClearButton="true" Width="250px"
                                     FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
-                                    Placeholder="Espécie" DataSource="@Species" FloatLabelType="FloatLabelType.Always">
+                                    Placeholder="@L["TituloEspecie"]" DataSource="@Species" FloatLabelType="FloatLabelType.Always">
                         <DropDownListTemplates TItem="LookupTableVM">
                         </DropDownListTemplates>
                         <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeSpecie"></DropDownListEvents>
@@ -166,7 +166,7 @@
                     <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
                                     Value="@idxBreed" ShowClearButton="true" Width="250px"
                                     FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
-                                    Placeholder="Raça" DataSource="@Breeds" FloatLabelType="FloatLabelType.Always">
+                                    Placeholder="@L["Pet_Breed"]" DataSource="@Breeds" FloatLabelType="FloatLabelType.Always">
                         <DropDownListTemplates TItem="LookupTableVM">
                         </DropDownListTemplates>
                         <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeBreed"></DropDownListEvents>
@@ -179,7 +179,7 @@
                     <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
                                     Value="@idxSituation" ShowClearButton="true" Width="250px"
                                     FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
-                                    Placeholder="Situação" DataSource="@Situations" FloatLabelType="FloatLabelType.Always">
+                                    Placeholder="@L["TituloSituacao"]" DataSource="@Situations" FloatLabelType="FloatLabelType.Always">
                         <DropDownListTemplates TItem="LookupTableVM">
                         </DropDownListTemplates>
                         <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeSituation"></DropDownListEvents>
@@ -193,8 +193,8 @@
                 <div class="group-box">
                     <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
                                     Value="@idxSize" ShowClearButton="true" Width="250px"
-                                    FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
-                                    Placeholder="Tamanho" DataSource="@Sizes" FloatLabelType="FloatLabelType.Always">
+                                    FilterBarPlaceholder="@L["Pet_Size"]" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                                    Placeholder="@L[""]" DataSource="@Sizes" FloatLabelType="FloatLabelType.Always">
                         <DropDownListTemplates TItem="LookupTableVM">
                         </DropDownListTemplates>
                         <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeSize"></DropDownListEvents>
