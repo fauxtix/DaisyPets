@@ -5,11 +5,12 @@
 
 @inherits PetsMainPageBase
 
-<div class="d-md-flex flex-column">
+<div class="container-fluid d-md-flex flex-column">
     <div>
         <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="property48"></HeaderDialogComponent>
         <hr />
     </div>
+
     <EditForm Model="UserSelectedPet">
         <div class="row mt-2">
             <div class="col-md-6">
@@ -140,8 +141,25 @@
                     </SfTextBox>
                 </div>
             </div>
-        </div>
 
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="group-box">
+                    <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                                    Value="@idxSpecie" ShowClearButton="true" Width="250px"
+                                    FilterBarPlaceholder="Selecione" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                                    Placeholder="Espécie" DataSource="@Species" FloatLabelType="FloatLabelType.Always">
+                        <DropDownListTemplates TItem="LookupTableVM">
+                        </DropDownListTemplates>
+                        <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeSpecie"></DropDownListEvents>
+                        <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+            </div>
+        </div>
+        <div>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="group-box">
@@ -255,6 +273,12 @@
         idxBreed = args.Value;
         UserSelectedPet!.IdRaca = idxBreed;
     }
+    protected void onChangeSpecie(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
+    {
+        idxSpecie = args.Value;
+        UserSelectedPet!.IdEspecie= idxSpecie;
+    }
+
     protected void onChangeSize(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
     {
         idxSize = args.Value;

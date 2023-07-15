@@ -1699,7 +1699,7 @@
     <value>Doctors, Specialties and Agreements</value>
   </data>
   <data name="TituloSexo" xml:space="preserve">
-    <value>Genre</value>
+    <value>Gender</value>
   </data>
   <data name="TituloApagarFichaSemPermissao" xml:space="preserve">
     <value>Could not perform operation. User is not the patient's doctor</value>
@@ -2396,5 +2396,50 @@
   </data>
   <data name="TituloCartaAtualizacaoRendas" xml:space="preserve">
     <value>Rent update letter</value>
+  </data>
+  <data name="Pet_Title" xml:space="preserve">
+    <value>Pets</value>
+  </data>
+  <data name="Pet_Breed" xml:space="preserve">
+    <value>Breed</value>
+  </data>
+  <data name="Pet_Consultations" xml:space="preserve">
+    <value>Consultations</value>
+  </data>
+  <data name="Pet_Dewormers" xml:space="preserve">
+    <value>Dewormers</value>
+  </data>
+  <data name="Pet_Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="Pet_Food" xml:space="preserve">
+    <value>Pet food</value>
+  </data>
+  <data name="Pet_Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Pet_Sterilised" xml:space="preserve">
+    <value>Sterilised</value>
+  </data>
+  <data name="Pet_Vaccine_Brand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="Pet_Vaccine_Date" xml:space="preserve">
+    <value>Vaccination</value>
+  </data>
+  <data name="Pet_Vaccine_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Pet_Vaccinnes" xml:space="preserve">
+    <value>Vaccines</value>
+  </data>
+  <data name="TituloDiagnostico" xml:space="preserve">
+    <value>Diagnosis</value>
+  </data>
+  <data name="TituloMarca" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="TituloQtdDiaria" xml:space="preserve">
+    <value>Qty per day</value>
   </data>
 </root>

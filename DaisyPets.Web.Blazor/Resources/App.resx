@@ -1390,4 +1390,49 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   <data name="TituloCartaAtualizacaoRendas" xml:space="preserve">
     <value>Carta de atualização de rendas</value>
   </data>
+  <data name="Pet_Title" xml:space="preserve">
+    <value>Pets</value>
+  </data>
+  <data name="Pet_Brand" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+  <data name="Pet_Breed" xml:space="preserve">
+    <value>Race</value>
+  </data>
+  <data name="Pet_Consultations" xml:space="preserve">
+    <value>Consultas</value>
+  </data>
+  <data name="Pet_Dewormers" xml:space="preserve">
+    <value>Desparasitantes</value>
+  </data>
+  <data name="Pet_Documents" xml:space="preserve">
+    <value>Documentos</value>
+  </data>
+  <data name="Pet_Food" xml:space="preserve">
+    <value>Ração</value>
+  </data>
+  <data name="Pet_Size" xml:space="preserve">
+    <value>Tamanho</value>
+  </data>
+  <data name="Pet_Sterilised" xml:space="preserve">
+    <value>Esterilizado</value>
+  </data>
+  <data name="Pet_Vaccine_Date" xml:space="preserve">
+    <value>Toma</value>
+  </data>
+  <data name="Pet_Vaccine_Next" xml:space="preserve">
+    <value>Próxima</value>
+  </data>
+  <data name="Pet_Vaccinnes" xml:space="preserve">
+    <value>Vacinas</value>
+  </data>
+  <data name="TituloDiagnostico" xml:space="preserve">
+    <value>Diagnóstico</value>
+  </data>
+  <data name="TituloMarca" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+  <data name="TituloQtdDiaria" xml:space="preserve">
+    <value>Qtd. diária</value>
+  </data>
 </root>

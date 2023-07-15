@@ -2408,4 +2408,52 @@ Vérifiez les erreurs, s'il vous plaît</value>
   <data name="TituloCartaAtualizacaoRendas" xml:space="preserve">
     <value>Lettre d'actualisation du loyer</value>
   </data>
+  <data name="Pet_Title" xml:space="preserve">
+    <value>Pets</value>
+  </data>
+  <data name="Pet_Breed" xml:space="preserve">
+    <value>Race</value>
+  </data>
+  <data name="Pet_Consultations" xml:space="preserve">
+    <value>Rendez-vous</value>
+  </data>
+  <data name="Pet_Dewormers" xml:space="preserve">
+    <value>Vermifuges</value>
+  </data>
+  <data name="Pet_Documents" xml:space="preserve">
+    <value>Documents</value>
+  </data>
+  <data name="Pet_Food" xml:space="preserve">
+    <value>Alimentation</value>
+  </data>
+  <data name="Pet_Size" xml:space="preserve">
+    <value>Taille</value>
+  </data>
+  <data name="Pet_Sterilised" xml:space="preserve">
+    <value>Stérilisé</value>
+  </data>
+  <data name="Pet_Vaccine_Brand" xml:space="preserve">
+    <value>Marque</value>
+  </data>
+  <data name="Pet_Vaccine_Date" xml:space="preserve">
+    <value>Vaccination</value>
+  </data>
+  <data name="Pet_Vaccine_Next" xml:space="preserve">
+    <value>Prochaine</value>
+  </data>
+  <data name="Pet_Vaccinnes" xml:space="preserve">
+    <value>Vaccins</value>
+  </data>
+  <data name="TituloDiagnostico" xml:space="preserve">
+    <value>Diagnostic</value>
+  </data>
+  <data name="TituloMarca" xml:space="preserve">
+    <value>Marque</value>
+  </data>
+  <data name="TituloQtdDiaria" xml:space="preserve">
+    <value>Qté par jour</value>
+  </data>
+  <data name="TituloSexo" xml:space="preserve">
+    <value>Genre</value>
+  </data>
 </root>

@@ -12,7 +12,7 @@
 @inject IStringLocalizer<App> L
 
 <PageTitle>Daisy Pets</PageTitle>
-<PageTitleComponent PageTitle="Pets"></PageTitleComponent>
+<PageTitleComponent PageTitle="@L["Pet_Title"]"></PageTitleComponent>
 
 @if (Pets is null)
 {
@@ -20,7 +20,7 @@
 }
 else
 {
-    <div class="source-options mt-2">
+    <div class="source-options my-2">
         <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
         @onclick="@onAddPet" IsPrimary="true">
         </SfButton>
@@ -51,10 +51,10 @@ else
                             @*Documentos*@
                             <TabItem>
                                 <ChildContent>
-                                    <TabHeader Text="Vacinas"></TabHeader>
+                                    <TabHeader Text="@L["Pet_Vaccines"]"></TabHeader>
                                 </ChildContent>
                                 <ContentTemplate>
-                                    <div class="source-options mt-2">
+                                    <div class="source-options my-2">
                                         <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
                                         @onclick="@onAddVaccine" IsPrimary="true">
                                         </SfButton>
@@ -76,9 +76,9 @@ else
                                         <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
                                         <GridColumns>
                                             <GridColumn Field=@nameof(VacinaVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
-                                            <GridColumn Field=@nameof(VacinaVM.DataToma) Format="d" HeaderText="Toma" Width="110"></GridColumn>
-                                            <GridColumn Field=@nameof(VacinaVM.Marca) HeaderText="Marca" Width="200"></GridColumn>
-                                            <GridColumn Field=@nameof(VacinaVM.DataProximaToma) Format="d" HeaderText="Prx. Toma" Width="110"></GridColumn>
+                                            <GridColumn Field=@nameof(VacinaVM.DataToma) Format="d" HeaderText="@L["Pet_Vaccine_Date"]" Width="110"></GridColumn>
+                                            <GridColumn Field=@nameof(VacinaVM.Marca) HeaderText="@L["Pet_Vaccine_Brand"]" Width="200"></GridColumn>
+                                            <GridColumn Field=@nameof(VacinaVM.DataProximaToma) Format="d" HeaderText="@L["Pet_Vaccine_Next"]" Width="110"></GridColumn>
                                             <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                                                 <GridCommandColumns>
                                                     <GridCommandColumn Type=CommandButtonType.Edit
@@ -103,63 +103,10 @@ else
                             </TabItem>
                             <TabItem>
                                 <ChildContent>
-                                    <TabHeader Text="Documentos"></TabHeader>
+                                    <TabHeader Text="@L["Pet_Consultations"]"></TabHeader>
                                 </ChildContent>
                                 <ContentTemplate>
-                                    <div class="source-options mt-2">
-                                        <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
-                                        @onclick="@onAddDocument" IsPrimary="true">
-                                        </SfButton>
-                                    </div>
-
-                                    @{
-                                        PetId = (context as PetVM)!.Id;
-                                        var petDocumentsHistory = GetPetDocumentsHistory(PetId);
-                                    }
-                                    <SfGrid TValue="DocumentoVM"
-                                            DataSource="petDocumentsHistory"
-                                            AllowFiltering="false"
-                                            AllowGrouping="false"
-                                            Width="100%" EnableAltRow="true"
-                                            AllowPaging="true"
-                                            AllowSorting="true"
-                                            RowHeight="32"
-                                            AllowTextWrap="true">
-                                        <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
-                                        <GridColumns>
-                                            <GridColumn Field=@nameof(DocumentoVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
-                                            <GridColumn Field=@nameof(DocumentoVM.Title) HeaderText="Título" Width="210"></GridColumn>
-                                            <GridColumn Field=@nameof(DocumentoVM.Description) HeaderText="Descrição" Width="200"></GridColumn>
-                                            <GridColumn Field=@nameof(DocumentoVM.CreatedOn) HeaderText="Criado em" Format="d" TextAlign="TextAlign.Right" Width="90"></GridColumn>
-                                            <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
-                                                <GridCommandColumns>
-                                                    <GridCommandColumn Type=CommandButtonType.Edit
-                                                                       ButtonOption="@(new CommandButtonOptions()
-                                                                       {
-                                                                           CssClass = "e-btn e-primary e-round",
-                                                                           IconCss = "fa fa-edit"
-                                                                       })">
-                                                    </GridCommandColumn>
-                                                    <GridCommandColumn Type=CommandButtonType.Delete
-                                                                       ButtonOption="@(new CommandButtonOptions()
-                                                                       {
-                                                                           CssClass = "e-btn e-danger e-round",
-                                                                           IconCss = "fa fa-trash"
-                                                                       })">
-                                                    </GridCommandColumn>
-                                                </GridCommandColumns>
-                                            </GridColumn>
-
-                                        </GridColumns>
-                                    </SfGrid>
-                                </ContentTemplate>
-                            </TabItem>
-                            <TabItem>
-                                <ChildContent>
-                                    <TabHeader Text="Consultas"></TabHeader>
-                                </ChildContent>
-                                <ContentTemplate>
-                                    <div class="source-options mt-2">
+                                    <div class="source-options my-2">
                                         <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
                                         @onclick="@onAddConsultation" IsPrimary="true">
                                         </SfButton>
@@ -181,9 +128,9 @@ else
                                         <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
                                         <GridColumns>
                                             <GridColumn Field=@nameof(ConsultaVeterinarioVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
-                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.DataConsulta) HeaderText="Data" Format="d" Width="90"></GridColumn>
-                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Motivo) HeaderText="Motivo" Width="300"></GridColumn>
-                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Diagnostico) HeaderText="Diagnóstico" Width="350"></GridColumn>
+                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.DataConsulta) HeaderText="@L["TituloData"]" Format="d" Width="90"></GridColumn>
+                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Motivo) HeaderText="@L["TituloMotivo"]" Width="300"></GridColumn>
+                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Diagnostico) HeaderText="@L["TituloDiagnostico"]" Width="350"></GridColumn>
                                             <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                                                 <GridCommandColumns>
                                                     <GridCommandColumn Type=CommandButtonType.Edit
@@ -209,10 +156,10 @@ else
                             </TabItem>
                             <TabItem>
                                 <ChildContent>
-                                    <TabHeader Text="Ração"></TabHeader>
+                                    <TabHeader Text="@L["Pet_Food"]"></TabHeader>
                                 </ChildContent>
                                 <ContentTemplate>
-                                    <div class="source-options mt-2">
+                                    <div class="source-options my-2">
                                         <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
                                         @onclick="@onAddPetFood" IsPrimary="true">
                                         </SfButton>
@@ -234,9 +181,9 @@ else
                                         <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
                                         <GridColumns>
                                             <GridColumn Field=@nameof(RacaoVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
-                                            <GridColumn Field=@nameof(RacaoVM.DataCompra) HeaderText="Data" Format="d" Width="90"></GridColumn>
-                                            <GridColumn Field=@nameof(RacaoVM.Marca) HeaderText="Marca" Width="200"></GridColumn>
-                                            <GridColumn Field=@nameof(RacaoVM.QuantidadeDiaria) HeaderText="Qtd. Diária" Width="100" TextAlign="TextAlign.Center"></GridColumn>
+                                            <GridColumn Field=@nameof(RacaoVM.DataCompra) HeaderText="@L["TituloData"]" Format="d" Width="90"></GridColumn>
+                                            <GridColumn Field=@nameof(RacaoVM.Marca) HeaderText="@L["TituloMarca"]" Width="200"></GridColumn>
+                                            <GridColumn Field=@nameof(RacaoVM.QuantidadeDiaria) HeaderText="@L["TituloQtdDiaria"]" Width="100" TextAlign="TextAlign.Center"></GridColumn>
                                             <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                                                 <GridCommandColumns>
                                                     <GridCommandColumn Type=CommandButtonType.Edit
@@ -261,10 +208,10 @@ else
                             </TabItem>
                             <TabItem>
                                 <ChildContent>
-                                    <TabHeader Text="Desparasitantes"></TabHeader>
+                                    <TabHeader Text="@L["Pet_Dewormers"]"></TabHeader>
                                 </ChildContent>
                                 <ContentTemplate>
-                                    <div class="source-options mt-2">
+                                    <div class="source-options my-2">
                                         <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
                                         @onclick="@onAddDewormer" IsPrimary="true">
                                         </SfButton>
@@ -286,10 +233,10 @@ else
                                         <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
                                         <GridColumns>
                                             <GridColumn Field=@nameof(DesparasitanteVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
-                                            <GridColumn Field=@nameof(DesparasitanteVM.Tipo) HeaderText="Tipo" Width="90" TextAlign="TextAlign.Center"></GridColumn>
-                                            <GridColumn Field=@nameof(DesparasitanteVM.Marca) HeaderText="Marca" Width="200"></GridColumn>
-                                            <GridColumn Field=@nameof(DesparasitanteVM.DataAplicacao) HeaderText="Aplicado em" Format="d" Width="100" TextAlign="TextAlign.Center"></GridColumn>
-                                            <GridColumn Field=@nameof(DesparasitanteVM.DataProximaAplicacao) HeaderText="Prx. aplicação" Format="d" Width="100" TextAlign="TextAlign.Center"></GridColumn>
+                                            <GridColumn Field=@nameof(DesparasitanteVM.Tipo) HeaderText="@L["TituloTipo"]" Width="90" TextAlign="TextAlign.Center"></GridColumn>
+                                            <GridColumn Field=@nameof(DesparasitanteVM.Marca) HeaderText="@L["TituloMarca"]" Width="200"></GridColumn>
+                                            <GridColumn Field=@nameof(DesparasitanteVM.DataAplicacao) HeaderText="@L["TituloData"]" Format="d" Width="100" TextAlign="TextAlign.Center"></GridColumn>
+                                            <GridColumn Field=@nameof(DesparasitanteVM.DataProximaAplicacao) HeaderText="@L["Pet_Vaccine_Next"]" Format="d" Width="100" TextAlign="TextAlign.Center"></GridColumn>
                                             <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                                                 <GridCommandColumns>
                                                     <GridCommandColumn Type=CommandButtonType.Edit
@@ -297,6 +244,68 @@ else
                                                                        {
                                                                            CssClass = "e-btn e-primary e-round",
                                                                            IconCss = "fa fa-edit"
+                                                                       })">
+                                                    </GridCommandColumn>
+                                                    <GridCommandColumn Type=CommandButtonType.Delete
+                                                                       ButtonOption="@(new CommandButtonOptions()
+                                                                       {
+                                                                           CssClass = "e-btn e-danger e-round",
+                                                                           IconCss = "fa fa-trash"
+                                                                       })">
+                                                    </GridCommandColumn>
+                                                </GridCommandColumns>
+                                            </GridColumn>
+                                        </GridColumns>
+                                    </SfGrid>
+                                </ContentTemplate>
+                            </TabItem>
+                            <TabItem>
+                                <ChildContent>
+                                    <TabHeader Text="@L["Pet_Documents"]"></TabHeader>
+                                </ChildContent>
+                                <ContentTemplate>
+                                    <div class="source-options my-2">
+                                        <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
+                                        @onclick="@onAddDocument" IsPrimary="true">
+                                        </SfButton>
+                                    </div>
+
+                                    @{
+                                        PetId = (context as PetVM)!.Id;
+                                        var petDocumentsHistory = GetPetDocumentsHistory(PetId);
+                                    }
+                                    <SfGrid TValue="DocumentoVM"
+                                            DataSource="petDocumentsHistory"
+                                            AllowFiltering="false"
+                                            AllowGrouping="false"
+                                            Width="100%" EnableAltRow="true"
+                                            AllowPaging="true"
+                                            AllowSorting="true"
+                                            RowHeight="32"
+                                            AllowTextWrap="true">
+                                        <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
+                                        <GridEvents CommandClicked="OnPetDocumentCommandClicked"
+                                                    TValue="DocumentoVM" />
+
+                                        <GridColumns>
+                                            <GridColumn Field=@nameof(DocumentoVM.CreatedOn) HeaderText="@L["TituloData"]" Format="d" TextAlign="TextAlign.Center" Width="90"></GridColumn>
+                                            <GridColumn Field=@nameof(DocumentoVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
+                                            <GridColumn Field=@nameof(DocumentoVM.Title) HeaderText="@L["lblTitulo"]" Width="210"></GridColumn>
+                                            <GridColumn Field=@nameof(DocumentoVM.Description) HeaderText="@L["rbtDescricao"]" Width="200"></GridColumn>
+                                            <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
+                                                <GridCommandColumns>
+                                                    <GridCommandColumn Type=CommandButtonType.Edit
+                                                                       ButtonOption="@(new CommandButtonOptions()
+                                                                       {
+                                                                           CssClass = "e-btn e-primary e-round",
+                                                                           IconCss = "fa fa-edit"
+                                                                       })">
+                                                    </GridCommandColumn>
+                                                    <GridCommandColumn Type=CommandButtonType.None
+                                                                       ButtonOption="@(new CommandButtonOptions()
+                                                                       {
+                                                                           CssClass = "e-btn e-success e-round",
+                                                                           IconCss = "fa fa-file-pdf"
                                                                        })">
                                                     </GridCommandColumn>
                                                     <GridCommandColumn Type=CommandButtonType.Delete
@@ -319,29 +328,32 @@ else
             </GridTemplates>
             <GridColumns>
 
-@*                <GridColumn HeaderText="Foto" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Center" Width="120">
+                @*                <GridColumn HeaderText="Foto" TextAlign="Syncfusion.Blazor.Grids.TextAlign.Center" Width="120">
 
-                    <Template Context="petCtx">
-                        @{
-                            var cliente = (petCtx as PetVM);
-                            if (!string.IsNullOrEmpty(cliente?.Foto))
-                            {
-                                <div class="image">
-                                    <img src="@cliente.Foto" />
-                                </div>
-                            }
-                        }
-                    </Template>
-                </GridColumn>
-*@
+            <Template Context="petCtx">
+            @{
+            var cliente = (petCtx as PetVM);
+            if (!string.IsNullOrEmpty(cliente?.Foto))
+            {
+            <div class="image">
+            <img src="@cliente.Foto" />
+            </div>
+            }
+            }
+            </Template>
+            </GridColumn>
+            *@
                 <GridColumn Field=@nameof(PetVM.Nome) HeaderText="Pet" Width="150"></GridColumn>
-                <GridColumn Field=@nameof(PetVM.DataNascimento) Format="d" HeaderText="@L["Data"]" Width="110"></GridColumn>
-                <GridColumn Field=@nameof(PetVM.RacaAnimal) HeaderText="Raça" Width="210"></GridColumn>
-                <GridColumn Field=@nameof(PetVM.TamanhoAnimal) HeaderText="Tamanho" Width="110"></GridColumn>
-                <GridColumn Field=@nameof(PetVM.Genero) HeaderText="Género" TextAlign="TextAlign.Center" Width="90"></GridColumn>
-                <GridColumn Field=@nameof(PetVM.SituacaoAnimal) HeaderText="Situação" Width="170"></GridColumn>
-                <GridColumn Field=@nameof(PetVM.Chipado) HeaderText="Chip" DisplayAsCheckBox="true" Width="90"></GridColumn>
-                <GridColumn Field=@nameof(PetVM.Esterilizado) HeaderText="Esterilizado" DisplayAsCheckBox="true" Width="110"></GridColumn>
+                <GridColumn Field=@nameof(PetVM.DataNascimento) Format="d" TextAlign="TextAlign.Center"
+                            HeaderText="@L["TituloDtNascimento"]" Width="110"></GridColumn>
+                <GridColumn Field=@nameof(PetVM.RacaAnimal) HeaderText="@L["Pet_Breed"]" Width="210"></GridColumn>
+                <GridColumn Field=@nameof(PetVM.TamanhoAnimal) HeaderText="@L["Pet_Size"]" Width="110"></GridColumn>
+                <GridColumn Field=@nameof(PetVM.Genero) HeaderText="@L["TituloSexo"]" TextAlign="TextAlign.Center" Width="90"></GridColumn>
+                <GridColumn Field=@nameof(PetVM.SituacaoAnimal) HeaderText="@L["TituloSituacao"]" Width="170"></GridColumn>
+                <GridColumn Field=@nameof(PetVM.Chipado) HeaderText="Chip"
+                            TextAlign="TextAlign.Center" DisplayAsCheckBox="true" Width="90"></GridColumn>
+                <GridColumn Field=@nameof(PetVM.Esterilizado)
+                            TextAlign="TextAlign.Center" HeaderText="@L["Pet_Sterilised"]" DisplayAsCheckBox="true" Width="110"></GridColumn>
                 <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                     <GridCommandColumns>
                         <GridCommandColumn Type=CommandButtonType.Edit
@@ -390,6 +402,63 @@ else
         </DialogTemplates>
         <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
     </SfDialog>
+
+    <SfDialog CssClass="responsive-pdf-word-viewer"
+              IsModal="true"
+              ShowCloseIcon="false"
+              CloseOnEscape="true"
+    @bind-Visible="ShowFileVisibility">
+        <DialogTemplates>
+            <Header>
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        @SelectedDocument!.Description
+                    </h5>
+                </div>
+            </Header>
+            <Content>
+                @if (!string.IsNullOrEmpty(documentFilePath))
+                {
+                    <PdfViewer PdfPath="@documentFilePath" />
+                }
+            </Content>
+            <FooterTemplate>
+                <div>
+                    <SfButton CssClass="e-outline e-round-corner"
+                              IconCss="fas fa-times"
+                    @onclick="(()=>ShowFileVisibility = false)" Content="@L["MSG_GoBack"]">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="DialogEffect.FadeZoom" Duration=600></DialogAnimationSettings>
+    </SfDialog>
+
+
+    <ValidateErrorComponent Visible="@ErrorVisibility" DialogTitle="@L["TituloDespesas"]"
+                            ValidationMessages="@ValidationsMessages"
+                            OnCloseDialog="@(()=>ErrorVisibility = false)" />
+
+    <ConfirmDeleteComponent AlertMessageType="AlertMessageType.Error" DialogWidth="20%"
+                            DialogTitle="@WarningTitle" ConfirmationText="@L["MSG_ConfirmarOperacao"]"
+                            Module="Modules.Pets"
+                            Message="@SelectedPet?.Nome"
+                            Visible="@DeletePetVisibility"
+                            OnConfirmationYes="ConfirmDeleteYes"
+                            OnConfirmationNo="@(()=>DeletePetVisibility=false)"></ConfirmDeleteComponent>
+
+    <AlertUserComponent AlertMessageType="AlertMessageType.Warning"
+                        Title="@alertTitle"
+                        OperationType="OpcoesRegisto.Warning"
+                        Visibility="@AlertVisibility"
+                        Message="@WarningMessage"
+                        OnCloseDialog="(()=>AlertVisibility=false)"></AlertUserComponent>
+
+    <ValidateErrorComponent Visible="@ErrorVisibility"
+                            ValidationMessages="@ValidationsMessages"
+                            OnCloseDialog="@(()=>ErrorVisibility = false)" />
+
+
     <SfToast ID="toast_custom" @ref="ToastObj" ShowProgressBar=true
              Title="@ToastTitle" Icon="@ToastIcon"
              Content="@ToastMessage"

@@ -11,6 +11,7 @@ using static DaisyPets.Core.Application.Enums.Common;
 using Syncfusion.Blazor.Popups;
 using Syncfusion.Blazor.Notifications;
 using Syncfusion.Blazor.Calendars;
+using Syncfusion.Blazor.Notifications.Internal;
 
 namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 {
@@ -68,6 +69,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected bool DeleteConsultationVisibility { get; set; }
         protected bool DeleteDewormerVisibility { get; set; }
         protected bool DeleteVaccineVisibility { get; set; }
+        protected bool ShowFileVisibility { get; set; }
+
 
         protected int PetId { get; set; }
         protected int PetSizeId { get; set; }
@@ -75,10 +78,13 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected int PetBreedId { get; set; }
         protected int PetTemperamentId { get; set; }
         protected int PetSpecieId { get; set; }
+        protected int PetDocumentId { get; set; }
+
 
         protected bool ErrorVisibility { get; set; } = false;
         protected bool AlertVisibility { get; set; } = false;
         protected string? WarningMessage { get; set; }
+        protected string? WarningTitle { get; set; }
         protected bool WarningVisibility { get; set; }
         protected List<string> ValidationsMessages = new();
 
@@ -89,8 +95,13 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected string? ToastCss;
         protected string? ToastIcon;
 
+        protected string ToastContent = "";
+        protected string ToastCssClass = "";
+
+
         protected DialogEffect Effect = DialogEffect.Zoom;
         protected SfToast? ToastObj { get; set; }
+        protected string? documentFilePath { get; set; }
 
 
         protected override async Task OnInitializedAsync()
@@ -101,6 +112,9 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             PetBreedId = 0;
             PetTemperamentId = 0;
             PetSpecieId = 0;
+
+            PetDocumentId = 0;
+            documentFilePath = "";
 
             urlBaseAddress = config["ApiSettings:UrlBase"];
             petsEndpoint = $"{urlBaseAddress}/Pets/AllPetsVM";
@@ -147,8 +161,10 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         }
         public async Task<bool> SavePetData()
         {
-            if ((await ValidateData()).Count > 0)
+            var validationMessages = await ValidateData();
+            if (validationMessages.Any())
             {
+                ValidationsMessages = validationMessages;
                 ErrorVisibility = true;
                 return false;
             }
@@ -167,7 +183,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                         if (!success)
                         {
                             AlertVisibility = true;
-                            alertTitle = "Atualização de dados do inquilino";
+                            alertTitle = "Atualização de dados do Pet";
                             WarningMessage = $"{L["MSG_ApiError"]}";
                         }
                         else
@@ -176,6 +192,10 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                             ToastMessage = $"{L["SuccessUpdate"]}";
                             ToastIcon = "fas fa-check";
                         }
+
+                        Pets = await GetAllPets();
+                        await Task.Delay(100);
+                        await ToastObj.ShowAsync();
 
                         await InvokeAsync(StateHasChanged);
                         AddEditPetVisibility = false;
@@ -200,15 +220,23 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                         if (!success)
                         {
                             AlertVisibility = true;
-                            alertTitle = "Atualização de dados do inquilino";
+                            alertTitle = "Criação de Pet";
                             WarningMessage = $"{L["MSG_ApiError"]}";
                         }
                         else
                         {
                             ToastCss = "e-toast-success";
-                            ToastMessage = $"{L["SuccessUpdate"]}";
+                            ToastMessage = $"{L["SuccessInsert"]}";
                             ToastIcon = "fas fa-check";
                         }
+
+                        AddEditPetVisibility = false;
+
+                        await Task.Delay(100);
+                        await ToastObj.ShowAsync();
+                        await InvokeAsync(StateHasChanged);
+
+                        Pets = await GetAllPets();
 
                         return success;
                     }
@@ -539,6 +567,32 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             SelectedPet = await GetPetById(PetId);
         }
 
+        public async Task OnPetDocumentCommandClicked(CommandClickEventArgs<DocumentoVM> args)
+        {
+            modulo = Modules.Documents;
+            PetDocumentId = args.RowData.Id;
+            SelectedDocument = await GetSelectedDocument(PetDocumentId);
+            if (args.CommandColumn.Type == CommandButtonType.None)
+            {
+                RecordMode = OpcoesRegisto.Info;
+                var fileName = args.RowData.DocumentPath;
+                string? fileExtension = Path.GetExtension(fileName);
+                documentFilePath = Path.Combine(_env.WebRootPath, "uploads", "Pets", fileName!);
+                ShowFileVisibility = true;
+            }
+        }
+
+        private async Task<DocumentoDto?> GetSelectedDocument(int petDocumentId)
+        {
+            string url = $"{urlBaseAddress}/Document/{PetDocumentId}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var _document = await httpClient.GetFromJsonAsync<DocumentoDto>(url);
+                return _document ?? new DocumentoDto();
+            }
+
+        }
+
         public async Task OnPetCommandClicked(CommandClickEventArgs<PetVM> args)
         {
             modulo = Modules.Pets;
@@ -555,6 +609,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             if (args.CommandColumn.Type == CommandButtonType.Delete)
             {
+                WarningTitle = "Apaga Pet?";
                 DeletePetVisibility = true;
                 DeleteCaption = SelectedPet?.Nome;
             }
@@ -584,6 +639,53 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 logger?.LogError(ex.Message);
                 return new PetDto();
             }
+        }
+
+        protected async Task ConfirmDeleteYes()
+        {
+            ToastTitle = $"{L["DeleteMsg"]} {L["TituloDespesa"]}";
+
+            await DeletePet();
+
+            //ToastCssClass = "e-toast-success";
+            //ToastContent = L["RegistoAnuladoSucesso"];
+
+            //await Task.Delay(200);
+            //await ToastObj!.ShowAsync();
+
+        }
+
+        private async Task DeletePet()
+        {
+            string url = $"{urlBaseAddress}/Pets/{PetId}";
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    var response = await httpClient.DeleteAsync(url);
+                    response.EnsureSuccessStatusCode();
+                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
+                    {
+                        ValidationsMessages = new List<string>() { "Erro ao apagar registo" };
+                        ErrorVisibility = true;
+                        return;
+                    }
+
+                    Pets = await GetAllPets();
+                }
+
+                DeletePetVisibility = false;
+                alertTitle = "Apagar Pet";
+                WarningMessage = "Operação terminada com sucesso";
+                AlertVisibility = true;
+            }
+            catch (Exception ex)
+            {
+                alertTitle = "Apagar Pet";
+                WarningMessage = $"Erro ({ex.Message})";
+                AlertVisibility = true;
+            }
+
         }
 
 
