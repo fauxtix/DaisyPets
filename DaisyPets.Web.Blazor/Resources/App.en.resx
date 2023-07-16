@@ -2457,4 +2457,7 @@
   <data name="TituloPadrinho" xml:space="preserve">
     <value>Godfather</value>
   </data>
+  <data name="TituloTemperamento" xml:space="preserve">
+    <value>Temperament</value>
+  </data>
 </root>

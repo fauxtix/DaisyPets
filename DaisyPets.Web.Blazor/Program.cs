@@ -1,7 +1,5 @@
 using DaisyPets.Web.Blazor.Data;
 using DaisyPets.Web.Blazor.Shared;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Syncfusion.Blazor;
 
 var builder = WebApplication.CreateBuilder(args);

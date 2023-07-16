@@ -845,7 +845,7 @@ Vérifiez les erreurs, s'il vous plaît</value>
     <value>Nom</value>
   </data>
   <data name="TituloNotas" xml:space="preserve">
-    <value>Raison</value>
+    <value>Observations / notes</value>
   </data>
   <data name="TituloObservacoes" xml:space="preserve">
     <value>Commentaires</value>
@@ -1437,10 +1437,10 @@ Vérifiez les erreurs, s'il vous plaît</value>
     <value>Urgence</value>
   </data>
   <data name="TituloFeminino" xml:space="preserve">
-    <value>Femme</value>
+    <value>Femelle</value>
   </data>
   <data name="TituloMasculino" xml:space="preserve">
-    <value>Homme</value>
+    <value>Mâle</value>
   </data>
   <data name="TituloMedicoAssistente" xml:space="preserve">
     <value>Médecin adjoint</value>
@@ -2470,5 +2470,8 @@ Vérifiez les erreurs, s'il vous plaît</value>
   </data>
   <data name="TituloPadrinho" xml:space="preserve">
     <value>Parrain</value>
+  </data>
+  <data name="TituloTemperamento" xml:space="preserve">
+    <value>Tempérament</value>
   </data>
 </root>

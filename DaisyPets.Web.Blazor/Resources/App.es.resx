@@ -851,7 +851,7 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
     <value>Nombre</value>
   </data>
   <data name="TituloNotas" xml:space="preserve">
-    <value>Razón</value>
+    <value>Observaciones / notas</value>
   </data>
   <data name="TituloObservacoes" xml:space="preserve">
     <value>Observaciones</value>
@@ -2444,15 +2444,18 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
     <value>Color</value>
   </data>
   <data name="TituloDoencaCronica" xml:space="preserve">
-    <value>Doença Crónica</value>
+    <value>Enfermedad crónica</value>
   </data>
   <data name="TituloEspecie" xml:space="preserve">
-    <value>Espécie</value>
+    <value>Especie</value>
   </data>
   <data name="TituloMedicacao" xml:space="preserve">
-    <value>Medicação</value>
+    <value>Medicación</value>
   </data>
   <data name="TituloPadrinho" xml:space="preserve">
     <value>Padrino</value>
+  </data>
+  <data name="TituloTemperamento" xml:space="preserve">
+    <value>Temperamento</value>
   </data>
 </root>

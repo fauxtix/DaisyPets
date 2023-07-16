@@ -1450,4 +1450,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   <data name="TituloPadrinho" xml:space="preserve">
     <value>Padrinho</value>
   </data>
+  <data name="TituloTemperamento" xml:space="preserve">
+    <value>Temperamento</value>
+  </data>
 </root>
