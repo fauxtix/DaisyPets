@@ -13,6 +13,28 @@
 
 <PageTitle>Daisy Pets</PageTitle>
 <PageTitleComponent PageTitle="@L["Pet_Title"]"></PageTitleComponent>
+@{
+    var Tool = (new List<object>() {
+        "Search",
+        "PdfExport",
+            new ItemModel()
+    {
+        Type = ItemType.Separator
+    },
+     new ItemModel()
+     {
+         Text = "Expand all",
+         TooltipText = "Expand all",
+         PrefixIcon = "e-expand"
+     },
+     new ItemModel()
+     {
+         Text = "Collapse all",
+         TooltipText = "Collapse all",
+         PrefixIcon = "e-collapse"
+     },
+    });
+}
 
 @if (Pets is null)
 {
@@ -27,7 +49,9 @@ else
     </div>
 
     <div class="table table-striped table-hover">
-        <SfGrid Width="100%"
+        <SfGrid  ID="Pets_Grid"
+            Width="100%" @ref="petsGridObj"
+                Toolbar="@Tool"
                 Height="100%"
                 EnableStickyHeader="true"
                 EnableAltRow="true"
@@ -41,7 +65,9 @@ else
                 AllowPdfExport="true"
                 RowHeight="32"
                 AllowTextWrap="true">
-            <GridEvents RowSelected="RowSelectHandler" CommandClicked="OnPetCommandClicked" TValue="PetVM">
+            <GridEvents RowSelected="RowSelectHandler"
+                        OnToolbarClick="ToolbarClickHandler"
+                        CommandClicked="OnPetCommandClicked" TValue="PetVM">
             </GridEvents>
 
             <GridTemplates>

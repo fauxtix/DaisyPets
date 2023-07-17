@@ -96,6 +96,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
 
         protected DialogEffect Effect = DialogEffect.Zoom;
+        protected SfGrid<PetVM>? petsGridObj { get; set; }
+
         protected SfToast? ToastObj { get; set; }
         protected string? documentFilePath { get; set; }
 
@@ -480,7 +482,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         public void onAddConsultation(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
             RecordMode = OpcoesRegisto.Inserir;
-            NewCaption = $"{L["NewMsg"]} ({L["Pet_Dewormers"]})";
+            NewCaption = $"{L["NewMsg"]} ({L["Pet_Consultations"]})";
             modulo = Modules.Consultations;
 
             SelectedConsultation = new()
@@ -620,6 +622,23 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             }
         }
 
+        public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+        {
+            if (args.Item.Id == "Pets_Grid_pdfexport")  //Id is combination of Grid's ID and itemname
+            {
+                await petsGridObj!.ExportToPdfAsync();
+                return;
+            }
+
+            if (args.Item.Text == "Expand all")
+            {
+                await petsGridObj.ExpandAllDetailRowAsync();
+            }
+            else if (args.Item.Text == "Collapse all")
+            {
+                await petsGridObj.CollapseAllDetailRowAsync();
+            }
+        }
 
         protected async Task<PetDto> GetPetById(int Id)
         {
@@ -703,6 +722,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         {
             sfUploader?.Dispose();
             ToastObj?.Dispose();
+            petsGridObj?.Dispose();
         }
     }
 }
