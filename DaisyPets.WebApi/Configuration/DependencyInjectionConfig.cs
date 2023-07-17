@@ -64,6 +64,9 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<ILookupTableRepository, LookupTableRepository>();
             services.AddScoped<ILookupTableService, LookupTableService>();
 
+            services.AddScoped<IAppSettingsRepository, AppSettingsRepository>();
+            services.AddScoped<IAppSettingsService, AppSettingsService>();
+
             services.AddScoped<IValidator<PetDto>, PetValidator>(); 
             services.AddScoped<IValidator<ContactoVM>, ContactValidator>();
             services.AddScoped<IValidator<VacinaDto>, VacinaValidator>();

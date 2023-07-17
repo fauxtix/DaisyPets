@@ -2441,7 +2441,7 @@ Vérifiez les erreurs, s'il vous plaît</value>
   <data name="Pet_Vaccine_Next" xml:space="preserve">
     <value>Prochaine</value>
   </data>
-  <data name="Pet_Vaccinnes" xml:space="preserve">
+  <data name="Pet_Vaccines" xml:space="preserve">
     <value>Vaccins</value>
   </data>
   <data name="TituloDiagnostico" xml:space="preserve">

@@ -1423,7 +1423,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   <data name="Pet_Vaccine_Next" xml:space="preserve">
     <value>Próxima</value>
   </data>
-  <data name="Pet_Vaccinnes" xml:space="preserve">
+  <data name="Pet_Vaccines" xml:space="preserve">
     <value>Vacinas</value>
   </data>
   <data name="TituloDiagnostico" xml:space="preserve">

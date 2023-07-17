@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@using DaisyPets.Core.Application.Interfaces.Repositories;
+@inherits LayoutComponentBase
 
 <PageTitle>Daisy Pets</PageTitle>
 
@@ -8,14 +9,56 @@
     </div>
 
     <main>
-        <div class="top-row px-4 auth">
-            <div class="mt-2 d-lg-block">
+        @if (string.IsNullOrEmpty(appLanguageSelected))
+        {
+            <div class="top-row px-4 auth">
+                <div class="mt-2 d-lg-block">
                 <CultureSwitcher />
             </div>
         </div>
-
+        }
         <article class="content px-4">
             @Body
         </article>
     </main>
 </div>
+
+@code {
+    bool wasLanguageSelected = false;
+    protected string? urlBaseAddress;
+    protected string? appLanguageSelected = string.Empty;
+    [Inject] IConfiguration config { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        urlBaseAddress = config["ApiSettings:UrlBase"];
+        appLanguageSelected = await GetLanguage();
+    }
+
+    private async Task<string> GetLanguage()
+    {
+        try
+        {
+            var appLanguageSettingsEndpoint = $"{urlBaseAddress}/AppUtils/Settings/Language";
+            using (HttpClient httpClient = new HttpClient())
+            {
+
+                var languageSelected = await httpClient.GetStringAsync(appLanguageSettingsEndpoint);
+                if (!string.IsNullOrEmpty(languageSelected))
+                {
+                    return languageSelected;
+                }
+
+                else
+                    return "";
+
+            }
+        }
+        catch (Exception ex)
+        {
+            var x = ex.Message;
+            throw;
+        }
+    }
+}

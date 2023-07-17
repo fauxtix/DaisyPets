@@ -1,6 +1,7 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels;
 using FluentValidation;
+using System.Globalization;
 
 namespace DaisyPets.WebApi.Validators
 {
@@ -58,11 +59,22 @@ namespace DaisyPets.WebApi.Validators
         /// <returns></returns>
         protected bool BeAValidDate(string date)
         {
-            var parsedDate = DateTime.Parse(date);
-            if (!DataFormat.IsValidDate(parsedDate))
-                return false;
-            else if (parsedDate.Date >= DateTime.Now.Date)
-                return false;
+            DateTime parsedDate;
+            var currentCulture = CultureInfo.CurrentCulture;
+            if (!DataFormat.IsValidDate(date)) // english / american
+            {
+                if (date.Length == 10)
+                {
+                    parsedDate = DateTime.Parse(date.Substring(3, 2) + "/" + date.Substring(0, 2) + date.Substring(5));
+                    if (!DataFormat.IsValidDate(parsedDate))
+                        return false;
+                    else
+                    {
+                        if (parsedDate.Date >= DateTime.Now.Date)
+                            return false;
+                    }
+                }
+            }
 
             return true;
         }

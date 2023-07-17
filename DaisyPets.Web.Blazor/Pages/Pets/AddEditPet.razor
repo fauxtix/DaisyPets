@@ -1,4 +1,5 @@
-﻿@using DaisyPets.Core.Application.ViewModels;
+﻿@using DaisyPets.Core.Application.Formatting;
+@using DaisyPets.Core.Application.ViewModels;
 @using DaisyPets.Core.Application.ViewModels.LookupTables;
 @using DaisyPets.Web.Blazor.Pages.CodeBehind.Pets;
 @using static DaisyPets.Core.Application.Enums.Common;
@@ -255,14 +256,24 @@
         idxTemperament = UserSelectedPet.IdTemperamento;
         idxSpecie = UserSelectedPet.IdEspecie;
 
-        dNascimento = DateTime.Parse(UserSelectedPet.DataNascimento);
+        if (DataFormat.IsValidDate(UserSelectedPet.DataNascimento))
+        {
+            dNascimento = DateTime.Parse(UserSelectedPet.DataNascimento);
+        }
+        else
+        {
+            dNascimento = DateTime.Parse(UserSelectedPet.DataNascimento.Substring(3, 2) + "/" + UserSelectedPet.DataNascimento.Substring(0, 2) + UserSelectedPet.DataNascimento.Substring(5));
+        }
         chipado = Convert.ToBoolean(UserSelectedPet.Chipado);
         esterilizado = Convert.ToBoolean(UserSelectedPet.Esterilizado);
         padrinho = Convert.ToBoolean(UserSelectedPet.Padrinho);
 
         if (UserSelectedPet.Chipado == 1)
         {
-            dChipagem = DateTime.Parse(UserSelectedPet.DataChip);
+            if (DataFormat.IsValidDate(UserSelectedPet.DataChip))
+                dChipagem = DateTime.Parse(UserSelectedPet.DataChip);
+            else
+                dChipagem = DateTime.Parse(UserSelectedPet.DataChip.Substring(3, 2) + "/" + UserSelectedPet.DataChip.Substring(0, 2) + UserSelectedPet.DataChip.Substring(5));
         }
     }
 

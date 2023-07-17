@@ -75,7 +75,7 @@ namespace DaisyPets.Core.Application.Formatting
         #region Core Formatting Metods
         public static bool IsValidDate(string date)
         {
-            bool retValue = false;
+            bool retValue = false;            
             DateTime result = new DateTime();
             if (DateTime.TryParse(date, out result))
                 retValue = true;

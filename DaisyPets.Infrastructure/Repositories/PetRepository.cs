@@ -5,6 +5,7 @@ using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Domain;
 using Dapper;
 using Microsoft.Extensions.Logging;
+using System.Globalization;
 using System.Text;
 
 namespace DaisyPets.Infrastructure.Repositories
@@ -23,6 +24,29 @@ namespace DaisyPets.Infrastructure.Repositories
 
         public async Task<int> InsertAsync(Pet pet)
         {
+            var currentCulture = CultureInfo.CurrentCulture;
+
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@Chip", pet.Chip);
+            dynamicParameters.Add("@Chipado", pet.Chipado);
+            dynamicParameters.Add("@DataChip", pet.DataChip);
+            dynamicParameters.Add("@NumeroChip", pet.NumeroChip);
+            dynamicParameters.Add("@Cor", pet.Cor);
+            dynamicParameters.Add("@Foto", pet.Foto);
+            dynamicParameters.Add("@DoencaCronica", pet.DoencaCronica);
+            dynamicParameters.Add("@Esterilizado", pet.Esterilizado);
+            dynamicParameters.Add("@IdEspecie", pet.IdEspecie);
+            dynamicParameters.Add("@DataNascimento", pet.DataNascimento);
+            dynamicParameters.Add("@Medicacao", pet.Medicacao);
+            dynamicParameters.Add("@IdPeso", pet.IdPeso);
+            dynamicParameters.Add("@IdRaca", pet.IdRaca);
+            dynamicParameters.Add("@IdTamanho", pet.IdTamanho);
+            dynamicParameters.Add("@IdSituacao", pet.IdSituacao);
+            dynamicParameters.Add("@IdTemperamento", pet.IdTemperamento);
+            dynamicParameters.Add("@Genero", pet.Genero.Substring(0, 1));
+            dynamicParameters.Add("@Nome", pet.Nome);
+            dynamicParameters.Add("@Observacoes", pet.Observacoes);
+            dynamicParameters.Add("@Padrinho", pet.Padrinho);
 
             StringBuilder sb = new StringBuilder();
 
@@ -40,7 +64,7 @@ namespace DaisyPets.Infrastructure.Repositories
             {
                 using (var connection = _context.CreateConnection())
                 {
-                    var result = await connection.QueryFirstAsync<int>(sb.ToString(), param: pet);
+                    var result = await connection.QueryFirstAsync<int>(sb.ToString(), param: dynamicParameters);
                     return result;
                 }
 

@@ -1,4 +1,3 @@
-using DaisyPets.Web.Blazor.Data;
 using DaisyPets.Web.Blazor.Shared;
 using Syncfusion.Blazor;
 
@@ -7,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddSyncfusionBlazor(options => { options.IgnoreScriptIsolation = false; });
 

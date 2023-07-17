@@ -2428,7 +2428,7 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="Pet_Vaccine_Next" xml:space="preserve">
     <value>Próxima</value>
   </data>
-  <data name="Pet_Vaccinnes" xml:space="preserve">
+  <data name="Pet_Vaccines" xml:space="preserve">
     <value>Vacunas</value>
   </data>
   <data name="TituloDiagnostico" xml:space="preserve">

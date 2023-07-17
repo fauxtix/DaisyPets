@@ -6,6 +6,7 @@ using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Notifications;
 using Syncfusion.Blazor.Popups;
+using System.Globalization;
 using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
@@ -166,11 +167,20 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             var url = $"{urlBaseAddress}/Pets";
 
+            //var currentCulture = CultureInfo.CurrentCulture;
+            //var culture = currentCulture.Name;
+            //if (culture.ToLower().Contains("us"))
+            //{
+            //    DateTime date = DateTime.Parse(SelectedPet.DataNascimento, currentCulture);
+            //    SelectedPet.DataNascimento = date.ToString(currentCulture);
+            //}
+
             if (RecordMode == OpcoesRegisto.Gravar)
             {
                 ToastTitle = $"{L["btnSalvar"]} {L["Pet_Title"]}";
                 try
                 {
+
                     using (HttpClient httpClient = new HttpClient())
                     {
                         var result = await httpClient.PutAsJsonAsync($"{url}/{PetId}", SelectedPet);
