@@ -4,7 +4,7 @@
 
 A project that allows you to manage the day-to-day life of your pets (vaccinations, feed dosage, visits to the vet, examination / analysis documents, etc.).
 
-It uses C# as development language, and was built using the .Net 7 platform.
+It uses C# as the development language, and was built using the .Net 7 platform.
 It comprises a web api, a desktop application (windows forms) and a web project (Blazor Server => work in progress).
 
 It is up to the user to choose between the desktop or web application.
