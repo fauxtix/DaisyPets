@@ -90,7 +90,7 @@
             {
 
                 var response = await httpClient.PostAsJsonAsync(appLanguageSettingsEndpoint, culture);
-                if(response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
                     var d = response.Content.ToString();
                 }
@@ -108,7 +108,7 @@
 {
             new CountryModel { ID ="pt-PT", Text = "TituloIdiomaPortugues", Pic = "portugal" },
             new CountryModel { ID = "es", Text = "TituloIdiomaEspanhol", Pic = "espanha", },
-            new CountryModel { ID ="en-US", Text = "TituloIdiomaIngles", Pic = "american_flag",},
+            new CountryModel { ID ="en-GB", Text = "TituloIdiomaIngles", Pic = "inglaterra",},
             new CountryModel { ID ="fr", Text = "TituloIdiomaFrances", Pic = "franca" }
         };
 

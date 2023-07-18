@@ -6,7 +6,6 @@ using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Notifications;
 using Syncfusion.Blazor.Popups;
-using System.Globalization;
 using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
@@ -211,7 +210,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 }
                 catch (Exception exc)
                 {
-                    logger.LogError(exc.Message, $"{L["MSG_ApiError"]}");
+                    logger?.LogError(exc.Message, $"{L["MSG_ApiError"]}");
                     return false;
                 }
             }
@@ -250,7 +249,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 }
                 catch (Exception exc)
                 {
-                    logger.LogError(exc.Message, $"{L["MSG_ApiError"]}");
+                    logger?.LogError(exc.Message, $"{L["MSG_ApiError"]}");
                     return false;
                 }
             }
@@ -268,12 +267,13 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 }
                 catch (System.Net.Http.HttpRequestException exa)
                 {
-                    var msg = exa.Message;
+                    logger?.LogError(exa.Message, $"{L["MSG_ApiError"]}");
+
                     return Enumerable.Empty<PetVM>();
                 }
                 catch (Exception ex)
                 {
-                    var msg = ex.Message;
+                    logger?.LogError(ex.Message, $"{L["MSG_ApiError"]}");
                     return Enumerable.Empty<PetVM>();
                 }
             }
@@ -291,12 +291,14 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 }
                 catch (System.Net.Http.HttpRequestException exa)
                 {
-                    var msg = exa.Message;
+                    logger?.LogError(exa.Message, $"{L["MSG_ApiError"]}");
+
                     return Enumerable.Empty<VacinaVM>();
                 }
                 catch (Exception ex)
                 {
-                    var msg = ex.Message;
+                    logger?.LogError(ex.Message, $"{L["MSG_ApiError"]}");
+
                     return Enumerable.Empty<VacinaVM>();
                 }
             }
@@ -319,14 +321,15 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                     var response = await httpClient.GetFromJsonAsync<IEnumerable<DocumentoVM>>($"{petDocumentsEndpoint}/{Id}");
                     return response?.ToList();
                 }
-                catch (System.Net.Http.HttpRequestException exa)
+                catch (HttpRequestException exa)
                 {
-                    var msg = exa.Message;
+                    logger?.LogError(exa.Message, $"{L["MSG_ApiError"]}");
+
                     return Enumerable.Empty<DocumentoVM>();
                 }
                 catch (Exception ex)
                 {
-                    var msg = ex.Message;
+                    logger?.LogError(ex.Message, $"{L["MSG_ApiError"]}");
                     return Enumerable.Empty<DocumentoVM>();
                 }
             }
@@ -335,7 +338,9 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected IEnumerable<DocumentoVM>? GetPetDocumentsHistory(int id)
         {
 
-            IEnumerable<DocumentoVM> documentsList = Task.Run(async () => await GetPetDocuments(id)).Result ?? Enumerable.Empty<DocumentoVM>();
+            IEnumerable<DocumentoVM> documentsList =
+                Task.Run(async () => await GetPetDocuments(id)).Result ??
+                Enumerable.Empty<DocumentoVM>();
             return documentsList;
         }
 
@@ -349,14 +354,15 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                     var response = await httpClient.GetFromJsonAsync<IEnumerable<ConsultaVeterinarioVM>>($"{petConsultationsEndpoint}/{Id}");
                     return response?.ToList();
                 }
-                catch (System.Net.Http.HttpRequestException exa)
+                catch (HttpRequestException exa)
                 {
-                    var msg = exa.Message;
+                    logger?.LogError(exa.Message, $"{L["MSG_ApiError"]}");
+
                     return Enumerable.Empty<ConsultaVeterinarioVM>();
                 }
                 catch (Exception ex)
                 {
-                    var msg = ex.Message;
+                    logger?.LogError(ex.Message, $"{L["MSG_ApiError"]}");
                     return Enumerable.Empty<ConsultaVeterinarioVM>();
                 }
             }
@@ -365,7 +371,9 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected IEnumerable<ConsultaVeterinarioVM>? GetPetConsultationsHistory(int id)
         {
 
-            IEnumerable<ConsultaVeterinarioVM> documentsList = Task.Run(async () => await GetPetConsultations(id)).Result ?? Enumerable.Empty<ConsultaVeterinarioVM>();
+            IEnumerable<ConsultaVeterinarioVM> documentsList =
+                Task.Run(async () => await GetPetConsultations(id)).Result ??
+                Enumerable.Empty<ConsultaVeterinarioVM>();
             return documentsList;
         }
 
@@ -379,14 +387,16 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                     var response = await httpClient.GetFromJsonAsync<IEnumerable<RacaoVM>>($"{petFoodEndpoint}/{Id}");
                     return response?.ToList();
                 }
-                catch (System.Net.Http.HttpRequestException exa)
+                catch (HttpRequestException exa)
                 {
-                    var msg = exa.Message;
+                    logger?.LogError(exa.Message, $"{L["MSG_ApiError"]}");
+
                     return Enumerable.Empty<RacaoVM>();
                 }
                 catch (Exception ex)
                 {
-                    var msg = ex.Message;
+                    logger?.LogError(ex.Message, $"{L["MSG_ApiError"]}");
+
                     return Enumerable.Empty<RacaoVM>();
                 }
             }
@@ -411,12 +421,13 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 }
                 catch (System.Net.Http.HttpRequestException exa)
                 {
-                    var msg = exa.Message;
+                    logger?.LogError(exa.Message, $"{L["MSG_ApiError"]}");
+
                     return Enumerable.Empty<DesparasitanteVM>();
                 }
                 catch (Exception ex)
                 {
-                    var msg = ex.Message;
+                    logger?.LogError(ex.Message, $"{L["MSG_ApiError"]}");
                     return Enumerable.Empty<DesparasitanteVM>();
                 }
             }
@@ -671,11 +682,11 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             await DeletePet();
 
-            //ToastCssClass = "e-toast-success";
-            //ToastContent = L["RegistoAnuladoSucesso"];
+            ToastCssClass = "e-toast-success";
+            ToastContent = L["RegistoAnuladoSucesso"];
 
-            //await Task.Delay(200);
-            //await ToastObj!.ShowAsync();
+            await Task.Delay(200);
+            await ToastObj!.ShowAsync();
 
         }
 
@@ -705,6 +716,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             }
             catch (Exception ex)
             {
+                logger?.LogError(ex.Message, $"{L["MSG_ApiError"]}");
+
                 alertTitle = $"{L["DeleteMsg"]} {L["Pet_Title"]}";
                 WarningMessage = $"Erro ({ex.Message})";
                 AlertVisibility = true;

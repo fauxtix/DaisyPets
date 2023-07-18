@@ -9,10 +9,9 @@
 @using static DaisyPets.Core.Application.Enums.Common;
 
 @inject IConfiguration config
-@inject IStringLocalizer<App> L
 
 <PageTitle>Daisy Pets</PageTitle>
-<PageTitleComponent PageTitle="@L["Pet_Title"]"></PageTitleComponent>
+<PageTitleComponent PageTitle="@L["Pet_Title"]"/>
 @{
     var Tool = (new List<object>() {
         "Search",
@@ -44,13 +43,13 @@ else
 {
     <div class="source-options my-2">
         <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
-        @onclick="@onAddPet" IsPrimary="true">
+                @onclick="@onAddPet" IsPrimary="true">
         </SfButton>
     </div>
 
     <div class="table table-striped table-hover">
-        <SfGrid  ID="Pets_Grid"
-            Width="100%" @ref="petsGridObj"
+        <SfGrid ID="Pets_Grid"
+                Width="100%" @ref="petsGridObj"
                 Toolbar="@Tool"
                 Height="100%"
                 EnableStickyHeader="true"
@@ -408,7 +407,7 @@ else
               IsModal="true"
               ShowCloseIcon="false"
               CloseOnEscape="false"
-    @bind-Visible="AddEditPetVisibility">
+              @bind-Visible="AddEditPetVisibility">
         <DialogTemplates>
             <Content>
                 <AddEditPet UserSelectedPet="@SelectedPet"
@@ -461,10 +460,10 @@ else
     </SfDialog>
 
 
-    <ValidateErrorComponent Visible="@ErrorVisibility" DialogTitle="@L["TituloDespesas"]"
+    @*    <ValidateErrorComponent Visible="@ErrorVisibility" DialogTitle="@L["TituloDespesas"]"
                             ValidationMessages="@ValidationsMessages"
                             OnCloseDialog="@(()=>ErrorVisibility = false)" />
-
+*@
     <ConfirmDeleteComponent AlertMessageType="AlertMessageType.Error" DialogWidth="20%"
                             DialogTitle="@WarningTitle" ConfirmationText="@L["MSG_ConfirmarOperacao"]"
                             Module="Modules.Pets"
@@ -499,7 +498,4 @@ else
         </ToastButtons>
         <ToastPosition X="Right" Y="Bottom"></ToastPosition>
     </SfToast>
-
-
 }
-

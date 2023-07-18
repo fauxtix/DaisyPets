@@ -9,14 +9,11 @@
     </div>
 
     <main>
-        @if (string.IsNullOrEmpty(appLanguageSelected))
-        {
-            <div class="top-row px-4 auth">
-                <div class="mt-2 d-lg-block">
+        <div class="top-row px-4 auth">
+            <div class="mt-2 d-lg-block">
                 <CultureSwitcher />
             </div>
         </div>
-        }
         <article class="content px-4">
             @Body
         </article>
@@ -33,7 +30,7 @@
     {
 
         urlBaseAddress = config["ApiSettings:UrlBase"];
-        appLanguageSelected = await GetLanguage();
+       // appLanguageSelected = await GetLanguage();
     }
 
     private async Task<string> GetLanguage()

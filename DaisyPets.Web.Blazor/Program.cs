@@ -28,7 +28,7 @@ if (!app.Environment.IsDevelopment())
 
 
 // defines the list of cultures that the app will support
-var supportedCultures = new[] { "en-US", "es", "fr", "pt-PT" };
+var supportedCultures = new[] { "en-GB", "es", "fr", "pt-PT" };
 
 var localizationOptions = new RequestLocalizationOptions()
     .SetDefaultCulture(supportedCultures[0])

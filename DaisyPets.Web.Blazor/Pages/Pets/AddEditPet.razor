@@ -2,6 +2,7 @@
 @using DaisyPets.Core.Application.ViewModels;
 @using DaisyPets.Core.Application.ViewModels.LookupTables;
 @using DaisyPets.Web.Blazor.Pages.CodeBehind.Pets;
+@using System.Globalization;
 @using static DaisyPets.Core.Application.Enums.Common;
 
 @inherits PetsMainPageBase
@@ -248,13 +249,14 @@
     protected bool? esterilizado { get; set; } = null;
     protected bool? padrinho { get; set; } = null;
 
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
         idxBreed = UserSelectedPet.IdRaca;
         idxSituation = UserSelectedPet.IdSituacao;
         idxSize = UserSelectedPet.IdTamanho;
         idxTemperament = UserSelectedPet.IdTemperamento;
         idxSpecie = UserSelectedPet.IdEspecie;
+
 
         if (DataFormat.IsValidDate(UserSelectedPet.DataNascimento))
         {
@@ -342,4 +344,31 @@
         padrinho = Convert.ToBoolean(args.Value);
         UserSelectedPet.Padrinho = padrinho.Value ? 1 : 0;
     }
+
+    async Task<string> GetLanguage()
+    {
+        try
+        {
+            var appLanguageSettingsEndpoint = $"{urlBaseAddress}/AppUtils/Settings/Language";
+            using (HttpClient httpClient = new HttpClient())
+            {
+
+                var languageSelected = await httpClient.GetStringAsync(appLanguageSettingsEndpoint);
+                if (!string.IsNullOrEmpty(languageSelected))
+                {
+                    return languageSelected;
+                }
+
+                else
+                    return "";
+
+            }
+        }
+        catch (Exception ex)
+        {
+            var x = ex.Message;
+            throw;
+        }
+    }
+
 }
