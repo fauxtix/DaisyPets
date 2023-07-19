@@ -1,0 +1,82 @@
+﻿@using DaisyPets.Core.Application.ViewModels;
+@using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+<div class="container-fluid d-md-flex flex-column">
+    <div>
+        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="property48"></HeaderDialogComponent>
+        <hr />
+    </div>
+    <EditForm Model="SelectedDocument">
+        <div class="form-group my-3">
+            <SfUploader ID="UploadFiles" @ref="sfUploader" AutoUpload=true
+                        DropArea=".control-fluid"
+                        AllowMultiple="false" AllowedExtensions=".pdf"
+                        MaxFileSize="@MaxFileSize">
+                <UploaderAsyncSettings SaveUrl="api/upload/savepdf"
+                                       RemoveUrl="api/upload/removepdf" />
+                <UploaderEvents OnActionComplete="@OnActionCompleteHandler" />
+            </SfUploader>
+        </div>
+
+        <div class="row mt-2">
+            <div class="form-group">
+                <SfTextBox Enabled="true"
+                           Placeholder="Título"
+                           CssClass="e-field  e-corner"
+                           FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@SelectedDocument!.Title">
+                </SfTextBox>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="form-group">
+                <SfTextBox Enabled="true"
+                           Placeholder="Descrição"
+                           CssClass="e-field  e-corner"
+                           FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@SelectedDocument!.Description">
+                </SfTextBox>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+
+@code {
+
+    [Parameter] public DocumentoDto? SelectedDocument { get; set; }
+    [Parameter] public OpcoesRegisto EditMode { get; set; }
+    [Parameter] public string? HeaderCaption { get; set; }
+
+    [Inject] IConfiguration? config { get; set; }
+    [Inject] ILogger<App>? logger { get; set; } = null;
+    [Inject] public IStringLocalizer<App>? L { get; set; }
+
+
+    protected string? urlBaseAddress;
+
+    protected string DocsApiEndpoint { get; set; } = string.Empty;
+    protected int MaxFileSize = 10 * 1024 * 1024; // 10 MB
+    protected string? uploadedFile;
+
+    protected SfUploader? sfUploader;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var doc = SelectedDocument;
+    }
+
+
+    protected void OnActionCompleteHandler(Syncfusion.Blazor.Inputs.ActionCompleteEventArgs args)
+    {
+        if (args.FileData.Count() == 0) return;
+
+        uploadedFile = args.FileData.Select(p => p.Name).FirstOrDefault();
+        SelectedDocument.DocumentPath = uploadedFile ?? "";
+
+        StateHasChanged();
+    }
+
+
+}

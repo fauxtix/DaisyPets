@@ -73,7 +73,12 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected int PetBreedId { get; set; }
         protected int PetTemperamentId { get; set; }
         protected int PetSpecieId { get; set; }
+
         protected int PetDocumentId { get; set; }
+        protected int PetDewormerId { get; set; }
+        protected int PetVaccineId { get; set; }
+        protected int PetFoodId { get; set; }
+        protected int PetConsultationId { get; set; }
 
 
         protected bool ErrorVisibility { get; set; } = false;
@@ -128,7 +133,6 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             Situations = (await GetLookupData("Situacao")).ToList();
             Sizes = (await GetLookupData("Tamanho")).ToList();
             Temperaments = (await GetLookupData("Temperamento")).ToList();
-
         }
 
         private async Task<List<string>> ValidateData()
@@ -156,6 +160,33 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
 
         }
+
+        private async Task<List<string>> ValidatePetDocument()
+        {
+            var validatorEndpoint = $"{urlBaseAddress}/Document/ValidateDocument";
+            using (HttpClient httpClient = new HttpClient())
+            {
+
+                var response = await httpClient.PostAsJsonAsync(validatorEndpoint, SelectedDocument);
+                if (response.IsSuccessStatusCode == false)
+                {
+                    var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
+                    if (errors.Count() > 0)
+                    {
+                        return errors;
+                    }
+
+                    else
+
+                        return new List<string>();
+                }
+
+                return new List<string>();
+            }
+
+
+        }
+
         public async Task<bool> SavePetData()
         {
             var validationMessages = await ValidateData();
@@ -254,6 +285,98 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 }
             }
         }
+
+        public async Task<bool> SavePetDocument()
+        {
+            var validationMessages = await ValidatePetDocument();
+            if (validationMessages.Any())
+            {
+                ValidationsMessages = validationMessages;
+                ErrorVisibility = true;
+                return false;
+            }
+
+            var url = $"{urlBaseAddress}/Document";
+
+            if (RecordMode == OpcoesRegisto.Gravar)
+            {
+                ToastTitle = $"{L["btnSalvar"]} {L["Pet_Title"]}";
+                try
+                {
+
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        var result = await httpClient.PutAsJsonAsync($"{url}/{PetDocumentId}", SelectedDocument);
+                        var success = result.IsSuccessStatusCode;
+                        if (!success)
+                        {
+                            AlertVisibility = true;
+                            alertTitle = L["FalhaGravacaoRegisto"];
+                            WarningMessage = $"{L["MSG_ApiError"]}";
+                        }
+                        else
+                        {
+                            ToastCss = "e-toast-success";
+                            ToastMessage = $"{L["SuccessUpdate"]}";
+                            ToastIcon = "fas fa-check";
+                        }
+
+                        Pets = await GetAllPets();
+                        await Task.Delay(100);
+                        await ToastObj.ShowAsync();
+
+                        await InvokeAsync(StateHasChanged);
+                        AddEditDocumentVisibility = false;
+                        return success;
+                    }
+                }
+                catch (Exception exc)
+                {
+                    logger?.LogError(exc.Message, $"{L["MSG_ApiError"]}");
+                    return false;
+                }
+            }
+            else // Insert
+            {
+                ToastTitle = $"{L["creationMsg"]} {L["Pet_Title"]}";
+                try
+                {
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        var result = await httpClient.PostAsJsonAsync(url, SelectedDocument);
+                        var success = result.IsSuccessStatusCode;
+                        if (!success)
+                        {
+                            AlertVisibility = true;
+                            alertTitle = L["FalhaCriacaoRegisto"];
+                            WarningMessage = $"{L["MSG_ApiError"]}";
+                        }
+                        else
+                        {
+                            ToastCss = "e-toast-success";
+                            ToastMessage = $"{L["SuccessInsert"]}";
+                            ToastIcon = "fas fa-check";
+                        }
+
+                        AddEditDocumentVisibility = false;
+
+                        await Task.Delay(100);
+                        await ToastObj.ShowAsync();
+                        await InvokeAsync(StateHasChanged);
+
+                        Pets = await GetAllPets();
+
+                        return success;
+                    }
+                }
+                catch (Exception exc)
+                {
+                    logger?.LogError(exc.Message, $"{L["MSG_ApiError"]}");
+                    return false;
+                }
+            }
+        }
+
 
         private async Task<IEnumerable<PetVM>?> GetAllPets()
         {
@@ -481,15 +604,42 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             SelectedDocument = new()
             {
+                PetId = PetId,
                 CreatedOn = DateTime.Now.ToShortDateString(),
                 Description = "",
                 DocumentPath = "",
-                PetId = 0,
                 Title = ""
             };
 
             AddEditDocumentVisibility = true;
         }
+
+        private async Task<DocumentoDto?> GetPetDocument()
+        {
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var url = $"{urlBaseAddress}/Document";
+
+                try
+                {
+                    var document = await httpClient.GetFromJsonAsync<DocumentoDto>($"{url}/{PetDocumentId}");
+                    return document;
+                }
+                catch (HttpRequestException exa)
+                {
+                    logger?.LogError(exa.Message, $"{L["MSG_ApiError"]}");
+
+                    return new DocumentoDto();
+                }
+                catch (Exception ex)
+                {
+                    logger?.LogError(ex.Message, $"{L["MSG_ApiError"]}");
+                    return new DocumentoDto();
+                }
+            }
+        }
+
         public void onAddConsultation(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
             RecordMode = OpcoesRegisto.Inserir;
@@ -503,7 +653,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 Motivo = "",
                 Notas = "",
                 Tratamento = "",
-                IdPet = 0
+                IdPet = PetId
             };
 
             AddEditConsultationVisibility = true;
@@ -585,32 +735,6 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             SelectedPet = await GetPetById(PetId);
         }
 
-        public async Task OnPetDocumentCommandClicked(CommandClickEventArgs<DocumentoVM> args)
-        {
-            modulo = Modules.Documents;
-            PetDocumentId = args.RowData.Id;
-            SelectedDocument = await GetSelectedDocument(PetDocumentId);
-            if (args.CommandColumn.Type == CommandButtonType.None)
-            {
-                RecordMode = OpcoesRegisto.Info;
-                var fileName = args.RowData.DocumentPath;
-                string? fileExtension = Path.GetExtension(fileName);
-                documentFilePath = Path.Combine(_env.WebRootPath, "uploads", "Pets", fileName!);
-                ShowFileVisibility = true;
-            }
-        }
-
-        private async Task<DocumentoDto?> GetSelectedDocument(int petDocumentId)
-        {
-            string url = $"{urlBaseAddress}/Document/{PetDocumentId}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var _document = await httpClient.GetFromJsonAsync<DocumentoDto>(url);
-                return _document ?? new DocumentoDto();
-            }
-
-        }
-
         public async Task OnPetCommandClicked(CommandClickEventArgs<PetVM> args)
         {
             modulo = Modules.Pets;
@@ -630,6 +754,138 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Title"]}?";
                 DeletePetVisibility = true;
                 DeleteCaption = SelectedPet?.Nome;
+            }
+        }
+
+        public async Task OnPetDocumentCommandClicked(CommandClickEventArgs<DocumentoVM> args)
+        {
+            modulo = Modules.Documents;
+            PetDocumentId = args.RowData.Id;
+            SelectedDocument = await GetSelectedDocument(PetDocumentId);
+            if (args.CommandColumn.Type == CommandButtonType.None)
+            {
+                RecordMode = OpcoesRegisto.Info;
+                var fileName = args.RowData.DocumentPath;
+                string? fileExtension = Path.GetExtension(fileName);
+                documentFilePath = Path.Combine(_env.WebRootPath, "uploads", "PetDocuments", fileName!);
+                ShowFileVisibility = true;
+            }
+
+            if (args.CommandColumn.Type == CommandButtonType.Edit)
+            {
+                PetDocumentId = args.RowData.Id;
+
+                AddEditDocumentVisibility = true;
+                EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
+                RecordMode = OpcoesRegisto.Gravar;
+            }
+
+        }
+
+        public async Task OnPetDewormerCommandClicked(CommandClickEventArgs<DesparasitanteVM> args)
+        {
+            modulo = Modules.Dewormers;
+            PetDewormerId = args.RowData.Id;
+            SelectedDewormer = await GetSelectedDewormer(PetDewormerId);
+
+            if (args.CommandColumn.Type == CommandButtonType.Edit)
+            {
+                AddEditDewormerVisibility = true;
+                EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
+                RecordMode = OpcoesRegisto.Gravar;
+            }
+        }
+
+        public async Task OnPetVaccineCommandClicked(CommandClickEventArgs<VacinaVM> args)
+        {
+            modulo = Modules.Vaccines;
+            PetVaccineId = args.RowData.Id;
+            SelectedVaccine = await GetSelectedVaccine(PetVaccineId);
+
+            if (args.CommandColumn.Type == CommandButtonType.Edit)
+            {
+                AddEditVaccineVisibility = true;
+                EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
+                RecordMode = OpcoesRegisto.Gravar;
+            }
+        }
+
+        public async Task OnPetFoodCommandClicked(CommandClickEventArgs<RacaoVM> args)
+        {
+            modulo = Modules.PetFood;
+            PetFoodId = args.RowData.Id;
+            SelectedPetFood = await GetSelectedDogFeed(PetFoodId);
+
+            if (args.CommandColumn.Type == CommandButtonType.Edit)
+            {
+                AddEditPetFoodVisibility = true;
+                EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
+                RecordMode = OpcoesRegisto.Gravar;
+            }
+        }
+
+        public async Task OnPetConsultationCommandClicked(CommandClickEventArgs<ConsultaVeterinarioVM> args)
+        {
+            modulo = Modules.Consultations;
+            PetConsultationId = args.RowData.Id;
+            SelectedConsultation = await GetSelectedConsultation(PetConsultationId);
+
+            if (args.CommandColumn.Type == CommandButtonType.Edit)
+            {
+                AddEditPetFoodVisibility = true;
+                EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
+                RecordMode = OpcoesRegisto.Gravar;
+            }
+        }
+
+
+
+        private async Task<DocumentoDto?> GetSelectedDocument(int petDocumentId)
+        {
+            string url = $"{urlBaseAddress}/Document/{PetDocumentId}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var _document = await httpClient.GetFromJsonAsync<DocumentoDto>(url);
+                return _document ?? new DocumentoDto();
+            }
+        }
+        private async Task<DesparasitanteDto?> GetSelectedDewormer(int petDewormerId)
+        {
+            string url = $"{urlBaseAddress}/Desparasitante/{petDewormerId}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var _dewormer = await httpClient.GetFromJsonAsync<DesparasitanteDto>(url);
+                return _dewormer ?? new DesparasitanteDto();
+            }
+        }
+
+        private async Task<RacaoDto?> GetSelectedDogFeed(int petDogFeedId)
+        {
+            string url = $"{urlBaseAddress}/Racao/{petDogFeedId}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var _petFood = await httpClient.GetFromJsonAsync<RacaoDto>(url);
+                return _petFood ?? new RacaoDto();
+            }
+        }
+
+        private async Task<VacinaDto?> GetSelectedVaccine(int petVaccineId)
+        {
+            string url = $"{urlBaseAddress}/Vacinacao/{petVaccineId}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var _petVaccine = await httpClient.GetFromJsonAsync<VacinaDto>(url);
+                return _petVaccine ?? new VacinaDto();
+            }
+        }
+
+        private async Task<ConsultaVeterinarioDto?> GetSelectedConsultation(int petConsultationId)
+        {
+            string url = $"{urlBaseAddress}/Consulta/{petConsultationId}";
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var _petConsultation = await httpClient.GetFromJsonAsync<ConsultaVeterinarioDto>(url);
+                return _petConsultation ?? new ConsultaVeterinarioDto();
             }
         }
 

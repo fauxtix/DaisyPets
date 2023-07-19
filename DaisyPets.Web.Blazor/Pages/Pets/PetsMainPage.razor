@@ -4,6 +4,7 @@
 
 @using DaisyPets.Core.Application.ViewModels;
 @using DaisyPets.Web.Blazor.Pages.CodeBehind.Pets;
+@using DaisyPets.Web.Blazor.Pages.PetDocuments
 @using Microsoft.Extensions.Localization
 @using Syncfusion.Blazor.Grids
 @using static DaisyPets.Core.Application.Enums.Common;
@@ -11,7 +12,7 @@
 @inject IConfiguration config
 
 <PageTitle>Daisy Pets</PageTitle>
-<PageTitleComponent PageTitle="@L["Pet_Title"]"/>
+<PageTitleComponent PageTitle="@L["Pet_Title"]" />
 @{
     var Tool = (new List<object>() {
         "Search",
@@ -43,7 +44,7 @@ else
 {
     <div class="source-options my-2">
         <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
-                @onclick="@onAddPet" IsPrimary="true">
+        @onclick="@onAddPet" IsPrimary="true">
         </SfButton>
     </div>
 
@@ -98,6 +99,9 @@ else
                                             AllowSorting="true"
                                             RowHeight="32"
                                             AllowTextWrap="true">
+                                        <GridEvents CommandClicked="OnPetVaccineCommandClicked"
+                                                    TValue="VacinaVM" />
+
                                         <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
                                         <GridColumns>
                                             <GridColumn Field=@nameof(VacinaVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
@@ -150,6 +154,8 @@ else
                                             AllowSorting="true"
                                             RowHeight="32"
                                             AllowTextWrap="true">
+                                        <GridEvents CommandClicked="OnPetConsultationCommandClicked"
+                                                    TValue="ConsultaVeterinarioVM" />
                                         <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
                                         <GridColumns>
                                             <GridColumn Field=@nameof(ConsultaVeterinarioVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
@@ -203,6 +209,9 @@ else
                                             AllowSorting="true"
                                             RowHeight="32"
                                             AllowTextWrap="true">
+                                        <GridEvents CommandClicked="OnPetFoodCommandClicked"
+                                                    TValue="RacaoVM" />
+
                                         <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
                                         <GridColumns>
                                             <GridColumn Field=@nameof(RacaoVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
@@ -255,6 +264,9 @@ else
                                             AllowSorting="true"
                                             RowHeight="32"
                                             AllowTextWrap="true">
+                                        <GridEvents CommandClicked="OnPetDewormerCommandClicked"
+                                                    TValue="DesparasitanteVM" />
+
                                         <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
                                         <GridColumns>
                                             <GridColumn Field=@nameof(DesparasitanteVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
@@ -407,7 +419,7 @@ else
               IsModal="true"
               ShowCloseIcon="false"
               CloseOnEscape="false"
-              @bind-Visible="AddEditPetVisibility">
+    @bind-Visible="AddEditPetVisibility">
         <DialogTemplates>
             <Content>
                 <AddEditPet UserSelectedPet="@SelectedPet"
@@ -427,6 +439,32 @@ else
         </DialogTemplates>
         <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
     </SfDialog>
+
+    <SfDialog CssClass="responsive-dialog-40"
+              IsModal="true"
+              ShowCloseIcon="false"
+              CloseOnEscape="false"
+    @bind-Visible="AddEditDocumentVisibility">
+        <DialogTemplates>
+            <Content>
+                <AddEditPetDocument SelectedDocument="SelectedDocument"
+                                    EditMode="@RecordMode"
+                                    HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+            </Content>
+            <FooterTemplate>
+                <div>
+                    <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save"
+                    @onclick="SavePetDocument" Content="@L["btnSalvar"]">
+                    </SfButton>
+                    <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times"
+                    @onclick="(()=>AddEditDocumentVisibility = false)" Content="@L["BtnSalir"]">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
+    </SfDialog>
+
 
     <SfDialog CssClass="responsive-pdf-word-viewer"
               IsModal="true"
