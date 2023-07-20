@@ -1,3 +1,5 @@
+using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Web.Blazor.BaseApiWrapperServices;
 using DaisyPets.Web.Blazor.Shared;
 using Syncfusion.Blazor;
 
@@ -13,6 +15,8 @@ builder.Services.AddCors();
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddSingleton(typeof(ISyncfusionStringLocalizer), typeof(SyncfusionLocalizer));
 
+// TODO Test (not used for now)
+builder.Services.AddScoped<IApiClientWrapperService<VacinaDto>>(c => new ApiClientWrapperService<VacinaDto>("", ""));
 
 var app = builder.Build();
 
