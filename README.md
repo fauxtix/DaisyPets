@@ -67,6 +67,8 @@ Examples:
 - Alerts for vaccines and application of dewormers
   
 - Photo gallery
+  
+- Contacts management
 
 
 # Screenshots
