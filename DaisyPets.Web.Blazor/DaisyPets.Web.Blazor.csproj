@@ -75,6 +75,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Pages\CodeBehind\LookupTables\" />
 	  <Folder Include="wwwroot\EstateAgency\images\" />
 	  <Folder Include="wwwroot\EstateAgency\js\" />
 	  <Folder Include="wwwroot\images\Properties\" />

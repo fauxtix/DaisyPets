@@ -1,0 +1,145 @@
+﻿@page "/ManageLookupTables/{TableName}"
+
+@using DaisyPets.Core.Application.ViewModels.LookupTables;
+@using Microsoft.Extensions.Localization;
+
+<PageTitle>Daisy Pets Lookup Tables</PageTitle>
+<PageTitleComponent PageTitle="@pageTitle" />
+
+@if (TableData is null)
+{
+    <LoadingData />
+}
+else
+{
+    <div class="source-options my-2">
+        <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
+                  IsPrimary="true">
+        </SfButton>
+    </div>
+
+    <div class="table table-striped table-hover">
+        <SfGrid ID="Pets_Grid"
+                Width="50%" @ref="gridObj"
+                Height="100%"
+                EnableStickyHeader="true"
+                EnableAltRow="true"
+                EnableHover="true"
+                DataSource="@TableData"
+                AllowFiltering="false"
+                AllowSelection="true"
+                AllowGrouping="false"
+                AllowPaging="true"
+                AllowSorting="true"
+                AllowPdfExport="true"
+                RowHeight="32"
+                AllowTextWrap="true">
+            <GridColumns>
+                <GridColumn Field=@nameof(LookupTableVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
+                <GridColumn Field=@nameof(LookupTableVM.Descricao) HeaderText="Descrição" Width="250"></GridColumn>
+                <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
+                    <GridCommandColumns>
+                        <GridCommandColumn Type=CommandButtonType.Edit
+                                           ButtonOption="@(new CommandButtonOptions()
+                                                                       {
+                                                                           CssClass = "e-btn e-primary e-round",
+                                                                           IconCss = "fa fa-edit"
+                                                                       })">
+                        </GridCommandColumn>
+                        <GridCommandColumn Type=CommandButtonType.Delete
+                                           ButtonOption="@(new CommandButtonOptions()
+                                                                       {
+                                                                           CssClass = "e-btn e-danger e-round",
+                                                                           IconCss = "fa fa-trash"
+                                                                       })">
+                        </GridCommandColumn>
+                    </GridCommandColumns>
+                </GridColumn>
+
+            </GridColumns>
+        </SfGrid>
+    </div>
+}
+
+@code {
+    [Inject] IConfiguration? config { get; set; }
+    [Inject] ILogger<App>? logger { get; set; }
+    [Inject] public IStringLocalizer<App>? L { get; set; }
+
+    [Parameter] public string TableName { get; set; } = string.Empty;
+
+    protected IEnumerable<LookupTableVM> TableData { get; set; } = Enumerable.Empty<LookupTableVM>();
+
+    protected SfGrid<LookupTableVM> gridObj { get; set; }
+
+    protected int TableId = 0;
+    protected string _tableName = string.Empty;
+    protected string _apiEndPoint = string.Empty;
+    protected string tableToCheck = string.Empty;
+    protected string tableDescription = string.Empty;
+    protected string fieldToCheck = string.Empty;
+
+    protected string? pageTitle = "Lookup Tables";
+    protected string? urlBaseAddress;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        urlBaseAddress = config?["ApiSettings:UrlBase"];
+
+        _tableName = TableName!;
+
+        switch (_tableName.ToLower())
+        {
+            case "categoriadespesa":
+                tableToCheck = "Despesa";
+                fieldToCheck = "IdCategoriaDespesa";
+                tableDescription = "Categoria de despesas";
+                break;
+            case "raca":
+                tableToCheck = "pets";
+                fieldToCheck = "IdRaca";
+                tableDescription = "Raças";
+                break;
+            case "situacao":
+                tableToCheck = "pets";
+                fieldToCheck = "IdSituacao";
+                tableDescription = "Situação";
+                break;
+            case "temperamento":
+                tableToCheck = "pets";
+                fieldToCheck = "IdTemperamento";
+                tableDescription = "Temperamento";
+                break;
+        }
+
+        _apiEndPoint = $"{urlBaseAddress}/LookupTables";
+        pageTitle += " (" + tableDescription + ")";
+        TableData = await GetData();
+    }
+
+    private async Task<IEnumerable<LookupTableVM>> GetData()
+    {
+        string url = $"{_apiEndPoint}/GetAllRecords/{_tableName}";
+        IEnumerable<LookupTableVM>? gridData = Enumerable.Empty<LookupTableVM>();
+        try
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                gridData = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(url);
+                if (gridData is not null && !gridData.Any())
+                {
+                    return gridData!.ToList();
+                }
+                else
+                {
+                    return gridData!;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            logger?.LogError($"Erro no API {ex.Message}", "Preenchimento de grelha - lookup tables manager");
+            return gridData;
+        }
+    }
+}

@@ -118,7 +118,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             PetDocumentId = 0;
             documentFilePath = "";
 
-            urlBaseAddress = config["ApiSettings:UrlBase"];
+            urlBaseAddress = config?["ApiSettings:UrlBase"];
             petsEndpoint = $"{urlBaseAddress}/Pets/AllPetsVM";
             petVaccinesEndpoint = $"{urlBaseAddress}/Vacinacao/PetVaccines";
             petDocumentsEndpoint = $"{urlBaseAddress}/Document/AllDocumentsVM";

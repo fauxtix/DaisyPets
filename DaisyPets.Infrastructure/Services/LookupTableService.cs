@@ -4,7 +4,6 @@ using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using Microsoft.Extensions.Logging;
-using System.Reflection.Emit;
 
 namespace DaisyPets.Infrastructure.Services
 {
@@ -24,13 +23,13 @@ namespace DaisyPets.Infrastructure.Services
         public async Task<bool> ActualizaDetalhes(LookupTableVM table)
         {
             var lookup = _mapper.Map<LookUp>(table);
-            var result =   await _repoLookupTable.ActualizaDetalhes(lookup);
+            var result = await _repoLookupTable.ActualizaDetalhes(lookup);
             return result;
         }
 
         public async Task<bool> CheckFKInUse(int IdFK, string fieldToCheck, string tableToCheck)
         {
-            var result = await _repoLookupTable.CheckFKInUse(IdFK, fieldToCheck, tableToCheck); 
+            var result = await _repoLookupTable.CheckFKInUse(IdFK, fieldToCheck, tableToCheck);
             return result;
         }
 
@@ -55,7 +54,7 @@ namespace DaisyPets.Infrastructure.Services
 
         public async Task<bool> DeleteRegisto(int iCodigo, string Tabela)
         {
-           var result = await _repoLookupTable.DeleteRegisto(iCodigo, Tabela);
+            var result = await _repoLookupTable.DeleteRegisto(iCodigo, Tabela);
             return result;
         }
 
@@ -92,13 +91,13 @@ namespace DaisyPets.Infrastructure.Services
         public async Task<IEnumerable<LookupTableVM>> GetLookupTableData(string tableName)
         {
             var result = await _repoLookupTable.GetLookupTableData(tableName);
-            var mappedTable = _mapper.Map<IEnumerable< LookupTableVM>>(result);
+            var mappedTable = _mapper.Map<IEnumerable<LookupTableVM>>(result);
             return mappedTable;
         }
 
         public async Task<LookupTableVM> GetRecordById(int id, string table)
         {
-            var result = await _repoLookupTable.GetRecordById (id, table);
+            var result = await _repoLookupTable.GetRecordById(id, table);
             var mappedTable = _mapper.Map<LookupTableVM>(result);
             return mappedTable;
         }
