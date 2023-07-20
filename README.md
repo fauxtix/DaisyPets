@@ -58,9 +58,17 @@ Examples:
 
 - Easy to use
 
-- Simple to upload documents
+- Simple to upload documents related to medical records
+  
+- Expenses management
 
-- Record Vaccinations and request medical records
+- Record vaccinations, visits to the vet, dewormers and feed dosage
+  
+- Alerts for vaccines and application of dewormers
+  
+- Photo gallery
+  
+- Contacts management
 
 
 # Screenshots
