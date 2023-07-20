@@ -1427,10 +1427,10 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
     <value>Emergencia</value>
   </data>
   <data name="TituloFeminino" xml:space="preserve">
-    <value>Femenino</value>
+    <value>Hembra</value>
   </data>
   <data name="TituloMasculino" xml:space="preserve">
-    <value>Masculino</value>
+    <value>Macho</value>
   </data>
   <data name="TituloMedicoAssistente" xml:space="preserve">
     <value>Medico Assistente</value>
@@ -2457,5 +2457,8 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   </data>
   <data name="TituloTemperamento" xml:space="preserve">
     <value>Temperamento</value>
+  </data>
+  <data name="Pet_Brand" xml:space="preserve">
+    <value>Tipo</value>
   </data>
 </root>

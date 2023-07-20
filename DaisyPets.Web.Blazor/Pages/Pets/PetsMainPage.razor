@@ -5,6 +5,7 @@
 @using DaisyPets.Core.Application.ViewModels;
 @using DaisyPets.Web.Blazor.Pages.CodeBehind.Pets;
 @using DaisyPets.Web.Blazor.Pages.PetDocuments
+@using DaisyPets.Web.Blazor.Pages.PetVaccines
 @using Microsoft.Extensions.Localization
 @using Syncfusion.Blazor.Grids
 @using static DaisyPets.Core.Application.Enums.Common;
@@ -106,7 +107,7 @@ else
                                         <GridColumns>
                                             <GridColumn Field=@nameof(VacinaVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
                                             <GridColumn Field=@nameof(VacinaVM.DataToma) Format="d" HeaderText="@L["Pet_Vaccine_Date"]" Width="110"></GridColumn>
-                                            <GridColumn Field=@nameof(VacinaVM.Marca) HeaderText="@L["Pet_Vaccine_Brand"]" Width="200"></GridColumn>
+                                            <GridColumn Field=@nameof(VacinaVM.Marca) HeaderText="@L["Pet_Brand"]" Width="200"></GridColumn>
                                             <GridColumn Field=@nameof(VacinaVM.DataProximaToma) Format="d" HeaderText="@L["Pet_Vaccine_Next"]" Width="110"></GridColumn>
                                             <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                                                 <GridCommandColumns>
@@ -465,6 +466,32 @@ else
         <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
     </SfDialog>
 
+    <SfDialog CssClass="responsive-dialog-30"
+              IsModal="true"
+              ShowCloseIcon="false"
+              CloseOnEscape="false"
+    @bind-Visible="AddEditVaccineVisibility">
+        <DialogTemplates>
+            <Content>
+                <AddEditVaccine SelectedRecord="SelectedVaccine"
+                                    EditMode="@RecordMode"
+                                    HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+            </Content>
+            <FooterTemplate>
+                <div>
+                    <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save"
+                    @onclick="SavePetVaccine" Content="@L["btnSalvar"]">
+                    </SfButton>
+                    <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times"
+                    @onclick="(()=>AddEditVaccineVisibility = false)" Content="@L["BtnSalir"]">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
+    </SfDialog>
+
+
 
     <SfDialog CssClass="responsive-pdf-word-viewer"
               IsModal="true"
@@ -497,11 +524,6 @@ else
         <DialogAnimationSettings Effect="DialogEffect.FadeZoom" Duration=600></DialogAnimationSettings>
     </SfDialog>
 
-
-    @*    <ValidateErrorComponent Visible="@ErrorVisibility" DialogTitle="@L["TituloDespesas"]"
-                            ValidationMessages="@ValidationsMessages"
-                            OnCloseDialog="@(()=>ErrorVisibility = false)" />
-*@
     <ConfirmDeleteComponent AlertMessageType="AlertMessageType.Error" DialogWidth="20%"
                             DialogTitle="@WarningTitle" ConfirmationText="@L["MSG_ConfirmarOperacao"]"
                             Module="Modules.Pets"

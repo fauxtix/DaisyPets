@@ -728,10 +728,10 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
     <value>Documentação</value>
   </data>
   <data name="TituloFeminino" xml:space="preserve">
-    <value>Feminino</value>
+    <value>Fèmea</value>
   </data>
   <data name="TituloMasculino" xml:space="preserve">
-    <value>Masculino</value>
+    <value>Macho</value>
   </data>
   <data name="TituloNaturalidade" xml:space="preserve">
     <value>Naturalidade</value>
@@ -1394,7 +1394,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
     <value>Pets</value>
   </data>
   <data name="Pet_Brand" xml:space="preserve">
-    <value>Marca</value>
+    <value>Tipo</value>
   </data>
   <data name="Pet_Breed" xml:space="preserve">
     <value>Raça</value>

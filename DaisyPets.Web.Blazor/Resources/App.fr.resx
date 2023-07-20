@@ -2474,4 +2474,7 @@ Vérifiez les erreurs, s'il vous plaît</value>
   <data name="TituloTemperamento" xml:space="preserve">
     <value>Tempérament</value>
   </data>
+  <data name="Pet_Brand" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>

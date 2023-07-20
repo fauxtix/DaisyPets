@@ -2460,4 +2460,7 @@
   <data name="TituloTemperamento" xml:space="preserve">
     <value>Temperament</value>
   </data>
+  <data name="Pet_Brand" xml:space="preserve">
+    <value>Type</value>
+  </data>
 </root>

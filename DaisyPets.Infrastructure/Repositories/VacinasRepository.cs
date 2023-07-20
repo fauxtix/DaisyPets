@@ -215,7 +215,5 @@ namespace DaisyPets.Infrastructure.Repositories
                 await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
             }
         }
-
-
     }
 }

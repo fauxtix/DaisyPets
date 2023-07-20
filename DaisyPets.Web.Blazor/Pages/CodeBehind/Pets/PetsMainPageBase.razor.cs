@@ -186,6 +186,32 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
 
         }
+        private async Task<List<string>> ValidatePetVaccine()
+        {
+            var validatorEndpoint = $"{urlBaseAddress}/Vacinacao/ValidateVaccine";
+            using (HttpClient httpClient = new HttpClient())
+            {
+
+                var response = await httpClient.PostAsJsonAsync(validatorEndpoint, SelectedVaccine);
+                if (response.IsSuccessStatusCode == false)
+                {
+                    var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
+                    if (errors.Count() > 0)
+                    {
+                        return errors;
+                    }
+
+                    else
+
+                        return new List<string>();
+                }
+
+                return new List<string>();
+            }
+
+
+        }
+
 
         public async Task<bool> SavePetData()
         {
@@ -376,6 +402,98 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 }
             }
         }
+
+        public async Task<bool> SavePetVaccine()
+        {
+            var validationMessages = await ValidatePetVaccine();
+            if (validationMessages.Any())
+            {
+                ValidationsMessages = validationMessages;
+                ErrorVisibility = true;
+                return false;
+            }
+
+            var url = $"{urlBaseAddress}/Vacinacao";
+
+            if (RecordMode == OpcoesRegisto.Gravar)
+            {
+                ToastTitle = $"{L["btnSalvar"]} {L["Pet_Vaccines"]}";
+                try
+                {
+
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        var result = await httpClient.PutAsJsonAsync($"{url}/{PetVaccineId}", SelectedVaccine);
+                        var success = result.IsSuccessStatusCode;
+                        if (!success)
+                        {
+                            AlertVisibility = true;
+                            alertTitle = L["FalhaGravacaoRegisto"];
+                            WarningMessage = $"{L["MSG_ApiError"]}";
+                        }
+                        else
+                        {
+                            ToastCss = "e-toast-success";
+                            ToastMessage = $"{L["SuccessUpdate"]}";
+                            ToastIcon = "fas fa-check";
+                        }
+
+                        Pets = await GetAllPets();
+                        await Task.Delay(100);
+                        await ToastObj.ShowAsync();
+
+                        await InvokeAsync(StateHasChanged);
+                        AddEditVaccineVisibility = false;
+                        return success;
+                    }
+                }
+                catch (Exception exc)
+                {
+                    logger?.LogError(exc.Message, $"{L["MSG_ApiError"]}");
+                    return false;
+                }
+            }
+            else // Insert
+            {
+                ToastTitle = $"{L["creationMsg"]} {L["Pet_Vaccines"]}";
+                try
+                {
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        var result = await httpClient.PostAsJsonAsync(url, SelectedVaccine);
+                        var success = result.IsSuccessStatusCode;
+                        if (!success)
+                        {
+                            AlertVisibility = true;
+                            alertTitle = L["FalhaCriacaoRegisto"];
+                            WarningMessage = $"{L["MSG_ApiError"]}";
+                        }
+                        else
+                        {
+                            ToastCss = "e-toast-success";
+                            ToastMessage = $"{L["SuccessInsert"]}";
+                            ToastIcon = "fas fa-check";
+                        }
+
+                        AddEditVaccineVisibility = false;
+
+                        await Task.Delay(100);
+                        await ToastObj.ShowAsync();
+                        await InvokeAsync(StateHasChanged);
+
+                        Pets = await GetAllPets();
+
+                        return success;
+                    }
+                }
+                catch (Exception exc)
+                {
+                    logger?.LogError(exc.Message, $"{L["MSG_ApiError"]}");
+                    return false;
+                }
+            }
+        }
+
 
 
         private async Task<IEnumerable<PetVM>?> GetAllPets()
@@ -662,7 +780,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         public void onAddVaccine(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
             RecordMode = OpcoesRegisto.Inserir;
-            NewCaption = $"{L["NewMsg"]} ({L["Pet_Vaccinnes"]})";
+            NewCaption = $"{L["NewMsg"]} ({L["Pet_Vaccines"]})";
             modulo = Modules.Vaccines;
 
             SelectedVaccine = new()
@@ -776,7 +894,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 PetDocumentId = args.RowData.Id;
 
                 AddEditDocumentVisibility = true;
-                EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
+                EditCaption = $"{L["EditMsg"]} {L["Pet_Documents"]}";
                 RecordMode = OpcoesRegisto.Gravar;
             }
 
@@ -805,7 +923,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             if (args.CommandColumn.Type == CommandButtonType.Edit)
             {
                 AddEditVaccineVisibility = true;
-                EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
+                EditCaption = $"{L["EditMsg"]} {L["Pet_Vaccines"]}";
                 RecordMode = OpcoesRegisto.Gravar;
             }
         }
@@ -819,7 +937,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             if (args.CommandColumn.Type == CommandButtonType.Edit)
             {
                 AddEditPetFoodVisibility = true;
-                EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
+                EditCaption = $"{L["EditMsg"]} {L["Pet_Food"]}";
                 RecordMode = OpcoesRegisto.Gravar;
             }
         }
@@ -833,7 +951,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             if (args.CommandColumn.Type == CommandButtonType.Edit)
             {
                 AddEditPetFoodVisibility = true;
-                EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
+                EditCaption = $"{L["EditMsg"]} {L["Pet_Consultations"]}";
                 RecordMode = OpcoesRegisto.Gravar;
             }
         }
