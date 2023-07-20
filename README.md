@@ -62,7 +62,7 @@ Examples:
   
 - Expenses management
 
-- Record Vaccinations, visits to the vet, dewormers and feed dosage
+- Record vaccinations, visits to the vet, dewormers and feed dosage
 
 
 # Screenshots
