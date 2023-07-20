@@ -65,6 +65,8 @@ Examples:
 - Record vaccinations, visits to the vet, dewormers and feed dosage
   
 - Alerts for vaccines and application of dewormers
+  
+- Photo gallery
 
 
 # Screenshots
