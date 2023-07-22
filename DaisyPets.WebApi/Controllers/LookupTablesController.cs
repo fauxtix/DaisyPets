@@ -1,5 +1,6 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
+using DaisyPets.WebApi.Validators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DaisyPets.WebApi.Controllers
@@ -431,6 +432,30 @@ namespace DaisyPets.WebApi.Controllers
                 return InternalError($"{location}: {e.Message} - {e.InnerException}");
             }
         }
+
+        /// <summary>
+        /// Valida entradas
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
+        [HttpPost("ValidateLookupTable")]
+        public IActionResult ValidateLookupTable([FromBody] LookupTableVM table)
+        {
+            // Create validator instance (or inject it)
+            var tableValidator = new TabAuxGenericValidator<LookupTableVM>();
+
+            // Call Validate or ValidateAsync and pass the object which needs to be validated
+            var result = tableValidator.Validate(table);
+
+            if (result.IsValid)
+            {
+                return Ok(table);
+            }
+
+            var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+            return BadRequest(errorMessages);
+        }
+
 
         private string GetControllerActionNames()
         {

@@ -1,7 +1,42 @@
-﻿<h3>LookupTablesMain</h3>
+﻿@page "/lookuptablesmain"
 
+@using DaisyPets.Web.Blazor.Components.Cards
+<h3>Lookup Tables Main</h3>
+
+@foreach (var card in CardImages)
+{
+    <LookupTableComponent CardImage="card" />
+}
 @code {
+    private List<LookupCardImage>? CardImages { get; set; }
 
+    protected override void OnInitialized()
+    {
+        CardImages = GetCardsData();
+    }
+    //protected List<string> LookupTablesImages = new List<string>()
+    //{
+    //  "aninal_breed.jpg" , "deworming-cat-dog-medical-bottles,jpg", "dog-temperament.jpg", "gog-food.jpg", "situation.jpg"
+    //};
 
+    protected List<LookupCardImage> GetCardsData()
+    {
+        List<LookupCardImage> _cardImages = new()
+        {
+            new LookupCardImage
+            {
+                 Description = "Situação dos animais que são abandonados, e posteriormente resgatados",
+                 image = "situation.jpg",
+                 Title = "Situação do Pet"
+            },
+            new LookupCardImage
+            {
+                 Description = "A raça (do italiano razza) é um conceito de classificação que obedece alguns parâmetros para categorizar diferentes populações de uma mesma espécie biológica de acordo com suas características genéticas ou fenotípicas",
+                 image = "aninal_breed.jpg",
+                 Title = "Raça do Pet"
+            }
+        };
 
+        return _cardImages;
+    }
 }

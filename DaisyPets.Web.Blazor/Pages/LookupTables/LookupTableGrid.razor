@@ -2,6 +2,7 @@
 
 @using DaisyPets.Core.Application.ViewModels.LookupTables;
 @using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
 
 <PageTitle>Daisy Pets Lookup Tables</PageTitle>
 <PageTitleComponent PageTitle="@pageTitle" />
@@ -34,6 +35,10 @@ else
                 AllowPdfExport="true"
                 RowHeight="32"
                 AllowTextWrap="true">
+                                <GridEvents RowSelected="RowSelectHandler"
+                            CommandClicked="OnCommandClicked" TValue="LookupTableVM">
+                </GridEvents>
+
             <GridColumns>
                 <GridColumn Field=@nameof(LookupTableVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
                 <GridColumn Field=@nameof(LookupTableVM.Descricao) HeaderText="Descrição" Width="250"></GridColumn>
@@ -59,6 +64,8 @@ else
             </GridColumns>
         </SfGrid>
     </div>
+
+
 }
 
 @code {
@@ -81,6 +88,19 @@ else
 
     protected string? pageTitle = "Lookup Tables";
     protected string? urlBaseAddress;
+
+    protected bool AddEditVisibility{ get; set; }
+    protected bool DeleteVisibility { get; set; }
+
+    protected string? NewCaption { get; set; }
+    protected string? EditCaption { get; set; }
+    protected string? DeleteCaption;
+
+    protected OpcoesRegisto RecordMode { get; set; }
+    protected Modules modulo { get; set; }
+
+    protected string? WarningTitle { get; set; }
+
 
     protected override async Task OnParametersSetAsync()
     {
@@ -142,4 +162,33 @@ else
             return gridData;
         }
     }
+    protected async Task RowSelectHandler(RowSelectEventArgs<LookupTableVM> args)
+    {
+        TableId = args.Data.Id;
+        TableName = args.Data.Tabela!;
+    }
+
+    public async Task OnCommandClicked(CommandClickEventArgs<LookupTableVM> args)
+    {
+        modulo = Modules.Pets;
+        TableId = args.RowData.Id;
+        TableName = args.RowData.Tabela!;
+
+    if (args.CommandColumn.Type == CommandButtonType.Edit)
+        {
+
+            AddEditVisibility = true;
+            EditCaption = $"{L["EditMsg"]} {L["Pet_Title"]}";
+            RecordMode = OpcoesRegisto.Gravar;
+        }
+
+        if (args.CommandColumn.Type == CommandButtonType.Delete)
+        {
+            WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Title"]}?";
+            DeleteVisibility = true;
+            DeleteCaption = TableName;
+        }
+    }
+
+
 }

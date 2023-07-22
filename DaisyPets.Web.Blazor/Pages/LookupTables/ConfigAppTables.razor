@@ -1,0 +1,9 @@
+﻿@page "/admin/configapptables"
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<App> L 
+
+<PageTitleComponent PageTitle="@L["lblManutencao"]" WithBadge=true PageSubTitle="@L["menu-admin-lookup-tables"]" />
+<DisplayApplicationTables />
+@code {
+
+}

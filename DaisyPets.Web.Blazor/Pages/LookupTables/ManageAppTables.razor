@@ -1,0 +1,48 @@
+﻿@page "/admin/adminpanel"
+
+@inject NavigationManager NavManager
+
+@using System.Dynamic
+@using DaisyPets.Core.Application.Extensions
+@using DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables;
+
+
+@inherits TabAuxBase
+
+@*@attribute [Authorize]*@
+
+@implements IDisposable
+
+
+<AppConfiguration_Tables ChildTableToValidate="@sTableToValidateFk" 
+                         ItemsList="@GenericModelList"
+                         FkFieldNameToValidate="@sFieldToValidateFk"
+                         PageTitle="@sPageTitle"
+                         WorkTableName="@SelectedTableByAdmin"                         
+                         TModel="ExpandoObject">
+</AppConfiguration_Tables>
+
+@code {
+
+    string? SelectedTableByAdmin;
+    string? sPageTitle;
+    string? sTableToValidateFk;
+    string? sFieldToValidateFk;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        NavManager.TryGetQueryString<string>("DataTable", out SelectedTableByAdmin);
+        NavManager.TryGetQueryString<string>("PageTitle", out sPageTitle);
+        NavManager.TryGetQueryString<string>("TableToValidate", out sTableToValidateFk);
+        NavManager.TryGetQueryString<string>("FieldToValidate", out sFieldToValidateFk);
+
+        GenericModelList = (await GetDataGenerics<ExpandoObject>(SelectedTableByAdmin)).ToList();
+    }
+
+    void IDisposable.Dispose()
+    {
+        ToastObj?.Dispose();
+    }
+}

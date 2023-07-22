@@ -1,0 +1,882 @@
+﻿@typeparam TItem
+
+@using DaisyPets.Core.Application.ViewModels.LookupTables;
+@using Syncfusion.Blazor.Inputs
+
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Popups
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.Notifications
+
+
+@using System.Dynamic;
+@using Microsoft.Extensions.Localization
+@using static DaisyPets.Core.Application.Enums.Common;
+
+@inject NavigationManager NavManager
+
+@inherits DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables.TabAuxBase
+@*@attribute [Authorize(Roles = "Admin")]
+*@
+
+@{
+    var Tool = (new List<object>() {
+    "Search",
+    "PdfExport",
+        new ItemModel()
+            { PrefixIcon = "e-searchclose", TooltipText = "Clear", Align = ItemAlign.Right, Id = "ClearSearch" },
+            });
+}
+<div id="TabAux" class="col-lg-12 control-section">
+@*    <header>
+        <div class="module-title">
+            <div class="title">@PageTitle</div>
+            <div class="underline"></div>
+        </div>
+    </header>
+*@
+    <hr />
+
+    <div class="container-fluid">
+        @if (AllowManagement)
+        {
+            <SfButton CssClass="e-success e-round-corner"
+                  IconCss="fas fa-plus" @onclick="@onAddRecord"
+                  IsPrimary="true" Content="@L["NewMsg"]" />
+        }
+        <hr />
+        <div class="container-fluid d-none d-md-block mt-2">
+            <div id="target" class="table table-striped">
+                <SfGrid ID="TablesGrid" @ref="@gridObj"
+                        Width="50%"
+                        Height="80%"
+                        DataSource="@Items"
+                        AllowFiltering="false"
+                        AllowGrouping="false"
+                        AllowPaging="true"
+                        AllowSorting="true"
+                        AllowPdfExport="true"
+                        RowHeight="32"
+                        Toolbar="@Tool"
+                        GridLines="GridLine.Horizontal"
+                        AllowTextWrap="true">
+                    <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
+                    <GridFilterSettings></GridFilterSettings>
+                    <GridEvents CommandClicked="OnCommandClicked" OnToolbarClick="OnToolbarClick" TValue="TItem"></GridEvents>
+                    <GridColumns>
+                        <GridColumn HeaderText="Opções" Width="120" AllowFiltering="false" AllowSorting="false" TextAlign="TextAlign.Center">
+                            <GridCommandColumns>
+                                @if (AllowManagement)
+                                {
+                                    <GridCommandColumn Type=CommandButtonType.Edit Title="@L["EditMsg"]"
+                                                   ButtonOption="@(new CommandButtonOptions()
+                                                                       {
+                                                                           Content = "",
+                                                                           CssClass = "e-outline e-primary e-round-corner",
+                                                                           IconCss = "fa fa-edit",
+                                                                           IconPosition = @IconPosition.Right
+                                                                       })">
+                                    </GridCommandColumn>
+                                    <GridCommandColumn Type=CommandButtonType.Delete Title="@L["DeleteMsg"]"
+                                                   ButtonOption="@(new CommandButtonOptions()
+                                                                       {
+                                                                           Content = "",
+                                                                           CssClass = "e-outline e-danger e-round-corner",
+                                                                           IconCss = "fa fa-trash",
+                                                                           IconPosition = @IconPosition.Right
+                                                                       })">
+                                    </GridCommandColumn>
+                                }
+                            </GridCommandColumns>
+                        </GridColumn>
+                        <GridColumn Field=@ValuePropertyName IsPrimaryKey="true"
+                                    HeaderText="ID#" Width="100" TextAlign="TextAlign.Center"></GridColumn>
+                        <GridColumn Field=@TextPropertyName HeaderText="@L["rbtDescricao"]"></GridColumn>
+                    </GridColumns>
+                </SfGrid>
+            </div>
+        </div>
+    </div>
+
+    <SfDialog @ref="@dialogEdit"             
+              Width="25%"
+              Height="auto"
+              IsModal="true"
+              CssClass="dialog-background-color"
+              CloseOnEscape="false"
+              ShowCloseIcon="false"
+              AllowDragging="true"
+              @bind-Visible="EditDialogVisibility">
+        <DialogTemplates>
+            <Header>
+                <div class="header-text font-weight-bolder">
+                    @PageTitle
+                </div>
+            </Header>
+            <Content>
+                @if (SelectedRecord != null)
+                {
+                    <div class="entry-box mx-1">
+                            @if (editRecord)
+                            {
+                                <div>
+                                    <SfTextBox Enabled="false" Placeholder="ID#" Width="60px"
+                                       FloatLabelType="@FloatLabelType.Auto"
+                                       CssClass="align-items-center form-control"
+                                       Value="@ItemValue(SelectedRecord).ToString()">
+                                    </SfTextBox>
+                                </div>
+                            }
+                            <div>
+                                <SfTextBox Enabled="true" Placeholder="@L["rbtDescricao"]"
+                                       CssClass="e-corner e-field" Width="320px;"
+                                       Multiline="@MultiLineNeeded"
+                                       HtmlAttributes="NumberOfRows"
+                                       FloatLabelType="@FloatLabelType.Always" OnChange="onChangeDescription"
+                                       Value="@ItemText(SelectedRecord)">
+                                </SfTextBox>
+                            </div>
+                    </div>
+                }
+            </Content>
+            <FooterTemplate>
+                <div class="e-footer">
+                    <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save"
+                              @onclick="SaveData" Content="@L["btnSalvar"]">
+                    </SfButton>
+                    <SfButton CssClass="e-outline e-icon e-round-corner" IconCss="fas fa-times"
+                              @onclick="@(()=> EditDialogVisibility = false)" Content="@L["BtnSalir"]">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+    </SfDialog>
+
+    @if (SelectedRecord is not null)
+    {
+        <ConfirmDeleteComponent AlertMessageType="AlertMessageType.Warning"
+                            DialogTitle="@PageTitle"
+                            Visible="@DeleteConfirmVisibility"
+                            Message="@ItemText(SelectedRecord)"
+                            DialogHeight="@dialogHeight"
+                            DialogWidth="30%"
+                            OnConfirmationYes="@ConfirmDeleteYes"
+                            OnConfirmationNo="@(()=>DeleteConfirmVisibility = false)">
+        </ConfirmDeleteComponent>
+    }
+
+    <SfDialog Target="#target"
+              Width="400px"
+              Height="300x"
+              IsModal="true"
+              ShowCloseIcon="false"
+              @bind-Visible="ValidationErrorsVisibility">
+        <DialogTemplates>
+            <Header>
+                <div class="alert-warning">
+                    Exceção encontrada.
+                </div>
+            </Header>
+            <Content>
+                @if (SelectedRecord != null)
+                {
+                    <div class="border-warning">
+                        <div>
+                            @L["rbtDescricao"]: @ItemText(SelectedRecord)
+                            <br />
+                        </div>
+                        <div class="border-warning">
+                            <br />
+                            @L["OperacaoCancelada"]
+                        </div>
+                    </div>
+                }
+            </Content>
+
+            <FooterTemplate>
+                <div class="button-container">
+                    <SfButton CssClass="e-outline e-round-corner"
+                              IconCss="fas fa-times"
+                              @onclick="@(()=>ValidationErrorsVisibility = false)" Content="@L["btnFechar"]">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@Effects" Duration=400></DialogAnimationSettings>
+    </SfDialog>
+    <SfDialog Target="#target"
+              Width="600px"
+              Height="300x"
+              IsModal="true"
+              ShowCloseIcon="false"
+              @bind-Visible="ErrorVisibility">
+        <DialogTemplates>
+            <Header>
+                <div class="modal-header">
+                    <p class="text-danger">@PageTitle</p>
+                </div>
+            </Header>
+            <Content>
+                <div class='msg-wrapper col-lg-12'>
+                    <span class='e-icons close-icon col-lg-2'></span>
+                    <span class='error-msg col-lg-10'>@L["DadosEmFalta"]</span>
+                </div>
+                @*<div class='error-detail col-lg-8'>
+                <span>Confirme, p.f.</span>
+                </div>*@
+
+                <div class="alert alert-warning" role="alert">
+                    <div class="modal-content">
+                        <div class="text-wrap">
+                            @if (lstErrorMsg != null)
+                            {
+                                <br />
+                                foreach (string errorMsg in lstErrorMsg)
+                                {
+                                    <div class="px-2"> @(errorMsg)</div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </Content>
+            <FooterTemplate>
+                <div class="modal-footer">
+                    <SfButton CssClass="e-outline e-round-corner"
+                              IconCss="fas fa-times"
+                              @onclick="@(()=>ValidationErrorsVisibility = false)" Content="@L["btnFechar"]">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@Effects" Duration=400></DialogAnimationSettings>
+    </SfDialog>
+
+    <SfToast @ref="ToastObj"
+             Title="@ToastTitle"
+             Content="@ToastContent"
+             CssClass="@ToastCssClass" Timeout="@ToastTimeOut"
+             ShowCloseButton="true">
+        <ToastPosition X="Right" Y="Bottom"></ToastPosition>
+    </SfToast>
+
+</div>
+
+
+@code {
+
+    protected TItem? SelectedRecord;
+    protected string OptionsColumnWidth = "20%";
+
+    private Dictionary<string, object> NumberOfRows = new Dictionary<string, object>()
+{
+        {"rows", "2" }
+    };
+
+    SfDialog? dialogEdit;
+    protected SfGrid<TItem>? gridObj;
+
+    // Following 3 parameters =Not= used in this context
+
+    [Parameter]
+    public RenderFragment? TableHeader { get; set; }
+    [Parameter]
+    public RenderFragment<TItem>? RowTemplate { get; set; }
+    [Parameter]
+    public RenderFragment? TableFooter { get; set; }
+
+    [Parameter]
+    public IEnumerable<TItem>? Items { get; set; }
+    [Parameter]
+    public string? TextPropertyName { get; set; }
+    [Parameter]
+    public string? ValuePropertyName { get; set; }
+    [Parameter]
+    public string? PageTitle { get; set; }
+    [Parameter]
+    public bool MultiLineNeeded { get; set; } = true;
+
+
+    [Parameter]
+    public EventCallback<TItem> OnUpdate { get; set; }
+    [Parameter]
+    public EventCallback<TItem> OnInsert { get; set; }
+    [Parameter]
+    public EventCallback<TItem> OnDelete { get; set; }
+    [Parameter]
+    public EventCallback<IEnumerable<TItem>> OnRefresh { get; set; }
+
+
+    [Parameter]
+    public Func<TItem, bool>? ValidateDelete { get; set; }
+    [Parameter]
+    public bool AllowManagement { get; set; } = true; // new => 12/2021
+
+
+    protected string? dialogHeight;
+    protected static string? pdfTitle;
+
+
+    protected override void OnInitialized()
+    {
+        PageTitle = L["menu-admin-lookup-tables"];
+    }
+
+    protected override void OnParametersSet()
+    {
+        pdfTitle = PageTitle;
+        dialogHeight = editRecord ? "35%" : "32%";
+        if (!AllowManagement)
+        {
+            OptionsColumnWidth = "10%";
+        }
+        StateHasChanged();
+    }
+
+    protected void onChangeDescription(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+    {
+        try
+        {
+            if (SelectedRecord is ExpandoObject)
+            {
+                UpdateDescricao(SelectedRecord as ExpandoObject, args.Value.ToString());
+            }
+            else
+            {
+                SelectedRecord.GetType().GetProperty(TextPropertyName).SetValue(SelectedRecord, args.Value);
+            }
+        }
+        catch
+        {
+
+            throw;
+        }
+    }
+
+    void UpdateDescricao(ExpandoObject expando, string descricao)
+    {
+        try
+        {
+            var map = (IDictionary<string, Object>)expando;
+            if (map.ContainsKey("Descricao"))
+                map["Descricao"] = descricao;
+        }
+        catch
+        {
+            throw;
+        }
+    }
+    void HandleInsert(TItem item)
+    {
+        OnInsert.InvokeAsync(item);
+    }
+    void HandleUpdate(TItem item)
+    {
+        OnUpdate.InvokeAsync(item);
+    }
+    void HandleDelete(TItem item)
+    {
+        OnDelete.InvokeAsync(item);
+    }
+
+
+    public void onAddRecord(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
+    {
+        dynamic rec = new ExpandoObject();
+        rec.Codigo = 0;
+        rec.Descricao = "";
+        SelectedRecord = rec;
+        // SelectedRecord = (TItem)Activator.CreateInstance(typeof(TItem));
+
+
+        editRecord = false;  // Insert flag
+        dialogHeight = "220px";
+        EditDialogVisibility = true;
+    }
+
+    public void OnRowSelected(RowSelectEventArgs<TItem> args)
+    {
+        RecordId = ItemValue(args.Data);
+        SelectedRecord = Items.Where(p => ItemValue(p) == RecordId).FirstOrDefault();
+    }
+    public void OnCommandClicked(CommandClickEventArgs<TItem> args)
+    {
+        args.Cancel = true;
+
+        RecordId = ItemValue(args.RowData);
+
+        SelectedRecord = Items.Where(p => ItemValue(p) == RecordId).FirstOrDefault();
+        if (args.CommandColumn.Type == CommandButtonType.Edit)
+        {
+            dialogHeight = "300px";
+            EditDialogVisibility = true;
+        }
+
+        if (args.CommandColumn.Type == CommandButtonType.Delete)
+        {
+            DeleteConfirmVisibility = true;
+        }
+    }
+
+
+    /// <summary>
+    /// Method not used (example from syncfusion support)
+    /// </summary>
+    /// <returns></returns>
+    public async Task DeleteData()
+    {
+        bool isValid = ValidateDelete.Invoke(SelectedRecord);
+        //Check for the condition here and if condition satisfy call delete method. or display a new dialog.
+
+        HandleDelete(SelectedRecord);
+        DeleteConfirmVisibility = false;
+
+        ToastTitle = L["DeleteMsg"] + " " + L["Record"];
+        ToastCssClass = "e-toast-success";
+        ToastContent = L["RegistoAnuladoSucesso"];
+
+        await Task.Delay(200);
+        await ToastObj.ShowAsync();
+    }
+
+    public async Task SaveData()
+    {
+        //        lstErrorMsg = ValidateTableEntries((SelectedRecord);
+
+        // TODO - implement validation correctly
+        // TODO - implementar validação para ver se descrição já existe
+
+        lstErrorMsg = null;
+
+        if (lstErrorMsg == null)
+        {
+            if (editRecord) // update record
+            {
+                if (OnUpdate.HasDelegate)
+                {
+                    HandleUpdate(SelectedRecord);
+
+                    ToastTitle = L["btnSalvar"] + " " + L["Record"];
+                    ToastCssClass = "e-toast-success";
+                    ToastContent = L["SuccessUpdate"];
+                    ToastTimeOut = 1500;
+
+                    editRecord = true;
+                }
+                else
+                {
+                    ToastTitle = L["btnSalvar"] + " " + L["Record"];
+                    ToastCssClass = "e-toast-danger";
+                    ToastContent = L["FalhaGravacaoRegisto"];
+                    ToastTimeOut = 1500;
+                }
+            }
+            else // insert record
+            {
+                if (OnInsert.HasDelegate)
+                {
+                    HandleInsert(SelectedRecord);
+
+                    ToastTitle = L["NewMsg"] + " " + L["Record"];
+                    ToastCssClass = "e-toast-success";
+                    ToastContent = L["SuccessInsert"];
+                    ToastTimeOut = 1500;
+
+                    editRecord = true;
+                }
+                else
+                {
+                    ToastTitle = L["NewMsg"] + " " + L["Record"];
+                    ToastCssClass = "e-toast-danger";
+                    ToastContent = L["FalhaCriacaoRegisto"];
+                    ToastTimeOut = 5000;
+
+                }
+            }
+
+            EditDialogVisibility = false;
+
+            await Task.Delay(200);
+            await ToastObj.ShowAsync();
+            await gridObj!.Refresh();
+        }
+        else
+        {
+            ErrorVisibility = true;
+        }
+    }
+
+
+    public async Task ConfirmDeleteYes()
+    {
+        if (OnDelete.HasDelegate)
+        {
+            bool isValid = ValidateDelete!.Invoke(SelectedRecord!);
+
+            if (isValid)
+            {
+                HandleDelete(SelectedRecord!);
+                await gridObj!.Refresh();
+
+                ToastTitle = L["DeleteMsg"] + " " + L["Record"];
+                ToastCssClass = "e-toast-success";
+                ToastContent = ToastTitle = L["SuccessDelete"] + " " + L["Record"];
+
+            }
+            else
+            {
+                ToastTitle = L["DeleteMsg"] + " " + L["Record"];
+                ToastCssClass = "e-toast-danger";
+                ToastContent = L["FalhaAnulacaoRegisto"];
+                ToastTimeOut = 10000;
+            }
+        }
+        else
+        {
+            ToastTitle = L["DeleteMsg"] + " " + L["Record"];
+            ToastCssClass = "e-toast-danger";
+            ToastContent = L["FalhaAnulacaoRegisto"];
+            ToastTimeOut = 2500;
+        }
+
+        DeleteConfirmVisibility = false;
+
+        await Task.Delay(200);
+        await ToastObj.ShowAsync();
+    }
+
+    private int ItemValue(TItem Item)
+    {
+        if (Item is ExpandoObject)
+        {
+            IDictionary<string, object> dictionary_object = (Item as ExpandoObject);
+            return (int)dictionary_object["Codigo"];
+        }
+        else
+        {
+            string IdField = GetFieldNames()[0];
+            return (int)Item.GetType()
+                .GetProperty(IdField)
+                .GetValue(Item, null);
+        }
+    }
+
+    private string ItemText(TItem Item)
+    {
+        if (Item is ExpandoObject)
+        {
+            IDictionary<string, object> dictionary_object = (Item as ExpandoObject);
+            return (string)dictionary_object["Descricao"];
+        }
+        else
+        {
+            string DescriptionField = GetFieldNames()[1];
+
+            var output = Item.GetType()
+            .GetProperty(DescriptionField)
+            .GetValue(Item, null);
+
+            string sRet = output == null ? "" : output.ToString();
+            return sRet;
+        }
+    }
+
+    protected string[] GetFieldNames()
+    {
+        var tipo = typeof(TItem);
+        var p = tipo.GetProperties();
+
+        string[] fieldNames = typeof(TItem)
+        .GetProperties()
+        .Select(p => p.Name)
+        .ToArray();
+
+        return fieldNames;
+    }
+
+    /// <summary>
+    /// Não usado
+    /// </summary>
+    /// <param name="tItem"></param>
+    /// <returns></returns>
+    protected string[] GetFieldNamesExpando(TItem tItem)
+    {
+        IDictionary<string, object> dictionary_object = (tItem as ExpandoObject);
+        return (string[])dictionary_object.Keys;
+    }
+
+    public List<PdfHeaderFooterContent> HeaderContent = new List<PdfHeaderFooterContent>
+{
+        new PdfHeaderFooterContent() {
+            Type = ContentType.Text,
+            Value = pdfTitle,
+            Position = new PdfPosition() { X = 0, Y = 50 },
+            Style = new PdfContentStyle() {
+                TextBrushColor = "#000000",
+                FontSize = 18,
+                HAlign = PdfHorizontalAlign.Center
+            }
+        },
+         new PdfHeaderFooterContent() {
+             Type = ContentType.Line,
+             Points = new PdfPoints() { X1 = 0, Y1 = 4, X2 = 685, Y2 = 4 },
+             Style = new PdfContentStyle() { PenColor = "#000080", DashStyle = PdfDashStyle.Solid }
+         }
+    };
+
+    public List<PdfHeaderFooterContent> FooterContent = new List<PdfHeaderFooterContent>
+{
+        new PdfHeaderFooterContent() {
+            Type = ContentType.PageNumber,
+            PageNumberType = PdfPageNumberType.Numeric,
+            Position = new PdfPosition() { X = 0, Y = 25 },
+            Style = new PdfContentStyle() {
+                TextBrushColor = "#0000ff",
+                FontSize = 14,
+                HAlign = PdfHorizontalAlign.Right
+            }
+        }
+    };
+
+
+    //public async Task PdfExport()
+    //{
+    //    PdfExportProperties ExportProperties = new PdfExportProperties();
+    //    PdfHeader Header = new PdfHeader()
+    //    {
+    //        FromTop = 0,
+    //        Height = 130,
+    //        Contents = HeaderContent
+    //    };
+
+    //    PdfFooter Footer = new PdfFooter()
+    //    {
+    //        FromBottom = 5,
+    //        Height = 130,
+    //        Contents = FooterContent
+    //    };
+
+    //    PdfTheme Theme = new PdfTheme();
+
+    //    PdfBorder HeaderBorder = new PdfBorder();
+    //    HeaderBorder.Color = "Black";
+
+    //    PdfThemeStyle HeaderThemeStyle = new PdfThemeStyle()
+    //    {
+    //        FontColor = "Black",
+    //        FontName = "Calibri",
+    //        FontSize = 13,
+    //        Bold = true,
+    //        Border = HeaderBorder
+    //    };
+    //    Theme.Header = HeaderThemeStyle;
+
+    //    PdfThemeStyle RecordThemeStyle = new PdfThemeStyle()
+    //    {
+    //        FontColor = "Black",
+    //        FontName = "Calibri",
+    //        FontSize = 12
+
+    //    };
+    //    Theme.Record = RecordThemeStyle;
+
+    //    PdfThemeStyle CaptionThemeStyle = new PdfThemeStyle()
+    //    {
+    //        FontColor = "Silver",
+    //        FontName = "Verdana",
+    //        FontSize = 18,
+    //        Bold = true
+
+    //    };
+    //    Theme.Caption = CaptionThemeStyle;
+
+    //    ExportProperties.Theme = Theme;
+    //    ExportProperties.FileName = pdfTitle + ".pdf";
+    //    ExportProperties.Header = Header;
+    //    ExportProperties.Footer = Footer;
+    //    await this.gridObj.ExportToPdfAsync(ExportProperties);
+    //}
+
+    public async Task OnToolbarClick(Syncfusion.Blazor.Navigations.ClickEventArgs args)
+    {
+        if (args.Item.Id == "ClearSearch")
+        {
+            await gridObj!.SearchAsync("");
+        }
+        if (args.Item.Id == "TablesGrid_pdfexport")
+        {
+            await gridObj!.ExportToPdfAsync();
+        }
+    }
+}
+
+<style>
+
+    /*.e-grid .e-altrow {
+                    background-color: #fafafa;
+                }
+
+                @@media (min-width: 320px) and (max-width:480px) {
+                    .row .e-custom .e-list-item {
+                        width: 100%;
+                    }
+                }
+
+                @@media (min-width: 480px) and (max-width:780px) {
+                    .row .e-custom .e-list-item {
+                        width: 50%;
+                    }
+                }
+
+                @@media (min-width: 780px) and (max-width:1920px) {
+                    .row .e-custom .e-list-item {
+                        width: 25%;
+                    }
+
+                    #spinnerContainer {
+                        position: center;
+                        height: 30px;
+                    }
+
+                    .tab {
+                        height: auto;
+                    }
+
+                    .e-spinner-pane .e-spinner-inner .e-spin-bootstrap4 {
+                        stroke: steelblue;
+                    }
+
+                    .btn {
+                        background-color: DodgerBlue;
+                        border: none;
+                        color: white;
+                        padding: 12px 16px;
+                        font-size: 16px;
+                        cursor: pointer;
+                    }*/
+    /* Darker background on mouse-over */
+    /*.btn:hover {
+                            background-color: RoyalBlue;
+                        }
+
+                    .avatar {
+                        vertical-align: middle;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                    }
+
+                    .e-btn-hide {
+                        display: none;
+                    }*/
+    /*        .Table {
+                                    border-collapse: separate;
+                                    border-style:solid;
+                                    border-spacing: 10px;
+                                    width: 85%;
+                                    margin: 0px -5px 0px;
+                                }
+                        */
+
+    /*.dlgbtn {
+                        margin-right: 10px;
+                    }
+
+                    #target {
+                        height: 460px;
+                        min-height: 350px;
+                    }
+
+                    .dlgbtn {
+                        margin-right: 10px;
+                    }
+
+                    .fabric #target #prompt_dialog.e-dialog {
+                        height: 291px;
+                    }
+
+                    .material #target #prompt_dialog.e-dialog {
+                        height: 270px;
+                    }
+
+                    #target #prompt_dialog.e-dialog {
+                        height: 270px;
+                    }
+
+                    .bootstrap4 #target #prompt_dialog.e-dialog {
+                        height: 285px;
+                    }
+
+                    .e-outline.e-float-input.e-control-wrapper:not(.e-valid-input).e-multi-line-input textarea:focus ~ label.e-float-text.e-label-top,
+                    .e-outline.e-float-input.e-control-wrapper:not(.e-valid-input).e-multi-line-input textarea:focus ~ label.e-float-text.e-label-bottom {
+                        line-height: 16.8px;
+                        transition: color .2s, font-size .2s, line-height .2s;
+                    }
+
+                    .e-dialog .e-footer-content {
+                        background-color: #f8f8f8;
+                    }
+
+                    .e-dialog.e-control.e-popup, .e-dialog.e-control.e-popup .e-dlg-header-content .e-dlg-header {
+                        color: white;
+                    }
+
+                        .e-dialog.e-control.e-popup, .e-dialog.e-control.e-popup .e-dlg-header-content {
+                            background-color: #d9edf7;
+                        }
+                }
+
+                .link-button {
+                    display: block;
+                    width: 115px;
+                    height: 25px;
+                    background: #4E9CAF;
+                    padding: 10px;
+                    text-align: center;
+                    border-radius: 5px;
+                    color: white;
+                    font-weight: bold;
+                    line-height: 25px;
+                }*/
+
+    .e-back-icon:before {
+        content: "\e728";
+    }
+
+    .my-card {
+        position: absolute;
+        left: 40%;
+        top: -20px;
+        border-radius: 50%;
+    }
+
+    .center-text {
+        padding: 0;
+        text-align: center;
+    }
+
+    .dialog-background-color {
+        background-color: #f5f2f2;
+    }
+
+    .e-Pdf-icon:before {
+        content: '\e240';
+    }
+
+    .card-box {
+        -webkit-border-radius: 25px;
+        border-radius: 25px;
+        -moz-border-radius: 25px;
+        margin-bottom: 5px;
+        background-color: #F3F9FC;
+        box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.4), 0 1px 0px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    .entry-box{
+        display:flex;
+        gap: 16px;
+        justify-content:center;
+        align-self:auto;
+    }
+</style>
+

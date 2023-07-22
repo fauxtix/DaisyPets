@@ -1,0 +1,104 @@
+﻿@using DaisyPets.Web.Blazor.Components.Cards
+@using Microsoft.Extensions.Localization;
+
+<div class="cards">
+    <div class="table-card">
+        <LookupTableCard cardContent="@L["MSG_EstadoCivil"]"
+                         cardImage="Doctors.svg" cardTitle="@BreedTitle" tableParam="Raca"></LookupTableCard>
+    </div>
+    <div class="table-card">
+        <LookupTableCard cardContent="@DewormerTitle"
+                         cardImage="Doctors.svg" cardTitle="@DewormerTitle" tableParam="Desparasitante"></LookupTableCard>
+    </div>
+    <div class="table-card">
+        <LookupTableCard cardContent="@TemperamentTitle"
+                         cardImage="Doctors.svg" cardTitle="@TemperamentTitle" tableParam="Temperamento"></LookupTableCard>
+    </div>
+    <div class="table-card">
+        <LookupTableCard cardContent="@SituationTitle"
+                         cardImage="Doctors.svg" cardTitle="@SituationTitle" tableParam="Situacao"></LookupTableCard>
+    </div>
+    <div class="table-card">
+        <LookupTableCard cardContent="@ContactTyoeTitle"
+                         cardImage="Doctors.svg" cardTitle="@ContactTyoeTitle" tableParam="TipoContacto"></LookupTableCard>
+    </div>
+</div>
+
+@code {
+    [Inject]
+    public IStringLocalizer<App> L { get; set; }
+
+    private string? BreedTitle;
+    private string? DewormerTitle;
+    private string? TemperamentTitle;
+    private string? SituationTitle;
+    private string? ContactTyoeTitle;
+
+    protected override void OnInitialized()
+    {
+        BreedTitle = L["MSG_EstadoCivil"];
+        DewormerTitle = L["TituloEstadoConservacao"];
+        TemperamentTitle = L["TituloTipoPagamento"];
+        SituationTitle = L["TituloSituacaoFracao"];
+        ContactTyoeTitle = L["TituloTipoContacto"];
+    }
+}
+<style>
+
+    .table-cards {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        border: 1px solid rgba(0, 0, 0, 0.8);
+        gap: 1rem;
+    }
+
+    ..table-card {
+         background: radial-gradient(#c000, #c0c0);
+        margin: 20px;
+        padding: 20px;
+        width: 500px;
+        min-height: 200px;
+        display: grid;
+        grid-template-rows: 20px 50px 1fr 50px;
+        border-radius: 10px;
+        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.25);
+        transition: all 0.8s;
+    }
+
+    .table-card:hover {
+        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
+        transform: scale(1.05);
+    }
+
+    .table-card-2 {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 2px solid rgba(0, 0, 0, 0.8);
+        padding: 10px;
+        font-size: 50px;
+        text-align: center;
+    }
+
+    .grid-container {
+        display: grid;
+        /*        grid-template-columns: auto;*/
+        background-color: #2196F3;
+        padding: 5px;
+    }
+
+    /*    .card {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            font-size: 30px;
+            text-align: center;
+        }
+    */
+    .app-tables {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+    }
+</style>
