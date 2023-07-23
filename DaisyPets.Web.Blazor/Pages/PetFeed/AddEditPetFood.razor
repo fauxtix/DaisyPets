@@ -1,0 +1,71 @@
+﻿@using DaisyPets.Core.Application.Formatting;
+@using DaisyPets.Core.Application.ViewModels;
+@using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+<div class="container-fluid d-md-flex flex-column">
+    <div>
+        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="property48"></HeaderDialogComponent>
+        <hr />
+    </div>
+    <EditForm Model="SelectedRecord">
+        <div class="group-box mt-2">
+            <SfDatePicker Placeholder="@L["TituloData"]"
+                          CssClass="e-align-middle e-corner"
+                          Width="150px"
+                          FloatLabelType="FloatLabelType.Always"
+            @bind-Value="@dCompra">
+                <DatePickerEvents TValue="DateTime" ValueChange="DataCompraChanged" />
+            </SfDatePicker>
+        </div>
+        <div class="row mt-2">
+            <div class="form-group">
+                <SfTextBox Enabled="true"
+                           Placeholder="@L["TituloMarca"]"
+                           CssClass="e-field  e-corner"
+                           FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@SelectedRecord!.Marca">
+                </SfTextBox>
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="form-group">
+                <SfNumericTextBox Placeholder="@L["TituloQtdDiaria"]"
+                                  CssClass="e-field  e-corner"
+                                  Min="1"
+                                  Width="150px"
+                                  FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@SelectedRecord!.QuantidadeDiaria">
+                </SfNumericTextBox>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+
+    [Parameter] public RacaoDto? SelectedRecord { get; set; }
+    [Parameter] public OpcoesRegisto EditMode { get; set; }
+    [Parameter] public string? HeaderCaption { get; set; }
+
+    protected DateTime dCompra { get; set; }
+
+    [Inject] IConfiguration? config { get; set; }
+    [Inject] ILogger<App>? logger { get; set; } = null;
+    [Inject] public IStringLocalizer<App>? L { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (DataFormat.IsValidDate(SelectedRecord.DataCompra))
+        {
+            dCompra = DateTime.Parse(SelectedRecord.DataCompra);
+        }
+
+    }
+
+    protected void DataCompraChanged(ChangedEventArgs<DateTime> args)
+    {
+        SelectedRecord.DataCompra = args.Value.ToShortDateString();
+    }
+
+}

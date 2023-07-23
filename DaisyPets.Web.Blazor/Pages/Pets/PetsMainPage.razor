@@ -4,7 +4,9 @@
 
 @using DaisyPets.Core.Application.ViewModels;
 @using DaisyPets.Web.Blazor.Pages.CodeBehind.Pets;
+@using DaisyPets.Web.Blazor.Pages.PetDewormers
 @using DaisyPets.Web.Blazor.Pages.PetDocuments
+@using DaisyPets.Web.Blazor.Pages.PetFeed
 @using DaisyPets.Web.Blazor.Pages.PetVaccines
 @using Microsoft.Extensions.Localization
 @using Syncfusion.Blazor.Grids
@@ -254,6 +256,7 @@ else
 
                                     @{
                                         PetId = (context as PetVM)!.Id;
+                                        PetName = (context as PetVM)!.Nome;
                                         var petDewormersHistory = GetPetDewormersHistory(PetId);
                                     }
                                     <SfGrid TValue="DesparasitanteVM"
@@ -491,7 +494,56 @@ else
         <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
     </SfDialog>
 
+    <SfDialog CssClass="responsive-dialog-30"
+              IsModal="true"
+              ShowCloseIcon="false"
+              CloseOnEscape="false"
+    @bind-Visible="AddEditPetFoodVisibility">
+        <DialogTemplates>
+            <Content>
+                <AddEditPetFood SelectedRecord="SelectedPetFood"
+                                EditMode="@RecordMode"
+                                HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+            </Content>
+            <FooterTemplate>
+                <div>
+                    <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save"
+                    @onclick="SavePetFood" Content="@L["btnSalvar"]">
+                    </SfButton>
+                    <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times"
+                    @onclick="(()=>AddEditPetFoodVisibility = false)" Content="@L["BtnSalir"]">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
+    </SfDialog>
 
+    <SfDialog CssClass="responsive-dialog-30"
+              IsModal="true"
+              ShowCloseIcon="false"
+              CloseOnEscape="false"
+    @bind-Visible="AddEditDewormerVisibility">
+        <DialogTemplates>
+            <Content>
+                <AddEditPetWormer SelectedRecord="SelectedDewormer"
+                                EditMode="@RecordMode"
+                                PetName="@PetName"
+                                HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+            </Content>
+            <FooterTemplate>
+                <div>
+                    <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save"
+                    @onclick="SavePetDewormer" Content="@L["btnSalvar"]">
+                    </SfButton>
+                    <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times"
+                    @onclick="(()=>AddEditDewormerVisibility = false)" Content="@L["BtnSalir"]">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
+    </SfDialog>
 
     <SfDialog CssClass="responsive-pdf-word-viewer"
               IsModal="true"
