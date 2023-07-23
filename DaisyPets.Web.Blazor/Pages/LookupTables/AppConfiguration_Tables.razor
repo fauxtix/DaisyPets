@@ -1,4 +1,5 @@
-﻿@typeparam TModel
+﻿
+@typeparam TModel
 
 
 @using System.Collections;
@@ -19,6 +20,7 @@
 <PageTitle>@L["TituloGestaoTabelas"]</PageTitle>
 <PageTitleComponent PageTitle="@L["TituloGestaoTabelas"]" WithBadge="true" PageSubTitle="@PageTitle"></PageTitleComponent>
 
+
 <ConfigurationTablesView Items="@ItemsList"
                          TItem="TModel"
                          OnInsert="InsertRecord"
@@ -28,7 +30,7 @@
                          PageTitle="@PageTitle"
                          ValidateDelete="IsDescriptionInUse"
                          TextPropertyName="Descricao"
-                         ValuePropertyName="Codigo">
+                         ValuePropertyName="Id">
 </ConfigurationTablesView>
 
 <AlertMessage Message="@alertMessage" MessageType="@messageType"></AlertMessage>
@@ -38,6 +40,7 @@
 
     private int Id;
     private string? Descricao;
+    private string SimpleActiveItem = "./breadcrumb/default-functionalities";
 
     [CascadingParameter]
     protected Task<AuthenticationState>? authenticationStateTask { get; set; }
@@ -183,7 +186,7 @@
         if (Item is ExpandoObject)
         {
             IDictionary<string, object> dictionary_object = (Item as ExpandoObject);
-            return (int)dictionary_object["Codigo"];
+            return (int)dictionary_object["Id"];
         }
         else
         {

@@ -48,7 +48,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables
 
         protected override void OnInitialized()
         {
-            _uri = $"{_env["BaseUrl"]}/LookupTables";
+            _uri = $"{_env["ApiSettings:UrlBase"]}/LookupTables";
 
         }
         /// <summary>
@@ -70,7 +70,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables
                     Tabela = tabela
                 };
 
-                var retCode = await _httpClient.PostAsJsonAsync($"{_uri}/InsertRecord", lookupTable);
+                var retCode = await _httpClient.PostAsJsonAsync(_uri, lookupTable);
                 return retCode.IsSuccessStatusCode;
             }
             catch (Exception exc)
@@ -87,7 +87,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables
         /// <param name="descricao"></param>
         /// <param name="tabela"></param>
         /// <returns></returns>
-        public async Task<bool> ActualizaDetalhes(int codigo, string descricao, string tabela)
+        public async Task<bool> ActualizaDetalhes(int Id, string descricao, string tabela)
         {
             try
             {
@@ -95,10 +95,11 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables
                 {
                     Descricao = descricao,
                     Tabela = tabela,
-                    Id = codigo
+                    Id = Id
                 };
 
-                var retCode = await _httpClient.PutAsJsonAsync($"{_uri}/UpdateLookupTable/{codigo}", lookupTable);
+                var updateEndPoint = $"{_uri}/{Id}";
+                var retCode = await _httpClient.PutAsJsonAsync(updateEndPoint, lookupTable);
                 return retCode.IsSuccessStatusCode;
             }
             catch (Exception exc)
@@ -113,7 +114,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables
         {
             try
             {
-                var retCode = await _httpClient.DeleteAsync($"{_uri}/DeleteLookupRecord/{id}/{tableName}");
+                var retCode = await _httpClient.DeleteAsync($"{_uri}/{id}/{tableName}");
                 return retCode.IsSuccessStatusCode;
             }
             catch (Exception exc)
@@ -258,7 +259,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables
             foreach (var item in GenericList)
             {
                 dynamic GenericModel = new ExpandoObject();
-                GenericModel.Codigo = item.Id;
+                GenericModel.Id = item.Id;
                 GenericModel.Descricao = item.Descricao;
                 GenericModelList.Add(GenericModel);
             }

@@ -4,8 +4,8 @@ using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
 using FluentValidation;
 using Microsoft.Extensions.Logging;
-using PropertyManagerFL.Application.Interfaces.Repositories;
-using PropertyManagerFL.Application.Interfaces.Services;
+using DaisyPets.Application.Interfaces.Repositories;
+using DaisyPets.Application.Interfaces.Services;
 
 namespace DaisyPets.Infrastructure.Services
 {

@@ -134,7 +134,7 @@ namespace DaisyPets.UI
                     e.Cancel = true;
                 else
                 {
-                    Application.Exit();
+                    System.Windows.Forms.Application.Exit();
                 }
             }
 

@@ -9,9 +9,9 @@ using DaisyPets.Infrastructure.Repositories;
 using DaisyPets.Infrastructure.Services;
 using DaisyPets.WebApi.Validators;
 using FluentValidation;
-using PropertyManagerFL.Application.Interfaces.Repositories;
-using PropertyManagerFL.Application.Interfaces.Services;
-using PropertyManagerFL.Infrastructure.Repositories;
+using DaisyPets.Application.Interfaces.Repositories;
+using DaisyPets.Application.Interfaces.Services;
+
 
 namespace DaisyPets.WebApi.Configuration
 /// <summary>

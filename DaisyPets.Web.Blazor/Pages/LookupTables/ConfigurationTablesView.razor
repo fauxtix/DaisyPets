@@ -23,9 +23,7 @@
     var Tool = (new List<object>() {
     "Search",
     "PdfExport",
-        new ItemModel()
-            { PrefixIcon = "e-searchclose", TooltipText = "Clear", Align = ItemAlign.Right, Id = "ClearSearch" },
-            });
+        new ItemModel()});
 }
 <div id="TabAux" class="col-lg-12 control-section">
 @*    <header>
@@ -64,7 +62,7 @@
                     <GridFilterSettings></GridFilterSettings>
                     <GridEvents CommandClicked="OnCommandClicked" OnToolbarClick="OnToolbarClick" TValue="TItem"></GridEvents>
                     <GridColumns>
-                        <GridColumn HeaderText="Opções" Width="120" AllowFiltering="false" AllowSorting="false" TextAlign="TextAlign.Center">
+                        <GridColumn HeaderText="@L["MSG_Opcoes"]" Width="120" AllowFiltering="false" AllowSorting="false" TextAlign="TextAlign.Center">
                             <GridCommandColumns>
                                 @if (AllowManagement)
                                 {
@@ -316,6 +314,8 @@
     protected string? dialogHeight;
     protected static string? pdfTitle;
 
+    private string SimpleActiveItem = "./admin/lookuptables/displayapplicationtables";
+
 
     protected override void OnInitialized()
     {
@@ -383,7 +383,7 @@
     public void onAddRecord(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
     {
         dynamic rec = new ExpandoObject();
-        rec.Codigo = 0;
+        rec.Id = 0;
         rec.Descricao = "";
         SelectedRecord = rec;
         // SelectedRecord = (TItem)Activator.CreateInstance(typeof(TItem));
@@ -550,7 +550,7 @@
         if (Item is ExpandoObject)
         {
             IDictionary<string, object> dictionary_object = (Item as ExpandoObject);
-            return (int)dictionary_object["Codigo"];
+            return (int)dictionary_object["Id"];
         }
         else
         {

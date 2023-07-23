@@ -2,7 +2,7 @@
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
 
-namespace PropertyManagerFL.Application.Interfaces.Repositories
+namespace DaisyPets.Application.Interfaces.Repositories
 {
     public interface IDespesaRepository
     {

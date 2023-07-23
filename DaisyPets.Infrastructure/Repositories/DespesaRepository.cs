@@ -5,12 +5,12 @@ using DaisyPets.Core.Domain;
 using DaisyPets.Infrastructure.Context;
 using Dapper;
 using Microsoft.Extensions.Logging;
-using PropertyManagerFL.Application.Interfaces.Repositories;
+using DaisyPets.Application.Interfaces.Repositories;
 
 using System.Data;
 using System.Text;
 
-namespace PropertyManagerFL.Infrastructure.Repositories
+namespace DaisyPets.Infrastructure.Repositories
 {
     public class DespesaRepository : IDespesaRepository
     {

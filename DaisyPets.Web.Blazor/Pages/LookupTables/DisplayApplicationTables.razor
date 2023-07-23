@@ -1,26 +1,35 @@
-﻿@using DaisyPets.Web.Blazor.Components.Cards
+﻿@page "/admin/lookuptables/displayapplicationtables"
+@using DaisyPets.Web.Blazor.Components.Cards
 @using Microsoft.Extensions.Localization;
+
 
 <div class="cards">
     <div class="table-card">
-        <LookupTableCard cardContent="@L["MSG_EstadoCivil"]"
-                         cardImage="Doctors.svg" cardTitle="@BreedTitle" tableParam="Raca"></LookupTableCard>
+        <LookupTableCard cardContent="Antigamente, a vida dos cães circunscrevia-se às quintas 
+                                                                    e era imperativo que os animais tivessem um propósito. Com base nestas definições, 
+                                                                    as diversas raças de cães foram divididas em vários grupos e secções. 
+                                                                    O conjunto das raças caninas foi redefinida em 1983 por Raymond Triquet. 
+                                                                    Este especialista identificou 10 grupos com traços característicos em comum."
+                         cardImage="dog-breed.svg" cardTitle="@BreedTitle" tableParam="Raca"></LookupTableCard>
     </div>
     <div class="table-card">
-        <LookupTableCard cardContent="@DewormerTitle"
-                         cardImage="Doctors.svg" cardTitle="@DewormerTitle" tableParam="Desparasitante"></LookupTableCard>
+        <LookupTableCard cardContent="Através da observação é possível definir se o seu Pet é entusiasmado, alegre, 
+                                                                    ansioso ou até mesmo corajoso. 
+                                                                    Por exemplo: cães de tutoras mulheres, castrados e os únicos da casa, são mais medrosos.  
+                                                                    Cachorros mais velhos possuem risco maior de desenvolver depressão e animais sem raça definida são mais medrosos e entusiasmados."
+                         cardImage="barking_dog.svg" cardTitle="@TemperamentTitle" tableParam="Temperamento"></LookupTableCard>
     </div>
     <div class="table-card">
-        <LookupTableCard cardContent="@TemperamentTitle"
-                         cardImage="Doctors.svg" cardTitle="@TemperamentTitle" tableParam="Temperamento"></LookupTableCard>
+        <LookupTableCard cardContent="Espécie é um conjunto de populações ou um grupo de organismos que tem potencial para cruzar entre si e produzir descendentes viáveis e férteis. Essa definição é conhecida como conceito biológico de espécie e é uma das mais utilizadas."
+                         cardImage="species-2.svg" cardTitle="@SpecieTitle" tableParam="Especie"></LookupTableCard>
     </div>
     <div class="table-card">
         <LookupTableCard cardContent="@SituationTitle"
-                         cardImage="Doctors.svg" cardTitle="@SituationTitle" tableParam="Situacao"></LookupTableCard>
+                         cardImage="dog-house.svg" cardTitle="@SituationTitle" tableParam="Situacao"></LookupTableCard>
     </div>
     <div class="table-card">
         <LookupTableCard cardContent="@ContactTyoeTitle"
-                         cardImage="Doctors.svg" cardTitle="@ContactTyoeTitle" tableParam="TipoContacto"></LookupTableCard>
+                         cardImage="contact-type.svg" cardTitle="@ContactTyoeTitle" tableParam="TipoContacto"></LookupTableCard>
     </div>
 </div>
 
@@ -32,15 +41,19 @@
     private string? DewormerTitle;
     private string? TemperamentTitle;
     private string? SituationTitle;
+    private string? SpecieTitle;
     private string? ContactTyoeTitle;
+    private string SimpleActiveItem = "./admin/configapptables";
+
 
     protected override void OnInitialized()
     {
-        BreedTitle = L["MSG_EstadoCivil"];
-        DewormerTitle = L["TituloEstadoConservacao"];
-        TemperamentTitle = L["TituloTipoPagamento"];
-        SituationTitle = L["TituloSituacaoFracao"];
+        BreedTitle = L["Pet_Breed"];
+        DewormerTitle = L["Pet_Dewormers"];
+        TemperamentTitle = L["TituloTemperamento"];
+        SituationTitle = L["TituloSituacao"];
         ContactTyoeTitle = L["TituloTipoContacto"];
+        SpecieTitle = L["TituloEspecie"];
     }
 }
 <style>
@@ -56,6 +69,9 @@
     ..table-card {
          background: radial-gradient(#c000, #c0c0);
         margin: 20px;
+        font-size:small;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1;
         padding: 20px;
         width: 500px;
         min-height: 200px;
@@ -66,10 +82,6 @@
         transition: all 0.8s;
     }
 
-    .table-card:hover {
-        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
-        transform: scale(1.05);
-    }
 
     .table-card-2 {
         background-color: rgba(255, 255, 255, 0.8);

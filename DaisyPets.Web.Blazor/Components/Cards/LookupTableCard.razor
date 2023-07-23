@@ -18,11 +18,12 @@
 </SfSpinner>
 
 
-<SfCard ID="table-card">
-    <CardHeader Title="@cardTitle" ImageUrl="images/database-table-icon.png"></CardHeader>
+<SfCard  ID="table-card">
+    <CardHeader Title="@cardTitle" ImageUrl="@CardImage"></CardHeader>
     <CardFooter>
         <CardFooterContent>
             <hr />
+            <div class="cardCss">@cardContent</div>
             <div style="text-align:center;">
                 <SfButton CssClass="e-info e-round-corner p-2" IconCss="e-icons e-settings"
                           @onclick="@(e => NavigateToUrlAsync(tableParam!))" Content="@L["lblManutencao"]">
@@ -80,13 +81,17 @@
 
     protected bool PdfViewerVisibility { get; set; } = false;
 
-
+    private string? CardImage { get; set; }
 
     protected Dictionary<string, object> htmlAttribute = new Dictionary<string, object>()
 {
         {"overflow", "auto" }
     };
 
+    protected override void OnParametersSet()
+    {
+        CardImage = $"/images/lookuptables/{cardImage}";
+    }
     // not async, javascript replaced
     private void NavigateToUrlAsync(string tableName)
     {
@@ -217,6 +222,13 @@
         margin: 0 auto;
         display: grid;
         gap: 1rem;
+    }
+
+    .cardCss{
+        font-size:medium;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: normal;
+        padding:15px;
     }
 
     @@media (min-width: 600px) {
