@@ -1453,4 +1453,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   <data name="TituloTemperamento" xml:space="preserve">
     <value>Temperamento</value>
   </data>
+  <data name="TituloTratamento" xml:space="preserve">
+    <value>Tratamento</value>
+  </data>
 </root>

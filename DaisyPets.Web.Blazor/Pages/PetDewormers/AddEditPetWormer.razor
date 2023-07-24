@@ -94,7 +94,10 @@
 
     protected override void OnParametersSet()
     {
-        dewormerType = SelectedRecord?.Tipo == "M"? 1:2;
+        if (SelectedRecord?.Id > 0)
+            dewormerType = SelectedRecord?.Tipo == "I" ? 1 : 2;
+        else
+            dewormerType = 1;
 
         if (DataFormat.IsValidDate(SelectedRecord.DataAplicacao))
         {

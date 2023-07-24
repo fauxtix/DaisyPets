@@ -2463,4 +2463,7 @@
   <data name="Pet_Brand" xml:space="preserve">
     <value>Type</value>
   </data>
+  <data name="TituloTratamento" xml:space="preserve">
+    <value>Treatment</value>
+  </data>
 </root>

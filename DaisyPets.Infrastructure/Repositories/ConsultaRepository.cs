@@ -172,7 +172,7 @@ namespace DaisyPets.Infrastructure.Repositories
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT ConsultaVeterinario.Id, DataConsulta, Motivo, ");
-            sb.Append("Diagnostico, Tratamento, ");
+            sb.Append("Diagnostico, Tratamento, Notas, ");
             sb.Append("IdPet, Pet.Nome AS [NomePet] ");
             sb.Append("FROM ConsultaVeterinario ");
             sb.Append("INNER JOIN Pet ON ");

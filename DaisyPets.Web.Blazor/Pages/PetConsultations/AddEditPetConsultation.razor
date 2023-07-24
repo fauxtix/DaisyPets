@@ -1,0 +1,117 @@
+﻿@using DaisyPets.Core.Application.Formatting;
+@using DaisyPets.Core.Application.ViewModels;
+@using DaisyPets.Core.Application.ViewModels.LookupTables;
+@using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+<div class="container-fluid d-md-flex flex-column">
+    <div>
+        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="property48"></HeaderDialogComponent>
+    </div>
+    <EditForm Model="SelectedRecord">
+        <div class="row mt-2">
+            <div class="form-group">
+                <SfTextBox Enabled="false"
+                           Placeholder="@L["TituloNome"]"
+                           CssClass="e-field  e-corner"
+                           FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@PetName">
+                </SfTextBox>
+            </div>
+        </div>
+
+        <div class="group-box mt-2">
+            <SfDatePicker Placeholder="@L["TituloData"]"
+                          CssClass="e-align-middle e-corner"
+                          Width="150px"
+                          FloatLabelType="FloatLabelType.Always"
+            @bind-Value="@dConsulta">
+                <DatePickerEvents TValue="DateTime" ValueChange="DataConsultaChanged" />
+            </SfDatePicker>
+        </div>
+        <div class="row mt-2">
+            <div class="form-group">
+                <SfTextBox Enabled="true"
+                           Placeholder="@L["TituloMotivo"]"
+                           CssClass="e-field  e-corner"
+                           FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@SelectedRecord!.Motivo">
+                </SfTextBox>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="form-group">
+                <SfTextBox Enabled="true"
+                           Placeholder="@L["TituloDiagnostico"]"
+                           CssClass="e-field  e-corner"
+                           Multiline="true"
+                           FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@SelectedRecord!.Diagnostico">
+                </SfTextBox>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="form-group">
+                <SfTextBox Enabled="true"
+                           Placeholder="@L["TituloTratamento"]"
+                           Multiline="true"
+                           CssClass="e-field  e-corner"
+                           FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@SelectedRecord!.Tratamento">
+                </SfTextBox>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="form-group">
+                <SfTextBox Enabled="true"
+                           Placeholder="@L["lblSinopse"]"
+                           CssClass="e-field  e-corner"
+                           Multiline="true"
+                           FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@SelectedRecord!.Notas">
+                </SfTextBox>
+            </div>
+        </div>
+
+    </EditForm>
+</div>
+
+@code {
+
+    [Inject] IConfiguration? config { get; set; }
+    [Inject] ILogger<App>? logger { get; set; } = null;
+    [Inject] public IStringLocalizer<App>? L { get; set; }
+
+    [Parameter] public ConsultaVeterinarioDto? SelectedRecord { get; set; }
+
+    [Parameter] public OpcoesRegisto EditMode { get; set; }
+    [Parameter] public string? HeaderCaption { get; set; }
+    [Parameter] public string? PetName { get; set; }
+
+    protected List<LookupTableVM>? DewormerTypes { get; set; }
+
+    protected DateTime dConsulta { get; set; }
+    protected string? urlBaseAddress;
+
+    protected int dewormerType;
+
+    protected override void OnInitialized()
+    {
+    }
+
+    protected override void OnParametersSet()
+    {
+
+        if (DataFormat.IsValidDate(SelectedRecord.DataConsulta))
+        {
+            dConsulta = DateTime.Parse(SelectedRecord.DataConsulta);
+        }
+
+    }
+
+    protected void DataConsultaChanged(ChangedEventArgs<DateTime> args)
+    {
+        SelectedRecord.DataConsulta = args.Value.ToShortDateString();
+    }
+
+}

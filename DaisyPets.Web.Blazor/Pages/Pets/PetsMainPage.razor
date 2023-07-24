@@ -4,6 +4,7 @@
 
 @using DaisyPets.Core.Application.ViewModels;
 @using DaisyPets.Web.Blazor.Pages.CodeBehind.Pets;
+@using DaisyPets.Web.Blazor.Pages.PetConsultations
 @using DaisyPets.Web.Blazor.Pages.PetDewormers
 @using DaisyPets.Web.Blazor.Pages.PetDocuments
 @using DaisyPets.Web.Blazor.Pages.PetFeed
@@ -146,6 +147,7 @@ else
 
                                     @{
                                         PetId = (context as PetVM)!.Id;
+                                        PetName = (context as PetVM)!.Nome;
                                         var petConsultationsHistory = GetPetConsultationsHistory(PetId);
                                     }
                                     <SfGrid TValue="ConsultaVeterinarioVM"
@@ -164,7 +166,8 @@ else
                                             <GridColumn Field=@nameof(ConsultaVeterinarioVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
                                             <GridColumn Field=@nameof(ConsultaVeterinarioVM.DataConsulta) HeaderText="@L["TituloData"]" Format="d" Width="90"></GridColumn>
                                             <GridColumn Field=@nameof(ConsultaVeterinarioVM.Motivo) HeaderText="@L["TituloMotivo"]" Width="300"></GridColumn>
-                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Diagnostico) HeaderText="@L["TituloDiagnostico"]" Width="350"></GridColumn>
+                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Diagnostico) HeaderText="@L["TituloDiagnostico"]" Width="300"></GridColumn>
+                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Notas) HeaderText="@L["lblSinopse"]" Width="300"></GridColumn>
                                             <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                                                 <GridCommandColumns>
                                                     <GridCommandColumn Type=CommandButtonType.Edit
@@ -523,13 +526,39 @@ else
               IsModal="true"
               ShowCloseIcon="false"
               CloseOnEscape="false"
+    @bind-Visible="AddEditConsultationVisibility">
+        <DialogTemplates>
+            <Content>
+                <AddEditPetConsultation SelectedRecord="SelectedConsultation"
+                                  EditMode="@RecordMode"
+                                  PetName="@PetName"
+                                  HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+            </Content>
+            <FooterTemplate>
+                <div>
+                    <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save"
+                    @onclick="SavePetConsultation" Content="@L["btnSalvar"]">
+                    </SfButton>
+                    <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times"
+                    @onclick="(()=>AddEditConsultationVisibility = false)" Content="@L["BtnSalir"]">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
+    </SfDialog>
+
+    <SfDialog CssClass="responsive-dialog-30"
+              IsModal="true"
+              ShowCloseIcon="false"
+              CloseOnEscape="false"
     @bind-Visible="AddEditDewormerVisibility">
         <DialogTemplates>
             <Content>
                 <AddEditPetWormer SelectedRecord="SelectedDewormer"
-                                EditMode="@RecordMode"
-                                PetName="@PetName"
-                                HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+                                        EditMode="@RecordMode"
+                                        PetName="@PetName"
+                                        HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
             </Content>
             <FooterTemplate>
                 <div>
@@ -544,6 +573,7 @@ else
         </DialogTemplates>
         <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
     </SfDialog>
+
 
     <SfDialog CssClass="responsive-pdf-word-viewer"
               IsModal="true"
@@ -585,7 +615,7 @@ else
                             OnConfirmationNo="@(()=>DeletePetVisibility=false)"></ConfirmDeleteComponent>
 
     <AlertUserComponent AlertMessageType="AlertMessageType.Warning"
-                        Title="@alertTitle"
+                        Title="@AlertTitle"
                         OperationType="OpcoesRegisto.Warning"
                         Visibility="@AlertVisibility"
                         Message="@WarningMessage"

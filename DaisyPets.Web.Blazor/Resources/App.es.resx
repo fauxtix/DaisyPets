@@ -2461,4 +2461,7 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="Pet_Brand" xml:space="preserve">
     <value>Tipo</value>
   </data>
+  <data name="TituloTratamento" xml:space="preserve">
+    <value>Tratamiento</value>
+  </data>
 </root>
