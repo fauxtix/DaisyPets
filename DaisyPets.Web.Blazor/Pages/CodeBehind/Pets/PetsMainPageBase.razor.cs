@@ -2,6 +2,7 @@
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Notifications;
@@ -16,6 +17,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         [Inject] public IStringLocalizer<App>? L { get; set; }
         [Inject] ILogger<App>? logger { get; set; } = null;
         [Inject] public IWebHostEnvironment _env { get; set; }
+        [Inject] IJSRuntime Runtime { get; set; }
 
         protected string? urlBaseAddress;
         protected IEnumerable<PetVM>? Pets { get; set; }
@@ -32,15 +34,12 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected ConsultaVeterinarioDto? SelectedConsultation { get; set; }
         protected DocumentoDto? SelectedDocument { get; set; }
 
-
         protected string? petsEndpoint;
         protected string? petVaccinesEndpoint;
         protected string? petDocumentsEndpoint;
         protected string? petFoodEndpoint;
         protected string? petDewormersEndpoint;
         protected string? petConsultationsEndpoint;
-
-
 
         protected SfUploader? sfUploader;
         protected int MaxFileSize = 10 * 1024 * 1024; // 10 MB
@@ -106,6 +105,9 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected SfToast? ToastObj { get; set; }
         protected string? documentFilePath { get; set; }
 
+        protected bool firstrender { get; set; } = true;
+
+        protected IDictionary<int, PetVM> ExpandedRows = new Dictionary<int, PetVM>();
 
         protected override async Task OnInitializedAsync()
         {
@@ -777,7 +779,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         private async Task<List<string>> Validate<T>(T entity, string validatorEndPoint) where T : class
         {
             try
-            { 
+            {
 
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -811,7 +813,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             string? entityTitle = string.Empty;
             int? entityId = 0;
 
-            switch(Module)
+            switch (Module)
             {
                 case Modules.Pets:
                     entityTitle = L["Pet_Title"];
@@ -943,7 +945,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             // TODO adapt to delete operations
 
-            if(addUpdateOperation == OpcoesRegisto.Gravar) // update
+            if (addUpdateOperation == OpcoesRegisto.Gravar) // update
             {
                 if (!success)
                 {
@@ -982,6 +984,39 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             CloseAddEditDialog();
 
+            await petsGridObj!.Refresh();
+
+        }
+
+
+        public async Task DataBound()
+        {
+            if (firstrender)
+            {
+                var dotNetReference = DotNetObjectReference.Create(this);          // create dotnet ref
+                await Runtime.InvokeAsync<string>("detail", dotNetReference);     // send the dotnet ref to JS side
+                firstrender = false;
+            }
+
+            foreach (var a in ExpandedRows)
+            {
+                var PKIndex = await petsGridObj.GetRowIndexByPrimaryKeyAsync(a.Key);
+                await petsGridObj.ExpandCollapseDetailRowAsync((PetVM)petsGridObj.CurrentViewData.ElementAt(Convert.ToInt32(PKIndex)));     //Expand the already expnaded detailrows
+            }
+        }
+        public void DetailDataBound(DetailDataBoundEventArgs<PetVM> args)
+        {
+            if (!ExpandedRows.ContainsKey(args.Data.Id))
+            {
+                ExpandedRows.Add(args.Data.Id, args.Data);  //add the expanded rows to dictionary
+            }
+        }
+
+        [JSInvokable("DetailCollapse")]                            // method called from JS when collapse is done
+        public void DetailRowCollapse(string CollapseIndex)
+        {
+            PetVM CollapseRow = (PetVM)petsGridObj.CurrentViewData.ElementAt(Convert.ToInt32(CollapseIndex));
+            ExpandedRows.Remove(CollapseRow.Id);              //Remove the collapsed row from expanded dictionary
         }
 
         protected async Task HideToast()

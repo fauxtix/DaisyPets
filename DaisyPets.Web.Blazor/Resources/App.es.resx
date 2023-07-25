@@ -2464,4 +2464,7 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="TituloTratamento" xml:space="preserve">
     <value>Tratamiento</value>
   </data>
+  <data name="TituloEmMeses" xml:space="preserve">
+    <value>(en meses)</value>
+  </data>
 </root>

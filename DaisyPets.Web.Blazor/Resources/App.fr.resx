@@ -2480,4 +2480,7 @@ Vérifiez les erreurs, s'il vous plaît</value>
   <data name="TituloTratamento" xml:space="preserve">
     <value>Traitement</value>
   </data>
+  <data name="TituloEmMeses" xml:space="preserve">
+    <value>(en mois)</value>
+  </data>
 </root>

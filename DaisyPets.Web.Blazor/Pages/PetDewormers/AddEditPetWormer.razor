@@ -6,19 +6,11 @@
 
 <div class="container-fluid d-md-flex flex-column">
     <div>
-        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="property48"></HeaderDialogComponent>
+        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="deworm"></HeaderDialogComponent>
     </div>
     <EditForm Model="SelectedRecord">
-        <div class="row mt-2">
-            <div class="form-group">
-                <SfTextBox Enabled="false"
-                           Placeholder="@L["TituloNome"]"
-                           CssClass="e-field  e-corner"
-                           FloatLabelType="@FloatLabelType.Always"
-                @bind-Value="@PetName">
-                </SfTextBox>
-            </div>
-        </div>
+
+        <DisplayPetNameComponent PetName="@PetName" />
 
         <div class="group-box">
             <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"

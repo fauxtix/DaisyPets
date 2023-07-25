@@ -1,0 +1,17 @@
+﻿@using Microsoft.Extensions.Localization;
+
+<div class="row mt-2">
+    <div class="form-group">
+        <SfTextBox Enabled="false"
+                   Placeholder="@L["TituloNome"]"
+                   CssClass="e-field  e-corner"
+                   FloatLabelType="@FloatLabelType.Always"
+        @bind-Value="@PetName">
+        </SfTextBox>
+    </div>
+</div>
+
+@code {
+    [Inject] public IStringLocalizer<App>? L { get; set; }
+    [Parameter] public string? PetName { get; set; }
+}

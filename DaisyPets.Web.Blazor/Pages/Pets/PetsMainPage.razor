@@ -71,6 +71,7 @@ else
                 AllowTextWrap="true">
             <GridEvents RowSelected="RowSelectHandler"
                         OnToolbarClick="ToolbarClickHandler"
+                        DetailDataBound="DetailDataBound" DataBound="DataBound"
                         CommandClicked="OnPetCommandClicked" TValue="PetVM">
             </GridEvents>
 
@@ -78,7 +79,7 @@ else
                 <DetailTemplate>
                     <SfTab CssClass="e-outline e-info e-round-corner py-3" HeaderPlacement="HeaderPosition.Top">
                         <TabItems>
-                            @*Documentos*@
+                            @*Documents*@
                             <TabItem>
                                 <ChildContent>
                                     <TabHeader Text="@L["Pet_Vaccines"]"></TabHeader>
@@ -92,6 +93,7 @@ else
 
                                     @{
                                         PetId = (context as PetVM)!.Id;
+                                        PetName = (context as PetVM)!.Nome;
                                         var petVaccinesHistory = GetPetVaccinesHistory(PetId);
                                     }
                                     <SfGrid TValue="VacinaVM"
@@ -134,6 +136,7 @@ else
                                     </SfGrid>
                                 </ContentTemplate>
                             </TabItem>
+                            @*Vet visits*@
                             <TabItem>
                                 <ChildContent>
                                     <TabHeader Text="@L["Pet_Consultations"]"></TabHeader>
@@ -192,6 +195,7 @@ else
                                 </ContentTemplate>
                             </TabItem>
                             <TabItem>
+                                @*Pet Food*@
                                 <ChildContent>
                                     <TabHeader Text="@L["Pet_Food"]"></TabHeader>
                                 </ChildContent>
@@ -204,6 +208,7 @@ else
 
                                     @{
                                         PetId = (context as PetVM)!.Id;
+                                        PetName = (context as PetVM)!.Nome;
                                         var petFoodHistory = GetPetFoodHistory(PetId);
                                     }
                                     <SfGrid TValue="RacaoVM"
@@ -316,6 +321,7 @@ else
 
                                     @{
                                         PetId = (context as PetVM)!.Id;
+                                        PetName = (context as PetVM)!.Nome;
                                         var petDocumentsHistory = GetPetDocumentsHistory(PetId);
                                     }
                                     <SfGrid TValue="DocumentoVM"
@@ -387,6 +393,7 @@ else
             </Template>
             </GridColumn>
             *@
+                <GridColumn Field=@nameof(PetVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="Pet" Width="150"></GridColumn>
                 <GridColumn Field=@nameof(PetVM.Nome) HeaderText="Pet" Width="150"></GridColumn>
                 <GridColumn Field=@nameof(PetVM.DataNascimento) Format="d" TextAlign="TextAlign.Center"
                             HeaderText="@L["TituloDtNascimento"]" Width="110"></GridColumn>
@@ -456,6 +463,7 @@ else
             <Content>
                 <AddEditPetDocument SelectedDocument="SelectedDocument"
                                     EditMode="@RecordMode"
+                                    PetName="@PetName"
                                     HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
             </Content>
             <FooterTemplate>
@@ -480,8 +488,9 @@ else
         <DialogTemplates>
             <Content>
                 <AddEditVaccine SelectedRecord="SelectedVaccine"
-                                    EditMode="@RecordMode"
-                                    HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+                                EditMode="@RecordMode"
+                                PetName="@PetName"
+                                HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
             </Content>
             <FooterTemplate>
                 <div>
@@ -506,6 +515,7 @@ else
             <Content>
                 <AddEditPetFood SelectedRecord="SelectedPetFood"
                                 EditMode="@RecordMode"
+                                PetName="@PetName"
                                 HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
             </Content>
             <FooterTemplate>
@@ -530,9 +540,9 @@ else
         <DialogTemplates>
             <Content>
                 <AddEditPetConsultation SelectedRecord="SelectedConsultation"
-                                  EditMode="@RecordMode"
-                                  PetName="@PetName"
-                                  HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+                                        EditMode="@RecordMode"
+                                        PetName="@PetName"
+                                        HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
             </Content>
             <FooterTemplate>
                 <div>
@@ -556,9 +566,9 @@ else
         <DialogTemplates>
             <Content>
                 <AddEditPetWormer SelectedRecord="SelectedDewormer"
-                                        EditMode="@RecordMode"
-                                        PetName="@PetName"
-                                        HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+                                  EditMode="@RecordMode"
+                                  PetName="@PetName"
+                                  HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
             </Content>
             <FooterTemplate>
                 <div>

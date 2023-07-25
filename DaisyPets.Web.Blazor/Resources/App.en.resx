@@ -2466,4 +2466,7 @@
   <data name="TituloTratamento" xml:space="preserve">
     <value>Treatment</value>
   </data>
+  <data name="TituloEmMeses" xml:space="preserve">
+    <value>(in months)</value>
+  </data>
 </root>

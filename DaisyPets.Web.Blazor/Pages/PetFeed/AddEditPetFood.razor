@@ -5,10 +5,12 @@
 
 <div class="container-fluid d-md-flex flex-column">
     <div>
-        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="property48"></HeaderDialogComponent>
-        <hr />
+        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="dogfeed"></HeaderDialogComponent>
     </div>
     <EditForm Model="SelectedRecord">
+
+        <DisplayPetNameComponent PetName="@PetName" />
+
         <div class="group-box mt-2">
             <SfDatePicker Placeholder="@L["TituloData"]"
                           CssClass="e-align-middle e-corner"
@@ -47,6 +49,8 @@
     [Parameter] public RacaoDto? SelectedRecord { get; set; }
     [Parameter] public OpcoesRegisto EditMode { get; set; }
     [Parameter] public string? HeaderCaption { get; set; }
+    [Parameter] public string? PetName { get; set; }
+
 
     protected DateTime dCompra { get; set; }
 

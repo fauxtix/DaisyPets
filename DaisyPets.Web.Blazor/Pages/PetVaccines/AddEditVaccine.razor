@@ -5,10 +5,12 @@
 
 <div class="container-fluid d-md-flex flex-column">
     <div>
-        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="property48"></HeaderDialogComponent>
-        <hr />
+        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="syringe"></HeaderDialogComponent>
     </div>
     <EditForm Model="SelectedRecord">
+
+        <DisplayPetNameComponent PetName="@PetName" />
+
         <div class="group-box mt-2">
             <SfDatePicker Placeholder="@L["Pet_Vaccine_Date"]"
                           CssClass="e-align-middle e-corner"
@@ -30,7 +32,7 @@
         </div>
         <div class="row my-2">
             <div class="form-group">
-                <SfNumericTextBox Placeholder="@L["Pet_Vaccine_Next"]"
+                <SfNumericTextBox Placeholder="@inMonthsCaption"
                                   CssClass="e-field  e-corner"
                                   Min="1"
                                   Width="150px"
@@ -47,8 +49,10 @@
     [Parameter] public VacinaDto? SelectedRecord { get; set; }
     [Parameter] public OpcoesRegisto EditMode { get; set; }
     [Parameter] public string? HeaderCaption { get; set; }
+    [Parameter] public string? PetName { get; set; }
 
     protected DateTime dTomaVacina { get; set; }
+    protected string? inMonthsCaption;
 
     [Inject] IConfiguration? config { get; set; }
     [Inject] ILogger<App>? logger { get; set; } = null;
@@ -60,6 +64,8 @@
         {
             dTomaVacina = DateTime.Parse(SelectedRecord.DataToma);
         }
+
+        inMonthsCaption = $"{L["Pet_Vaccine_Next"]} {L["TituloEmMeses"]}";
 
     }
 

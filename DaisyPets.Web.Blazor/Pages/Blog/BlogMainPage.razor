@@ -1,0 +1,89 @@
+﻿@page "/Blog/BlogMainPage"
+@using DaisyPets.Core.Application.ViewModels;
+@using Microsoft.Extensions.Localization;
+
+<PageTitle>My Blog</PageTitle>
+
+@if (posts is null)
+{
+    <LoadingData />
+}
+else
+{
+    <div class="container">
+        @foreach (var post in posts)
+        {
+            <a href="/article/@post.Id">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img class="w-100" src="img/articleMainImages/@post.Image">
+                    </div>
+                    <div class="col-sm-8 post-front-page">
+                        <h1>@post.Title</h1>
+                        <p>@post.Introduction</p>
+                    </div>
+                </div>
+            </a>
+
+            <hr />
+            <br />
+        }
+    </div>
+}
+
+
+@code {
+    [Inject] IConfiguration? config { get; set; }
+    [Inject] ILogger<App>? logger { get; set; } = null;
+    [Inject] public IStringLocalizer<App>? L { get; set; }
+
+
+
+    protected IEnumerable<PostDto>? posts;
+    protected string? urlBaseAddress;
+    protected string? postsEndpoint;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        urlBaseAddress = config?["ApiSettings:UrlBase"];
+        postsEndpoint = $"{urlBaseAddress}/Posts";
+
+        posts = await GetAllPosts();
+    }
+
+    private async Task<IEnumerable<PostDto>?> GetAllPosts()
+    {
+        var result = await GetData<PostDto>(postsEndpoint!);
+        return result.ToList();
+    }
+    private async Task<IEnumerable<T>> GetData<T>(string url) where T : class
+    {
+        using (HttpClient httpClient = new HttpClient())
+        {
+            try
+            {
+                var response = await httpClient.GetFromJsonAsync<IEnumerable<T>>(url);
+                if (response == null)
+                {
+                    return Enumerable.Empty<T>();
+                }
+
+                return response;
+            }
+            catch (HttpRequestException exa)
+            {
+                logger?.LogError(exa.Message, L["MSG_ApiError"]);
+
+                return Enumerable.Empty<T>();
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex.Message, L["MSG_ApiError"]);
+                return Enumerable.Empty<T>();
+            }
+        }
+    }
+
+}
+}

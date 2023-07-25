@@ -11,7 +11,11 @@ using DaisyPets.WebApi.Validators;
 using FluentValidation;
 using DaisyPets.Application.Interfaces.Repositories;
 using DaisyPets.Application.Interfaces.Services;
-
+using DaisyPets.Infrastructure.Repositories.Blog;
+using DaisyPets.Core.Application.Interfaces.Repositories.Blog;
+using DaisyPets.Core.Application.Interfaces.Services.Blog;
+using DaisyPets.Infrastructure.Services.Blog;
+using DaisyPets.Core.Domain.Blog;
 
 namespace DaisyPets.WebApi.Configuration
 /// <summary>
@@ -32,40 +36,44 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<IDapperContext, DapperContext>();
 
             services.AddScoped<IPetRepository, PetRepository>();
-            services.AddScoped<IPetService, PetService>();
+            services.AddTransient<IPetService, PetService>();
 
             services.AddScoped<IDocumentsRepository, DocumentsRepository>();
-            services.AddScoped<IDocumentsService, DocumentsService>();
+            services.AddTransient<IDocumentsService, DocumentsService>();
 
             services.AddScoped<IContactRepository, ContactRepository>();
-            services.AddScoped<IContactService, ContactService>();
+            services.AddTransient<IContactService, ContactService>();
 
             services.AddScoped<IVacinasRepository, VacinasRepository>();
-            services.AddScoped<IVacinasService, VacinasService>();
+            services.AddTransient<IVacinasService, VacinasService>();
 
             services.AddScoped<IConsultaRepository, ConsultaRepository>();
-            services.AddScoped<IConsultaService, ConsultaService>();
+            services.AddTransient<IConsultaService, ConsultaService>();
 
             services.AddScoped<IRacaoRepository, RacaoRepository>();
-            services.AddScoped<IRacaoService, RacaoService>();
+            services.AddTransient<IRacaoService, RacaoService>();
 
             services.AddScoped<IDespesaRepository, DespesaRepository>();
             services.AddScoped<IDespesaService, DespesaService>();
 
             services.AddScoped<ITipoDespesaRepository, TipoDespesaRepository>();
-            services.AddScoped<ITipoDespesaService, TipoDespesaService>();
+            services.AddTransient<ITipoDespesaService, TipoDespesaService>();
 
             services.AddScoped<IGaleriaFotosRepository, GaleriaFotosRepository>();
-            services.AddScoped<IGaleriaFotosService, GaleriaFotosService>();
+            services.AddTransient<IGaleriaFotosService, GaleriaFotosService>();
 
             services.AddScoped<IDesparasitanteRepository, DesparasitanteRepository>();
-            services.AddScoped<IDesparasitanteService, DesparasitanteService>();
+            services.AddTransient<IDesparasitanteService, DesparasitanteService>();
 
             services.AddScoped<ILookupTableRepository, LookupTableRepository>();
-            services.AddScoped<ILookupTableService, LookupTableService>();
+            services.AddTransient<ILookupTableService, LookupTableService>();
 
             services.AddScoped<IAppSettingsRepository, AppSettingsRepository>();
-            services.AddScoped<IAppSettingsService, AppSettingsService>();
+            services.AddTransient<IAppSettingsService, AppSettingsService>();
+
+            services.AddScoped<IBlogRepository, BlogsRepository>();
+            services.AddTransient<IBlogService, BlogsService>();
+
 
             services.AddScoped<IValidator<PetDto>, PetValidator>(); 
             services.AddScoped<IValidator<ContactoVM>, ContactValidator>();
@@ -76,6 +84,8 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<IValidator<DesparasitanteDto>, DesparasitanteValidator>();
             services.AddScoped<IValidator<DocumentoDto>, DocumentoValidator>();
             services.AddScoped<IValidator<GaleriaFotosDto>, GaleriaFotosValidator>();
+
+            services.AddScoped<IValidator<PostDto>, PostValidator>();
         }
     }
 }

@@ -1,0 +1,148 @@
+﻿@page "/article/{id:int}"
+
+@using DaisyPets.Core.Application.ViewModels;
+@using Microsoft.AspNetCore.Identity;
+@using System.Security.Claims;
+@using Microsoft.Extensions.Localization;
+
+@inject AuthenticationStateProvider authenticationStateProvider
+@inject SignInManager<BlogUser> SignInManager
+@inject UserManager<BlogUser> UserManager
+
+<div class="container" style="margin-bottom: 500px;">
+    <div class="row">
+        <div class="col-9">
+            <img class="w-100" src="img/articleMainImages/@post.Image">
+
+            <h1 class="postTitle">@post.Title</h1>
+            <h3 class="postIntroduction">@post.Introduction</h3>
+            <p class="postBodyText">@((MarkupString)post.BodyText)</p>
+            <hr />
+            <div class="AddCommentContainer">
+                <h3>Add Comment</h3>
+                @if (SignInManager.IsSignedIn(currentUser))
+                {
+
+                    <EditForm Model="@commentModel" OnValidSubmit="@AddComment">
+                        <InputTextArea class="inputTextArea" @bind-Value="@commentModel.CommentText" />
+
+                        <button type="submit" class="btn btn-primary">Add Comment</button>
+                    </EditForm>
+
+                }
+                else
+                {
+                    <p>You have to be logged in before you can comment.</p>
+                }
+
+            </div>
+            <div class="comments">
+                @foreach (var comment in post?.Comments!)
+                {
+                    <div class="comment">
+                        <h5><span>@comment.Created | </span>@comment?.BlogUser?.UserName</h5>
+                        <p>@comment.CommentText</p>
+                        <hr />
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-3">
+        </div>
+    </div>
+
+
+</div>
+
+
+@code {
+
+    [Inject] IConfiguration? config { get; set; }
+    [Inject] public IStringLocalizer<App>? L { get; set; }
+    [Inject] ILogger<App>? logger { get; set; } = null;
+
+
+    [Parameter] public int Id { get; set; }
+    protected PostDto? post { get; set; } = new();
+    protected CommentDto commentModel = new CommentDto();
+    protected ClaimsPrincipal? currentUser { get; set; }
+    protected string UserId { get; set; }
+
+    protected string? urlBaseAddress;
+    protected string? postsEndpoint;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        urlBaseAddress = config?["ApiSettings:UrlBase"];
+        postsEndpoint = $"{urlBaseAddress}/Posts";
+
+        await GetPostById();
+
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        currentUser = authState.User;
+        if (SignInManager.IsSignedIn(currentUser))
+        {
+            UserId = currentUser.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
+    }
+
+    protected async Task<PostDto> GetPostById()
+    {
+        var url = $"{urlBaseAddress}/Posts/{Id}";
+        try
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var pet = await httpClient.GetFromJsonAsync<PostDto>(url);
+                if (pet?.Id > 0)
+                {
+                    return pet;
+                }
+                else
+                {
+                    return new PostDto();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            logger?.LogError(ex.Message);
+            return new PostDto();
+        }
+    }
+
+
+    public async Task<bool> AddComment()
+    {
+        var url = $"{urlBaseAddress}/Posts/AddComment";
+
+        commentModel.BlogUserId = UserId;
+        commentModel.PostId = Id;
+        commentModel.Created = DateTime.Now;
+
+        try
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var result = await httpClient.PostAsJsonAsync(url, commentModel);
+                var success = result.IsSuccessStatusCode;
+
+                commentModel = new CommentDto();
+                await GetPostById();
+                StateHasChanged();
+
+                return success;
+            }
+        }
+        catch (Exception exc)
+        {
+            logger?.LogError(exc.Message, $"{L["MSG_ApiError"]}");
+            return false;
+        }
+
+    }
+
+
+}

@@ -5,6 +5,7 @@ using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
+using DaisyPets.Core.Domain.Blog;
 
 /// <summary>
 /// Mapeamento de entidades e DTO's
@@ -69,5 +70,9 @@ public class AutoMapperProfile : Profile
 
         CreateMap<TipoDesparasitanteExternoDto, TipoDesparasitanteExterno>().ReverseMap();
         CreateMap<TipoDesparasitanteInternoDto, TipoDesparasitanteInterno>().ReverseMap();
+
+        // Blogs
+        CreateMap<PostDto, Post>().ReverseMap();
+        CreateMap<CommentDto, Comment>().ReverseMap();
     }
 }

@@ -4,10 +4,12 @@
 
 <div class="container-fluid d-md-flex flex-column">
     <div>
-        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="property48"></HeaderDialogComponent>
-        <hr />
+        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="doctorreferral"></HeaderDialogComponent>
     </div>
     <EditForm Model="SelectedDocument">
+
+        <DisplayPetNameComponent PetName="@PetName" />
+
         <div class="form-group my-3">
             <SfUploader ID="UploadFiles" @ref="sfUploader" AutoUpload=true
                         DropArea=".control-fluid"
@@ -48,6 +50,8 @@
     [Parameter] public DocumentoDto? SelectedDocument { get; set; }
     [Parameter] public OpcoesRegisto EditMode { get; set; }
     [Parameter] public string? HeaderCaption { get; set; }
+    [Parameter] public string? PetName { get; set; }
+
 
     [Inject] IConfiguration? config { get; set; }
     [Inject] ILogger<App>? logger { get; set; } = null;

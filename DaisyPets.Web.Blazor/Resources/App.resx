@@ -1456,4 +1456,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   <data name="TituloTratamento" xml:space="preserve">
     <value>Tratamento</value>
   </data>
+  <data name="TituloEmMeses" xml:space="preserve">
+    <value>(em meses)</value>
+  </data>
 </root>

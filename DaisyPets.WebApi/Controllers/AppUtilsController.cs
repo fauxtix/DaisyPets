@@ -22,6 +22,8 @@ namespace DaisyPets.WebApi.Controllers
         /// Constuctor
         /// </summary>
         /// <param name="configuration"></param>
+        /// <param name="logger"></param>
+        /// <param name="appSettingsService"></param>
         public AppUtilsController(IConfiguration configuration, ILogger<AppUtilsController> logger, IAppSettingsService appSettingsService)
         {
             _configuration = configuration;
@@ -71,7 +73,7 @@ namespace DaisyPets.WebApi.Controllers
         /// <summary>
         /// Set app culture
         /// </summary>
-        /// <param name="languageName"></param>
+        /// <param name="culture"></param>
         /// <returns></returns>
         [HttpPost("Settings/Language")]
         public async Task<IActionResult> SetAppCulture([FromBody] string culture)
@@ -87,6 +89,5 @@ namespace DaisyPets.WebApi.Controllers
                 return BadRequest();
             }
         }
-
     }
 }
