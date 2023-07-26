@@ -8,8 +8,9 @@ namespace DaisyPets.Core.Application.Interfaces.Services.Blog
         Task DeletePostAsync(int Id);
         Task<PostDto> FindPostByIdAsync(int Id);
         Task<IEnumerable<PostDto>> GetAllAsync();
-        Task<IEnumerable<PostDto>> GetAlPostsVMAsync();
+        Task<IEnumerable<PostDto>> GetAllPostsVMAsync();
         Task<IEnumerable<PostDto>> GetPostVMAsync(int Id);
+        Task<IEnumerable<CommentDto>> GetPostComments(int Id);
         Task<int> InserPostAsync(PostDto post);
         Task<int> InserPostCommentAsync(CommentDto comment);
         Task UpdatePostAsync(int Id, PostDto post);

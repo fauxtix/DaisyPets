@@ -43,11 +43,11 @@ namespace DaisyPets.Infrastructure.Services.Blog
             return output;
         }
 
-        public async Task<IEnumerable<PostDto>> GetAlPostsVMAsync()
+        public async Task<IEnumerable<PostDto>> GetAllPostsVMAsync()
         {
             try
             {
-                var postsVM = await _repository.GetAlPostsVMAsync();
+                var postsVM = await _repository.GetAllPostsVMAsync();
                 return postsVM;
 
             }
@@ -56,6 +56,14 @@ namespace DaisyPets.Infrastructure.Services.Blog
                 _logger.LogError($"Erro: {ex.Message}");
                 throw;
             }
+        }
+
+        public async Task<IEnumerable<CommentDto>> GetPostComments(int Id)
+        {
+            var posts = await _repository.GetPostComments(Id);
+            var mappedComments = _mapper.Map<IEnumerable<CommentDto>>(posts);
+            return mappedComments; ;
+
         }
 
         public async Task<IEnumerable<PostDto>> GetPostVMAsync(int Id)
@@ -67,6 +75,13 @@ namespace DaisyPets.Infrastructure.Services.Blog
         {
             var postIdentity = _mapper.Map<Post>(post);
             var insertedId = await _repository.InserPostAsync(postIdentity);
+            return insertedId;
+        }
+
+        public async Task<int> InserPostCommentAsync(CommentDto comment)
+        {
+            var commentIdentity = _mapper.Map<Comment>(comment);
+            var insertedId = await _repository.InserPostCommentAsync(commentIdentity);
             return insertedId;
         }
 

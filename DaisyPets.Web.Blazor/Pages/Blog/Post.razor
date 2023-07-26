@@ -1,18 +1,12 @@
 ﻿@page "/article/{id:int}"
 
 @using DaisyPets.Core.Application.ViewModels;
-@using Microsoft.AspNetCore.Identity;
-@using System.Security.Claims;
 @using Microsoft.Extensions.Localization;
-
-@inject AuthenticationStateProvider authenticationStateProvider
-@inject SignInManager<BlogUser> SignInManager
-@inject UserManager<BlogUser> UserManager
 
 <div class="container" style="margin-bottom: 500px;">
     <div class="row">
         <div class="col-9">
-            <img class="w-100" src="img/articleMainImages/@post.Image">
+            <img class="w-100" src="images/articleMainImages/@post.Image">
 
             <h1 class="postTitle">@post.Title</h1>
             <h3 class="postIntroduction">@post.Introduction</h3>
@@ -20,24 +14,14 @@
             <hr />
             <div class="AddCommentContainer">
                 <h3>Add Comment</h3>
-                @if (SignInManager.IsSignedIn(currentUser))
-                {
+                <EditForm Model="@commentModel" OnValidSubmit="@AddComment">
+                    <InputTextArea class="inputTextArea" @bind-Value="@commentModel.CommentText" />
 
-                    <EditForm Model="@commentModel" OnValidSubmit="@AddComment">
-                        <InputTextArea class="inputTextArea" @bind-Value="@commentModel.CommentText" />
-
-                        <button type="submit" class="btn btn-primary">Add Comment</button>
-                    </EditForm>
-
-                }
-                else
-                {
-                    <p>You have to be logged in before you can comment.</p>
-                }
-
+                    <button type="submit" class="btn btn-primary">Add Comment</button>
+                </EditForm>
             </div>
             <div class="comments">
-                @foreach (var comment in post?.Comments!)
+                @foreach (var comment in Comments!)
                 {
                     <div class="comment">
                         <h5><span>@comment.Created | </span>@comment?.BlogUser?.UserName</h5>
@@ -65,8 +49,7 @@
     [Parameter] public int Id { get; set; }
     protected PostDto? post { get; set; } = new();
     protected CommentDto commentModel = new CommentDto();
-    protected ClaimsPrincipal? currentUser { get; set; }
-    protected string UserId { get; set; }
+    protected IEnumerable<CommentDto> Comments = Enumerable.Empty<CommentDto>();
 
     protected string? urlBaseAddress;
     protected string? postsEndpoint;
@@ -77,14 +60,15 @@
         urlBaseAddress = config?["ApiSettings:UrlBase"];
         postsEndpoint = $"{urlBaseAddress}/Posts";
 
-        await GetPostById();
+        post = await GetPostById();
+        Comments = await GetPostComents();
 
-        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
-        currentUser = authState.User;
-        if (SignInManager.IsSignedIn(currentUser))
-        {
-            UserId = currentUser.FindFirstValue(ClaimTypes.NameIdentifier);
-        }
+        //var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        //currentUser = authState.User;
+        //if (SignInManager.IsSignedIn(currentUser))
+        //{
+        //    UserId = currentUser.FindFirstValue(ClaimTypes.NameIdentifier);
+        //}
 
     }
 
@@ -95,10 +79,10 @@
         {
             using (HttpClient httpClient = new HttpClient())
             {
-                var pet = await httpClient.GetFromJsonAsync<PostDto>(url);
-                if (pet?.Id > 0)
+                var post = await httpClient.GetFromJsonAsync<PostDto>(url);
+                if (post?.Id > 0)
                 {
-                    return pet;
+                    return post;
                 }
                 else
                 {
@@ -118,7 +102,7 @@
     {
         var url = $"{urlBaseAddress}/Posts/AddComment";
 
-        commentModel.BlogUserId = UserId;
+        commentModel.BlogUserId = "fauxtix.luix@hotmail.com";
         commentModel.PostId = Id;
         commentModel.Created = DateTime.Now;
 
@@ -144,5 +128,32 @@
 
     }
 
+    protected async Task<IEnumerable<CommentDto>> GetPostComents()
+    {
+        var url = $"{urlBaseAddress}/Posts/PostComments/{Id}";
+        try
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                var comments = await httpClient.GetFromJsonAsync<IEnumerable<CommentDto>>(url);
+                if (comments.Any())
+                {
+                    return comments;
+                }
+                else
+                {
+                    return Enumerable.Empty<CommentDto>();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            logger?.LogError(ex.Message);
+            return Enumerable.Empty<CommentDto>();
+        }
+
+    }
+
 
 }
+

@@ -1,12 +1,6 @@
-﻿using DaisyPets.Core.Application.Interfaces.Services;
-using DaisyPets.Core.Application.Interfaces.Services.Blog;
+﻿using DaisyPets.Core.Application.Interfaces.Services.Blog;
 using DaisyPets.Core.Application.ViewModels;
-using DaisyPets.Core.Domain;
-using DaisyPets.Core.Domain.Blog;
-using DaisyPets.Infrastructure.Services;
 using DaisyPets.WebApi.Validators;
-using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DaisyPets.WebApi.Controllers
@@ -64,6 +58,47 @@ namespace DaisyPets.WebApi.Controllers
                 return InternalError($"{location}: {e.Message} - {e.InnerException}");
             }
         }
+
+        /// <summary>
+        /// Criar post
+        /// </summary>
+        /// <param name="comment"></param>
+        /// <returns></returns>
+        [HttpPost("AddComment")]
+        public async Task<IActionResult> InsertComent(CommentDto comment)
+        {
+            var location = GetControllerActionNames();
+            try
+            {
+
+                if (comment is null)
+                {
+                    return BadRequest();
+                }
+
+                //var validator = new PostValidator();
+                //var result = validator.Validate(post);
+                //if (result.IsValid == false)
+                //{
+                //    var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+                //    return BadRequest(errorMessages);
+                //}
+
+                var insertedId = await _service.InserPostCommentAsync(comment);
+                var viewPost = await _service.FindPostByIdAsync(insertedId);
+                var actionReturned = CreatedAtAction(nameof(Get), new { id = viewPost.Id }, viewPost);
+
+
+                return Ok(new { Id = insertedId });
+
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e.ToString());
+                return InternalError($"{location}: {e.Message} - {e.InnerException}");
+            }
+        }
+
 
         /// <summary>
         /// Atualiza post
@@ -178,12 +213,12 @@ namespace DaisyPets.WebApi.Controllers
         /// Devolve todo os posts
         /// </summary>
         /// <returns></returns>
-        [HttpGet("AllPostsVM")]
-        public async Task<IActionResult> AllConsultaVM()
+        [HttpGet("AllPosts")]
+        public async Task<IActionResult> GetAllPosts()
         {
             try
             {
-                var listOfPosts = await _service.GetAlPostsVMAsync();
+                var listOfPosts = await _service.GetAllPostsVMAsync();
                 if (listOfPosts is null)
                 { return NotFound(); }
 
@@ -195,6 +230,30 @@ namespace DaisyPets.WebApi.Controllers
                 return BadRequest("Dados dos posts não foram encontrados");
             }
         }
+
+        /// <summary>
+        /// Devolve comentários de um post
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("PostComments/{Id:int}")]
+        public async Task<IActionResult> GetCommentsById(int Id)
+        {
+            try
+            {
+                var listOfComments = await _service.GetPostComments(Id);
+                if (listOfComments is null)
+                { return NotFound(); }
+
+                return Ok(listOfComments);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest("Dados dos comentários não foram encontrados");
+            }
+        }
+
 
         /// <summary>
         /// Validate Appointment

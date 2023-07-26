@@ -615,6 +615,77 @@ e-tab .e-tab-header .e-hor-nav .e-popup-up-icon:hover,
     text-align: right;
 }
 
+.post-front-page h1 {
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+.post-front-page p {
+    font-size: 15px;
+    color: black;
+    text-decoration: none;
+}
+
+.postTitle {
+    padding: 20px 20px 10px 20px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.postIntroduction {
+    padding: 0px 20px 20px 20px;
+    font-size: 15px;
+    color: gray;
+}
+
+.postBodyText {
+    padding: 20px;
+}
+
+.AddCommentContainer {
+    padding: 30px;
+    background-color: antiquewhite;
+    border-radius: 20px;
+}
+
+    .AddCommentContainer .inputTextArea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+        height: 100px;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .AddCommentContainer button {
+        display: block;
+    }
+
+.comments {
+    width: 100%;
+    display: block;
+}
+
+    .comments h5 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .comments p {
+        font-size: 16px;
+    }
+
+    .comments span {
+        font-weight: 500;
+        font-size: 13px;
+    }
+
+.comment {
+    padding: 30px;
+}
+
 
 @keyframes fadeInOpacity {
     0% {

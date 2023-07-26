@@ -16,7 +16,7 @@ else
             <a href="/article/@post.Id">
                 <div class="row">
                     <div class="col-sm-4">
-                        <img class="w-100" src="img/articleMainImages/@post.Image">
+                        <img class="w-100" src="images/articleMainImages/@post.Image">
                     </div>
                     <div class="col-sm-8 post-front-page">
                         <h1>@post.Title</h1>
@@ -24,7 +24,6 @@ else
                     </div>
                 </div>
             </a>
-
             <hr />
             <br />
         }
@@ -47,7 +46,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         urlBaseAddress = config?["ApiSettings:UrlBase"];
-        postsEndpoint = $"{urlBaseAddress}/Posts";
+        postsEndpoint = $"{urlBaseAddress}/Posts/AllPosts";
 
         posts = await GetAllPosts();
     }
@@ -84,6 +83,4 @@ else
             }
         }
     }
-
-}
 }

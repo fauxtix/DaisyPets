@@ -142,10 +142,11 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT  Post.Id, Title, Introduction, ");
-            sb.Append("BodyText, Image, Comment.Commenttext ");
+            sb.Append("BodyText, Image ");
+            //sb.Append("Comment.Commenttext ");
             sb.Append("FROM Post ");
-            sb.Append("INNER JOIN Comment ON ");
-            sb.Append("Comment.PostId = Post.Id");
+            //sb.Append("INNER JOIN Comment ON ");
+            //sb.Append("Comment.PostId = Post.Id");
 
 
             using (var connection = _context.CreateConnection())
@@ -187,6 +188,61 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
             }
         }
 
+        public async Task<int> InserPostCommentAsync(Comment comment)
+        {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@PostId", comment.PostId);
+            dynamicParameters.Add("@BlogUserId", comment.BlogUserId);
+            dynamicParameters.Add("@CommentText", comment.CommentText);
+            dynamicParameters.Add("@Created", DateTime.UtcNow.ToShortDateString());
 
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("INSERT INTO Comment (");
+            sb.Append("PostId, BlogUserId, CommentText, Created) ");
+            sb.Append(" VALUES(");
+            sb.Append("@PostId, @BlogUserId, @CommentText, @Created");
+            sb.Append(");");
+            sb.Append("SELECT last_insert_rowid()");
+
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.QueryFirstAsync<int>(sb.ToString(), param: comment);
+                    return result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Error, ex.ToString());
+                return -1;
+            }
+
+        }
+
+        public async Task<IEnumerable<Comment>> GetPostComments(int Id)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("SELECT * FROM Comment ");
+            sb.Append("WHERE PostId = @Id");
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    var result = await connection.QueryAsync<Comment>(sb.ToString(), param: new { Id });
+                    return result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(LogLevel.Error, ex.ToString());
+                return Enumerable.Empty<Comment>();
+            }
+
+        }
     }
 }
