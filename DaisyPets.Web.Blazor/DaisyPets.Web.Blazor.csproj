@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Pages\Expenses\AddEditDespesa.razor" />
     <Content Remove="wwwroot\uploads\ac-ageas.png" />
     <Content Remove="wwwroot\uploads\shiva.jpg" />
   </ItemGroup>
@@ -81,6 +82,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="Pages\Despesas\AddEditDespesa.razor" />
+	  <None Include="Pages\Despesas\Despesas.razor" />
+	  <None Include="Pages\Expenses\AddEditDespesa.razor" />
 	  <None Include="wwwroot\css\bootstrap\bootstrap.min.css.map" />
 	  <None Include="wwwroot\css\font-awesome\js\all.js" />
 	  <None Include="wwwroot\css\font-awesome\js\all.min.js" />

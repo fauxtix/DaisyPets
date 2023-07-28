@@ -1,0 +1,171 @@
+﻿@using DaisyPets.Core.Application.ViewModels.Despesas;
+@using DaisyPets.Core.Application.ViewModels.LookupTables;
+@using Microsoft.Extensions.Localization;
+<div class="container">
+    <div>
+        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="payment" />
+    </div>
+    <EditForm Model="SelectedExpense">
+        <div class="group-box justify-content-around p-3">
+            <SfDatePicker Enabled="true" Placeholder="@L["TituloData"]" Width="160px"
+                          CssClass="e-align-middle e-corner"
+                          FloatLabelType="FloatLabelType.Always"
+                          @bind-Value="@dMovimento">
+                <DatePickerEvents ValueChange="DataMovimentoChanged" TValue="DateTime"></DatePickerEvents>
+            </SfDatePicker>
+            <SfNumericTextBox Placeholder="@L["TituloValorPago"]" @bind-Value="@SelectedExpense.ValorPago"
+                              Format="C2" FloatLabelType="FloatLabelType.Always"
+                              Width="140px"  Min="1" Max="5000" Decimals="2" ValidateOnInput="true"
+                              ShowSpinButton=true
+                              Currency="EUR" />
+        </div>
+        <div class="group-box mt-3">
+            <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                            Value="@idxCategoriaDespesa" ShowClearButton="true"
+                            FilterBarPlaceholder="@L["msgSelect"]" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                            Placeholder="@L["TituloCategoria"]" DataSource="@CategoriasDespesa" FloatLabelType="FloatLabelType.Always">
+                <DropDownListTemplates TItem="LookupTableVM">
+                </DropDownListTemplates>
+                <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeCategoriaDespesa"></DropDownListEvents>
+                <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+            </SfDropDownList>
+
+            <SfDropDownList TValue="int" TItem="TipoDespesaVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                            Value="@idxTipoDespesa" ShowClearButton="true"
+                            Enabled="@ShowTipoDespesa"
+                            FilterBarPlaceholder="@L["msgSelect"]" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                            Placeholder="@L["TituloSubCategoria"]" DataSource="@TipoDespesas" FloatLabelType="FloatLabelType.Always">
+                <DropDownListTemplates TItem="TipoDespesaVM">
+                </DropDownListTemplates>
+                <DropDownListEvents TValue="int" TItem="TipoDespesaVM" ValueChange="onChangeTipoDespesa"></DropDownListEvents>
+                <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+        <div class="mt-3">
+            <SfTextBox Multiline=true Placeholder="@L["TituloNotas"]"
+                       HtmlAttributes="NotesAttribute"
+                       CssClass="e-field e-corner"
+                       FloatLabelType="FloatLabelType.Always"
+                       @bind-Value="@SelectedExpense.Notas">
+            </SfTextBox>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+
+    [Inject] IConfiguration? Config { get; set; }
+
+    [Inject] IStringLocalizer<App>? L { get; set; }
+
+    public IEnumerable<LookupTableVM>? CategoriasDespesa { get; set; }
+    public IEnumerable<LookupTableVM>? ModosPagamento { get; set; }
+    public IEnumerable<TipoDespesaVM>? TipoDespesas { get; set; }
+
+    [Parameter] public DespesaDto? SelectedExpense { get; set; }
+    [Parameter] public bool EditMode { get; set; } = true;
+    [Parameter] public string? HeaderCaption { get; set; }
+
+    protected int idxCategoriaDespesa;
+    protected int idxTipoDespesa;
+    protected int idxModoPagamento;
+
+    protected int IdCategoriaDespesa;
+    protected int IdTipoDespesa;
+    protected int IdModoPagamento;
+    protected bool ShowTipoDespesa = false;
+
+    protected string? urlBaseAddress;
+
+    protected DateTime dMovimento;
+
+    protected Dictionary<string, object> NotesAttribute = new Dictionary<string, object>()
+    {
+            {"rows", "3" }
+    };
+
+    protected override void OnInitialized()
+    {
+        ShowTipoDespesa = EditMode ? true : false;
+        urlBaseAddress = Config?["ApiSettings:UrlBase"];
+    }
+    protected override async Task OnParametersSetAsync()
+    {
+
+        idxCategoriaDespesa = SelectedExpense!.IdCategoriaDespesa;
+        idxTipoDespesa = SelectedExpense!.IdTipoDespesa;
+
+        CategoriasDespesa = (await GetLookupData("CategoriaDespesa")).ToList();
+        TipoDespesas = await GetTipoDespesa_ByCategoriaDespesa(idxCategoriaDespesa);
+        dMovimento = DateTime.Parse(SelectedExpense.DataMovimento);
+
+        StateHasChanged();
+    }
+
+    protected async Task onChangeCategoriaDespesa(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
+    {
+        idxCategoriaDespesa = args.Value;
+        TipoDespesas = await GetTipoDespesa_ByCategoriaDespesa(idxCategoriaDespesa);
+        ShowTipoDespesa = true;
+        SelectedExpense!.IdCategoriaDespesa = idxCategoriaDespesa;
+    }
+
+    protected void onChangeTipoDespesa(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, TipoDespesaVM> args)
+    {
+        idxTipoDespesa = args.Value;
+        SelectedExpense!.IdTipoDespesa = idxTipoDespesa;
+    }
+
+    private async Task<IEnumerable<LookupTableVM>> GetLookupData(string tableName)
+    {
+        if (string.IsNullOrEmpty(tableName))
+            return null;
+
+        urlBaseAddress = Config?["ApiSettings:UrlBase"];
+        var lookupTablesEndpoint = $"{urlBaseAddress}/LookupTables/GetAllRecords/{tableName}";
+        using (HttpClient httpClient = new HttpClient())
+        {
+            var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
+            if (result is null)
+            {
+                return Enumerable.Empty<LookupTableVM>();
+            }
+
+            return result;
+        }
+    }
+
+    public async Task<IEnumerable<TipoDespesaVM>> GetTipoDespesa_ByCategoriaDespesa(int id)
+    {
+        var url = $"{urlBaseAddress}/Despesa/TipoDespesa_ByCategoriaDespesa/{id}";
+        try
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+
+                var expenses = await httpClient.GetFromJsonAsync<IEnumerable<TipoDespesaVM>>(url);
+                if (expenses != null)
+                {
+                    expenses = expenses.OrderBy(e => e.Descricao);
+                    return expenses!.ToList();
+                }
+                return null;
+            }
+        }
+        catch (Exception exc)
+        {
+            return Enumerable.Empty<TipoDespesaVM>();
+        }
+    }
+
+    protected void DataMovimentoChanged(ChangedEventArgs<DateTime> args)
+    {
+        SelectedExpense.DataMovimento= args.Value.ToShortDateString();
+    }
+}
+
+<style>
+    .custom-class.e-control-wrapper .e-textbox {
+        text-align: center;
+    }
+</style>

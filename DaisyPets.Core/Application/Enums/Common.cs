@@ -22,6 +22,7 @@
             Vaccines,
             Documents,
             Consultations,
+            Pagamentos,
             PdfViewer
         }
 

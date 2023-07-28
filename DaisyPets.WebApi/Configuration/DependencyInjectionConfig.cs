@@ -16,6 +16,11 @@ using DaisyPets.Core.Application.Interfaces.Repositories.Blog;
 using DaisyPets.Core.Application.Interfaces.Services.Blog;
 using DaisyPets.Infrastructure.Services.Blog;
 using DaisyPets.Core.Domain.Blog;
+using DaisyPets.Core.Application.Interfaces.Repositories.TodoManager;
+using DaisyPets.Core.Application.Interfaces.Services.TodoManager;
+using DaisyPets.Infrastructure.Repositories.TodoManager;
+using DaisyPets.Infrastructure.Services.ToDoManager;
+using DaisyPets.Core.Application.TodoManager;
 
 namespace DaisyPets.WebApi.Configuration
 /// <summary>
@@ -74,6 +79,8 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<IBlogRepository, BlogsRepository>();
             services.AddTransient<IBlogService, BlogsService>();
 
+            services.AddScoped<IToDoRepository, ToDoRepository>();
+            services.AddTransient<IToDoService, ToDoService>();
 
             services.AddScoped<IValidator<PetDto>, PetValidator>(); 
             services.AddScoped<IValidator<ContactoVM>, ContactValidator>();
@@ -86,6 +93,8 @@ namespace DaisyPets.WebApi.Configuration
             services.AddScoped<IValidator<GaleriaFotosDto>, GaleriaFotosValidator>();
 
             services.AddScoped<IValidator<PostDto>, PostValidator>();
+            services.AddScoped<IValidator<ToDoDto>, ToDoValidator>();
+
         }
     }
 }

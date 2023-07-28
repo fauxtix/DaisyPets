@@ -1,11 +1,13 @@
 namespace DaisyPets.WebApi.Helpers;
 
 using AutoMapper;
+using DaisyPets.Core.Application.TodoManager;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Domain;
 using DaisyPets.Core.Domain.Blog;
+using DaisyPets.Core.Domain.TodoManager;
 
 /// <summary>
 /// Mapeamento de entidades e DTO's
@@ -74,5 +76,9 @@ public class AutoMapperProfile : Profile
         // Blogs
         CreateMap<PostDto, Post>().ReverseMap();
         CreateMap<CommentDto, Comment>().ReverseMap();
+
+        // ToDo's
+        CreateMap<ToDo, ToDoDto>().ReverseMap();
+
     }
 }

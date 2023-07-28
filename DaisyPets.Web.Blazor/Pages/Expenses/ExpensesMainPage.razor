@@ -1,0 +1,288 @@
+﻿@page "/expenses/manutencao"
+
+
+@using System.Globalization
+@using DaisyPets.Core.Application.ViewModels.Despesas;
+@using DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
+@using static DaisyPets.Core.Application.Enums.Common;
+@*@attribute [Authorize]*@
+
+@inherits DespesasBase
+
+
+@{
+    var Filtering = new
+    {@@operator = "Contains"
+    };
+    var Tool = (new List<object>() {
+    "Search", "ExcelExport",
+    new ItemModel()
+    {
+        Type = ItemType.Separator
+    },
+    new ItemModel()
+    {
+        PrefixIcon = "e-filter",
+        CssClass = "e-inherit",
+        Text = L["TituloDespesasEsteAno"],
+        Id = "ThisYear",
+        ShowTextOn = Syncfusion.Blazor.Navigations.DisplayMode.Overflow,
+        ShowAlwaysInPopup = true,
+        Visible = ShowToolbarOptions
+    },
+    new ItemModel()
+    {
+        PrefixIcon = "e-filter",
+        Text = L["TituloDespesasAnoAnterior"],
+        Id = "LastYear",
+        ShowTextOn = Syncfusion.Blazor.Navigations.DisplayMode.Overflow,
+        ShowAlwaysInPopup = true,
+        Visible = ShowToolbarOptions
+    },
+    new ItemModel()
+    {
+        PrefixIcon = "e-filter",
+        Text = L["TituloDespesasEsteMes"],
+        Id = "ThisMonth",
+        ShowTextOn = Syncfusion.Blazor.Navigations.DisplayMode.Overflow,
+        ShowAlwaysInPopup = true,
+        Visible = ShowToolbarOptions
+    },
+    new ItemModel()
+    {
+        PrefixIcon = "e-filter",
+        Text = L["TituloDespesasTodasDespesas"],
+        Id = "AllExpenses",
+        ShowTextOn = Syncfusion.Blazor.Navigations.DisplayMode.Overflow,
+        ShowAlwaysInPopup = true,
+        Visible = ShowToolbarOptions
+    }
+});
+}
+
+<SfSpinner @ref="SpinnerObj"
+           Label="@spinnerLabel"
+           Type="SpinnerType.Bootstrap4"
+           CssClass="e-spin-overlay">
+</SfSpinner>
+
+<PageTitle>@L["TituloDespesas"]</PageTitle>
+<PageTitleComponent PageTitle="@L["TituloDespesas"]" WithBadge="true" PageSubTitle="@pageBadgeCaption"></PageTitleComponent>
+
+@if (expensesList is null)
+{
+    <LoadingData />
+}
+else
+{
+
+    <div  class="container-fluid w-100">
+        <div class="mt-2 text-left">
+            <SfButton CssClass="e-success e-round-corner mx-3" IconCss="fas fa-plus" Content="@L["NewMsg"]"
+                  @onclick="@onAddExpense" IsPrimary="true">
+            </SfButton>
+        </div>
+        <hr />
+        <div>
+            <div class="table table-striped">
+                <SfGrid ID="Expenses_Grid" @ref="gridObj" Toolbar=@Tool
+                    DataSource="@expensesList"
+                    AllowPaging="true"
+                    Width="75%"
+                    AllowSelection="true"
+                    EnableHover="true"
+                    AllowSorting="true"
+                    AllowGrouping="true"
+                    AllowPdfExport="true"
+                    AllowExcelExport="true"
+                    RowHeight="24"
+                    AllowTextWrap="true">
+                    <GridPageSettings PageSize="10" PageCount="10" PageSizes="true"></GridPageSettings>
+                    <GridEvents OnRecordDoubleClick="OnExpenseDoubleClickHandler"
+                            OnToolbarClick="ToolbarClickHandler" CommandClicked="OnExpenseCommandClicked" TValue="DespesaVM" />
+                    <GridFilterSettings Mode="FilterBarMode.Immediate" Type="Syncfusion.Blazor.Grids.FilterType.Excel"></GridFilterSettings>
+                    <GridGroupSettings Columns="@GroupedColumns" ShowUngroupButton="true"></GridGroupSettings>
+                    <GridColumns>
+                        <GridColumn Field=@nameof(DespesaDto.Id)
+                                HeaderText=" # "
+                                Visible=false
+                                TextAlign="TextAlign.Center"
+                                Width="70">
+                        </GridColumn>
+                        <GridColumn Field=@nameof(DespesaVM.DescricaoCategoriaDespesa) HeaderText="@L["TituloCategoria"]"
+                                Width="230">
+                        </GridColumn>
+
+                        <GridColumn Field=@nameof(DespesaVM.DescricaoTipoDespesa) HeaderText="@L["TituloSubCategoria"]"
+                                Width="320">
+                        </GridColumn>
+                        <GridColumn Field=@nameof(DespesaVM.DataMovimento) HeaderText="@L["TituloData"]"
+                                TextAlign="TextAlign.Center"
+                                Format="d"
+                                Width="110">
+                        </GridColumn>
+                        <GridColumn Field=@nameof(DespesaVM.ValorPago) AllowFiltering="true" AllowSorting="true"
+                                HeaderText="@L["TituloValor"]" TextAlign="TextAlign.Right" Format="C2"
+                                Width="120">
+                            <Template Context="Registo">
+                                @{
+                                    var currentExpenseRecord = (Registo as DespesaVM);
+                                    <span>@currentExpenseRecord!.ValorPago.ToString("C", CultureInfo.CreateSpecificCulture(currentCulture))</span>
+                                }
+                            </Template>
+                        </GridColumn>
+                        <GridColumn Field=@nameof(DespesaVM.Notas) HeaderText="@L["TituloNotas"]" AllowSorting=true>
+                        </GridColumn>
+
+                        <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="200">
+                            <GridCommandColumns>
+                                <GridCommandColumn Type=CommandButtonType.Edit Title="@L["EditMsg"]"
+                                               ButtonOption="@(new CommandButtonOptions()
+                                                                   {
+                                                                       Content = "", /* L["EditMsg"],*/
+                                                                       CssClass = "e-outline e-primary e-round-corner",
+                                                                       IconCss = "fa fa-edit",
+                                                                        IsToggle = true,
+                                                                       IconPosition = @IconPosition.Left
+                                                                   })">
+                                </GridCommandColumn>
+                                <GridCommandColumn Type=CommandButtonType.Delete Title="@L["DeleteMsg"]"
+                                               ButtonOption="@(new CommandButtonOptions()
+                                                                   {
+                                                                       Content = "", /*L["DeleteMsg"]*/
+                                                                       CssClass = "e-outline e-danger e-round-corner",
+                                                                       IconCss = "fa fa-trash",
+                                                                       IconPosition = @IconPosition.Left
+                                                                   })">
+                                </GridCommandColumn>
+                                <GridCommandColumn Type=CommandButtonType.None Title="@L["MSG_Duplicar"]"
+                                               ButtonOption="@(new CommandButtonOptions()
+                                                                   {
+                                                                       Content = "",
+                                                                       CssClass = "e-outline e-success e-round-corner",
+                                                                       IconCss = "fa fa-clone",
+                                                                       IconPosition = @IconPosition.Left
+                                                                   })">
+                                </GridCommandColumn>
+                            </GridCommandColumns>
+                        </GridColumn>
+                    </GridColumns>
+                    <GridAggregates>
+                        <GridAggregate>
+                            <GridAggregateColumns>
+                                <GridAggregateColumn Field=@nameof(DespesaVM.ValorPago) Type="AggregateType.Sum" Format="N2">
+                                    <GroupFooterTemplate>
+                                        @{
+                                            var groupTotal = (context as AggregateTemplateContext);
+                                            <p class="my-1">@groupTotal!.Sum</p>
+                                        }
+                                    </GroupFooterTemplate>
+                                    <FooterTemplate>
+                                        @{
+                                            var overallTotal = (context as AggregateTemplateContext);
+                                            <div>
+                                                <p class="my-1">Total @overallTotal!.Sum</p>
+                                            </div>
+                                        }
+                                    </FooterTemplate>
+                                </GridAggregateColumn>
+                            </GridAggregateColumns>
+                        </GridAggregate>
+                    </GridAggregates>
+                </SfGrid>
+            </div>
+        </div>
+
+
+        <div class="container">
+            <SfDialog 
+                  Width="30%"
+                  Height="auto"
+                  IsModal="true"
+                  ShowCloseIcon="false"
+                  AllowDragging="true"
+                  @bind-Visible="EditExpenseDialogVisibility">
+                <DialogTemplates>
+                    <Content>
+                        <AddEditDespesa EditMode="@editRecord" HeaderCaption="@(editRecord? EditCaption: NewCaption)"
+                                    SelectedExpense="@SelectedExpense" />
+                    </Content>
+                    <FooterTemplate>
+                        <div>
+                            <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save "
+                                  @onclick="AddOrSaveExpense" Content="@L["btnSalvar"]">
+                            </SfButton>
+                            <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times" Content="@L["MSG_GoBack"]"
+                                  @onclick="@(() => EditExpenseDialogVisibility = false)">
+                            </SfButton>
+                        </div>
+                    </FooterTemplate>
+                </DialogTemplates>
+                <DialogAnimationSettings Effect="DialogEffect.SlideTop" Duration=500></DialogAnimationSettings>
+            </SfDialog>
+        </div>
+    </div>
+
+    <ConfirmAppWarning AlertMessageType="AlertMessageType.Warning"
+                   DialogTitle="@L["TituloDadosAlterados"]"
+                   Message="@SelectedExpense?.DataMovimento"
+                   Visible="@IsDirty"
+                   AlertMessage="@L["MSG_ConfirmarOperacao"]"
+                   OnConfirmationYes="IgnoreChangesAlert"
+                   OnConfirmationNo="ContinueEdit" />
+
+    <ValidateErrorComponent Visible="@ErrorVisibility" DialogTitle="@L["TituloDespesas"]"
+                        ValidationMessages="@ValidationsMessages"
+                        OnCloseDialog="@(()=>ErrorVisibility = false)" />
+
+    <ConfirmDeleteComponent AlertMessageType="AlertMessageType.Error" DialogWidth="20%"
+                        DialogTitle="@WarningTitle" ConfirmationText="@L["MSG_ConfirmarOperacao"]"
+                        Module="Modules.Pagamentos"
+                        Message="@SelectedExpense?.DataMovimento"
+                        Visible="@DeleteConfirmVisibility"
+                        OnConfirmationYes="ConfirmDeleteYes"
+                        OnConfirmationNo="@(()=>DeleteConfirmVisibility=false)"></ConfirmDeleteComponent>
+
+    <AlertUserComponent AlertMessageType="AlertMessageType.Warning"
+                    Title="@AlertTitle"
+                    OperationType="OpcoesRegisto.Warning"
+                    Visibility="@AlertVisibility"
+                    Message="@WarningMessage"
+                    OnCloseDialog="(()=>AlertVisibility=false)"></AlertUserComponent>
+
+
+    <SfToast ID="toast_custom" @ref="ToastObj" ShowProgressBar=true
+         Title="@ToastTitle" Icon="@ToastIcon"
+         Content="@ToastMessage"
+         CssClass="@ToastCss" Timeout="3000"
+         ShowCloseButton="true">
+        <ToastAnimationSettings>
+            <ToastShowAnimationSettings Effect="ToastEffect.FadeIn" Duration="600"></ToastShowAnimationSettings>
+            <ToastHideAnimationSettings Effect="ToastEffect.FadeOut" Duration="600"></ToastHideAnimationSettings>
+        </ToastAnimationSettings>
+        <ToastButtons>
+            <ToastButton Content="@L["btnFechar"]" OnClick="@HideToast"></ToastButton>
+        </ToastButtons>
+        <ToastPosition X="Right" Y="Bottom"></ToastPosition>
+    </SfToast>
+}
+
+<style>
+    .e-attr {
+        font-size: 18px;
+    }
+
+        .e-attr .e-categoria {
+            font-weight: bolder;
+            color: green;
+        }
+
+        .e-attr .e-valor {
+            font-weight: bolder;
+            color: red;
+        }
+
+    .e-grid td.e-active {
+        background-color: yellow;
+    }
+</style>

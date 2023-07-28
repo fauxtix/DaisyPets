@@ -3,7 +3,6 @@ using DaisyPets.Core.Application.Interfaces.Repositories;
 using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Domain;
-using FluentValidation;
 using Microsoft.Extensions.Logging;
 
 namespace DaisyPets.Infrastructure.Services
@@ -11,15 +10,13 @@ namespace DaisyPets.Infrastructure.Services
     public class ConsultaService : IConsultaService
     {
         private readonly IConsultaRepository _repository;
-        private readonly IValidator<ContactoVM> _validator;
 
         private readonly IMapper _mapper;
         private readonly ILogger<ConsultaService> _logger;
 
-        public ConsultaService(IConsultaRepository repository, IValidator<ContactoVM> validator, IMapper mapper, ILogger<ConsultaService> logger)
+        public ConsultaService(IConsultaRepository repository, IMapper mapper, ILogger<ConsultaService> logger)
         {
             _repository = repository;
-            _validator = validator;
             _mapper = mapper;
             _logger = logger;
         }
@@ -58,7 +55,7 @@ namespace DaisyPets.Infrastructure.Services
             }
         }
 
-        public async Task<IEnumerable< ConsultaVeterinarioVM>> GetConsultaVMAsync(int Id)
+        public async Task<IEnumerable<ConsultaVeterinarioVM>> GetConsultaVMAsync(int Id)
         {
             return await _repository.GetConsultaVMAsync(Id);
         }
@@ -78,7 +75,7 @@ namespace DaisyPets.Infrastructure.Services
                 if (appointmentEntity == null)
                     throw new KeyNotFoundException("Contact not found");
 
-               var mappedModel = _mapper.Map(consulta, appointmentEntity);
+                var mappedModel = _mapper.Map(consulta, appointmentEntity);
 
                 await _repository.UpdateAsync(Id, mappedModel);
 

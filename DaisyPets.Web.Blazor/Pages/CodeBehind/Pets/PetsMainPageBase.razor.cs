@@ -1,6 +1,7 @@
 ﻿using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using Syncfusion.Blazor.Grids;
@@ -1015,7 +1016,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         [JSInvokable("DetailCollapse")]                            // method called from JS when collapse is done
         public void DetailRowCollapse(string CollapseIndex)
         {
-            PetVM CollapseRow = (PetVM)petsGridObj.CurrentViewData.ElementAt(Convert.ToInt32(CollapseIndex));
+            var rowIndex = int.Parse(CollapseIndex);
+            PetVM CollapseRow = (PetVM)petsGridObj.CurrentViewData.ElementAt(Convert.ToInt32((rowIndex- 1).ToString()));
             ExpandedRows.Remove(CollapseRow.Id);              //Remove the collapsed row from expanded dictionary
         }
 
