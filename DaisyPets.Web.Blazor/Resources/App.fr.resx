@@ -2483,4 +2483,13 @@ Vérifiez les erreurs, s'il vous plaît</value>
   <data name="TituloEmMeses" xml:space="preserve">
     <value>(en mois)</value>
   </data>
+  <data name="TituloDataFim" xml:space="preserve">
+    <value>Date de fin</value>
+  </data>
+  <data name="TituloPendente" xml:space="preserve">
+    <value>En attente</value>
+  </data>
+  <data name="TituloCompletadas" xml:space="preserve">
+    <value>Complétés</value>
+  </data>
 </root>

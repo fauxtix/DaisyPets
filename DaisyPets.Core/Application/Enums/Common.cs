@@ -23,6 +23,7 @@
             Documents,
             Consultations,
             Pagamentos,
+            ToDos,
             PdfViewer
         }
 

@@ -1459,4 +1459,13 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   <data name="TituloEmMeses" xml:space="preserve">
     <value>(em meses)</value>
   </data>
+  <data name="TituloDataFim" xml:space="preserve">
+    <value>Data fim</value>
+  </data>
+  <data name="TituloPendente" xml:space="preserve">
+    <value>Pendente</value>
+  </data>
+  <data name="TituloCompletadas" xml:space="preserve">
+    <value>Completadas</value>
+  </data>
 </root>

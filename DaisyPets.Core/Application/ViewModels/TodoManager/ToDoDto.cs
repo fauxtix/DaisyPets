@@ -6,8 +6,31 @@
         public string? Description { get; set; }
         public string? StartDate { get; set; }
         public string? EndDate { get; set; }
-        public int Status { get; set; } = 1; // pending
-        public int? CategoryId { get; set; }
+        public int Status { get; set; } = 0; // pending / 1 = Completed
+        public int CategoryId { get; set; }
         public string? CategoryDescription { get; set; }
+
+        public DateTime TodoStartDate
+        {
+            get
+            {
+                return DateTime.Parse(StartDate!);
+            }
+        }
+        public DateTime TodoEndDate
+        {
+            get
+            {
+                return DateTime.Parse(EndDate!);
+            }
+        }
+        public bool Pending
+        {
+            get
+            {
+                return Status == 0 ? false : true;
+            }
+        }
+
     }
 }

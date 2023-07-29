@@ -52,7 +52,7 @@ namespace DaisyPets.WebApi.Controllers
 
                 var insertedId = await _service.InsertAsync(todoDto);
                 var viewTodo = await _service.FindByIdAsync(insertedId);
-                var actionReturned = CreatedAtAction(nameof(Get), new { id = viewTodo.Id }, viewTodo);
+                var actionReturned = CreatedAtAction(nameof(GetById), new { id = viewTodo.Id }, viewTodo);
 
 
                 return Ok(new { Id = insertedId });
@@ -62,34 +62,6 @@ namespace DaisyPets.WebApi.Controllers
             {
                 _logger.LogError(e.ToString());
                 return InternalError($"{location}: {e.Message} - {e.InnerException}");
-            }
-        }
-
-        /// <summary>
-        /// Get item by Id
-        /// </summary>
-        /// <param name="Id"></param>
-        /// <returns></returns>
-        [HttpGet("{Id:int}")]
-        public async Task<IActionResult> Get(int Id)
-        {
-            var location = GetControllerActionNames();
-
-            try
-            {
-                var appt = await _service.FindByIdAsync(Id);
-                if (appt is null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(appt);
-
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                return InternalError($"{location}: {ex.Message} - {ex.InnerException}");
             }
         }
 
@@ -113,10 +85,10 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewAppt = _service.GetToDoVM_ByIdAsync(Id);
+                var viewAppt = await _service.FindByIdAsync(Id);
                 if (viewAppt == null)
                 {
-                    return NotFound("Consulta não foi encontrada");
+                    return NotFound("Registo não foi encontrado");
                 }
 
                 var validator = new ToDoValidator();
@@ -133,7 +105,7 @@ namespace DaisyPets.WebApi.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError(e.Message, "Erro ao atualizar consulta (API)");
+                _logger.LogError(e.Message, "Erro ao atualizar registo (API)");
                 return InternalError($"{location}: {e.Message} - {e.InnerException}");
             }
         }
@@ -145,7 +117,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewAppt = _service.GetToDoVM_ByIdAsync(Id);
+                var viewAppt = await _service.FindByIdAsync(Id);
                 if (viewAppt == null)
                 {
                     return NotFound("Item não foi encontrado");
@@ -162,8 +134,8 @@ namespace DaisyPets.WebApi.Controllers
             }
         }
 
-        [HttpGet("AllConsultaVM")]
-        public async Task<IActionResult> AllConsultaVM()
+        [HttpGet()]
+        public async Task<IActionResult> GetAll()
         {
             try
             {
@@ -179,6 +151,25 @@ namespace DaisyPets.WebApi.Controllers
                 return BadRequest("Não foram retornados quaisquer dados");
             }
         }
+
+        [HttpGet("{Id:int}")]
+        public async Task<IActionResult> GetById(int Id)
+        {
+            try
+            {
+                var todo = await _service.FindByIdAsync(Id);
+                if (todo.Id == 0)
+                { return NotFound(); }
+
+                return Ok(todo);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return BadRequest("Não foi devoldido qualquer registo");
+            }
+        }
+
 
         [HttpGet("PendingTodos")]
         public async Task<IActionResult> GetPendingTodos()

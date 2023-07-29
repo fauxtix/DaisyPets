@@ -1,0 +1,151 @@
+﻿@using DaisyPets.Core.Application.Formatting;
+@using DaisyPets.Core.Application.TodoManager;
+@using DaisyPets.Core.Application.ViewModels;
+@using DaisyPets.Core.Application.ViewModels.LookupTables;
+@using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+<div class="container-fluid d-md-flex flex-column">
+    <div>
+        <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="tasks"></HeaderDialogComponent>
+    </div>
+    <EditForm Model="UserSelectedRecord">
+        <div class="form-group my-2">
+            <SfCheckBox Label="@L["TituloPendente"]" @bind-Checked=@pendente @onchange="onChangePendente"></SfCheckBox>
+        </div>
+        <div class="group-box mt-2">
+            <SfDatePicker Placeholder="@L["TituloDataInicio"]"
+                          CssClass="e-align-middle e-corner"
+                          Width="150px"
+                          FloatLabelType="FloatLabelType.Always"
+            @bind-Value="@dStart">
+                <DatePickerEvents TValue="DateTime" ValueChange="DataInicioChanged" />
+            </SfDatePicker>
+        </div>
+
+        <div class="group-box mt-2">
+            <SfDatePicker Placeholder="@L["TituloDataFim"]"
+                          CssClass="e-align-middle e-corner"
+                          Width="150px"
+                          FloatLabelType="FloatLabelType.Always"
+            @bind-Value="@dEnd">
+                <DatePickerEvents TValue="DateTime" ValueChange="DataFimChanged" />
+            </SfDatePicker>
+        </div>
+
+        <div class="row mt-2">
+            <div class="form-group">
+                <SfTextBox Enabled="true"
+                           Placeholder="@L["rbtDescricao"]"
+                           CssClass="e-field  e-corner"
+                           FloatLabelType="@FloatLabelType.Always"
+                @bind-Value="@UserSelectedRecord!.Description">
+                </SfTextBox>
+            </div>
+        </div>
+        <div class="group-box mb-2">
+            <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                            Value="@idxCategory" ShowClearButton="true" Width="250px"
+                            FilterBarPlaceholder="@L["TituloSelecao"]" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                            Placeholder="@L["TituloCategoria"]" DataSource="@ToDoCategories" FloatLabelType="FloatLabelType.Always">
+                <DropDownListTemplates TItem="LookupTableVM">
+                </DropDownListTemplates>
+                <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeCategory"></DropDownListEvents>
+                <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+            </SfDropDownList>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+
+    [Parameter] public ToDoDto? UserSelectedRecord { get; set; }
+    protected IEnumerable<LookupTableVM>? ToDoCategories { get; set; }
+
+    [Parameter] public OpcoesRegisto EditMode { get; set; }
+    [Parameter] public string? HeaderCaption { get; set; }
+    [Parameter] public string? PetName { get; set; }
+
+
+    protected DateTime dStart { get; set; }
+    protected DateTime dEnd { get; set; }
+
+    [Inject] IConfiguration? config { get; set; }
+    [Inject] ILogger<App>? logger { get; set; } = null;
+    [Inject] public IStringLocalizer<App>? L { get; set; }
+
+    protected string? urlBaseAddress;
+    protected int ToDoId { get; set; }
+    protected int idxCategory;
+    protected string? todosEndpoint;
+    protected bool? pendente { get; set; } = null;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        urlBaseAddress = config?["ApiSettings:UrlBase"];
+        todosEndpoint = $"{urlBaseAddress}/ToDos";
+        ToDoCategories = await GetLookupData("ToDoCategories");
+    }
+
+
+    protected override void OnParametersSet()
+    {
+
+        ToDoId = UserSelectedRecord.Id;
+        idxCategory = UserSelectedRecord.CategoryId;
+        pendente= Convert.ToBoolean(UserSelectedRecord.Status);
+
+
+        if (DataFormat.IsValidDate(UserSelectedRecord.StartDate))
+        {
+            dStart = DateTime.Parse(UserSelectedRecord.StartDate);
+        }
+        if (DataFormat.IsValidDate(UserSelectedRecord.EndDate))
+        {
+            dEnd = DateTime.Parse(UserSelectedRecord.EndDate);
+        }
+    }
+
+    protected void DataInicioChanged(ChangedEventArgs<DateTime> args)
+    {
+        UserSelectedRecord.StartDate = args.Value.ToShortDateString();
+    }
+    protected void DataFimChanged(ChangedEventArgs<DateTime> args)
+    {
+        UserSelectedRecord.EndDate = args.Value.ToShortDateString();
+    }
+
+    private async Task<IEnumerable<LookupTableVM>> GetLookupData(string tableName)
+    {
+        if (string.IsNullOrEmpty(tableName))
+            return null;
+
+        urlBaseAddress = config?["ApiSettings:UrlBase"];
+        var lookupTablesEndpoint = $"{urlBaseAddress}/LookupTables/GetAllRecords/{tableName}";
+        using (HttpClient httpClient = new HttpClient())
+        {
+            var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
+            if (result is null)
+            {
+                return Enumerable.Empty<LookupTableVM>();
+            }
+
+            return result;
+        }
+    }
+
+    protected void onChangeCategory(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
+    {
+        idxCategory = args.Value;
+        UserSelectedRecord!.CategoryId = idxCategory;
+    }
+
+    private void onChangePendente(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+    {
+        pendente = Convert.ToBoolean(args.Value);
+        UserSelectedRecord.Status = pendente.Value ? 1 : 0;
+    }
+
+
+}

@@ -2467,4 +2467,13 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="TituloEmMeses" xml:space="preserve">
     <value>(en meses)</value>
   </data>
+  <data name="TituloDataFim" xml:space="preserve">
+    <value>Fecha de finalización</value>
+  </data>
+  <data name="TituloPendente" xml:space="preserve">
+    <value>Pendiente</value>
+  </data>
+  <data name="TituloCompletadas" xml:space="preserve">
+    <value>Concluída</value>
+  </data>
 </root>
