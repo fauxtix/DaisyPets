@@ -1468,4 +1468,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   <data name="TituloCompletadas" xml:space="preserve">
     <value>Completadas</value>
   </data>
+  <data name="TituloTarefas" xml:space="preserve">
+    <value>Listas de tarefas</value>
+  </data>
 </root>

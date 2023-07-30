@@ -2476,4 +2476,7 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="TituloCompletadas" xml:space="preserve">
     <value>Concluída</value>
   </data>
+  <data name="TituloTarefas" xml:space="preserve">
+    <value>Listas de tareas</value>
+  </data>
 </root>

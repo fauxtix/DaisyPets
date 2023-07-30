@@ -2478,4 +2478,7 @@
   <data name="TituloCompletadas" xml:space="preserve">
     <value>Completed</value>
   </data>
+  <data name="TituloTarefas" xml:space="preserve">
+    <value>To do lists</value>
+  </data>
 </root>

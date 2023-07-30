@@ -2492,4 +2492,7 @@ Vérifiez les erreurs, s'il vous plaît</value>
   <data name="TituloCompletadas" xml:space="preserve">
     <value>Complétés</value>
   </data>
+  <data name="TituloTarefas" xml:space="preserve">
+    <value>Listes de choses à faire</value>
+  </data>
 </root>
