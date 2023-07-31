@@ -58,6 +58,13 @@ namespace DaisyPets.Infrastructure.Services.Blog
             }
         }
 
+        public async Task<PostDto> GetPostAsync(int Id)
+        {
+            var post = await _repository.GetPostAsync(Id);
+            var mappedPost = _mapper.Map<PostDto>(post);
+            return mappedPost; ;
+        }
+
         public async Task<IEnumerable<CommentDto>> GetPostComments(int Id)
         {
             var posts = await _repository.GetPostComments(Id);
@@ -71,17 +78,17 @@ namespace DaisyPets.Infrastructure.Services.Blog
             return await _repository.GetPostVMAsync(Id);
         }
 
-        public async Task<int> InserPostAsync(PostDto post)
+        public async Task<int> InsertPostAsync(PostDto post)
         {
             var postIdentity = _mapper.Map<Post>(post);
-            var insertedId = await _repository.InserPostAsync(postIdentity);
+            var insertedId = await _repository.InsertPostAsync(postIdentity);
             return insertedId;
         }
 
-        public async Task<int> InserPostCommentAsync(CommentDto comment)
+        public async Task<int> InsertPostCommentAsync(CommentDto comment)
         {
             var commentIdentity = _mapper.Map<Comment>(comment);
-            var insertedId = await _repository.InserPostCommentAsync(commentIdentity);
+            var insertedId = await _repository.InsertPostCommentAsync(commentIdentity);
             return insertedId;
         }
 

@@ -1,0 +1,131 @@
+﻿@using Syncfusion.Blazor.RichTextEditor
+@using DaisyPets.Core.Application.ViewModels;
+@using DaisyPets.Core.Application.ViewModels.LookupTables;
+@using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+<div>
+    <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="home-owner"></HeaderDialogComponent>
+    <hr class="divider" />
+</div>
+<div class="container-fluid">
+    <EditForm Model="SelectedPost">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    @if (string.IsNullOrEmpty(SelectedPost.Image))
+                    {
+                        <div class="form-group my-3">
+                            <SfUploader ID="UploadFiles" @ref="sfUploader" AutoUpload=true
+                                        DropArea=".control-fluid"
+                                        AllowMultiple="false" AllowedExtensions=".jpg, .jpeg, .png"
+                                        MaxFileSize="@MaxFileSize">
+                                <UploaderAsyncSettings SaveUrl="api/upload/savepost"
+                                                       RemoveUrl="api/upload/removepost" />
+                                <UploaderEvents OnActionComplete="@OnActionCompleteHandler" />
+                            </SfUploader>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="d-flex align-items-center">
+                            <div class="img-responsive mx-auto">
+                                <img class="rounded mx-auto" src="/uploads/Posts/@SelectedPost?.Image" width="180" height="180" />
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <div class="form-group">
+                    <SfTextBox Enabled="true"
+                               Placeholder="@L["lblTitulo"]"
+                               CssClass="e-field  e-corner"
+                               FloatLabelType="@FloatLabelType.Always"
+                    @bind-Value="@SelectedPost!.Title">
+                    </SfTextBox>
+                </div>
+                <div class="form-group my-2">
+                    <SfTextBox Enabled="true"
+                               Multiline="true"
+                               Placeholder="@L["TituloIntroducao"]"
+                               CssClass="e-field  e-corner"
+                               FloatLabelType="FloatLabelType.Always"
+                    @bind-Value="@SelectedPost!.Introduction">
+                    </SfTextBox>
+                </div>
+                <div>
+                    <div class=" mb-2 control-section" id="pageHeight">
+                        <SfRichTextEditor EditorMode="EditorMode.HTML"
+                                          EnableHtmlEncode="true" EnableHtmlSanitizer="true" Height="250px" Placeholder="Body Text" @bind-Value="SelectedPost!.BodyText">
+                            <RichTextEditorToolbarSettings Items="@ToolsForInline" />
+                            <RichTextEditorInlineMode Enable="true" ShowOnSelection="true" />
+                        </SfRichTextEditor>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [Inject] HttpClient? _httpClient { get; set; }
+    [Inject] protected IConfiguration? _env { get; set; }
+    [Inject] protected IStringLocalizer<App>? L { get; set; }
+
+    [Parameter] public PostDto? SelectedPost { get; set; }
+    [Parameter] public OpcoesRegisto EditMode { get; set; }
+    [Parameter] public string? HeaderCaption { get; set; }
+
+    protected int idxTipoContacto;
+
+    private string? _uri = string.Empty;
+
+    protected SfUploader? sfUploader;
+    protected string? uploadedFile;
+    protected int MaxFileSize = 10 * 1024 * 1024; // 10 MB
+
+    private List<ToolbarItemModel> ToolsForInline = new List<ToolbarItemModel>()
+    {
+        new ToolbarItemModel() { Command = ToolbarCommand.Bold },
+        new ToolbarItemModel() { Command = ToolbarCommand.Italic },
+        new ToolbarItemModel() { Command = ToolbarCommand.Underline },
+        new ToolbarItemModel() { Command = ToolbarCommand.Formats },
+        new ToolbarItemModel() { Command = ToolbarCommand.HorizontalSeparator },
+        new ToolbarItemModel() { Command = ToolbarCommand.Alignments },
+        new ToolbarItemModel() { Command = ToolbarCommand.OrderedList },
+        new ToolbarItemModel() { Command = ToolbarCommand.UnorderedList },
+        new ToolbarItemModel() { Command = ToolbarCommand.CreateLink }
+    };
+
+    protected Dictionary<string, object> NotesAttribute = new Dictionary<string, object>()
+{
+            {"rows", "3" }
+    };
+
+    protected override void OnInitialized()
+    {
+        _uri = $"{_env["ApiSettings:UrlBase"]}/LookupTables";
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+    }
+
+    protected void OnActionCompleteHandler(Syncfusion.Blazor.Inputs.ActionCompleteEventArgs args)
+    {
+        if (args.FileData.Count() == 0) return;
+
+        uploadedFile = args.FileData.Select(p => p.Name).FirstOrDefault();
+        SelectedPost.Image = uploadedFile ?? "";
+
+        StateHasChanged();
+    }
+
+}
+
+<style>
+    .custom-class.e-control-wrapper .e-textbox {
+        text-align: center;
+    }
+</style>

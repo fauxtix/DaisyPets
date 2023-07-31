@@ -133,16 +133,20 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables
 
         public async Task<IEnumerable<LookupTableVM>> GetLookupTableData(string tableName)
         {
-            try
-            {
-                var tableData = await _httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>($"{_uri}/GetAllRecords/{tableName}");
-                return tableData!.ToList();
-            }
-            catch (Exception exc)
-            {
-                _logger.LogError(exc, "Erro ao pesquisar API");
-                return Enumerable.Empty<LookupTableVM>();
-            }
+
+            var tableData = await _httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>($"{_uri}/GetAllRecords/{tableName}");
+            return tableData!.ToList();
+
+            //try
+            //{
+            //    var tableData = await _httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>($"{_uri}/GetAllRecords/{tableName}");
+            //    return tableData!.ToList();
+            //}
+            //catch (Exception exc)
+            //{
+            //    _logger.LogError(exc, "Erro ao pesquisar API");
+            //    return Enumerable.Empty<LookupTableVM>();
+            //}
 
         }
 
@@ -255,18 +259,27 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables
 
         public async Task<IEnumerable<ExpandoObject>> GetDataGenerics<T>(string sourceDbTable) where T : class
         {
-            var GenericList = (await GetLookupTableData(sourceDbTable)).ToList().OrderBy(o => o.Descricao);
-            foreach (var item in GenericList)
+            try
             {
-                dynamic GenericModel = new ExpandoObject();
-                GenericModel.Id = item.Id;
-                GenericModel.Descricao = item.Descricao;
-                GenericModelList.Add(GenericModel);
-            }
+                var GenericList = (await GetLookupTableData(sourceDbTable)).ToList().OrderBy(o => o.Descricao);
+                foreach (var item in GenericList)
+                {
+                    dynamic GenericModel = new ExpandoObject();
+                    GenericModel.Id = item.Id;
+                    GenericModel.Descricao = item.Descricao;
+                    GenericModelList.Add(GenericModel);
+                }
 
-            IEnumerable<ExpandoObject> outputList = GenericModelList.Cast<ExpandoObject>().ToList();
-            GenericModelList.Clear(); // = new List<ExpandoObject>(); // se não incluir esta linha, os dados aparecem sempre a dobrar, em cada Insert/Delete
-            return outputList;
+                IEnumerable<ExpandoObject> outputList = GenericModelList.Cast<ExpandoObject>().ToList();
+                GenericModelList.Clear(); // = new List<ExpandoObject>(); // se não incluir esta linha, os dados aparecem sempre a dobrar, em cada Insert/Delete
+                return outputList;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
 

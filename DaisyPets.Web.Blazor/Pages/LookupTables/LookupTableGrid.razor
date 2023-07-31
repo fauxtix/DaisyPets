@@ -2,6 +2,7 @@
 
 @using DaisyPets.Core.Application.ViewModels.LookupTables;
 @using Microsoft.Extensions.Localization;
+@using System.Net.Sockets;
 @using static DaisyPets.Core.Application.Enums.Common;
 
 <PageTitle>Daisy Pets Lookup Tables</PageTitle>
@@ -65,6 +66,12 @@ else
         </SfGrid>
     </div>
 
+    <AlertUserComponent AlertMessageType="AlertMessageType.Warning"
+                        Title="@AlertTitle"
+                        OperationType="OpcoesRegisto.Warning"
+                        Visibility="@AlertVisibility"
+                        Message="@WarningMessage"
+                        OnCloseDialog="(()=>AlertVisibility=false)"></AlertUserComponent>
 
 }
 
@@ -100,6 +107,10 @@ else
     protected Modules modulo { get; set; }
 
     protected string? WarningTitle { get; set; }
+
+    protected bool AlertVisibility { get; set; } = false;
+    protected string? WarningMessage { get; set; }
+    protected string? AlertTitle = "";
 
 
     protected override async Task OnParametersSetAsync()
@@ -156,10 +167,19 @@ else
                 }
             }
         }
+        catch (SocketException socketEx)
+        {
+            AlertTitle = "Erro ao aceder ao servidor ";
+            AlertVisibility = true;
+            WarningMessage = socketEx.Message;
+            return Enumerable.Empty<LookupTableVM>();
+        }
         catch (Exception ex)
         {
-            logger?.LogError($"Erro no API {ex.Message}", "Preenchimento de grelha - lookup tables manager");
-            return gridData;
+            AlertTitle = "Erro ao aceder ao servidor ";
+            AlertVisibility = true;
+            WarningMessage = ex.Message;
+            return Enumerable.Empty<LookupTableVM>();
         }
     }
     protected async Task RowSelectHandler(RowSelectEventArgs<LookupTableVM> args)

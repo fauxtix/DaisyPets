@@ -54,6 +54,7 @@
 		<PackageReference Include="Syncfusion.Blazor.PdfViewerServer.Windows" Version="20.3.0.56" />
 		<PackageReference Include="Syncfusion.Blazor.Popups" Version="20.3.0.56" />
 		<PackageReference Include="Syncfusion.Blazor.ProgressBar" Version="20.3.0.56" />
+		<PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="20.3.0.56" />
 		<PackageReference Include="Syncfusion.Blazor.Schedule" Version="20.3.0.56" />
 		<PackageReference Include="Syncfusion.Blazor.Spinner" Version="20.3.0.56" />
 		<PackageReference Include="Syncfusion.Blazor.Themes" Version="20.3.0.56" />
@@ -78,6 +79,7 @@
 	<ItemGroup>
 	  <Folder Include="wwwroot\EstateAgency\images\" />
 	  <Folder Include="wwwroot\EstateAgency\js\" />
+	  <Folder Include="wwwroot\uploads\Posts\" />
 	  <Folder Include="wwwroot\uploads\PetDocuments\" />
 	</ItemGroup>
 

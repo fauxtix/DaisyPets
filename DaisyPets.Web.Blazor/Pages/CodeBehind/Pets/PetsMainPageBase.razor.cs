@@ -8,6 +8,7 @@ using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Notifications;
 using Syncfusion.Blazor.Popups;
+using System.Net.Sockets;
 using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
@@ -279,8 +280,26 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         private async Task<IEnumerable<PetVM>?> GetAllPets()
         {
-            var result = await GetData<PetVM>(petsEndpoint!);
-            return result.ToList();
+            try
+            {
+                var result = await GetData<PetVM>(petsEndpoint!);
+                return result.ToList();
+
+            }
+            catch (SocketException socketEx)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = socketEx.Message;
+                return Enumerable.Empty<PetVM>();
+            }
+            catch (Exception ex)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = ex.Message;
+                return Enumerable.Empty<PetVM>();
+            }
         }
 
         private async Task<IEnumerable<VacinaVM>?> GetPetVaccines(int Id)
@@ -510,16 +529,35 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             urlBaseAddress = config?["ApiSettings:UrlBase"];
             var lookupTablesEndpoint = $"{urlBaseAddress}/LookupTables/GetAllRecords/{tableName}";
-            using (HttpClient httpClient = new HttpClient())
+            try
             {
-                var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
-                if (result is null)
+                using (HttpClient httpClient = new HttpClient())
                 {
-                    return Enumerable.Empty<LookupTableVM>();
+                    var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
+                    if (result is null)
+                    {
+                        return Enumerable.Empty<LookupTableVM>();
+                    }
+
+                    return result;
                 }
 
-                return result;
             }
+            catch (SocketException socketEx)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = socketEx.Message;
+                return Enumerable.Empty<LookupTableVM>();
+            }
+            catch (Exception ex)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = ex.Message;
+                return Enumerable.Empty<LookupTableVM>();
+            }
+
         }
 
         protected async Task RowSelectHandler(RowSelectEventArgs<PetVM> args)
@@ -1017,7 +1055,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         public void DetailRowCollapse(string CollapseIndex)
         {
             var rowIndex = int.Parse(CollapseIndex);
-            PetVM CollapseRow = (PetVM)petsGridObj.CurrentViewData.ElementAt(Convert.ToInt32((rowIndex- 1).ToString()));
+            PetVM CollapseRow = (PetVM)petsGridObj.CurrentViewData.ElementAt(Convert.ToInt32((rowIndex - 1).ToString()));
             ExpandedRows.Remove(CollapseRow.Id);              //Remove the collapsed row from expanded dictionary
         }
 

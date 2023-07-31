@@ -19,7 +19,7 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
             _logger = logger;
         }
 
-        public async Task<int> InserPostAsync(Post post)
+        public async Task<int> InsertPostAsync(Post post)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -60,7 +60,7 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
             sb.Append("Title = @Title, ");
             sb.Append("Introduction = @Introduction, ");
             sb.Append("BodyText = @BodyText, ");
-            sb.Append("Image = @Image, ");
+            sb.Append("Image = @Image ");
             sb.Append("WHERE Id = @Id");
 
             using (var connection = _context.CreateConnection())
@@ -188,7 +188,31 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
             }
         }
 
-        public async Task<int> InserPostCommentAsync(Comment comment)
+        public async Task<PostDto> GetPostAsync(int Id)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT Id, Title, Introduction, ");
+            sb.Append("BodyText, Image ");
+            sb.Append("FROM Post ");
+            sb.Append("WHERE Id = @Id");
+
+
+            using (var connection = _context.CreateConnection())
+            {
+                var post = await connection.QueryFirstOrDefaultAsync<PostDto>(sb.ToString(), new { Id });
+                if (post != null)
+                {
+                    return post;
+                }
+                else
+                {
+                    return new PostDto();
+                }
+            }
+        }
+
+
+        public async Task<int> InsertPostCommentAsync(Comment comment)
         {
             DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("@PostId", comment.PostId);

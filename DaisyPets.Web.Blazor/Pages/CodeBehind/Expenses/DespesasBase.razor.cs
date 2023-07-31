@@ -5,6 +5,7 @@ using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Notifications;
 using Syncfusion.Blazor.Spinner;
 using System.Globalization;
+using System.Net.Sockets;
 using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
@@ -131,12 +132,29 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
             await Task.Delay(200);
             await SpinnerObj!.ShowAsync();
 
-            expensesList = await GetAll();
+            try
+            {
+                expensesList = await GetAll();
+                ShowToolbarOptions = expensesList.Any();
 
-            ShowToolbarOptions = expensesList.Any();
-
-            await Task.Delay(200);
-            await SpinnerObj.HideAsync();
+            }
+            catch (SocketException socketEx)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = socketEx.Message;
+            }
+            catch (Exception ex)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = ex.Message;
+            }
+            finally
+            {
+                await Task.Delay(200);
+                await SpinnerObj.HideAsync();
+            }
 
         }
 
@@ -154,8 +172,18 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
                     return expenses!.ToList();
                 }
             }
-            catch (Exception exc)
+            catch (SocketException socketEx)
             {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = socketEx.Message;
+                return Enumerable.Empty<DespesaVM>();
+            }
+            catch (Exception ex)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = ex.Message;
                 return Enumerable.Empty<DespesaVM>();
             }
         }

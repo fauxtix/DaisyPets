@@ -5,6 +5,8 @@
 @using System.Dynamic
 @using DaisyPets.Core.Application.Extensions
 @using DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables;
+@using System.Net.Sockets;
+@using static DaisyPets.Core.Application.Enums.Common;
 
 
 @inherits TabAuxBase
@@ -14,13 +16,21 @@
 @implements IDisposable
 
 
-<AppConfiguration_Tables ChildTableToValidate="@sTableToValidateFk" 
+<AppConfiguration_Tables ChildTableToValidate="@sTableToValidateFk"
                          ItemsList="@GenericModelList"
                          FkFieldNameToValidate="@sFieldToValidateFk"
                          PageTitle="@sPageTitle"
-                         WorkTableName="@SelectedTableByAdmin"                         
+                         WorkTableName="@SelectedTableByAdmin"
                          TModel="ExpandoObject">
 </AppConfiguration_Tables>
+
+<AlertUserComponent AlertMessageType="AlertMessageType.Warning"
+                    Title="@AlertTitle"
+                    OperationType="OpcoesRegisto.Warning"
+                    Visibility="@AlertVisibility"
+                    Message="@WarningMessage"
+                    OnCloseDialog="(()=>AlertVisibility=false)"></AlertUserComponent>
+
 
 @code {
 
@@ -29,6 +39,9 @@
     string? sTableToValidateFk;
     string? sFieldToValidateFk;
 
+    protected string? AlertTitle = "";
+    protected bool AlertVisibility { get; set; } = false;
+    protected string? WarningMessage { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -38,7 +51,22 @@
         NavManager.TryGetQueryString<string>("TableToValidate", out sTableToValidateFk);
         NavManager.TryGetQueryString<string>("FieldToValidate", out sFieldToValidateFk);
 
-        GenericModelList = (await GetDataGenerics<ExpandoObject>(SelectedTableByAdmin)).ToList();
+        try
+        {
+            GenericModelList = (await GetDataGenerics<ExpandoObject>(SelectedTableByAdmin)).ToList();
+        }
+        catch (SocketException socketEx)
+        {
+            AlertTitle = "Erro ao aceder ao servidor ";
+            AlertVisibility = true;
+            WarningMessage = socketEx.Message;
+        }
+        catch (Exception ex)
+        {
+            AlertTitle = "Erro ao aceder ao servidor ";
+            AlertVisibility = true;
+            WarningMessage = ex.Message;
+        }
     }
 
     void IDisposable.Dispose()

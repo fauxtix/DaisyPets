@@ -2481,4 +2481,10 @@
   <data name="TituloTarefas" xml:space="preserve">
     <value>To do lists</value>
   </data>
+  <data name="TituloLocalidade" xml:space="preserve">
+    <value>Locality</value>
+  </data>
+  <data name="TituloIntroducao" xml:space="preserve">
+    <value>Introduction</value>
+  </data>
 </root>

@@ -1,0 +1,128 @@
+﻿@using DaisyPets.Core.Application.ViewModels;
+@using DaisyPets.Core.Application.ViewModels.LookupTables;
+@using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+<div>
+    <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="home-owner"></HeaderDialogComponent>
+    <hr class="divider" />
+</div>
+<div class="container-fluid">
+    <EditForm Model="Contact">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <SfTextBox Enabled="true"
+                               Placeholder="@L["TituloNome"]"
+                               CssClass="e-field  e-corner"
+                               FloatLabelType="@FloatLabelType.Always"
+                    @bind-Value="@Contact!.Nome">
+                    </SfTextBox>
+                </div>
+                <div class="form-group mt-2">
+                    <SfTextBox Enabled="true"
+                               Placeholder="@L["TituloMorada"]"
+                               CssClass="e-field  e-corner"
+                               FloatLabelType="FloatLabelType.Always"
+                    @bind-Value="@Contact!.Morada">
+                    </SfTextBox>
+                </div>
+                <div class="form-group mt-2">
+                    <SfTextBox Enabled="true"
+                               Placeholder="@L["TituloLocalidade"]"
+                               CssClass="e-field  e-corner"
+                               FloatLabelType="FloatLabelType.Always"
+                    @bind-Value="@Contact!.Localidade">
+                    </SfTextBox>
+                </div>
+
+                <div class="group-box">
+                    <SfTextBox Placeholder="@L["TituloCampo3Editoras"]" Width="150px"
+                               CssClass="e-field  e-corner custom-class"
+                               FloatLabelType="FloatLabelType.Always"
+                    @bind-Value="@Contact!.Movel">
+                    </SfTextBox>
+                    <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
+                                    Value="@idxTipoContacto" ShowClearButton="true" Width="250px"
+                                    FilterBarPlaceholder="@L["TituloSelecao"]" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
+                                    Placeholder="@L["TituloTipoContacto"]" DataSource="@ContactTypes" FloatLabelType="FloatLabelType.Always">
+                        <DropDownListTemplates TItem="LookupTableVM">
+                        </DropDownListTemplates>
+                        <DropDownListEvents TValue="int" TItem="LookupTableVM" ValueChange="onChangeTipoContacto"></DropDownListEvents>
+                        <DropDownListFieldSettings Value="Id" Text="Descricao"></DropDownListFieldSettings>
+                    </SfDropDownList>
+                </div>
+                <div class="form-group mt-2">
+                    <SfTextBox Enabled="true"
+                               Placeholder="e-mail"
+                               CssClass="e-field e-corner"
+                               FloatLabelType="FloatLabelType.Always"
+                    @bind-Value="@Contact!.eMail">
+                    </SfTextBox>
+                </div>
+            </div>
+
+            <div class="form-group mt-2">
+                <SfTextBox Multiline=true Placeholder="@L["TituloNotas"]"
+                           HtmlAttributes="NotesAttribute"
+                           CssClass="e-field e-corner"
+                           FloatLabelType="FloatLabelType.Always"
+                @bind-Value="@Contact.Notas">
+                </SfTextBox>
+            </div>
+        </div>
+    </EditForm>
+</div>
+
+@code {
+    [Inject] HttpClient? _httpClient { get; set; }
+    [Inject] protected IConfiguration? _env { get; set; }
+    [Inject] protected IStringLocalizer<App>? L { get; set; }
+
+    [Parameter] public ContactoVM? Contact { get; set; }
+    [Parameter] public OpcoesRegisto EditMode { get; set; }
+    [Parameter] public string? HeaderCaption { get; set; }
+
+    protected int idxTipoContacto;
+
+    private string? _uri = string.Empty;
+
+    public IEnumerable<LookupTableVM>? ContactTypes { get; set; }
+
+    protected Dictionary<string, object> NotesAttribute = new Dictionary<string, object>()
+{
+            {"rows", "3" }
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        _uri = $"{_env["ApiSettings:UrlBase"]}/LookupTables";
+        ContactTypes = (await GetLookupTableData("TipoContacto")).ToList();
+        idxTipoContacto = Contact!.IdTipoContacto;
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+    }
+
+    protected void onChangeTipoContacto(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
+    {
+        idxTipoContacto = args.Value;
+        Contact!.IdTipoContacto = idxTipoContacto;
+    }
+
+    public async Task<IEnumerable<LookupTableVM>> GetLookupTableData(string tableName)
+    {
+
+        var tableData = await _httpClient!.GetFromJsonAsync<IEnumerable<LookupTableVM>>($"{_uri}/GetAllRecords/{tableName}");
+        return tableData!.ToList();
+    }
+
+}
+
+<style>
+    .custom-class.e-control-wrapper .e-textbox {
+        text-align: center;
+    }
+</style>

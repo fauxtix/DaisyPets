@@ -24,6 +24,7 @@
             Consultations,
             Pagamentos,
             ToDos,
+            Posts,
             PdfViewer
         }
 

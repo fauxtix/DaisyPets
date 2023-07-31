@@ -1,4 +1,5 @@
 using DaisyPets.Core.Application.TodoManager;
+using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -7,6 +8,7 @@ using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Lists;
 using Syncfusion.Blazor.Notifications;
 using Syncfusion.Blazor.Popups;
+using System.Net.Sockets;
 using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.Web.Blazor.Pages.TodoLists
@@ -92,8 +94,26 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
 
         private async Task<IEnumerable<ToDoDto>?> GetAll()
         {
-            var result = await GetData<ToDoDto>(todosEndpoint!);
-            return result.ToList();
+            try
+            {
+                var result = await GetData<ToDoDto>(todosEndpoint!);
+                return result.ToList();
+
+            }
+            catch (SocketException socketEx)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = socketEx.Message;
+                return Enumerable.Empty<ToDoDto>();
+            }
+            catch (Exception ex)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = ex.Message;
+                return Enumerable.Empty<ToDoDto>();
+            }
         }
 
         private async Task<IEnumerable<LookupTableVM>> GetLookupData(string tableName)
@@ -102,15 +122,33 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                 return null;
             urlBaseAddress = config?["ApiSettings:UrlBase"];
             var lookupTablesEndpoint = $"{urlBaseAddress}/LookupTables/GetAllRecords/{tableName}";
-            using (HttpClient httpClient = new HttpClient())
+            try
             {
-                var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
-                if (result is null)
+                using (HttpClient httpClient = new HttpClient())
                 {
-                    return Enumerable.Empty<LookupTableVM>();
+                    var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
+                    if (result is null)
+                    {
+                        return Enumerable.Empty<LookupTableVM>();
+                    }
+
+                    return result;
                 }
 
-                return result;
+            }
+            catch (SocketException socketEx)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = socketEx.Message;
+                return Enumerable.Empty<LookupTableVM>();
+            }
+            catch (Exception ex)
+            {
+                AlertTitle = "Erro ao aceder ao servidor ";
+                AlertVisibility = true;
+                WarningMessage = ex.Message;
+                return Enumerable.Empty<LookupTableVM>();
             }
         }
 

@@ -16,7 +16,7 @@ namespace DaisyPets.WebApi.Validators
             RuleFor(p => p.Title)
                 .NotNull()
                 .NotEmpty().WithMessage("Preencha Título, p.f.")
-                .Length(5, 60).WithMessage("Tamanho entre 5 e 60 caracteres");
+                .Length(5, 128).WithMessage("Tamanho entre 5 e 128 caracteres");
             RuleFor(p => p.Introduction)
                 .NotNull()
                 .NotEmpty().WithMessage("Preencha Introdução, p.f.");

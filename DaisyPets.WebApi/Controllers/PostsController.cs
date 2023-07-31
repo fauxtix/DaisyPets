@@ -44,7 +44,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest(errorMessages);
                 }
 
-                var insertedId = await _service.InserPostAsync(post);
+                var insertedId = await _service.InsertPostAsync(post);
                 var viewPost = await _service.FindPostByIdAsync(insertedId);
                 var actionReturned = CreatedAtAction(nameof(Get), new { id = viewPost.Id }, viewPost);
 
@@ -84,7 +84,7 @@ namespace DaisyPets.WebApi.Controllers
                 //    return BadRequest(errorMessages);
                 //}
 
-                var insertedId = await _service.InserPostCommentAsync(comment);
+                var insertedId = await _service.InsertPostCommentAsync(comment);
                 var viewPost = await _service.FindPostByIdAsync(insertedId);
                 var actionReturned = CreatedAtAction(nameof(Get), new { id = viewPost.Id }, viewPost);
 
@@ -126,7 +126,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewPost = _service.GetPostVMAsync(Id);
+                var viewPost = await _service.GetPostAsync(Id);
                 if (viewPost == null)
                 {
                     return NotFound("Post não foi encontrado");
@@ -163,7 +163,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewPost = _service.GetPostVMAsync(Id);
+                var viewPost = await  _service.GetPostAsync(Id);
                 if (viewPost == null)
                 {
                     return NotFound("Post não foi encontrado");
@@ -189,6 +189,9 @@ namespace DaisyPets.WebApi.Controllers
         [HttpGet("{Id:int}")]
         public async Task<IActionResult> Get(int Id)
         {
+
+            // TODO - duplicado com GetById...
+
             var location = GetControllerActionNames();
 
             try

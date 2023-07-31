@@ -1,0 +1,214 @@
+﻿@page "/contacts"
+@using DaisyPets.Core.Application.ViewModels;
+@using DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts;
+@using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+@inherits ContactosBase
+
+@{
+    var Tool = (new List<object>() {
+        "Search",
+        "PdfExport"
+    });
+}
+
+
+@*<style>
+    .source-options {
+        display: flex;
+        justify-content: flex-start;
+        gap: 5px;
+        align-items: center;
+        margin-left: 5px;
+    }
+
+    .e-round-corner {
+        border-radius: 10px;
+    }
+</style>
+*@
+<PageTitle>@L["Site_Menu_Contactos"]</PageTitle>
+<PageTitleComponent PageTitle="@L["Site_Menu_Contactos"]"></PageTitleComponent>
+
+@if (Contacts is null)
+{
+    <LoadingData />
+}
+else
+{
+    <div class="container-fluid">
+        <div class="source-options">
+            <SfButton CssClass="e-success e-round-corner mx-3 mb-2 pull-left" IconCss="fa fa-plus" Content="@L["NewMsg"]"
+            @onclick="@onAddContact" IsPrimary="true">
+            </SfButton>
+        </div>
+        <div id="container">
+            <div class="sample flex vertical-center">
+                <div class="padding">
+                    <SfListView ID="list" DataSource="@Contacts" Width="1400px" Height="auto" CssClass="e-list-template">
+                        <ListViewFieldSettings Id="Id" Text="Nome" TValue="ContactoVM" GroupBy="DescricaoTipoContacto"></ListViewFieldSettings>
+                        <ListViewTemplates TValue="ContactoVM">
+                            <Template>
+                                @{
+                                    var contact = (context as ContactoVM);
+                                    <div class="e-list-wrapper e-list-multi-line e-list-avatar" @onclick="@(e => EditContact(contact))">
+                                        <img class="e-avatar e-avatar-circle" src="images/phone.png" style="background:#BCBCBC" />
+                                        <span class="e-list-item-header"><strong>@contact.Nome</strong></span>
+                                        <span class="e-list-content" style="font-weight:500; font-size:14px;">@contact.Movel</span>
+                                        <span class="e-list-content" style="font-size:13px;">@contact.eMail</span>
+                                        <p>
+                                            <span class="e-list-content" style="font-size:13px;">@contact.Notas</span>
+                                        </p>
+                                    </div>
+                                }
+                            </Template>
+                            <GroupTemplate>
+                                <div>
+                                    <span class="category">@context.Text</span>
+                                </div>
+                            </GroupTemplate>
+                        </ListViewTemplates>
+                    </SfListView>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <SfDialog CssClass="responsive-dialog-30"
+              Height="auto"
+              IsModal="true"
+              ShowCloseIcon="false"
+              CloseOnEscape="false"
+    @bind-Visible="AddEditVisibility">
+        <DialogTemplates>
+            <Content>
+                <AddEditContacto Contact="@SelectedContact"
+                                 EditMode="@RecordMode"
+                                 HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+            </Content>
+            <FooterTemplate>
+                <div>
+                    <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save"
+                    @onclick="SaveContactData" Content="Gravar">
+                    </SfButton>
+                    <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times"
+                    @onclick="CloseEditDialog" Content="Sair">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
+    </SfDialog>
+
+    <ConfirmDeleteComponent AlertMessageType="AlertMessageType.Warning"
+                            DialogTitle="@(L["DeleteMsg"] + " " + L[" TituloCampo3Editoras"])"
+                            Message="@DeleteCaption" ConfirmationText="@L["MSG_ConfirmarOperacao"]"
+                            Visible="@DeleteVisibility"
+                            DialogWidth="20%"
+                            DialogHeight="auto"
+                            OnConfirmationYes="ConfirmDeleteYes"
+                            OnConfirmationNo="ConfirmDeleteNo" />
+
+    <ValidateErrorComponent Visible="@ErrorVisibility"
+                            ValidationMessages="@ValidationMessages"
+                            OnCloseDialog="CloseValidationErrorBox" />
+
+    <SfToast ID="toast_custom" @ref="ToastObj" ShowProgressBar=true
+             Title="@ToastTitle" Icon="@ToastIcon"
+             Content="@ToastMessage"
+             CssClass="@ToastCss" Timeout="3000"
+             ShowCloseButton="true">
+        <ToastAnimationSettings>
+            <ToastShowAnimationSettings Effect="ToastEffect.FadeIn" Duration="600"></ToastShowAnimationSettings>
+            <ToastHideAnimationSettings Effect="ToastEffect.FadeOut" Duration="600"></ToastHideAnimationSettings>
+        </ToastAnimationSettings>
+        <ToastButtons>
+            <ToastButton Content="Fechar" OnClick="@HideToast"></ToastButton>
+        </ToastButtons>
+        <ToastPosition X="Right" Y="Bottom"></ToastPosition>
+    </SfToast>
+
+    <SfMessage Severity="MessageSeverity.Warning"
+               Visible=@WarningVisibility>@WarningMessage</SfMessage>
+
+    <SfSpinner @ref="SpinnerObj"
+               Label="@L["MSG_PreparandoDados"]" Size="50"
+               Type="SpinnerType.Bootstrap5"
+               CssClass="e-spin-overlay" />
+
+}
+
+
+<style>
+    .e-listview.e-control {
+        width: auto;
+    }
+
+    #list .e-list-group-item {
+        /*height: 56px;
+            line-height: 56px;*/
+
+        overflow: auto;
+    }
+
+    #container .e-listview .e-list-item {
+        height: 100px;
+        width: 50%;
+        float: left;
+    }
+
+    #list .count {
+        float: right;
+    }
+
+    #container .e-listview {
+        box-shadow: 0 1px 4px #ddd;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sample {
+        justify-content: left;
+    }
+
+    .vertical-center {
+        align-items: center;
+    }
+
+    .padding {
+        padding: 4px;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+    .flex__center {
+        justify-content: center;
+    }
+
+    .margin {
+        margin: 10px;
+    }
+
+    .source-options {
+        display: flex;
+        justify-content: flex-start;
+        gap: 5px;
+        align-items: center;
+        margin-left: 5px;
+    }
+
+    .e-round-corner {
+        border-radius: 10px;
+    }
+
+    .category {
+        font-size: large;
+        font-weight: bold;
+        border: solid;
+        padding: 4px;
+        margin-top:2px;
+    }
+
+</style>

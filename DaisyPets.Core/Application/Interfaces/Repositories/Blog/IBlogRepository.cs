@@ -9,10 +9,11 @@ namespace DaisyPets.Core.Application.Interfaces.Repositories.Blog
         Task<Post> FindPostByIdAsync(int Id);
         Task<IEnumerable<Post>> GetAllAsync();
         Task<IEnumerable<PostDto>> GetAllPostsVMAsync();
+        Task<PostDto> GetPostAsync(int Id);
         Task<IEnumerable<Comment>> GetPostComments(int Id);
         Task<IEnumerable<PostDto>> GetPostVMAsync(int Id);
-        Task<int> InserPostAsync(Post post);
-        Task<int> InserPostCommentAsync(Comment comment);
+        Task<int> InsertPostAsync(Post post);
+        Task<int> InsertPostCommentAsync(Comment comment);
         Task UpdatePostAsync(int Id, Post post);
     }
 }

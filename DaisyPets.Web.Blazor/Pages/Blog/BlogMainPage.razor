@@ -1,22 +1,84 @@
 ﻿@page "/Blog/BlogMainPage"
 @using DaisyPets.Core.Application.ViewModels;
 @using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
 
-<PageTitle>My Blog</PageTitle>
+<PageTitle>Daisy Pets Blog</PageTitle>
+<PageTitleComponent PageTitle="Blog" />
 
-@if (posts is null)
+
+@{
+    var Tool = (new List<object>() {
+        "Search",
+        "PdfExport",
+    });
+}
+
+@if (Posts is null)
 {
     <LoadingData />
 }
 else
 {
+
     <div class="container">
-        @foreach (var post in posts)
+        <div class="source-options my-2">
+            <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
+            @onclick="@onAddPost" IsPrimary="true">
+            </SfButton>
+        </div>
+
+        <div class="table table-striped table-hover">
+            <SfGrid ID="Pets_Grid"
+                    Width="100%" 
+                    Toolbar="@Tool"
+                    Height="auto"
+                    EnableStickyHeader="true"
+                    EnableAltRow="true"
+                    EnableHover="true"
+                    DataSource="@Posts"
+                    AllowFiltering="false"
+                    AllowSelection="true"
+                    AllowGrouping="false"
+                    AllowPaging="true"
+                    AllowSorting="true"
+                    AllowPdfExport="true"
+                    RowHeight="32"
+                    AllowTextWrap="true">
+                <GridEvents RowSelected="RowSelectHandler"
+                            CommandClicked="OnPostCommandClicked" TValue="PostDto">
+                </GridEvents>
+                <GridColumns>
+                    <GridColumn Field=@nameof(PostDto.Id) IsPrimaryKey="true" Visible="false" HeaderText="Pet" Width="150"></GridColumn>
+                    <GridColumn Field=@nameof(PostDto.Title) HeaderText="@L["lblTitulo"]" Width="250"></GridColumn>
+                    <GridColumn Field=@nameof(PostDto.Introduction) HeaderText="@L["TituloIntroducao"]" Width="450"></GridColumn>
+                    <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="110">
+                        <GridCommandColumns>
+                            <GridCommandColumn Type=CommandButtonType.Edit
+                                               ButtonOption="@(new CommandButtonOptions()
+                                                                       {
+                                                                           CssClass = "e-btn e-primary e-round",
+                                                                           IconCss = "fa fa-edit"
+                                                                       })">
+                            </GridCommandColumn>
+                            <GridCommandColumn Type=CommandButtonType.Delete
+                                               ButtonOption="@(new CommandButtonOptions()
+                                                                       {
+                                                                           CssClass = "e-btn e-danger e-round",
+                                                                           IconCss = "fa fa-trash"
+                                                                       })">
+                            </GridCommandColumn>
+                        </GridCommandColumns>
+                    </GridColumn>
+                </GridColumns>
+            </SfGrid>
+        </div>
+@*        @foreach (var post in Posts)
         {
             <a href="/article/@post.Id">
                 <div class="row">
                     <div class="col-sm-4">
-                        <img class="w-100" src="images/articleMainImages/@post.Image">
+                        <img class="w-100" src="uploads/Posts/@post.Image">
                     </div>
                     <div class="col-sm-8 post-front-page">
                         <h1>@post.Title</h1>
@@ -27,60 +89,70 @@ else
             <hr />
             <br />
         }
-    </div>
+*@    </div>
+
+    <SfDialog CssClass="responsive-dialog-50"
+              IsModal="true"
+              ShowCloseIcon="false"
+              CloseOnEscape="false"
+    @bind-Visible="AddEditPostVisibility">
+        <DialogTemplates>
+            <Content>
+                <AddEditPost SelectedPost="SelectedPost"
+                             EditMode="@RecordMode"
+                             HeaderCaption="@(RecordMode == OpcoesRegisto.Gravar? EditCaption : NewCaption)" />
+            </Content>
+            <FooterTemplate>
+                <div>
+                    <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save"
+                    @onclick="SavePost" Content="@L["btnSalvar"]">
+                    </SfButton>
+                    <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times"
+                    @onclick="(()=>AddEditPostVisibility = false)" Content="@L["BtnSalir"]">
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
+    </SfDialog>
+
+    <ConfirmDeleteComponent AlertMessageType="AlertMessageType.Error" DialogWidth="20%"
+                            DialogTitle="@WarningTitle" ConfirmationText="@L["MSG_ConfirmarOperacao"]"
+                            Module="Modules.Pets"
+                            Message="@SelectedPost?.Title"
+                            Visible="@DeletePostVisibility"
+                            OnConfirmationYes="ConfirmDeleteYes"
+                            OnConfirmationNo="@(()=>DeletePostVisibility=false)"></ConfirmDeleteComponent>
+
+    <AlertUserComponent AlertMessageType="AlertMessageType.Warning"
+                        Title="@AlertTitle"
+                        OperationType="OpcoesRegisto.Warning"
+                        Visibility="@AlertVisibility"
+                        Message="@WarningMessage"
+                        OnCloseDialog="(()=>AlertVisibility=false)"></AlertUserComponent>
+
+    <ValidateErrorComponent Visible="@ErrorVisibility"
+                            ValidationMessages="@ValidationsMessages"
+                            OnCloseDialog="@(()=>ErrorVisibility = false)" />
+
+
+    <SfToast ID="toast_custom" @ref="ToastObj" ShowProgressBar=true
+             Title="@ToastTitle" Icon="@ToastIcon"
+             Content="@ToastMessage"
+             CssClass="@ToastCss" Timeout="2000"
+             ShowCloseButton="true">
+        <ToastAnimationSettings>
+            <ToastShowAnimationSettings Effect="ToastEffect.FadeIn" Duration="600"></ToastShowAnimationSettings>
+            <ToastHideAnimationSettings Effect="ToastEffect.FadeOut" Duration="600"></ToastHideAnimationSettings>
+        </ToastAnimationSettings>
+        <ToastButtons>
+            <ToastButton Content="@L["btnFechar"]" OnClick="@HideToast"></ToastButton>
+        </ToastButtons>
+        <ToastPosition X="Right" Y="Bottom"></ToastPosition>
+    </SfToast>
+
+
 }
 
 
-@code {
-    [Inject] IConfiguration? config { get; set; }
-    [Inject] ILogger<App>? logger { get; set; } = null;
-    [Inject] public IStringLocalizer<App>? L { get; set; }
 
-
-
-    protected IEnumerable<PostDto>? posts;
-    protected string? urlBaseAddress;
-    protected string? postsEndpoint;
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        urlBaseAddress = config?["ApiSettings:UrlBase"];
-        postsEndpoint = $"{urlBaseAddress}/Posts/AllPosts";
-
-        posts = await GetAllPosts();
-    }
-
-    private async Task<IEnumerable<PostDto>?> GetAllPosts()
-    {
-        var result = await GetData<PostDto>(postsEndpoint!);
-        return result.ToList();
-    }
-    private async Task<IEnumerable<T>> GetData<T>(string url) where T : class
-    {
-        using (HttpClient httpClient = new HttpClient())
-        {
-            try
-            {
-                var response = await httpClient.GetFromJsonAsync<IEnumerable<T>>(url);
-                if (response == null)
-                {
-                    return Enumerable.Empty<T>();
-                }
-
-                return response;
-            }
-            catch (HttpRequestException exa)
-            {
-                logger?.LogError(exa.Message, L["MSG_ApiError"]);
-
-                return Enumerable.Empty<T>();
-            }
-            catch (Exception ex)
-            {
-                logger?.LogError(ex.Message, L["MSG_ApiError"]);
-                return Enumerable.Empty<T>();
-            }
-        }
-    }
-}

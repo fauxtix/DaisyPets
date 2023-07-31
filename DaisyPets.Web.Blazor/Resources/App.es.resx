@@ -2479,4 +2479,10 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="TituloTarefas" xml:space="preserve">
     <value>Listas de tareas</value>
   </data>
+  <data name="TituloLocalidade" xml:space="preserve">
+    <value>Localidad</value>
+  </data>
+  <data name="TituloIntroducao" xml:space="preserve">
+    <value>Introducion</value>
+  </data>
 </root>
