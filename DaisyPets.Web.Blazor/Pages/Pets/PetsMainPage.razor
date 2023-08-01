@@ -282,7 +282,15 @@ else
                                         <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
                                         <GridColumns>
                                             <GridColumn Field=@nameof(DesparasitanteVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
-                                            <GridColumn Field=@nameof(DesparasitanteVM.Tipo) HeaderText="@L["TituloTipo"]" Width="90" TextAlign="TextAlign.Center"></GridColumn>
+                                            <GridColumn Field=@nameof(DesparasitanteVM.Tipo) HeaderText="@L["TituloTipo"]" Width="90" TextAlign="TextAlign.Center">
+                                                <Template Context="dewormer">
+                                                    @{
+                                                        var dewormerRow = (dewormer as DesparasitanteVM);
+                                                        var dewormerType = dewormerRow?.Tipo == "I" ? "Interno" : "Externo";
+                                                        <span>@dewormerType</span>
+                                                    }
+                                                </Template>
+                                            </GridColumn>
                                             <GridColumn Field=@nameof(DesparasitanteVM.Marca) HeaderText="@L["TituloMarca"]" Width="200"></GridColumn>
                                             <GridColumn Field=@nameof(DesparasitanteVM.DataAplicacao) HeaderText="@L["TituloData"]" Format="d" Width="100" TextAlign="TextAlign.Center"></GridColumn>
                                             <GridColumn Field=@nameof(DesparasitanteVM.DataProximaAplicacao) HeaderText="@L["Pet_Vaccine_Next"]" Format="d" Width="100" TextAlign="TextAlign.Center"></GridColumn>
