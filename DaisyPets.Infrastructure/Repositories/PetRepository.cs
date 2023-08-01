@@ -125,11 +125,18 @@ namespace DaisyPets.Infrastructure.Repositories
             sb.Append("Padrinho = @Padrinho ");
             sb.Append("WHERE Id = @Id");
 
-            using (var connection = _context.CreateConnection())
+            try
             {
-                await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
-            }
+                using (var connection = _context.CreateConnection())
+                {
+                    await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
+                }
 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+            }
         }
 
         public async Task DeleteAsync(int Id)

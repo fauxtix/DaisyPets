@@ -8,6 +8,7 @@ using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Notifications;
 using Syncfusion.Blazor.Popups;
+using Syncfusion.DocIO.DLS;
 using System.Net.Sockets;
 using static DaisyPets.Core.Application.Enums.Common;
 
@@ -144,8 +145,9 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         private async Task<List<string>> ValidatePet()
         {
-            var validatorEndpoint = $"{urlBaseAddress}/Pets/ValidatePets";
-            var errors = await Validate(SelectedPet!, validatorEndpoint);
+            var validatorEndpoint = $"{urlBaseAddress}/Pets/ValidatePet/{PetId}";
+//            var errors = await Validate(SelectedPet!, validatorEndpoint);
+            var errors = await ValidateSelectedPet(validatorEndpoint);
 
             return errors.Count() > 0 ? errors : new List<string>();
         }
@@ -190,6 +192,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         public async Task<bool> SavePetData()
         {
+            PetId = SelectedPet.Id;
+
             var validationMessages = await ValidatePet();
             if (validationMessages.Any())
             {
@@ -879,7 +883,38 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         }
 
+        private async Task<List<string>> ValidateSelectedPet(string validatorEndPoint)
+        {
+            try
+            {
 
+                using (HttpClient httpClient = new HttpClient())
+                {
+
+                    var response = await httpClient.GetAsync($"{validatorEndPoint}");
+                    if (response.IsSuccessStatusCode == false)
+                    {
+                        var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
+                        if (errors.Count() > 0)
+                        {
+                            return errors;
+                        }
+
+                        else
+
+                            return new List<string>();
+                    }
+
+                    return new List<string>();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return new List<string>() { ex.Message };
+            }
+
+        }
         private async Task<List<string>> Validate<T>(T entity, string validatorEndPoint) where T : class
         {
             try
@@ -915,13 +950,14 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         private async Task<bool> Save<T>(T dto, string url) where T : class
         {
             string? entityTitle = string.Empty;
-            int? entityId = 0;
+            int entityId = 0;
 
             switch (Module)
             {
                 case Modules.Pets:
                     entityTitle = L["Pet_Title"];
-                    entityId = PetId;
+                    // PetId changed without explanation (maybe in the razor page...). Changed to selectedpet.id
+                    entityId = SelectedPet.Id; // PetId
                     break;
                 case Modules.Documents:
                     entityTitle = L["Pet_Documents"];

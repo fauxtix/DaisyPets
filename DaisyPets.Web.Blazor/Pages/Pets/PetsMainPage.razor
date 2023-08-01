@@ -281,7 +281,7 @@ else
 
                                         <GridPageSettings PageSize="12" PageCount="12" PageSizes="true"></GridPageSettings>
                                         <GridColumns>
-                                            <GridColumn Field=@nameof(DesparasitanteVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
+                                            <GridColumn Field=@nameof(DesparasitanteVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#"></GridColumn>
                                             <GridColumn Field=@nameof(DesparasitanteVM.Tipo) HeaderText="@L["TituloTipo"]" Width="90" TextAlign="TextAlign.Center">
                                                 <Template Context="dewormer">
                                                     @{
@@ -401,7 +401,8 @@ else
             </Template>
             </GridColumn>
             *@
-                <GridColumn Field=@nameof(PetVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="Pet" Width="150"></GridColumn>
+                <GridColumn Field=@nameof(PetVM.Id) IsPrimaryKey="true" Visible="true" HeaderText="Pet" Width="150">
+                </GridColumn>
                 <GridColumn Field=@nameof(PetVM.Nome) HeaderText="Pet" Width="150"></GridColumn>
                 <GridColumn Field=@nameof(PetVM.DataNascimento) Format="d" TextAlign="TextAlign.Center"
                             HeaderText="@L["TituloDtNascimento"]" Width="110"></GridColumn>

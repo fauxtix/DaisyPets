@@ -3,6 +3,7 @@ using DaisyPets.Core.Application.Interfaces.Application;
 using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Domain;
+using Microsoft.Extensions.Logging;
 
 namespace DaisyPets.Infrastructure.Services
 {
@@ -10,15 +11,17 @@ namespace DaisyPets.Infrastructure.Services
     {
         private readonly IPetRepository _repository;
         private readonly IMapper _mapper;
+        private readonly ILogger<PetService> _logger;
 
-        public PetService(IPetRepository repository, IMapper mapper)
+        public PetService(IPetRepository repository, IMapper mapper, ILogger<PetService> logger)
         {
             _repository = repository;
             _mapper = mapper;
+            _logger = logger;
         }
         public async Task<bool> DeleteAsync(int Id)
         {
-            if(! await _repository.CanPetBeDeleted(Id))
+            if (!await _repository.CanPetBeDeleted(Id))
             {
                 return false;
             }
@@ -83,20 +86,37 @@ namespace DaisyPets.Infrastructure.Services
 
         public async Task<int> InsertAsync(PetDto pet)
         {
-            var petIdentity = _mapper.Map<Pet>(pet);
-            var insertedId = await _repository.InsertAsync(petIdentity);
-            return insertedId;
+            try
+            {
+                var petIdentity = _mapper.Map<Pet>(pet);
+                var insertedId = await _repository.InsertAsync(petIdentity);
+                return insertedId;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                return -1;
+            }
         }
 
         public async Task UpdateAsync(int Id, PetDto pet)
         {
-            var petEntity = await _repository.FindByIdAsync(Id);
-            if (petEntity == null)
-                throw new KeyNotFoundException("Pet not found");
+            try
+            {
+                var petEntity = await _repository.FindByIdAsync(Id);
+                if (petEntity == null)
+                    throw new KeyNotFoundException("Pet not found");
 
-           var mappedModel =  _mapper.Map(pet, petEntity);
+                var mappedModel = _mapper.Map(pet, petEntity);
 
-            await _repository.UpdateAsync(Id, mappedModel);
+                await _repository.UpdateAsync(Id, mappedModel);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+            }
         }
     }
 }

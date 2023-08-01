@@ -90,7 +90,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest(msg);
                 }
 
-                if (Id != appt.IdPet)
+                if (Id != appt.Id)
                 {
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }

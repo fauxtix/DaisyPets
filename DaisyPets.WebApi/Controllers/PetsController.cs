@@ -286,6 +286,28 @@ namespace DaisyPets.WebApi.Controllers
 
  
         /// <summary>
+        /// Validate pet (blazor version)
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpGet("ValidatePet/{Id:int}")]
+
+        public async Task<IActionResult> ValidatePet(int Id)
+        {
+            var petsValidator = new PetValidator();
+            var pet = await _petService.FindByIdAsync(Id);
+            var result = petsValidator.Validate(pet);
+
+            if (result.IsValid)
+            {
+                return Ok(pet);
+            }
+
+            var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+            return BadRequest(errorMessages);
+        }
+
+        /// <summary>
         /// Validate pet
         /// </summary>
         /// <param name="pet"></param>
