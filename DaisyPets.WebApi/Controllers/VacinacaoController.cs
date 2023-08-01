@@ -134,7 +134,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewVacina = _vacinacaoService.GetVacinaVMAsync(Id);
+                var viewVacina = await _vacinacaoService.GetVacinaVMAsync(Id);
                 if (viewVacina == null)
                 {
                     return NotFound("Vacina não foi encontrada");

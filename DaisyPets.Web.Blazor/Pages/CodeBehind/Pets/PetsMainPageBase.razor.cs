@@ -843,7 +843,6 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             await Task.Delay(200);
             await ToastObj!.ShowAsync();
-
         }
 
         private async Task Delete(string deleteUrl)

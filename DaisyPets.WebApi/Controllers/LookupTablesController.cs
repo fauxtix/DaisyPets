@@ -239,7 +239,7 @@ namespace DaisyPets.WebApi.Controllers
                 if (insertedId > 0)
                 {
                     int keyCreated = await _service.GetLastInsertedId(record.Tabela);
-                    var createdRecord = _service.GetRecordById(keyCreated, record.Tabela);
+                    var createdRecord = await _service.GetRecordById(keyCreated, record.Tabela);
                     var actionReturned = CreatedAtAction(nameof(GetRecordById), new { id = createdRecord.Id, tableName = record.Tabela }, createdRecord);
                     return actionReturned;
                 }

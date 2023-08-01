@@ -98,7 +98,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewdesparasitante = _desparasitanteService.GetDesparasitanteVMAsync(Id);
+                var viewdesparasitante = await _desparasitanteService.GetDesparasitanteVMAsync(Id);
                 if (viewdesparasitante == null)
                 {
                     return NotFound("Desparasitante não foi encontrado");
@@ -135,7 +135,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewdesparasitante = _desparasitanteService.GetDesparasitanteVMAsync(Id);
+                var viewdesparasitante = await _desparasitanteService.GetDesparasitanteVMAsync(Id);
                 if (viewdesparasitante == null)
                 {
                     return NotFound("Desperasitante não foi encontrado");

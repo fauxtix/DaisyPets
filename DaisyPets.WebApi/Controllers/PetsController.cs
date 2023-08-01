@@ -90,7 +90,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewPet = _petService.FindByIdAsync(Id);
+                var viewPet = await _petService.FindByIdAsync(Id);
                 if (viewPet == null)
                 {
                     return NotFound("Registo não foi encontrado");
@@ -127,7 +127,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewPet = _petService.FindByIdAsync(Id);
+                var viewPet = await _petService.FindByIdAsync(Id);
                 if (viewPet == null)
                 {
                     return NotFound("Registo não foi encontrado");

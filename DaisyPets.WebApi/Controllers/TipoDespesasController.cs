@@ -86,7 +86,7 @@ namespace DaisyPets.WebApi.Controllers
             {
                 if (expenseType == null || Id != expenseType.Id)
                     return BadRequest();
-                if (_service.Get_ById(Id) == null)
+                if (await _service.Get_ById(Id) == null)
                 {
                     return NotFound();
                 }

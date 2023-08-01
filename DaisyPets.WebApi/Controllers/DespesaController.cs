@@ -94,7 +94,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewExpense = _service.GetByIdAsync(Id);
+                var viewExpense = await _service.GetByIdAsync(Id);
                 if (viewExpense == null)
                 {
                     return NotFound("Despesa não foi encontrada");

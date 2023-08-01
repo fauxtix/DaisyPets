@@ -96,7 +96,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewContact = _contactService.GetContactVMAsync(Id);
+                var viewContact = await _contactService.GetContactVMAsync(Id);
                 if (viewContact == null)
                 {
                     return NotFound("Contacto não foi encontrado");
@@ -134,7 +134,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewContact = _contactService.GetContactVMAsync(Id);
+                var viewContact = await _contactService.GetContactVMAsync(Id);
                 if (viewContact == null)
                 {
                     return NotFound("Contacto não foi encontrado");

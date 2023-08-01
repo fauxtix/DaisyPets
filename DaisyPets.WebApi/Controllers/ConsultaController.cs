@@ -90,12 +90,12 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest(msg);
                 }
 
-                if (Id != appt.Id)
+                if (Id != appt.IdPet)
                 {
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewAppt = _consultaService.GetConsultaVMAsync(Id);
+                var viewAppt = await _consultaService.GetConsultaVMAsync(Id);
                 if (viewAppt == null)
                 {
                     return NotFound("Consulta não foi encontrada");
@@ -132,7 +132,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewAppt = _consultaService.GetConsultaVMAsync(Id);
+                var viewAppt = await _consultaService.GetConsultaVMAsync(Id);
                 if (viewAppt == null)
                 {
                     return NotFound("Consulta não foi encontrada");

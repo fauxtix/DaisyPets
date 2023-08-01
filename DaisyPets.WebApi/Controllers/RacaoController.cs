@@ -106,7 +106,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest(errorMessages);
                 }
 
-                var viewRacao = _racaoService.GetRacaoVMAsync(Id);
+                var viewRacao = await _racaoService.GetRacaoVMAsync(Id);
                 if (viewRacao == null)
                 {
                     return NotFound("Consulta não foi encontrada");
@@ -135,7 +135,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewRacao = _racaoService.GetRacaoVMAsync(Id);
+                var viewRacao = await _racaoService.GetRacaoVMAsync(Id);
                 if (viewRacao == null)
                 {
                     return NotFound("Ração não foi encontrada");

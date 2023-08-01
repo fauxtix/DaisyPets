@@ -90,7 +90,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewDocument = _documentService.GetDocument_ById(Id);
+                var viewDocument = await _documentService.GetDocument_ById(Id);
                 if (viewDocument == null)
                 {
                     return NotFound("Documento não foi encontrado");
@@ -127,7 +127,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewDocument = _documentService.GetDocument_ById(Id);
+                var viewDocument = await _documentService.GetDocument_ById(Id);
                 if (viewDocument == null)
                 {
                     return NotFound("Documento não foi encontrado");
