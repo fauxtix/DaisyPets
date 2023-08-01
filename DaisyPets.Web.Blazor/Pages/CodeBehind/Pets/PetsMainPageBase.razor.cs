@@ -67,6 +67,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected bool DeleteVaccineVisibility { get; set; }
         protected bool ShowFileVisibility { get; set; }
 
+        protected bool DeleteFlagVisibility { get; set; }
+
 
         protected int PetId { get; set; }
         protected string? PetName { get; set; }
@@ -612,7 +614,13 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 EditCaption = $"{L["EditMsg"]} {L["Pet_Documents"]}";
                 RecordMode = OpcoesRegisto.Gravar;
             }
-
+            if (args.CommandColumn.Type == CommandButtonType.Delete)
+            {
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Documents"]}?";
+                DeleteDocumentVisibility = true;
+                DeletePetVisibility = true;
+                DeleteCaption = SelectedDocument?.Description;
+            }
         }
 
         public async Task OnPetDewormerCommandClicked(CommandClickEventArgs<DesparasitanteVM> args)
@@ -626,6 +634,13 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 AddEditDewormerVisibility = true;
                 EditCaption = $"{L["EditMsg"]} {L["Pet_Dewormers"]}";
                 RecordMode = OpcoesRegisto.Gravar;
+            }
+            if (args.CommandColumn.Type == CommandButtonType.Delete)
+            {
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Dewormers"]}?";
+                DeleteDewormerVisibility = true;
+                DeletePetVisibility = true;
+                DeleteCaption = SelectedDewormer?.Marca;
             }
         }
 
@@ -641,6 +656,14 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 EditCaption = $"{L["EditMsg"]} {L["Pet_Vaccines"]}";
                 RecordMode = OpcoesRegisto.Gravar;
             }
+            if (args.CommandColumn.Type == CommandButtonType.Delete)
+            {
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Vaccines"]}?";
+                DeletePetVisibility = true;
+                DeleteVaccineVisibility = true;
+                DeleteCaption = SelectedVaccine?.Marca;
+            }
+
         }
 
         public async Task OnPetFoodCommandClicked(CommandClickEventArgs<RacaoVM> args)
@@ -655,6 +678,14 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 EditCaption = $"{L["EditMsg"]} {L["Pet_Food"]}";
                 RecordMode = OpcoesRegisto.Gravar;
             }
+            if (args.CommandColumn.Type == CommandButtonType.Delete)
+            {
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Food"]}?";
+                DeletePetFoodVisibility = true;
+                DeletePetVisibility = true; 
+                DeleteCaption = SelectedPetFood?.Marca;
+            }
+
         }
 
         public async Task OnPetConsultationCommandClicked(CommandClickEventArgs<ConsultaVeterinarioVM> args)
@@ -669,9 +700,14 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 EditCaption = $"{L["EditMsg"]} {L["Pet_Consultations"]}";
                 RecordMode = OpcoesRegisto.Gravar;
             }
+            if (args.CommandColumn.Type == CommandButtonType.Delete)
+            {
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Consultations"]}?";
+                DeleteConsultationVisibility = true;
+                DeletePetVisibility = true;
+                DeleteCaption = SelectedConsultation?.DataConsulta;
+            }
         }
-
-
 
         private async Task<DocumentoDto?> GetSelectedDocument(int petDocumentId)
         {
@@ -767,9 +803,40 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         protected async Task ConfirmDeleteYes()
         {
-            ToastTitle = $"{L["DeleteMsg"]} {L["Pet_Title"]}";
+            var deleteUrl = string.Empty;
+            DeletePetVisibility = false;
 
-            await DeletePet();
+            switch (Module)
+            {
+                case Modules.Pets:
+                    deleteUrl = $"{urlBaseAddress}/Pets/{PetId}";
+                    DeletePetVisibility = false;
+                    break;
+                case Modules.Vaccines:
+                    deleteUrl = $"{urlBaseAddress}/Vacinacao/{PetVaccineId}";
+                    DeleteVaccineVisibility= false;
+                    break;
+                case Modules.Documents:
+                    deleteUrl = $"{urlBaseAddress}/Document/{PetDocumentId}";
+                    DeleteDocumentVisibility = false;
+                    break;
+                case Modules.PetFood:
+                    deleteUrl = $"{urlBaseAddress}/Racao/{PetFoodId}";
+                    DeletePetFoodVisibility= false;
+                    break;
+                case Modules.Dewormers:
+                    deleteUrl = $"{urlBaseAddress}/Desparasitante/{PetDewormerId}";
+                    DeleteDewormerVisibility= false;
+                    break;
+                case Modules.Consultations:
+                    deleteUrl = $"{urlBaseAddress}/Consulta/{PetConsultationId}";
+                    DeleteConsultationVisibility= false;
+                    break;
+            }
+            ToastTitle = $"{L["DeleteMsg"]} {DeleteCaption}";
+
+            await Delete(deleteUrl);
+
 
             ToastCssClass = "e-toast-success";
             ToastContent = L["RegistoAnuladoSucesso"];
@@ -779,9 +846,9 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         }
 
-        private async Task DeletePet()
+        private async Task Delete(string deleteUrl)
         {
-            string url = $"{urlBaseAddress}/Pets/{PetId}";
+            string url = deleteUrl; // $"{urlBaseAddress}/Pets/{PetId}";
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -798,8 +865,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                     Pets = await GetAllPets();
                 }
 
-                DeletePetVisibility = false;
-                AlertTitle = "Apagar Pet";
+                AlertTitle = $"{L["DeleteMsg"]} {DeleteCaption}";
                 WarningMessage = L["SuccessDelete"];
                 AlertVisibility = true;
             }
@@ -807,7 +873,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             {
                 logger?.LogError(ex.Message, $"{L["MSG_ApiError"]}");
 
-                AlertTitle = $"{L["DeleteMsg"]} {L["Pet_Title"]}";
+                AlertTitle = $"{L["DeleteMsg"]} {DeleteCaption}";
                 WarningMessage = $"Erro ({ex.Message})";
                 AlertVisibility = true;
             }

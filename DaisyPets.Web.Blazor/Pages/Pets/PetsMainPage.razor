@@ -618,8 +618,8 @@ else
 
     <ConfirmDeleteComponent AlertMessageType="AlertMessageType.Error" DialogWidth="20%"
                             DialogTitle="@WarningTitle" ConfirmationText="@L["MSG_ConfirmarOperacao"]"
-                            Module="Modules.Pets"
-                            Message="@SelectedPet?.Nome"
+                            Module="Module"
+                            Message="@DeleteCaption"
                             Visible="@DeletePetVisibility"
                             OnConfirmationYes="ConfirmDeleteYes"
                             OnConfirmationNo="@(()=>DeletePetVisibility=false)"></ConfirmDeleteComponent>
