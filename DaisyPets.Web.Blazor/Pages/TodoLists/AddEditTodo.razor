@@ -36,6 +36,8 @@
         <div class="row mt-2">
             <div class="form-group">
                 <SfTextBox Enabled="true"
+                    Multiline = "true"
+                    HtmlAttributes="TodoDescriptionRows"
                            Placeholder="@L["rbtDescricao"]"
                            CssClass="e-field  e-corner"
                            FloatLabelType="@FloatLabelType.Always"
@@ -57,4 +59,10 @@
     </EditForm>
 </div>
 
+@code{
+    protected Dictionary<string, object> TodoDescriptionRows = new Dictionary<string, object>()
+    {
+            {"rows", "4" }
+    };
 
+}

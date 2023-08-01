@@ -2485,4 +2485,7 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="TituloIntroducao" xml:space="preserve">
     <value>Introducion</value>
   </data>
+  <data name="TituloNovaTarefaPorDuplicacao" xml:space="preserve">
+    <value>Nueva tarea (por duplicado)</value>
+  </data>
 </root>

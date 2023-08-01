@@ -2501,4 +2501,7 @@ Vérifiez les erreurs, s'il vous plaît</value>
   <data name="TituloIntroducao" xml:space="preserve">
     <value>Introdution</value>
   </data>
+  <data name="TituloNovaTarefaPorDuplicacao" xml:space="preserve">
+    <value>Nouvelle tâche (par duplication)</value>
+  </data>
 </root>

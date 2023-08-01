@@ -54,20 +54,13 @@ else
             <div class="col-md-3">
                 <div class="control-wrapper">
                     <SfCalendar @ref="calendarObj" TValue="DateTime" @bind-Value='@SelectedDate'>
-                        <CalendarEvents TValue="DateTime"  
-                            OnRenderDayCell="CustomDates"  ValueChange="CalendarValuechangeHandler"></CalendarEvents>
+                        <CalendarEvents TValue="DateTime"
+                                        OnRenderDayCell="CustomDates" ValueChange="CalendarValuechangeHandler"></CalendarEvents>
                     </SfCalendar>
                 </div>
                 <div class="display-date">
                     <span class="example-label">Selected date is: <b>@SelectedValue</b></span>
                 </div>
-
-@*                <div class="control-wrapper">
-                    <SfCalendar TValue="DateTime" Start="@CalendarView.Year" Depth="@CalendarView.Year" @bind-Value="@SelectedDate">
-                    </SfCalendar>
-                    <span class="example-label">Selected date is: <b>@(SelectedDate.ToString("MMMM yyyy"))</b></span>
-                </div>
-*@
             </div>
             <div class="col-md-9">
                 <div class="source-options my-2">
@@ -77,13 +70,17 @@ else
                 </div>
 
                 <SfGrid DataSource="@ToDoList"
-                        ID="ToDos_Grid"
-                @ref="gridObj"
+                        ID="ToDos_Grid" @ref="gridObj"
+                        AllowPaging = "true"
+                        AllowGrouping="true"
                         AllowTextWrap=true
                         AllowSelection=true
                         AllowSorting=true
+                        AllowExcelExport="true"
+                        RowHeight="24"
                         Toolbar=@Tool
                         TValue="ToDoDto">
+                    <GridPageSettings PageSize="10" PageCount="10" PageSizes="true"></GridPageSettings>
                     <GridEvents RowSelected="RowSelectHandler"
                                 OnToolbarClick="ToolbarClickHandler"
                                 CommandClicked="OnPetCommandClicked" TValue="ToDoDto">
@@ -93,10 +90,52 @@ else
                         <GridColumn Field=@nameof(ToDoDto.Description) HeaderText="@L["rbtDescricao"]" Width="350"></GridColumn>
 
                         <GridColumn Field=@nameof(ToDoDto.CategoryDescription) HeaderText="@L["TituloCategoria"]" Width="150"></GridColumn>
+                        <GridColumn Field=@nameof(ToDoDto.TodoStartDate) HeaderText="@L["TituloDataInicio"]" Format="d" Width="120">
+                            <Template>
+                                @{
+                                    var todoRow = (context as ToDoDto);
+                                    var startDate = todoRow!.TodoStartDate.Date;
+                                    var now = DateTime.Now.Date;
+                                    if (startDate >= now)
+                                    {
+                                        var daysToStart = (startDate - now).TotalDays;
+                                        if (daysToStart > 15 && daysToStart <= 30)
+                                        {
+                                            <span style="padding:4px; background-color:orange; color:black">@startDate.ToShortDateString()</span>
+                                        }
+                                        else if (daysToStart <= 15)
+                                        {
+                                            <span style="padding:4px;background-color:red; color:white">@startDate.ToShortDateString()</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@startDate.ToShortDateString()</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span>@startDate.ToShortDateString()</span>
+                                    }
+                                }
+                            </Template>
+                        </GridColumn>
+                        <GridColumn Field=@nameof(ToDoDto.TodoEndDate) HeaderText="@L["TituloDataFim"]" Format="d" Width="120" TextAlign="TextAlign.Center">
+                        </GridColumn>
 
-                        <GridColumn Field=@nameof(ToDoDto.TodoStartDate) HeaderText="@L["TituloDataInicio"]" Format="d" Width="120"></GridColumn>
-                        <GridColumn Field=@nameof(ToDoDto.TodoEndDate) HeaderText="@L["TituloDataFim"]" Format="d" Width="120"></GridColumn>
-                        <GridColumn Field=@nameof(ToDoDto.Pending) HeaderText="@L["TituloPendente"]" DisplayAsCheckBox=true Width="80"></GridColumn>
+@*                        <GridColumn Field=Status.Name HeaderText="Status">
+                            <Template>
+                                <SfChip>
+                                    <ChipItems>
+                                        @{
+                                            var todoRow = (context as ToDoDto);
+                                            <ChipItem LeadingIconCss="fa fa-file" CssClass="e-info" Enabled="true"></ChipItem>
+                                        }
+                                    </ChipItems>
+                                </SfChip>
+                            </Template>
+                        </GridColumn>
+*@
+                        <GridColumn Field=@nameof(ToDoDto.Pending) HeaderText="@L["TituloPendente"]" DisplayAsCheckBox=true Width="100"></GridColumn>
                         <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                             <GridCommandColumns>
                                 <GridCommandColumn Type=CommandButtonType.Edit
@@ -113,6 +152,16 @@ else
                                                                            IconCss = "fa fa-trash"
                                                                        })">
                                 </GridCommandColumn>
+                                <GridCommandColumn Type=CommandButtonType.None Title="@L["MSG_Duplicar"]"
+                                                   ButtonOption="@(new CommandButtonOptions()
+                                                                   {
+                                                                       Content = "",
+                                                                       CssClass = "e-outline e-success e-round-corner",
+                                                                       IconCss = "fa fa-clone",
+                                                                       IconPosition = @IconPosition.Left
+                                                                   })">
+                                </GridCommandColumn>
+
                             </GridCommandColumns>
                         </GridColumn>
                     </GridColumns>

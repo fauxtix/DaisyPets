@@ -1477,4 +1477,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   <data name="TituloIntroducao" xml:space="preserve">
     <value>Introdução</value>
   </data>
+  <data name="TituloNovaTarefaPorDuplicacao" xml:space="preserve">
+    <value>Nova tarefa (por duplicação)</value>
+  </data>
 </root>

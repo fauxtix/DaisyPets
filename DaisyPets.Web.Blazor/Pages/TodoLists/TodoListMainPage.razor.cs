@@ -243,10 +243,11 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
         public async Task OnPetCommandClicked(CommandClickEventArgs<ToDoDto> args)
         {
             Module = Modules.ToDos;
+            ToDoId = args.RowData.Id;
+            SelectedToDo = await GetDtoById(ToDoId);
+
             if (args.CommandColumn.Type == CommandButtonType.Edit)
             {
-                ToDoId = args.RowData.Id;
-                SelectedToDo = await GetDtoById(ToDoId);
                 AddEditToDoVisibility = true;
                 EditCaption = $"{L["EditMsg"]} {L["TituloTarefa"]}";
                 RecordMode = OpcoesRegisto.Gravar;
@@ -258,6 +259,14 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                 DeleteToDoVisibility = true;
                 DeleteCaption = SelectedToDo?.Description;
             }
+            if (args.CommandColumn.Type == CommandButtonType.None)
+            {
+                RecordMode = OpcoesRegisto.Duplicar;
+                AddEditToDoVisibility = true;
+                NewCaption = L["TituloNovaTarefaPorDuplicacao"];
+                StateHasChanged();
+            }
+
         }
 
         public async Task<bool> SaveToDoData()

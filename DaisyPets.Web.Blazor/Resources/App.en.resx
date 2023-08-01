@@ -2487,4 +2487,7 @@
   <data name="TituloIntroducao" xml:space="preserve">
     <value>Introduction</value>
   </data>
+  <data name="TituloNovaTarefaPorDuplicacao" xml:space="preserve">
+    <value>New task (by duplication)</value>
+  </data>
 </root>
