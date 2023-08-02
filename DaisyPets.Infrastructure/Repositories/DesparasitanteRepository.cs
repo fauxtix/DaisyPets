@@ -3,6 +3,7 @@ using DaisyPets.Core.Application.Interfaces.DapperContext;
 using DaisyPets.Core.Application.Interfaces.Repositories;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Domain;
+using DaisyPets.Core.Domain.TodoManager;
 using Dapper;
 using Microsoft.Extensions.Logging;
 using System.Text;
@@ -23,7 +24,16 @@ namespace DaisyPets.Infrastructure.Repositories
 
         public async Task<int> InsertAsync(Desparasitante desparasitante)
         {
+            var petName = await GetPetName(desparasitante.IdPet);
+            var description = $"{petName} - Desparasitante {desparasitante.Marca}";
+            var categoryId = await GetDewormerTodoCategoryId("Med");
+            var startDate = DateTime.Parse(desparasitante.DataProximaAplicacao).ToShortDateString();
+            var endDate = DateTime.Parse(desparasitante.DataProximaAplicacao).AddDays(1).ToShortDateString();
+            int result;
+
             StringBuilder sb = new StringBuilder();
+            StringBuilder sbTodoList = new StringBuilder();
+
 
             sb.Append("INSERT INTO Desparasitante (");
             sb.Append("Tipo, Marca, DataAplicacao, DataProximaAplicacao, IdPet) ");
@@ -32,19 +42,42 @@ namespace DaisyPets.Infrastructure.Repositories
             sb.Append(");");
             sb.Append("SELECT last_insert_rowid()");
 
-            try
-            {
-                using (var connection = _context.CreateConnection())
-                {
-                    var result = await connection.QueryFirstAsync<int>(sb.ToString(), param: desparasitante);
-                    return result;
-                }
+            sbTodoList.Append("INSERT INTO ToDo( ");
+            sbTodoList.Append("Description, StartDate, EndDate, Status, CategoryId) ");
+            sbTodoList.Append(" VALUES(");
+            sbTodoList.Append("@Description, @StartDate, @EndDate, @Status, @CategoryId");
+            sbTodoList.Append(");");
 
-            }
-            catch (Exception ex)
+            ToDo toDo = new ToDo()
             {
-                _logger.Log(LogLevel.Error, ex.ToString());
-                return -1;
+                CategoryId = categoryId,
+                Description = description,
+                StartDate = startDate,
+                EndDate = endDate,
+                Status = 1
+            };
+
+            using (var connection = _context.CreateConnection())
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        await connection.ExecuteAsync(sbTodoList.ToString(), param: toDo, transaction: transaction);
+
+                        result = await connection.QueryFirstAsync<int>(sb.ToString(), param: desparasitante);
+                        transaction.Commit();
+
+                        return result;
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log(LogLevel.Error, ex.ToString());
+                        transaction.Rollback();
+                        return -1;
+                    }
+                }
             }
         }
 
@@ -195,5 +228,54 @@ namespace DaisyPets.Infrastructure.Repositories
                 }
             }
         }
+
+        public async Task<string> GetPetName(int Id)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT * FROM Pet ");
+            sb.Append($"WHERE Id = @Id");
+
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    var pet = await connection.QuerySingleOrDefaultAsync<Pet>(sb.ToString(), new { Id });
+                    if (pet != null)
+                    {
+                        return pet.Nome;
+                    }
+                    else
+                    {
+                        return "";
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString(), ex);
+                throw;
+            }
+        }
+        private async Task<int> GetDewormerTodoCategoryId(string descricao)
+        {
+            DynamicParameters paramCollection = new DynamicParameters();
+            paramCollection.Add("@Descricao", descricao);
+            string Query = $"SELECT Id FROM ToDoCategories WHERE Descricao LIKE '{descricao}%'";
+
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    return await connection.QueryFirstOrDefaultAsync<int>(Query, paramCollection);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return 0;
+            }
+        }
+
     }
 }

@@ -1,0 +1,43 @@
+@using DaisyPets.Web.Blazor.Services;
+@inject IJSRuntime JSRuntime
+@inject ILocalStorageService LocalStorageService
+
+<span class="@Class theme-toggle" style="cursor: pointer" @onclick="ToggleMode"> Color Mode</span>
+
+@code {
+	[Parameter]
+	public string Class { get; set; } = string.Empty;
+
+	private const string StorageKey = "preferred-theme";
+	private string currentTheme;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			try
+			{
+				await using var _ = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Features/Home/Components/ThemeToggler.razor.js");
+
+				currentTheme = await LocalStorageService.ContainKeyAsync(StorageKey)
+					? await LocalStorageService.GetItemAsync<string>(StorageKey)
+					: await JSRuntime.InvokeAsync<string>("getCurrentSystemPreference");
+
+				await JSRuntime.InvokeVoidAsync("setTheme", currentTheme);
+
+			}
+			catch (Exception ex)
+			{
+				
+				throw;
+			}
+		}
+	}
+
+	private async Task ToggleMode()
+	{
+		currentTheme = currentTheme == "light" ? "dark" : "light";
+		await JSRuntime.InvokeVoidAsync("setTheme", currentTheme);
+		await LocalStorageService.SetItemAsync(StorageKey, currentTheme);
+	}
+}

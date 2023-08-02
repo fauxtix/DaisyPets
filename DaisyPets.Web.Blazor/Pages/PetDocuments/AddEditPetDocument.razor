@@ -10,8 +10,10 @@
 
         <DisplayPetNameComponent PetName="@PetName" />
 
-        <div class="form-group my-3">
-            <SfUploader ID="UploadFiles" @ref="sfUploader" AutoUpload=true
+        @if (EditMode == OpcoesRegisto.Inserir)
+        {
+            <div class="form-group my-3">
+                <SfUploader ID="UploadFiles" @ref="sfUploader" AutoUpload=true
                         DropArea=".control-fluid"
                         AllowMultiple="false" AllowedExtensions=".pdf"
                         MaxFileSize="@MaxFileSize">
@@ -19,12 +21,27 @@
                                        RemoveUrl="api/upload/removepdf" />
                 <UploaderEvents OnActionComplete="@OnActionCompleteHandler" />
             </SfUploader>
-        </div>
+            </div>
+        }
+        else
+        {
+            <div class="row mt-2">
+                <div class="form-group">
+                    <SfTextBox Enabled="false"
+                               Placeholder="@L["TituloDocumento"]"
+                               CssClass="e-field  e-corner"
+                               FloatLabelType="@FloatLabelType.Always"
+                    @bind-Value="@SelectedDocument!.DocumentPath">
+                    </SfTextBox>
+                </div>
+            </div>
+
+        }
 
         <div class="row mt-2">
             <div class="form-group">
                 <SfTextBox Enabled="true"
-                           Placeholder="Título"
+                           Placeholder="@L["lblTitulo"]"
                            CssClass="e-field  e-corner"
                            FloatLabelType="@FloatLabelType.Always"
                 @bind-Value="@SelectedDocument!.Title">

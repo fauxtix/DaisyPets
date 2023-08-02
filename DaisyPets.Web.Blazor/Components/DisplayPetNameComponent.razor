@@ -3,7 +3,7 @@
 <div class="row mt-2">
     <div class="form-group">
         <SfTextBox Enabled="false"
-                   Placeholder="@L["TituloNome"]"
+                   Placeholder="@placeHolderCaption"
                    CssClass="e-field  e-corner"
                    FloatLabelType="@FloatLabelType.Always"
         @bind-Value="@PetName">
@@ -14,4 +14,10 @@
 @code {
     [Inject] public IStringLocalizer<App>? L { get; set; }
     [Parameter] public string? PetName { get; set; }
+
+    private string placeHolderCaption;
+    protected override void OnInitialized()
+    {
+        placeHolderCaption = $"{L["TituloNome"]} (Pet)";
+    }
 }

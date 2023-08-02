@@ -400,8 +400,8 @@ namespace DaisyPets.Infrastructure.Repositories
             string id = "Id";
 
             StringBuilder sb = new StringBuilder();
-            sb.Append($"SELECT TOP 1 {id} FROM {tableToCheck} ");
-            sb.Append($"ORDER BY {id} DESC");
+            sb.Append($"SELECT {id} FROM {tableToCheck} ");
+            sb.Append($"ORDER BY {id} DESC LIMIT 1");
             try
             {
                 using (var connection = _context.CreateConnection())

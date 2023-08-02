@@ -55,10 +55,6 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
         protected SfToast? ToastObj { get; set; }
         protected int ToDoId { get; set; }
 
-        List<DataModel> Data = new List<DataModel>();
-        protected SfListView<DataModel> SfList;
-        protected DateTime MinDate { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 05);
-        protected DateTime MaxDate { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 27);
         protected DateTime SelectedDate { get; set; } = DateTime.Now;
         protected DateTime startDate { get; set; }
         protected DateTime endDate { get; set; }
@@ -73,32 +69,22 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
         protected int idxCategory;
         protected SfGrid<ToDoDto>? gridObj { get; set; }
 
-        public class DataModel
-        {
-            public int Id { get; set; }
-            public string? Text { get; set; }
-            public string? Image { get; set; }
-        }
-
         protected override async Task OnInitializedAsync()
         {
             ToDoId = 0;
             idxCategory = 1;
-            Data.Add(new DataModel { Text = "Pendentes", Id = 1 });
-            Data.Add(new DataModel { Text = "Confirmados", Id = 2 });
             urlBaseAddress = config?["ApiSettings:UrlBase"];
             todosEndpoint = $"{urlBaseAddress}/ToDos";
-            ToDoList = await GetAll();
+            ToDoList = await GetTodoList();
             ToDoCategories = await GetLookupData("ToDoCategories");
         }
 
-        private async Task<IEnumerable<ToDoDto>?> GetAll()
+        private async Task<IEnumerable<ToDoDto>> GetTodoList()
         {
             try
             {
-                var result = await GetData<ToDoDto>(todosEndpoint!);
-                return result.ToList();
-
+                var result = (await GetData<ToDoDto>(todosEndpoint!)).ToList();
+                return result;                 
             }
             catch (SocketException socketEx)
             {
@@ -409,7 +395,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                 }
             }
 
-            ToDoList = await GetAll();
+            ToDoList = await GetTodoList();
             await InvokeAsync(StateHasChanged);
             await Task.Delay(100);
             await ToastObj.ShowAsync();
@@ -450,7 +436,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                         return;
                     }
 
-                    ToDoList = await GetAll();
+                    ToDoList = await GetTodoList();
                 }
 
                 DeleteToDoVisibility = false;
@@ -485,7 +471,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
 
         public async Task CalendarValuechangeHandler(ChangedEventArgs<DateTime> args)
         {
-            ToDoList = await GetAll();
+            ToDoList = await GetTodoList();
 
             var dateSelected = args.Value.Date;
             var output = ToDoList?.Where(d => d.TodoStartDate.Date == dateSelected).ToList();
@@ -526,7 +512,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
 
         public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
         {
-            ToDoList = await GetAll(); // return 'expensesList'
+            ToDoList = await GetTodoList();
             if (ToDoList?.Count() == 0)
             {
                 ToastTitle = L[""];
@@ -575,7 +561,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
             }
             else if (args.Item.Id == "All")
             {
-                ToDoList = await GetAll();
+                ToDoList = await GetTodoList();
             }
         }
 

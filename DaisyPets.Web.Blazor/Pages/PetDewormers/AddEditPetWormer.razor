@@ -105,6 +105,8 @@
     protected void DataAplicacaoChanged(ChangedEventArgs<DateTime> args)
     {
         SelectedRecord.DataAplicacao = args.Value.ToShortDateString();
+        SelectedRecord.DataProximaAplicacao = args.Value.AddMonths(3).ToShortDateString();
+
         dPrxAplicacao = args.Value.AddMonths(3);
     }
 

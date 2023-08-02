@@ -1,4 +1,5 @@
 using DaisyPets.Core.Application.ViewModels;
+using DaisyPets.Web.Blazor;
 using DaisyPets.Web.Blazor.BaseApiWrapperServices;
 using DaisyPets.Web.Blazor.Shared;
 using Syncfusion.Blazor;
@@ -16,7 +17,9 @@ builder.Services.AddLocalization(options => options.ResourcesPath = "Resources")
 builder.Services.AddSingleton(typeof(ISyncfusionStringLocalizer), typeof(SyncfusionLocalizer));
 
 // TODO Test (not used for now)
-builder.Services.AddScoped<IApiClientWrapperService<VacinaDto>>(c => new ApiClientWrapperService<VacinaDto>("", ""));
+//builder.Services.AddScoped<IApiClientWrapperService<VacinaDto>>(c => new ApiClientWrapperService<VacinaDto>("", ""));
+
+builder.Services.RegisterServices();
 
 var app = builder.Build();
 

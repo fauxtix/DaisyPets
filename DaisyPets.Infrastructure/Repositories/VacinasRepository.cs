@@ -3,6 +3,7 @@ using DaisyPets.Core.Application.Interfaces.DapperContext;
 using DaisyPets.Core.Application.Interfaces.Repositories;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Domain;
+using DaisyPets.Core.Domain.TodoManager;
 using Dapper;
 using Microsoft.Extensions.Logging;
 using System.Text;
@@ -19,6 +20,89 @@ namespace DaisyPets.Infrastructure.Repositories
         {
             _context = context;
             _logger = logger;
+        }
+
+        public async Task<int> InsertAsync(Vacina vacina)
+        {
+            var petName = await GetPetName(vacina.IdPet);
+            var description = $"{petName} - Vacina da {vacina.Marca}";
+            var categoryId = await GetVaccineTodoCategoryId("Vacinação");
+            var startDate = DateTime.Parse(vacina.DataToma).AddMonths(vacina.ProximaTomaEmMeses).ToShortDateString();
+            var endDate = DateTime.Parse(vacina.DataToma).AddMonths(vacina.ProximaTomaEmMeses).AddDays(1).ToShortDateString();
+            int result;
+
+            ToDo toDo = new ToDo()
+            {
+                CategoryId = categoryId,
+                Description = description,
+                StartDate = startDate,
+                EndDate = endDate,
+                Status = 1
+            };
+
+            StringBuilder sb = new StringBuilder();
+            StringBuilder sbTodoList = new StringBuilder();
+
+            sb.Append("INSERT INTO Vacina (");
+            sb.Append("IdPet, DataToma, Marca, ProximaTomaEmMeses) ");
+            sb.Append(" VALUES(");
+            sb.Append("@IdPet, @DataToma, @Marca, @ProximaTomaEmMeses");
+            sb.Append(");");
+            sb.Append("SELECT last_insert_rowid()");
+
+            sbTodoList.Append("INSERT INTO ToDo( ");
+            sbTodoList.Append("Description, StartDate, EndDate, Status, CategoryId) ");
+            sbTodoList.Append(" VALUES(");
+            sbTodoList.Append("@Description, @StartDate, @EndDate, @Status, @CategoryId");
+            sbTodoList.Append(");");
+
+            using (var connection = _context.CreateConnection())
+            {
+                connection.Open();
+
+                using (var transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        await connection.ExecuteAsync(sbTodoList.ToString(), param: toDo, transaction: transaction);
+
+                        result = await connection.QueryFirstAsync<int>(sb.ToString(), param: vacina, transaction: transaction);
+
+                        transaction.Commit();
+                        return result;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Log(LogLevel.Error, ex.ToString());
+                        transaction.Rollback();
+                        return -1;
+                    }
+                }
+            }
+        }
+
+        public async Task UpdateAsync(int Id, Vacina vacina)
+        {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@Id", vacina.Id);
+            dynamicParameters.Add("@IdPet", vacina.IdPet);
+            dynamicParameters.Add("@DataToma", vacina.DataToma);
+            dynamicParameters.Add("@Marca", vacina.Marca);
+            dynamicParameters.Add("@ProximaTomaEmMeses", vacina.ProximaTomaEmMeses);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("UPDATE Vacina SET ");
+            sb.Append("IdPet = @IdPet, ");
+            sb.Append("DataToma = @DataToma, ");
+            sb.Append("Marca = @Marca, ");
+            sb.Append("ProximaTomaEmMeses = @ProximaTomaEmMeses ");
+            sb.Append("WHERE Id = @Id");
+
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
+            }
         }
 
         public async Task DeleteAsync(int Id)
@@ -127,7 +211,7 @@ namespace DaisyPets.Infrastructure.Repositories
 
             using (var connection = _context.CreateConnection())
             {
-                var vacinasVM = await connection.QueryAsync<VacinaVM>(sb.ToString(), new {PetId  = petId});
+                var vacinasVM = await connection.QueryAsync<VacinaVM>(sb.ToString(), new { PetId = petId });
                 if (vacinasVM != null)
                 {
                     return vacinasVM;
@@ -165,55 +249,53 @@ namespace DaisyPets.Infrastructure.Repositories
             }
         }
 
-        public async Task<int> InsertAsync(Vacina vacina)
+        public async Task<string> GetPetName(int Id)
         {
             StringBuilder sb = new StringBuilder();
-
-            sb.Append("INSERT INTO Vacina (");
-            sb.Append("IdPet, DataToma, Marca, ProximaTomaEmMeses) ");
-            sb.Append(" VALUES(");
-            sb.Append("@IdPet, @DataToma, @Marca, @ProximaTomaEmMeses");
-            sb.Append(");");
-            sb.Append("SELECT last_insert_rowid()");
+            sb.Append("SELECT * FROM Pet ");
+            sb.Append($"WHERE Id = @Id");
 
             try
             {
                 using (var connection = _context.CreateConnection())
                 {
-                    var result = await connection.QueryFirstAsync<int>(sb.ToString(), param: vacina);
-                    return result;
+                    var pet = await connection.QuerySingleOrDefaultAsync<Pet>(sb.ToString(), new { Id });
+                    if (pet != null)
+                    {
+                        return pet.Nome;
+                    }
+                    else
+                    {
+                        return "";
+                    }
                 }
 
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.ToString());
-                return -1;
+                _logger.LogError(ex.ToString(), ex);
+                throw;
             }
-
         }
-
-        public async Task UpdateAsync(int Id, Vacina vacina)
+        private async Task<int> GetVaccineTodoCategoryId(string descricao)
         {
-            DynamicParameters dynamicParameters = new DynamicParameters();
-            dynamicParameters.Add("@Id", vacina.Id);
-            dynamicParameters.Add("@IdPet", vacina.IdPet);
-            dynamicParameters.Add("@DataToma", vacina.DataToma);
-            dynamicParameters.Add("@Marca", vacina.Marca);
-            dynamicParameters.Add("@ProximaTomaEmMeses", vacina.ProximaTomaEmMeses);
+            DynamicParameters paramCollection = new DynamicParameters();
+            paramCollection.Add("@Descricao", descricao);
+            string Query = $"SELECT Id FROM ToDoCategories WHERE Descricao LIKE '{descricao}%'";
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append("UPDATE Vacina SET ");
-            sb.Append("IdPet = @IdPet, ");
-            sb.Append("DataToma = @DataToma, ");
-            sb.Append("Marca = @Marca, ");
-            sb.Append("ProximaTomaEmMeses = @ProximaTomaEmMeses ");
-            sb.Append("WHERE Id = @Id");
-
-            using (var connection = _context.CreateConnection())
+            try
             {
-                await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
+                using (var connection = _context.CreateConnection())
+                {
+                    return await connection.QueryFirstOrDefaultAsync<int>(Query, paramCollection);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return 0;
             }
         }
+
     }
 }

@@ -70,16 +70,17 @@ else
                 </div>
 
                 <SfGrid DataSource="@ToDoList"
-                        ID="ToDos_Grid" @ref="gridObj"
-                        AllowPaging = "true"
+                        ID="ToDos_Grid" 
+                        @ref="gridObj"
+                        Toolbar=@Tool
+                        AllowPaging="true"
                         AllowGrouping="true"
                         AllowTextWrap=true
                         AllowSelection=true
                         AllowSorting=true
                         AllowExcelExport="true"
-                        RowHeight="24"
-                        Toolbar=@Tool
-                        TValue="ToDoDto">
+                        RowHeight="24">
+
                     <GridPageSettings PageSize="10" PageCount="10" PageSizes="true"></GridPageSettings>
                     <GridEvents RowSelected="RowSelectHandler"
                                 OnToolbarClick="ToolbarClickHandler"
@@ -119,23 +120,11 @@ else
                                 }
                             </Template>
                         </GridColumn>
-                        <GridColumn Field=@nameof(ToDoDto.TodoEndDate) HeaderText="@L["TituloDataFim"]" Format="d" Width="120" TextAlign="TextAlign.Center">
-                        </GridColumn>
 
-@*                        <GridColumn Field=Status.Name HeaderText="Status">
-                            <Template>
-                                <SfChip>
-                                    <ChipItems>
-                                        @{
-                                            var todoRow = (context as ToDoDto);
-                                            <ChipItem LeadingIconCss="fa fa-file" CssClass="e-info" Enabled="true"></ChipItem>
-                                        }
-                                    </ChipItems>
-                                </SfChip>
-                            </Template>
-                        </GridColumn>
-*@
-                        <GridColumn Field=@nameof(ToDoDto.Pending) HeaderText="@L["TituloPendente"]" DisplayAsCheckBox=true Width="100"></GridColumn>
+                        @*<GridColumn Field=@nameof(ToDoDto.TodoEndDate) HeaderText="@L["TituloDataFim"]" Format="d" Width="120" TextAlign="TextAlign.Center"></GridColumn>*@
+
+                        <GridColumn Field=@nameof(ToDoDto.Pending) HeaderText="@L["TituloPendente"]"
+                                    DisplayAsCheckBox=true Width="100" TextAlign="TextAlign.Center"></GridColumn>
                         <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                             <GridCommandColumns>
                                 <GridCommandColumn Type=CommandButtonType.Edit

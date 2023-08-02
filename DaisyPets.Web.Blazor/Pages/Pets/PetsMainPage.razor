@@ -79,7 +79,7 @@ else
                 <DetailTemplate>
                     <SfTab CssClass="e-outline e-info e-round-corner py-3" HeaderPlacement="HeaderPosition.Top">
                         <TabItems>
-                            @*Documents*@
+                            @*Vaccines*@
                             <TabItem>
                                 <ChildContent>
                                     <TabHeader Text="@L["Pet_Vaccines"]"></TabHeader>
@@ -168,9 +168,9 @@ else
                                         <GridColumns>
                                             <GridColumn Field=@nameof(ConsultaVeterinarioVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
                                             <GridColumn Field=@nameof(ConsultaVeterinarioVM.DataConsulta) HeaderText="@L["TituloData"]" Format="d" Width="90"></GridColumn>
-                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Motivo) HeaderText="@L["TituloMotivo"]" Width="300"></GridColumn>
-                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Diagnostico) HeaderText="@L["TituloDiagnostico"]" Width="300"></GridColumn>
-                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Notas) HeaderText="@L["lblSinopse"]" Width="300"></GridColumn>
+                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Motivo) HeaderText="@L["TituloMotivo"]" Width="200"></GridColumn>
+                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Diagnostico) HeaderText="@L["TituloDiagnostico"]" Width="250"></GridColumn>
+                                            <GridColumn Field=@nameof(ConsultaVeterinarioVM.Notas) HeaderText="@L["lblSinopse"]" Width="450"></GridColumn>
                                             <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                                                 <GridCommandColumns>
                                                     <GridCommandColumn Type=CommandButtonType.Edit
@@ -336,7 +336,7 @@ else
                                             DataSource="petDocumentsHistory"
                                             AllowFiltering="false"
                                             AllowGrouping="false"
-                                            Width="100%" EnableAltRow="true"
+                                            Width="70%" EnableAltRow="true"
                                             AllowPaging="true"
                                             AllowSorting="true"
                                             RowHeight="32"
@@ -463,7 +463,7 @@ else
         <DialogAnimationSettings Effect="@Effect" Duration=500></DialogAnimationSettings>
     </SfDialog>
 
-    <SfDialog CssClass="responsive-dialog-40"
+    <SfDialog CssClass="responsive-dialog-30"
               IsModal="true"
               ShowCloseIcon="false"
               CloseOnEscape="false"
