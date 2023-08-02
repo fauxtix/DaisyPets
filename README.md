@@ -5,15 +5,16 @@
 A project to manage the day-to-day life of your pets (vaccinations, feed dosage, visits to the vet, examination / analysis documents, etc.).
 
 It uses C# as the development language, and was built using the .Net 7 platform.
-It comprises a web api, a desktop application (windows forms) and a web project (Blazor Server => work in progress).
+It comprises a web api, a desktop application (windows forms) and a web project (Blazor Server).
 
-It is up to the user to choose between the desktop or web application (when it's finished...).
+It is up to the user to choose between the desktop or web application. Just run the Api and choose what application to start ('set as the startup project').
 
 I intend to test the Api by creating a React project also and, maybe, a .Net MAUI project too, when it's more stable...
 
 Due to its simplicity, the SQLite database was chosen for data storage.
 
 The front-end screenshots presented are in Portuguese, but I plan to include English, French and Spanish versions.
+The web version (blazor) already includes the four languages.
 
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities that may be related to them (history), or not.
 Examples:
