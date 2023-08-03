@@ -2488,4 +2488,7 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="TituloNovaTarefaPorDuplicacao" xml:space="preserve">
     <value>Nueva tarea (por duplicado)</value>
   </data>
+  <data name="TituloAlertas" xml:space="preserve">
+    <value>Con alertas</value>
+  </data>
 </root>

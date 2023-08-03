@@ -15,7 +15,20 @@
     {
         Type = ItemType.Separator
     },
-    new ItemModel()
+        new ItemModel()
+    {
+        PrefixIcon = "e-warning",
+        CssClass = "e-inherit",
+        Text = L["TituloAlertas"],
+        Id = "WithAlerts",
+        ShowTextOn = Syncfusion.Blazor.Navigations.DisplayMode.Overflow,
+        ShowAlwaysInPopup = true
+    },
+                new ItemModel()
+    {
+        Type = ItemType.Separator
+    },
+        new ItemModel()
     {
         PrefixIcon = "e-filter",
         CssClass = "e-inherit",
@@ -83,6 +96,7 @@ else
 
                     <GridPageSettings PageSize="10" PageCount="10" PageSizes="true"></GridPageSettings>
                     <GridEvents RowSelected="RowSelectHandler"
+                                RowDataBound="RowBound"
                                 OnToolbarClick="ToolbarClickHandler"
                                 CommandClicked="OnPetCommandClicked" TValue="ToDoDto">
                     </GridEvents>
@@ -91,7 +105,7 @@ else
                         <GridColumn Field=@nameof(ToDoDto.Description) HeaderText="@L["rbtDescricao"]" Width="350"></GridColumn>
 
                         <GridColumn Field=@nameof(ToDoDto.CategoryDescription) HeaderText="@L["TituloCategoria"]" Width="150"></GridColumn>
-                        <GridColumn Field=@nameof(ToDoDto.TodoStartDate) HeaderText="@L["TituloDataInicio"]" Format="d" Width="120">
+                        <GridColumn Field=@nameof(ToDoDto.TodoStartDate) HeaderText="@L["TituloData"]" TextAlign="TextAlign.Center" Format="d" Width="120">
                             <Template>
                                 @{
                                     var todoRow = (context as ToDoDto);
@@ -121,7 +135,36 @@ else
                             </Template>
                         </GridColumn>
 
-                        @*<GridColumn Field=@nameof(ToDoDto.TodoEndDate) HeaderText="@L["TituloDataFim"]" Format="d" Width="120" TextAlign="TextAlign.Center"></GridColumn>*@
+                        <GridColumn Field=@nameof(ToDoDto.TodoEndDate) HeaderText="@L["TituloDataFim"]" Format="d" Width="120" TextAlign="TextAlign.Center">
+                            <Template>
+                                @{
+                                    var todoRow = (context as ToDoDto);
+                                    var startDate = todoRow!.TodoStartDate.Date;
+                                    var endDate = todoRow!.TodoEndDate.Date;
+                                    var showDate = endDate > startDate.AddDays(1);
+                                    var now = DateTime.Now.Date;
+                                    if (showDate) // only show end dates if  start/end days difference > 1 day (vaccinations and dewormers)
+                                    {
+                                        if (endDate >= now)
+                                        {
+                                            var daysToStart = (endDate - now).TotalDays;
+                                            if (daysToStart > 15 && daysToStart <= 30)
+                                            {
+                                                <span style="padding:4px; background-color:orange; color:black">@endDate.ToShortDateString()</span>
+                                            }
+                                            else if (daysToStart <= 15)
+                                            {
+                                                <span style="padding:4px;background-color:red; color:white">@endDate.ToShortDateString()</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@endDate.ToShortDateString()</span>
+                                            }
+                                        }
+                                    }
+                                }
+                            </Template>
+                        </GridColumn>
 
                         <GridColumn Field=@nameof(ToDoDto.Pending) HeaderText="@L["TituloPendente"]"
                                     DisplayAsCheckBox=true Width="100" TextAlign="TextAlign.Center"></GridColumn>
@@ -289,5 +332,20 @@ else
     .e-calendar .e-content td.e-selected.e-focused-date.e-cell.official-appointment span.e-day {
         background-color: rgb(255 255 0 / 90%);
     }
+
+    /*to remove the 'custom button alone*/
+    .e-removeCustomcommand .e-unboundcell .e-unboundcelldiv button.e-Nonebutton {
+        display: none;
+    }
+    /*to remove the edit button alone*/
+    .e-removeEditcommand .e-unboundcell .e-unboundcelldiv button.e-Editbutton {
+        display: none;
+    }
+
+    /*to remove the delete button alone*/
+    .e-removeDeletecommand .e-unboundcell .e-unboundcelldiv button.e-Deletebutton {
+        display: none;
+    }
+
 
 </style>

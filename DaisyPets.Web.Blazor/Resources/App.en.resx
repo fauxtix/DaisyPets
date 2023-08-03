@@ -2490,4 +2490,7 @@
   <data name="TituloNovaTarefaPorDuplicacao" xml:space="preserve">
     <value>New task (by duplication)</value>
   </data>
+  <data name="TituloAlertas" xml:space="preserve">
+    <value>With alerts</value>
+  </data>
 </root>

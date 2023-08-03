@@ -67,6 +67,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
         protected void DataInicioChanged(ChangedEventArgs<DateTime> args)
         {
             UserSelectedRecord.StartDate = args.Value.ToShortDateString();
+            UserSelectedRecord.EndDate = args.Value.AddDays(1).ToShortDateString();
         }
 
         protected void DataFimChanged(ChangedEventArgs<DateTime> args)

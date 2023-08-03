@@ -17,27 +17,28 @@
             <SfDatePicker Placeholder="@L["TituloDataInicio"]"
                           CssClass="e-align-middle e-corner"
                           Width="150px"
+                          Enabled="@(UserSelectedRecord.Generated == 0)"
                           FloatLabelType="FloatLabelType.Always"
             @bind-Value="@dStart">
                 <DatePickerEvents TValue="DateTime" ValueChange="DataInicioChanged" />
             </SfDatePicker>
         </div>
 
-        <div class="group-box mt-2">
-            <SfDatePicker Placeholder="@L["TituloDataFim"]"
-                          CssClass="e-align-middle e-corner"
-                          Width="150px"
-                          FloatLabelType="FloatLabelType.Always"
-            @bind-Value="@dEnd">
-                <DatePickerEvents TValue="DateTime" ValueChange="DataFimChanged" />
-            </SfDatePicker>
+        @*        <div class="group-box mt-2">
+        <SfDatePicker Placeholder="@L["TituloDataFim"]"
+        CssClass="e-align-middle e-corner"
+        Width="150px"
+        FloatLabelType="FloatLabelType.Always"
+        @bind-Value="@dEnd">
+        <DatePickerEvents TValue="DateTime" ValueChange="DataFimChanged" />
+        </SfDatePicker>
         </div>
 
-        <div class="row mt-2">
+        *@        <div class="row mt-2">
             <div class="form-group">
-                <SfTextBox Enabled="true"
-                    Multiline = "true"
-                    HtmlAttributes="TodoDescriptionRows"
+                <SfTextBox Enabled="@(UserSelectedRecord.Generated == 0)"
+                           Multiline="true"
+                           HtmlAttributes="TodoDescriptionRows"
                            Placeholder="@L["rbtDescricao"]"
                            CssClass="e-field  e-corner"
                            FloatLabelType="@FloatLabelType.Always"
@@ -47,7 +48,9 @@
         </div>
         <div class="group-box mb-2">
             <SfDropDownList TValue="int" TItem="LookupTableVM" AllowFiltering="true" CssClass="e-dropdown-popup ml-5"
-                            Value="@idxCategory" ShowClearButton="true" Width="250px"
+                            Value="@idxCategory"
+                            Enabled="@(UserSelectedRecord.Generated == 0)"
+                            ShowClearButton="true" Width="250px"
                             FilterBarPlaceholder="@L["TituloSelecao"]" FilterType="Syncfusion.Blazor.DropDowns.FilterType.Contains"
                             Placeholder="@L["TituloCategoria"]" DataSource="@ToDoCategories" FloatLabelType="FloatLabelType.Always">
                 <DropDownListTemplates TItem="LookupTableVM">
@@ -59,7 +62,7 @@
     </EditForm>
 </div>
 
-@code{
+@code {
     protected Dictionary<string, object> TodoDescriptionRows = new Dictionary<string, object>()
     {
             {"rows", "4" }

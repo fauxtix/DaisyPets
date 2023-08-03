@@ -27,8 +27,8 @@ namespace DaisyPets.Infrastructure.Repositories
             var petName = await GetPetName(desparasitante.IdPet);
             var description = $"{petName} - Desparasitante {desparasitante.Marca}";
             var categoryId = await GetDewormerTodoCategoryId("Med");
-            var startDate = DateTime.Parse(desparasitante.DataProximaAplicacao).ToShortDateString();
-            var endDate = DateTime.Parse(desparasitante.DataProximaAplicacao).AddDays(1).ToShortDateString();
+            var startDate = DateTime.Parse(desparasitante.DataAplicacao).ToShortDateString();
+            var endDate = DateTime.Parse(desparasitante.DataProximaAplicacao).ToShortDateString();
             int result;
 
             StringBuilder sb = new StringBuilder();
@@ -54,7 +54,8 @@ namespace DaisyPets.Infrastructure.Repositories
                 Description = description,
                 StartDate = startDate,
                 EndDate = endDate,
-                Status = 1
+                Status = 1, 
+                Generated = 1
             };
 
             using (var connection = _context.CreateConnection())

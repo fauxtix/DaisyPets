@@ -27,8 +27,8 @@ namespace DaisyPets.Infrastructure.Repositories
             var petName = await GetPetName(vacina.IdPet);
             var description = $"{petName} - Vacina da {vacina.Marca}";
             var categoryId = await GetVaccineTodoCategoryId("Vacinação");
-            var startDate = DateTime.Parse(vacina.DataToma).AddMonths(vacina.ProximaTomaEmMeses).ToShortDateString();
-            var endDate = DateTime.Parse(vacina.DataToma).AddMonths(vacina.ProximaTomaEmMeses).AddDays(1).ToShortDateString();
+            var startDate = DateTime.Parse(vacina.DataToma).ToShortDateString();
+            var endDate = DateTime.Parse(vacina.DataToma).AddMonths(vacina.ProximaTomaEmMeses).ToShortDateString();
             int result;
 
             ToDo toDo = new ToDo()
@@ -37,7 +37,8 @@ namespace DaisyPets.Infrastructure.Repositories
                 Description = description,
                 StartDate = startDate,
                 EndDate = endDate,
-                Status = 1
+                Status = 1, 
+                Generated = 1
             };
 
             StringBuilder sb = new StringBuilder();

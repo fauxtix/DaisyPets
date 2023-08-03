@@ -24,9 +24,9 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
             StringBuilder sb = new StringBuilder();
 
             sb.Append("INSERT INTO Todo (");
-            sb.Append("Description, StartDate, EndDate, Status, CategoryId) ");
+            sb.Append("Description, StartDate, EndDate, Status, CategoryId, Generated) ");
             sb.Append(" VALUES(");
-            sb.Append("@Description, @StartDate, @EndDate, @Status, @CategoryId");
+            sb.Append("@Description, @StartDate, @EndDate, @Status, @CategoryId, 0");
             sb.Append(");");
             sb.Append("SELECT last_insert_rowid()");
 
@@ -140,7 +140,7 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
         public async Task<IEnumerable<ToDoDto>> GetAllVMAsync()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Status, ");
+            sb.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Status, Generated, ");
             sb.Append("TodoCategories.Id as [CategoryId], TodoCategories.Descricao AS [CategoryDescription] ");
             sb.Append("FROM ToDo ");
             sb.Append("INNER JOIN ToDoCategories ON ");
@@ -163,7 +163,7 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
         public async Task<IEnumerable<ToDoDto>> GetToDoVM_ByIdAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Status, ");
+            sb.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Status, Generated, ");
             sb.Append("TodoCategories.Id, TodoCategories.Descricao AS [CategoryDescription] ");
             sb.Append("FROM ToDo ");
             sb.Append("INNER JOIN ToDoCategories ON ");
@@ -225,7 +225,7 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT  ToDo.Id, ToDo.Description, StartDate, EndDate, ");
-            sb.Append("Status, TodoCategories.Descricao AS [CategoryDescription] ");
+            sb.Append("Status, Generated, TodoCategories.Descricao AS [CategoryDescription] ");
             sb.Append("FROM ToDo ");
             sb.Append("INNER JOIN ToDoCategories ON ");
             sb.Append("ToDo.CategoryId = ToDoCategories.Id ");

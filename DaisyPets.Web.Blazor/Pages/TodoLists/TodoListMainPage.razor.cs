@@ -1,11 +1,9 @@
 using DaisyPets.Core.Application.TodoManager;
-using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Syncfusion.Blazor.Calendars;
 using Syncfusion.Blazor.Grids;
-using Syncfusion.Blazor.Lists;
 using Syncfusion.Blazor.Notifications;
 using Syncfusion.Blazor.Popups;
 using System.Net.Sockets;
@@ -84,7 +82,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
             try
             {
                 var result = (await GetData<ToDoDto>(todosEndpoint!)).ToList();
-                return result;                 
+                return result;
             }
             catch (SocketException socketEx)
             {
@@ -465,6 +463,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                 StartDate = DateTime.Now.ToShortDateString(),
                 EndDate = DateTime.Now.AddDays(1).ToShortDateString(),
                 Status = 0,
+                Generated = 0
             };
             AddEditToDoVisibility = true;
         }
@@ -541,6 +540,18 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                     throw;
                 }
             }
+            else if (args.Item.Id == "WithAlerts")
+            {
+                //var alertsQuery = ToDoList.Where((tl => tl.TodoStartDate.Date > DateTime.Now.Date &&
+                //    ((tl.TodoStartDate - DateTime.Now).TotalDays >= 15) && (tl.TodoStartDate - DateTime.Now).TotalDays <= 31)).ToList();
+                //ToDoList = alertsQuery;
+                var alertsQuery = ToDoList.Where(tl => (tl.TodoStartDate.Date > DateTime.Now.Date &&
+                    tl.TodoStartDate.Month == DateTime.Now.Month) ||
+                        (tl.TodoEndDate.Date > DateTime.Now.Date &&
+                            tl.TodoEndDate.Month == DateTime.Now.Month))
+                    .ToList();
+                ToDoList = alertsQuery;
+            }
             else if (args.Item.Id == "Pending")
             {
                 var pendingQry =
@@ -564,6 +575,17 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                 ToDoList = await GetTodoList();
             }
         }
+
+        protected void RowBound(RowDataBoundEventArgs<ToDoDto> Args)
+        {
+            int generatedEntry = Args.Data.Generated;
+            if (generatedEntry == 1) // remove edit and duplicate buttons if generated entry = 1 (yes)
+            {
+                Args.Row.AddClass(new string[] { "e-removeCustomcommand" });
+                //Args.Row.AddClass(new string[] { "e-removeEditcommand" });
+            }
+        }
+
 
     }
 }

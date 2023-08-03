@@ -10,6 +10,8 @@
         public int CategoryId { get; set; }
         public string? CategoryDescription { get; set; }
 
+        public int Generated { get; set; } = 0; // false
+
         public DateTime TodoStartDate
         {
             get
