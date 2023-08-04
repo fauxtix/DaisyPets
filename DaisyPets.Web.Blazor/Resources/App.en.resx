@@ -2493,4 +2493,7 @@
   <data name="TituloAlertas" xml:space="preserve">
     <value>With alerts</value>
   </data>
+  <data name="TituloCategoriasTarefas" xml:space="preserve">
+    <value>To do lists categories</value>
+  </data>
 </root>

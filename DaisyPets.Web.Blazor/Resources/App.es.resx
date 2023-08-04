@@ -2491,4 +2491,7 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="TituloAlertas" xml:space="preserve">
     <value>Con alertas</value>
   </data>
+  <data name="TituloCategoriasTarefas" xml:space="preserve">
+    <value>Categorías de listas de tareas</value>
+  </data>
 </root>

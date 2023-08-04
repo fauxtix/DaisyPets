@@ -23,7 +23,10 @@
     <CardFooter>
         <CardFooterContent>
             <hr />
-            <div class="cardCss">@cardContent</div>
+            <div class="cardCss">
+                <SfTextBox Multiline = "true" HtmlAttributes="@htmlAttribute" Value="@cardContent"></SfTextBox>
+                @*@cardContent*@
+                </div>
             <div style="text-align:center;">
                 <SfButton CssClass="e-info e-round-corner p-2" IconCss="e-icons e-settings"
                           @onclick="@(e => NavigateToUrlAsync(tableParam!))" Content="@L["lblManutencao"]">
@@ -85,7 +88,8 @@
 
     protected Dictionary<string, object> htmlAttribute = new Dictionary<string, object>()
 {
-        {"overflow", "auto" }
+        {"overflow", "auto" },
+        {"rows", "4"}
     };
 
     protected override void OnParametersSet()

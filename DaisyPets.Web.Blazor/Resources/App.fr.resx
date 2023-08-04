@@ -2507,4 +2507,7 @@ Vérifiez les erreurs, s'il vous plaît</value>
   <data name="TituloAlertas" xml:space="preserve">
     <value>Avec des alertes</value>
   </data>
+  <data name="TituloCategoriasTarefas" xml:space="preserve">
+    <value>Catégories de listes de tâches</value>
+  </data>
 </root>

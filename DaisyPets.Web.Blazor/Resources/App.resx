@@ -1298,7 +1298,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
     <value>Tipo pagamento</value>
   </data>
   <data name="TituloCategoriaDespesa" xml:space="preserve">
-    <value>Categoria despesa</value>
+    <value>Categorias de despesas</value>
   </data>
   <data name="TituloSituacaoFracao" xml:space="preserve">
     <value>Situação da Fração</value>
@@ -1482,5 +1482,8 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   </data>
   <data name="TituloAlertas" xml:space="preserve">
     <value>Com alertas</value>
+  </data>
+  <data name="TituloCategoriasTarefas" xml:space="preserve">
+    <value>Categorias das listas de tarefas</value>
   </data>
 </root>
