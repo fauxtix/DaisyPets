@@ -5,11 +5,11 @@
 A project for helping busy pet owners keep track of the daily and long-term routine care of their pets.
 
 It uses C# as the development language, and was built using the .Net 7 platform.
-It comprises a web api, a desktop application (windows forms) and a web project (Blazor Server).
+It comprises a web api that serves a desktop application (windows forms) and a web project (Blazor Server).
 
-It is up to the user to choose between the desktop or web application. Just run the Api and choose what application to start ('set as the startup project').
+It is up to the user to choose between the desktop or web application. Just run the Api and choose what kind of project to start ('set as the startup project').
 
-I intend to test the Api by creating a React project also and, maybe, a .Net MAUI project too, when it's more stable...
+I've started a .Net MAUI project (my first one) using the existing api... let's see if anything good comes out of it :-)
 
 Due to its simplicity, the SQLite database was chosen for data storage.
 
@@ -21,17 +21,16 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 # Key Features
 
 - Easy to use
-
 - Simple to upload documents related to medical records
+
+- Record vaccinations, visits to the vet, dewormers and feed dosage 
+- Alerts for vaccines and application of dewormers
   
 - Expenses management
 - Blog entries (web project) - user entries / from url's
 - Todo lists (web project)
-- Record vaccinations, visits to the vet, dewormers and feed dosage 
-- Alerts for vaccines and application of dewormers
-- Photo gallery (desktop project)
+- Photo gallery (desktop project, for now)
 - Contacts management
-
 
 # Screenshots (Windows forms)
 
