@@ -21,16 +21,16 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 # Key Features
 
 - Easy to use
-- Simple to upload documents related to the pet (medical records, for instance) and others that may apply.
+- Simple to upload documents related to the pet (medical records, for instance) and others that may apply;
 
-- Record vaccinations, visits to the vet, dewormers and feed dosage 
-- Alerts for vaccines and application of dewormers
+- Record vaccinations, visits to the vet, dewormers and feed dosage;
+- Alerts for vaccines and application of dewormers;
   
-- Expenses management
-- Blog entries (web project) - user entries / from url's
-- Todo lists (web project)
-- Photo gallery (desktop project, for now)
-- Contacts management
+- Expenses management;
+- Blog entries (web project) - user entries / from url's;
+- Todo lists (web project);
+- Photo gallery (desktop project, for now);
+- Contacts management.
 
 # Screenshots (Windows forms)
 
