@@ -13,7 +13,7 @@ I've started a .Net MAUI project (my first one) using the existing api... let's 
 
 Due to its simplicity, the SQLite database was chosen for data storage.
 
-The front-end screenshots presented are in Portuguese, but I plan to include English, French and Spanish versions.
+The front-end screenshots presented in this Read.me file are in Portuguese, but I plan to include English, French and Spanish versions for all the projects.
 The web version (blazor) already includes the four languages.
 
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities related to them
