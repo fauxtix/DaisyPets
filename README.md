@@ -21,7 +21,7 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 # Key Features
 
 - Easy to use
-- Simple to upload documents related to medical records
+- Simple to upload documents related to the pet (medical records, for instance); others that apply
 
 - Record vaccinations, visits to the vet, dewormers and feed dosage 
 - Alerts for vaccines and application of dewormers
