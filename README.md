@@ -25,15 +25,11 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 - Simple to upload documents related to medical records
   
 - Expenses management
-- Blog entries (web project)
+- Blog entries (web project) - user entries / from url's
 - Todo lists (web project)
-
-- Record vaccinations, visits to the vet, dewormers and feed dosage
-  
+- Record vaccinations, visits to the vet, dewormers and feed dosage 
 - Alerts for vaccines and application of dewormers
-  
 - Photo gallery (desktop project)
-  
 - Contacts management
 
 
