@@ -157,7 +157,7 @@
 
                 commentModel = new CommentDto();
                 await GetPostById();
-                await GetPostComents();
+                Comments = await GetPostComents();
                 StateHasChanged();
 
                 return success;
