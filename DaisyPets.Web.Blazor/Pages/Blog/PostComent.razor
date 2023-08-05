@@ -2,15 +2,43 @@
 
 @using DaisyPets.Core.Application.ViewModels;
 @using Microsoft.Extensions.Localization;
+@using Syncfusion.Blazor.RichTextEditor
 
 <div class="container" style="margin-bottom: 500px;">
     <div class="row">
         <div class="col-9">
-            <img class="w-100" src="images/articleMainImages/@post.Image">
+            <img class="w-100" src="/uploads/Posts/@post.Image">
 
             <h1 class="postTitle">@post.Title</h1>
             <h3 class="postIntroduction">@post.Introduction</h3>
-            <p class="postBodyText">@((MarkupString)post.BodyText)</p>
+
+            @if (string.IsNullOrEmpty(post.PostUrl))
+            {
+                <div>
+                    <div class=" mb-2 control-section" id="pageHeight">
+                        <SfRichTextEditor EditorMode="EditorMode.HTML"
+                                          EnableHtmlEncode="true" EnableHtmlSanitizer="true" Height="auto" Placeholder="Body Text" @bind-Value="post!.BodyText">
+                            <RichTextEditorToolbarSettings Items="@ToolsForInline" />
+                            <RichTextEditorInlineMode Enable="true" ShowOnSelection="true" />
+                        </SfRichTextEditor>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-9 text-start">
+                        <p class="mt-2 control-section">View blog in a new tab</p>
+                        <p>
+                            <a href="@post.PostUrl" target="_blank">@post.PostUrl</a>
+                        </p>
+                    </div>
+                </div>
+            }
+
+
+            @*<p class="postBodyText">@bodyText</p>*@
+
             <hr />
             <div class="AddCommentContainer">
                 <h3>Add Comment</h3>
@@ -41,6 +69,19 @@
 
 @code {
 
+    private List<ToolbarItemModel> ToolsForInline = new List<ToolbarItemModel>()
+    {
+        new ToolbarItemModel() { Command = ToolbarCommand.Bold },
+        new ToolbarItemModel() { Command = ToolbarCommand.Italic },
+        new ToolbarItemModel() { Command = ToolbarCommand.Underline },
+        new ToolbarItemModel() { Command = ToolbarCommand.Formats },
+        new ToolbarItemModel() { Command = ToolbarCommand.HorizontalSeparator },
+        new ToolbarItemModel() { Command = ToolbarCommand.Alignments },
+        new ToolbarItemModel() { Command = ToolbarCommand.OrderedList },
+        new ToolbarItemModel() { Command = ToolbarCommand.UnorderedList },
+        new ToolbarItemModel() { Command = ToolbarCommand.CreateLink }
+    };
+
     [Inject] IConfiguration? config { get; set; }
     [Inject] public IStringLocalizer<App>? L { get; set; }
     [Inject] ILogger<App>? logger { get; set; } = null;
@@ -53,7 +94,7 @@
 
     protected string? urlBaseAddress;
     protected string? postsEndpoint;
-
+    protected MarkupString bodyText { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -61,6 +102,7 @@
         postsEndpoint = $"{urlBaseAddress}/Posts";
 
         post = await GetPostById();
+        bodyText = new MarkupString(post.BodyText);
         Comments = await GetPostComents();
 
         //var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
@@ -115,6 +157,7 @@
 
                 commentModel = new CommentDto();
                 await GetPostById();
+                await GetPostComents();
                 StateHasChanged();
 
                 return success;
@@ -138,13 +181,16 @@
                 var comments = await httpClient.GetFromJsonAsync<IEnumerable<CommentDto>>(url);
                 if (comments.Any())
                 {
+                    StateHasChanged();
                     return comments;
                 }
                 else
                 {
+                    StateHasChanged();
                     return Enumerable.Empty<CommentDto>();
                 }
             }
+
         }
         catch (Exception ex)
         {

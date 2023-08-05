@@ -22,74 +22,110 @@ else
 {
 
     <div class="container">
-        <div class="source-options my-2">
-            <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
-            @onclick="@onAddPost" IsPrimary="true">
-            </SfButton>
-        </div>
 
-        <div class="table table-striped table-hover">
-            <SfGrid ID="Pets_Grid"
-                    Width="100%" 
-                    Toolbar="@Tool"
-                    Height="auto"
-                    EnableStickyHeader="true"
-                    EnableAltRow="true"
-                    EnableHover="true"
-                    DataSource="@Posts"
-                    AllowFiltering="false"
-                    AllowSelection="true"
-                    AllowGrouping="false"
-                    AllowPaging="true"
-                    AllowSorting="true"
-                    AllowPdfExport="true"
-                    RowHeight="32"
-                    AllowTextWrap="true">
-                <GridEvents RowSelected="RowSelectHandler"
-                            CommandClicked="OnPostCommandClicked" TValue="PostDto">
-                </GridEvents>
-                <GridColumns>
-                    <GridColumn Field=@nameof(PostDto.Id) IsPrimaryKey="true" Visible="false" HeaderText="Pet" Width="150"></GridColumn>
-                    <GridColumn Field=@nameof(PostDto.Title) HeaderText="@L["lblTitulo"]" Width="250"></GridColumn>
-                    <GridColumn Field=@nameof(PostDto.Introduction) HeaderText="@L["TituloIntroducao"]" Width="450"></GridColumn>
-                    <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="110">
-                        <GridCommandColumns>
-                            <GridCommandColumn Type=CommandButtonType.Edit
-                                               ButtonOption="@(new CommandButtonOptions()
-                                                                       {
-                                                                           CssClass = "e-btn e-primary e-round",
-                                                                           IconCss = "fa fa-edit"
-                                                                       })">
-                            </GridCommandColumn>
-                            <GridCommandColumn Type=CommandButtonType.Delete
-                                               ButtonOption="@(new CommandButtonOptions()
-                                                                       {
-                                                                           CssClass = "e-btn e-danger e-round",
-                                                                           IconCss = "fa fa-trash"
-                                                                       })">
-                            </GridCommandColumn>
-                        </GridCommandColumns>
-                    </GridColumn>
-                </GridColumns>
-            </SfGrid>
+        @*        <div class="source-options my-2">
+    <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
+    @onclick="@onAddPost" IsPrimary="true">
+    </SfButton>
+    </div>
+
+    <div class="table table-striped table-hover">
+    <SfGrid ID="Pets_Grid"
+    Width="100%"
+    Toolbar="@Tool"
+    Height="auto"
+    EnableStickyHeader="true"
+    EnableAltRow="true"
+    EnableHover="true"
+    DataSource="@Posts"
+    AllowFiltering="false"
+    AllowSelection="true"
+    AllowGrouping="false"
+    AllowPaging="true"
+    AllowSorting="true"
+    AllowPdfExport="true"
+    RowHeight="32"
+    AllowTextWrap="true">
+    <GridEvents RowSelected="RowSelectHandler"
+    CommandClicked="OnPostCommandClicked" TValue="PostDto">
+    </GridEvents>
+    <GridColumns>
+    <GridColumn Field=@nameof(PostDto.Id) IsPrimaryKey="true" Visible="false" HeaderText="Pet" Width="150"></GridColumn>
+    <GridColumn Field=@nameof(PostDto.Title) HeaderText="@L["lblTitulo"]" Width="250"></GridColumn>
+    <GridColumn Field=@nameof(PostDto.Introduction) HeaderText="@L["TituloIntroducao"]" Width="450"></GridColumn>
+    <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="110">
+    <GridCommandColumns>
+    <GridCommandColumn Type=CommandButtonType.Edit
+    ButtonOption="@(new CommandButtonOptions()
+    {
+    CssClass = "e-btn e-primary e-round",
+    IconCss = "fa fa-edit"
+    })">
+    </GridCommandColumn>
+    <GridCommandColumn Type=CommandButtonType.Delete
+    ButtonOption="@(new CommandButtonOptions()
+    {
+    CssClass = "e-btn e-danger e-round",
+    IconCss = "fa fa-trash"
+    })">
+    </GridCommandColumn>
+    </GridCommandColumns>
+    </GridColumn>
+    </GridColumns>
+    </SfGrid>
+    </div>
+    *@
+        <div class="mt-2">
+            <div class="source-options my-2">
+                <SfButton CssClass="e-success e-round-corner" IconCss="fa fa-plus" Content="@(L["btnNovo"])"
+                @onclick="@onAddPost" IsPrimary="true">
+                </SfButton>
+            </div>
+
+            @foreach (var post in Posts)
+            {
+                @if (string.IsNullOrEmpty(post.PostUrl))
+                {
+                    <div class="d-flex  row">
+                        <div class="col-sm-3">
+                            <img class="w-100" src="uploads/Posts/@post.Image">
+                        </div>
+                        <div class="col-sm-6 post-front-page">
+                            <h2 class="my-2">@post.Title</h2>
+                            <p>Add Comments</p>
+                            <a href="/article/@post.Id" style="text-decoration: none;">@post.Introduction</a>
+                        </div>
+                        <div class="col-sm-3 mt-2 text-end">
+                            <SfButton CssClass="e-outline e-round-corner" IconCss="fa fa-edit"
+                            @onclick="@(async ()=>await OnEditPost(post.Id))">
+                            </SfButton>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <img class="w-100" src="uploads/Posts/@post.Image">
+                            </div>
+                            <div class="col-sm-9 post-front-page">
+                                <h2 class="my-2">@post.Title</h2>
+                                <p>Add Comments</p>
+                                <a style="text-decoration: none;" href="/article/@post.Id">@post.Introduction</a>
+                                <p class="mt-2">View page in a new tab</p>
+                                <p>
+                                    <a href="@post.PostUrl" target="_blank">@post.PostUrl</a>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+                <hr class="divider" />
+            }
         </div>
-@*        @foreach (var post in Posts)
-        {
-            <a href="/article/@post.Id">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <img class="w-100" src="uploads/Posts/@post.Image">
-                    </div>
-                    <div class="col-sm-8 post-front-page">
-                        <h1>@post.Title</h1>
-                        <p>@post.Introduction</p>
-                    </div>
-                </div>
-            </a>
-            <hr />
-            <br />
-        }
-*@    </div>
+    </div>
 
     <SfDialog CssClass="responsive-dialog-50"
               IsModal="true"
@@ -155,4 +191,30 @@ else
 }
 
 
+@code {
+    SfPager? Page;
+    public int SkipValue;
+    public int TakeValue = 3;
+    public class DataModel
+    {
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+    }
+    public void Click(PagerItemClickEventArgs args)
+    {
+        SkipValue = (args.CurrentPage * Page.PageSize) - Page.PageSize;
+        TakeValue = Page.PageSize;
+    }
+}
 
+<style>
+    .listview-container {
+        margin: 0 auto 2em;
+        max-width: 460px;
+    }
+
+    .pager-container {
+        margin: 0 auto 2em;
+        max-width: 460px;
+    }
+</style>

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Localization;
 using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Notifications;
 using Syncfusion.Blazor.Popups;
+using System.Reflection.Metadata;
 using static DaisyPets.Core.Application.Enums.Common;
 
 namespace DaisyPets.Web.Blazor.Pages.Blog
@@ -49,12 +50,14 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
         protected string ToastCssClass = "";
         protected DialogEffect Effect = DialogEffect.Zoom;
 
+        protected int BlogCount;
         protected override async Task OnInitializedAsync()
         {
             urlBaseAddress = config?["ApiSettings:UrlBase"];
             postsEndpoint = $"{urlBaseAddress}/Posts";
             PostId = 0;
             Posts = await GetAllPosts();
+            BlogCount = 0;
         }
 
         protected async Task<IEnumerable<PostDto>?> GetAllPosts()
@@ -122,6 +125,17 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
             }
         }
 
+        protected async Task OnEditPost(int postId)
+        {
+            Module = Modules.Posts;
+
+            SelectedPost = await GetPostById(postId);
+
+            AddEditPostVisibility = true;
+            EditCaption = $"{L["EditMsg"]} Post";
+            RecordMode = OpcoesRegisto.Gravar;
+
+        }
         public async Task OnPostCommandClicked(CommandClickEventArgs<PostDto> args)
         {
             Module = Modules.Posts;
@@ -162,6 +176,7 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
 
         public async Task<bool> SavePost()
         {
+            PostId = SelectedPost.Id;
             var validationMessages = await ValidatePost();
             if (validationMessages.Any())
             {

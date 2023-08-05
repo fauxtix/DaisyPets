@@ -22,7 +22,12 @@ namespace DaisyPets.WebApi.Validators
                 .NotEmpty().WithMessage("Preencha Introdução, p.f.");
             RuleFor(p => p.BodyText)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha corpo do post, p.f.");
+                .NotEmpty().WithMessage("Preencha corpo do post, p.f.")
+                .When(p => string.IsNullOrEmpty(p.PostUrl));
+            RuleFor(p => p.PostUrl)
+                .NotNull()
+                .NotEmpty().WithMessage("Preencha Url do post, p.f.")
+                .When(p => string.IsNullOrEmpty(p.BodyText));
             RuleFor(p => p.Image)
                 .NotNull()
                 .NotEmpty().WithMessage("Selecione imagem, p.f.");

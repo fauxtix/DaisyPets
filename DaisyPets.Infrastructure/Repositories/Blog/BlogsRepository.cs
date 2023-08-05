@@ -24,9 +24,9 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
             StringBuilder sb = new StringBuilder();
 
             sb.Append("INSERT INTO Post (");
-            sb.Append("Title, Introduction, BodyText, Image) ");
+            sb.Append("Title, Introduction, BodyText, Image, PostUrl) ");
             sb.Append(" VALUES(");
-            sb.Append("@Title, @Introduction, @BodyText, @Image");
+            sb.Append("@Title, @Introduction, @BodyText, @Image, @PostUrl");
             sb.Append(");");
             sb.Append("SELECT last_insert_rowid()");
 
@@ -54,13 +54,15 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
             dynamicParameters.Add("@Introduction", post.Introduction);
             dynamicParameters.Add("@BodyText", post.BodyText);
             dynamicParameters.Add("@Image", post.Image);
+            dynamicParameters.Add("@PostUrl", post.PostUrl);
 
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE Post SET ");
             sb.Append("Title = @Title, ");
             sb.Append("Introduction = @Introduction, ");
             sb.Append("BodyText = @BodyText, ");
-            sb.Append("Image = @Image ");
+            sb.Append("Image = @Image, ");
+            sb.Append("PostUrl = @PostUrl ");
             sb.Append("WHERE Id = @Id");
 
             using (var connection = _context.CreateConnection())
@@ -93,7 +95,7 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
         public async Task<Post> FindPostByIdAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Post.Id, Title, Introduction, BodyText, Image ");
+            sb.Append("SELECT Post.Id, Title, Introduction, BodyText, Image, PostUrl ");
             sb.Append("FROM Post ");
             sb.Append($"WHERE Id = @Id");
 
@@ -142,7 +144,7 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT  Post.Id, Title, Introduction, ");
-            sb.Append("BodyText, Image ");
+            sb.Append("BodyText, Image, PostUrl ");
             //sb.Append("Comment.Commenttext ");
             sb.Append("FROM Post ");
             //sb.Append("INNER JOIN Comment ON ");
@@ -167,7 +169,7 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT  Post.Id, Title, Introduction, ");
-            sb.Append("BodyText, Image, Comment.Commenttext ");
+            sb.Append("BodyText, Image, PostUrl, Comment.Commenttext ");
             sb.Append("FROM Post ");
             sb.Append("INNER JOIN Comment ON ");
             sb.Append("Comment.PostId = Post.Id");
@@ -192,7 +194,7 @@ namespace DaisyPets.Infrastructure.Repositories.Blog
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Id, Title, Introduction, ");
-            sb.Append("BodyText, Image ");
+            sb.Append("BodyText, Image, PostUrl ");
             sb.Append("FROM Post ");
             sb.Append("WHERE Id = @Id");
 

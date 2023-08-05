@@ -53,9 +53,18 @@
                     @bind-Value="@SelectedPost!.Introduction">
                     </SfTextBox>
                 </div>
+                <div class="form-group mb-2">
+                    <SfTextBox Enabled="true"
+                               Placeholder="Url"
+                               CssClass="e-field  e-corner"
+                               FloatLabelType="@FloatLabelType.Always"
+                    @bind-Value="@SelectedPost!.PostUrl">
+                    </SfTextBox>
+                </div>
+
                 <div>
                     <div class=" mb-2 control-section" id="pageHeight">
-                        <SfRichTextEditor EditorMode="EditorMode.HTML"
+                        <SfRichTextEditor EditorMode="EditorMode.HTML" Enabled = "@(string.IsNullOrEmpty(SelectedPost.PostUrl))"
                                           EnableHtmlEncode="true" EnableHtmlSanitizer="true" Height="250px" Placeholder="Body Text" @bind-Value="SelectedPost!.BodyText">
                             <RichTextEditorToolbarSettings Items="@ToolsForInline" />
                             <RichTextEditorInlineMode Enable="true" ShowOnSelection="true" />
