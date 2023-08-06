@@ -11,10 +11,9 @@ It was designed with Microsoft's Blazor Server technology, using components from
 
 ![PetsEditing](https://github.com/fauxtix/DaisyPets/assets/49880538/3ea76b1e-2c5e-489e-b79b-9192588621e7)
 ![PetDogFoodEditing](https://github.com/fauxtix/DaisyPets/assets/49880538/37644769-f5ae-4549-875d-e85960baa4b6)
-![PetDocumentCreation](https://github.com/fauxtix/DaisyPets/assets/49880538/49cf2520-0a25-47ea-8dc4-e2da9dbc7fe9)
 
+![PetDocumentCreation](https://github.com/fauxtix/DaisyPets/assets/49880538/49cf2520-0a25-47ea-8dc4-e2da9dbc7fe9)
 ![PetDocumentCreation_2](https://github.com/fauxtix/DaisyPets/assets/49880538/9703c205-a199-4e62-bba0-c21b58cdcb37)
-![PetDocumentCreation_2](https://github.com/fauxtix/DaisyPets/assets/49880538/d302f338-3b26-4b80-b00d-f51d31f483be)
 ![PetDocumentViewPdf](https://github.com/fauxtix/DaisyPets/assets/49880538/708471fd-691c-40d9-a983-9977203bde9d)
 ![PetDewordmerEditing](https://github.com/fauxtix/DaisyPets/assets/49880538/fa0840a5-ef96-4966-b575-62833434ec38)
 ![PetConsultationEditing](https://github.com/fauxtix/DaisyPets/assets/49880538/33c4a637-e1c9-495d-91ae-47c8092c564e)
