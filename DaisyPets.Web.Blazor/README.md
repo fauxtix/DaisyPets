@@ -4,6 +4,9 @@ This is the client front-end for the web project.
 
 It was designed with Microsoft's Blazor Server technology, using components from the Syncfusion platform (community licence).
 
+# Video
+
+
 # Screenshots
 ![Main](https://github.com/fauxtix/DaisyPets/assets/49880538/1ec4edb6-19ab-4f63-8d97-50747c9473be)
 
