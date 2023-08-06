@@ -4,6 +4,7 @@
 @using System.Globalization
 @using DaisyPets.Core.Application.ViewModels.Despesas;
 @using DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
+@using DaisyPets.Web.Blazor.Pages.Despesas
 @using static DaisyPets.Core.Application.Enums.Common;
 @*@attribute [Authorize]*@
 
@@ -212,7 +213,7 @@ else
                             <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save "
                                   @onclick="AddOrSaveExpense" Content="@L["btnSalvar"]">
                             </SfButton>
-                            <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times" Content="@L["MSG_GoBack"]"
+                            <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times" Content="@L["btnCancelar"]"
                                   @onclick="@(() => EditExpenseDialogVisibility = false)">
                             </SfButton>
                         </div>
