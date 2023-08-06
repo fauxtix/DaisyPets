@@ -15,7 +15,6 @@ It was designed with Microsoft's Blazor Server technology, using components from
 
 ![PetDocumentCreation_2](https://github.com/fauxtix/DaisyPets/assets/49880538/9703c205-a199-4e62-bba0-c21b58cdcb37)
 ![PetDocumentCreation_2](https://github.com/fauxtix/DaisyPets/assets/49880538/d302f338-3b26-4b80-b00d-f51d31f483be)
-![PetDocumentCreation_2](https://github.com/fauxtix/DaisyPets/assets/49880538/8646bb48-764a-4c9a-92bd-7bba705b23fa)
 ![PetDocumentViewPdf](https://github.com/fauxtix/DaisyPets/assets/49880538/708471fd-691c-40d9-a983-9977203bde9d)
 ![PetDewordmerEditing](https://github.com/fauxtix/DaisyPets/assets/49880538/fa0840a5-ef96-4966-b575-62833434ec38)
 ![PetConsultationEditing](https://github.com/fauxtix/DaisyPets/assets/49880538/33c4a637-e1c9-495d-91ae-47c8092c564e)
