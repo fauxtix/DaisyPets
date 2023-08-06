@@ -2,75 +2,36 @@
 
 # Daisy Pets 🐶🐱
 
-A project for helping busy pet owners keep track of the daily and long-term routine care of their pets.
+A project for helping busy pet owners keep track of the daily, and long-term routine care of their pets.
 
 It uses C# as the development language, and was built using the .Net 7 platform.
-It comprises a web api, a desktop application (windows forms) and a web project (Blazor Server).
+It comprises a web api that serves a desktop application (windows forms) and a web project (Blazor Server).
 
-It is up to the user to choose between the desktop or web application. Just run the Api and choose what application to start ('set as the startup project').
+It is up to the user to choose between the desktop (DaisyPets.UI) or the web/blazor application (DaisyPets.Web.Blazor).
+Just start/run the Api first, and choose wich of the projects to use ('set as the startup project').
 
-I intend to test the Api by creating a React project also and, maybe, a .Net MAUI project too, when it's more stable...
+I'm in the initial phase of creating a .Net MAUI project (my first one), using the existing api... let's see if anything 'decent' comes out of it :-)
 
 Due to its simplicity, the SQLite database was chosen for data storage.
 
-The front-end screenshots presented are in Portuguese, but I plan to include English, French and Spanish versions.
+The front-end screenshots presented in this Read.me file are in Portuguese, but I plan to include English, French and Spanish versions for all the projects.
 The web version (blazor) already includes the four languages.
 
-It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities that may be related to them (history), or not.
-Examples:
-
-- # Pet
-
-  -- Documents (results of lab tests, medical exams, ...) - (1-N)
-
-  -- Veterinary consultations (1-N)
-  
-  -- Vaccines (1-N)
-  
-  -- Dewormers (1-N)
-  
-  -- Different uses of food brands (1-N)
-
-  -- Specie (Dog, Cat, ...)
-  
-  -- Breed
-  
-  -- Temperament
-  
-  -- Situation
-  
-  -- Genre
-    
-  -- ...
-  
-- # Expenses
-  
-  -- Category type
-  
-  -- Expense Type
-  
-- # Contacts
-  
-  -- Contact type
-  
-... 
+It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities related to them.
 
 # Key Features
 
 - Easy to use
+- Simple to upload documents related to the pet (medical records, for instance) and others that may apply;
 
-- Simple to upload documents related to medical records
+- Record vaccinations, visits to the vet, dewormers and feed dosage;
+- Alerts for vaccines and application of dewormers;
   
-- Expenses management
-
-- Record vaccinations, visits to the vet, dewormers and feed dosage
-  
-- Alerts for vaccines and application of dewormers
-  
-- Photo gallery
-  
-- Contacts management
-
+- Expenses management;
+- Blog entries (web project) - user entries / from url's;
+- Todo lists (web project);
+- Photo gallery (desktop project, for now);
+- Contacts management.
 
 # Screenshots (Windows forms)
 
@@ -89,280 +50,7 @@ Examples:
 ![PetLookupTables](https://github.com/fauxtix/DaisyPets/assets/49880538/b583900e-9230-478f-bf26-593cf3064a04)
 ![PetExpenseTypes](https://github.com/fauxtix/DaisyPets/assets/49880538/fa820aa0-ae98-484e-896c-5f4eda2b2ce3)
 
-
-# Tables
-
-== ConsultaVeterinario (Veterinary consultations) ==
-
-CREATE TABLE "ConsultaVeterinario" ( "Id"
-INTEGER NOT NULL UNIQUE, "DataConsulta" TEXT NOT
-NULL, "Motivo" TEXT NOT NULL, "Diagnostico"
-TEXT, "Tratamento" TEXT, "IdPet" INTEGER NOT
-NULL, PRIMARY KEY("Id" AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-DataConsulta TEXT "DataConsulta" TEXT NOT NULL
-Motivo TEXT "Motivo" TEXT NOT NULL
-Diagnostico TEXT "Diagnostico" TEXT
-Tratamento TEXT "Tratamento" TEXT
-IdPet INTEGER "IdPet" INTEGER NOT NULL
-
-== DesparasitanteExterno (external dewormer) == 
-
-CREATE TABLE "DesparasitanteExterno" ( "Id"
-INTEGER NOT NULL UNIQUE, "IdPet" INTEGER NOT
-NULL, "IdDesparasitanteExterno" INTEGER NOT
-NULL, "Data" TEXT NOT NULL, PRIMARY KEY("Id"
-AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-IdPet INTEGER "IdPet" INTEGER NOT NULL
-IdDesparasitanteExterno INTEGER "IdDesparasitanteExterno" INTEGER NOT NULL
-Data TEXT "Data" TEXT NOT NULL
-
-== DesparasitanteInterno (internal dewormer) ==
-
-CREATE TABLE "DesparasitanteInterno" ( "Id"
-INTEGER NOT NULL UNIQUE, "IdPet" INTEGER NOT
-NULL, "IdDesparasitanteInterno" INTEGER NOT
-NULL, "Data" TEXT NOT NULL, PRIMARY KEY("Id"
-AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-IdPet INTEGER "IdPet" INTEGER NOT NULL
-IdDesparasitanteInterno INTEGER "IdDesparasitanteInterno" INTEGER NOT NULL
-Data TEXT "Data" TEXT NOT NULL
-
-== Especie (dog or cat specie) ==
-
-CREATE TABLE "Especie" ( "Id" INTEGER NOT NULL
-UNIQUE, "Descricao" TEXT NOT NULL, PRIMARY
-KEY("Id" AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-Descricao TEXT "Descricao" TEXT NOT NULL
-
-== Esterilizacao (sterilization) == 
-
-CREATE TABLE "Esterilizacao" ( "Id" INTEGER NOT
-NULL UNIQUE, "IdPet" INTEGER NOT NULL,
-"Veterinario" TEXT NOT NULL, PRIMARY KEY("Id"
-AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-IdPet INTEGER "IdPet" INTEGER NOT NULL
-Veterinario TEXT "Veterinario" TEXT NOT NULL
-
-== GaleriaFotos (Photo gallery) == 
-
-CREATE TABLE "GaleriaFotos" ( "Id" INTEGER NOT
-NULL UNIQUE, "IdPet" INTEGER NOT NULL, "Imagem"
-TEXT NOT NULL, "Data" TEXT, PRIMARY KEY("Id"
-AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-IdPet INTEGER "IdPet" INTEGER NOT NULL
-Imagem TEXT "Imagem" TEXT NOT NULL
-Data TEXT "Data" TEXT
-
-== Idade (Age intervals) == 
-
-CREATE TABLE "Idade" ( "Id" INTEGER NOT NULL
-UNIQUE, "De" INTEGER NOT NULL, "A" INTEGER,
-"Descricao" TEXT, PRIMARY KEY("Id"
-AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-De INTEGER "De" INTEGER NOT NULL
-A INTEGER "A" INTEGER
-Descricao TEXT "Descricao" TEXT
-
-== MarcaRacao (food brand) == 
-
-CREATE TABLE "MarcaRacao" ( "Id" INTEGER NOT
-NULL UNIQUE, "Descricao" TEXT NOT NULL UNIQUE,
-PRIMARY KEY("Id" AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-Descricao TEXT "Descricao" TEXT NOT NULL UNIQUE
-
-== Medicacao (medication) ==
-
-CREATE TABLE "Medicacao" ( "Id" INTEGER NOT NULL
-UNIQUE, "Descricao" TEXT NOT NULL, PRIMARY
-KEY("Id" AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-Descricao TEXT "Descricao" TEXT NOT NULL
-
-== Peso (weight ranges) ==
-
-CREATE TABLE "Peso" ( "Id" INTEGER NOT NULL
-UNIQUE, "De" INTEGER NOT NULL, "A" INTEGER NOT
-NULL, "Descricao" TEXT, PRIMARY KEY("Id"
-AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-De INTEGER "De" INTEGER NOT NULL
-A INTEGER "A" INTEGER NOT NULL
-Descricao TEXT "Descricao" TEXT
-
-== Pet ==
-
-CREATE TABLE "Pet" ( "Id" INTEGER NOT NULL
-UNIQUE, "IdEspecie" INTEGER NOT NULL, "IdRaca"
-NUMERIC NOT NULL, "IdIdade" INTEGER NOT NULL,
-"IdSituacao" NUMERIC NOT NULL, "Nome" TEXT NOT
-NULL UNIQUE, "Foto" TEXT NOT NULL, "Cor" TEXT
-NOT NULL, "IdPeso" INTEGER, "IdTemperamento"
-INTEGER NOT NULL, "IdMedicacao" INTEGER NOT
-NULL, "Chip" TEXT NOT NULL UNIQUE,
-"Esterilizado" INTEGER NOT NULL DEFAULT 0,
-"Padrinho" INTEGER NOT NULL DEFAULT 0,
-"DoencaCronica" TEXT, "Observacoes" TEXT,
-PRIMARY KEY("Id" AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-IdEspecie INTEGER "IdEspecie" INTEGER NOT NULL
-IdRaca NUMERIC "IdRaca" NUMERIC NOT NULL
-IdIdade INTEGER "IdIdade" INTEGER NOT NULL
-IdSituacao NUMERIC "IdSituacao" NUMERIC NOT NULL
-Nome TEXT "Nome" TEXT NOT NULL UNIQUE
-Foto TEXT "Foto" TEXT NOT NULL
-Cor TEXT "Cor" TEXT NOT NULL
-IdPeso INTEGER "IdPeso" INTEGER
-IdTemperamento INTEGER "IdTemperamento" INTEGER NOT NULL
-IdMedicacao INTEGER "IdMedicacao" INTEGER NOT NULL
-Chip TEXT "Chip" TEXT NOT NULL UNIQUE
-Esterilizado INTEGER "Esterilizado" INTEGER NOT NULL DEFAULT 0
-Padrinho INTEGER "Padrinho" INTEGER NOT NULL DEFAULT 0
-DoencaCronica TEXT "DoencaCronica" TEXT
-Observacoes TEXT "Observacoes" TEXT
-
-== Raca (breed) ==
-
-CREATE TABLE "Raca" ( "Id" INTEGER NOT NULL
-UNIQUE, "Descricao" TEXT NOT NULL UNIQUE,
-PRIMARY KEY("Id" AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-Descricao TEXT "Descricao" TEXT NOT NULL UNIQUE
-
-== Racao (food) ==
-
-CREATE TABLE "Racao" ( "Id" INTEGER NOT NULL
-UNIQUE, "IdPet" INTEGER NOT NULL, "DataCompra"
-TEXT, "IdMarca" INTEGER NOT NULL,
-"QuantidadeDiaria" INTEGER, PRIMARY KEY("Id"
-AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-IdPet INTEGER "IdPet" INTEGER NOT NULL
-DataCompra TEXT "DataCompra" TEXT
-IdMarca INTEGER "IdMarca" INTEGER NOT NULL
-QuantidadeDiaria INTEGER "QuantidadeDiaria" INTEGER
-
-== Temperamento (Temperament) ==
-
-CREATE TABLE "Temperamento" ( "Id" INTEGER NOT
-NULL UNIQUE, "Descricao" TEXT NOT NULL,
-"Observacoes" TEXT, PRIMARY KEY("Id"
-AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-Descricao TEXT "Descricao" TEXT NOT NULL
-Observacoes TEXT "Observacoes" TEXT
-
-== TipoDesparasitanteExterno (type of external dewormer) ==
-
-CREATE TABLE "TipoDesparasitanteExterno" ( "Id"
-INTEGER NOT NULL UNIQUE, "Descricao" TEXT,
-PRIMARY KEY("Id" AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-Descricao TEXT "Descricao" TEXT
-
-== TipoDesparasitanteInterno (type of internal dewormer) == 
-
-CREATE TABLE "TipoDesparasitanteInterno" ( "Id"
-INTEGER NOT NULL UNIQUE, "Descricao" TEXT,
-PRIMARY KEY("Id" AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-Descricao TEXT "Descricao" TEXT
-
-== Vacina (vaccine) ==
-
-CREATE TABLE "Vacina" ( "Id" INTEGER NOT NULL
-UNIQUE, "IdPet" INTEGER NOT NULL, "DataToma"
-TEXT NOT NULL, "ProximaTomaEmMeses" INTEGER NOT
-NULL, PRIMARY KEY("Id" AUTOINCREMENT) )
-Id INTEGER "Id" INTEGER NOT NULL UNIQUE
-IdPet INTEGER "IdPet" INTEGER NOT NULL
-DataToma TEXT "DataToma" TEXT NOT NULL
-ProximaTomaEmMeses INTEGER "ProximaTomaEmMeses" INTEGER NOT NULL
-
-sqlite_sequence CREATE TABLE sqlite_sequence(name,seq)
-name "name"
-seq "seq"
-
-
-# Indexes
-
-FK_DespExterno_Tipo CREATE INDEX "FK_DespExterno_Tipo" ON
-"DesparasitanteExterno" (
-"IdDesparasitanteExterno" )
-IdDesparasitanteExterno "IdDesparasitanteExterno"
-
-FK_DespInterno_Tipo CREATE INDEX "FK_DespInterno_Tipo" ON
-"DesparasitanteInterno" (
-"IdDesparasitanteInterno" )
-IdDesparasitanteInterno "IdDesparasitanteInterno"
-
-FK_Especie CREATE INDEX "FK_Especie" ON "Pet" (
-"IdEspecie" )
-IdEspecie "IdEspecie"
-
-FK_Idade CREATE INDEX "FK_Idade" ON "Pet" ( "IdIdade" )
-IdIdade "IdIdade"
-
-FK_Medicacao CREATE INDEX "FK_Medicacao" ON "Pet" (
-"IdMedicacao" )
-IdMedicacao "IdMedicacao"
-
-FK_Peso CREATE INDEX "FK_Peso" ON "Pet" ( "IdPeso" )
-IdPeso "IdPeso"
-
-FK_Pet_Consulta CREATE INDEX "FK_Pet_Consulta" ON
-"ConsultaVeterinario" ( "IdPet" )
-IdPet "IdPet"
-
-FK_Pet_DesparasitanteExterno CREATE INDEX "FK_Pet_DesparasitanteExterno" ON
-"DesparasitanteExterno" ( "IdPet" )
-IdPet "IdPet"
-
-FK_Pet_DesparasitanteInterno CREATE INDEX "FK_Pet_DesparasitanteInterno" ON
-"DesparasitanteInterno" ( "IdPet" )
-IdPet "IdPet"
-
-FK_Pet_Esterilizacao CREATE INDEX "FK_Pet_Esterilizacao" ON
-"Esterilizacao" ( "IdPet" )
-IdPet "IdPet"
-
-FK_Pet_Foto CREATE INDEX "FK_Pet_Foto" ON "GaleriaFotos" (
-"IdPet" )
-IdPet "IdPet"
-
-FK_Pet_Vacina CREATE INDEX "FK_Pet_Vacina" ON "Vacina" (
-"IdPet" )
-IdPet "IdPet"
-
-FK_Raca CREATE INDEX "FK_Raca" ON "Pet" ( "IdRaca" )
-IdRaca "IdRaca"
-
-FK_Situacao CREATE INDEX "FK_Situacao" ON "Pet" (
-"IdSituacao" )
-IdSituacao "IdSituacao"
-
-FK_Temperamento CREATE INDEX "FK_Temperamento" ON "Pet" (
-"IdTemperamento" )
-IdTemperamento "IdTemperamento"
-
-IX_Data CREATE INDEX "IX_Data" ON "GaleriaFotos" (
-"Data" )
-Data "Data"
-
-IX_DataConsultaVeterinario CREATE INDEX "IX_DataConsultaVeterinario" ON
-"ConsultaVeterinario" ( "DataConsulta" )
-DataConsulta "DataConsulta"
-
-IX_Nome CREATE INDEX "IX_Nome" ON "Pet" ( "Nome" )
-Nome "Nome"
-
+For the database structure and present data, view the .sql file in the webapi project
 
 ## Requirements
 
