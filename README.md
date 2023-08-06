@@ -51,7 +51,7 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 ![PetLookupTables](https://github.com/fauxtix/DaisyPets/assets/49880538/b583900e-9230-478f-bf26-593cf3064a04)
 ![PetExpenseTypes](https://github.com/fauxtix/DaisyPets/assets/49880538/fa820aa0-ae98-484e-896c-5f4eda2b2ce3)
 
-For the database structure and present data, view the .sql file in the webapi project
+For the database structure and current data usage, please have a look to the .sql file in the webapi project
 
 ## Requirements
 
