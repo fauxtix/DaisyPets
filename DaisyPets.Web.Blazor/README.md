@@ -1,6 +1,6 @@
 # Daisy Pets 🐶🐱
 
-This is client front-end for the web project.
+This is the client front-end for the web project.
 
 It was designed with Microsoft's Blazor Server technology, using components from the Syncfusion platform (community licence).
 
