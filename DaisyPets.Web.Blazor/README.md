@@ -2,7 +2,7 @@
 
 This is the front-end for the web project.
 
-It was designed with Microsoft's Blazor Server technology, using components from the Syncfusion platform (community licence).
+It was designed with Microsoft's Blazor Server technology, using components from the Syncfusion package (community licence).
 
 
 # Screenshots (shown in mixed languages)
