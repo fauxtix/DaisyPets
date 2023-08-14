@@ -10,7 +10,7 @@ It comprises a web api that serves a desktop application (windows forms) and a w
 It is up to the user to choose between the desktop (DaisyPets.UI) or the web/blazor application (DaisyPets.Web.Blazor).
 Just start/run the Api first, and choose wich of the projects to use ('set as the startup project').
 
-I'm in the initial phase of creating a .Net MAUI project (my first one), using the existing api... let's see if anything 'decent' comes out of it :-)
+I'm in the initial phase of creating a mobile App, using .Net MAUI (my first one), using the existing api... let's see if anything 'decent' comes out of it :-)
 
 Due to its simplicity, the SQLite database was chosen for data storage.
 
@@ -34,6 +34,7 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 - Contacts management.
 
 # Screenshots (Windows forms)
+(for the web project screenshots, please navigate to 'daisypets.web.blazor')
 
 ![main](https://github.com/fauxtix/DaisyPets/assets/49880538/54768f18-9e6d-44f3-8a27-c4cffb7bbae7)
 ![Pets](https://github.com/fauxtix/DaisyPets/assets/49880538/e9d904d9-1a33-415f-b12e-0833f17e8b85)
@@ -50,7 +51,7 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 ![PetLookupTables](https://github.com/fauxtix/DaisyPets/assets/49880538/b583900e-9230-478f-bf26-593cf3064a04)
 ![PetExpenseTypes](https://github.com/fauxtix/DaisyPets/assets/49880538/fa820aa0-ae98-484e-896c-5f4eda2b2ce3)
 
-For the database structure and present data, view the .sql file in the webapi project
+For the database structure and current data usage, please have a look to the .sql file in the webapi project
 
 ## Requirements
 

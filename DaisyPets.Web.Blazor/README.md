@@ -1,21 +1,20 @@
 # Daisy Pets 🐶🐱
 
-This is client front-end for the web project.
+This is the front-end for the web project.
 
-It was designed with Microsoft's Blazor Server technology, using components from the Syncfusion platform (community licence).
+It was designed with Microsoft's Blazor Server technology, using components from the Syncfusion package (community licence).
 
-# Screenshots
+
+# Screenshots (shown in mixed languages)
 ![Main](https://github.com/fauxtix/DaisyPets/assets/49880538/1ec4edb6-19ab-4f63-8d97-50747c9473be)
 
 ![PetsMain](https://github.com/fauxtix/DaisyPets/assets/49880538/a822da18-3a1e-4dd8-8b2b-756de18c1ca1)
 
 ![PetsEditing](https://github.com/fauxtix/DaisyPets/assets/49880538/3ea76b1e-2c5e-489e-b79b-9192588621e7)
 ![PetDogFoodEditing](https://github.com/fauxtix/DaisyPets/assets/49880538/37644769-f5ae-4549-875d-e85960baa4b6)
-![PetDocumentCreation](https://github.com/fauxtix/DaisyPets/assets/49880538/49cf2520-0a25-47ea-8dc4-e2da9dbc7fe9)
 
+![PetDocumentCreation](https://github.com/fauxtix/DaisyPets/assets/49880538/49cf2520-0a25-47ea-8dc4-e2da9dbc7fe9)
 ![PetDocumentCreation_2](https://github.com/fauxtix/DaisyPets/assets/49880538/9703c205-a199-4e62-bba0-c21b58cdcb37)
-![PetDocumentCreation_2](https://github.com/fauxtix/DaisyPets/assets/49880538/d302f338-3b26-4b80-b00d-f51d31f483be)
-![PetDocumentCreation_2](https://github.com/fauxtix/DaisyPets/assets/49880538/8646bb48-764a-4c9a-92bd-7bba705b23fa)
 ![PetDocumentViewPdf](https://github.com/fauxtix/DaisyPets/assets/49880538/708471fd-691c-40d9-a983-9977203bde9d)
 ![PetDewordmerEditing](https://github.com/fauxtix/DaisyPets/assets/49880538/fa0840a5-ef96-4966-b575-62833434ec38)
 ![PetConsultationEditing](https://github.com/fauxtix/DaisyPets/assets/49880538/33c4a637-e1c9-495d-91ae-47c8092c564e)
