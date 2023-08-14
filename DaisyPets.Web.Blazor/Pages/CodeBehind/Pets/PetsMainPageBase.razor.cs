@@ -16,6 +16,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 {
     public class PetsMainPageBase : ComponentBase, IDisposable
     {
+        [Inject] HttpClient? httpClient { get; set; }
         [Inject] IConfiguration? config { get; set; }
         [Inject] public IStringLocalizer<App>? L { get; set; }
         [Inject] ILogger<App>? logger { get; set; } = null;
@@ -145,9 +146,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         private async Task<List<string>> ValidatePet()
         {
-            var validatorEndpoint = $"{urlBaseAddress}/Pets/ValidatePet/{PetId}";
-//            var errors = await Validate(SelectedPet!, validatorEndpoint);
-            var errors = await ValidateSelectedPet(validatorEndpoint);
+            var validatorEndpoint = $"{urlBaseAddress}/Pets/ValidatePets";
+            var errors = await Validate(SelectedPet!, validatorEndpoint);
 
             return errors.Count() > 0 ? errors : new List<string>();
         }
@@ -195,7 +195,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             PetId = SelectedPet.Id;
 
             var validationMessages = await ValidatePet();
-            if (validationMessages.Any())
+            if (validationMessages.Count > 0)
             {
                 ValidationsMessages = validationMessages;
                 ErrorVisibility = true;
@@ -432,32 +432,6 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             AddEditDocumentVisibility = true;
         }
 
-        private async Task<DocumentoDto?> GetPetDocument()
-        {
-
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var url = $"{urlBaseAddress}/Document";
-
-                try
-                {
-                    var document = await httpClient.GetFromJsonAsync<DocumentoDto>($"{url}/{PetDocumentId}");
-                    return document;
-                }
-                catch (HttpRequestException exa)
-                {
-                    logger?.LogError(exa.Message, $"{L["MSG_ApiError"]}");
-
-                    return new DocumentoDto();
-                }
-                catch (Exception ex)
-                {
-                    logger?.LogError(ex.Message, $"{L["MSG_ApiError"]}");
-                    return new DocumentoDto();
-                }
-            }
-        }
-
         public void onAddConsultation(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
         {
             RecordMode = OpcoesRegisto.Inserir;
@@ -537,17 +511,13 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             var lookupTablesEndpoint = $"{urlBaseAddress}/LookupTables/GetAllRecords/{tableName}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
+                if (result is null)
                 {
-                    var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
-                    if (result is null)
-                    {
-                        return Enumerable.Empty<LookupTableVM>();
-                    }
-
-                    return result;
+                    return Enumerable.Empty<LookupTableVM>();
                 }
 
+                return result;
             }
             catch (SocketException socketEx)
             {
@@ -686,7 +656,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             {
                 WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Food"]}?";
                 DeletePetFoodVisibility = true;
-                DeletePetVisibility = true; 
+                DeletePetVisibility = true;
                 DeleteCaption = SelectedPetFood?.Marca;
             }
 
@@ -716,50 +686,35 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         private async Task<DocumentoDto?> GetSelectedDocument(int petDocumentId)
         {
             string url = $"{urlBaseAddress}/Document/{PetDocumentId}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var _document = await httpClient.GetFromJsonAsync<DocumentoDto>(url);
-                return _document ?? new DocumentoDto();
-            }
+            var _document = await httpClient.GetFromJsonAsync<DocumentoDto>(url);
+            return _document ?? new DocumentoDto();
         }
         private async Task<DesparasitanteDto?> GetSelectedDewormer(int petDewormerId)
         {
             string url = $"{urlBaseAddress}/Desparasitante/{petDewormerId}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var _dewormer = await httpClient.GetFromJsonAsync<DesparasitanteDto>(url);
-                return _dewormer ?? new DesparasitanteDto();
-            }
+            var _dewormer = await httpClient.GetFromJsonAsync<DesparasitanteDto>(url);
+            return _dewormer ?? new DesparasitanteDto();
         }
 
         private async Task<RacaoDto?> GetSelectedDogFeed(int petDogFeedId)
         {
             string url = $"{urlBaseAddress}/Racao/{petDogFeedId}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var _petFood = await httpClient.GetFromJsonAsync<RacaoDto>(url);
-                return _petFood ?? new RacaoDto();
-            }
+            var _petFood = await httpClient.GetFromJsonAsync<RacaoDto>(url);
+            return _petFood ?? new RacaoDto();
         }
 
         private async Task<VacinaDto?> GetSelectedVaccine(int petVaccineId)
         {
             string url = $"{urlBaseAddress}/Vacinacao/{petVaccineId}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var _petVaccine = await httpClient.GetFromJsonAsync<VacinaDto>(url);
-                return _petVaccine ?? new VacinaDto();
-            }
+            var _petVaccine = await httpClient.GetFromJsonAsync<VacinaDto>(url);
+            return _petVaccine ?? new VacinaDto();
         }
 
         private async Task<ConsultaVeterinarioDto?> GetSelectedConsultation(int petConsultationId)
         {
             string url = $"{urlBaseAddress}/Consulta/{petConsultationId}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var _petConsultation = await httpClient.GetFromJsonAsync<ConsultaVeterinarioDto>(url);
-                return _petConsultation ?? new ConsultaVeterinarioDto();
-            }
+            var _petConsultation = await httpClient.GetFromJsonAsync<ConsultaVeterinarioDto>(url);
+            return _petConsultation ?? new ConsultaVeterinarioDto();
         }
 
         public async Task ToolbarClickHandler(Syncfusion.Blazor.Navigations.ClickEventArgs args)
@@ -785,17 +740,14 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             var url = $"{urlBaseAddress}/Pets/{Id}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var pet = await httpClient.GetFromJsonAsync<PetDto>(url);
+                if (pet?.Id > 0)
                 {
-                    var pet = await httpClient.GetFromJsonAsync<PetDto>(url);
-                    if (pet?.Id > 0)
-                    {
-                        return pet;
-                    }
-                    else
-                    {
-                        return new PetDto();
-                    }
+                    return pet;
+                }
+                else
+                {
+                    return new PetDto();
                 }
             }
             catch (Exception ex)
@@ -818,7 +770,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                     break;
                 case Modules.Vaccines:
                     deleteUrl = $"{urlBaseAddress}/Vacinacao/{PetVaccineId}";
-                    DeleteVaccineVisibility= false;
+                    DeleteVaccineVisibility = false;
                     break;
                 case Modules.Documents:
                     deleteUrl = $"{urlBaseAddress}/Document/{PetDocumentId}";
@@ -826,15 +778,15 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                     break;
                 case Modules.PetFood:
                     deleteUrl = $"{urlBaseAddress}/Racao/{PetFoodId}";
-                    DeletePetFoodVisibility= false;
+                    DeletePetFoodVisibility = false;
                     break;
                 case Modules.Dewormers:
                     deleteUrl = $"{urlBaseAddress}/Desparasitante/{PetDewormerId}";
-                    DeleteDewormerVisibility= false;
+                    DeleteDewormerVisibility = false;
                     break;
                 case Modules.Consultations:
                     deleteUrl = $"{urlBaseAddress}/Consulta/{PetConsultationId}";
-                    DeleteConsultationVisibility= false;
+                    DeleteConsultationVisibility = false;
                     break;
             }
             ToastTitle = $"{L["DeleteMsg"]} {DeleteCaption}";
@@ -854,19 +806,16 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             string url = deleteUrl; // $"{urlBaseAddress}/Pets/{PetId}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var response = await httpClient.DeleteAsync(url);
+                response.EnsureSuccessStatusCode();
+                if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                 {
-                    var response = await httpClient.DeleteAsync(url);
-                    response.EnsureSuccessStatusCode();
-                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
-                    {
-                        ValidationsMessages = new List<string>() { L["FalhaAnulacaoRegisto"] };
-                        ErrorVisibility = true;
-                        return;
-                    }
-
-                    Pets = await GetAllPets();
+                    ValidationsMessages = new List<string>() { L["FalhaAnulacaoRegisto"] };
+                    ErrorVisibility = true;
+                    return;
                 }
+
+                Pets = await GetAllPets();
 
                 AlertTitle = $"{L["DeleteMsg"]} {DeleteCaption}";
                 WarningMessage = L["SuccessDelete"];
@@ -883,62 +832,56 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         }
 
-        private async Task<List<string>> ValidateSelectedPet(string validatorEndPoint)
-        {
-            try
-            {
 
-                using (HttpClient httpClient = new HttpClient())
-                {
+        /// <summary>
+        /// Não faz sentido, remover do controller
+        /// </summary>
+        /// <param name="validatorEndPoint"></param>
+        /// <returns></returns>
+        //private async Task<List<string>> ValidateSelectedPet(string validatorEndPoint)
+        //{
+        //    try
+        //    {
+        //        using (HttpClient client = new HttpClient())
+        //        {
+        //            var response = await client.GetAsync($"{validatorEndPoint}");
+        //            if (response.IsSuccessStatusCode == false)
+        //            {
+        //                var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
+        //                if (errors.Count() > 0)
+        //                {
+        //                    return errors;
+        //                }
+        //                else
+        //                    return new List<string>();
+        //            }
 
-                    var response = await httpClient.GetAsync($"{validatorEndPoint}");
-                    if (response.IsSuccessStatusCode == false)
-                    {
-                        var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
-                        if (errors.Count() > 0)
-                        {
-                            return errors;
-                        }
+        //            return new List<string>();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return new List<string>() { ex.Message };
+        //    }
 
-                        else
-
-                            return new List<string>();
-                    }
-
-                    return new List<string>();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                return new List<string>() { ex.Message };
-            }
-
-        }
+        //}
         private async Task<List<string>> Validate<T>(T entity, string validatorEndPoint) where T : class
         {
             try
             {
-
-                using (HttpClient httpClient = new HttpClient())
+                var response = await httpClient.PostAsJsonAsync(validatorEndPoint, entity);
+                if (response.IsSuccessStatusCode == false)
                 {
-
-                    var response = await httpClient.PostAsJsonAsync(validatorEndPoint, entity);
-                    if (response.IsSuccessStatusCode == false)
+                    var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
+                    if (errors.Any())
                     {
-                        var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
-                        if (errors.Count() > 0)
-                        {
-                            return errors;
-                        }
-
-                        else
-
-                            return new List<string>();
+                        return errors;
                     }
-
-                    return new List<string>();
+                    else
+                        return new List<string>();
                 }
+
+                return new List<string>();
 
             }
             catch (Exception ex)
@@ -987,15 +930,12 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 try
                 {
 
-                    using (HttpClient httpClient = new HttpClient())
-                    {
-                        var result = await httpClient.PutAsJsonAsync($"{url}/{entityId}", dto);
-                        var success = result.IsSuccessStatusCode;
+                    var result = await httpClient.PutAsJsonAsync($"{url}/{entityId}", dto);
+                    var success = result.IsSuccessStatusCode;
 
-                        await DisplaySuccessOrFailResults(success, RecordMode);
+                    await DisplaySuccessOrFailResults(success, RecordMode);
 
-                        return success;
-                    }
+                    return success;
                 }
                 catch (Exception exc)
                 {
@@ -1008,15 +948,12 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 ToastTitle = $"{L["creationMsg"]} {entityTitle}";
                 try
                 {
-                    using (HttpClient httpClient = new HttpClient())
-                    {
-                        var result = await httpClient.PostAsJsonAsync(url, dto);
-                        var success = result.IsSuccessStatusCode;
+                    var result = await httpClient.PostAsJsonAsync(url, dto);
+                    var success = result.IsSuccessStatusCode;
 
-                        await DisplaySuccessOrFailResults(success, RecordMode);
+                    await DisplaySuccessOrFailResults(success, RecordMode);
 
-                        return success;
-                    }
+                    return success;
                 }
                 catch (Exception exc)
                 {
@@ -1054,29 +991,26 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         private async Task<IEnumerable<T>> GetData<T>(string url) where T : class
         {
-            using (HttpClient httpClient = new HttpClient())
+            try
             {
-                try
+                var response = await httpClient.GetFromJsonAsync<IEnumerable<T>>(url);
+                if (response == null)
                 {
-                    var response = await httpClient.GetFromJsonAsync<IEnumerable<T>>(url);
-                    if (response == null)
-                    {
-                        return Enumerable.Empty<T>();
-                    }
-
-                    return response;
-                }
-                catch (HttpRequestException exa)
-                {
-                    logger?.LogError(exa.Message, L["MSG_ApiError"]);
-
                     return Enumerable.Empty<T>();
                 }
-                catch (Exception ex)
-                {
-                    logger?.LogError(ex.Message, L["MSG_ApiError"]);
-                    return Enumerable.Empty<T>();
-                }
+
+                return response;
+            }
+            catch (HttpRequestException exa)
+            {
+                logger?.LogError(exa.Message, L["MSG_ApiError"]);
+
+                return Enumerable.Empty<T>();
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex.Message, L["MSG_ApiError"]);
+                return Enumerable.Empty<T>();
             }
         }
 

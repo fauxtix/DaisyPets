@@ -3,7 +3,6 @@
 using DaisyPets.Infrastructure.Context;
 using DaisyPets.WebApi.Configuration;
 using DaisyPets.WebApi.Helpers;
-using DaisyPets.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +34,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
 
 // configure HTTP request pipeline
