@@ -112,13 +112,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
             var url = $"{contactsEndpoint}/AllContactsVM";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-
-                    var contacts = await httpClient.GetFromJsonAsync<IEnumerable<ContactoVM>>(url);
-
+                    var contacts = await _httpClient.GetFromJsonAsync<IEnumerable<ContactoVM>>(url);
                     return contacts!.ToList();
-                }
             }
             catch (SocketException socketEx)
             {
@@ -141,9 +136,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
             var url = $"{contactsEndpoint}/{Id}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    var contact = await httpClient.GetFromJsonAsync<ContactoVM>(url);
+                    var contact = await _httpClient.GetFromJsonAsync<ContactoVM>(url);
                     if (contact?.Id > 0)
                     {
                         return contact;
@@ -152,7 +145,6 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
                     {
                         return new ContactoVM();
                     }
-                }
             }
             catch (Exception ex)
             {
@@ -285,16 +277,12 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
                 {
                     ToastTitle = "Gravação de dados do Contacto";
 
-                    using (HttpClient httpClient = new HttpClient())
-                    {
-                        var result = await httpClient.PutAsJsonAsync($"{contactsEndpoint}/{ContactId}", SelectedContact);
+                        var result = await _httpClient.PutAsJsonAsync($"{contactsEndpoint}/{ContactId}", SelectedContact);
                         var success = result.IsSuccessStatusCode;
 
                         await DisplaySuccessOrFailResults(success, RecordMode);
 
                         return success;
-                    }
-
                 }
 
                 else // !editMode (Insert)
@@ -305,11 +293,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
 
                     try
                     {
-                        using (HttpClient httpClient = new HttpClient())
-                        {
-                            var result = await httpClient.PostAsJsonAsync(contactsEndpoint, SelectedContact);
+                            var result = await _httpClient.PostAsJsonAsync(contactsEndpoint, SelectedContact);
                             var success = result.IsSuccessStatusCode;
-                        }
                     }
                     catch (Exception exc)
                     {
@@ -398,10 +383,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
             try
             {
 
-                using (HttpClient httpClient = new HttpClient())
-                {
-
-                    var response = await httpClient.PostAsJsonAsync(validatorEndPoint, entity);
+                    var response = await _httpClient.PostAsJsonAsync(validatorEndPoint, entity);
                     if (response.IsSuccessStatusCode == false)
                     {
                         var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
@@ -409,15 +391,11 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
                         {
                             return errors;
                         }
-
                         else
-
                             return new List<string>();
                     }
 
                     return new List<string>();
-                }
-
             }
             catch (Exception ex)
             {

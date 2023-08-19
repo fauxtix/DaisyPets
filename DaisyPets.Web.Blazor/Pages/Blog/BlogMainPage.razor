@@ -81,47 +81,74 @@ else
                 @onclick="@onAddPost" IsPrimary="true">
                 </SfButton>
             </div>
-
+            @if(Posts.Any() == false)
+            {
+                <SfMessage CssClass="text-white fs-3" Severity="MessageSeverity.Info" ShowIcon=true Variant="MessageVariant.Filled" >No data to show...</SfMessage>
+            }
             @foreach (var post in Posts)
             {
-                @if (string.IsNullOrEmpty(post.PostUrl))
-                {
-                    <div class="d-flex  row">
-                        <div class="col-sm-3">
-                            <img class="w-100" src="uploads/Posts/@post.Image">
-                        </div>
-                        <div class="col-sm-6 post-front-page">
-                            <h2 class="my-2">@post.Title</h2>
-                            <p>Add Comments</p>
-                            <a href="/article/@post.Id" style="text-decoration: none;">@post.Introduction</a>
-                        </div>
-                        <div class="col-sm-3 mt-2 text-end">
-                            <SfButton CssClass="e-outline e-round-corner" IconCss="fa fa-edit"
-                            @onclick="@(async ()=>await OnEditPost(post.Id))">
-                            </SfButton>
-                        </div>
+                <div class="d-flex  row">
+                    <div class="col-sm-3">
+                        <img class="w-100" src="uploads/Posts/@post.Image">
                     </div>
-                }
-                else
-                {
-                    <div class="d-flex">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <img class="w-100" src="uploads/Posts/@post.Image">
-                            </div>
-                            <div class="col-sm-9 post-front-page">
-                                <h2 class="my-2">@post.Title</h2>
-                                <p>Add Comments</p>
-                                <a style="text-decoration: none;" href="/article/@post.Id">@post.Introduction</a>
-                                <p class="mt-2">View page in a new tab</p>
-                                <p>
-                                    <a href="@post.PostUrl" target="_blank">@post.PostUrl</a>
-                                </p>
-                            </div>
+                    <div class="col-sm-6 post-front-page">
+                        <h2 class="my-2">@post.Title</h2>
+                        <p>Add Comments</p>
+                        <a href="/article/@post.Id" style="text-decoration: none;">@post.Introduction</a>
+                    </div>
+                    <div class="col-sm-3 mt-2 text-end">
+                        <SfButton CssClass="e-outline e-round-corner" IconCss="fa fa-edit"
+                        @onclick="@(async ()=>await OnEditPost(post.Id))">
+                        </SfButton>
+                        <SfButton CssClass="e-btn e-danger e-round-corner" IconCss="fa fa-trash"
+                        @onclick="( async ()=>await OnDeletePost(post.Id))">
+                        </SfButton>
+                    </div>
+                </div>
 
-                        </div>
-                    </div>
-                }
+
+                @*                 @if (string.IsNullOrEmpty(post.PostUrl))
+        {
+        <div class="d-flex  row">
+        <div class="col-sm-3">
+        <img class="w-100" src="uploads/Posts/@post.Image">
+        </div>
+        <div class="col-sm-6 post-front-page">
+        <h2 class="my-2">@post.Title</h2>
+        <p>Add Comments</p>
+        <a href="/article/@post.Id" style="text-decoration: none;">@post.Introduction</a>
+        </div>
+        <div class="col-sm-3 mt-2 text-end">
+        <SfButton CssClass="e-outline e-round-corner" IconCss="fa fa-edit"
+        @onclick="@(async ()=>await OnEditPost(post.Id))">
+        </SfButton>
+        <SfButton CssClass="e-btn e-danger e-round-corner" IconCss="fa fa-trash"
+        @onclick="( async ()=>await OnDeletePost(post.Id))">
+        </SfButton>
+        </div>
+        </div>
+        }
+        else
+        {
+        <div class="d-flex">
+        <div class="row">
+        <div class="col-sm-3">
+        <img class="w-100" src="uploads/Posts/@post.Image">
+        </div>
+        <div class="col-sm-9 post-front-page">
+        <h2 class="my-2">@post.Title</h2>
+        <p>Add Comments</p>
+        <a style="text-decoration: none;" href="/article/@post.Id">@post.Introduction</a>
+        <p class="mt-2">View page in a new tab</p>
+        <p>
+        <a href="@post.PostUrl" target="_blank">@post.PostUrl</a>
+        </p>
+        </div>
+
+        </div>
+        </div>
+        }
+        *@
                 <hr class="divider" />
             }
         </div>

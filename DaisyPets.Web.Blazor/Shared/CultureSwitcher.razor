@@ -35,10 +35,11 @@
     private string selectedCulture = System.Threading.Thread.CurrentThread.CurrentCulture.Name;
     protected string? urlBaseAddress;
 
-    [Inject] IConfiguration config { get; set; }
+    [Inject] IConfiguration? config { get; set; }
+    [Inject] HttpClient httpClient { get; set; }
 
 
-    private string portugues;
+    private string? portugues;
     //protected async override Task OnAfterRenderAsync(bool firstRender)
     //{
     //    if(firstRender)
@@ -86,14 +87,10 @@
         try
         {
             var appLanguageSettingsEndpoint = $"{urlBaseAddress}/AppUtils/Settings/Language";
-            using (HttpClient httpClient = new HttpClient())
+            var response = await httpClient.PostAsJsonAsync(appLanguageSettingsEndpoint, culture);
+            if (response.IsSuccessStatusCode)
             {
-
-                var response = await httpClient.PostAsJsonAsync(appLanguageSettingsEndpoint, culture);
-                if (response.IsSuccessStatusCode)
-                {
-                    var d = response.Content.ToString();
-                }
+                var d = response.Content.ToString();
             }
         }
         catch (Exception ex)

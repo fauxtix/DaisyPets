@@ -1,14 +1,12 @@
 ﻿using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Inputs;
 using Syncfusion.Blazor.Notifications;
 using Syncfusion.Blazor.Popups;
-using Syncfusion.DocIO.DLS;
 using System.Net.Sockets;
 using static DaisyPets.Core.Application.Enums.Common;
 
@@ -16,7 +14,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 {
     public class PetsMainPageBase : ComponentBase, IDisposable
     {
-        [Inject] HttpClient? httpClient { get; set; }
+        [Inject] protected HttpClient? httpClient { get; set; }
         [Inject] IConfiguration? config { get; set; }
         [Inject] public IStringLocalizer<App>? L { get; set; }
         [Inject] ILogger<App>? logger { get; set; } = null;
@@ -115,6 +113,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
         protected IDictionary<int, PetVM> ExpandedRows = new Dictionary<int, PetVM>();
 
+        private bool shouldRender;
+        protected override bool ShouldRender() => shouldRender;
         protected override async Task OnInitializedAsync()
         {
             PetId = 0;
@@ -142,6 +142,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             Situations = (await GetLookupData("Situacao")).ToList();
             Sizes = (await GetLookupData("Tamanho")).ToList();
             Temperaments = (await GetLookupData("Temperamento")).ToList();
+
+            shouldRender = true;
         }
 
         private async Task<List<string>> ValidatePet()

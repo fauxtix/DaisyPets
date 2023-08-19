@@ -28,6 +28,7 @@
     protected string? urlBaseAddress;
     protected string? appLanguageSelected = string.Empty;
     [Inject] IConfiguration config { get; set; }
+    [Inject] HttpClient httpClient { get; set; }
 
     SfButton ToggleBtnObj;
 
@@ -56,19 +57,13 @@
         try
         {
             var appLanguageSettingsEndpoint = $"{urlBaseAddress}/AppUtils/Settings/Language";
-            using (HttpClient httpClient = new HttpClient())
+            var languageSelected = await httpClient.GetStringAsync(appLanguageSettingsEndpoint);
+            if (!string.IsNullOrEmpty(languageSelected))
             {
-
-                var languageSelected = await httpClient.GetStringAsync(appLanguageSettingsEndpoint);
-                if (!string.IsNullOrEmpty(languageSelected))
-                {
-                    return languageSelected;
-                }
-
-                else
-                    return "";
-
+                return languageSelected;
             }
+            else
+                return "";
         }
         catch (Exception ex)
         {

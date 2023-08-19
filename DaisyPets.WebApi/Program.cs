@@ -21,6 +21,11 @@ builder.Services.AddDependencyInjectionConfiguration();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddOutputCache(options =>
+{
+    options.AddPolicy("lookupTablesPolicy", builder => builder.Expire(TimeSpan.FromHours(2)).Tag("lookupTables"));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,6 +36,8 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseMiddleware<ApiKeyMiddleware>();
+
+app.UseOutputCache();
 
 app.UseHttpsRedirection();
 

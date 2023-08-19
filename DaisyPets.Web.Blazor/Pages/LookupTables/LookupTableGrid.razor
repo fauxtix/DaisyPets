@@ -36,9 +36,9 @@ else
                 AllowPdfExport="true"
                 RowHeight="32"
                 AllowTextWrap="true">
-                                <GridEvents RowSelected="RowSelectHandler"
-                            CommandClicked="OnCommandClicked" TValue="LookupTableVM">
-                </GridEvents>
+            <GridEvents RowSelected="RowSelectHandler"
+                        CommandClicked="OnCommandClicked" TValue="LookupTableVM">
+            </GridEvents>
 
             <GridColumns>
                 <GridColumn Field=@nameof(LookupTableVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
@@ -77,6 +77,7 @@ else
 
 @code {
     [Inject] IConfiguration? config { get; set; }
+    [Inject] HttpClient httpClient { get; set; }
     [Inject] ILogger<App>? logger { get; set; }
     [Inject] public IStringLocalizer<App>? L { get; set; }
 
@@ -96,7 +97,7 @@ else
     protected string? pageTitle = "Lookup Tables";
     protected string? urlBaseAddress;
 
-    protected bool AddEditVisibility{ get; set; }
+    protected bool AddEditVisibility { get; set; }
     protected bool DeleteVisibility { get; set; }
 
     protected string? NewCaption { get; set; }
@@ -154,17 +155,14 @@ else
         IEnumerable<LookupTableVM>? gridData = Enumerable.Empty<LookupTableVM>();
         try
         {
-            using (HttpClient httpClient = new HttpClient())
+            gridData = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(url);
+            if (gridData is not null && !gridData.Any())
             {
-                gridData = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(url);
-                if (gridData is not null && !gridData.Any())
-                {
-                    return gridData!.ToList();
-                }
-                else
-                {
-                    return gridData!;
-                }
+                return gridData!.ToList();
+            }
+            else
+            {
+                return gridData!;
             }
         }
         catch (SocketException socketEx)
@@ -194,7 +192,7 @@ else
         TableId = args.RowData.Id;
         TableName = args.RowData.Tabela!;
 
-    if (args.CommandColumn.Type == CommandButtonType.Edit)
+        if (args.CommandColumn.Type == CommandButtonType.Edit)
         {
 
             AddEditVisibility = true;

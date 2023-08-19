@@ -1,6 +1,8 @@
 ﻿@using DaisyPets.Core.Application.ViewModels.Despesas;
 @using DaisyPets.Core.Application.ViewModels.LookupTables;
+@using DaisyPets.Web.Blazor;
 @using Microsoft.Extensions.Localization;
+
 <div class="container">
     <div>
         <HeaderDialogComponent HeaderCaption="@HeaderCaption" ImageName="payment" />
@@ -11,7 +13,7 @@
             <SfDatePicker Enabled="true" Placeholder="@L["TituloData"]" Width="160px"
                           CssClass="e-align-middle e-corner"
                           FloatLabelType="FloatLabelType.Always"
-                          @bind-Value="@SelectedExpense!.DataMovimento">
+            @bind-Value="@SelectedExpense!.DataMovimento">
                 <DatePickerEvents TValue="DateTime"></DatePickerEvents>
             </SfDatePicker>
             <SfNumericTextBox Placeholder="@L["TituloValorPago"]" @bind-Value="@SelectedExpense.ValorPago"
@@ -48,7 +50,7 @@
                        HtmlAttributes="NotesAttribute"
                        CssClass="e-field e-corner"
                        FloatLabelType="FloatLabelType.Always"
-                       @bind-Value="@SelectedExpense.Notas">
+            @bind-Value="@SelectedExpense.Notas">
             </SfTextBox>
         </div>
     </EditForm>
@@ -57,6 +59,7 @@
 @code {
 
     [Inject] IConfiguration? Config { get; set; }
+    [Inject] HttpClient _httpClient { get; set; }
 
     [Inject] IStringLocalizer<App>? L { get; set; }
 
@@ -127,42 +130,32 @@
 
         urlBaseAddress = Config?["ApiSettings:UrlBase"];
         var lookupTablesEndpoint = $"{urlBaseAddress}/LookupTables/GetAllRecords/{tableName}";
-        using (HttpClient httpClient = new HttpClient())
+        var result = await _httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
+        if (result is null)
         {
-            var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
-            if (result is null)
-            {
-                return Enumerable.Empty<LookupTableVM>();
-            }
-
-            return result;
+            return Enumerable.Empty<LookupTableVM>();
         }
+
+        return result;
     }
 
     public async Task<IEnumerable<TipoDespesaVM>> GetTipoDespesa_ByCategoriaDespesa(int id)
     {
         try
         {
-            using (HttpClient httpClient = new HttpClient())
+            var expenses = await _httpClient.GetFromJsonAsync<IEnumerable<TipoDespesaVM>>($"{urlBaseAddress}/Despesa/GetTipoDespesaByCategoriaDespesa/{id}");
+            if (expenses != null)
             {
-
-                var expenses = await httpClient.GetFromJsonAsync<IEnumerable<TipoDespesaVM>>($"{urlBaseAddress}/Despesa/GetTipoDespesaByCategoriaDespesa/{id}");
-                if (expenses != null)
-                {
-                    expenses = expenses.OrderBy(e => e.Descricao);
-                    return expenses!.ToList();
-                }
-                return null;
+                expenses = expenses.OrderBy(e => e.Descricao);
+                return expenses!.ToList();
             }
+            return null;
         }
         catch (Exception exc)
         {
             return Enumerable.Empty<TipoDespesaVM>();
         }
     }
-
-
-
 }
 
 <style>

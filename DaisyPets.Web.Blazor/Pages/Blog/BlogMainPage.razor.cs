@@ -11,14 +11,10 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
 {
     public partial class BlogMainPage
     {
-        [Inject]
-        IConfiguration? config { get; set; }
-
-        [Inject]
-        ILogger<App>? logger { get; set; } = null;
-
-        [Inject]
-        public IStringLocalizer<App>? L { get; set; }
+        [Inject] IConfiguration? config { get; set; }
+        [Inject] HttpClient? _httpClient { get; set; }
+        [Inject] ILogger<App>? logger { get; set; } = null;
+        [Inject] public IStringLocalizer<App>? L { get; set; }
         protected PostDto? SelectedPost { get; set; }
 
         protected IEnumerable<PostDto>? Posts;
@@ -69,28 +65,25 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
         protected async Task<IEnumerable<T>> GetData<T>(string url)
             where T : class
         {
-            using (HttpClient httpClient = new HttpClient())
+            try
             {
-                try
+                var response = await _httpClient.GetFromJsonAsync<IEnumerable<T>>(url);
+                if (response == null)
                 {
-                    var response = await httpClient.GetFromJsonAsync<IEnumerable<T>>(url);
-                    if (response == null)
-                    {
-                        return Enumerable.Empty<T>();
-                    }
+                    return Enumerable.Empty<T>();
+                }
 
-                    return response;
-                }
-                catch (HttpRequestException exa)
-                {
-                    logger?.LogError(exa.Message, L["MSG_ApiError"]);
-                    return Enumerable.Empty<T>();
-                }
-                catch (Exception ex)
-                {
-                    logger?.LogError(ex.Message, L["MSG_ApiError"]);
-                    return Enumerable.Empty<T>();
-                }
+                return response;
+            }
+            catch (HttpRequestException exa)
+            {
+                logger?.LogError(exa.Message, L["MSG_ApiError"]);
+                return Enumerable.Empty<T>();
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex.Message, L["MSG_ApiError"]);
+                return Enumerable.Empty<T>();
             }
         }
 
@@ -105,17 +98,14 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
             var url = $"{urlBaseAddress}/Posts/{Id}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var post = await _httpClient.GetFromJsonAsync<PostDto>(url);
+                if (post?.Id > 0)
                 {
-                    var post = await httpClient.GetFromJsonAsync<PostDto>(url);
-                    if (post?.Id > 0)
-                    {
-                        return post;
-                    }
-                    else
-                    {
-                        return new PostDto();
-                    }
+                    return post;
+                }
+                else
+                {
+                    return new PostDto();
                 }
             }
             catch (Exception ex)
@@ -136,6 +126,19 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
             RecordMode = OpcoesRegisto.Gravar;
 
         }
+
+        protected async Task OnDeletePost(int postId)
+        {
+            Module = Modules.Posts;
+            SelectedPost = await GetPostById(postId);
+            PostId = postId;
+
+            WarningTitle = $"{L["DeleteMsg"]} Post?";
+            DeletePostVisibility = true;
+            DeleteCaption = SelectedPost?.Title;
+        }
+
+
         public async Task OnPostCommandClicked(CommandClickEventArgs<PostDto> args)
         {
             Module = Modules.Posts;
@@ -202,22 +205,19 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
         {
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var response = await _httpClient.PostAsJsonAsync(validatorEndPoint, entity);
+                if (response.IsSuccessStatusCode == false)
                 {
-                    var response = await httpClient.PostAsJsonAsync(validatorEndPoint, entity);
-                    if (response.IsSuccessStatusCode == false)
+                    var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
+                    if (errors.Count() > 0)
                     {
-                        var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
-                        if (errors.Count() > 0)
-                        {
-                            return errors;
-                        }
-                        else
-                            return new List<string>();
+                        return errors;
                     }
-
-                    return new List<string>();
+                    else
+                        return new List<string>();
                 }
+
+                return new List<string>();
             }
             catch (Exception ex)
             {
@@ -246,13 +246,10 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
                 ToastTitle = $"{L["btnSalvar"]} {entityTitle}";
                 try
                 {
-                    using (HttpClient httpClient = new HttpClient())
-                    {
-                        var result = await httpClient.PutAsJsonAsync($"{url}/{entityId}", dto);
-                        var success = result.IsSuccessStatusCode;
-                        await DisplaySuccessOrFailResults(success, RecordMode);
-                        return success;
-                    }
+                    var result = await _httpClient.PutAsJsonAsync($"{url}/{entityId}", dto);
+                    var success = result.IsSuccessStatusCode;
+                    await DisplaySuccessOrFailResults(success, RecordMode);
+                    return success;
                 }
                 catch (Exception exc)
                 {
@@ -265,13 +262,10 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
                 ToastTitle = $"{L["creationMsg"]} {entityTitle}";
                 try
                 {
-                    using (HttpClient httpClient = new HttpClient())
-                    {
-                        var result = await httpClient.PostAsJsonAsync(url, dto);
-                        var success = result.IsSuccessStatusCode;
-                        await DisplaySuccessOrFailResults(success, RecordMode);
-                        return success;
-                    }
+                    var result = await _httpClient.PostAsJsonAsync(url, dto);
+                    var success = result.IsSuccessStatusCode;
+                    await DisplaySuccessOrFailResults(success, RecordMode);
+                    return success;
                 }
                 catch (Exception exc)
                 {
@@ -326,10 +320,10 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
         {
             ToastTitle = $"{L["DeleteMsg"]} Post";
             await DeletePost();
-            ToastCssClass = "e-toast-success";
-            ToastContent = L["RegistoAnuladoSucesso"];
-            await Task.Delay(200);
-            await ToastObj!.ShowAsync();
+            //ToastCssClass = "e-toast-success";
+            //ToastContent = L["RegistoAnuladoSucesso"];
+            //await Task.Delay(200);
+            //await ToastObj!.ShowAsync();
         }
 
         protected async Task DeletePost()
@@ -337,22 +331,19 @@ namespace DaisyPets.Web.Blazor.Pages.Blog
             string url = $"{urlBaseAddress}/Posts/{PostId}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                using var response = await _httpClient.DeleteAsync(url);
+                response.EnsureSuccessStatusCode();
+                if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                 {
-                    var response = await httpClient.DeleteAsync(url);
-                    response.EnsureSuccessStatusCode();
-                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
-                    {
-                        ValidationsMessages = new List<string>()
+                    ValidationsMessages = new List<string>()
                         {
                             L["FalhaAnulacaoRegisto"]
                         };
-                        ErrorVisibility = true;
-                        return;
-                    }
-
-                    Posts = await GetAllPosts();
+                    ErrorVisibility = true;
+                    return;
                 }
+
+                Posts = await GetAllPosts();
 
                 DeletePostVisibility = false;
                 AlertTitle = "Apagar Post";

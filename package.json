@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@syncfusion/ej2-react-buttons": "^22.2.9",
+    "@syncfusion/ej2-react-notifications": "^22.2.5",
+    "axios": "^1.4.0"
+  }
+}

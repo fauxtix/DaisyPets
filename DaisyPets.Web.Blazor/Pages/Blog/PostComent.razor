@@ -83,6 +83,7 @@
     };
 
     [Inject] IConfiguration? config { get; set; }
+    [Inject] HttpClient httpClient { get; set; }
     [Inject] public IStringLocalizer<App>? L { get; set; }
     [Inject] ILogger<App>? logger { get; set; } = null;
 
@@ -119,17 +120,14 @@
         var url = $"{urlBaseAddress}/Posts/{Id}";
         try
         {
-            using (HttpClient httpClient = new HttpClient())
+            var post = await httpClient.GetFromJsonAsync<PostDto>(url);
+            if (post?.Id > 0)
             {
-                var post = await httpClient.GetFromJsonAsync<PostDto>(url);
-                if (post?.Id > 0)
-                {
-                    return post;
-                }
-                else
-                {
-                    return new PostDto();
-                }
+                return post;
+            }
+            else
+            {
+                return new PostDto();
             }
         }
         catch (Exception ex)
@@ -150,18 +148,15 @@
 
         try
         {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var result = await httpClient.PostAsJsonAsync(url, commentModel);
-                var success = result.IsSuccessStatusCode;
+            var result = await httpClient.PostAsJsonAsync(url, commentModel);
+            var success = result.IsSuccessStatusCode;
 
-                commentModel = new CommentDto();
-                await GetPostById();
-                Comments = await GetPostComents();
-                StateHasChanged();
+            commentModel = new CommentDto();
+            await GetPostById();
+            Comments = await GetPostComents();
+            StateHasChanged();
 
-                return success;
-            }
+            return success;
         }
         catch (Exception exc)
         {
@@ -176,21 +171,17 @@
         var url = $"{urlBaseAddress}/Posts/PostComments/{Id}";
         try
         {
-            using (HttpClient httpClient = new HttpClient())
+            var comments = await httpClient.GetFromJsonAsync<IEnumerable<CommentDto>>(url);
+            if (comments.Any())
             {
-                var comments = await httpClient.GetFromJsonAsync<IEnumerable<CommentDto>>(url);
-                if (comments.Any())
-                {
-                    StateHasChanged();
-                    return comments;
-                }
-                else
-                {
-                    StateHasChanged();
-                    return Enumerable.Empty<CommentDto>();
-                }
+                StateHasChanged();
+                return comments;
             }
-
+            else
+            {
+                StateHasChanged();
+                return Enumerable.Empty<CommentDto>();
+            }
         }
         catch (Exception ex)
         {

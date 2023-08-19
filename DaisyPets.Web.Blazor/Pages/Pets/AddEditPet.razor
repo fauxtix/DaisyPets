@@ -350,8 +350,6 @@
         try
         {
             var appLanguageSettingsEndpoint = $"{urlBaseAddress}/AppUtils/Settings/Language";
-            using (HttpClient httpClient = new HttpClient())
-            {
 
                 var languageSelected = await httpClient.GetStringAsync(appLanguageSettingsEndpoint);
                 if (!string.IsNullOrEmpty(languageSelected))
@@ -362,7 +360,6 @@
                 else
                     return "";
 
-            }
         }
         catch (Exception ex)
         {

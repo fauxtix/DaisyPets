@@ -9,6 +9,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
     public class ExpensesPageBase : ComponentBase
     {
         [Inject] IConfiguration? Config { get; set; }
+        [Inject] HttpClient httpClient { get; set; }
         [Inject] public IStringLocalizer<App>? L { get; set; }
         [Inject] ILogger<App>? logger { get; set; } = null;
         [Inject] public IWebHostEnvironment? _env { get; set; }
@@ -38,16 +39,13 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
             string url = $"{ExpensesApiEndpoint}/AllVMAsync";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var expenses = await httpClient.GetFromJsonAsync<IEnumerable<DespesaVM>>(url);
+                if (expenses is not null)
                 {
-                    var expenses = await httpClient.GetFromJsonAsync<IEnumerable<DespesaVM>>(url);
-                    if (expenses is not null)
-                    {
-                        return expenses;
-                    }
-
-                    return Enumerable.Empty<DespesaVM>();
+                    return expenses;
                 }
+
+                return Enumerable.Empty<DespesaVM>();
 
             }
             catch (Exception ex)
@@ -60,30 +58,24 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
         protected async Task<DespesaDto> GeExpense(int Id)
         {
             string url = $"{ExpensesApiEndpoint}/{Id}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var _expense = await httpClient.GetFromJsonAsync<DespesaDto>(url);
-                return _expense ?? new DespesaDto();
-            }
+            var _expense = await httpClient.GetFromJsonAsync<DespesaDto>(url);
+            return _expense ?? new DespesaDto();
         }
 
         protected IEnumerable<TipoDespesa>? GetTipoDespesas()
         {
             string url = $"{ExpensesApiEndpoint}/TipoDespesas";
-            using (HttpClient httpClient = new HttpClient())
+            var task = httpClient.GetFromJsonAsync<IEnumerable<TipoDespesa>?>(url);
+            var _expenses = task.Result;
+
+            task.Wait();
+
+            if (_expenses is null)
             {
-                var task = httpClient.GetFromJsonAsync<IEnumerable<TipoDespesa>?>(url);
-                var _expenses = task.Result;
-
-                task.Wait();
-
-                if (_expenses is null)
-                {
-                    //MessageBoxAdv.Show("Erro ao carregar tipo de despesas", "Daist Pets - Despesas");
-                }
-
-                return _expenses;
+                //MessageBoxAdv.Show("Erro ao carregar tipo de despesas", "Daist Pets - Despesas");
             }
+
+            return _expenses;
 
         }
 
@@ -92,25 +84,22 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
             try
             {
                 string url = $"{ExpensesApiEndpoint}/ValidateExpense";
-                using (HttpClient httpClient = new HttpClient())
+                var response = await httpClient.PostAsJsonAsync(url, expenseToValidate);
+
+                if (response.IsSuccessStatusCode == false)
                 {
-                    var response = await httpClient.PostAsJsonAsync(url, expenseToValidate);
-
-                    if (response.IsSuccessStatusCode == false)
+                    var errors = await response.Content.ReadFromJsonAsync<List<string>>();
+                    if (errors?.Count() > 0)
                     {
-                        var errors = await response.Content.ReadFromJsonAsync<List<string>>();
-                        if (errors?.Count() > 0)
-                        {
-                            return errors;
-                        }
-
-                        else
-
-                            return new List<string>();
+                        return errors;
                     }
 
-                    return new List<string>();
+                    else
+
+                        return new List<string>();
                 }
+
+                return new List<string>();
             }
             catch (Exception ex)
             {
@@ -124,59 +113,49 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
         protected async Task DeleteExpense()
         {
             string url = $"{ExpensesApiEndpoint}/{ExpenseId}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var response = await httpClient.DeleteAsync(url);
-                response.EnsureSuccessStatusCode();
+            var response = await httpClient.DeleteAsync(url);
+            response.EnsureSuccessStatusCode();
 
-                if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
-                {
-                    //MessageBoxAdv.Show("Erro ao apagar registo", "Contactos");
-                    return;
-                }
-                else
-                {
-                    Expenses = await GetExpenses();
-                }
+            if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
+            {
+                //MessageBoxAdv.Show("Erro ao apagar registo", "Contactos");
+                return;
+            }
+            else
+            {
+                Expenses = await GetExpenses();
             }
         }
 
         protected async Task<string> GetDescricaoCategoria(int categoryId)
         {
             string url = $"{ExpensesApiEndpoint}/DescricaoCategoriaDespesa/{categoryId}";
-            using (HttpClient httpClient = new HttpClient())
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
             {
-
-                var response = await httpClient.GetAsync(url);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var category = await response.Content.ReadFromJsonAsync<LookupTableVM>();
-                    return category?.Descricao ?? "";
-                }
-
-                return "";
+                var category = await response.Content.ReadFromJsonAsync<LookupTableVM>();
+                return category?.Descricao ?? "";
             }
+
+            return "";
         }
 
         protected async Task<string> GetDescricaoTipoDespesa(int expenseTypeId)
         {
             string url = $"{ExpensesApiEndpoint}/{ExpenseId}";
-            using (HttpClient httpClient = new HttpClient())
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
             {
-
-                var response = await httpClient.GetAsync(url);
-
-                if (response.IsSuccessStatusCode)
+                var expenseTypes = await response.Content.ReadFromJsonAsync<IEnumerable<TipoDespesa>>();
+                if (expenseTypes.Any())
                 {
-                    var expenseTypes = await response.Content.ReadFromJsonAsync<IEnumerable<TipoDespesa>>();
-                    if (expenseTypes.Any())
-                    {
-                        var tipoDespesa = expenseTypes.SingleOrDefault(o => o.Id == expenseTypeId);
-                        return tipoDespesa.Descricao;
-                    }
-                    return "";
+                    var tipoDespesa = expenseTypes.SingleOrDefault(o => o.Id == expenseTypeId);
+                    return tipoDespesa.Descricao;
                 }
+                return "";
             }
 
             return "";
@@ -187,24 +166,20 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
         {
             string url = $"{ExpensesApiEndpoint}/VMExpenseByIdAsync/{ExpenseId}";
 
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetAsync(url);
+            var response = await httpClient.GetAsync(url);
 
-                if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
+            {
+                var expense = await response.Content.ReadFromJsonAsync<DespesaVM>();
+                if (expense is not null)
                 {
-                    var expense = await response.Content.ReadFromJsonAsync<DespesaVM>();
-                    if (expense is not null)
-                    {
-                        var tipoDespesa = expense.DescricaoTipoDespesa;
-                        return tipoDespesa;
-                    }
-                    return "";
+                    var tipoDespesa = expense.DescricaoTipoDespesa;
+                    return tipoDespesa;
                 }
+                return "";
             }
 
             return "";
-
         }
 
     }

@@ -286,10 +286,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables
         public async Task<List<string>> ValidateTableEntries(LookupTableVM table)
         {
             var validatorEndpoint = $"{_uri}/lookuptables/ValidateLookupTable";
-            using (HttpClient httpClient = new HttpClient())
-            {
-
-                var response = await httpClient.PostAsJsonAsync(validatorEndpoint, table);
+                var response = await _httpClient.PostAsJsonAsync(validatorEndpoint, table);
                 if (response.IsSuccessStatusCode == false)
                 {
                     var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
@@ -305,7 +302,5 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.LookupTables
 
                 return new List<string>();
             }
-        }
-
     }
 }

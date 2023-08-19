@@ -75,6 +75,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
 
         protected bool ShowToolbarOptions { get; set; } = true;
 
+        private bool shouldRender;
+        protected override bool ShouldRender() => shouldRender;
 
         protected async override Task OnInitializedAsync()
         {
@@ -91,6 +93,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
             WarningTitle = "";
             await GetExpenses();
 
+            shouldRender = true;
         }
 
         protected async Task ConfirmDeleteYes()
@@ -164,13 +167,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
             var url = $"{expensesEndpoint}/AllVMAsync";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-
-                    var expenses = await httpClient.GetFromJsonAsync<IEnumerable<DespesaVM>>(url);
-
+                    var expenses = await _httpClient.GetFromJsonAsync<IEnumerable<DespesaVM>>(url);
                     return expenses!.ToList();
-                }
             }
             catch (SocketException socketEx)
             {
@@ -229,15 +227,12 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
                     try
                     {
 
-                        using (HttpClient httpClient = new HttpClient())
-                        {
-                            var result = await httpClient.PutAsJsonAsync($"{expensesEndpoint}/{expenseId}", SelectedExpense);
+                            var result = await _httpClient.PutAsJsonAsync($"{expensesEndpoint}/{expenseId}", SelectedExpense);
                             var success = result.IsSuccessStatusCode;
 
                             await DisplaySuccessOrFailResults(success, RecordMode);
 
                             return success;
-                        }
                     }
                     catch (Exception exc)
                     {
@@ -256,11 +251,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
 
                     try
                     {
-                        using (HttpClient httpClient = new HttpClient())
-                        {
-                            var result = await httpClient.PostAsJsonAsync(expensesEndpoint, SelectedExpense);
+                            var result = await _httpClient.PostAsJsonAsync(expensesEndpoint, SelectedExpense);
                             var success = result.IsSuccessStatusCode;
-                        }
                     }
                     catch (Exception exc)
                     {
@@ -447,10 +439,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
             try
             {
 
-                using (HttpClient httpClient = new HttpClient())
-                {
-
-                    var response = await httpClient.PostAsJsonAsync(validatorEndPoint, entity);
+                    var response = await _httpClient.PostAsJsonAsync(validatorEndPoint, entity);
                     if (response.IsSuccessStatusCode == false)
                     {
                         var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
@@ -458,15 +447,11 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
                         {
                             return errors;
                         }
-
                         else
-
                             return new List<string>();
                     }
 
                     return new List<string>();
-                }
-
             }
             catch (Exception ex)
             {
@@ -479,9 +464,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
             var url = $"{expensesEndpoint}/{Id}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    var expense = await httpClient.GetFromJsonAsync<DespesaDto>(url);
+                    var expense = await _httpClient.GetFromJsonAsync<DespesaDto>(url);
                     if (expense?.Id > 0)
                     {
                         return expense;
@@ -490,7 +473,6 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Expenses
                     {
                         return new DespesaDto();
                     }
-                }
             }
             catch (Exception ex)
             {

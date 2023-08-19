@@ -25,8 +25,8 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
         protected DateTime dStart { get; set; }
         protected DateTime dEnd { get; set; }
 
-        [Inject]
-        IConfiguration? config { get; set; }
+        [Inject] IConfiguration? config { get; set; }
+        [Inject] HttpClient httpClient{ get; set; }
 
         [Inject]
         ILogger<App>? logger { get; set; } = null;
@@ -81,16 +81,13 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                 return null;
             urlBaseAddress = config?["ApiSettings:UrlBase"];
             var lookupTablesEndpoint = $"{urlBaseAddress}/LookupTables/GetAllRecords/{tableName}";
-            using (HttpClient httpClient = new HttpClient())
+            var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
+            if (result is null)
             {
-                var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
-                if (result is null)
-                {
-                    return Enumerable.Empty<LookupTableVM>();
-                }
-
-                return result;
+                return Enumerable.Empty<LookupTableVM>();
             }
+
+            return result;
         }
 
         protected void onChangeCategory(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)

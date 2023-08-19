@@ -14,6 +14,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
     public partial class TodoListMainPage
     {
         [Inject] IConfiguration? config { get; set; }
+        [Inject] HttpClient httpClient { get; set; }
         [Inject] public IStringLocalizer<App>? L { get; set; }
         [Inject] ILogger<App>? logger { get; set; } = null;
         [Inject] public IWebHostEnvironment? _env { get; set; }
@@ -108,17 +109,13 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
             var lookupTablesEndpoint = $"{urlBaseAddress}/LookupTables/GetAllRecords/{tableName}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
+                if (result is null)
                 {
-                    var result = await httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(lookupTablesEndpoint);
-                    if (result is null)
-                    {
-                        return Enumerable.Empty<LookupTableVM>();
-                    }
-
-                    return result;
+                    return Enumerable.Empty<LookupTableVM>();
                 }
 
+                return result;
             }
             catch (SocketException socketEx)
             {
@@ -139,28 +136,25 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
         private async Task<IEnumerable<T>> GetData<T>(string url)
             where T : class
         {
-            using (HttpClient httpClient = new HttpClient())
+            try
             {
-                try
+                var response = await httpClient.GetFromJsonAsync<IEnumerable<T>>(url);
+                if (response == null)
                 {
-                    var response = await httpClient.GetFromJsonAsync<IEnumerable<T>>(url);
-                    if (response == null)
-                    {
-                        return Enumerable.Empty<T>();
-                    }
+                    return Enumerable.Empty<T>();
+                }
 
-                    return response;
-                }
-                catch (HttpRequestException exa)
-                {
-                    logger?.LogError(exa.Message, L["MSG_ApiError"]);
-                    return Enumerable.Empty<T>();
-                }
-                catch (Exception ex)
-                {
-                    logger?.LogError(ex.Message, L["MSG_ApiError"]);
-                    return Enumerable.Empty<T>();
-                }
+                return response;
+            }
+            catch (HttpRequestException exa)
+            {
+                logger?.LogError(exa.Message, L["MSG_ApiError"]);
+                return Enumerable.Empty<T>();
+            }
+            catch (Exception ex)
+            {
+                logger?.LogError(ex.Message, L["MSG_ApiError"]);
+                return Enumerable.Empty<T>();
             }
         }
 
@@ -204,17 +198,14 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
             var url = $"{urlBaseAddress}/ToDos/{Id}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var todo = await httpClient.GetFromJsonAsync<ToDoDto>(url);
+                if (todo?.Id > 0)
                 {
-                    var todo = await httpClient.GetFromJsonAsync<ToDoDto>(url);
-                    if (todo?.Id > 0)
-                    {
-                        return todo;
-                    }
-                    else
-                    {
-                        return new ToDoDto();
-                    }
+                    return todo;
+                }
+                else
+                {
+                    return new ToDoDto();
                 }
             }
             catch (Exception ex)
@@ -280,22 +271,19 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
         {
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var response = await httpClient.PostAsJsonAsync(validatorEndPoint, entity);
+                if (response.IsSuccessStatusCode == false)
                 {
-                    var response = await httpClient.PostAsJsonAsync(validatorEndPoint, entity);
-                    if (response.IsSuccessStatusCode == false)
+                    var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
+                    if (errors.Count() > 0)
                     {
-                        var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
-                        if (errors.Count() > 0)
-                        {
-                            return errors;
-                        }
-                        else
-                            return new List<string>();
+                        return errors;
                     }
-
-                    return new List<string>();
+                    else
+                        return new List<string>();
                 }
+
+                return new List<string>();
             }
             catch (Exception ex)
             {
@@ -324,13 +312,10 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                 ToastTitle = $"{L["btnSalvar"]} {entityTitle}";
                 try
                 {
-                    using (HttpClient httpClient = new HttpClient())
-                    {
-                        var result = await httpClient.PutAsJsonAsync($"{url}/{entityId}", dto);
-                        var success = result.IsSuccessStatusCode;
-                        await DisplaySuccessOrFailResults(success, RecordMode);
-                        return success;
-                    }
+                    var result = await httpClient.PutAsJsonAsync($"{url}/{entityId}", dto);
+                    var success = result.IsSuccessStatusCode;
+                    await DisplaySuccessOrFailResults(success, RecordMode);
+                    return success;
                 }
                 catch (Exception exc)
                 {
@@ -343,13 +328,10 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                 ToastTitle = $"{L["creationMsg"]} {entityTitle}";
                 try
                 {
-                    using (HttpClient httpClient = new HttpClient())
-                    {
-                        var result = await httpClient.PostAsJsonAsync(url, dto);
-                        var success = result.IsSuccessStatusCode;
-                        await DisplaySuccessOrFailResults(success, RecordMode);
-                        return success;
-                    }
+                    var result = await httpClient.PostAsJsonAsync(url, dto);
+                    var success = result.IsSuccessStatusCode;
+                    await DisplaySuccessOrFailResults(success, RecordMode);
+                    return success;
                 }
                 catch (Exception exc)
                 {
@@ -420,22 +402,19 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
             string url = $"{urlBaseAddress}/Todos/{ToDoId}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var response = await httpClient.DeleteAsync(url);
+                response.EnsureSuccessStatusCode();
+                if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                 {
-                    var response = await httpClient.DeleteAsync(url);
-                    response.EnsureSuccessStatusCode();
-                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
-                    {
-                        ValidationsMessages = new List<string>()
+                    ValidationsMessages = new List<string>()
                         {
                             L["FalhaAnulacaoRegisto"]
                         };
-                        ErrorVisibility = true;
-                        return;
-                    }
-
-                    ToDoList = await GetTodoList();
+                    ErrorVisibility = true;
+                    return;
                 }
+
+                ToDoList = await GetTodoList();
 
                 DeleteToDoVisibility = false;
                 AlertTitle = $"Apagar {L["TituloTarefa"]}";

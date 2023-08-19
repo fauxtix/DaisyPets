@@ -2,6 +2,7 @@
 using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.WebApi.Validators;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace DaisyPets.WebApi.Controllers
 {
@@ -14,16 +15,19 @@ namespace DaisyPets.WebApi.Controllers
     {
         private readonly ILookupTableService _service;
         private readonly ILogger<LookupTablesController> _logger;
+        private readonly IOutputCacheStore _outputCacheStore;
         /// <summary>
         /// Lookup tables constructor
         /// </summary>
         /// <param name="service"></param>
         /// <param name="logger"></param>
         public LookupTablesController(ILookupTableService service,
-            ILogger<LookupTablesController> logger)
+            ILogger<LookupTablesController> logger,
+            IOutputCacheStore outputCacheStore)
         {
             _service = service;
             _logger = logger;
+            _outputCacheStore = outputCacheStore;
         }
 
         /// <summary>
@@ -36,6 +40,7 @@ namespace DaisyPets.WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
+        [OutputCache(PolicyName = "lookupTablesPolicy")]
         public async Task<IActionResult> GetAllRecords(string tableName)
         {
             var location = GetControllerActionNames();
@@ -239,6 +244,7 @@ namespace DaisyPets.WebApi.Controllers
                 if (insertedId > 0)
                 {
                     int keyCreated = await _service.GetLastInsertedId(record.Tabela);
+                    await _outputCacheStore.EvictByTagAsync("lookupTables", default);
                     var createdRecord = await _service.GetRecordById(keyCreated, record.Tabela);
                     var actionReturned = CreatedAtAction(nameof(GetRecordById), new { id = createdRecord.Id, tableName = record.Tabela }, createdRecord);
                     return actionReturned;
@@ -296,6 +302,7 @@ namespace DaisyPets.WebApi.Controllers
                 }
 
                 var tableToUpdate = await _service.ActualizaDetalhes(lookupTable);
+                await _outputCacheStore.EvictByTagAsync("lookupTables", default);
                 return NoContent();
             }
             catch (Exception e)
@@ -331,6 +338,8 @@ namespace DaisyPets.WebApi.Controllers
                 }
 
                 var deleteOk = await _service.DeleteRegisto(id, tableName);
+                await _outputCacheStore.EvictByTagAsync("lookupTables", default);
+
                 if (!deleteOk)
                 {
                     return InternalError($"{location}: Erro ao apagar registo. Contacte Administrador");
