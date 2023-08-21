@@ -21,6 +21,11 @@ using DaisyPets.Core.Application.Interfaces.Services.TodoManager;
 using DaisyPets.Infrastructure.Repositories.TodoManager;
 using DaisyPets.Infrastructure.Services.ToDoManager;
 using DaisyPets.Core.Application.TodoManager;
+using DaisyPets.Core.Application.ViewModels.Scheduler;
+using DaisyPets.Core.Application.Interfaces.Services.Sceduler;
+using DaisyPets.Infrastructure.Services.Scheduler;
+using DaisyPets.Core.Application.Interfaces.Repositories.Scheduler;
+using DaisyPets.Infrastructure.Repositories.Scheduler;
 
 namespace DaisyPets.WebApi.Configuration
 /// <summary>
@@ -81,6 +86,8 @@ namespace DaisyPets.WebApi.Configuration
 
             services.AddScoped<IToDoRepository, ToDoRepository>();
             services.AddTransient<IToDoService, ToDoService>();
+            services.AddScoped<IScheduler, SchedulerRepository>();
+            services.AddTransient<ISchedulerService, SchedulerService>();
 
             services.AddScoped<IValidator<PetDto>, PetValidator>(); 
             services.AddScoped<IValidator<ContactoVM>, ContactValidator>();
@@ -94,6 +101,7 @@ namespace DaisyPets.WebApi.Configuration
 
             services.AddScoped<IValidator<PostDto>, PostValidator>();
             services.AddScoped<IValidator<ToDoDto>, ToDoValidator>();
+            services.AddScoped<IValidator<AppointmentDataDto>, Appointmentvalidator>();
 
         }
     }

@@ -5,8 +5,10 @@ using DaisyPets.Core.Application.TodoManager;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Despesas;
 using DaisyPets.Core.Application.ViewModels.LookupTables;
+using DaisyPets.Core.Application.ViewModels.Scheduler;
 using DaisyPets.Core.Domain;
 using DaisyPets.Core.Domain.Blog;
+using DaisyPets.Core.Domain.Scheduler;
 using DaisyPets.Core.Domain.TodoManager;
 
 /// <summary>
@@ -79,6 +81,22 @@ public class AutoMapperProfile : Profile
 
         // ToDo's
         CreateMap<ToDo, ToDoDto>().ReverseMap();
+
+        // scheduler
+
+        CreateMap<AppointmentDataDto, AppointmentData>()
+            .ForMember(x => x.StartTime,
+            opt => opt.MapFrom(src => ((DateTime)src.StartTime).ToShortDateString()));
+        CreateMap<AppointmentDataDto, AppointmentData>()
+            .ForMember(x => x.EndTime,
+            opt => opt.MapFrom(src => ((DateTime)src.EndTime).ToShortDateString()));
+
+        CreateMap<AppointmentData, AppointmentDataDto>()
+            .ForMember(x => x.StartTime,
+            opt => opt.MapFrom(src => DateTime.Parse(src.StartTime)));
+        CreateMap<AppointmentData, AppointmentDataDto>()
+            .ForMember(x => x.EndTime,
+            opt => opt.MapFrom(src => DateTime.Parse(src.EndTime)));
 
     }
 }

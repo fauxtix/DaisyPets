@@ -1,0 +1,216 @@
+﻿@page "/scheduler"
+
+@using DaisyPets.Core.Application.ViewModels.Scheduler;
+@using DaisyPets.Core.Domain.Scheduler;
+@using Microsoft.Extensions.Localization;
+@using Syncfusion.Blazor.Schedule
+@using System.Net.Sockets;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+<SfSchedule @ref="ScheduleRef" TValue="AppointmentDataDto" Height="650px"
+@bind-CurrentView="@CurrentView" @bind-SelectedDate="@CurrentDate">
+    <ScheduleEventSettings DataSource="@Appointments">
+        <ScheduleField>
+            <FieldSubject Name="Subject" Title="Assunto"></FieldSubject>
+            <FieldLocation Name="Location" Title="Local" />
+            <FieldStartTime Name="StartTime" Title="Início"></FieldStartTime>
+            <FieldEndTime Name="EndTime" Title="Fim"></FieldEndTime>
+            <FieldDescription Name="Description" Title="Descrição"></FieldDescription>
+        </ScheduleField>
+    </ScheduleEventSettings>
+    <ScheduleTimeScale Enable="true" Interval="@this.viewInterval"></ScheduleTimeScale>
+    <ScheduleEvents TValue="AppointmentDataDto" EventRendered="OnEventRendered">
+    </ScheduleEvents>
+    <ScheduleWorkHours Start="08:00" End="21:00"></ScheduleWorkHours>
+    <ScheduleViews>
+        <ScheduleView Option="View.Week" StartHour="07:00" EndHour="15:00"></ScheduleView>
+        <ScheduleView Option="View.WorkWeek" StartHour="10:00" EndHour="18:00"></ScheduleView>
+        <ScheduleView Option="View.Month" MaxEventsPerRow="5" ShowWeekend="false"></ScheduleView>
+        <ScheduleView Option="View.MonthAgenda"></ScheduleView>
+    </ScheduleViews>
+</SfSchedule>
+
+
+
+@code {
+    [Inject] ILogger<App>? logger { get; set; } = null;
+    [Inject] public IStringLocalizer<App> L { get; set; }
+
+    [Inject] protected IConfiguration? config { get; set; }
+    [Inject] protected HttpClient? _httpClient { get; set; }
+
+    protected SfSchedule<AppointmentDataDto>? ScheduleRef;
+    protected DialogEffect Effects = DialogEffect.Zoom;
+    protected SfSpinner SpinnerObj;
+    protected SfToast ToastObj;
+
+
+    protected IEnumerable<AppointmentDataDto>? Appointments { get; set; }
+
+    protected string? urlBaseAddress;
+    protected string? apptsEndpoint;
+
+    protected View CurrentView = View.Month;
+    protected DateTime CurrentDate = DateTime.UtcNow;
+
+    protected bool AppointmentDialogVisibility = false;
+    protected bool AppointmentReadVisibility { get; set; } = false;
+    protected bool AppointmentWarningVisibility { get; set; } = false;
+    protected bool ErrorVisibility { get; set; } = false;
+
+    protected bool KeepDialogOpen { get; set; } = true;
+
+    protected string Action;
+
+    protected TimeSpan apptTimeSelected;
+    protected int apptId = 0;
+
+    protected AppointmentDataDto AppointmentRecord = new AppointmentDataDto();
+
+    protected OpcoesRegisto CRUD_Event = OpcoesRegisto.Inserir;
+    protected AlertMessageType AlertType { get; set; }
+
+    protected List<string> sErrorMsgs;
+    protected string BoxErrorTitle;
+    protected string CssBoxErrorTitle;
+
+    protected string ToastTitle = "";
+    protected string ToastContent = "";
+    protected string ToastCssClass = "";
+    protected int viewInterval { get; set; } = 60;
+
+    protected List<string> PastApptsCustomClass = new List<string>() { "e-past-app" };
+    protected List<string> ApptsCustomClass = new List<string>() { "e-appts-app" };
+    protected List<string> DewormersCustomClass = new List<string>() { "e-dewormers-app" };
+    protected List<string> VaccinesCustomClass = new List<string>() { "e-vaccines-app" };
+    protected List<string> TodoListCustomClass = new List<string>() { "e-todo-list-app" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        urlBaseAddress = config?["ApiSettings:UrlBase"];
+        apptsEndpoint = $"{urlBaseAddress}/Appointment";
+        Appointments = await GetAppointments();
+    }
+
+    protected async Task<IEnumerable<AppointmentDataDto>> GetAppointments()
+    {
+        var getAllApptsEndpoint = $"{apptsEndpoint}/AllAppointmentsVM";
+        try
+        {
+            var appts = await _httpClient.GetFromJsonAsync<IEnumerable<AppointmentDataDto>>(getAllApptsEndpoint);
+            return appts ?? Enumerable.Empty<AppointmentDataDto>();
+        }
+        catch (SocketException socketEx)
+        {
+            // AlertTitle = "Erro ao aceder ao servidor ";
+            // AlertVisibility = true;
+            // WarningMessage = socketEx.Message;
+            return Enumerable.Empty<AppointmentDataDto>();
+        }
+        catch (Exception ex)
+        {
+            // AlertTitle = "Erro ao aceder ao servidor ";
+            // AlertVisibility = true;
+            // WarningMessage = ex.Message;
+            return Enumerable.Empty<AppointmentDataDto>();
+        }
+
+    }
+
+    private async void RefreshUI()
+    {
+        AppointmentDialogVisibility = false;
+        if (SpinnerObj is not null)
+            await SpinnerObj.ShowAsync();
+
+        await GetAppointments();
+
+        if (SpinnerObj is not null)
+            await SpinnerObj.HideAsync();
+
+        await Task.Delay(200);
+        await ToastObj.ShowAsync();
+
+        await ScheduleRef.RefreshEventsAsync();
+
+    }
+
+    public void OnEventRendered(EventRenderedArgs<AppointmentDataDto> args)
+    {
+        if (args.Data.Subject.ToLower().Contains("consulta"))
+        {
+            args.CssClasses = ApptsCustomClass;
+        }
+        else if (args.Data.Subject.ToLower().Contains("desparasitante"))
+        {
+            args.CssClasses = DewormersCustomClass;
+        }
+        else if (args.Data.Subject.ToLower().Contains("vacina"))
+        {
+            args.CssClasses = VaccinesCustomClass;
+        }
+        else if (args.Data.Subject.ToLower().Contains("event"))
+        {
+            args.CssClasses = TodoListCustomClass;
+        }
+    }
+
+    public void CloseAppointmentDialog()
+    {
+        AppointmentDialogVisibility = false;
+    }
+
+    public void CloseReadAppointmentDialog()
+    {
+        AppointmentReadVisibility = false;
+    }
+
+    public void closeApptErrorBox()
+    {
+        ErrorVisibility = false;
+        AppointmentDialogVisibility = KeepDialogOpen;
+    }
+}
+
+<style>
+    .schedule-cell-dimension.e-schedule .e-vertical-view .e-date-header-wrap table col,
+    .schedule-cell-dimension.e-schedule .e-vertical-view .e-content-wrap table col {
+        width: 200px;
+    }
+
+    .schedule-cell-dimension.e-schedule .e-vertical-view .e-time-cells-wrap table td,
+    .schedule-cell-dimension.e-schedule .e-vertical-view .e-work-cells {
+        height: 100px;
+    }
+
+    .schedule-cell-dimension.e-schedule .e-month-view .e-work-cells,
+    .schedule-cell-dimension.e-schedule .e-month-view .e-date-header-wrap table col {
+        width: 200px;
+    }
+
+    .schedule-cell-dimension.e-schedule .e-month-view .e-work-cells {
+        height: 200px;
+    }
+
+    .e-schedule .e-vertical-view .e-day-wrapper .e-appointment.e-past-app, .e-schedule .e-month-view .e-appointment.e-past-app {
+        background-color: chocolate;
+    }
+
+    .e-schedule .e-vertical-view .e-day-wrapper .e-appointment.e-appts-app, .e-schedule .e-month-view .e-appointment.e-appts-app {
+        background-color: orange;
+    }
+
+    .e-schedule .e-vertical-view .e-day-wrapper .e-appointment.e-dewormers-app, .e-schedule .e-month-view .e-appointment.e-dewormers-app {
+        background-color: green;
+    }
+
+    .e-schedule .e-vertical-view .e-day-wrapper .e-appointment.e-vaccines-app, .e-schedule .e-month-view .e-appointment.e-vaccines-app {
+        background-color: steelblue;
+    }
+
+    .e-schedule .e-vertical-view .e-day-wrapper .e-appointment.e-todo-list-app, .e-schedule .e-month-view .e-appointment.e-todo-list-app {
+        background-color: yellow;
+        color:black;
+    }
+
+</style>

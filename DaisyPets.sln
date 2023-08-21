@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.WebApi", "DaisyPe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.Web.Blazor", "DaisyPets.Web.Blazor\DaisyPets.Web.Blazor.csproj", "{CAEA4050-901F-417C-B799-CEA951577016}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaisyPets.Web.React", "DaisyPets.Web.React\DaisyPets.Web.React.csproj", "{D5266F9A-6E0B-4A25-8409-2181F689C5DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.Web.React", "DaisyPets.Web.React\DaisyPets.Web.React.csproj", "{D5266F9A-6E0B-4A25-8409-2181F689C5DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

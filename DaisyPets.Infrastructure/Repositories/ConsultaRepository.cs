@@ -147,7 +147,7 @@ namespace DaisyPets.Infrastructure.Repositories
         public async Task<IEnumerable<ConsultaVeterinarioVM>> GetAllConsultaVMAsync()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT  ConsultaVeterinario.Id, DataConsulta, Motivo, ");
+            sb.Append("SELECT ConsultaVeterinario.Id, DataConsulta, Motivo, ");
             sb.Append("Diagnostico, Tratamento, IdPet, Pet.Nome AS [NomePet] ");
             sb.Append("FROM ConsultaVeterinario ");
             sb.Append("INNER JOIN Pet ON ");
