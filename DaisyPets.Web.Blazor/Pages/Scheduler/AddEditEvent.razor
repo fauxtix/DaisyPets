@@ -1,0 +1,62 @@
+﻿@using DaisyPets.Core.Application.ViewModels.Scheduler;
+@using Microsoft.Extensions.Localization;
+@using static DaisyPets.Core.Application.Enums.Common;
+<h3>Add / Edit Event</h3>
+
+<div class="e-edit-dialog">
+    <HeaderDialogComponent HeaderCaption="@dialogHeader"
+                           ImageName="appointment.png" />
+</div>
+<div class="container-fluid">
+    <EditForm Model="@SelectedAppointment">
+        @if (SelectedAppointment.Id > 0)
+        {
+            <div class="form-row">
+                <div class="col-4 e-textlabel">Location</div>
+                <div class="col-8 e-form-control">
+                    <SfTextBox Readonly="true" Value="@SelectedAppointment.Location"></SfTextBox>
+                </div>
+            </div>
+        }
+        @if (CRUD_Option == OpcoesRegisto.Inserir)
+        {
+            
+        }
+    </EditForm>
+</div>
+
+
+@code {
+
+    [Inject] public IStringLocalizer<App> L { get; set; }
+
+    [Parameter] public AppointmentDataDto SelectedAppointment { get; set; }
+    [Parameter] public OpcoesRegisto CRUD_Option { get; set; }
+    [Parameter] public int ApptId { get; set; }
+    [Parameter] public bool CloseDialog { get; set; } = true;
+    [Parameter] public EventCallback ApptChanged { get; set; }
+
+    private string dialogHeader;
+    private string dialogNewMsg;
+    private string dialogEditMsg;
+    private string dialogReadMsg;
+    private string dialogRecordMsg;
+
+    protected override async Task OnInitializedAsync()
+    {
+        dialogReadMsg = L["MSG_Consulta"];
+        dialogEditMsg = L["EditMsg"];
+        dialogNewMsg = L["NewMsg"];
+        dialogRecordMsg = L["Record"];
+        dialogHeader = L["TituloMarcacoes"] + " - " +
+            (CRUD_Option == OpcoesRegisto.Gravar
+            ? dialogEditMsg
+            : CRUD_Option == OpcoesRegisto.Navegar
+            ? dialogReadMsg
+            : dialogNewMsg) + "  " + dialogRecordMsg;
+
+    }
+    protected override void OnParametersSet()
+    {
+    }
+}

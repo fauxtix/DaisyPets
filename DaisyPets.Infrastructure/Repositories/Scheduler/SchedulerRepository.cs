@@ -28,7 +28,7 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
             sb.Append("INSERT INTO AppointmentData (");
             sb.Append("Subject, StartTime, EndTime, Location, IsAllDay, RecurrenceRule, RecurrenceException, RecurrenceId) ");
             sb.Append(" VALUES(");
-            sb.Append("@Subject, @StartTime, @EndTime, @Location, @IsAllDay, @RecurrenceRule, @RecurrenceException, @RecurrenceId)");
+            sb.Append("@Subject, @StartTime, @EndTime, @Location, @IsAllDay, @RecurrenceRule, @RecurrenceException, @RecurrenceId");
             sb.Append(");");
             sb.Append("SELECT last_insert_rowid()");
 

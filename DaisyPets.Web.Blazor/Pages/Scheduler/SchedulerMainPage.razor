@@ -7,170 +7,124 @@
 @using System.Net.Sockets;
 @using static DaisyPets.Core.Application.Enums.Common;
 
-<SfSchedule @ref="ScheduleRef" TValue="AppointmentDataDto" Height="650px"
-@bind-CurrentView="@CurrentView" @bind-SelectedDate="@CurrentDate">
-    <ScheduleEventSettings DataSource="@Appointments">
-        <ScheduleField>
-            <FieldSubject Name="Subject" Title="Assunto"></FieldSubject>
-            <FieldLocation Name="Location" Title="Local" />
-            <FieldStartTime Name="StartTime" Title="Início"></FieldStartTime>
-            <FieldEndTime Name="EndTime" Title="Fim"></FieldEndTime>
-            <FieldDescription Name="Description" Title="Descrição"></FieldDescription>
-        </ScheduleField>
-    </ScheduleEventSettings>
-    <ScheduleTimeScale Enable="true" Interval="@this.viewInterval"></ScheduleTimeScale>
-    <ScheduleEvents TValue="AppointmentDataDto" EventRendered="OnEventRendered">
-    </ScheduleEvents>
-    <ScheduleWorkHours Start="08:00" End="21:00"></ScheduleWorkHours>
-    <ScheduleViews>
-        <ScheduleView Option="View.Week" StartHour="07:00" EndHour="15:00"></ScheduleView>
-        <ScheduleView Option="View.WorkWeek" StartHour="10:00" EndHour="18:00"></ScheduleView>
-        <ScheduleView Option="View.Month" MaxEventsPerRow="5" ShowWeekend="false"></ScheduleView>
-        <ScheduleView Option="View.MonthAgenda"></ScheduleView>
-    </ScheduleViews>
-</SfSchedule>
+<div class="container-fluid">
+    <div class="schedule-overview">
+        <SfAppBar ColorMode="AppBarColor.Primary">
+            <span class="time e-icons e-time-zone"></span>
+            <span id="timezoneBtn" class="time ">@TimezoneData.Name</span>
+            <span class="time e-icons e-clock"></span>
+            <span id="timeBtn" class="time current-time">@SystemTime.ToString("hh:mm:ss tt")</span>
+            <AppBarSpacer></AppBarSpacer>
+            <SfButton IconCss="e-icons e-print" CssClass="title-bar-btn e-inherit" id="printBtn" OnClick="OnPrintClick">Print</SfButton>
+        </SfAppBar>
+        <div class="row">
+            <div class="col-lg-12 control-section">
+                <SfSchedule @ref="ScheduleRef" TValue="AppointmentDataDto" Height="650px" Width="100%"
+                            CssClass="@(ShowSchedule ? string.Empty : "schedule-hide")"
+                @bind-CurrentView="@CurrentView" @bind-SelectedDate="@CurrentDate">
+                    <ScheduleEventSettings DataSource="@Appointments" EnableTooltip="true">
+                        <ScheduleField>
+                            <FieldSubject Name="Subject" Title="Assunto"></FieldSubject>
+                            <FieldLocation Name="Location" Title="Local" />
+                            <FieldStartTime Name="StartTime" Title="Início"></FieldStartTime>
+                            <FieldEndTime Name="EndTime" Title="Fim"></FieldEndTime>
+                            <FieldDescription Name="Description" Title="Descrição"></FieldDescription>
+                        </ScheduleField>
+                    </ScheduleEventSettings>
+                    <ScheduleTimeScale Enable="true" Interval="@this.viewInterval"></ScheduleTimeScale>
+                    <ScheduleEvents TValue="AppointmentDataDto"
+                                    EventRendered="OnEventRendered"
+                                    ActionCompleted="OnActionCompleted">
+                    </ScheduleEvents>
+                    <ScheduleWorkHours Start="08:00" End="21:00"></ScheduleWorkHours>
+                    <ScheduleViews>
+                        <ScheduleView Option="View.Week" StartHour="07:00" EndHour="15:00"></ScheduleView>
+                        <ScheduleView Option="View.WorkWeek" StartHour="10:00" EndHour="18:00"></ScheduleView>
+                        <ScheduleView Option="View.Month" MaxEventsPerRow="5" ShowWeekend="false"></ScheduleView>
+                        <ScheduleView Option="View.MonthAgenda"></ScheduleView>
+                    </ScheduleViews>
+                </SfSchedule>
+            </div>
+            @*         <div class="col-lg-3 property-section property-customization">
+            <br>
+            <div class="property-panel-section">
+            <p class="property-panel-header header-customization" style="width: 100%;">Search by all event fields</p>
+            <div class="property-panel-content">
+            <SfTextBox ID="events-search" Placeholder='Enter the Search text' @bind-Value="@SearchValue" OnChange="@OnEventSearch"></SfTextBox>
+            </div>
+            <div class="event-search">
+            <p class="property-panel-header header-customization" style="width: 100%;">Search by specific event fields</p>
+            <table id="property-specific" style="width:100%">
+            <tbody>
+            <tr class="row">
+            <td class="property-panel-content" colspan="2">
+            <div>
+            <SfTextBox ID="searchEventName" @bind-Value="@SubjectValue" Placeholder="Subject"></SfTextBox>
+            </div>
+            </td>
+            </tr>
+            <tr class="row" style="height: 45px">
+            <td class="property-panel-content" colspan="2">
+            <div>
+            <SfTextBox ID="searchEventLocation" @bind-Value="@LocationValue" Placeholder="Location"></SfTextBox>
+            </div>
+            </td>
+            </tr>
+            <tr class="row" style="height: 45px">
+            <td class="property-panel-content" colspan="2">
+            <div>
+            <SfDatePicker TValue="DateTime?" @bind-Value="@DateStart" Placeholder="Start Date"></SfDatePicker>
+            </div>
+            </td>
+            </tr>
+            <tr class="row" style="height: 45px">
+            <td class="property-panel-content" colspan="2">
+            <div>
+            <SfDatePicker TValue="DateTime?" @bind-Value="@DateEnd" Placeholder="End Date"></SfDatePicker>
+            </div>
+            </td>
+            </tr>
+            <tr class="row" style="height: 45px">
+            <td class="e-field button-customization" style="width: 50%; padding: 15px 3px;">
+            <div>
+            <SfButton Content="Search" OnClick="@OnSearchClick"></SfButton>
+            </div>
+            </td>
+            <td class="e-field button-customization" style="width: 50%; padding: 15px 3px;">
+            <div>
+            <SfButton Content="Clear" OnClick="@OnClearClick"></SfButton>
+            </div>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            </div>
+            </div>
+            *@
+        </div>
+    </div>
+
+    <SfToast ID="toast_custom" @ref="ToastObj" ShowProgressBar=true
+             Title="@ToastTitle" Icon="@ToastIcon"
+             Content="@ToastMessage"
+             CssClass="@ToastCss" Timeout="2000"
+             ShowCloseButton="true">
+        <ToastAnimationSettings>
+            <ToastShowAnimationSettings Effect="ToastEffect.FadeIn" Duration="600"></ToastShowAnimationSettings>
+            <ToastHideAnimationSettings Effect="ToastEffect.FadeOut" Duration="600"></ToastHideAnimationSettings>
+        </ToastAnimationSettings>
+        <ToastButtons>
+            <ToastButton Content="@L["btnFechar"]" OnClick="@HideToast"></ToastButton>
+        </ToastButtons>
+        <ToastPosition X="Right" Y="Bottom"></ToastPosition>
+    </SfToast>
+
+</div>
 
 
 
-@code {
-    [Inject] ILogger<App>? logger { get; set; } = null;
-    [Inject] public IStringLocalizer<App> L { get; set; }
 
-    [Inject] protected IConfiguration? config { get; set; }
-    [Inject] protected HttpClient? _httpClient { get; set; }
-
-    protected SfSchedule<AppointmentDataDto>? ScheduleRef;
-    protected DialogEffect Effects = DialogEffect.Zoom;
-    protected SfSpinner SpinnerObj;
-    protected SfToast ToastObj;
-
-
-    protected IEnumerable<AppointmentDataDto>? Appointments { get; set; }
-
-    protected string? urlBaseAddress;
-    protected string? apptsEndpoint;
-
-    protected View CurrentView = View.Month;
-    protected DateTime CurrentDate = DateTime.UtcNow;
-
-    protected bool AppointmentDialogVisibility = false;
-    protected bool AppointmentReadVisibility { get; set; } = false;
-    protected bool AppointmentWarningVisibility { get; set; } = false;
-    protected bool ErrorVisibility { get; set; } = false;
-
-    protected bool KeepDialogOpen { get; set; } = true;
-
-    protected string Action;
-
-    protected TimeSpan apptTimeSelected;
-    protected int apptId = 0;
-
-    protected AppointmentDataDto AppointmentRecord = new AppointmentDataDto();
-
-    protected OpcoesRegisto CRUD_Event = OpcoesRegisto.Inserir;
-    protected AlertMessageType AlertType { get; set; }
-
-    protected List<string> sErrorMsgs;
-    protected string BoxErrorTitle;
-    protected string CssBoxErrorTitle;
-
-    protected string ToastTitle = "";
-    protected string ToastContent = "";
-    protected string ToastCssClass = "";
-    protected int viewInterval { get; set; } = 60;
-
-    protected List<string> PastApptsCustomClass = new List<string>() { "e-past-app" };
-    protected List<string> ApptsCustomClass = new List<string>() { "e-appts-app" };
-    protected List<string> DewormersCustomClass = new List<string>() { "e-dewormers-app" };
-    protected List<string> VaccinesCustomClass = new List<string>() { "e-vaccines-app" };
-    protected List<string> TodoListCustomClass = new List<string>() { "e-todo-list-app" };
-
-    protected override async Task OnInitializedAsync()
-    {
-        urlBaseAddress = config?["ApiSettings:UrlBase"];
-        apptsEndpoint = $"{urlBaseAddress}/Appointment";
-        Appointments = await GetAppointments();
-    }
-
-    protected async Task<IEnumerable<AppointmentDataDto>> GetAppointments()
-    {
-        var getAllApptsEndpoint = $"{apptsEndpoint}/AllAppointmentsVM";
-        try
-        {
-            var appts = await _httpClient.GetFromJsonAsync<IEnumerable<AppointmentDataDto>>(getAllApptsEndpoint);
-            return appts ?? Enumerable.Empty<AppointmentDataDto>();
-        }
-        catch (SocketException socketEx)
-        {
-            // AlertTitle = "Erro ao aceder ao servidor ";
-            // AlertVisibility = true;
-            // WarningMessage = socketEx.Message;
-            return Enumerable.Empty<AppointmentDataDto>();
-        }
-        catch (Exception ex)
-        {
-            // AlertTitle = "Erro ao aceder ao servidor ";
-            // AlertVisibility = true;
-            // WarningMessage = ex.Message;
-            return Enumerable.Empty<AppointmentDataDto>();
-        }
-
-    }
-
-    private async void RefreshUI()
-    {
-        AppointmentDialogVisibility = false;
-        if (SpinnerObj is not null)
-            await SpinnerObj.ShowAsync();
-
-        await GetAppointments();
-
-        if (SpinnerObj is not null)
-            await SpinnerObj.HideAsync();
-
-        await Task.Delay(200);
-        await ToastObj.ShowAsync();
-
-        await ScheduleRef.RefreshEventsAsync();
-
-    }
-
-    public void OnEventRendered(EventRenderedArgs<AppointmentDataDto> args)
-    {
-        if (args.Data.Subject.ToLower().Contains("consulta"))
-        {
-            args.CssClasses = ApptsCustomClass;
-        }
-        else if (args.Data.Subject.ToLower().Contains("desparasitante"))
-        {
-            args.CssClasses = DewormersCustomClass;
-        }
-        else if (args.Data.Subject.ToLower().Contains("vacina"))
-        {
-            args.CssClasses = VaccinesCustomClass;
-        }
-        else if (args.Data.Subject.ToLower().Contains("event"))
-        {
-            args.CssClasses = TodoListCustomClass;
-        }
-    }
-
-    public void CloseAppointmentDialog()
-    {
-        AppointmentDialogVisibility = false;
-    }
-
-    public void CloseReadAppointmentDialog()
-    {
-        AppointmentReadVisibility = false;
-    }
-
-    public void closeApptErrorBox()
-    {
-        ErrorVisibility = false;
-        AppointmentDialogVisibility = KeepDialogOpen;
-    }
-}
 
 <style>
     .schedule-cell-dimension.e-schedule .e-vertical-view .e-date-header-wrap table col,
@@ -210,7 +164,42 @@
 
     .e-schedule .e-vertical-view .e-day-wrapper .e-appointment.e-todo-list-app, .e-schedule .e-month-view .e-appointment.e-todo-list-app {
         background-color: yellow;
-        color:black;
+        color: black;
+    }
+
+    .e-schedule .e-vertical-view .e-day-wrapper .e-normal-appt-app, .e-schedule .e-month-view .e-appointment.e-normal-appt-app {
+        background-color: pink;
+    }
+
+
+    .header-customization {
+        padding-bottom: 10px;
+    }
+
+    .property-customization {
+        padding-right: 5px;
+    }
+
+    .button-customization {
+        padding: 15px 3px;
+    }
+
+    .schedule-hide {
+        display: none;
+    }
+
+    .time {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        padding: 0 5px;
+    }
+
+
+    @@media (max-width: 441px) {
+        .button-customization {
+            padding: 30px !important;
+        }
     }
 
 </style>
