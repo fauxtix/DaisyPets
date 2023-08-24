@@ -12,6 +12,8 @@
         public string RecurrenceRule { get; set; } = string.Empty;
         public string RecurrenceException { get; set; } = string.Empty;
         public Nullable<int> RecurrenceID { get; set; }
-        public bool IsReadonly { get; set; } 
+        public bool IsReadonly { get; set; }
+        public int AppointmentType { get; set; }
+        public int PetId { get; set; }
     }
 }

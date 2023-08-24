@@ -65,8 +65,7 @@ namespace DaisyPets.Infrastructure.Services.Scheduler
         public async Task<int> InsertAsync(AppointmentDataDto appointment)
         {
             var appointmentIdentity = _mapper.Map<AppointmentData>(appointment);
-            var insertedId = await _repository.InsertAsync(appointmentIdentity);
-            return insertedId;
+            return await _repository.InsertAsync(appointmentIdentity);
         }
 
         public async Task UpdateAsync(int Id, AppointmentDataDto appointment)

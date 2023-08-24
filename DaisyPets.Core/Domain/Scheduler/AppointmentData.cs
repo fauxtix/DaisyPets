@@ -8,10 +8,12 @@
         public string? EndTime { get; set; } = string.Empty;
         public string Location { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public bool IsAllDay { get; set; }
+        public int IsAllDay { get; set; }
         public string RecurrenceRule { get; set; } = string.Empty;
         public string RecurrenceException { get; set; } = string.Empty;
-        public Nullable<int> RecurrenceID { get; set; }
-        public bool IsReadonly { get; set; } 
+        public int RecurrenceID { get; set; }
+        public int IsReadonly { get; set; }
+        public int AppointmentType { get; set; }
+        public int PetId { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Scheduler;
 using global::Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -19,6 +20,7 @@ namespace DaisyPets.Web.Blazor.Pages.Scheduler
         [Inject] public IStringLocalizer<App> L { get; set; }
         [Inject] protected IConfiguration? config { get; set; }
         [Inject] protected HttpClient? _httpClient { get; set; }
+        protected IEnumerable<PetDto>? Pets { get; set; }
 
         protected SfSchedule<AppointmentDataDto>? ScheduleRef;
         protected DialogEffect Effects = DialogEffect.Zoom;
@@ -29,6 +31,8 @@ namespace DaisyPets.Web.Blazor.Pages.Scheduler
 
         protected string? urlBaseAddress;
         protected string? apptsEndpoint;
+        protected string? petsEndpoint;
+
         protected View CurrentView = View.Month;
         protected DateTime CurrentDate = DateTime.UtcNow;
         protected bool AppointmentDialogVisibility = false;
@@ -99,6 +103,23 @@ namespace DaisyPets.Web.Blazor.Pages.Scheduler
 
         private DateTime SystemTime { get; set; } = DateTime.UtcNow;
         private Timezone TimezoneData { get; set; } = new Timezone() { Name = "UTC+00:00", Key = "UTC", Value = "UTC" };
+
+        public class ResourceData
+        {
+            public int Id { get; set; }
+            public string Text { get; set; }
+            public string Color { get; set; }
+        }
+        public List<ResourceData> ApptTypeData { get; set; } = new List<ResourceData> {
+        new ResourceData{ Text = "Vacina", Id= 1, Color = "#df5286" },
+        new ResourceData{ Text = "Desparasitante", Id= 2, Color = "#7fa900" },
+        new ResourceData{ Text = "Veterinário", Id= 3, Color = "#ea7a57" },
+        new ResourceData{ Text = "Tarefas", Id= 4, Color = "#ea6a58" },
+        new ResourceData{ Text = "Normal", Id= 5, Color = "steelblue" }
+    };
+        public List<ResourceData> PetsData { get; set; } = new List<ResourceData>();
+
+
         protected override async Task OnInitializedAsync()
         {
             System.Timers.Timer timer = new System.Timers.Timer(1000);
@@ -112,9 +133,47 @@ namespace DaisyPets.Web.Blazor.Pages.Scheduler
             timer.Enabled = true;
             urlBaseAddress = config?["ApiSettings:UrlBase"];
             apptsEndpoint = $"{urlBaseAddress}/Appointment";
+            petsEndpoint = $"{urlBaseAddress}/Pets";
             Appointments = await GetAppointments();
+
+            PetsData = (await GetPets()).ToList();
         }
 
+        protected async Task<IEnumerable<ResourceData>> GetPets()
+        {
+            List<ResourceData> resourceData = new List<ResourceData>();
+            var url = $"{petsEndpoint}/AllPetsVM";
+            var response = await _httpClient.GetFromJsonAsync<IEnumerable<PetVM>>(url);
+            if (response == null)
+            {
+                return Enumerable.Empty<ResourceData>();
+            }
+
+            int i = 0;
+            foreach (var pet in response)
+            {
+                i++;
+                resourceData.Add(
+                    new ResourceData
+                    {
+                        Id = i, //pet.Id,
+                        Color = "DodgerBlue",
+                        Text = pet.Nome
+                    }
+                    );
+            }
+
+            resourceData.Add(
+                new ResourceData
+                {
+                    Id = i + 1, //99,
+                    Color = "cyan",
+                    Text = "Outro"
+                }
+                );
+
+            return resourceData;
+        }
         protected async Task<IEnumerable<AppointmentDataDto>> GetAppointments()
         {
             var getAllApptsEndpoint = $"{apptsEndpoint}/AllAppointmentsVM";
@@ -172,7 +231,7 @@ namespace DaisyPets.Web.Blazor.Pages.Scheduler
             }
             else
             {
-                args.CssClasses = TodoListCustomClass;
+                args.CssClasses = NormalApptCustomClass;
             }
         }
 
@@ -258,16 +317,28 @@ namespace DaisyPets.Web.Blazor.Pages.Scheduler
         protected async void OnActionCompleted(ActionEventArgs<AppointmentDataDto> args)
         {
             var actionType = args.ActionType;
-            if (actionType == ActionType.ViewNavigate || actionType == ActionType.DateNavigate) return;
 
-            Appointment = args.AddedRecords[0];
-            if (actionType == ActionType.EventCreate)
+            if (actionType == ActionType.EventCreate ||
+                actionType == ActionType.EventChange ||
+                actionType == ActionType.EventRemove)
             {
-                await InsertAppt();
-            }
-            else if (actionType == ActionType.EventChange)
-            {
-
+                if (actionType == ActionType.EventCreate)
+                {
+                    Appointment = args.AddedRecords[0];
+                    await InsertAppt();
+                }
+                else if (actionType == ActionType.EventChange)
+                {
+                    Appointment = args.ChangedRecords[0];
+                    apptId = Appointment.Id;
+                    await UpdateAppt();
+                }
+                else if (actionType == ActionType.EventRemove)
+                {
+                    Appointment = args.DeletedRecords[0];
+                    apptId = Appointment.Id;
+                    await DeleteAppt();
+                }
             }
         }
         protected async Task OnSearchClick()
@@ -348,11 +419,22 @@ namespace DaisyPets.Web.Blazor.Pages.Scheduler
             {
                 await _httpClient.PostAsJsonAsync(apptsEndpoint, Appointment);
             }
-            catch (SocketException socketEx)
+            catch (Exception ex)
             {
                 // AlertTitle = "Erro ao aceder ao servidor ";
                 // AlertVisibility = true;
-                // WarningMessage = socketEx.Message;
+                // WarningMessage = ex.Message;
+            }
+
+            RefreshUI();
+
+        }
+
+        private async Task UpdateAppt()
+        {
+            try
+            {
+                await _httpClient.PutAsJsonAsync($"{apptsEndpoint}/{apptId}", Appointment);
             }
             catch (Exception ex)
             {
@@ -364,6 +446,36 @@ namespace DaisyPets.Web.Blazor.Pages.Scheduler
             RefreshUI();
 
         }
+
+        private async Task DeleteAppt()
+        {
+            try
+            {
+                var result = await _httpClient.DeleteFromJsonAsync<AppointmentDataDto>($"{apptsEndpoint}/{apptId}");
+                if (result != null)
+                {
+                    return;
+                }
+                else
+                {
+                    var error = "";
+                    // AlertTitle = "Erro ao aceder ao servidor ";
+                    // AlertVisibility = true;
+                    // WarningMessage = ex.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                // AlertTitle = "Erro ao aceder ao servidor ";
+                // AlertVisibility = true;
+                // WarningMessage = ex.Message;
+            }
+
+            RefreshUI();
+
+        }
+
+
 
         protected async Task HideToast()
         {

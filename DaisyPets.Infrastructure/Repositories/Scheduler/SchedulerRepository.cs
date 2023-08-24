@@ -23,61 +23,89 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
 
         public async Task<int> InsertAsync(AppointmentData appointment)
         {
-            StringBuilder sb = new StringBuilder();
+            var sbInsert = new StringBuilder();
+            var insertParams = new DynamicParameters();
 
-            sb.Append("INSERT INTO AppointmentData (");
-            sb.Append("Subject, StartTime, EndTime, Location, IsAllDay, RecurrenceRule, RecurrenceException, RecurrenceId) ");
-            sb.Append(" VALUES(");
-            sb.Append("@Subject, @StartTime, @EndTime, @Location, @IsAllDay, @RecurrenceRule, @RecurrenceException, @RecurrenceId");
-            sb.Append(");");
-            sb.Append("SELECT last_insert_rowid()");
+            insertParams.Add("@Subject", appointment.Subject);
+            insertParams.Add("@Location", appointment.Location);
+            insertParams.Add("@StartTime", appointment.StartTime);
+            insertParams.Add("@EndTime", appointment.EndTime);
+            insertParams.Add("@Description", appointment.Description);
+            insertParams.Add("@IsAllDay", appointment.IsAllDay);
+            insertParams.Add("@IsReadonly", appointment.IsReadonly);
+            insertParams.Add("@RecurrenceRule", appointment.RecurrenceRule);
+            insertParams.Add("@RecurrenceException", appointment.RecurrenceException);
+            insertParams.Add("@RecurrenceId", appointment.RecurrenceID);
+            insertParams.Add("@AppointmentType", appointment.AppointmentType);
+
+            sbInsert.Append("INSERT INTO AppointmentData (");
+            sbInsert.Append("Subject, Location, StartTime, EndTime,  ");
+            sbInsert.Append("Description, IsAllDay, IsReadonly, RecurrenceRule, ");
+            sbInsert.Append("RecurrenceException, RecurrenceId, AppointmentType) ");
+
+            sbInsert.Append("VALUES(");
+            sbInsert.Append("@Subject, @Location, @StartTime, @EndTime, ");
+            sbInsert.Append("@Description, @IsAllDay, @IsReadonly, @RecurrenceRule, ");
+            sbInsert.Append("@RecurrenceException, @RecurrenceId, @AppointmentType) ");
 
             try
             {
                 using (var connection = _context.CreateConnection())
                 {
-                    var result = await connection.QueryFirstAsync<int>(sb.ToString(), param: appointment);
-                    return result;
-                }
+                    await connection.ExecuteAsync(sbInsert.ToString(), insertParams);
 
+                    sbInsert.Clear();
+                    sbInsert.Append("SELECT last_insert_rowid()");
+
+                    var pkId = await connection.QuerySingleOrDefaultAsync<int>(sbInsert.ToString());
+                    return pkId;
+                }
             }
             catch (Exception ex)
             {
                 _logger.Log(LogLevel.Error, ex.ToString());
                 return -1;
             }
-
         }
 
 
         public async Task UpdateAsync(int Id, AppointmentData appointment)
         {
-            DynamicParameters dynamicParameters = new DynamicParameters();
-            dynamicParameters.Add("@Id", appointment.Id);
-            dynamicParameters.Add("@Subject", appointment.Subject);
-            dynamicParameters.Add("@StartTime", appointment.StartTime);
-            dynamicParameters.Add("@EndTime", appointment.EndTime);
-            dynamicParameters.Add("@Location", appointment.Location);
-            dynamicParameters.Add("@IsAllDay", appointment.IsAllDay);
-            dynamicParameters.Add("@RecurrenceRule", appointment.RecurrenceRule);
-            dynamicParameters.Add("@RecurrenceID", appointment.RecurrenceID);
+            DynamicParameters updateParams = new DynamicParameters();
+            updateParams.Add("@Id", appointment.Id);
+            updateParams.Add("@Subject", appointment.Subject);
+            updateParams.Add("@Location", appointment.Location);
+            updateParams.Add("@StartTime", appointment.StartTime);
+            updateParams.Add("@EndTime", appointment.EndTime);
+            updateParams.Add("@Description", appointment.Description);
+            updateParams.Add("@IsAllDay", appointment.IsAllDay);
+            updateParams.Add("@IsReadonly", appointment.IsReadonly);
+            updateParams.Add("@RecurrenceRule", appointment.RecurrenceRule ?? "");
+            updateParams.Add("@RecurrenceException", appointment.RecurrenceException ?? "");
+            updateParams.Add("@RecurrenceID", appointment.RecurrenceID);
+            updateParams.Add("@AppointmentType", appointment.AppointmentType);
+
+
 
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE AppointmentData SET ");
             sb.Append("Subject = @Subject, ");
-            sb.Append("StartTime = @Motivo, ");
-            sb.Append("EndTime = @EndTime, ");
             sb.Append("Location = @Location, ");
+            sb.Append("StartTime = @StartTime, ");
+            sb.Append("EndTime = @EndTime, ");
+            sb.Append("Description = @Description, ");
             sb.Append("IsAllDay = @IsAllDay, ");
-            sb.Append("RecurrenceRule = @RecurrenceRule ");
-            sb.Append("RecurrenceID = @RecurrenceID ");
+            sb.Append("IsReadonly = @IsReadonly, ");
+            sb.Append("RecurrenceRule = @RecurrenceRule, ");
+            sb.Append("RecurrenceException = @RecurrenceException, ");
+            sb.Append("RecurrenceID = @RecurrenceID, ");
+            sb.Append("AppointmentType = @AppointmentType ");
             sb.Append("WHERE Id = @Id");
 
             using (var connection = _context.CreateConnection())
             {
-                await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
+                await connection.ExecuteAsync(sb.ToString(), updateParams);
             }
-
         }
 
         public async Task DeleteAsync(int Id)
@@ -135,42 +163,40 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
             sb.Append("SELECT * FROM AppointmentData ");
             using (var connection = _context.CreateConnection())
             {
-                var Appointments = await connection.QueryAsync<AppointmentData>(sb.ToString());
-                if (Appointments.Any())
+                var standardAppointments = await connection.QueryAsync<AppointmentData>(sb.ToString());
+                if (standardAppointments.Any())
                 {
-                    return Appointments;
+                    apptsList.AddRange(standardAppointments);
                 }
-                else
+
+                var vaccinesAppts = await GetVaccinesAppts();
+                if (vaccinesAppts.Any())
                 {
-                    var vaccinesAppts = await GetVaccinesAppts();
-                    if (vaccinesAppts.Any())
-                    {
-                        apptsList.AddRange(vaccinesAppts);
-                    }
-                    var dewordmersAppts = await GetDewormersAppts();
-                    if (dewordmersAppts.Any())
-                    {
-                        apptsList.AddRange(dewordmersAppts);
-                    }
-                    var veterinaryAppts = await GetVeterinaryAppts();
-                    if (veterinaryAppts.Any())
-                    {
-                        apptsList.AddRange(veterinaryAppts);
-                    }
-
-                    var todoListAppts = await GetTodoList();
-                    if (todoListAppts.Any())
-                    {
-                        apptsList.AddRange(todoListAppts);
-                    }
-
-                    if (apptsList.Count > 0)
-                    {
-                        return apptsList;
-                    }
-
-                    return Enumerable.Empty<AppointmentData>();
+                    apptsList.AddRange(vaccinesAppts);
                 }
+                var dewordmersAppts = await GetDewormersAppts();
+                if (dewordmersAppts.Any())
+                {
+                    apptsList.AddRange(dewordmersAppts);
+                }
+                var veterinaryAppts = await GetVeterinaryAppts();
+                if (veterinaryAppts.Any())
+                {
+                    apptsList.AddRange(veterinaryAppts);
+                }
+
+                var todoListAppts = await GetTodoList();
+                if (todoListAppts.Any())
+                {
+                    apptsList.AddRange(todoListAppts);
+                }
+
+                if (apptsList.Count > 0)
+                {
+                    return apptsList;
+                }
+
+                return Enumerable.Empty<AppointmentData>();
             }
         }
 
@@ -188,7 +214,7 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
         {
             List<AppointmentData> vaccinesList = new List<AppointmentData>();
 
-            var readOnly = true;
+            var readOnly = 1;
 
             StringBuilder sbVaccines = new StringBuilder();
             sbVaccines.Append("SELECT Vacina.Id, Vacina.IdPet, Vacina.DataToma, Vacina.Marca, ");
@@ -218,16 +244,20 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
                             StartTime = vaccine.DataToma,
                             EndTime = vaccine.DataToma,
                             Subject = "Toma de vacina",
-                            IsAllDay = true,
+                            IsAllDay = 1,
                             Location = "Veterinário(a)",
                             IsReadonly = readOnly,
+                            RecurrenceException = "",
+                            RecurrenceID = 0,
+                            RecurrenceRule = "",
                             Description = $"<b>{vaccine.NomePet}</b> - Toma da vacina {vaccine.Marca}",
+                            AppointmentType = 1
                         });
 
                         var endTime = DateTime.Parse(vaccine.DataToma).Date.AddMonths(vaccine.ProximaTomaEmMeses);
                         if (endTime < DateTime.Now.Date)
                         {
-                            readOnly = true;
+                            readOnly = 1;
                         }
 
                         vaccinesList.Add(new AppointmentData
@@ -236,10 +266,14 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
                             StartTime = vaccineNextApplication,
                             EndTime = vaccineNextApplication,
                             Subject = "Toma de vacina",
-                            IsAllDay = true,
+                            IsAllDay = 1,
                             IsReadonly = readOnly,
                             Location = "Veterinário(a)",
+                            RecurrenceException = "",
+                            RecurrenceID = 0,
+                            RecurrenceRule = "",
                             Description = $"{vaccine.NomePet} - Toma da vacina {vaccine.Marca}",
+                            AppointmentType = 1
                         });
                     }
 
@@ -280,10 +314,14 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
                             StartTime = dewormer.DataProximaAplicacao,
                             EndTime = dewormer.DataProximaAplicacao,
                             Subject = "Toma de desparasitante",
-                            IsAllDay = true,
-                            IsReadonly = readOnly,
+                            IsAllDay = 1,
+                            IsReadonly = 1,
+                            RecurrenceException = "",
+                            RecurrenceID = 0,
+                            RecurrenceRule = "",
                             Location = "Home application",
-                            Description = $"{dewormer.NomePet} - {dewormer.Marca}"
+                            Description = $"{dewormer.NomePet} - {dewormer.Marca}",
+                            AppointmentType = 2
                         });
                     }
                     return dewormersList;
@@ -323,10 +361,14 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
                             StartTime = appt.DataConsulta,
                             EndTime = appt.DataConsulta,
                             Subject = "Consulta no veterinário",
-                            IsAllDay = true,
-                            IsReadonly = readOnly,
-                            Location = "VetMonti",
-                            Description = $"{appt.NomePet} - Motivo: {appt.Motivo} - Tratamento: {appt.Tratamento}"
+                            IsAllDay = 1,
+                            IsReadonly = 1,
+                            RecurrenceException = "",
+                            RecurrenceID = 0,
+                            RecurrenceRule = "",
+                            Location = "Veterinário",
+                            Description = $"{appt.NomePet} - Motivo: {appt.Motivo} - Tratamento: {appt.Tratamento}",
+                            AppointmentType = 3
                         });
                     }
                     return veterinaryApptsList;
@@ -339,7 +381,7 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
         private async Task<IEnumerable<AppointmentData>> GetTodoList()
         {
             List<AppointmentData> todoList = new List<AppointmentData>();
-            StringBuilder sbTodoLists= new StringBuilder();
+            StringBuilder sbTodoLists = new StringBuilder();
 
             sbTodoLists.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Status, Generated, ");
             sbTodoLists.Append("TodoCategories.Id as [CategoryId], TodoCategories.Descricao AS [CategoryDescription] ");
@@ -360,10 +402,14 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
                             StartTime = appt.StartDate,
                             EndTime = appt.StartDate,
                             Subject = "Todo event",
-                            IsAllDay = true,
-                            IsReadonly = true,
+                            IsAllDay = 1,
+                            IsReadonly = 1,
+                            RecurrenceException = "",
+                            RecurrenceID = 0,
+                            RecurrenceRule = "",
                             Location = appt.CategoryDescription,
-                            Description = appt.Description
+                            Description = appt.Description,
+                            AppointmentType = 4
                         });
                     }
                     return todoList;

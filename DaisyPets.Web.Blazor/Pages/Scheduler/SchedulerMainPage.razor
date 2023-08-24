@@ -22,6 +22,13 @@
                 <SfSchedule @ref="ScheduleRef" TValue="AppointmentDataDto" Height="650px" Width="100%"
                             CssClass="@(ShowSchedule ? string.Empty : "schedule-hide")"
                 @bind-CurrentView="@CurrentView" @bind-SelectedDate="@CurrentDate">
+                    <ScheduleResources>
+                        <ScheduleResource TItem="ResourceData" TValue="int" DataSource="@ApptTypeData" Field="AppointmentType" 
+                            Title="Tipo" Name="Tipo" TextField="Text" IdField="Id" ColorField="Color"></ScheduleResource>
+@*                         <ScheduleResource TItem="ResourceData" TValue="int" DataSource="@PetsData" Field="PetId"
+                                          Title="Pet" Name="Pet" TextField="Text" IdField="Id" ColorField="Color"></ScheduleResource>
+ *@
+                    </ScheduleResources>
                     <ScheduleEventSettings DataSource="@Appointments" EnableTooltip="true">
                         <ScheduleField>
                             <FieldSubject Name="Subject" Title="Assunto"></FieldSubject>
@@ -38,8 +45,9 @@
                     </ScheduleEvents>
                     <ScheduleWorkHours Start="08:00" End="21:00"></ScheduleWorkHours>
                     <ScheduleViews>
-                        <ScheduleView Option="View.Week" StartHour="07:00" EndHour="15:00"></ScheduleView>
-                        <ScheduleView Option="View.WorkWeek" StartHour="10:00" EndHour="18:00"></ScheduleView>
+                        <ScheduleView Option="View.Day" StartHour="08:00" EndHour="20:00"></ScheduleView>
+                        <ScheduleView Option="View.Week" StartHour="08:00" EndHour="20:00"></ScheduleView>
+                        <ScheduleView Option="View.WorkWeek" StartHour="08:00" EndHour="20:00"></ScheduleView>
                         <ScheduleView Option="View.Month" MaxEventsPerRow="5" ShowWeekend="false"></ScheduleView>
                         <ScheduleView Option="View.MonthAgenda"></ScheduleView>
                     </ScheduleViews>

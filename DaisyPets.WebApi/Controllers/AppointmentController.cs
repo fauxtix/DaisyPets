@@ -1,7 +1,5 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services.Sceduler;
-using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Scheduler;
-using DaisyPets.Core.Domain;
 using DaisyPets.WebApi.Validators;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +11,7 @@ namespace DaisyPets.WebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    
+
     public class AppointmentController : ControllerBase
     {
         private readonly ISchedulerService _apptService;
@@ -96,7 +94,7 @@ namespace DaisyPets.WebApi.Controllers
                     return BadRequest($"O id ({Id}) passado como paràmetro é incorreto");
                 }
 
-                var viewAppt = await _apptService.GetAppointmentVMAsync(Id);
+                var viewAppt = await _apptService.FindByIdAsync(Id);
                 if (viewAppt == null)
                 {
                     return NotFound("Marcação não foi encontrada");
@@ -133,7 +131,7 @@ namespace DaisyPets.WebApi.Controllers
 
             try
             {
-                var viewAppt = await _apptService.GetAppointmentVMAsync(Id);
+                var viewAppt = await _apptService.FindByIdAsync(Id);
                 if (viewAppt == null)
                 {
                     return NotFound("Marcação não foi encontrada");
