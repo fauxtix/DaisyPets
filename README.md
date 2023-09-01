@@ -31,7 +31,8 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 - Blog entries (web project) - user entries / from url's;
 - Todo lists (web project);
 - Photo gallery (desktop project, for now);
-- Contacts management.
+- Contacts management;
+- Scheduler (agenda).
 
 # Screenshots (Windows forms)
 (for the web project screenshots, please navigate to 'daisypets.web.blazor')
@@ -99,8 +100,23 @@ The API should now be running locally on `http://localhost:[PORT]`.
 
 The DaisyPets API provides the following endpoints:
 
+Appointment 
+
+- POST /api/Appointment
+- PUT /api/Appointment/{Id}
+- DELETE /api/Appointment/{Id}
+- GET /api/Appointment/{Id}
+- GET /api/Appointment/AllAppointmentsVM
+- POST /api/Appointment/ValidateAppointment
+
+AppUtils
+
+- GET /api/AppUtils/BackupSqlite
+- GET /api/AppUtils/Settings/Language
+- POST /api/AppUtils/Settings/Language
+  
 Carousel (Photo gallery)
-- POST: /api/Carousel
+- POST /api/Carousel
 - PUT /api/Carousel/{Id}
 - DELETE /api/Carousel/{Id}
 - GET /api/Carousel/{Id}
@@ -222,6 +238,17 @@ Vacinacao (Vaccines)
 - GET /api/Vacinacao/PetVaccines/{Id}
 - POST /api/Vacinacao/ValidateVaccine
 - GET /api/Vacinacao/Vaccines_Info_Pdf
+
+ToDos (To-do lists)
+- POST /api/ToDos
+- GET /api/ToDos
+- PUT /api/ToDos/{Id}
+- DELETE /api/ToDos/{Id}
+- GET /api/ToDos/{Id}
+- GET /api/ToDos/PendingTodos
+- GET /api/ToDos/CompletedTodos
+- POST /api/ToDos/ValidateToDo
+#
 
 ## 🐶 Example Usage
 
