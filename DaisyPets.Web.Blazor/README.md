@@ -40,3 +40,6 @@ It was designed with Microsoft's Blazor Server technology, using components from
 
 ![Contacts_1](https://github.com/fauxtix/DaisyPets/assets/49880538/ef763af2-97d6-4c26-b805-06c692ff3067)
 ![Contacts_Edition](https://github.com/fauxtix/DaisyPets/assets/49880538/5329ce6f-c797-40ac-bc3e-90d6534508f7)
+
+![Scheduler](https://github.com/fauxtix/DaisyPets/assets/49880538/843067c1-1adc-4435-b117-00bc70f0c4f4)
+
