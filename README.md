@@ -247,9 +247,8 @@ Vacinacao (Vaccines)
 - GET /api/ToDos/{Id}
 - GET /api/ToDos/PendingTodos
 - GET /api/ToDos/CompletedTodos
-
-POST
-/api/ToDos/ValidateToDo
+- POST /api/ToDos/ValidateToDo
+#
 
 ## 🐶 Example Usage
 
