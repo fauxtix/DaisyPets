@@ -107,13 +107,13 @@ Appointment
 - DELETE /api/Appointment/{Id}
 - GET /api/Appointment/{Id}
 - GET /api/Appointment/AllAppointmentsVM
+- POST /api/Appointment/ValidateAppointment
 
 AppUtils
 
 - GET /api/AppUtils/BackupSqlite
 - GET /api/AppUtils/Settings/Language
 - POST /api/AppUtils/Settings/Language
-- POST /api/Appointment/ValidateAppointment
   
 Carousel (Photo gallery)
 - POST: /api/Carousel
