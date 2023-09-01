@@ -383,7 +383,7 @@ namespace DaisyPets.Infrastructure.Repositories.Scheduler
             List<AppointmentData> todoList = new List<AppointmentData>();
             StringBuilder sbTodoLists = new StringBuilder();
 
-            sbTodoLists.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Status, Generated, ");
+            sbTodoLists.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Completed, Generated, ");
             sbTodoLists.Append("TodoCategories.Id as [CategoryId], TodoCategories.Descricao AS [CategoryDescription] ");
             sbTodoLists.Append("FROM ToDo ");
             sbTodoLists.Append("INNER JOIN ToDoCategories ON ");
