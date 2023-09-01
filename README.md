@@ -116,7 +116,7 @@ AppUtils
 - POST /api/AppUtils/Settings/Language
   
 Carousel (Photo gallery)
-- POST: /api/Carousel
+- POST /api/Carousel
 - PUT /api/Carousel/{Id}
 - DELETE /api/Carousel/{Id}
 - GET /api/Carousel/{Id}
