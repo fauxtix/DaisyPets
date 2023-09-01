@@ -239,7 +239,7 @@ Vacinacao (Vaccines)
 - POST /api/Vacinacao/ValidateVaccine
 - GET /api/Vacinacao/Vaccines_Info_Pdf
 
-  ToDos
+ToDos (To-do lists)
 - POST /api/ToDos
 - GET /api/ToDos
 - PUT /api/ToDos/{Id}
