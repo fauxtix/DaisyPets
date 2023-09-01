@@ -100,6 +100,21 @@ The API should now be running locally on `http://localhost:[PORT]`.
 
 The DaisyPets API provides the following endpoints:
 
+Appointment 
+
+- POST /api/Appointment
+- PUT /api/Appointment/{Id}
+- DELETE /api/Appointment/{Id}
+- GET /api/Appointment/{Id}
+- GET /api/Appointment/AllAppointmentsVM
+
+AppUtils
+
+- GET /api/AppUtils/BackupSqlite
+- GET /api/AppUtils/Settings/Language
+- POST /api/AppUtils/Settings/Language
+- POST /api/Appointment/ValidateAppointment
+  
 Carousel (Photo gallery)
 - POST: /api/Carousel
 - PUT /api/Carousel/{Id}
@@ -223,6 +238,18 @@ Vacinacao (Vaccines)
 - GET /api/Vacinacao/PetVaccines/{Id}
 - POST /api/Vacinacao/ValidateVaccine
 - GET /api/Vacinacao/Vaccines_Info_Pdf
+
+  ToDos
+- POST /api/ToDos
+- GET /api/ToDos
+- PUT /api/ToDos/{Id}
+- DELETE /api/ToDos/{Id}
+- GET /api/ToDos/{Id}
+- GET /api/ToDos/PendingTodos
+- GET /api/ToDos/CompletedTodos
+
+POST
+/api/ToDos/ValidateToDo
 
 ## 🐶 Example Usage
 
