@@ -2494,4 +2494,7 @@ Puede copiar el detalle o informar del problema a través de correo electrónico
   <data name="TituloCategoriasTarefas" xml:space="preserve">
     <value>Categorías de listas de tareas</value>
   </data>
+  <data name="TituloConcluida" xml:space="preserve">
+    <value>Finalizado</value>
+  </data>
 </root>

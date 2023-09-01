@@ -2510,4 +2510,7 @@ Vérifiez les erreurs, s'il vous plaît</value>
   <data name="TituloCategoriasTarefas" xml:space="preserve">
     <value>Catégories de listes de tâches</value>
   </data>
+  <data name="TituloConcluida" xml:space="preserve">
+    <value>Finalisé</value>
+  </data>
 </root>

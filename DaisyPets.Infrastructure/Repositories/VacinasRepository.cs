@@ -37,7 +37,7 @@ namespace DaisyPets.Infrastructure.Repositories
                 Description = description,
                 StartDate = startDate,
                 EndDate = endDate,
-                Status = 1, 
+                Completed = 0, 
                 Generated = 1
             };
 

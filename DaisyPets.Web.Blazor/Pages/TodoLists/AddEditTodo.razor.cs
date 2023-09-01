@@ -39,7 +39,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
 
         protected int idxCategory;
         protected string? todosEndpoint;
-        protected bool? pendente { get; set; } = null;
+        protected bool? completed { get; set; } = null;
 
         protected override async Task OnInitializedAsync()
         {
@@ -52,7 +52,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
         {
             ToDoId = UserSelectedRecord.Id;
             idxCategory = UserSelectedRecord.CategoryId;
-            pendente = Convert.ToBoolean(UserSelectedRecord.Status);
+            completed = Convert.ToBoolean(UserSelectedRecord.Completed);
             if (DataFormat.IsValidDate(UserSelectedRecord.StartDate))
             {
                 dStart = DateTime.Parse(UserSelectedRecord.StartDate);
@@ -96,10 +96,10 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
             UserSelectedRecord!.CategoryId = idxCategory;
         }
 
-        private void onChangePendente(Microsoft.AspNetCore.Components.ChangeEventArgs args)
+        private void onChangeCompleted(Microsoft.AspNetCore.Components.ChangeEventArgs args)
         {
-            pendente = Convert.ToBoolean(args.Value);
-            UserSelectedRecord.Status = pendente.Value ? 1 : 0;
+            completed = Convert.ToBoolean(args.Value);
+            UserSelectedRecord.Completed = completed.Value ? 1 : 0;
         }
     }
 }

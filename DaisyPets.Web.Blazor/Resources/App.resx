@@ -1486,4 +1486,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
   <data name="TituloCategoriasTarefas" xml:space="preserve">
     <value>Categorias das listas de tarefas</value>
   </data>
+  <data name="TituloConcluida" xml:space="preserve">
+    <value>Concluída</value>
+  </data>
 </root>

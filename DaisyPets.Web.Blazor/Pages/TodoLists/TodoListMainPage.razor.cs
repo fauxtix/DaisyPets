@@ -439,9 +439,9 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
             {
                 CategoryId = -1,
                 Description = "",
-                StartDate = DateTime.Now.ToShortDateString(),
-                EndDate = DateTime.Now.AddDays(1).ToShortDateString(),
-                Status = 0,
+                StartDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm"),
+                EndDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd HH:mm"),
+                Completed = 0,
                 Generated = 0
             };
             AddEditToDoVisibility = true;
@@ -535,7 +535,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
             {
                 var pendingQry =
                     from record in ToDoList
-                    where record.Status == 1
+                    where record.Completed== 0
                     select record;
                 //pageBadgeCaption = L["TituloDespesasEsteAno"];
                 ToDoList = pendingQry;
@@ -544,7 +544,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
             {
                 var completedQry =
                     from record in ToDoList
-                    where record.Status == 0
+                    where record.Completed == 1
                     select record;
                 //pageBadgeCaption = L["TituloDespesasEsteAno"];
                 ToDoList = completedQry;

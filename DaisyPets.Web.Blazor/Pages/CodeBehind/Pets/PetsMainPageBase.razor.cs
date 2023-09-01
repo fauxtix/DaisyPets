@@ -918,7 +918,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                     break;
                 case Modules.Consultations:
                     entityTitle = L["Pet_Consultations"];
-                    entityId = PetId;
+                    entityId = PetConsultationId;
                     break;
                 case Modules.Vaccines:
                     entityTitle = L["Pet_Vaccines"];

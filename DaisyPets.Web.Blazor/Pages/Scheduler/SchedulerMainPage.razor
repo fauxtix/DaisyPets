@@ -23,19 +23,19 @@
                             CssClass="@(ShowSchedule ? string.Empty : "schedule-hide")"
                 @bind-CurrentView="@CurrentView" @bind-SelectedDate="@CurrentDate">
                     <ScheduleResources>
-                        <ScheduleResource TItem="ResourceData" TValue="int" DataSource="@ApptTypeData" Field="AppointmentType" 
-                            Title="Tipo" Name="Tipo" TextField="Text" IdField="Id" ColorField="Color"></ScheduleResource>
-@*                         <ScheduleResource TItem="ResourceData" TValue="int" DataSource="@PetsData" Field="PetId"
-                                          Title="Pet" Name="Pet" TextField="Text" IdField="Id" ColorField="Color"></ScheduleResource>
- *@
+                        <ScheduleResource TItem="ResourceData" TValue="int" DataSource="@ApptTypeData" Field="AppointmentType"
+                                          Title="@L["TituloTipo"]" Name="Tipo" TextField="Text" IdField="Id" ColorField="Color"></ScheduleResource>
+                        @*                         <ScheduleResource TItem="ResourceData" TValue="int" DataSource="@PetsData" Field="PetId"
+                        Title="Pet" Name="Pet" TextField="Text" IdField="Id" ColorField="Color"></ScheduleResource>
+                        *@
                     </ScheduleResources>
                     <ScheduleEventSettings DataSource="@Appointments" EnableTooltip="true">
                         <ScheduleField>
-                            <FieldSubject Name="Subject" Title="Assunto"></FieldSubject>
-                            <FieldLocation Name="Location" Title="Local" />
-                            <FieldStartTime Name="StartTime" Title="Início"></FieldStartTime>
-                            <FieldEndTime Name="EndTime" Title="Fim"></FieldEndTime>
-                            <FieldDescription Name="Description" Title="Descrição"></FieldDescription>
+                            <FieldSubject Name="Subject" Title="@L["msgUploadSubject"]"></FieldSubject>
+                            <FieldLocation Name="Location" Title="@L["lblLocalArquivo"]" />
+                            <FieldStartTime Name="StartTime" Title="@L["TituloInicio"]"></FieldStartTime>
+                            <FieldEndTime Name="EndTime" Title="@L["TituloFim"]"></FieldEndTime>
+                            <FieldDescription Name="Description" Title="@L["rbtDescricao"]"></FieldDescription>
                         </ScheduleField>
                     </ScheduleEventSettings>
                     <ScheduleTimeScale Enable="true" Interval="@this.viewInterval"></ScheduleTimeScale>
@@ -50,66 +50,68 @@
                         <ScheduleView Option="View.WorkWeek" StartHour="08:00" EndHour="20:00"></ScheduleView>
                         <ScheduleView Option="View.Month" MaxEventsPerRow="5" ShowWeekend="false"></ScheduleView>
                         <ScheduleView Option="View.MonthAgenda"></ScheduleView>
+                        <ScheduleView Option="View.TimelineYear" Orientation="Syncfusion.Blazor.Schedule.Orientation.Vertical" DisplayName="Horizontal Year"></ScheduleView>
                     </ScheduleViews>
                 </SfSchedule>
             </div>
-            @*         <div class="col-lg-3 property-section property-customization">
-            <br>
-            <div class="property-panel-section">
-            <p class="property-panel-header header-customization" style="width: 100%;">Search by all event fields</p>
-            <div class="property-panel-content">
-            <SfTextBox ID="events-search" Placeholder='Enter the Search text' @bind-Value="@SearchValue" OnChange="@OnEventSearch"></SfTextBox>
+
+@*             <div class="col-lg-3 property-section property-customization">
+                <br>
+                <div class="property-panel-section">
+                    <p class="property-panel-header header-customization" style="width: 100%;">Search by all event fields</p>
+                    <div class="property-panel-content">
+                        <SfTextBox ID="events-search" Placeholder='Enter the Search text' @bind-Value="@SearchValue" OnChange="@OnEventSearch"></SfTextBox>
+                    </div>
+                    <div class="event-search">
+                        <p class="property-panel-header header-customization" style="width: 100%;">Search by specific event fields</p>
+                        <table id="property-specific" style="width:100%">
+                            <tbody>
+                                <tr class="row">
+                                    <td class="property-panel-content" colspan="2">
+                                        <div>
+                                            <SfTextBox ID="searchEventName" @bind-Value="@SubjectValue" Placeholder="Subject"></SfTextBox>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="row" style="height: 45px">
+                                    <td class="property-panel-content" colspan="2">
+                                        <div>
+                                            <SfTextBox ID="searchEventLocation" @bind-Value="@LocationValue" Placeholder="Location"></SfTextBox>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="row" style="height: 45px">
+                                    <td class="property-panel-content" colspan="2">
+                                        <div>
+                                            <SfDatePicker TValue="DateTime?" @bind-Value="@DateStart" Placeholder="Start Date"></SfDatePicker>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="row" style="height: 45px">
+                                    <td class="property-panel-content" colspan="2">
+                                        <div>
+                                            <SfDatePicker TValue="DateTime?" @bind-Value="@DateEnd" Placeholder="End Date"></SfDatePicker>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="row" style="height: 45px">
+                                    <td class="e-field button-customization" style="width: 50%; padding: 15px 3px;">
+                                        <div>
+                                            <SfButton Content="Search" OnClick="@OnSearchClick"></SfButton>
+                                        </div>
+                                    </td>
+                                    <td class="e-field button-customization" style="width: 50%; padding: 15px 3px;">
+                                        <div>
+                                            <SfButton Content="Clear" OnClick="@OnClearClick"></SfButton>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="event-search">
-            <p class="property-panel-header header-customization" style="width: 100%;">Search by specific event fields</p>
-            <table id="property-specific" style="width:100%">
-            <tbody>
-            <tr class="row">
-            <td class="property-panel-content" colspan="2">
-            <div>
-            <SfTextBox ID="searchEventName" @bind-Value="@SubjectValue" Placeholder="Subject"></SfTextBox>
-            </div>
-            </td>
-            </tr>
-            <tr class="row" style="height: 45px">
-            <td class="property-panel-content" colspan="2">
-            <div>
-            <SfTextBox ID="searchEventLocation" @bind-Value="@LocationValue" Placeholder="Location"></SfTextBox>
-            </div>
-            </td>
-            </tr>
-            <tr class="row" style="height: 45px">
-            <td class="property-panel-content" colspan="2">
-            <div>
-            <SfDatePicker TValue="DateTime?" @bind-Value="@DateStart" Placeholder="Start Date"></SfDatePicker>
-            </div>
-            </td>
-            </tr>
-            <tr class="row" style="height: 45px">
-            <td class="property-panel-content" colspan="2">
-            <div>
-            <SfDatePicker TValue="DateTime?" @bind-Value="@DateEnd" Placeholder="End Date"></SfDatePicker>
-            </div>
-            </td>
-            </tr>
-            <tr class="row" style="height: 45px">
-            <td class="e-field button-customization" style="width: 50%; padding: 15px 3px;">
-            <div>
-            <SfButton Content="Search" OnClick="@OnSearchClick"></SfButton>
-            </div>
-            </td>
-            <td class="e-field button-customization" style="width: 50%; padding: 15px 3px;">
-            <div>
-            <SfButton Content="Clear" OnClick="@OnClearClick"></SfButton>
-            </div>
-            </td>
-            </tr>
-            </tbody>
-            </table>
-            </div>
-            </div>
-            </div>
-            *@
+ *@
         </div>
     </div>
 

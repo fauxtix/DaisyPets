@@ -2496,4 +2496,7 @@
   <data name="TituloCategoriasTarefas" xml:space="preserve">
     <value>To do lists categories</value>
   </data>
+  <data name="TituloConcluida" xml:space="preserve">
+    <value>Completed</value>
+  </data>
 </root>

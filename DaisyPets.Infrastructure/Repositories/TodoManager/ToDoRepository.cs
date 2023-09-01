@@ -24,9 +24,9 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
             StringBuilder sb = new StringBuilder();
 
             sb.Append("INSERT INTO Todo (");
-            sb.Append("Description, StartDate, EndDate, Status, CategoryId, Generated) ");
+            sb.Append("Description, StartDate, EndDate, Completed, CategoryId, Generated) ");
             sb.Append(" VALUES(");
-            sb.Append("@Description, @StartDate, @EndDate, @Status, @CategoryId, 0");
+            sb.Append("@Description, @StartDate, @EndDate, @Completed, @CategoryId, 0");
             sb.Append(");");
             sb.Append("SELECT last_insert_rowid()");
 
@@ -54,7 +54,7 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
             dynamicParameters.Add("@Description", toDo.Description);
             dynamicParameters.Add("@StartDate", toDo.StartDate);
             dynamicParameters.Add("@EndDate", toDo.EndDate);
-            dynamicParameters.Add("@Status", toDo.Status);
+            dynamicParameters.Add("@Completed", toDo.Completed);
             dynamicParameters.Add("@CategoryId", toDo.CategoryId);
 
             StringBuilder sb = new StringBuilder();
@@ -62,7 +62,7 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
             sb.Append("Description = @Description, ");
             sb.Append("StartDate = @StartDate, ");
             sb.Append("EndDate = @EndDate, ");
-            sb.Append("Status = @Status, ");
+            sb.Append("Completed = @Completed, ");
             sb.Append("CategoryId = @CategoryId ");
             sb.Append("WHERE Id = @Id");
 
@@ -123,6 +123,7 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT * FROM ToDo ");
+            sb.Append("ORDER BY date(StartDate) DESC");
             using (var connection = _context.CreateConnection())
             {
                 var toDos = await connection.QueryAsync<ToDo>(sb.ToString());
@@ -140,11 +141,12 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
         public async Task<IEnumerable<ToDoDto>> GetAllVMAsync()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Status, Generated, ");
+            sb.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Completed, Generated, ");
             sb.Append("TodoCategories.Id as [CategoryId], TodoCategories.Descricao AS [CategoryDescription] ");
             sb.Append("FROM ToDo ");
             sb.Append("INNER JOIN ToDoCategories ON ");
-            sb.Append("ToDo.CategoryId = ToDoCategories.Id");
+            sb.Append("ToDo.CategoryId = ToDoCategories.Id ");
+            sb.Append("ORDER BY date(StartDate) DESC");
 
             using (var connection = _context.CreateConnection())
             {
@@ -163,7 +165,7 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
         public async Task<IEnumerable<ToDoDto>> GetToDoVM_ByIdAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Status, Generated, ");
+            sb.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Completed, Generated, ");
             sb.Append("TodoCategories.Id, TodoCategories.Descricao AS [CategoryDescription] ");
             sb.Append("FROM ToDo ");
             sb.Append("INNER JOIN ToDoCategories ON ");
@@ -187,7 +189,7 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
 
         public async Task<IEnumerable<ToDoDto>> GetPending()
         {
-            var query = GetSelectByStatusString(1);
+            var query = GetSelectByCompletedString(1);
 
             using (var connection = _context.CreateConnection())
             {
@@ -205,7 +207,7 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
 
         public async Task<IEnumerable<ToDoDto>> GetCompleted()
         {
-            var query = GetSelectByStatusString(2);
+            var query = GetSelectByCompletedString(2);
 
             using (var connection = _context.CreateConnection())
             {
@@ -221,16 +223,16 @@ namespace DaisyPets.Infrastructure.Repositories.TodoManager
             }
         }
 
-        private string GetSelectByStatusString(int status)
+        private string GetSelectByCompletedString(int Completed)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT  ToDo.Id, ToDo.Description, StartDate, EndDate, ");
-            sb.Append("Status, Generated, TodoCategories.Descricao AS [CategoryDescription] ");
+            sb.Append("Completed, Generated, TodoCategories.Descricao AS [CategoryDescription] ");
             sb.Append("FROM ToDo ");
             sb.Append("INNER JOIN ToDoCategories ON ");
             sb.Append("ToDo.CategoryId = ToDoCategories.Id ");
             sb.Append("WHERE ToDo.Id = @Id AND ");
-            sb.Append($"Todo.Status = {status}");
+            sb.Append($"Todo.Completed = {Completed}");
 
             return sb.ToString();
 

@@ -11,7 +11,7 @@
     </div>
     <EditForm Model="UserSelectedRecord">
         <div class="form-group my-2">
-            <SfCheckBox Label="@L["TituloPendente"]" @bind-Checked=@pendente @onchange="onChangePendente"></SfCheckBox>
+            <SfCheckBox Label="@L["TituloConcluida"]" @bind-Checked=@completed @onchange="onChangeCompleted"></SfCheckBox>
         </div>
         <div class="group-box mt-2">
             <SfDatePicker Placeholder="@L["TituloDataInicio"]"
