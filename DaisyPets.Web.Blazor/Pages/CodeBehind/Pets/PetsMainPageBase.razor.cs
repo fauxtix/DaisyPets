@@ -19,7 +19,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         [Inject] public IStringLocalizer<App>? L { get; set; }
         [Inject] ILogger<App>? logger { get; set; } = null;
         [Inject] public IWebHostEnvironment _env { get; set; }
-        [Inject] IJSRuntime Runtime { get; set; }
+        [Inject] IJSRuntime? JSRuntime { get; set; }
 
         protected string? urlBaseAddress;
         protected IEnumerable<PetVM>? Pets { get; set; }
@@ -1070,7 +1070,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             if (firstrender)
             {
                 var dotNetReference = DotNetObjectReference.Create(this);          // create dotnet ref
-                await Runtime.InvokeAsync<string>("detail", dotNetReference);     // send the dotnet ref to JS side
+                await JSRuntime.InvokeAsync<string>("detail", dotNetReference);     // send the dotnet ref to JS side
                 firstrender = false;
             }
 
