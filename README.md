@@ -31,7 +31,8 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 - Blog entries (web project) - user entries / from url's;
 - Todo lists (web project);
 - Photo gallery (desktop project, for now);
-- Contacts management.
+- Contacts management;
+- Scheduler (agenda).
 
 # Screenshots (Windows forms)
 (for the web project screenshots, please navigate to 'daisypets.web.blazor')
