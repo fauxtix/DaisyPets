@@ -287,9 +287,13 @@ This will create a new pet named "Shiva".
 Contributions to the Daisy Pets project are welcome! If you encounter any issues or have suggestions for improvement, please open an issue on the GitHub repository: https://github.com/fauxtix/DaisyPets/issues
 
 Fork the project (https://github.com/fauxtix/DaisyPets/fork)
+
 Create a branch for your modification (git checkout -b fauxtix/DaisyPets)
+
 Commit (git commit -am 'Add some fooBar')
+
 Push_ (git push origin fauxtix/DaisyPets)
+
 Create a new Pull Request
 
 When contributing code, please follow the existing code style and submit a pull request with your changes.
