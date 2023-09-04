@@ -11,6 +11,7 @@ using System.Net.Http.Json;
 using System.Text;
 using static DaisyPets.Core.Application.Enums.Common;
 
+
 namespace DaisyPets.UI
 {
     public partial class frmPets : MetroForm
@@ -31,6 +32,7 @@ namespace DaisyPets.UI
 
         private int _previousIndex;
         private bool _sortDirection;
+
 
         private IEnumerable<PesoDto> Pesos = new List<PesoDto>();
 
@@ -235,27 +237,28 @@ namespace DaisyPets.UI
             {
                 using (HttpClient httpClient = new HttpClient())
                 {
-                    var response = await httpClient.DeleteAsync(url);
-                    response.EnsureSuccessStatusCode();
-                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
+                    using (var response = await httpClient.DeleteAsync(url))
                     {
-                        MessageBoxAdv.Show("Erro ao apagar registo", "Pets");
-                        return;
+                        response.EnsureSuccessStatusCode();
+                        if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
+                        {
+                            MessageBoxAdv.Show("Erro ao apagar registo", "Pets");
+                            return;
+                        }
                     }
+                }
 
+                if (gdvDados.RowCount > 0)
+                {
                     FillGrid();
-                    if (gdvDados.RowCount > 0)
-                    {
-                        FillGrid();
-                        gdvDados.Rows[0].Selected = true;
-                        int petId = DataFormat.GetInteger(gdvDados.Rows[0].Cells["Id"].Value);
-                        ShowRecord(petId);
-                    }
-                    else
-                    {
-                        gdvDados.DataSource = null;
-                        ClearForm();
-                    }
+                    gdvDados.Rows[0].Selected = true;
+                    int petId = DataFormat.GetInteger(gdvDados.Rows[0].Cells["Id"].Value);
+                    ShowRecord(petId);
+                }
+                else
+                {
+                    gdvDados.DataSource = null;
+                    ClearForm();
                 }
 
                 MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);

@@ -1,5 +1,4 @@
 ﻿using DaisyPets.Core.Application.ViewModels;
-using DaisyPets.Core.Application.ViewModels.Despesas;
 using Microsoft.AspNetCore.Components;
 using Microsoft.CodeAnalysis;
 using Microsoft.Extensions.Localization;
@@ -112,8 +111,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
             var url = $"{contactsEndpoint}/AllContactsVM";
             try
             {
-                    var contacts = await _httpClient.GetFromJsonAsync<IEnumerable<ContactoVM>>(url);
-                    return contacts!.ToList();
+                var contacts = await _httpClient.GetFromJsonAsync<IEnumerable<ContactoVM>>(url);
+                return contacts!.ToList();
             }
             catch (SocketException socketEx)
             {
@@ -136,15 +135,15 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
             var url = $"{contactsEndpoint}/{Id}";
             try
             {
-                    var contact = await _httpClient.GetFromJsonAsync<ContactoVM>(url);
-                    if (contact?.Id > 0)
-                    {
-                        return contact;
-                    }
-                    else
-                    {
-                        return new ContactoVM();
-                    }
+                var contact = await _httpClient.GetFromJsonAsync<ContactoVM>(url);
+                if (contact?.Id > 0)
+                {
+                    return contact;
+                }
+                else
+                {
+                    return new ContactoVM();
+                }
             }
             catch (Exception ex)
             {
@@ -277,12 +276,12 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
                 {
                     ToastTitle = "Gravação de dados do Contacto";
 
-                        var result = await _httpClient.PutAsJsonAsync($"{contactsEndpoint}/{ContactId}", SelectedContact);
-                        var success = result.IsSuccessStatusCode;
+                    var result = await _httpClient.PutAsJsonAsync($"{contactsEndpoint}/{ContactId}", SelectedContact);
+                    var success = result.IsSuccessStatusCode;
 
-                        await DisplaySuccessOrFailResults(success, RecordMode);
+                    await DisplaySuccessOrFailResults(success, RecordMode);
 
-                        return success;
+                    return success;
                 }
 
                 else // !editMode (Insert)
@@ -293,8 +292,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
 
                     try
                     {
-                            var result = await _httpClient.PostAsJsonAsync(contactsEndpoint, SelectedContact);
-                            var success = result.IsSuccessStatusCode;
+                        var result = await _httpClient.PostAsJsonAsync(contactsEndpoint, SelectedContact);
+                        var success = result.IsSuccessStatusCode;
                     }
                     catch (Exception exc)
                     {
@@ -383,19 +382,19 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
             try
             {
 
-                    var response = await _httpClient.PostAsJsonAsync(validatorEndPoint, entity);
-                    if (response.IsSuccessStatusCode == false)
+                var response = await _httpClient.PostAsJsonAsync(validatorEndPoint, entity);
+                if (response.IsSuccessStatusCode == false)
+                {
+                    var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
+                    if (errors.Count() > 0)
                     {
-                        var errors = response.Content.ReadFromJsonAsync<List<string>>().Result;
-                        if (errors.Count() > 0)
-                        {
-                            return errors;
-                        }
-                        else
-                            return new List<string>();
+                        return errors;
                     }
+                    else
+                        return new List<string>();
+                }
 
-                    return new List<string>();
+                return new List<string>();
             }
             catch (Exception ex)
             {
@@ -404,7 +403,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
         }
 
         /// <summary>
-        /// Inicializa dados do Contacto/fiador
+        /// Inicializa dados do Contacto
         /// </summary>
         /// <param name="args"></param>
         public void onAddContact(Microsoft.AspNetCore.Components.Web.MouseEventArgs args)
@@ -433,7 +432,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
         /// </summary>
         protected async Task CloseEditDialog()
         {
-                AddEditVisibility = false;
+            AddEditVisibility = false;
         }
 
         protected void ContinueEdit()
@@ -458,7 +457,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
             try
             {
                 DeleteVisibility = false;
-                
+
                 var resultOk = await Delete();
                 if (resultOk)
                 {
@@ -470,7 +469,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
                 else
                 {
                     ToastCss = "e-toast-danger";
-                    ToastMessage = "Erro ao remover Fração";
+                    ToastMessage = "Erro ao remover Contacto";
                     ToastIcon = "fas fa-exclamation";
                 }
 
@@ -490,9 +489,6 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
                 StateHasChanged();
                 await Task.Delay(100);
                 await ToastObj!.ShowAsync();
-
-                //WarningVisibility = true;
-                //WarningMessage = $"Não foi possível concluir operação. {exc.Message}";
             }
         }
 
@@ -532,7 +528,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Contacts
             await ToastObj!.HideAsync();
         }
 
-        private protected async Task EditContact(ContactoVM contact)
+        private protected void EditContact(ContactoVM contact)
         {
             SelectedContact = contact;
             ContactId = contact.Id;
