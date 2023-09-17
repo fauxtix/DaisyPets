@@ -20,7 +20,6 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         [Inject] ILogger<App>? logger { get; set; } = null;
         [Inject] public IWebHostEnvironment _env { get; set; }
         [Inject] IJSRuntime? JSRuntime { get; set; }
-
         protected string? urlBaseAddress;
         protected IEnumerable<PetVM>? Pets { get; set; }
         protected IEnumerable<LookupTableVM>? Species { get; set; }
@@ -33,6 +32,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected VacinaDto? SelectedVaccine { get; set; }
         protected RacaoDto? SelectedPetFood { get; set; }
         protected DesparasitanteDto? SelectedDewormer { get; set; }
+        protected string? lastPetDewormerBrand { get; set; } = string.Empty;
+        protected DateTime lastPetDewormerApplication { get; set; } = DateTime.Now;
         protected ConsultaVeterinarioDto? SelectedConsultation { get; set; }
         protected DocumentoDto? SelectedDocument { get; set; }
 
@@ -42,6 +43,9 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         protected string? petFoodEndpoint;
         protected string? petDewormersEndpoint;
         protected string? petConsultationsEndpoint;
+
+        protected int proximaVacinaEmMeses;
+        protected int proximoDesparasitanteEmMeses;
 
         protected SfUploader? sfUploader;
         protected int MaxFileSize = 10 * 1024 * 1024; // 10 MB
@@ -126,6 +130,9 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             PetDocumentId = 0;
             documentFilePath = "";
+
+            proximaVacinaEmMeses = int.Parse(config?["ApiSettings:ProximaVacinaEmMeses"]);
+            proximoDesparasitanteEmMeses = int.Parse(config?["ApiSettings:ProximoDesparasitanteEmMeses"]);
 
             urlBaseAddress = config?["ApiSettings:UrlBase"];
             petsEndpoint = $"{urlBaseAddress}/Pets/AllPetsVM";
@@ -290,6 +297,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         {
             try
             {
+                logger?.LogInformation($"{nameof(GetAllPets)} - Endpoint: {petsEndpoint}");
                 var result = await GetData<PetVM>(petsEndpoint!);
                 return result.ToList();
 
@@ -297,6 +305,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             catch (SocketException socketEx)
             {
                 AlertTitle = "Erro ao aceder ao servidor ";
+                logger?.LogError($"{AlertTitle} - {socketEx.Message}");
                 AlertVisibility = true;
                 WarningMessage = socketEx.Message;
                 return Enumerable.Empty<PetVM>();
@@ -304,6 +313,8 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             catch (Exception ex)
             {
                 AlertTitle = "Erro ao aceder ao servidor ";
+                logger?.LogError($"{AlertTitle} - Erro: {ex.Message}");
+
                 AlertVisibility = true;
                 WarningMessage = ex.Message;
                 return Enumerable.Empty<PetVM>();
@@ -464,7 +475,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 DataToma = DateTime.Now.ToString("yyyy-MM-dd"),
                 IdPet = PetId,
                 Marca = "",
-                ProximaTomaEmMeses = 3,
+                ProximaTomaEmMeses = proximaVacinaEmMeses,
             };
 
             AddEditVaccineVisibility = true;
@@ -491,13 +502,24 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             RecordMode = OpcoesRegisto.Inserir;
             NewCaption = $"{L["NewMsg"]} ({L["Pet_Dewormers"]})";
             Module = Modules.Dewormers;
-
+            if(PetId > 0)
+            {
+                var petDewormerList = GetPetDewormersHistory(PetId);
+                if(petDewormerList is not null)
+                {
+                    lastPetDewormerBrand = petDewormerList.Select(dew => dew.Marca).LastOrDefault();
+                    lastPetDewormerApplication = petDewormerList
+                        .Where(x => DateTime.Parse(x.DataProximaAplicacao).Date < DateTime.Now.Date)
+                        .Select(dew => DateTime.Parse(dew.DataProximaAplicacao).AddDays(1))
+                       .LastOrDefault();
+                }
+            }
             SelectedDewormer = new()
             {
-                DataAplicacao = DateTime.Now.ToString("yyyy-MM-dd"),
+                DataAplicacao = lastPetDewormerApplication.ToString("yyyy-MM-dd"),
                 IdPet = PetId,
-                Marca = "",
-                DataProximaAplicacao = DateTime.Now.AddMonths(3).ToString("yyyy-MM-dd"),
+                Marca = lastPetDewormerBrand ?? "",
+                DataProximaAplicacao = lastPetDewormerApplication.AddMonths(proximoDesparasitanteEmMeses).ToString("yyyy-MM-dd"),
                 Tipo = "I"
             };
 
@@ -562,9 +584,15 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
 
             if (args.CommandColumn.Type == CommandButtonType.Delete)
             {
-                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Title"]}?";
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Title"]}";
                 DeletePetVisibility = true;
-                DeleteCaption = SelectedPet?.Nome;
+                if (SelectedPet is null)
+                {
+                    var _pet = await GetPetById(args.RowData.Id);
+                    DeleteCaption = _pet.Nome;
+                }
+                else
+                    DeleteCaption = SelectedPet?.Nome;
             }
         }
 
@@ -592,7 +620,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             }
             if (args.CommandColumn.Type == CommandButtonType.Delete)
             {
-                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Documents"]}?";
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Documents"]}";
                 DeleteDocumentVisibility = true;
                 DeletePetVisibility = true;
                 DeleteCaption = SelectedDocument?.Description;
@@ -613,7 +641,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             }
             if (args.CommandColumn.Type == CommandButtonType.Delete)
             {
-                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Dewormers"]}?";
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Dewormers"]}";
                 DeleteDewormerVisibility = true;
                 DeletePetVisibility = true;
                 DeleteCaption = SelectedDewormer?.Marca;
@@ -634,7 +662,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             }
             if (args.CommandColumn.Type == CommandButtonType.Delete)
             {
-                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Vaccines"]}?";
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Vaccines"]}";
                 DeletePetVisibility = true;
                 DeleteVaccineVisibility = true;
                 DeleteCaption = SelectedVaccine?.Marca;
@@ -656,7 +684,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             }
             if (args.CommandColumn.Type == CommandButtonType.Delete)
             {
-                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Food"]}?";
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Food"]}";
                 DeletePetFoodVisibility = true;
                 DeletePetVisibility = true;
                 DeleteCaption = SelectedPetFood?.Marca;
@@ -678,7 +706,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             }
             if (args.CommandColumn.Type == CommandButtonType.Delete)
             {
-                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Consultations"]}?";
+                WarningTitle = $"{L["DeleteMsg"]} {L["Pet_Consultations"]}";
                 DeleteConsultationVisibility = true;
                 DeletePetVisibility = true;
                 DeleteCaption = SelectedConsultation?.DataConsulta;
@@ -809,10 +837,12 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             try
             {
                 var response = await httpClient.DeleteAsync(url);
-                response.EnsureSuccessStatusCode();
+                //response.EnsureSuccessStatusCode();
                 if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                 {
-                    ValidationsMessages = new List<string>() { L["FalhaAnulacaoRegisto"] };
+                    var apiresponse = await response.Content.ReadAsStringAsync();
+
+                    ValidationsMessages = new List<string>() { L["FalhaAnulacaoRegisto"], apiresponse };
                     ErrorVisibility = true;
                     return;
                 }
@@ -998,6 +1028,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
                 var response = await httpClient.GetFromJsonAsync<IEnumerable<T>>(url);
                 if (response == null)
                 {
+                    logger?.LogError($"Erro encontrado após chamada de 'GetData<T>' com o url {url}", L["MSG_ApiError"]);
                     return Enumerable.Empty<T>();
                 }
 
@@ -1069,16 +1100,17 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
         {
             if (firstrender)
             {
-                var dotNetReference = DotNetObjectReference.Create(this);          // create dotnet ref
-                await JSRuntime.InvokeAsync<string>("detail", dotNetReference);     // send the dotnet ref to JS side
-                firstrender = false;
+                await petsGridObj.ExpandAllDetailRowAsync();
+                //var dotNetReference = DotNetObjectReference.Create(this);          // create dotnet ref
+                //await JSRuntime.InvokeAsync<string>("detail", dotNetReference);     // send the dotnet ref to JS side
+                //firstrender = false;
             }
 
-            foreach (var a in ExpandedRows)
-            {
-                var PKIndex = await petsGridObj.GetRowIndexByPrimaryKeyAsync(a.Key);
-                await petsGridObj.ExpandCollapseDetailRowAsync((PetVM)petsGridObj.CurrentViewData.ElementAt(Convert.ToInt32(PKIndex)));     //Expand the already expnaded detailrows
-            }
+            //foreach (var a in ExpandedRows)
+            //{
+            //    var PKIndex = await petsGridObj.GetRowIndexByPrimaryKeyAsync(a.Key);
+            //    await petsGridObj.ExpandCollapseDetailRowAsync((PetVM)petsGridObj.CurrentViewData.ElementAt(Convert.ToInt32(PKIndex)));     //Expand the already expanded detailrows
+            //}
         }
         public void DetailDataBound(DetailDataBoundEventArgs<PetVM> args)
         {

@@ -3,12 +3,14 @@ using DaisyPets.UI.Expenses;
 using DaisyPets.UI.LookupTables;
 using DaisyPets.UI.Properties;
 using DaisyPets.UI.Stats;
+using Microsoft.Extensions.Logging;
 using Syncfusion.Windows.Forms;
 
 namespace DaisyPets.UI
 {
     public partial class frmMain : MetroForm
     {
+
         private bool _isApplicationExit = false;
         private string tableName = string.Empty;
 
@@ -217,14 +219,14 @@ namespace DaisyPets.UI
             var resp = fExpenseTypes.ShowDialog();
         }
 
-        frmPetStats fStats;
+        frmPetStats? fStats;
         private void optStats_Click(object sender, EventArgs e)
         {
             if (fStats == null)
             {
                 fStats = new frmPetStats();
                 fStats.MdiParent = this;
-                fStats.FormClosed += Stats_FormClosed;
+                fStats.FormClosed  += Stats_FormClosed;
                 fStats.Show();
             }
             else

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MauiPets.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vs="clr-namespace:MauiPets"
+    xmlns:local="clr-namespace:MauiPets.Mvvm.Views.Pets"
+     FlyoutBackgroundImage="appimage.png"
+     FlyoutBackgroundImageAspect="AspectFill"
+     Shell.FlyoutBehavior="Disabled">
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <Tab Title="Pets"
+             Icon="dotnet_bot.png">
+            <ShellContent Title="Pets"
+                          Icon="pets.png"
+                          ContentTemplate="{DataTemplate local:PetsPage}" />
+        </Tab>
+    </FlyoutItem>
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate vs:MainPage}"
+        Route="MainPage" />
+
+</Shell>

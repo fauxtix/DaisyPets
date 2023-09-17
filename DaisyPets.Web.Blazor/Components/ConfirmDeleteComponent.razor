@@ -17,7 +17,7 @@
             <div class="ml-2; font-weight-bold" style="color:@TitleColor">@Localizer[DialogTitle]</div>
         </Header>
         <Content>
-            <div style="color:black; margin-left:4px;">[ <span style="font-style:italic">@Message</span> ]</div>
+            <div style="color:black; margin-left:4px;">[ <span style="font-weight:bold; font-style:italic">@Message</span> ]</div>
             <hr />
             <div class="row">
                 <div class="col-9">
@@ -58,7 +58,7 @@
     [Parameter] public EventCallback OnConfirmationNo { get; set; }
     [Parameter] public Common.AlertMessageType AlertMessageType { get; set; } = Common.AlertMessageType.Warning;
     [Parameter] public string DialogWidth { get; set; } = "auto";
-    [Parameter] public string DialogHeight { get; set; } = "35%";
+    [Parameter] public string DialogHeight { get; set; } = "27%";
     [Parameter] public bool Visible { get; set; } = false;
 
     private string TitleColor { get; set; } = "cornflowerblue";

@@ -43,9 +43,9 @@ namespace DaisyPets.Infrastructure.Repositories
             sb.Append("SELECT last_insert_rowid()");
 
             sbTodoList.Append("INSERT INTO ToDo( ");
-            sbTodoList.Append("Description, StartDate, EndDate, Status, CategoryId) ");
+            sbTodoList.Append("Description, StartDate, EndDate, Completed, CategoryId) ");
             sbTodoList.Append(" VALUES(");
-            sbTodoList.Append("@Description, @StartDate, @EndDate, @Status, @CategoryId");
+            sbTodoList.Append("@Description, @StartDate, @EndDate, @Completed, @CategoryId");
             sbTodoList.Append(");");
 
             ToDo toDo = new ToDo()

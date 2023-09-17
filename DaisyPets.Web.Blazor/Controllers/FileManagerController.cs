@@ -56,7 +56,7 @@ namespace DaisyPets.Web.Blazor.Controllers
         [Route("Download")]
         public IActionResult Download(string downloadInput)
         {
-            Syncfusion.Blazor.FileManager.FileManagerDirectoryContent content = JsonConvert.DeserializeObject<Syncfusion.Blazor.FileManager.FileManagerDirectoryContent>(downloadInput);
+            FileManagerDirectoryContent? content = JsonConvert.DeserializeObject<FileManagerDirectoryContent>(downloadInput);
             return operation.Download(content.Path, content.Names);
         }
 
@@ -76,7 +76,7 @@ namespace DaisyPets.Web.Blazor.Controllers
         }
 
         [Route("GetImage")]
-        public IActionResult GetImage(Syncfusion.Blazor.FileManager.FileManagerDirectoryContent args)
+        public IActionResult GetImage(FileManagerDirectoryContent args)
         {
             return operation.GetImage(args.Path, null, false, null, null);
         }

@@ -29,16 +29,8 @@
         private void InitializeComponent()
         {
             Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage1 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage2 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage3 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage4 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage5 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage6 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage7 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage8 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage9 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
-            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage10 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPetCarousel));
+            Syncfusion.Windows.Forms.Tools.CarouselImage carouselImage2 = new Syncfusion.Windows.Forms.Tools.CarouselImage();
             PetCarousel = new Syncfusion.Windows.Forms.Tools.Carousel();
             panel1 = new Panel();
             btnLoadImages = new Syncfusion.WinForms.Controls.SfButton();
@@ -52,12 +44,12 @@
             autoLabel6 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             autoLabel2 = new Syncfusion.Windows.Forms.Tools.AutoLabel();
             dgvGallery = new DataGridView();
-            openFileDialog1 = new OpenFileDialog();
             Id = new DataGridViewTextBoxColumn();
             IdPet = new DataGridViewTextBoxColumn();
             Data = new DataGridViewTextBoxColumn();
             Imagem = new DataGridViewTextBoxColumn();
             NomePet = new DataGridViewTextBoxColumn();
+            openFileDialog1 = new OpenFileDialog();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtFilePath).BeginInit();
             ((System.ComponentModel.ISupportInitialize)txtID).BeginInit();
@@ -71,26 +63,10 @@
             PetCarousel.BackColor = Color.WhiteSmoke;
             PetCarousel.CanOverrideStyle = true;
             PetCarousel.HighlightColor = Color.White;
-            carouselImage1.ItemImage = null;
-            carouselImage2.ItemImage = null;
-            carouselImage3.ItemImage = null;
-            carouselImage4.ItemImage = null;
-            carouselImage5.ItemImage = null;
-            carouselImage6.ItemImage = null;
-            carouselImage7.ItemImage = null;
-            carouselImage8.ItemImage = null;
-            carouselImage9.ItemImage = null;
-            carouselImage10.ItemImage = null;
+            carouselImage1.ItemImage = (Image)resources.GetObject("carouselImage1.ItemImage");
+            carouselImage2.ItemImage = (Image)resources.GetObject("carouselImage2.ItemImage");
             PetCarousel.ImageListCollection.Add(carouselImage1);
             PetCarousel.ImageListCollection.Add(carouselImage2);
-            PetCarousel.ImageListCollection.Add(carouselImage3);
-            PetCarousel.ImageListCollection.Add(carouselImage4);
-            PetCarousel.ImageListCollection.Add(carouselImage5);
-            PetCarousel.ImageListCollection.Add(carouselImage6);
-            PetCarousel.ImageListCollection.Add(carouselImage7);
-            PetCarousel.ImageListCollection.Add(carouselImage8);
-            PetCarousel.ImageListCollection.Add(carouselImage9);
-            PetCarousel.ImageListCollection.Add(carouselImage10);
             PetCarousel.ImageshadeColor = Color.Black;
             PetCarousel.ImageSlides = false;
             PetCarousel.Location = new Point(0, 0);
@@ -247,10 +223,6 @@
             dgvGallery.Size = new Size(373, 436);
             dgvGallery.TabIndex = 5;
             // 
-            // openFileDialog1
-            // 
-            openFileDialog1.FileName = "openFileDialog1";
-            // 
             // Id
             // 
             Id.DataPropertyName = "Id";
@@ -290,6 +262,10 @@
             NomePet.Name = "NomePet";
             NomePet.ReadOnly = true;
             NomePet.Width = 200;
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
             // 
             // frmPetCarousel
             // 

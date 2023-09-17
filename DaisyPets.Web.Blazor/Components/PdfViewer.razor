@@ -2,14 +2,16 @@
 @using System.Text.RegularExpressions
 @using Microsoft.AspNetCore.Hosting
 @using Microsoft.Extensions.Localization;
-@using Syncfusion.Blazor.PdfViewer
+@* @using Syncfusion.Blazor.PdfViewer; *@
+@using Syncfusion.Blazor.PdfViewer;
+@using Syncfusion.Blazor.PdfViewerServer;
 
 @inject IStringLocalizer<App> L
 
 @*@attribute [Authorize(Roles = "Admin, Medicos")]*@
 
 <SfSpinner @ref="SpinnerObj"
-           @bind-Visible="@VisibleProperty"
+@bind-Visible="@VisibleProperty"
            Label="@L["MSG_PreparandoDados"]" Size="50"
            Type="SpinnerType.Material" />
 
@@ -21,10 +23,10 @@
                            Width="100%"
                            Height="800px"
                            DocumentPath="@PdfPath"
-                           EnablePrint="true"
                            ZoomValue="100"
+                           EnablePrint="true"
                            EnableDownload="true">
-            <PdfViewerEvents DocumentLoaded="@OnDocumentLoaded" Created="OnCreate"></PdfViewerEvents>
+            @* <PdfViewerEvents DocumentLoaded="@OnDocumentLoaded" Created="OnCreate"></PdfViewerEvents> *@
         </SfPdfViewerServer>
 
     </div>
@@ -40,15 +42,16 @@
     protected override async Task OnParametersSetAsync()
     {
         await Task.Delay(3000);
-        await Viewer!.LoadAsync(PdfPath, null);
+        var exists = File.Exists(PdfPath);
+        //await Viewer!.LoadAsync(PdfPath, null);
     }
     private void OnDocumentLoaded(LoadEventArgs args)
     {
-        VisibleProperty = false;
+        //VisibleProperty = false;
     }
     private void OnCreate()
     {
-        VisibleProperty = true;
+        //VisibleProperty = true;
     }
 }
 

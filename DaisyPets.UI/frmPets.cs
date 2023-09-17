@@ -16,6 +16,7 @@ namespace DaisyPets.UI
 {
     public partial class frmPets : MetroForm
     {
+        static HttpClient httpClient = new HttpClient();
 
         private int IdEspecie = 0;
         private int IdRaca = 0;
@@ -32,7 +33,6 @@ namespace DaisyPets.UI
 
         private int _previousIndex;
         private bool _sortDirection;
-
 
         private IEnumerable<PesoDto> Pesos = new List<PesoDto>();
 
@@ -114,25 +114,19 @@ namespace DaisyPets.UI
             string url = PetsApiEndpoint;
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    var task = httpClient.PostAsJsonAsync(url, newPet);
-                    var response = task.Result;
+                Program.Logger.Information($"Inserting Pet from desktop app  at url {url}");
 
-                    var key = response.Content.ReadAsStringAsync().Result;
-                    var definition = new { Id = 0 };
-                    var obj = JsonConvert.DeserializeAnonymousType(key, definition);
-                    IdPet = Convert.ToInt32(obj?.Id);
+                var response = httpClient.PostAsJsonAsync(url, newPet).Result;
+                var key = response.Content.ReadAsStringAsync().Result;
+                var definition = new { Id = 0 };
+                var obj = JsonConvert.DeserializeAnonymousType(key, definition);
+                IdPet = Convert.ToInt32(obj?.Id);
 
-                    task.Wait();
-                    task.Dispose();
-
-                    MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets");
-                    SetToolbar(OpcoesRegisto.Inserir);
-                    FillGrid();
-                    ClearForm();
-                }
-
+                Program.Logger.Information($"Inserted Pet OK from desktop app  at url {url}");
+                MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets");
+                SetToolbar(OpcoesRegisto.Inserir);
+                FillGrid();
+                ClearForm();
             }
             catch (Exception ex)
             {
@@ -197,19 +191,17 @@ namespace DaisyPets.UI
             string url = $"{PetsApiEndpoint}/{IdPet}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    var task = httpClient.PutAsJsonAsync<PetDto>(url, updatePet);
-                    var response = task.Result;
+                Program.Logger.Information($"Updating Pet from desktop app  at url {url}");
 
-                    task.Wait();
-                }
+                var response = httpClient.PutAsJsonAsync<PetDto>(url, updatePet).Result;
 
                 FillGrid();
                 SetToolbar(OpcoesRegisto.Gravar);
 
 
                 gdvDados.Rows[selectedRowIndex].Selected = true;
+                Program.Logger.Information($"Updated Pet OK from desktop app  at url {url}");
+
                 MessageBoxAdv.Show("Operação terminada com sucesso,", "Atualização de dados", MessageBoxButtons.OK);
             }
             catch (Exception ex)
@@ -227,24 +219,24 @@ namespace DaisyPets.UI
             if (dr != DialogResult.Yes)
                 return;
 
-            await DeletePet();
+
+            DeletePet();
         }
 
-        private async Task DeletePet()
+        private void DeletePet()
         {
             string url = $"{PetsApiEndpoint}/{IdPet}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                Program.Logger.Information($"Deleting Pet from desktop app  at url {url}");
+
+                var response = httpClient.DeleteAsync(url).Result;
                 {
-                    using (var response = await httpClient.DeleteAsync(url))
+                    response.EnsureSuccessStatusCode();
+                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                     {
-                        response.EnsureSuccessStatusCode();
-                        if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
-                        {
-                            MessageBoxAdv.Show("Erro ao apagar registo", "Pets");
-                            return;
-                        }
+                        MessageBoxAdv.Show("Erro ao apagar registo", "Pets");
+                        return;
                     }
                 }
 
@@ -261,6 +253,7 @@ namespace DaisyPets.UI
                     ClearForm();
                 }
 
+                Program.Logger.Information($"Deleting Pet OK from desktop app  at url {url}");
                 MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo", MessageBoxButtons.OK);
             }
             catch (Exception ex)
@@ -280,31 +273,30 @@ namespace DaisyPets.UI
         {
             string url = $"{PetsApiEndpoint}/AllPetsVM";
             IEnumerable<PetVM> petsGridData;
+            Program.Logger.Information("Getting All Pets VM");
+
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var response = httpClient.GetAsync(url).Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    var task = httpClient.GetAsync(url);
-                    var response = task.Result;
-                    if (response.IsSuccessStatusCode)
+                    petsGridData = response.Content.ReadAsAsync<IEnumerable<PetVM>>().Result;
+                    if (petsGridData != null)
                     {
-                        petsGridData = response.Content.ReadAsAsync<IEnumerable<PetVM>>().Result;
-                        if (petsGridData != null)
-                        {
-                            gdvDados.DataSource = petsGridData?.ToList();
-                        }
-                        else
-                        {
-                            gdvDados.DataSource = new List<PetVM>();
-                        }
-                    }
-                    task.Wait();
-                    task.Dispose();
-                }
+                        Program.Logger.Information($"Getting All Pets VM OK at url {url}");
 
+                        gdvDados.DataSource = petsGridData?.ToList();
+                    }
+                    else
+                    {
+                        gdvDados.DataSource = new List<PetVM>();
+                    }
+                }
             }
             catch (Exception ex)
             {
+                Program.Logger.Error($"Erro no API ({url}) - {ex.Message} FillGrid");
+
                 MessageBoxAdv.Show($"Erro no API {ex.Message}", "Preenchimento de grelha");
             }
         }
@@ -313,30 +305,25 @@ namespace DaisyPets.UI
         {
             PetVM pet;
             string url = $"{PetsApiEndpoint}/PetVMById/{Id}";
+            Program.Logger.Information($"Getting Pet from desktop app  at url {url}");
+
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var response = httpClient.GetAsync(url).Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    var task = httpClient.GetAsync(url);
-                    var response = task.Result;
-                    if (response.IsSuccessStatusCode)
+                    pet = response.Content.ReadAsAsync<PetVM>().Result;
+                    if (pet != null)
                     {
-                        pet = response.Content.ReadAsAsync<PetVM>().Result;
-                        if (pet != null)
-                        {
-                            return pet;
-                        }
-                        else
-                        {
-                            return new PetVM();
-                        }
+                        Program.Logger.Information($"Getting Pet OK from desktop app  at url {url}");
+                        return pet;
                     }
-                    task.Wait();
-                    task.Dispose();
-
-                    return new PetVM();
+                    else
+                    {
+                        return new PetVM();
+                    }
                 }
-
+                return new PetVM();
             }
             catch (Exception ex)
             {
@@ -352,11 +339,8 @@ namespace DaisyPets.UI
             string url = $"{PetsApiEndpoint}/AllPetsVM";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    pets = await httpClient.GetFromJsonAsync<IEnumerable<PetVM>>(url);
-                    gdvDados.DataSource = pets ?? new List<PetVM>();
-                }
+                pets = httpClient.GetFromJsonAsync<IEnumerable<PetVM>>(url).Result;
+                gdvDados.DataSource = pets ?? new List<PetVM>();
 
             }
             catch (Exception ex)
@@ -365,7 +349,7 @@ namespace DaisyPets.UI
             }
 
         }
-        private async void ShowRecord(int Id)
+        private void ShowRecord(int Id)
         {
 
             if (Id < 1)
@@ -373,7 +357,7 @@ namespace DaisyPets.UI
 
             try
             {
-                var petData = await GetPet2(Id);
+                var petData = GetPet2(Id);
                 if (petData != null)
                 {
                     txtId.Text = Id.ToString();
@@ -426,7 +410,7 @@ namespace DaisyPets.UI
                     cboTemperamento.SelectedIndex = petData.IdTemperamento - 1;
                     cboTamanho.SelectedIndex = petData.IdTamanho - 1;
 
-                    cboGenero.SelectedItem = petData.Genero == "M" ? "Masculino" : "Feminino";
+                    cboGenero.SelectedItem = petData.Genero == "M" ? "Macho" : "Fêmea";
 
                     chkEsterilizado.Checked = petData.Esterilizado == 1 ? true : false;
                     chkPadrinho.Checked = petData.Padrinho == 1 ? true : false;
@@ -450,20 +434,13 @@ namespace DaisyPets.UI
             try
             {
                 string url = $"{PetsApiEndpoint}/{Id}";
-                using (HttpClient httpClient = new HttpClient())
+                var response = httpClient.GetAsync(url).Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    var task = httpClient.GetAsync(url);
-                    var response = task.Result;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var pet = response.Content.ReadAsAsync<PetDto>().Result;
-                        task.Wait();
-                        task.Dispose();
-                        return pet;
-                    }
-                    return new PetDto();
+                    var pet = response.Content.ReadAsAsync<PetDto>().Result;
+                    return pet;
                 }
-
+                return new PetDto();
             }
             catch (Exception ex)
             {
@@ -472,34 +449,41 @@ namespace DaisyPets.UI
             }
         }
 
-        private async Task<PetDto> GetPet2(int Id)
+        private PetDto GetPet2(int Id)
         {
             string url = $"{PetsApiEndpoint}/{Id}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var pet = await httpClient.GetFromJsonAsync<PetDto>(url);
-                return pet ?? new PetDto();
-            }
+            var pet = httpClient.GetFromJsonAsync<PetDto>(url).Result;
+            return pet ?? new PetDto();
         }
 
         private IEnumerable<PesoDto> GetPesos()
         {
             string url = $"{PetsApiEndpoint}/Pesos";
-            using (HttpClient httpClient = new HttpClient())
+            Program.Logger.Information(PetsApiEndpoint);
+
+            try
             {
-                var task = httpClient.GetAsync(url);
-                var response = task.Result;
+                Program.Logger.Information($"Entering GetPesos() with the url {url}");
+
+                HttpResponseMessage response = httpClient.GetAsync(url, HttpCompletionOption.ResponseContentRead).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     var pesos = response.Content.ReadAsAsync<IEnumerable<PesoDto>>().Result;
                     if (pesos != null)
                     {
+                        Program.Logger.Information("Getting Pesos OK");
+
                         return pesos;
                     }
                 }
-                task.Wait();
 
-                task.Dispose();
+                Program.Logger.Error($"Erro em GetPesos() com o url {url}");
+
+                return Enumerable.Empty<PesoDto>();
+            }
+            catch (HttpRequestException ex)
+            {
+                Program.Logger.Error($"Erro em GetPesos(): {ex.Message}");
 
                 return Enumerable.Empty<PesoDto>();
             }
@@ -520,23 +504,17 @@ namespace DaisyPets.UI
             comboBox.Items.Clear();
             var lookupEndpoint = AccessSettingsService.LookupTablesEndpoint;
             string url = $"{lookupEndpoint}/GetAllRecords/{dataTable}";
-            using (HttpClient httpClient = new HttpClient())
+            var response = httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(url).Result;
+
+            if (response != null)
             {
-                var task = httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(url);
-                var response = task.Result;
-
-                task.Wait();
-
-                if (response != null)
+                foreach (var entry in response)
                 {
-                    foreach (var entry in response)
-                    {
-                        comboBox.Items.Add(new DictionaryEntry(entry.Id, entry.Descricao));
-                    }
-                    comboBox.ValueMember = "Key";
-                    comboBox.DisplayMember = "Value";
-                    comboBox.SelectedIndex = 0;
+                    comboBox.Items.Add(new DictionaryEntry(entry.Id, entry.Descricao));
                 }
+                comboBox.ValueMember = "Key";
+                comboBox.DisplayMember = "Value";
+                comboBox.SelectedIndex = 0;
             }
         }
 
@@ -834,39 +812,23 @@ namespace DaisyPets.UI
                 };
 
                 string url = $"{PetsApiEndpoint}/ValidatePets";
-                using (HttpClient httpClient = new HttpClient())
+                var response = httpClient.PostAsJsonAsync<PetDto>(url, pet2Validate).Result;
+
+                if (response.IsSuccessStatusCode == false)
                 {
-
-                    var task = httpClient.PostAsJsonAsync<PetDto>(url, pet2Validate);
-                    var response = task.Result;
-
-                    task.Wait();
-                    task.Dispose();
-
-                    if (response.IsSuccessStatusCode == false)
+                    var errors = response.Content.ReadAsAsync<List<string>>().Result;
+                    if (errors.Count() > 0)
                     {
-                        var errors = response.Content.ReadAsAsync<List<string>>().Result;
-                        if (errors.Count() > 0)
-                        {
-                            return errors;
-                        }
-
-                        else
-
-                            return new List<string>();
+                        return errors;
                     }
 
-                    return new List<string>();
+                    else
 
-                    //using (HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, pet2Validate))
-                    //{
-                    //    var isSuccess = response.IsSuccessStatusCode;
-
-                    //    var errors = response.Content.ReadAsAsync<List<string>>().Result;
-                    //    return errors ?? new List<string>();
-                    //}
-
+                        return new List<string>();
                 }
+
+                return new List<string>();
+
             }
             catch (Exception ex)
             {
@@ -955,7 +917,7 @@ namespace DaisyPets.UI
             }
         }
 
-        private async void btnGeneratePdf_Click(object sender, EventArgs e)
+        private void btnGeneratePdf_Click(object sender, EventArgs e)
         {
             var petVM = GetPetVM(IdPet);
             var Idade = petVM.DataNascimento;
@@ -1022,7 +984,7 @@ namespace DaisyPets.UI
                 Referral = true
             };
 
-            var pdfFile = await CreatePetPdf(mergeModel);
+            var pdfFile = CreatePetPdf(mergeModel);
             pdfFile = pdfFile.Replace(".docx", ".pdf");
             if (!string.IsNullOrEmpty(pdfFile))
             {
@@ -1039,38 +1001,27 @@ namespace DaisyPets.UI
 
         }
 
-        private async Task<string> CreatePetPdf(MailMergeModel model)
+        private string CreatePetPdf(MailMergeModel model)
         {
             try
             {
                 string url = $"{MailMergeApiEndpoint}/MailMergeDocument";
-                using (HttpClient httpClient = new HttpClient())
+
+                var response = httpClient.PostAsJsonAsync(url, model).Result;
+
+                if (response.IsSuccessStatusCode)
                 {
-
-                    var task = httpClient.PostAsJsonAsync(url, model);
-                    var response = task.Result;
-
-                    task.Wait();
-                    task.Dispose();
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var resultString = await response.Content.ReadAsStringAsync();
-                        return resultString;
-                    }
-
-                    MessageBoxAdv.Show($"Erro na criação de Pdf ({response.ReasonPhrase})", "Daisy Pets");
-                    return "";
-
+                    var resultString = response.Content.ReadAsStringAsync().Result;
+                    return resultString;
                 }
 
-                //    var response = await _httpClient.PostAsJsonAsync<MailMergeModel>($"{_uri}/MailMergeDocument", model);
-                //var resultString = await response.Content.ReadAsStringAsync();
-                //return resultString;
-
+                MessageBoxAdv.Show($"Erro na criação de Pdf ({response.ReasonPhrase})", "Daisy Pets");
+                return "";
             }
-            catch
+            catch (Exception ex)
             {
+                MessageBoxAdv.Show($"Erro na criação de Pdf ({ex.ToString()})", "Daisy Pets");
+
                 return "";
             }
         }

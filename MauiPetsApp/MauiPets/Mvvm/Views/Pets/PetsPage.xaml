@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiPets.Mvvm.Views.Pets.PetsPage"
+             x:DataType="local:PetViewModel"
+            xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
+             Title="Daisy Pets">
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <CollectionView x:Name="ColView1" ItemsSource="{Binding Pets }" SelectionMode="Single">
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="100">
+                        <Image
+                                    HorizontalOptions="Center"
+                                    HeightRequest="160"
+                                    WidthRequest="160"
+                                    Source="nopets.png"
+                                    VerticalOptions="Center" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Padding="5">
+                            <Frame CornerRadius="10" HasShadow="True" 
+                                                   Padding="2">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:PetViewModel}}, Path=DisplayPetCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid Padding="5" ColumnSpacing="0" 
+                                                RowSpacing="0" 
+                                                Margin="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="180"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Text="{Binding Id}" 
+                                                      TextColor="Black" Padding="10" FontSize="Large"
+                                                      HorizontalTextAlignment="End" />
+                                    <Image Grid.Row="1" Source="{Binding Foto}" 
+                                                      Aspect="AspectFit"/>
+                                    <Label Grid.Row="2" Text="{Binding Nome}" 
+                                                      TextColor="Magenta" Padding="10" FontSize="Large"
+                                                      HorizontalTextAlignment="Center" />
+                                </Grid>
+                            </Frame>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Grid 
+                ColumnDefinitions="*,*"
+                ColumnSpacing="5"
+                RowDefinitions="*,Auto"
+                RowSpacing="0"
+                BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+
+                <ActivityIndicator
+                    Grid.RowSpan="2"
+                    Grid.ColumnSpan="2"
+                    HorizontalOptions="Fill"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    Color="{StaticResource Primary}"
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" Margin="10">
+                <Button  Text="Load All Pets" Command="{Binding GetPetsCommand}"
+                     IsEnabled="{Binding IsNotBusy}"
+                     Margin="20"
+                     Style="{StaticResource ButtonOutline}"/>
+            </StackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

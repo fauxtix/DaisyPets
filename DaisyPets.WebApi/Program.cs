@@ -1,12 +1,18 @@
-
-
 using DaisyPets.Infrastructure.Context;
 using DaisyPets.WebApi.Configuration;
 using DaisyPets.WebApi.Helpers;
+using Serilog;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 ConfigurationManager configuration = builder.Configuration;
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information() // Set the minimum log level
+    .WriteTo.Console()
+    .WriteTo.EventLog("Daisy Pets API")
+    .CreateLogger();
 
 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjIyMzE2MkAzMjMxMmUzMDJlMzBCdlcySmlaSjFFeU5BQjNaUDNYQ0R3VHFROCttQ3FiWi9TbStncWVGcGlFPQ ==");
 

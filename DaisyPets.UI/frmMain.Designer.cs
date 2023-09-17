@@ -117,11 +117,11 @@
             // 
             // optStats
             // 
-            optStats.Image = (Image)resources.GetObject("optStats.Image");
+            optStats.Image = Properties.Resources._678136_shield_warning_32;
             optStats.ImageTransparentColor = Color.Magenta;
             optStats.Name = "optStats";
-            optStats.Size = new Size(116, 52);
-            optStats.Text = "Estatísticas";
+            optStats.Size = new Size(95, 52);
+            optStats.Text = "Alertas";
             optStats.Click += optStats_Click;
             // 
             // toolStripSeparator11

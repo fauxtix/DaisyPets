@@ -1,9 +1,9 @@
 ﻿using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
-using DaisyPets.Core.Domain;
 using DaisyPets.WebApi.Validators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
+using Serilog.Sinks.EventLog;
 
 namespace DaisyPets.WebApi.Controllers
 {
@@ -20,9 +20,10 @@ namespace DaisyPets.WebApi.Controllers
         private readonly ILogger<PetsController> _logger;
 
         /// <summary>
-        /// Pets Controller
+        /// 
         /// </summary>
         /// <param name="petService"></param>
+        /// <param name="logger"></param>
         public PetsController(IPetService petService, ILogger<PetsController> logger)
         {
             _petService = petService;
@@ -134,9 +135,9 @@ namespace DaisyPets.WebApi.Controllers
                 }
 
                 var okToDeletePet = await _petService.DeleteAsync(Id);
-                if ( okToDeletePet == false)
+                if (okToDeletePet == false)
                 {
-                    return BadRequest("Pet tem registos associados. Operação cancelada");
+                    return BadRequest("Pet tem registos associados.");
                 }
 
                 return NoContent();
@@ -244,11 +245,21 @@ namespace DaisyPets.WebApi.Controllers
             {
                 var pesos = await _petService.GetPesos();
                 if (pesos is null)
+                {
+                    _logger.LogError($"Erro no Api - PesosAnimais não devolveu resultados");
                     return NotFound();
+                }
+                    
 
                 return Ok(pesos);
 
             }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError($"Erro no Api - PesosAnimais): {ex.InnerException}");
+                return InternalError($"{location}: {ex.Message} - {ex.InnerException}");
+            }
+
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
@@ -284,7 +295,7 @@ namespace DaisyPets.WebApi.Controllers
             }
         }
 
- 
+
         /// <summary>
         /// Validate pet
         /// </summary>

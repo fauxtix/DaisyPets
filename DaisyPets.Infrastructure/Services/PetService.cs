@@ -3,6 +3,7 @@ using DaisyPets.Core.Application.Interfaces.Application;
 using DaisyPets.Core.Application.Interfaces.Services;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Domain;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Logging;
 
 namespace DaisyPets.Infrastructure.Services
@@ -21,7 +22,8 @@ namespace DaisyPets.Infrastructure.Services
         }
         public async Task<bool> DeleteAsync(int Id)
         {
-            if (!await _repository.CanPetBeDeleted(Id))
+            var okToDeletePet = await _repository.CanPetBeDeleted(Id);
+            if (okToDeletePet == false)
             {
                 return false;
             }
@@ -68,13 +70,33 @@ namespace DaisyPets.Infrastructure.Services
         {
             try
             {
-                var req = await _repository.GetPesos();
-                var resp = _mapper.Map<IEnumerable<PesoDto>>(req);
+                _logger.LogInformation($"Acedendo aos pesos dos animais via Service");
+
+                var listaPesos = (await _repository.GetPesos()).ToList();
+                _logger.LogInformation($"Mapeando pesos dos animais via Service, sem o AutoMapper");
+
+                var mappedDto= new List<PesoDto>();
+                foreach ( var peso in listaPesos)
+                {
+                    mappedDto.Add(new PesoDto()
+                    {
+                         Id = peso.Id,
+                          A = peso.A,
+                          De = peso.De,
+                          Descricao = peso.Descricao,
+                    });
+                }
+
+                var resp = mappedDto; 
+                //var auto = _mapper.Map<IEnumerable<PesoDto>>(listaPesos);
+                _logger.LogInformation($"Pesos dos animais mapeado manualmente, sem recurso ao AutoMapper");
+
                 return resp;
 
             }
             catch
             {
+                _logger.LogError($"Erro ao mapear pesos dos animais com AutoMapper?");
                 return Enumerable.Empty<PesoDto>();
             }
         }

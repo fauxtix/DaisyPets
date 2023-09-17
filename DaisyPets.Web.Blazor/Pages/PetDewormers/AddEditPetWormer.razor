@@ -118,8 +118,7 @@
     protected void onChangeDewormer(Syncfusion.Blazor.DropDowns.ChangeEventArgs<int, LookupTableVM> args)
     {
         dewormerType = args.Value;
-        if (dewormerType < 1)
-            SelectedRecord.Tipo = dewormerType == 1 ? "I" : "E";
+        SelectedRecord.Tipo = dewormerType == 1 ? "I" : "E";
     }
 
 

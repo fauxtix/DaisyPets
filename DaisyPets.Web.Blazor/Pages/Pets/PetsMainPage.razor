@@ -69,9 +69,8 @@ else
                 AllowPdfExport="true"
                 RowHeight="32"
                 AllowTextWrap="true">
-            <GridEvents RowSelected="RowSelectHandler"
+            <GridEvents RowSelected="RowSelectHandler" DataBound="DataBound"
                         OnToolbarClick="ToolbarClickHandler"
-                        DetailDataBound="DetailDataBound" DataBound="DataBound"
                         CommandClicked="OnPetCommandClicked" TValue="PetVM">
             </GridEvents>
 
@@ -113,7 +112,9 @@ else
                                             <GridColumn Field=@nameof(VacinaVM.Id) IsPrimaryKey="true" Visible="false" HeaderText="ID#" Width="80"></GridColumn>
                                             <GridColumn Field=@nameof(VacinaVM.DataToma) Format="d" HeaderText="@L["Pet_Vaccine_Date"]" Width="110"></GridColumn>
                                             <GridColumn Field=@nameof(VacinaVM.Marca) HeaderText="@L["Pet_Brand"]" Width="200"></GridColumn>
-                                            <GridColumn Field=@nameof(VacinaVM.DataProximaToma) Format="d" HeaderText="@L["Pet_Vaccine_Next"]" Width="110"></GridColumn>
+                                            <GridColumn Field=@nameof(VacinaVM.DataProximaToma)
+                                                        CustomAttributes="@(new Dictionary<string, object>(){ { "class", "e-attr-nextEvent" }})"
+                                                        Format="d" HeaderText="@L["Pet_Vaccine_Next"]" Width="110"></GridColumn>
                                             <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                                                 <GridCommandColumns>
                                                     <GridCommandColumn Type=CommandButtonType.Edit
@@ -293,7 +294,9 @@ else
                                             </GridColumn>
                                             <GridColumn Field=@nameof(DesparasitanteVM.Marca) HeaderText="@L["TituloMarca"]" Width="200"></GridColumn>
                                             <GridColumn Field=@nameof(DesparasitanteVM.DataAplicacao) HeaderText="@L["TituloData"]" Format="d" Width="100" TextAlign="TextAlign.Center"></GridColumn>
-                                            <GridColumn Field=@nameof(DesparasitanteVM.DataProximaAplicacao) HeaderText="@L["Pet_Vaccine_Next"]" Format="d" Width="100" TextAlign="TextAlign.Center"></GridColumn>
+                                            <GridColumn Field=@nameof(DesparasitanteVM.DataProximaAplicacao)
+                                                        CustomAttributes="@(new Dictionary<string, object>(){ { "class", "e-attr-nextEvent" }})"
+                                                        HeaderText="@L["Pet_Vaccine_Next"]" Format="d" Width="100" TextAlign="TextAlign.Center"></GridColumn>
                                             <GridColumn HeaderText="" AllowFiltering="false" AllowSorting="false" Width="150">
                                                 <GridCommandColumns>
                                                     <GridCommandColumn Type=CommandButtonType.Edit
@@ -412,7 +415,10 @@ else
                         }
                     </Template>
                 </GridColumn>
-                <GridColumn Field=@nameof(PetVM.Nome) HeaderText="Pet" Width="150"></GridColumn>
+                <GridColumn Field=@nameof(PetVM.Nome) HeaderText="Pet" Width="150"
+                            CustomAttributes="@(new Dictionary<string, object>(){ { "class", "e-attr" }})">
+
+                </GridColumn>
                 <GridColumn Field=@nameof(PetVM.DataNascimento) Format="d" TextAlign="TextAlign.Center"
                             HeaderText="@L["TituloDtNascimento"]" Width="110"></GridColumn>
                 <GridColumn Field=@nameof(PetVM.RacaAnimal) HeaderText="@L["Pet_Breed"]" Width="210"></GridColumn>
@@ -448,7 +454,7 @@ else
     </div>
 
     <SfDialog CssClass="responsive-dialog-40"
-              IsModal="true"
+              IsModal="true" 
               ShowCloseIcon="false"
               CloseOnEscape="false"
     @bind-Visible="AddEditPetVisibility">
@@ -579,8 +585,9 @@ else
     <SfDialog CssClass="responsive-dialog-30"
               IsModal="true"
               ShowCloseIcon="false"
+              AllowDragging="true"
               CloseOnEscape="false"
-    @bind-Visible="AddEditDewormerVisibility">
+              @bind-Visible="AddEditDewormerVisibility">
         <DialogTemplates>
             <Content>
                 <AddEditPetWormer SelectedRecord="SelectedDewormer"
@@ -591,10 +598,10 @@ else
             <FooterTemplate>
                 <div>
                     <SfButton CssClass="e-primary e-round-corner" IconCss="fas fa-save"
-                    @onclick="SavePetDewormer" Content="@L["btnSalvar"]">
+                            @onclick="SavePetDewormer" Content="@L["btnSalvar"]">
                     </SfButton>
                     <SfButton CssClass="e-outline e-round-corner" IconCss="fas fa-times"
-                    @onclick="(()=>AddEditDewormerVisibility = false)" Content="@L["BtnSalir"]">
+                            @onclick="(()=>AddEditDewormerVisibility = false)" Content="@L["BtnSalir"]">
                     </SfButton>
                 </div>
             </FooterTemplate>
@@ -676,5 +683,14 @@ else
         width: 55px;
         border-radius: 50px;
         box-shadow: inset 0 0 1px #e0e0e0, inset 0 0 14px rgba(0, 0, 0, 0.2);
+    }
+
+    .e-attr {
+        font-weight: bold;
+    }
+
+    .e-attr-nextEvent {
+        font-weight: 600;
+        color: blue;
     }
 </style>

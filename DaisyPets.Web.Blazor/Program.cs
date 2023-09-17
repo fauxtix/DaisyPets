@@ -1,8 +1,8 @@
-using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Web.Blazor;
-using DaisyPets.Web.Blazor.BaseApiWrapperServices;
 using DaisyPets.Web.Blazor.Shared;
+using Serilog;
 using Syncfusion.Blazor;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
-builder.Services.AddSyncfusionBlazor(options => { options.IgnoreScriptIsolation = false; });
+var configuration = new ConfigurationBuilder()
+                      .AddJsonFile("appsettings.json")
+                      .Build();
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+   .CreateLogger();
+
+builder.Host.UseSerilog((context, configuration) => configuration.ReadFrom.Configuration(context.Configuration));
+
+builder.Services.AddSyncfusionBlazor(options => { options.Animation = GlobalAnimationMode.Enable; });
 
 builder.Services.AddCors();
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -21,6 +30,8 @@ builder.Services.AddSingleton(typeof(ISyncfusionStringLocalizer), typeof(Syncfus
 
 builder.Services.RegisterServices();
 
+Syncfusion.Licensing.SyncfusionLicenseProvider
+    .RegisterLicense("Ngo9BigBOggjHTQxAR8 / V1NGaF1cWGhIfEx1RHxQdld5ZFRHallYTnNWUj0eQnxTdEZjUH5acXBRQGVZWUdxVw ==");
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +41,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
 
 #region Localization
 
@@ -72,9 +85,10 @@ app.UseCors(builder =>
 //app.UseAuthentication();
 //app.UseAuthorization();
 
+// app.UseSerilogRequestLogging();
+
 
 app.MapControllers();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-
 app.Run();

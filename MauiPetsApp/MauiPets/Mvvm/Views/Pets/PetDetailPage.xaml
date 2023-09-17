@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiPets.Mvvm.Views.Pets.PetDetailPage"
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
+              x:DataType="viewmodel:PetDetailViewModel"
+              Title="{Binding  PetVM.Nome}">
+    <RefreshView 
+        IsRefreshing="{Binding IsRefreshing}" 
+        Command="{Binding RefreshPetDetailCommand}">
+        
+        <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+            <Grid RowDefinitions="Auto,Auto,*">
+                <BoxView
+                BackgroundColor="{StaticResource Primary}"
+                Grid.RowSpan="2"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"/>
+                <Border StrokeShape="RoundRectangle 50"
+                    Stroke="White"
+                    StrokeThickness="6"
+                    HeightRequest="160"
+                    WidthRequest="160"
+                    Margin="0,8,0,0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Image Aspect="AspectFill"
+                        HeightRequest="160"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding PetVM.Foto}"
+                        WidthRequest="160"/>
+                </Border>
+                <Frame Grid.Row="1" CornerRadius="30" HasShadow="False" Margin="0,5,0,5" BorderColor="Black" WidthRequest="200">
+                    <Label Style="{StaticResource LargeLabel}" 
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   Text="{Binding PetVM.Nome}" 
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,3"/>
+                </Frame>
+                <Frame Grid.Row="2" CornerRadius="40" HasShadow="False" Margin="0,20,0,20" BorderColor="Transparent">
+                    <VerticalStackLayout  Padding="10" Spacing="10">
+                        <Label Style="{StaticResource MediumLabel}" Text="{Binding PetVM.EspecieAnimal}" />
+                        <Label Style="{StaticResource MediumLabel}" Text="{Binding PetVM.RacaAnimal}" />
+                        <Label Style="{StaticResource MediumLabel}" Text="{Binding PetVM.TemperamentoAnimal}" />
+                        <Label Style="{StaticResource MediumLabel}" Text="{Binding PetVM.MedicacaoAnimal}" />
+                        <Label Style="{StaticResource MediumLabel}" Text="{Binding PetVM.TamanhoAnimal}" />
+                        <Label Style="{StaticResource MediumLabel}" Text="{Binding PetVM.SituacaoAnimal}" />
+                        <Button Text="Editar" 
+                        Command="{Binding AddOrEditPetCommand}"
+                        HorizontalOptions="Center" 
+                        WidthRequest="200" 
+                        Margin="8"
+                        Style="{StaticResource ButtonOutline}"/>
+                        <Button Text="Voltar" 
+                        Command="{Binding GoBackCommand}"
+                        HorizontalOptions="Center" 
+                        WidthRequest="200" 
+                        Margin="8"
+                        Style="{StaticResource ButtonOutline}"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>
+    

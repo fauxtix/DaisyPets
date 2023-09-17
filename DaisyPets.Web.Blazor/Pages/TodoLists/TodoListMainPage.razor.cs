@@ -524,10 +524,11 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
                 //var alertsQuery = ToDoList.Where((tl => tl.TodoStartDate.Date > DateTime.Now.Date &&
                 //    ((tl.TodoStartDate - DateTime.Now).TotalDays >= 15) && (tl.TodoStartDate - DateTime.Now).TotalDays <= 31)).ToList();
                 //ToDoList = alertsQuery;
-                var alertsQuery = ToDoList.Where(tl => (tl.TodoStartDate.Date > DateTime.Now.Date &&
-                    tl.TodoStartDate.Month == DateTime.Now.Month) ||
-                        (tl.TodoEndDate.Date > DateTime.Now.Date &&
-                            tl.TodoEndDate.Month == DateTime.Now.Month))
+                var alertsQuery = ToDoList.Where(tl => 
+                        (tl.TodoStartDate.Date > DateTime.Now.Date && tl.TodoStartDate.Month == DateTime.Now.Month) ||
+                        (tl.TodoEndDate.Date > DateTime.Now.Date && tl.TodoEndDate.Month == DateTime.Now.Month) ||
+                        ((tl.TodoEndDate.Date - DateTime.Now.Date).TotalDays <= 31)
+                     )
                     .ToList();
                 ToDoList = alertsQuery;
             }
@@ -535,7 +536,7 @@ namespace DaisyPets.Web.Blazor.Pages.TodoLists
             {
                 var pendingQry =
                     from record in ToDoList
-                    where record.Completed== 0
+                    where record.Completed == 0
                     select record;
                 //pageBadgeCaption = L["TituloDespesasEsteAno"];
                 ToDoList = pendingQry;
