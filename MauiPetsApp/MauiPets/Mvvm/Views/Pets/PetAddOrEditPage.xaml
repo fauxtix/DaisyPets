@@ -4,144 +4,251 @@
              x:Class="MauiPets.Mvvm.Views.Pets.PetAddOrEditPage"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
              xmlns:behaviours="clr-namespace:MauiPets.Mvvm.Behaviours.Pickers"
+              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
               x:DataType="viewmodel:PetAddOrEditViewModel"
              Title="{Binding PetDto.Nome}">
+    <ContentPage.Resources>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+    </ContentPage.Resources>
 
     <ScrollView 
         BackgroundColor="{AppThemeBinding 
         Light={StaticResource 
         LightBackground}, 
         Dark={StaticResource DarkBackground}}">
-        <Grid Margin="15">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="150"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".3*"></ColumnDefinition>
-                <ColumnDefinition Width=".7*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Label x:Name="TitleLabel"
-               Text="Edit Pet"
-               Grid.Row="0"
-               Grid.Column="0"
-               Grid.ColumnSpan="2"
-			   FontSize="Large"></Label>
-            <Image x:Name="PetPhoto"
-			   Source="{Binding PetDto.Foto}"
-               Grid.Column="0"
-               Grid.Row="1"
-               Grid.ColumnSpan="2"
-               Margin="10"
-               WidthRequest="150"
-               HeightRequest="150"
-               VerticalOptions="Center"></Image>
-            <Label Text="Nome"
-               Grid.Row="2"
-               Grid.Column="0"
-               FontSize="Small"
-			   VerticalOptions="Center"></Label>
-            <Entry x:Name="PetName"
-			   Text="{Binding PetDto.Nome}" 
-			   Grid.Row="2"
-               Grid.Column="1"
-			   VerticalOptions="Center"></Entry>
-            <Label Text="Doenças"
-               Grid.Row="3"
-               Grid.Column="0"
-               FontSize="Small"
-			   VerticalOptions="Center"></Label>
-            <Entry x:Name="PetDisease"
-			   Text="{Binding PetDto.DoencaCronica}" 
-			   Grid.Row="3"
-               Grid.Column="1"
-			   VerticalOptions="Center"></Entry>
-            <Label Text="Data Nascº"
-               Grid.Row="4"
-               Grid.Column="0"
-               FontSize="Small"
-			   VerticalOptions="Center"></Label>
-            <DatePicker x:Name="dobPicker" 
-  			    Date="{Binding PetDto.DataNascimento}"
-				Grid.Row="4"
-                Grid.Column="1"
-				VerticalOptions="Center"></DatePicker>
-            <Label Text="Observações"
-               Grid.Row="5"
-               Grid.Column="0"
-               FontSize="Small"></Label>
-            <Editor x:Name="PetNotes"
-			        Text="{Binding PetDto.Observacoes}"
-			        Grid.Row="5"
-                    Grid.Column="1"
-                    FontSize="Small"
-			        HorizontalOptions="FillAndExpand"
-                    Keyboard="Text"
-                    IsSpellCheckEnabled="false"
-			        VerticalOptions="Center">
-            </Editor>
+        <Grid>
+            <VerticalStackLayout >
+                <Frame WidthRequest="220" CornerRadius="15" HeightRequest="120" Margin="0, 10, 0,0" HasShadow="True" 
+                       IsClippedToBounds="True"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center">
+                    <Image x:Name="PetPhoto"
+                           Source="{Binding PetDto.Foto}"
+                           Margin="0"
+                           WidthRequest="150"
+                           HeightRequest="150"
+                           VerticalOptions="Center">
+                        <Image.Shadow>
+                            <Shadow Brush="Black"
+                                    Offset="15,15"
+                                    Radius="20"
+                                    Opacity="0.9" />
+                        </Image.Shadow>
+                    </Image>
+                </Frame>
+                <Border Stroke="#2B0B98"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 40,0,0,40"
+                    Background="#fff"
+                    Padding="8,4"
+                        Margin="4"
+                    HorizontalOptions="FillAndExpand">
 
-            <Label Text="Espécie" Grid.Row="6" Grid.Column="0" FontSize="Small"></Label>
-            <Picker x:Name="SpeciesPicker" 
-                    Title="Select a Specie" 
-                    Grid.Row="6" 
-                    Grid.Column="1"
-                    ItemsSource="{Binding Species}"
-                    SelectedIndex="{Binding IdEspecie }"
-                    SelectedItem="{Binding SelectedSpecie, Mode=TwoWay}"
+                    <mct:Expander Padding="10" Margin="3"
+                                  IsExpanded="True" IsClippedToBounds="True" >
+                        <mct:Expander.Header>
+                            <Frame 
+                            BorderColor="Black"
+                            BackgroundColor="LightSteelBlue"
+                            CornerRadius="10">
+                                <Label Text="Dados biográficos" FontSize="16" 
+                               FontAttributes="Bold" TextColor="Black"
+                               />
+                            </Frame>
+                        </mct:Expander.Header>
+                        <mct:Expander.Content>
+                            <Grid Margin="2, 10, 0, 0" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="80"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".3*"></ColumnDefinition>
+                                    <ColumnDefinition Width=".7*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="Nome" 
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       FontSize="Small"
+			                           VerticalOptions="Center"></Label>
+                                <Entry x:Name="PetName"
+			                           Text="{Binding PetDto.Nome}" 
+			                           Grid.Row="0"
+                                       Grid.Column="1"
+			                           VerticalOptions="Center"></Entry>
+                                <Label Text="Data Nascº"
+                                       Grid.Row="1"
+                                       Grid.Column="0"
+                                       FontSize="Small"
+			                           VerticalOptions="Center"></Label>
+                                <DatePicker x:Name="dobPicker" 
+  			                            Date="{Binding PetDto.DataNascimento}"
+				                        Grid.Row="1"
+                                        Grid.Column="1"
+				                        VerticalOptions="Center"></DatePicker>
+                                <Label Text="Doenças"
+                                       Grid.Row="2"
+                                       Grid.Column="0"
+                                       FontSize="Small"
+			                           VerticalOptions="Center"></Label>
+                                <Entry x:Name="PetDisease"
+			                           Text="{Binding PetDto.DoencaCronica}" 
+			                           Grid.Row="2"
+                                       Grid.Column="1"
+			                           VerticalOptions="Center"></Entry>
+                                <Label Text="Peso"
+                                       Grid.Row="3"
+                                       Grid.Column="0"
+                                       FontSize="Small"
+			                           VerticalOptions="Center"></Label>
+                                <Entry x:Name="PetWeigh" Keyboard="Numeric"
+			                           Text="{Binding PetDto.IdPeso}" 
+			                           Grid.Row="3"
+                                       Grid.Column="1"
+			                           VerticalOptions="Center">
+                                    <Entry.Behaviors>
+                                        <mct:NumericValidationBehavior 
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            ValidStyle="{StaticResource ValidEntryStyle}"
+                                            Flags="ValidateOnValueChanged"
+                                            MinimumValue="1"
+                                            MaximumValue="45"
+                                            MaximumDecimalPlaces="0" />
+                                    </Entry.Behaviors>
+                                </Entry>
+
+                                <Label Text="Observações"
+                                       Grid.Row="4"
+                                       Grid.Column="0"
+                                       FontSize="Small"></Label>
+                                <Editor x:Name="PetNotes"
+			                        Text="{Binding PetDto.Observacoes}"
+			                        Grid.Row="4"
+                                    Grid.Column="1"
+                                    FontSize="Small"
+			                        HorizontalOptions="FillAndExpand"
+                                    Keyboard="Text"
+                                    IsSpellCheckEnabled="false"
+			                        VerticalOptions="Center">
+                                </Editor>
+                            </Grid>
+                        </mct:Expander.Content>
+                    </mct:Expander>
+                </Border>
+
+                <Border Stroke="#2B0B98"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 40,0,0,40"
+                        Background="#fff"
+                        Padding="8,4"
+                        Margin="4"
+                        HorizontalOptions="FillAndExpand">
+                    <mct:Expander Padding="10" Margin="3">
+                        <mct:Expander.Header>
+                            <Frame 
+                            BorderColor="Black"
+                            BackgroundColor="LightSteelBlue"
+                            CornerRadius="10">
+                                <Label Text="Outos dados" FontSize="16"
+                                   FontAttributes="Bold" TextColor="Black"/>
+                            </Frame>
+                        </mct:Expander.Header>
+                        <mct:Expander.Content>
+
+                            <Grid Margin="2, 10, 0, 0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width=".3*"></ColumnDefinition>
+                                    <ColumnDefinition Width=".7*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+
+                                <Label Text="Espécie" Grid.Row="0" Grid.Column="0" FontSize="Small"></Label>
+                                <Picker x:Name="SpeciesPicker" 
+                                        Title="Select a Specie" 
+                                        Grid.Row="0" 
+                                        Grid.Column="1"
+                                        ItemsSource="{Binding Species}"
+                                        SelectedItem="{Binding SelectedSpecie}"
+                                        SelectedIndex="{Binding SpecieSelectedIndex}"
+                                        SelectedIndexChanged="SelectedIndexChanged"
+                                        ItemDisplayBinding="{Binding Descricao}">
+                                </Picker>
+
+                                <Label Text="Situação" Grid.Row="1" Grid.Column="0" FontSize="Small"></Label>
+                                <Picker x:Name="SituationsPicker"
+                                        Title="Select a Situation" Grid.Row="1" Grid.Column="1"
+                                        ItemsSource="{Binding Situations}"
+                                        SelectedItem="{Binding SelectedSituation}"
+                                        SelectedIndex="{Binding SituationSelectedIndex}"
+                                        SelectedIndexChanged="SelectedIndexChanged"
+                                        ItemDisplayBinding="{Binding Descricao}">
+                                </Picker>
+                                <Label Text="Temperamento" Grid.Row="2" Grid.Column="0" FontSize="Small"></Label>
+                                <Picker x:Name="TemperamentsPicker"
+                    Title="Select a Temperament" Grid.Row="2" Grid.Column="1"
+                    ItemsSource="{Binding Temperaments}" 
+                    SelectedItem="{Binding SelectedTemperament}"
+                    SelectedIndex="{Binding TemperamentSelectedIndex}"
+                    SelectedIndexChanged="SelectedIndexChanged"
                     ItemDisplayBinding="{Binding Descricao}">
-                <Picker.Behaviors>
-                    <behaviours:PickerSelectionBehavior Command="{Binding UpdateSelectedItemCommand}" />
-                </Picker.Behaviors>
-            </Picker>
+                                </Picker>
 
-            <Label Text="Temperamento" Grid.Row="7" Grid.Column="0" FontSize="Small"></Label>
-            <Picker x:Name="TemperamentsPicker"
-                    Title="Select a Temperament" Grid.Row="7" Grid.Column="1"
-                    ItemsSource="{Binding Temperaments, Mode=TwoWay}"
-                    SelectedIndex="{Binding IdTemperamento }"
+                                <Label Text="Breed" Grid.Row="3" Grid.Column="0" FontSize="Small"></Label>
+                                <Picker x:Name="BreedsPicker"
+                    Title="Select a Breed" Grid.Row="3" Grid.Column="1"
+                    ItemsSource="{Binding Breeds}"
+                    SelectedItem="{Binding SelectedBreed}"
+                    SelectedIndex="{Binding BreedSelectedIndex}"
+                    SelectedIndexChanged="SelectedIndexChanged"
                     ItemDisplayBinding="{Binding Descricao}">
-                <Picker.Behaviors>
-                    <behaviours:PickerSelectionBehavior Command="{Binding UpdateSelectedItemCommand}" />
-                </Picker.Behaviors>
-            </Picker>
-
-            <Label Text="Situação" Grid.Row="8" Grid.Column="0" FontSize="Small"></Label>
-            <Picker x:Name="SituationsPicker"
-                    Title="Select a Situation" Grid.Row="8" Grid.Column="1"
-                    ItemsSource="{Binding Situations, Mode=TwoWay}"
-                    SelectedIndex="{Binding IdSituacao }"
+                                </Picker>
+                                <Label Text="Size" Grid.Row="4" Grid.Column="0" FontSize="Small"></Label>
+                                <Picker x:Name="SizesPicker"
+                    Title="Select size" Grid.Row="4" Grid.Column="1"
+                    ItemsSource="{Binding Sizes}"
+                    SelectedItem="{Binding SelectedSize}"
+                    SelectedIndex="{Binding SizeSelectedIndex}"
+                    SelectedIndexChanged="SelectedIndexChanged"
                     ItemDisplayBinding="{Binding Descricao}">
-                <Picker.Behaviors>
-                    <behaviours:PickerSelectionBehavior Command="{Binding UpdateSelectedItemCommand}" />
-                </Picker.Behaviors>
+                                </Picker>
 
-            </Picker>
-
-            <HorizontalStackLayout Grid.Row="9" Grid.ColumnSpan="2" 
-                                   Spacing="50"
-                                   Padding="10"
-                                   VerticalOptions="CenterAndExpand">
-                <Button Text="Gravar" 
+                            </Grid>
+                        </mct:Expander.Content>
+                    </mct:Expander>
+                </Border>
+                <FlexLayout Grid.Row="5" Grid.ColumnSpan="2"  Margin="0,0,0,50"
+                                        HorizontalOptions="Center" VerticalOptions="Center" JustifyContent="SpaceEvenly">
+                    <Button Text="Gravar" 
                         Command="{Binding SavePetDataCommand}"
-                        HeightRequest="50" 
+                        HeightRequest="40" 
                         WidthRequest="100"
-                        Style="{StaticResource ButtonOutline}"/>
-                <Button Text="Voltar" 
+                        CornerRadius="15"/>
+                    <Button Text="Voltar" 
                         Command="{Binding GoBackCommand}"
-                        HeightRequest="50" 
-                        WidthRequest="100"
-                        Style="{StaticResource ButtonOutline}"/>
-            </HorizontalStackLayout>
+                        CornerRadius="15"
+                        HeightRequest="40" 
+                        WidthRequest="100"/>
+
+                </FlexLayout>
+
+            </VerticalStackLayout>
         </Grid>
     </ScrollView>
+
+
 </ContentPage>

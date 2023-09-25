@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiPets", "MauiPets\MauiPets.csproj", "{F6D96F3E-8828-44FD-AD1C-E8B4F1D7C4F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiPets", "MauiPets\MauiPets.csproj", "{F6D96F3E-8828-44FD-AD1C-E8B4F1D7C4F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiPets.Core", "MauiPets.Core\MauiPets.Core.csproj", "{4C5D4F97-14FE-46BF-93B3-BDBE5489E7B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiPetsApp.Infrastructure", "MauiPetsApp.Infrastructure\MauiPetsApp.Infrastructure.csproj", "{D77CFFC4-C898-4FA7-92EB-6F6C2E35093D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +21,14 @@ Global
 		{F6D96F3E-8828-44FD-AD1C-E8B4F1D7C4F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6D96F3E-8828-44FD-AD1C-E8B4F1D7C4F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6D96F3E-8828-44FD-AD1C-E8B4F1D7C4F2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4C5D4F97-14FE-46BF-93B3-BDBE5489E7B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C5D4F97-14FE-46BF-93B3-BDBE5489E7B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C5D4F97-14FE-46BF-93B3-BDBE5489E7B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C5D4F97-14FE-46BF-93B3-BDBE5489E7B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D77CFFC4-C898-4FA7-92EB-6F6C2E35093D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D77CFFC4-C898-4FA7-92EB-6F6C2E35093D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D77CFFC4-C898-4FA7-92EB-6F6C2E35093D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D77CFFC4-C898-4FA7-92EB-6F6C2E35093D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

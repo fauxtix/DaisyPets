@@ -3,8 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Pets.PetsPage"
              x:DataType="local:PetViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
             xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
              Title="Daisy Pets">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetPetsCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Pet" Command="{Binding AddPetCommand  }"
+                 IconImageSource="add.png" />
+    </ContentPage.ToolbarItems>
     <ScrollView>
         <VerticalStackLayout>
 

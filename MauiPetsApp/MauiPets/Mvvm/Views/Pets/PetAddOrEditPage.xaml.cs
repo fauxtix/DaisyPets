@@ -1,69 +1,69 @@
-using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.Behaviours.Pickers;
-using MauiPets.Mvvm.Models;
+using CommunityToolkit.Maui.Views;
 using MauiPets.Mvvm.ViewModels.Pets;
-using System.Diagnostics;
-using System.Windows.Input;
+using MauiPetsApp.Core.Application.Interfaces.Services;
+using MauiPetsApp.Core.Application.ViewModels;
+using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 
 namespace MauiPets.Mvvm.Views.Pets;
 
 public partial class PetAddOrEditPage : ContentPage
 {
-    private PetAddOrEditViewModel viewModel;
-    public PetAddOrEditPage(PetAddOrEditViewModel viewModel)
+    private PetAddOrEditViewModel _viewModel;
+    private readonly IPetService _petService;
+
+    public PetAddOrEditPage(PetAddOrEditViewModel viewModel, IPetService petService)
     {
         InitializeComponent();
-        this.viewModel = viewModel;
+        _viewModel = viewModel;
+        _petService = petService;
 
-        RegisterPickers();
-        BindingContext =this.viewModel;
-
-
-        //(BindingContext as PetAddOrEditViewModel).PropertyChanged += (sender, args) =>
-        //{
-        //    if (args.PropertyName == nameof(PetAddOrEditViewModel.SelectedSpecie))
-        //    {
-        //        var selectedSpecieId = (BindingContext as PetAddOrEditViewModel).SelectedSpecie.Id;
-        //        (BindingContext as PetAddOrEditViewModel).PetDto.IdEspecie = selectedSpecieId;
-        //    }
-        //};
+        BindingContext = _viewModel;
     }
 
-    //private async void SaveProductButton_OnClicked(object sender, EventArgs e)
-    //{
-    //    bool answer = await DisplayAlert("Gravar dados do Pet", "Confirma operação", "Sim", "Não");
-    //    Debug.WriteLine("Answer: " + answer);
-    //}
-
-    private void RegisterPickers()
+    private Picker GetSituationsPicker()
     {
-        this.viewModel.RegisterPicker(SpeciesPicker, selectedItem => HandlePickerSelection(SpeciesPicker, selectedItem));
-        this.viewModel.RegisterPicker(TemperamentsPicker, selectedItem => HandlePickerSelection(TemperamentsPicker, selectedItem));
-        this.viewModel.RegisterPicker(SituationsPicker, selectedItem => HandlePickerSelection(SituationsPicker, selectedItem));
+        return SituationsPicker;
     }
-    private void HandlePickerSelection(Picker picker, object selectedItem)
+
+
+    private void SelectedIndexChanged(object sender, EventArgs e)
     {
-        if (selectedItem != null)
+
+        //if (_viewModel.PetDto is null) return;
+        try
         {
-            switch (picker)
+            if (BindingContext is PetAddOrEditViewModel viewModel && sender is Picker picker)
             {
-                case Picker speciesPicker when speciesPicker == SpeciesPicker:
-                    var selectedSpecie = (LookupTableVM)selectedItem;
-                    int selectedSpecieId = selectedSpecie.Id;
-                    this.viewModel.IdEspecie = selectedSpecieId;
-                    break;
-                case Picker temperamentsPicker when temperamentsPicker == TemperamentsPicker:
-                    var selectedTemperament = (LookupTableVM)selectedItem;
-                    int selectedTemperamentId = selectedTemperament.Id;
-                    this.viewModel.IdTemperamento = selectedTemperamentId;
-                    break;
-                case Picker situationsPicker when situationsPicker == SituationsPicker:
-                    var selectedSituation = (LookupTableVM)selectedItem;
-                    int selectedSituationId = selectedSituation.Id;
-                    this.viewModel.IdSituacao = selectedSituationId;
-                    break;
+                var sit = picker.SelectedItem as LookupTableVM;
+
+                switch (picker)
+                {
+                    case var _ when picker == SpeciesPicker:
+                        viewModel.PetDto.IdEspecie = sit.Id;
+                        break;
+                    case var _ when picker == TemperamentsPicker:
+                        viewModel.PetDto.IdTemperamento = sit.Id;
+                        break;
+                    case var _ when picker == SituationsPicker:
+                        viewModel.PetDto.IdSituacao = sit.Id;
+                        break;
+                    case var _ when picker == BreedsPicker:
+                        viewModel.PetDto.IdRaca = sit.Id;
+                        break;
+                    case var _ when picker == SizesPicker:
+                        viewModel.PetDto.IdTamanho = sit.Id;
+                        break;
+                    default:
+                        // Handle any other cases if necessary
+                        break;
+                }
             }
+
+        }
+        catch (Exception ex)
+        {
+            var msgE = ex.Message;
+            throw;
         }
     }
-
 }

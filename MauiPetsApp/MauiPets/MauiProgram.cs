@@ -1,8 +1,13 @@
-﻿using MauiPets.Mvvm.ViewModels.Pets;
+﻿using CommunityToolkit.Maui;
+using MauiPets.Mvvm.ViewModels.Pets;
 using MauiPets.Mvvm.Views.Pets;
-using MauiPets.Services;
-using AutoMapper;
-using Microsoft.Extensions.Logging;
+using MauiPetsApp.Core.Application.Interfaces.Application;
+using MauiPetsApp.Core.Application.Interfaces.DapperContext;
+using MauiPetsApp.Core.Application.Interfaces.Services;
+using MauiPetsApp.Infrastructure.Context;
+using MauiPetsApp.Infrastructure.Repositories;
+using MauiPetsApp.Infrastructure.Services;
+
 
 namespace MauiPets
 {
@@ -11,33 +16,41 @@ namespace MauiPets
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+            builder.UseMauiApp<App>().ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            })
+                .UseMauiCommunityToolkit();
 
 #if DEBUG
-            builder.Logging.AddDebug();
+            //builder.Logging.AddDebug();
 #endif
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
             builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
             builder.Services.AddSingleton<IMap>(Map.Default);
 
-            builder.Services.AddSingleton<PetService>();
-            builder.Services.AddSingleton<LookupTablesService>();
-
+            // ViewModels
             builder.Services.AddSingleton<PetViewModel>();
-            builder.Services.AddSingleton<PetsPage>();
-
             builder.Services.AddTransient<PetDetailViewModel>();
-            builder.Services.AddTransient<PetDetailPage>();
-
             builder.Services.AddTransient<PetAddOrEditViewModel>();
+
+            // Views
+            builder.Services.AddSingleton<PetsPage>();
+            builder.Services.AddTransient<PetDetailPage>();
             builder.Services.AddTransient<PetAddOrEditPage>();
+
+            // Database context
+            builder.Services.AddTransient<IDapperContext, DapperContext>();
+
+            // Services
+            builder.Services.AddSingleton<IPetService, PetService>();
+            builder.Services.AddSingleton<ILookupTableService, LookupTableService>();
+
+            // repositories
+            builder.Services.AddSingleton<IPetRepository, PetRepository>();
+            builder.Services.AddSingleton<ILookupTableRepository, LookupTableRepository>();
 
             return builder.Build();
         }

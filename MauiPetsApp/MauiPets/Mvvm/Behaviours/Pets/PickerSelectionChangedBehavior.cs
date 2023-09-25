@@ -1,4 +1,5 @@
 ﻿using MauiPets.Mvvm.Models;
+using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 using System.Collections;
 using System.Windows.Input;
 

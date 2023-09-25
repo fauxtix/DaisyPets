@@ -1,28 +1,27 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MauiPets.Mvvm.Models;
-using MauiPets.Mvvm.Views;
+using MauiPetsApp.Core.Application.ViewModels;
+using MauiPetsApp.Core.Application.ViewModels.LookupTables;
+using System.Windows.Input;
 
 namespace MauiPets.Mvvm.ViewModels.Pets
 {
     public partial class BaseViewModel : ObservableObject
     {
         [ObservableProperty]
-        public string _id;
+        public int _id;
         [ObservableProperty]
         private string _nome;
 
-        [ObservableProperty]
         private int _idEspecie;
-        [ObservableProperty]
+        private int _idSituacao;
+        private int _idTemperamento;
         private int _idRaca;
+
         [ObservableProperty]
         private int _idTamanho;
-        [ObservableProperty]
-        private int _idSituacao;
+
         [ObservableProperty]
         private int _idPeso;
-        [ObservableProperty]
-        private int _IdTemperamento;
         [ObservableProperty]
         private int _chipado;
         [ObservableProperty]
@@ -54,18 +53,47 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         [ObservableProperty]
         public string _foto;
 
-        [ObservableProperty]
-        public PetVM _pet;
+
+
+        public int IdEspecie
+        {
+            get => _idEspecie;
+            set => SetProperty(ref _idEspecie, value);
+        }
+
+        public int IdTemperamento
+        {
+            get => _idTemperamento;
+            set => SetProperty(ref _idTemperamento, value);
+        }
+
+        public int IdSituacao
+        {
+            get => _idSituacao;
+            set => SetProperty(ref _idSituacao, value);
+        }
+        public int IdRaca
+        {
+            get => _idRaca;
+            set => SetProperty(ref _idRaca, value);
+        }
+
 
         [ObservableProperty]
-        public PetDto _petDto;
+        public PetVM _pet = new();
 
         [ObservableProperty]
-        public LookupTableVM _lookupTable;
+        public PetDto _petDto = new();
+
+        [ObservableProperty]
+        public LookupTableVM _lookupTableVM;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         bool isBusy;
         public bool IsNotBusy => !IsBusy;
+
+        public ICommand UpdateSelectedItemCommand { get; set; }
+
     }
 }

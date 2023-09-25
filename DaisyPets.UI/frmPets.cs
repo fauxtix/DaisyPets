@@ -4,6 +4,7 @@ using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Application.ViewModels.Pdfs;
 using DaisyPets.UI.ApiServices;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Syncfusion.Windows.Forms;
 using System.Collections;
 using System.Configuration;
@@ -57,12 +58,12 @@ namespace DaisyPets.UI
             ClearForm();
             FillGrid();
 
-            if (gdvDados.RowCount > 0)
-            {
-                gdvDados.Rows[0].Selected = true;
-                var arg = new DataGridViewCellEventArgs(0, 0);
-                gdvDados_CellClick(gdvDados, arg);
-            }
+            //if (gdvDados.RowCount > 0)
+            //{
+            //    gdvDados.Rows[0].Selected = true;
+            //    var arg = new DataGridViewCellEventArgs(0, 0);
+            //    gdvDados_CellClick(gdvDados, arg);
+            //}
 
 
         }
@@ -370,7 +371,7 @@ namespace DaisyPets.UI
                     txtCor.Text = petData.Cor;
                     txtFoto.Text = petData.Foto;
                     dtpDataNascimento.Value = DateTime.Parse(petData.DataNascimento);
-                    nudPeso.Value = petData.IdPeso;
+                    nudPeso.Value = petData.IdPeso > 0 ? petData.IdPeso : 1;
                     txtIdade.Text = petData.DataNascimento;
                     txtNome.Text = petData.Nome;
                     txtDoencaCronica.Text = petData.DoencaCronica;
@@ -395,7 +396,6 @@ namespace DaisyPets.UI
 
                         var months = GetMonthDifference(dob, now);
                         var size = petData.IdTamanho;
-
                         txtTipoCao.Text = GetPetType(size, months);
                     }
                     else
@@ -709,6 +709,7 @@ namespace DaisyPets.UI
                         petType = "Sénior";
                     break;
                 case 3: // Grande
+                case 4: // Muito Grande
                     if (months > 0 && months <= 15)
                         petType = "Cahorro";
                     else if (months > 15 && months <= 108)

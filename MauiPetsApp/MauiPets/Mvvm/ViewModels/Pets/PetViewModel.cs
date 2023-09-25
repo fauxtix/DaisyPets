@@ -1,39 +1,40 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Helpers;
-using MauiPets.Mvvm.Views;
 using MauiPets.Mvvm.Views.Pets;
-using MauiPets.Services;
+using MauiPetsApp.Core.Application.Interfaces.Services;
+using MauiPetsApp.Core.Application.ViewModels;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
-public partial class PetViewModel : BaseViewModel 
+public partial class PetViewModel : BaseViewModel
 {
-    public DevHttpsConnectionHelper devSslHelper;
+    //    public DevHttpsConnectionHelper devSslHelper;
     public HttpClient http;
     public JsonSerializerOptions _serializerOptions;
 
     public ObservableCollection<PetVM> Pets { get; } = new();
 
 
-    PetService petService;
+    private readonly IPetService _petService;
     IConnectivity connectivity;
     IGeolocation geolocation;
-    public PetViewModel(PetService petService, IConnectivity connectivity, IGeolocation geolocation)
+    public PetViewModel(IConnectivity connectivity, IGeolocation geolocation, IPetService petService)
     {
-        devSslHelper = new DevHttpsConnectionHelper(sslPort: 4400);
-        http = devSslHelper.HttpClient;
+        //devSslHelper = new DevHttpsConnectionHelper(sslPort: 4400);
+        //http = devSslHelper.HttpClient;
         _serializerOptions = new JsonSerializerOptions
         {
             IncludeFields = true,
             PropertyNameCaseInsensitive = true
         };
-        this.petService = petService;
+        _petService = petService;
         this.connectivity = connectivity;
         this.geolocation = geolocation;
+        _petService = petService;
     }
 
     [ObservableProperty]
@@ -56,7 +57,7 @@ public partial class PetViewModel : BaseViewModel
 
             IsBusy = true;
 
-            var pets = await petService.GetPetsAsync();
+            var pets = (await _petService.GetAllVMAsync()).ToList();
 
             if (pets.Count != 0)
             {
@@ -84,30 +85,21 @@ public partial class PetViewModel : BaseViewModel
     [RelayCommand]
     private async Task GetPetAsync()
     {
-        if (Id is not null)
+        var petId = Convert.ToInt32(Id);
+        if (petId > 0)
         {
-            var petId = Convert.ToInt32(Id);
-            if (petId > 0)
+            var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
+
+            if (response is not null)
             {
-                var response = await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
+                Pet = response;
 
-                if (response.IsSuccessStatusCode)
-                {
-                    using (var responseStream =
-                            await response.Content.ReadAsStreamAsync())
+                await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
+                    new Dictionary<string, object>
                     {
-                        var data = await JsonSerializer
-                         .DeserializeAsync<PetVM>(responseStream, _serializerOptions);
-                        Pet = data;
-                    }
-
-                    await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
-                        new Dictionary<string, object>
-                        {
                             {"SelectedPet", Pet }
-                        });
+                    });
 
-                }
             }
         }
     }
@@ -126,5 +118,38 @@ public partial class PetViewModel : BaseViewModel
              });
     }
 
+    [RelayCommand]
+    private async Task AddPetAsync(PetVM petVM)
+    {
+        PetDto = new()
+        {
+            Chip = "",
+            Chipado = 0,
+            Cor = "",
+            DataChip = DateTime.Now.ToShortDateString(),
+            DataNascimento = DateTime.Now.ToShortDateString(),
+            DoencaCronica = "",
+            Esterilizado = 1,
+            Foto = "che.png",
+            Genero = "M",
+            IdPeso = 0,
+            IdEspecie = 0,
+            IdRaca = 0,
+            IdSituacao = 0,
+            IdTamanho = 0,
+            IdTemperamento = 0,
+            Medicacao = "",
+            Nome = "",
+            NumeroChip = "",           
+            Observacoes = "",
+            Padrinho = 0
+        };
+
+        await Shell.Current.GoToAsync($"{nameof(PetAddOrEditPage)}", true,
+            new Dictionary<string, object>
+            {
+                    {"PetDto", PetDto}
+            });
+    }
 }
 

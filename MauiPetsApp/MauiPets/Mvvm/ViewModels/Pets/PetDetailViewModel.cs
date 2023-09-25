@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.Views;
 using MauiPets.Mvvm.Views.Pets;
-using MauiPets.Services;
+using MauiPetsApp.Core.Application.Interfaces.Services;
+using MauiPetsApp.Core.Application.ViewModels;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
@@ -11,15 +11,18 @@ namespace MauiPets.Mvvm.ViewModels.Pets;
 
 public partial class PetDetailViewModel : BaseViewModel
 {
-    private readonly PetService _petService;
-    public PetDetailViewModel(PetService petService)
+    private readonly IPetService _petService;
+    public PetDetailViewModel(IPetService petService)
     {
         _petService = petService;
     }
 
-    
+
     [ObservableProperty]
     PetVM petVM;
+
+    public string Gender => Genero == "M" ? "Male" : "Female";
+
 
     [ObservableProperty]
     bool isRefreshing;
@@ -35,7 +38,7 @@ public partial class PetDetailViewModel : BaseViewModel
     {
         int petId = PetVM.Id;
         IsRefreshing = true;
-        PetVM = await _petService.GetPetVMByIdAsync(petId);
+        PetVM = await _petService.GetPetVMAsync(petId);
 
         IsRefreshing = false;
 
@@ -50,7 +53,7 @@ public partial class PetDetailViewModel : BaseViewModel
         }
         try
         {
-            var petDto = await  _petService.GetPetByIdAsync(PetVM.Id);
+            var petDto = await _petService.FindByIdAsync(PetVM.Id);
             await Shell.Current.GoToAsync($"{nameof(PetAddOrEditPage)}", true,
                 new Dictionary<string, object>
                 {
