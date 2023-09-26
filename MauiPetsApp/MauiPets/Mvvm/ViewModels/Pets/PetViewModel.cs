@@ -4,6 +4,7 @@ using MauiPets.Helpers;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
+using MauiPetsApp.Core.Domain;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;
@@ -20,9 +21,10 @@ public partial class PetViewModel : BaseViewModel
 
 
     private readonly IPetService _petService;
-    IConnectivity connectivity;
-    IGeolocation geolocation;
-    public PetViewModel(IConnectivity connectivity, IGeolocation geolocation, IPetService petService)
+    private readonly IVacinasService _petVaccinesService;
+    IConnectivity _connectivity;
+    IGeolocation _geolocation;
+    public PetViewModel(IConnectivity connectivity, IGeolocation geolocation, IPetService petService, IVacinasService petVaccinesService)
     {
         //devSslHelper = new DevHttpsConnectionHelper(sslPort: 4400);
         //http = devSslHelper.HttpClient;
@@ -32,9 +34,10 @@ public partial class PetViewModel : BaseViewModel
             PropertyNameCaseInsensitive = true
         };
         _petService = petService;
-        this.connectivity = connectivity;
-        this.geolocation = geolocation;
+        _connectivity = connectivity;
+        _geolocation = geolocation;
         _petService = petService;
+        _petVaccinesService = petVaccinesService;
     }
 
     [ObservableProperty]
@@ -45,7 +48,7 @@ public partial class PetViewModel : BaseViewModel
     {
         try
         {
-            if (connectivity.NetworkAccess != NetworkAccess.Internet)
+            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
             {
                 await Shell.Current.DisplayAlert("No connectivity!",
                     $"Please check internet and try again.", "OK");
@@ -85,7 +88,7 @@ public partial class PetViewModel : BaseViewModel
     [RelayCommand]
     private async Task GetPetAsync()
     {
-        var petId = Convert.ToInt32(Id);
+        var petId = Id;
         if (petId > 0)
         {
             var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
@@ -97,7 +100,7 @@ public partial class PetViewModel : BaseViewModel
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
                     {
-                            {"SelectedPet", Pet }
+                            {"PetVM", Pet },
                     });
 
             }
@@ -111,10 +114,11 @@ public partial class PetViewModel : BaseViewModel
         {
             return;
         }
+
         await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
             new Dictionary<string, object>
             {
-                        {"PetVM", petVM }
+                        {"PetVM", petVM },
              });
     }
 
@@ -140,7 +144,7 @@ public partial class PetViewModel : BaseViewModel
             IdTemperamento = 0,
             Medicacao = "",
             Nome = "",
-            NumeroChip = "",           
+            NumeroChip = "",
             Observacoes = "",
             Padrinho = 0
         };

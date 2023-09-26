@@ -53,11 +53,11 @@
                                   IsExpanded="True" IsClippedToBounds="True" >
                         <mct:Expander.Header>
                             <Frame 
-                            BorderColor="Black"
-                            BackgroundColor="LightSteelBlue"
-                            CornerRadius="10">
+                                    BorderColor="Black"
+                                    BackgroundColor="LightSteelBlue"
+                                    CornerRadius="10">
                                 <Label Text="Dados biográficos" FontSize="16" 
-                               FontAttributes="Bold" TextColor="Black"
+                                       FontAttributes="Bold" TextColor="Black"
                                />
                             </Frame>
                         </mct:Expander.Header>
@@ -65,6 +65,8 @@
                             <Grid Margin="2, 10, 0, 0" >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="100"></RowDefinition>
                                     <RowDefinition Height="40"></RowDefinition>
                                     <RowDefinition Height="40"></RowDefinition>
                                     <RowDefinition Height="40"></RowDefinition>
@@ -98,12 +100,15 @@
                                        Grid.Row="2"
                                        Grid.Column="0"
                                        FontSize="Small"
-			                           VerticalOptions="Center"></Label>
-                                <Entry x:Name="PetDisease"
-			                           Text="{Binding PetDto.DoencaCronica}" 
+			                           VerticalOptions="Start"></Label>
+                                <Editor x:Name="PetDisease"  
+			                           Text="{Binding PetDto.DoencaCronica}"  
+                                        HeightRequest="100" Placeholder="Doenças"
 			                           Grid.Row="2"
                                        Grid.Column="1"
-			                           VerticalOptions="Center"></Entry>
+                                       FontSize="Small"
+			                           VerticalOptions="Start">
+                                </Editor>
                                 <Label Text="Peso"
                                        Grid.Row="3"
                                        Grid.Column="0"
@@ -124,14 +129,34 @@
                                             MaximumDecimalPlaces="0" />
                                     </Entry.Behaviors>
                                 </Entry>
+                                <Label Text="Cor"
+                                       Grid.Row="4"
+                                       Grid.Column="0"
+                                       FontSize="Small"
+			                           VerticalOptions="Center"></Label>
+                                <Entry x:Name="PetColor"
+			                           Text="{Binding PetDto.Cor}" 
+			                           Grid.Row="4"
+                                       Grid.Column="1"
+			                           VerticalOptions="Center"></Entry>
+                                <Label Text="Medicacao"
+                                       Grid.Row="5"
+                                       Grid.Column="0"
+                                       FontSize="Small"
+			                           VerticalOptions="Center"></Label>
+                                <Entry x:Name="PetMedication"
+			                           Text="{Binding PetDto.Medicacao}" 
+			                           Grid.Row="5"
+                                       Grid.Column="1"
+			                           VerticalOptions="Center"></Entry>
 
                                 <Label Text="Observações"
-                                       Grid.Row="4"
+                                       Grid.Row="6"
                                        Grid.Column="0"
                                        FontSize="Small"></Label>
                                 <Editor x:Name="PetNotes"
 			                        Text="{Binding PetDto.Observacoes}"
-			                        Grid.Row="4"
+			                        Grid.Row="6"
                                     Grid.Column="1"
                                     FontSize="Small"
 			                        HorizontalOptions="FillAndExpand"

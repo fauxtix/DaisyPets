@@ -1,16 +1,24 @@
 using MauiPets.Mvvm.ViewModels.Pets;
-using MauiPetsApp.Core.Application.Interfaces.Services;
 
 namespace MauiPets.Mvvm.Views.Pets;
 
 public partial class PetDetailPage : ContentPage
 {
-    private IPetService _petService;
-    public PetDetailPage(PetDetailViewModel viewModel, IPetService petService)
+    private PetDetailViewModel _viewModel;
+    public PetDetailPage(PetDetailViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = viewModel;
-        _petService = petService;
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
+        
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        VaccinesView.ItemsSource = _viewModel.PetVaccinesVM;
+        DewormersView.ItemsSource = _viewModel.PetDewormersVM;
+        FoodView.ItemsSource = _viewModel.PetFoodVM;
+        ConsultationsView.ItemsSource = _viewModel.PetConsultationsVM;
+    }
 }

@@ -9,8 +9,8 @@ namespace MauiPetsApp.Infrastructure.Context
         private readonly string? _connectionString;
         public DapperContext()
         {
-            var dbFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PetsDB..db");
-            _connectionString = $"Data Source = {dbFile}";
+            var dbFile =   Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PetsDB..db");
+           _connectionString = $"Data Source = {dbFile}";
         }
 
         public void Execute(Action<IDbConnection> @event)

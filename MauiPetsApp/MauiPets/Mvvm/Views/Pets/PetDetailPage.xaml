@@ -2,21 +2,19 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"            
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Pets.PetDetailPage"
+             xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
               xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
               x:DataType="viewmodel:PetDetailViewModel"
               Title="{Binding  PetVM.Nome}">
 
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
-        <Grid RowDefinitions="Auto,Auto,*">
+        <Grid RowDefinitions="Auto,Auto, Auto, Auto, Auto, Auto, Auto, 100">
             <BoxView
                 BackgroundColor="{StaticResource Primary}"
                 Grid.RowSpan="2"
                 HorizontalOptions="Fill"
                 VerticalOptions="Fill"/>
-            <Grid>
-
-            </Grid>
             <Border StrokeShape="RoundRectangle 50"
                     Stroke="White"
                     StrokeThickness="6"
@@ -41,8 +39,8 @@
                    HorizontalOptions="Center"
                    Margin="0,0,0,3"/>
             </Frame>
-            <Frame Grid.Row="2" CornerRadius="40" HasShadow="False" Margin="5,20,5,20" BorderColor="Transparent">
-                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, *, 180" 
+            <Frame Grid.Row="2" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" 
                           RowSpacing="5"
                           HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.ColumnDefinitions>
@@ -65,25 +63,242 @@
                     <Label Grid.Row="6" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TamanhoAnimal}" />
                     <Label Grid.Row="7" Grid.Column="0">Condição</Label>
                     <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.SituacaoAnimal}" />
-                    <FlexLayout Grid.Row="8" Grid.ColumnSpan="2"  
+                </Grid>
+            </Frame>
+
+
+            <Border Grid.Row="3" Stroke="#2B0B98"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 40,0,0,40"
+                    Background="#fff"
+                    Padding="8,2,8,0"
+                    Margin="2"
+                    HorizontalOptions="FillAndExpand">
+
+                <mct:Expander Padding="6" Margin="2"
+                                  IsExpanded="false" IsClippedToBounds="True" >
+                    <mct:Expander.Header>
+                        <Frame 
+                                    BorderColor="Black"
+                                    BackgroundColor="LightSteelBlue"
+                                    CornerRadius="10">
+                            <Label Text="Vacinas" FontSize="14" 
+                                       FontAttributes="Bold" TextColor="Black"
+                               />
+                        </Frame>
+                    </mct:Expander.Header>
+                    <mct:Expander.Content>
+
+                        <Frame Grid.Row="3" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent">
+                            <Grid Padding="2" RowDefinitions="Auto, Auto">
+                                <Grid ColumnDefinitions="80, 160, *" ColumnSpacing="1"
+                          Grid.Row="0">
+                                    <Label FontAttributes="Bold" FontSize="12" Text="Toma" Grid.Row="0" Grid.Column="0" />
+                                    <Label FontAttributes="Bold" FontSize="12" Text="Marca" Grid.Row="0" Grid.Column="1"/>
+                                    <Label FontAttributes="Bold" FontSize="12" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" />
+                                </Grid>
+                                <CollectionView Grid.Row="1" 
+                        x:Name="VaccinesView"
+                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetVaccinesVM}" 
+                        SelectionMode="Single">
+                                    <CollectionView.EmptyView>
+                                        <StackLayout Grid.Column="1" 
+                                     Padding="10">
+                                            <Image
+                                    HorizontalOptions="Center"
+                                    HeightRequest="80"
+                                    WidthRequest="80"
+                                    Source="nopets.png"
+                                    VerticalOptions="Center" />
+                                            <Label HorizontalOptions="Center" Padding="10">No data for vaccines</Label>
+                                        </StackLayout>
+                                    </CollectionView.EmptyView>
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:VacinaVM">
+                                            <Grid ColumnSpacing="0" ColumnDefinitions="80, 160, *" Margin="0,3">
+                                                <Label FontAttributes="Bold" FontSize="11"  Grid.Column="0"  Text="{Binding DataToma}"></Label>
+                                                <Label FontAttributes="Bold" FontSize="11" Grid.Column="1" Text="{Binding Marca}"></Label>
+                                                <Label FontAttributes="Bold" FontSize="11" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }"
+                                           ></Label>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+
+                                </CollectionView>
+                            </Grid>
+                        </Frame>
+                    </mct:Expander.Content>
+                </mct:Expander>
+            </Border>
+            <Border Grid.Row="4" Stroke="#2B0B98"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 40,0,0,40"
+                    Background="#fff"
+                    Padding="8,4"
+                    Margin="2"
+                    HorizontalOptions="FillAndExpand">
+
+                <mct:Expander Padding="6" Margin="2"
+                                  IsExpanded="false" IsClippedToBounds="True" >
+                    <mct:Expander.Header>
+                        <Frame 
+                                    BorderColor="Black"
+                                    BackgroundColor="LightSteelBlue"
+                                    CornerRadius="10">
+                            <Label Text="Desparasitantes" FontSize="14" 
+                                       FontAttributes="Bold" TextColor="Black"
+                               />
+                        </Frame>
+                    </mct:Expander.Header>
+                    <mct:Expander.Content>
+
+                        <Frame Grid.Row="4" CornerRadius="40" HasShadow="False" Margin="1" BorderColor="Transparent">
+                            <Grid Padding="2" RowDefinitions="Auto, Auto">
+                                <Grid ColumnDefinitions="80, 160, *" ColumnSpacing="0"
+                          Grid.Row="0">
+                                    <Label FontAttributes="Bold" FontSize="12" Text="Toma" Grid.Row="0" Grid.Column="0" />
+                                    <Label FontAttributes="Bold" FontSize="12" Text="Marca" Grid.Row="0" Grid.Column="1"/>
+                                    <Label FontAttributes="Bold" FontSize="12" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" />
+                                </Grid>
+                                <CollectionView Grid.Row="4" 
+                        x:Name="DewormersView"
+                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetDewormersVM}" 
+                        SelectionMode="Single">
+                                    <CollectionView.EmptyView>
+                                        <StackLayout Grid.Column="1" 
+                                     Padding="10">
+                                            <Image
+                                    HorizontalOptions="Center"
+                                    HeightRequest="80"
+                                    WidthRequest="80"
+                                    Source="nopets.png"
+                                    VerticalOptions="Center" />
+                                            <Label HorizontalOptions="Center" Padding="10">No data for Dewormers</Label>
+                                        </StackLayout>
+                                    </CollectionView.EmptyView>
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:DesparasitanteVM">
+                                            <Grid Margin="0,2,0,0" ColumnSpacing="0" ColumnDefinitions="80, 160, *">
+                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="0" Text="{Binding DataAplicacao}"></Label>
+                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="1" Text="{Binding Marca}"></Label>
+                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="2" Text="{Binding DataProximaAplicacao, StringFormat='{0:dd/MM/yyyy}' }"
+                                           ></Label>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+
+                                </CollectionView>
+                            </Grid>
+                        </Frame>
+                    </mct:Expander.Content>
+                </mct:Expander>
+            </Border>
+
+            <Frame Grid.Row="5" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
+                <Grid Padding="2" RowDefinitions="Auto, Auto">
+                    <Grid ColumnDefinitions="100, 150, *" ColumnSpacing="4"
+                          Grid.Row="0">
+                        <Label Text="Compra" Grid.Row="0" Grid.Column="0" />
+                        <Label Text="Marca" Grid.Row="0" Grid.Column="1"/>
+                        <Label Text="Qtd. diária" Grid.Row="0" Grid.Column="2" />
+                    </Grid>
+                    <CollectionView Grid.Row="5" 
+                        x:Name="FoodView"
+                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetFoodVM}" 
+                        SelectionMode="Single">
+                        <CollectionView.EmptyView>
+                            <StackLayout Grid.Column="1" 
+                                     Padding="10">
+                                <Image
+                                    HorizontalOptions="Center"
+                                    HeightRequest="80"
+                                    WidthRequest="80"
+                                    Source="nopets.png"
+                                    VerticalOptions="Center" />
+                                <Label HorizontalOptions="Center" Padding="10">No data for Pet food</Label>
+                            </StackLayout>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:RacaoVM">
+                                <Grid ColumnSpacing="4" ColumnDefinitions="100, 150, *">
+                                    <Label Grid.Column="0" FontAttributes="Bold" Text="{Binding DataCompra}"/>
+                                    <Label Grid.Column="1" Text="{Binding Marca}"/>
+                                    <Label Grid.Column="2" Text="{Binding QuantidadeDiaria, StringFormat='{0}' }"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                </Grid>
+            </Frame>
+            <Frame Grid.Row="6" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
+                <Grid Padding="2" RowDefinitions="Auto, Auto">
+                    <Grid ColumnDefinitions="100, *" ColumnSpacing="4"
+                          Grid.Row="0">
+                        <Label Text="Visita" Grid.Row="0" Grid.Column="0" />
+                        <Label Text="Motivo" Grid.Row="0" Grid.Column="1"/>
+                    </Grid>
+                    <CollectionView Grid.Row="6" 
+                        x:Name="ConsultationsView"
+                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetConsultationsVM}" 
+                        SelectionMode="Single">
+                        <CollectionView.EmptyView>
+                            <StackLayout Grid.Column="1" 
+                                     Padding="10">
+                                <Image
+                                    HorizontalOptions="Center"
+                                    HeightRequest="80"
+                                    WidthRequest="80"
+                                    Source="nopets.png"
+                                    VerticalOptions="Center" />
+                                <Label HorizontalOptions="Center" Padding="10">No data for Pet consultations</Label>
+                            </StackLayout>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:ConsultaVeterinarioVM">
+                                <Grid ColumnSpacing="4" ColumnDefinitions="100, *">
+                                    <Label Grid.Column="0" FontAttributes="Bold" Text="{Binding DataConsulta}"/>
+                                    <Label Grid.Column="1" Text="{Binding Motivo}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+                </Grid>
+            </Frame>
+            <Frame Grid.Row="7" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
+                <FlexLayout Grid.Row="7" Grid.ColumnSpan="2"  
                                     HorizontalOptions="Center" VerticalOptions="Center" 
                                     JustifyContent="SpaceAround">
-                        <Button Text="Editar" 
+                    <Button Text="Editar" 
                                         Command="{Binding AddOrEditPetCommand}"
                                         CornerRadius="15"
                                         HeightRequest="50"
                                         WidthRequest="80"
                                     Style="{StaticResource ButtonOutline}"/>
-                        <Button Text="Voltar"
+                    <Button Text="Voltar"
                                     Grid.Column="1"
                                     Command="{Binding GoBackCommand}"
                                     CornerRadius="15"
                                     WidthRequest="80"
                                     HeightRequest="50"
                                     Style="{StaticResource ButtonOutline}"/>
-                    </FlexLayout>
-                </Grid>
+                </FlexLayout>
+
             </Frame>
+
         </Grid>
     </ScrollView>
 

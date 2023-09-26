@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace MauiPets.Mvvm.ViewModels.Pets
@@ -38,6 +39,10 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         private string _dataNascimento;
         [ObservableProperty]
         private string _doencaCronica;
+        [ObservableProperty]
+        private string _medicacao;
+        [ObservableProperty]
+        private string _cor;
         [ObservableProperty]
         private string _genero;
         [ObservableProperty]
@@ -81,6 +86,7 @@ namespace MauiPets.Mvvm.ViewModels.Pets
 
         [ObservableProperty]
         public PetVM _pet = new();
+
 
         [ObservableProperty]
         public PetDto _petDto = new();
