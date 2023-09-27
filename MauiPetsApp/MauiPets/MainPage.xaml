@@ -5,40 +5,40 @@
              Padding="0,40,0,0"
              IconImageSource="hamburger.png"
              Title="Pets Manager">
-
-    <CollectionView x:Name="collectionView"
+    
+        <CollectionView x:Name="collectionView"
                     x:FieldModifier="public"
                     SelectionMode="Single">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <Grid Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Rectangle Grid.RowSpan="2" 
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Grid.RowSpan="2" 
                                   WidthRequest="60" 
                                   HeightRequest="60" 
                                   Fill="WhiteSmoke" 
                                   Stroke="LightGray" 
                                   StrokeThickness="1" 
                                   Margin="0,0,10,0">
-                    </Rectangle>
-                    <Label Grid.Column="1"
+                        </Rectangle>
+                        <Label Grid.Column="1"
                               Text="Nome da fruta"
                               FontAttributes="Bold" />
-                    <Label Grid.Row="1"
+                        <Label Grid.Row="1"
                               Grid.Column="1"
                               Text="Descrição da fruta"
                               FontAttributes="Italic"
                               VerticalOptions="End" />
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
 
-    </CollectionView>
+        </CollectionView>
 </ContentPage>

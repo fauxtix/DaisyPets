@@ -88,6 +88,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         PetVM = query[nameof(PetVM)] as PetVM;
 
         var petId = PetVM.Id;
+
         PetVaccinesVM = new ObservableCollection<VacinaVM>(
             await _petVaccinesService.GetPetVaccinesVMAsync(petId)
         );
@@ -103,11 +104,5 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         PetConsultationsVM = new ObservableCollection<ConsultaVeterinarioVM>(
             await _petVeterinaryAppointmentsService.GetConsultaVMAsync(petId)
         );
-
-
-        if (PetVaccinesVM is null)
-        {
-            // TODO => log
-        }
     }
 }

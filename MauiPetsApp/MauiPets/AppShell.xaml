@@ -4,22 +4,38 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vs="clr-namespace:MauiPets"
-    xmlns:local="clr-namespace:MauiPets.Mvvm.Views.Pets"
-     FlyoutBackgroundImage="appimage.png"
-     FlyoutBackgroundImageAspect="AspectFill"
-     Shell.FlyoutBehavior="Disabled">
-
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="Pets"
-             Icon="dotnet_bot.png">
-            <ShellContent Title="Pets"
-                          Icon="pets.png"
-                          ContentTemplate="{DataTemplate local:PetsPage}" />
-        </Tab>
-    </FlyoutItem>
+    xmlns:petpage="clr-namespace:MauiPets.Mvvm.Views.Pets"
+    xmlns:contactspage="clr-namespace:MauiPets.Mvvm.Views.Contacts"
+    FlyoutWidth="200"
+    FlyoutHeight="250"
+    xmlns:expensespage="clr-namespace:MauiPets.Mvvm.Views.Expenses"
+    Shell.FlyoutBehavior="Flyout">
+    
+    <Shell.FlyoutBackground>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="1,1">
+            <GradientStop Color="#8A2387"
+                          Offset="0.1" />
+            <GradientStop Color="#E94057"
+                          Offset="0.6" />
+            <GradientStop Color="#F27121"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </Shell.FlyoutBackground>
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate vs:MainPage}"
-        Route="MainPage" />
+        Title="Pets"
+        Icon="pets.png"
+        ContentTemplate="{DataTemplate petpage:PetsPage}"
+        Route="PetsPage" />
+    <ShellContent
+        Title="Expenses"
+        Icon="paymentlist.png"
+        ContentTemplate="{DataTemplate expensespage:ExpensesPage}"
+        Route="ExpensesPage" />
+    <ShellContent
+        Title="Contacts"
+        Icon="people.png"
+        ContentTemplate="{DataTemplate contactspage:ContactsPage}"
+        Route="ContactsPage" />
 
 </Shell>

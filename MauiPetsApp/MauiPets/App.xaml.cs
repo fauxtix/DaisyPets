@@ -9,19 +9,6 @@ namespace MauiPets
     {
         public App()
         {
-            InitializeComponent();
-
-            //var dbOutput = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PetsDB..db");
-            //var assembly = IntrospectionExtensions.GetTypeInfo(typeof(App)).Assembly;
-            //using (Stream stream = assembly.GetManifestResourceStream("MauiPets.Database.PetsDB.db"))
-            //{
-            //    using (MemoryStream memoryStream = new MemoryStream())
-            //    {
-            //        stream.CopyTo(memoryStream);
-
-            //        File.WriteAllBytes(dbOutput, memoryStream.ToArray());
-            //    }
-            //}
 
             MainPage = new AppShell();
         }
