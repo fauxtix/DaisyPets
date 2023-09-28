@@ -104,5 +104,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         PetConsultationsVM = new ObservableCollection<ConsultaVeterinarioVM>(
             await _petVeterinaryAppointmentsService.GetConsultaVMAsync(petId)
         );
+
+        Gender = PetVM.Genero == "M" ? "Macho" : "Fêmea";
     }
 }

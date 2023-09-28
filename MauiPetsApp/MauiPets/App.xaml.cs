@@ -7,7 +7,7 @@ namespace MauiPets
 {
     public partial class App : Application
     {
-        public App()
+        public App(IServiceProvider serviceProvider)
         {
 
             MainPage = new AppShell();

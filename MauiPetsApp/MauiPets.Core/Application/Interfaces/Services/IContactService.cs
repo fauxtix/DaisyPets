@@ -12,7 +12,6 @@ namespace MauiPetsApp.Core.Application.Interfaces.Services
         Task<ContactoVM> GetContactVMAsync(int Id);
         Task<IEnumerable<ContactoVM>> GetAllContactVMAsync();
         string RegistoComErros(ContactoVM contacto);
-
-
+        Task<IEnumerable<ContactoVM>> SearchContactByNamet(string filter);
     }
 }

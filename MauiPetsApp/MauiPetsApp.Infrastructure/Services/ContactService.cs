@@ -92,6 +92,19 @@ namespace MauiPetsApp.Infrastructure.Services
             }
         }
 
+        public async Task<IEnumerable<ContactoVM>> SearchContactByNamet(string filter)
+        {
+            try
+            {
+                return await _repository.SearchContactByNamet(filter);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, "Erro ni update do contacto");
+                return null;
+            }
+        }
 
         /// <summary>
         /// Validação de contacto
@@ -114,5 +127,6 @@ namespace MauiPetsApp.Infrastructure.Services
 
             return "";
         }
+
     }
 }

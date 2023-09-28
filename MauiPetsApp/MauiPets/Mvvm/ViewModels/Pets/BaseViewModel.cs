@@ -13,16 +13,19 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         [ObservableProperty]
         private string _nome;
 
+        [ObservableProperty]
         private int _idEspecie;
+        [ObservableProperty]
         private int _idSituacao;
+        [ObservableProperty]
         private int _idTemperamento;
+        [ObservableProperty]
         private int _idRaca;
-
         [ObservableProperty]
         private int _idTamanho;
-
         [ObservableProperty]
         private int _idPeso;
+
         [ObservableProperty]
         private int _chipado;
         [ObservableProperty]
@@ -31,8 +34,6 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         private int _padrinho;
         [ObservableProperty]
         private string _chip;
-
-
         [ObservableProperty]
         private string _observacoes;
         [ObservableProperty]
@@ -43,8 +44,14 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         private string _medicacao;
         [ObservableProperty]
         private string _cor;
+
         [ObservableProperty]
         private string _genero;
+
+        [ObservableProperty]
+        public string _gender;
+
+
         [ObservableProperty]
         private string _dataChip;
         [ObservableProperty]
@@ -58,30 +65,6 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         [ObservableProperty]
         public string _foto;
 
-
-
-        public int IdEspecie
-        {
-            get => _idEspecie;
-            set => SetProperty(ref _idEspecie, value);
-        }
-
-        public int IdTemperamento
-        {
-            get => _idTemperamento;
-            set => SetProperty(ref _idTemperamento, value);
-        }
-
-        public int IdSituacao
-        {
-            get => _idSituacao;
-            set => SetProperty(ref _idSituacao, value);
-        }
-        public int IdRaca
-        {
-            get => _idRaca;
-            set => SetProperty(ref _idRaca, value);
-        }
 
 
         [ObservableProperty]

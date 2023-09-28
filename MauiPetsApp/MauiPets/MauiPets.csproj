@@ -59,6 +59,11 @@
 	  <None Remove="Resources\Images\appimage.png" />
 	  <None Remove="Resources\Images\Che.jpg" />
 	  <None Remove="Resources\Images\DogAndCat.svg" />
+	  <None Remove="Resources\Images\edit.png" />
+	  <None Remove="Resources\Images\edit.svg" />
+	  <None Remove="Resources\Images\icon_close.svg" />
+	  <None Remove="Resources\Images\icon_edit.svg" />
+	  <None Remove="Resources\Images\icon_save.png" />
 	  <None Remove="Resources\Images\nodata.png" />
 	  <None Remove="Resources\Images\nopets.png" />
 	  <None Remove="Resources\Images\Olie.jpg" />
@@ -117,7 +122,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Mvvm\Views\Contacts\AddOrEditContactPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Contacts\ContactDetailPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Contacts\ContactsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Contacts\EditContactPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Expenses\ExpensesPage.xaml">
@@ -132,6 +146,10 @@
 	  <MauiXaml Update="Mvvm\Views\Pets\PetsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Mvvm\ViewModels\Expenses\" />
 	</ItemGroup>
 
 </Project>

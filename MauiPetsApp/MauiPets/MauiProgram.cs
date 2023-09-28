@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Maui;
 using FluentValidation;
+using MauiPets.Mvvm.ViewModels.Contacts;
 using MauiPets.Mvvm.ViewModels.Pets;
+using MauiPets.Mvvm.Views.Contacts;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
@@ -44,10 +46,17 @@ namespace MauiPets
             builder.Services.AddTransient<PetDetailViewModel>();
             builder.Services.AddTransient<PetAddOrEditViewModel>();
 
+            builder.Services.AddSingleton<ContactsViewModel>();
+            builder.Services.AddTransient<ContactDetailViewModel>();
+
             // Views
             builder.Services.AddSingleton<PetsPage>();
             builder.Services.AddTransient<PetDetailPage>();
             builder.Services.AddTransient<PetAddOrEditPage>();
+
+            builder.Services.AddSingleton<ContactsPage>();
+            builder.Services.AddTransient<ContactDetailPage>();
+            builder.Services.AddTransient<AddOrEditContactPage>();
 
             // Database context
             builder.Services.AddTransient<IDapperContext, DapperContext>();
@@ -66,6 +75,7 @@ namespace MauiPets
             builder.Services.AddScoped<IValidator<PostDto>, PostValidator>();
             builder.Services.AddScoped<IValidator<ToDoDto>, ToDoValidator>();
             builder.Services.AddScoped<IValidator<AppointmentDataDto>, Appointmentvalidator>();
+            builder.Services.AddScoped<IValidator<ContactoVM>, ContactValidator>();
 
 
             // Services
@@ -75,6 +85,7 @@ namespace MauiPets
             builder.Services.AddTransient<IDesparasitanteService, DesparasitanteService>();
             builder.Services.AddTransient<IRacaoService, RacaoService>();
             builder.Services.AddTransient<IConsultaService, ConsultaService>();
+            builder.Services.AddTransient<IContactService, ContactService>();
 
             // repositories
             builder.Services.AddSingleton<IPetRepository, PetRepository>();
@@ -82,6 +93,7 @@ namespace MauiPets
             builder.Services.AddTransient<IDesparasitanteRepository, DesparasitanteRepository>();
             builder.Services.AddTransient<IRacaoRepository, RacaoRepository>();
             builder.Services.AddTransient<IConsultaRepository, ConsultaRepository>();
+            builder.Services.AddTransient<IContactRepository, ContactRepository>();
 
             builder.Services.AddSingleton<ILookupTableRepository, LookupTableRepository>();
 

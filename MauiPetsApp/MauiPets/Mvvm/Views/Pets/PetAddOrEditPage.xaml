@@ -16,6 +16,13 @@
         </Style>
     </ContentPage.Resources>
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save data" Command="{Binding SavePetDataCommand  }"
+                 IconImageSource="icon_save.png" />
+        <ToolbarItem Text="Return" Command="{Binding GoBackCommand  }"
+                 IconImageSource="icon_close.svg" />
+    </ContentPage.ToolbarItems>
+
     <ScrollView 
         BackgroundColor="{AppThemeBinding 
         Light={StaticResource 
@@ -69,8 +76,7 @@
                                     <RowDefinition Height="100"></RowDefinition>
                                     <RowDefinition Height="40"></RowDefinition>
                                     <RowDefinition Height="40"></RowDefinition>
-                                    <RowDefinition Height="40"></RowDefinition>
-                                    <RowDefinition Height="80"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width=".3*"></ColumnDefinition>
@@ -256,20 +262,6 @@
                         </mct:Expander.Content>
                     </mct:Expander>
                 </Border>
-                <FlexLayout Grid.Row="5" Grid.ColumnSpan="2"  Margin="0,0,0,50"
-                                        HorizontalOptions="Center" VerticalOptions="Center" JustifyContent="SpaceEvenly">
-                    <Button Text="Gravar" 
-                        Command="{Binding SavePetDataCommand}"
-                        HeightRequest="40" 
-                        WidthRequest="100"
-                        CornerRadius="15"/>
-                    <Button Text="Voltar" 
-                        Command="{Binding GoBackCommand}"
-                        CornerRadius="15"
-                        HeightRequest="40" 
-                        WidthRequest="100"/>
-
-                </FlexLayout>
 
             </VerticalStackLayout>
         </Grid>

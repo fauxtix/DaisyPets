@@ -2,11 +2,43 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Contacts.ContactsPage"
+             xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Contacts"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Contacts"
+             x:DataType="local:ContactsViewModel"
              Title="Contactos">
-    <VerticalStackLayout>
-        <Label 
-            Text="Esta será a página de contactos"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetContactsCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid RowDefinitions="Auto,100*" ColumnDefinitions=".70*, .30*">
+                <SearchBar Grid.Row="0"
+                           Grid.Column="0"
+                           Placeholder="Pesquisar contacto"
+                           Margin="10"
+                           x:Name="searchBar"
+                           TextChanged="searchBar_TextChanged"/>
+                <ListView x:Name="ContactsList"
+                          Grid.Row="1"
+                          Grid.ColumnSpan="2"
+                          ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ContactsViewModel}}, Path=ContactoVM}" 
+                          BackgroundColor="Transparent"
+                          SeparatorColor="Black"
+                          ItemSelected="OnItemSelected"
+                          SelectionMode="Single">
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                            <TextCell  Text="{Binding Nome}" Detail="{Binding  Movel}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

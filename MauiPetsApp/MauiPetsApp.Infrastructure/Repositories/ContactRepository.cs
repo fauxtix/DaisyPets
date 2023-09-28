@@ -125,7 +125,7 @@ namespace MauiPetsApp.Infrastructure.Repositories
 
             using (var connection = _context.CreateConnection())
             {
-                var contactVM = await connection.QueryFirstOrDefaultAsync<ContactoVM>(sb.ToString(), new {Id});
+                var contactVM = await connection.QueryFirstOrDefaultAsync<ContactoVM>(sb.ToString(), new { Id });
                 if (contactVM != null)
                 {
                     return contactVM;
@@ -152,7 +152,7 @@ namespace MauiPetsApp.Infrastructure.Repositories
             {
                 using (var connection = _context.CreateConnection())
                 {
-                   var result =  await connection.QueryFirstAsync<int>(sb.ToString(), param: contact);
+                    var result = await connection.QueryFirstAsync<int>(sb.ToString(), param: contact);
                     return result;
                 }
 
@@ -194,5 +194,16 @@ namespace MauiPetsApp.Infrastructure.Repositories
             }
 
         }
+
+        public async Task<IEnumerable<ContactoVM>> SearchContactByNamet(string filter)
+        {
+            var contacts = (await GetAllContactVMAsync())
+                .ToList().
+                Where(c => c.Nome.Contains(filter));
+            return contacts;
+                
+                
+        }
+
     }
 }

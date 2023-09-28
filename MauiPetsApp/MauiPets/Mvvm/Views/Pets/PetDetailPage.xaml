@@ -6,10 +6,24 @@
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
               xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
               x:DataType="viewmodel:PetDetailViewModel"
-              Title="{Binding  PetVM.Nome}">
+             Title="{Binding  PetVM.Nome}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save data" Command="{Binding AddOrEditPetCommand  }"
+                 IconImageSource="icon_edit.svg" />
+        <ToolbarItem Text="Return" Command="{Binding GoBackCommand  }"
+                 IconImageSource="icon_close.svg" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="MediumLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
-        <Grid RowDefinitions="Auto,Auto, Auto, Auto, Auto, Auto, Auto, 100">
+        <Grid RowDefinitions="Auto,Auto, Auto, Auto, Auto, Auto, *">
             <BoxView
                 BackgroundColor="{StaticResource Primary}"
                 Grid.RowSpan="2"
@@ -48,11 +62,11 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0">Data Nascº</Label>
-                    <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataNascimento, StringFormat='{0:d}'}" />
+                    <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataNascimento}" />
                     <Label Grid.Row="1" Grid.Column="0">Espécie</Label>
                     <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.EspecieAnimal}" />
                     <Label Grid.Row="2" Grid.Column="0">Género</Label>
-                    <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.Genero}" />
+                    <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Gender}" />
                     <Label Grid.Row="3" Grid.Column="0">Raça</Label>
                     <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.RacaAnimal}" />
                     <Label Grid.Row="4" Grid.Column="0">Temperamento</Label>
@@ -277,26 +291,6 @@
 
                     </CollectionView>
                 </Grid>
-            </Frame>
-            <Frame Grid.Row="7" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
-                <FlexLayout Grid.Row="7" Grid.ColumnSpan="2"  
-                                    HorizontalOptions="Center" VerticalOptions="Center" 
-                                    JustifyContent="SpaceAround">
-                    <Button Text="Editar" 
-                                        Command="{Binding AddOrEditPetCommand}"
-                                        CornerRadius="15"
-                                        HeightRequest="50"
-                                        WidthRequest="80"
-                                    Style="{StaticResource ButtonOutline}"/>
-                    <Button Text="Voltar"
-                                    Grid.Column="1"
-                                    Command="{Binding GoBackCommand}"
-                                    CornerRadius="15"
-                                    WidthRequest="80"
-                                    HeightRequest="50"
-                                    Style="{StaticResource ButtonOutline}"/>
-                </FlexLayout>
-
             </Frame>
 
         </Grid>
