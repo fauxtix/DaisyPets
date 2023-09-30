@@ -4,7 +4,8 @@
              x:Class="MauiPets.Mvvm.Views.Pets.PetDetailPage"
              xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
-              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters ="clr-namespace:MauiPets.Converters"             
               x:DataType="viewmodel:PetDetailViewModel"
              Title="{Binding  PetVM.Nome}">
 
@@ -15,6 +16,7 @@
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
+        <converters:NextDoseDateConverter x:Key="nextDoseDateConverter" />
         <ResourceDictionary>
             <Style x:Key="MediumLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
@@ -135,12 +137,11 @@
                                             <Grid ColumnSpacing="0" ColumnDefinitions="80, 160, *" Margin="0,3">
                                                 <Label FontAttributes="Bold" FontSize="11"  Grid.Column="0"  Text="{Binding DataToma}"></Label>
                                                 <Label FontAttributes="Bold" FontSize="11" Grid.Column="1" Text="{Binding Marca}"></Label>
-                                                <Label FontAttributes="Bold" FontSize="11" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }"
-                                           ></Label>
+                                                <Label FontAttributes="Bold" FontSize="11" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
+                                                       TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}"/>
                                             </Grid>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
-
                                 </CollectionView>
                             </Grid>
                         </Frame>
@@ -199,14 +200,13 @@
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate x:DataType="models:DesparasitanteVM">
                                             <Grid Margin="0,2,0,0" ColumnSpacing="0" ColumnDefinitions="80, 160, *">
-                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="0" Text="{Binding DataAplicacao}"></Label>
-                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="1" Text="{Binding Marca}"></Label>
-                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="2" Text="{Binding DataProximaAplicacao, StringFormat='{0:dd/MM/yyyy}' }"
-                                           ></Label>
+                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="0" Text="{Binding DataAplicacao}"/>
+                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="1" Text="{Binding Marca}"/>
+                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="2" Text="{Binding DataProximaAplicacao}"
+                                                       TextColor="{Binding DataProximaAplicacao, Converter={StaticResource nextDoseDateConverter}}"/>
                                             </Grid>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
-
                                 </CollectionView>
                             </Grid>
                         </Frame>

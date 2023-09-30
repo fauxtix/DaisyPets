@@ -2,11 +2,152 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Contacts.AddOrEditContactPage"
-             Title="AddOrEditContactPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Contacts"
+             xmlns:behaviours="clr-namespace:MauiPets.Mvvm.Behaviours.Pickers"
+              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+              x:DataType="viewmodel:ContactAddOrEditViewModel"
+             Shell.BackButtonBehavior="{Binding BackButtonBehavior}"
+             Title="{Binding ContactoVM.Nome}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="MediumLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style x:Key="MediumBlueLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontAttributes" Value="Italic"></Setter>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="Blue"/>
+            </Style>
+        </ResourceDictionary>
+        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red" />
+        </Style>
+        <Style x:Key="ValidEntryStyle" TargetType="Entry">
+            <Setter Property="TextColor" Value="Green" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save data" Command="{Binding SaveContactDataCommand  }"
+                 IconImageSource="icon_save.png" />
+        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+                 IconImageSource="icon_close.svg" />
+    </ContentPage.ToolbarItems>
+    <ScrollView 
+        BackgroundColor="{AppThemeBinding 
+        Light={StaticResource 
+        LightBackground}, 
+        Dark={StaticResource DarkBackground}}">
+        <VerticalStackLayout Margin="2, 10, 0, 0">
+            <Border Stroke="#2B0B98"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 35,35,0,0"
+                    Background="#fff"
+                    Padding="8,4"
+                    Margin="4"
+                    HorizontalOptions="FillAndExpand">
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="200"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".3*"></ColumnDefinition>
+                        <ColumnDefinition Width=".7*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Nome" 
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           FontSize="Small"
+			               VerticalOptions="Center">
+                    </Label>
+                    <Entry x:Name="TxtName"
+			               Text="{Binding ContactoVM.Nome}" 
+                           Style="{StaticResource MediumLabelBold}"
+			               Grid.Row="0"
+                           FontAttributes="Bold" 
+                           Grid.Column="1"
+			               VerticalOptions="Center"></Entry>
+                    <Label Text="Morada" 
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            FontSize="Small"
+			                VerticalOptions="Center"></Label>
+                    <Entry x:Name="TxtMorada"
+			                Text="{Binding ContactoVM.Morada}" 
+			                Grid.Row="1"
+                            Grid.Column="1"
+			                VerticalOptions="Center"></Entry>
+                            <Label Text="Localidade" 
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            FontSize="Small"
+			                VerticalOptions="Center"></Label>
+                    <Entry x:Name="TxtLocalidade"
+			                Text="{Binding ContactoVM.Localidade}" 
+			                Grid.Row="2"
+                            Grid.Column="1"
+			                VerticalOptions="Center"></Entry>
+                    <Label Text="Móvel" 
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            FontSize="Small"
+			                VerticalOptions="Center"/>
+                    <Entry x:Name="TxtMovel"
+			                Text="{Binding ContactoVM.Movel}" 
+			                Grid.Row="3"
+                            Grid.Column="1"
+                            Keyboard="Telephone"
+			                VerticalOptions="Center"></Entry>
+                    <Label Text="E-Mail" 
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            FontSize="Small"
+			                VerticalOptions="Center"/>
+                    <Entry x:Name="TxtEMail"
+			               Text="{Binding ContactoVM.eMail}" 
+			               Grid.Row="4"
+                           Grid.Column="1"
+                           Keyboard="Email"
+			               VerticalOptions="Center"></Entry>
+                    <Label Text="Tipo Contacto" 
+                           Grid.Row="5"
+                           Grid.Column="0"
+                           FontSize="Small"
+			               VerticalOptions="Center"/>
+                    <Picker x:Name="ContactTypesPicker" 
+                            Title="Select a Contact Type" 
+                            Grid.Row="5" 
+                            Grid.Column="1"       
+                            Style="{StaticResource MediumBlueLabelBold}"
+                            ItemsSource="{Binding ContactTypes}"
+                            SelectedItem="{Binding SelectedContactType}"
+                            SelectedIndex="{Binding ContactTypeSelectedIndex}"
+                            SelectedIndexChanged="SelectedIndexChanged"
+                            ItemDisplayBinding="{Binding Descricao}">
+                    </Picker>
+                    <Label Text="Notas" 
+                            Grid.Row="6"
+                            Grid.Column="0"
+                            FontSize="Small"
+			                VerticalOptions="Start"></Label>
+                    <Editor x:Name="TxtNotas"
+			                Text="{Binding ContactoVM.Notas}" 
+			                Grid.Row="6"
+                            Grid.Column="1"
+                            Keyboard="Plain"
+                            HeightRequest="200"
+			                VerticalOptions="EndAndExpand"></Editor>
+                </Grid>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

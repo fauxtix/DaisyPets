@@ -9,14 +9,11 @@ namespace MauiPets.Mvvm.Views.Pets;
 public partial class PetAddOrEditPage : ContentPage
 {
     private PetAddOrEditViewModel _viewModel;
-    private readonly IPetService _petService;
 
-    public PetAddOrEditPage(PetAddOrEditViewModel viewModel, IPetService petService)
+    public PetAddOrEditPage(PetAddOrEditViewModel viewModel)
     {
         InitializeComponent();
         _viewModel = viewModel;
-        _petService = petService;
-
         BindingContext = _viewModel;
     }
 

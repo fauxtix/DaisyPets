@@ -123,7 +123,7 @@ public partial class PetViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    private async Task AddPetAsync(PetVM petVM)
+    private async Task AddPetAsync()
     {
         PetDto = new()
         {

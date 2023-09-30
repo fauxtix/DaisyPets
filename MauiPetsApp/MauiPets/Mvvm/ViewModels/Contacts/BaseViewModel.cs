@@ -1,9 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiPetsApp.Core.Application.Interfaces.Services;
+using MauiPets.Mvvm.Views.Contacts;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using System.Collections.ObjectModel;
 
 namespace MauiPets.Mvvm.ViewModels.Contacts
 {
@@ -49,6 +48,26 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         {
             Contacto.IdTipoContacto = SelectedContactType.Id;
             // Outras ações que você deseja executar após a seleção do Picker
+        }
+
+        [RelayCommand]
+        private async Task AddContactAsync()
+        {
+            ContactoVM contact = new()
+            {
+                eMail = "",
+                IdTipoContacto = 1,
+                Localidade = "",
+                Morada = "",
+                Movel = "",
+                Notas = ""
+            };
+
+            await Shell.Current.GoToAsync($"{nameof(AddOrEditContactPage)}", true,
+                new Dictionary<string, object>
+                {
+                    {"ContactoVM", contact}
+                });
         }
 
     }

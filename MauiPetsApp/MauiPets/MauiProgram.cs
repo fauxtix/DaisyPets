@@ -48,6 +48,7 @@ namespace MauiPets
 
             builder.Services.AddSingleton<ContactsViewModel>();
             builder.Services.AddTransient<ContactDetailViewModel>();
+            builder.Services.AddTransient<ContactAddOrEditViewModel>();
 
             // Views
             builder.Services.AddSingleton<PetsPage>();

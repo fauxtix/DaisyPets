@@ -12,6 +12,11 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetContactsCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Pet" Command="{Binding AddContactCommand}"
+                 IconImageSource="add.png" />
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
         <VerticalStackLayout>
             <Grid RowDefinitions="Auto,100*" ColumnDefinitions=".70*, .30*">
@@ -33,7 +38,7 @@
                     <ListView.ItemTemplate>
 
                         <DataTemplate>
-                            <TextCell  Text="{Binding Nome}" Detail="{Binding  Movel}" />
+                            <TextCell  Text="{Binding Nome}" Detail="{Binding  Movel}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
 

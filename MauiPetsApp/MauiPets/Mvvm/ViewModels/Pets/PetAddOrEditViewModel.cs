@@ -60,7 +60,9 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         get { return selectedPickerName; }
         set { SetProperty(ref selectedPickerName, value); }
     }
-    public PetAddOrEditViewModel(IConnectivity connectivity, IPetService petService, ILookupTableService lookupTablesService)
+    public PetAddOrEditViewModel(IConnectivity connectivity,
+                                 IPetService petService,
+                                 ILookupTableService lookupTablesService)
     {
         _connectivity = connectivity;
         _petService = petService;
@@ -150,7 +152,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 
                 var petVM = await _petService.GetPetVMAsync(insertedId);
 
-                await ShowToastMessage("Registo criado com sucesso");
+                ShowToastMessage("Registo criado com sucesso");
 
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
@@ -162,7 +164,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
             {
                 await _petService.UpdateAsync(PetDto.Id, PetDto);
                 var petVM = await _petService.GetPetVMAsync(PetDto.Id);
-                await ShowToastMessage("Registo atualizado com sucesso");
+                ShowToastMessage("Registo atualizado com sucesso");
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
                     {
@@ -238,7 +240,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         }
     }
 
-    private async Task ShowToastMessage(string text)
+    private async void ShowToastMessage(string text)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         ToastDuration duration = ToastDuration.Short;
