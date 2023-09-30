@@ -63,4 +63,16 @@ public partial class PetAddOrEditPage : ContentPage
             throw;
         }
     }
+
+    private async void ImageSelect_Clicked(object sender, EventArgs e)
+    {
+        //var images = await FilePicker.Default.PickAsync(new PickOptions
+        //{
+        //    PickerTitle = "Pick Pet Photo",
+        //    FileTypes = FilePickerFileType.Images
+        //});
+        //var imageSource = images.FullPath.ToString();
+        //petPhoto.Source = imageSource;
+        //outputText.Text = imageSource;
+    }
 }

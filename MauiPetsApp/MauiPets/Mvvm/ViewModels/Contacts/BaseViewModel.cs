@@ -59,7 +59,7 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
                 IdTipoContacto = 1,
                 Localidade = "",
                 Morada = "",
-                Movel = "",
+                Movel = "",                
                 Notas = ""
             };
 

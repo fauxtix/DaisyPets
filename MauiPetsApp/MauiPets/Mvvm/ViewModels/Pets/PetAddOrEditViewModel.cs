@@ -75,7 +75,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        if(PetDto is null) 
+        if(PetDto.Id == 0) // edit
         {
             SpecieSelectedIndex = 0;
             BreedSelectedIndex = 0;

@@ -134,7 +134,7 @@ public partial class PetViewModel : BaseViewModel
             DataNascimento = DateTime.Now.ToShortDateString(),
             DoencaCronica = "",
             Esterilizado = 1,
-            Foto = "che.png",
+            Foto = "icon_nopet.png",
             Genero = "M",
             IdPeso = 0,
             IdEspecie = 0,
