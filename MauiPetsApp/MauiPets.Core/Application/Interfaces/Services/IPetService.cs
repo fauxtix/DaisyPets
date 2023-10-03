@@ -14,5 +14,6 @@ namespace MauiPetsApp.Core.Application.Interfaces.Services
         Task<IEnumerable<PetVM>> GetAllVMAsync();
         Task<IEnumerable<PesoDto>> GetPesos();
         Task<string> GetDescriptionBySizeAndMonths(int IdTamanho, int meses);
+        string RegistoComErros(PetDto pet);
     }
 }

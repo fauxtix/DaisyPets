@@ -141,12 +141,20 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
                 return;
             }
 
+            var errorMessages = _petService.RegistoComErros(PetDto);
+            if(!string.IsNullOrEmpty(errorMessages))
+            {
+                await Shell.Current.DisplayAlert("Verifique entradas, p.f.",
+                    $"{errorMessages}", "OK");
+                return;
+            }
+
             if (PetDto.Id == 0)
             {
                 var insertedId = await _petService.InsertAsync(PetDto);
                 if (insertedId == -1)
                 {
-                    await Shell.Current.DisplayAlert("Eoor while updating",
+                    await Shell.Current.DisplayAlert("Error while inserting",
                         $"Please contact administrator..", "OK");
                     return;
                 }

@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Logging;
+using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Services
 {
@@ -13,12 +16,18 @@ namespace MauiPetsApp.Infrastructure.Services
         private readonly IPetRepository _repository;
         private readonly IMapper _mapper;
         private readonly ILogger<PetService> _logger;
+        private readonly IValidator<PetDto> _validator;
 
-        public PetService(IPetRepository repository, IMapper mapper, ILogger<PetService> logger)
+
+        public PetService(IPetRepository repository,
+                          IMapper mapper,
+                          ILogger<PetService> logger,
+                          IValidator<PetDto> validator)
         {
             _repository = repository;
             _mapper = mapper;
             _logger = logger;
+            _validator = validator;
         }
         public async Task<bool> DeleteAsync(int Id)
         {
@@ -140,5 +149,28 @@ namespace MauiPetsApp.Infrastructure.Services
                 _logger.LogError(ex.Message, ex);
             }
         }
+
+        /// <summary>
+        /// Validação de contacto
+        /// </summary>
+        /// <param name="contacto"></param>
+        /// <returns></returns>
+        public string RegistoComErros(PetDto pet)
+        {
+            ValidationResult results = _validator.Validate(pet);
+
+            if (!results.IsValid)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var failure in results.Errors)
+                {
+                    sb.AppendLine(failure.ErrorMessage);
+                }
+                return sb.ToString();
+            }
+
+            return "";
+        }
     }
 }
+

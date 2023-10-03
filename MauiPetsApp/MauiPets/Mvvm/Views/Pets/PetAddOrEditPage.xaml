@@ -129,7 +129,7 @@
                                        Grid.Column="0"
                                        FontSize="Small"
 			                           VerticalOptions="Start"></Label>
-                                <Editor x:Name="PetDisease"  
+                                <Editor x:Name="PetDisease" AutoSize="TextChanges"
 			                           Text="{Binding PetDto.DoencaCronica}"  
                                        Placeholder="Doenças"
 			                           Grid.Row="2"
@@ -183,7 +183,7 @@
                                        Grid.Row="6"
                                        Grid.Column="0"
                                        FontSize="Small"></Label>
-                                <Editor x:Name="PetNotes"
+                                <Editor x:Name="PetNotes" AutoSize="TextChanges"
 			                        Text="{Binding PetDto.Observacoes}"
 			                        Grid.Row="6"
                                     Grid.Column="1"
