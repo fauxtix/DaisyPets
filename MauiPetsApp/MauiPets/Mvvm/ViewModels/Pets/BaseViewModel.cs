@@ -50,6 +50,12 @@ namespace MauiPets.Mvvm.ViewModels.Pets
 
         [ObservableProperty]
         public string _gender;
+        [ObservableProperty]
+        public string _godFather;
+        [ObservableProperty]
+        public string _sterilized;
+        [ObservableProperty]
+        public string _chipped;
 
 
         [ObservableProperty]
@@ -81,8 +87,5 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         bool isBusy;
         public bool IsNotBusy => !IsBusy;
-
-        public ICommand UpdateSelectedItemCommand { get; set; }
-
     }
 }

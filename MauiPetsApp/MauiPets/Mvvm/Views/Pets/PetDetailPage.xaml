@@ -25,7 +25,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
-        <Grid RowDefinitions="Auto,Auto, Auto, Auto, Auto, Auto, *">
+        <Grid RowDefinitions="Auto,Auto, Auto, Auto, Auto, Auto, Auto, *">
             <BoxView
                 BackgroundColor="{StaticResource Primary}"
                 Grid.RowSpan="2"
@@ -74,13 +74,67 @@
                     <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TemperamentoAnimal}" />
                     <Label Grid.Row="5" Grid.Column="0">Medicação</Label>
                     <Label Grid.Row="5" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.MedicacaoAnimal}" />
-                    <Label Grid.Row="6" Grid.Column="0">Tamanho</Label>
-                    <Label Grid.Row="6" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TamanhoAnimal}" />
-                    <Label Grid.Row="7" Grid.Column="0">Condição</Label>
-                    <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.SituacaoAnimal}" />
+                    <Label Grid.Row="6" Grid.Column="0">Doença crónica</Label>
+                    <Label Grid.Row="6" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DoencaCronica}" />
+                    <Label Grid.Row="7" Grid.Column="0">Tamanho</Label>
+                    <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TamanhoAnimal}" />
+                    <Label Grid.Row="8" Grid.Column="0">Condição</Label>
+                    <Label Grid.Row="8" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.SituacaoAnimal}" />
                 </Grid>
             </Frame>
             <Border Grid.Row="3" Stroke="#2B0B98"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 40,0,0,40"
+                    Background="#fff"
+                    Padding="8,2,8,0"
+                    Margin="2"
+                    HorizontalOptions="FillAndExpand">
+                <mct:Expander Padding="6" Margin="2"
+                                  IsExpanded="false" IsClippedToBounds="True" >
+                    <mct:Expander.Header>
+                        <Frame 
+                                    BorderColor="Black"
+                                    BackgroundColor="LightSteelBlue"
+                                    CornerRadius="10">
+                            <Label Text="Outos dados" FontSize="14" 
+                                       FontAttributes="Bold" TextColor="Black"/>
+                        </Frame>
+                    </mct:Expander.Header>
+                    <mct:Expander.Content>
+                        <Frame Grid.Row="3" CornerRadius="40" HasShadow="False" BorderColor="Transparent">
+                            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0">Chipado</Label>
+                                <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Chipped}" />
+                                <Label Grid.Row="1" Grid.Column="0">Código Chip</Label>
+                                <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.NumeroChip}" />
+                                <Label Grid.Row="2" Grid.Column="0">Data Chip</Label>
+                                <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataChip}" />
+                                <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="0">Esterilizado</Label>
+                                <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Sterilized}" />
+                                <Label Grid.Row="4" Grid.Column="0">Padrinho</Label>
+                                <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding GodFather}" />
+                            </Grid>
+
+
+                        </Frame>
+
+
+                    </mct:Expander.Content>
+                </mct:Expander>
+            </Border>
+
+            <Border Grid.Row="4" Stroke="#2B0B98"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 40,0,0,40"
                     Background="#fff"
@@ -102,7 +156,7 @@
                     </mct:Expander.Header>
                     <mct:Expander.Content>
 
-                        <Frame Grid.Row="3" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent">
+                        <Frame Grid.Row="4" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent">
                             <Grid Padding="2" RowDefinitions="Auto, Auto">
                                 <Grid ColumnDefinitions="80, 160, *" ColumnSpacing="1"
                           Grid.Row="0">
@@ -111,18 +165,18 @@
                                     <Label FontAttributes="Bold" FontSize="12" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" />
                                 </Grid>
                                 <CollectionView Grid.Row="1" 
-                        x:Name="VaccinesView"
-                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetVaccinesVM}" 
-                        SelectionMode="Single">
+                                        x:Name="VaccinesView"
+                                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetVaccinesVM}" 
+                                        SelectionMode="Single">
                                     <CollectionView.EmptyView>
                                         <StackLayout Grid.Column="1" 
-                                     Padding="10">
+                                                 Padding="10">
                                             <Image
-                                    HorizontalOptions="Center"
-                                    HeightRequest="80"
-                                    WidthRequest="80"
-                                    Source="nopets.png"
-                                    VerticalOptions="Center" />
+                                                        HorizontalOptions="Center"
+                                                        HeightRequest="80"
+                                                        WidthRequest="80"
+                                                        Source="nopets.png"
+                                                        VerticalOptions="Center" />
                                             <Label HorizontalOptions="Center" Padding="10">No data for vaccines</Label>
                                         </StackLayout>
                                     </CollectionView.EmptyView>
@@ -145,7 +199,7 @@
                     </mct:Expander.Content>
                 </mct:Expander>
             </Border>
-            <Border Grid.Row="4" Stroke="#2B0B98"
+            <Border Grid.Row="5" Stroke="#2B0B98"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 40,0,0,40"
                     Background="#fff"
@@ -157,17 +211,16 @@
                                   IsExpanded="false" IsClippedToBounds="True" >
                     <mct:Expander.Header>
                         <Frame 
-                                    BorderColor="Black"
-                                    BackgroundColor="LightSteelBlue"
-                                    CornerRadius="10">
+                            BorderColor="Black"
+                            BackgroundColor="LightSteelBlue"
+                            CornerRadius="10">
                             <Label Text="Desparasitantes" FontSize="14" 
-                                       FontAttributes="Bold" TextColor="Black"
-                               />
+                                       FontAttributes="Bold" TextColor="Black"/>
                         </Frame>
                     </mct:Expander.Header>
                     <mct:Expander.Content>
 
-                        <Frame Grid.Row="4" CornerRadius="40" HasShadow="False" Margin="1" BorderColor="Transparent">
+                        <Frame Grid.Row="5" CornerRadius="40" HasShadow="False" Margin="1" BorderColor="Transparent">
                             <Grid Padding="2" RowDefinitions="Auto, Auto">
                                 <Grid ColumnDefinitions="80, 160, *" ColumnSpacing="0"
                           Grid.Row="0">
@@ -175,19 +228,19 @@
                                     <Label FontAttributes="Bold" FontSize="12" Text="Marca" Grid.Row="0" Grid.Column="1"/>
                                     <Label FontAttributes="Bold" FontSize="12" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" />
                                 </Grid>
-                                <CollectionView Grid.Row="4" 
-                        x:Name="DewormersView"
-                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetDewormersVM}" 
-                        SelectionMode="Single">
+                                <CollectionView Grid.Row="5" 
+                                    x:Name="DewormersView"
+                                    ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetDewormersVM}" 
+                                    SelectionMode="Single">
                                     <CollectionView.EmptyView>
                                         <StackLayout Grid.Column="1" 
-                                     Padding="10">
+                                             Padding="10">
                                             <Image
-                                    HorizontalOptions="Center"
-                                    HeightRequest="80"
-                                    WidthRequest="80"
-                                    Source="nopets.png"
-                                    VerticalOptions="Center" />
+                                                HorizontalOptions="Center"
+                                                HeightRequest="80"
+                                                WidthRequest="80"
+                                                Source="nopets.png"
+                                                VerticalOptions="Center" />
                                             <Label HorizontalOptions="Center" Padding="10">No data for Dewormers</Label>
                                         </StackLayout>
                                     </CollectionView.EmptyView>
@@ -210,84 +263,130 @@
                     </mct:Expander.Content>
                 </mct:Expander>
             </Border>
-            <Frame Grid.Row="5" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
-                <Grid Padding="2" RowDefinitions="Auto, Auto">
-                    <Grid ColumnDefinitions="100, 150, *" ColumnSpacing="4"
-                          Grid.Row="0">
-                        <Label Text="Compra" Grid.Row="0" Grid.Column="0" />
-                        <Label Text="Marca" Grid.Row="0" Grid.Column="1"/>
-                        <Label Text="Qtd. diária" Grid.Row="0" Grid.Column="2" />
-                    </Grid>
-                    <CollectionView Grid.Row="5" 
-                        x:Name="FoodView"
-                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetFoodVM}" 
-                        SelectionMode="Single">
-                        <CollectionView.EmptyView>
-                            <StackLayout Grid.Column="1" 
-                                     Padding="10">
-                                <Image
-                                    HorizontalOptions="Center"
-                                    HeightRequest="80"
-                                    WidthRequest="80"
-                                    Source="nopets.png"
-                                    VerticalOptions="Center" />
-                                <Label HorizontalOptions="Center" Padding="10">No data for Pet food</Label>
-                            </StackLayout>
-                        </CollectionView.EmptyView>
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:RacaoVM">
-                                <Grid ColumnSpacing="4" ColumnDefinitions="100, 150, *">
-                                    <Label Grid.Column="0" FontAttributes="Bold" Text="{Binding DataCompra}"/>
-                                    <Label Grid.Column="1" Text="{Binding Marca}"/>
-                                    <Label Grid.Column="2" Text="{Binding QuantidadeDiaria, StringFormat='{0}' }"/>
-                                </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
+            <Border Grid.Row="6" Stroke="#2B0B98"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 40,0,0,40"
+                    Background="#fff"
+                    Padding="8,2,8,0"
+                    Margin="2"
+                    HorizontalOptions="FillAndExpand">
 
-                    </CollectionView>
-                </Grid>
-            </Frame>
-            <Frame Grid.Row="6" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
-                <Grid Padding="2" RowDefinitions="Auto, Auto">
-                    <Grid ColumnDefinitions="100, *" ColumnSpacing="4"
+                <mct:Expander Padding="6" Margin="2"
+                                  IsExpanded="false" IsClippedToBounds="True" >
+                    <mct:Expander.Header>
+                        <Frame 
+                            BorderColor="Black"
+                            BackgroundColor="LightSteelBlue"
+                            CornerRadius="10">
+                            <Label Text="Ração" FontSize="14" 
+                              FontAttributes="Bold" TextColor="Black"/>
+                        </Frame>
+                    </mct:Expander.Header>
+                    <mct:Expander.Content>
+                        <Frame Grid.Row="6" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
+                            <Grid Padding="2" RowDefinitions="Auto, Auto">
+                                <Grid ColumnDefinitions="100, 150, *" ColumnSpacing="4"
                           Grid.Row="0">
-                        <Label Text="Visita" Grid.Row="0" Grid.Column="0" />
-                        <Label Text="Motivo" Grid.Row="0" Grid.Column="1"/>
-                    </Grid>
-                    <CollectionView Grid.Row="6" 
-                        x:Name="ConsultationsView"
-                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetConsultationsVM}" 
-                        SelectionMode="Single">
-                        <CollectionView.EmptyView>
-                            <StackLayout Grid.Column="1" 
-                                     Padding="10">
-                                <Image
-                                    HorizontalOptions="Center"
-                                    HeightRequest="80"
-                                    WidthRequest="80"
-                                    Source="nopets.png"
-                                    VerticalOptions="Center" />
-                                <Label HorizontalOptions="Center" Padding="10">No data for Pet consultations</Label>
-                            </StackLayout>
-                        </CollectionView.EmptyView>
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" />
-                        </CollectionView.ItemsLayout>
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:ConsultaVeterinarioVM">
-                                <Grid ColumnSpacing="4" ColumnDefinitions="100, *">
-                                    <Label Grid.Column="0" FontAttributes="Bold" Text="{Binding DataConsulta}"/>
-                                    <Label Grid.Column="1" Text="{Binding Motivo}"/>
+                                    <Label Text="Compra" Grid.Row="0" Grid.Column="0" />
+                                    <Label Text="Marca" Grid.Row="0" Grid.Column="1"/>
+                                    <Label Text="Qtd. diária" Grid.Row="0" Grid.Column="2" />
                                 </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
+                                <CollectionView Grid.Row="5" HeightRequest="200"
+                                    x:Name="FoodView"
+                                    ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetFoodVM}" 
+                                    SelectionMode="Single">
+                                    <CollectionView.EmptyView>
+                                        <StackLayout Grid.Column="1" 
+                                         Padding="10">
+                                            <Image
+                                            HorizontalOptions="Center"
+                                            HeightRequest="80"
+                                            WidthRequest="80"
+                                            Source="nopets.png"
+                                            VerticalOptions="Center" />
+                                            <Label HorizontalOptions="Center" Padding="10">No data for Pet food</Label>
+                                        </StackLayout>
+                                    </CollectionView.EmptyView>
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:RacaoVM">
+                                            <Grid ColumnSpacing="4" ColumnDefinitions="100, 150, *">
+                                                <Label Grid.Column="0" FontAttributes="Bold" Text="{Binding DataCompra}"/>
+                                                <Label Grid.Column="1" Text="{Binding Marca}"/>
+                                                <Label Grid.Column="2" Text="{Binding QuantidadeDiaria, StringFormat='{0}' }"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
 
-                    </CollectionView>
-                </Grid>
-            </Frame>
+                                </CollectionView>
+                            </Grid>
+                        </Frame>
+                    </mct:Expander.Content>
+                </mct:Expander>
+            </Border>
+            <Border Grid.Row="7" Stroke="#2B0B98"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 40,0,0,40"
+                    Background="#fff"
+                    Padding="8,2,8,0"
+                    Margin="2"
+                    HorizontalOptions="FillAndExpand">
+                <mct:Expander Padding="6" Margin="2"
+                                  IsExpanded="false" IsClippedToBounds="True" >
+                    <mct:Expander.Header>
+                        <Frame 
+                                    BorderColor="Black"
+                                    BackgroundColor="LightSteelBlue"
+                                    CornerRadius="10">
+                            <Label Text="Consultas no veterinário" FontSize="14" 
+                                       FontAttributes="Bold" TextColor="Black"/>
+                        </Frame>
+                    </mct:Expander.Header>
+                    <mct:Expander.Content>
+
+                        <Frame Grid.Row="7" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
+                            <Grid Padding="2" RowDefinitions="Auto, Auto">
+                                <Grid ColumnDefinitions="100, *" ColumnSpacing="4"
+                          Grid.Row="0">
+                                    <Label Text="Visita" Grid.Row="0" Grid.Column="0" />
+                                    <Label Text="Motivo" Grid.Row="0" Grid.Column="1"/>
+                                </Grid>
+                                <CollectionView Grid.Row="6" HeightRequest="200"
+                                    x:Name="ConsultationsView"
+                                    ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetConsultationsVM}" 
+                                    SelectionMode="Single">
+                                    <CollectionView.EmptyView>
+                                        <StackLayout Grid.Column="1" 
+                                         Padding="10">
+                                            <Image
+                                                HorizontalOptions="Center"
+                                                HeightRequest="80"
+                                                WidthRequest="80"
+                                                Source="nopets.png"
+                                                VerticalOptions="Center" />
+                                            <Label HorizontalOptions="Center" Padding="10">No data for Pet consultations</Label>
+                                        </StackLayout>
+                                    </CollectionView.EmptyView>
+                                    <CollectionView.ItemsLayout>
+                                        <GridItemsLayout Orientation="Vertical" />
+                                    </CollectionView.ItemsLayout>
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:ConsultaVeterinarioVM">
+                                            <Grid ColumnSpacing="4" ColumnDefinitions="100, *">
+                                                <Label Grid.Column="0" FontAttributes="Bold" Text="{Binding DataConsulta}"/>
+                                                <Label Grid.Column="1" Text="{Binding Motivo}"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+
+                                </CollectionView>
+                            </Grid>
+                        </Frame>
+                    </mct:Expander.Content>
+                </mct:Expander>
+            </Border>
         </Grid>
     </ScrollView>
 

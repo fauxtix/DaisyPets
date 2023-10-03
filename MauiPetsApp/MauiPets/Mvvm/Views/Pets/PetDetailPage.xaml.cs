@@ -1,3 +1,4 @@
+using CommunityToolkit.Mvvm.DependencyInjection;
 using MauiPets.Converters;
 using MauiPets.Mvvm.ViewModels.Pets;
 
@@ -11,7 +12,7 @@ public partial class PetDetailPage : ContentPage
         InitializeComponent();
         _viewModel = viewModel;
         BindingContext = _viewModel;
-        
+       
     }
 
     protected override void OnAppearing()

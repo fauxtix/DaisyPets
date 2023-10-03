@@ -10,17 +10,40 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetPetsCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add Pet" Command="{Binding AddPetCommand  }"
                  IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
     <ScrollView>
         <VerticalStackLayout>
-
-            <CollectionView x:Name="ColView1" ItemsSource="{Binding Pets }" SelectionMode="Single">
+            <Grid RowDefinitions="Auto, Auto, Auto">
+                <Label Grid.Row="0"  Text="Daisy Pets"
+                       HorizontalOptions="Center" VerticalOptions="Center"
+                       Margin="5, 10"
+                       FontSize="30"></Label>
+                <Border Grid.Row="1" Margin="5, 5"  
+                        StrokeShape="RoundRectangle 0,0,50,50" 
+                        StrokeThickness="0" HeightRequest="160"
+                        Background="{AppThemeBinding Light={StaticResource Red}, Dark={StaticResource White}}">
+                    <Border.Shadow>
+                        <Shadow  Brush="Black" Offset="-10,20" Radius="70" Opacity="0.4" />
+                    </Border.Shadow>
+                    <Image Margin="5, 5"
+                        Grid.Row="1" WidthRequest="250" 
+                        HeightRequest="200" Aspect="Fill"                    
+                        Source="daisypetsbing.png"/>
+                </Border>
+                <Label Margin="5, 20, 5, 30" 
+                       Padding="5, 10, 5, 0"
+                       FontSize="Header"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       Grid.Row="2" Text="Pode selecionar um dos Pets abaixo, onde poderá visualizar a sua ficha / alterar as informações, ou usar opção no topo para criar um novo."></Label>
+            </Grid>
+            <CollectionView  x:Name="ColView1" ItemsSource="{Binding Pets }" SelectionMode="Single">
                 <CollectionView.EmptyView>
-                    <StackLayout Padding="100">
+                    <StackLayout>
                         <Image
                                     HorizontalOptions="Center"
                                     HeightRequest="160"
@@ -49,12 +72,12 @@
                                                 Margin="2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="180"/>
+                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
-                                    <Label Grid.Row="0" Text="{Binding Id}" 
+                                    <!--<Label Grid.Row="0" Text="{Binding Id}" 
                                                       TextColor="Black" Padding="10" FontSize="Large"
-                                                      HorizontalTextAlignment="End" />
+                                                      HorizontalTextAlignment="End" />-->
                                     <Image Grid.Row="1" Source="{Binding Foto}" 
                                                       Aspect="AspectFit"/>
                                     <Label Grid.Row="2" Text="{Binding Nome}" 
@@ -83,12 +106,12 @@
                     VerticalOptions="Center" />
             </Grid>
 
-            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" Margin="10">
+            <!--<StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" Margin="10">
                 <Button  Text="Load All Pets" Command="{Binding GetPetsCommand}"
                      IsEnabled="{Binding IsNotBusy}"
                      Margin="20"
                      Style="{StaticResource ButtonOutline}"/>
-            </StackLayout>
+            </StackLayout>-->
 
         </VerticalStackLayout>
     </ScrollView>

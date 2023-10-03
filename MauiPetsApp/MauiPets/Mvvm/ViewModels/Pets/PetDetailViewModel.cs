@@ -106,5 +106,8 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         );
 
         Gender = PetVM.Genero == "M" ? "Macho" : "Fêmea";
+        GodFather = PetVM.Padrinho ? "Sim" : "Não";
+        Sterilized = PetVM.Esterilizado ? "Sim" : "Não";
+        Chipped = PetVM.Chipado? "Sim" : "Não";
     }
 }

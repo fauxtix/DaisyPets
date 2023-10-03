@@ -64,6 +64,11 @@
                         </Image.Shadow>
                     </Image>
                 </Frame>
+                <Button Margin="10, 10, 10, 5" CornerRadius="20" 
+                        HeightRequest="50" WidthRequest="150" 
+                        Text="Escolha imagem" 
+                        Command="{Binding PickImageCommand}" />
+
                 <Border Stroke="#2B0B98"
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 40,0,0,40"
@@ -89,7 +94,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="50"></RowDefinition>
                                     <RowDefinition Height="50"></RowDefinition>
-                                    <RowDefinition Height="50"></RowDefinition>
+                                    <RowDefinition Height="Auto"></RowDefinition>
                                     <RowDefinition Height="50"></RowDefinition>
                                     <RowDefinition Height="50"></RowDefinition>
                                     <RowDefinition Height="50"></RowDefinition>
@@ -130,7 +135,8 @@
 			                           Grid.Row="2"
                                        Grid.Column="1"
                                        FontSize="Small"
-			                           VerticalOptions="Center">
+                                        VerticalOptions="Start"
+			                           HorizontalOptions="Start">
                                 </Editor>
                                 <Label Text="Peso"
                                        Grid.Row="3"
@@ -226,7 +232,7 @@
 
                                 <Label Text="Espécie" Grid.Row="0" Grid.Column="0" FontSize="Small"></Label>
                                 <Picker x:Name="SpeciesPicker" 
-                                        Title="Select a Specie" 
+                                        Title="Escolha Espécie" 
                                         Grid.Row="0" 
                                         Grid.Column="1"
                                         ItemsSource="{Binding Species}"
@@ -238,7 +244,7 @@
 
                                 <Label Text="Situação" Grid.Row="1" Grid.Column="0" FontSize="Small"></Label>
                                 <Picker x:Name="SituationsPicker"
-                                        Title="Select a Situation" Grid.Row="1" Grid.Column="1"
+                                        Title="Escolha Situação" Grid.Row="1" Grid.Column="1"
                                         ItemsSource="{Binding Situations}"
                                         SelectedItem="{Binding SelectedSituation}"
                                         SelectedIndex="{Binding SituationSelectedIndex}"
@@ -247,31 +253,31 @@
                                 </Picker>
                                 <Label Text="Temperamento" Grid.Row="2" Grid.Column="0" FontSize="Small"></Label>
                                 <Picker x:Name="TemperamentsPicker"
-                    Title="Select a Temperament" Grid.Row="2" Grid.Column="1"
-                    ItemsSource="{Binding Temperaments}" 
-                    SelectedItem="{Binding SelectedTemperament}"
-                    SelectedIndex="{Binding TemperamentSelectedIndex}"
-                    SelectedIndexChanged="SelectedIndexChanged"
-                    ItemDisplayBinding="{Binding Descricao}">
+                                        Title="Escolha Temperamento" Grid.Row="2" Grid.Column="1"
+                                        ItemsSource="{Binding Temperaments}" 
+                                        SelectedItem="{Binding SelectedTemperament}"
+                                        SelectedIndex="{Binding TemperamentSelectedIndex}"
+                                        SelectedIndexChanged="SelectedIndexChanged"
+                                        ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
 
-                                <Label Text="Breed" Grid.Row="3" Grid.Column="0" FontSize="Small"></Label>
+                                <Label Text="Raça" Grid.Row="3" Grid.Column="0" FontSize="Small"></Label>
                                 <Picker x:Name="BreedsPicker"
-                    Title="Select a Breed" Grid.Row="3" Grid.Column="1"
-                    ItemsSource="{Binding Breeds}"
-                    SelectedItem="{Binding SelectedBreed}"
-                    SelectedIndex="{Binding BreedSelectedIndex}"
-                    SelectedIndexChanged="SelectedIndexChanged"
-                    ItemDisplayBinding="{Binding Descricao}">
+                                        Title="Escolha Raça" Grid.Row="3" Grid.Column="1"
+                                        ItemsSource="{Binding Breeds}"
+                                        SelectedItem="{Binding SelectedBreed}"
+                                        SelectedIndex="{Binding BreedSelectedIndex}"
+                                        SelectedIndexChanged="SelectedIndexChanged"
+                                        ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
-                                <Label Text="Size" Grid.Row="4" Grid.Column="0" FontSize="Small"></Label>
+                                <Label Text="Tamanho" Grid.Row="4" Grid.Column="0" FontSize="Small"></Label>
                                 <Picker x:Name="SizesPicker"
-                    Title="Select size" Grid.Row="4" Grid.Column="1"
-                    ItemsSource="{Binding Sizes}"
-                    SelectedItem="{Binding SelectedSize}"
-                    SelectedIndex="{Binding SizeSelectedIndex}"
-                    SelectedIndexChanged="SelectedIndexChanged"
-                    ItemDisplayBinding="{Binding Descricao}">
+                                        Title="Éscolha Tamanho" Grid.Row="4" Grid.Column="1"
+                                        ItemsSource="{Binding Sizes}"
+                                        SelectedItem="{Binding SelectedSize}"
+                                        SelectedIndex="{Binding SizeSelectedIndex}"
+                                        SelectedIndexChanged="SelectedIndexChanged"
+                                        ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
 
                             </Grid>

@@ -303,16 +303,16 @@ namespace MauiPetsApp.Infrastructure.Repositories
             //}
 
 
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("SELECT * FROM Pet");
-            using (var connection = _context.CreateConnection())
-            {
-                var allPets = await connection.QueryAsync<Pet>(stringBuilder.ToString());
-                if (allPets != null)
-                {
-                    var xxx = allPets;
-                }
-            }
+            //StringBuilder stringBuilder = new StringBuilder();
+            //stringBuilder.Append("SELECT * FROM Pet");
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    var allPets = await connection.QueryAsync<Pet>(stringBuilder.ToString());
+            //    if (allPets != null)
+            //    {
+            //        var xxx = allPets;
+            //    }
+            //}
 
             string sqlQuery = GetPetsVM_Query();
 
@@ -342,7 +342,7 @@ namespace MauiPetsApp.Infrastructure.Repositories
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Pet.Id, Pet.Nome, Pet.DoencaCronica, Pet.Observacoes, Pet.Foto, Pet.IdPeso, ");
-            sb.Append("Pet.Chip, Pet.Chipado, Pet.DataChip, Pet.NumeroChip,  Pet.Esterilizado, ");
+            sb.Append("Pet.Chip, Pet.Chipado, Pet.DataChip, Pet.NumeroChip,  Pet.Esterilizado, Pet.Padrinho, ");
             sb.Append("R.Descricao AS [RacaAnimal], Pet.Medicacao AS [MedicacaoAnimal], ");
             sb.Append("E.Descricao AS [EspecieAnimal], T.Descricao AS [TamanhoAnimal], ");
             sb.Append("Temp.Descricao AS [TemperamentoAnimal], Pet.Genero, ");

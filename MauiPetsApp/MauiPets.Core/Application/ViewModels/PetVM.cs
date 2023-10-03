@@ -11,6 +11,7 @@
         public string Chip { get; set; } = string.Empty;
         public bool Chipado { get; set; }
         public int IdPeso { get; set; }
+        public bool Padrinho{ get; set; }
         public string DataChip { get; set; } = string.Empty;
         public string NumeroChip { get; set; } = string.Empty;
         public string MedicacaoAnimal { get; } = string.Empty;

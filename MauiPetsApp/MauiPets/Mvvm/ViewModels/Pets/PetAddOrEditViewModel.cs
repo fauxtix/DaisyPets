@@ -50,9 +50,6 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     private int _sizeSelectedIndex;
 
 
-    public IConnectivity _connectivity;
-    public IPetService _petService { get; set; }
-    public ILookupTableService _lookupTablesService { get; set; }
 
     private string selectedPickerName;
     public string SelectedPickerName
@@ -60,6 +57,10 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         get { return selectedPickerName; }
         set { SetProperty(ref selectedPickerName, value); }
     }
+    public IConnectivity _connectivity;
+    public IPetService _petService { get; set; }
+    public ILookupTableService _lookupTablesService { get; set; }
+
     public PetAddOrEditViewModel(IConnectivity connectivity,
                                  IPetService petService,
                                  ILookupTableService lookupTablesService)
@@ -69,7 +70,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         _lookupTablesService = lookupTablesService;
         SetupLookupTables();
 
-        UpdateSelectedItemCommand = new RelayCommand(ExecuteUpdateSelectedItem);
+        //UpdateSelectedItemCommand = new RelayCommand(ExecuteUpdateSelectedItem);
 
     }
 
@@ -239,6 +240,28 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
             //WarningMessage = ex.Message;
         }
     }
+
+    [RelayCommand]
+    private async Task PickImageAsync()
+    {
+        var result = await MediaPicker.PickPhotoAsync();
+        if (result != null)
+        {
+            Foto = result.FullPath;
+            var originalName = result.FileName;
+            var customName = "My_" + originalName; // Change this as you like
+            SaveImage(result.FullPath, originalName);
+        }
+    }
+
+    private void SaveImage(string path, string selectedPhotoName)
+    {
+        var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Resources", "Images");
+        Directory.CreateDirectory(folder);
+        var destinationPath = Path.Combine(folder, selectedPhotoName);
+        File.Copy(path, destinationPath, true);
+    }
+
 
     private async void ShowToastMessage(string text)
     {
