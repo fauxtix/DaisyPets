@@ -7,6 +7,7 @@ using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
+using MauiPetsApp.Core.Domain;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
@@ -72,18 +73,11 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     {
         PetDto = query[nameof(PetDto)] as PetDto;
 
-        if (PetDto.Id == 0) // insert
-        {
-            return;
-        }
-        else
-        {
-            SpecieSelectedIndex = Species.FindIndex(item => item.Id == PetDto.IdEspecie);
-            BreedSelectedIndex = Breeds.FindIndex(item => item.Id == PetDto.IdRaca);
-            TemperamentSelectedIndex = Temperaments.FindIndex(item => item.Id == PetDto.IdTemperamento);
-            SituationSelectedIndex = Situations.FindIndex(item => item.Id == PetDto.IdSituacao);
-            SizeSelectedIndex = Sizes.FindIndex(item => item.Id == PetDto.IdTamanho);
-        }
+        SpecieSelectedIndex = Species.FindIndex(item => item.Id == PetDto.IdEspecie);
+        BreedSelectedIndex = Breeds.FindIndex(item => item.Id == PetDto.IdRaca);
+        TemperamentSelectedIndex = Temperaments.FindIndex(item => item.Id == PetDto.IdTemperamento);
+        SituationSelectedIndex = Situations.FindIndex(item => item.Id == PetDto.IdSituacao);
+        SizeSelectedIndex = Sizes.FindIndex(item => item.Id == PetDto.IdTamanho);
     }
     private void ExecuteUpdateSelectedItem()
     {
@@ -181,7 +175,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     [RelayCommand]
     async Task GoBack()
     {
-        await Shell.Current.GoToAsync($"//{nameof(PetDetailPage)}");
+        await Shell.Current.GoToAsync("..");
     }
 
     private void SetupLookupTables()
@@ -191,9 +185,6 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         GetLookupData("Situacao", AppEnums.Situations);
         GetLookupData("Tamanho", AppEnums.Sizes);
         GetLookupData("Temperamento", AppEnums.Temperaments);
-
-
-
     }
     private void GetLookupData(string tableName, AppEnums option)
     {

@@ -127,7 +127,26 @@ public partial class PetViewModel : BaseViewModel
     {
         PetDto = new PetDto()
         {
-             Foto = "icon_nopet.png",
+            Chip = "",
+            Chipado = 0,
+            Cor = "",
+            DataChip = DateTime.Today.Date.ToString("yyyy-MM-dd"),
+            DataNascimento = DateTime.Today.Date.ToString("yyyy-MM-dd"),
+            DoencaCronica = "",
+            Esterilizado = 1,
+            Genero = "M",
+            IdEspecie = 1,
+            IdPeso = 1,
+            IdRaca = 1,
+            IdSituacao = 1,
+            IdTamanho = 1,
+            IdTemperamento = 1,
+            Medicacao = "",
+            Nome = "",
+            NumeroChip = "",
+            Observacoes = "",
+            Padrinho = 1,
+            Foto = "icon_nopet.png",
         };
         await Shell.Current.GoToAsync($"{nameof(PetAddOrEditPage)}", true,
             new Dictionary<string, object>
