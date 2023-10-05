@@ -125,30 +125,10 @@ public partial class PetViewModel : BaseViewModel
     [RelayCommand]
     private async Task AddPetAsync()
     {
-        PetDto = new()
+        PetDto = new PetDto()
         {
-            Chip = "",
-            Chipado = 0,
-            Cor = "",
-            DataChip = DateTime.Now.ToShortDateString(),
-            DataNascimento = DateTime.Now.ToShortDateString(),
-            DoencaCronica = "",
-            Esterilizado = 1,
-            Foto = "icon_nopet.png",
-            Genero = "M",
-            IdPeso = 0,
-            IdEspecie = 0,
-            IdRaca = 0,
-            IdSituacao = 0,
-            IdTamanho = 0,
-            IdTemperamento = 0,
-            Medicacao = "",
-            Nome = "",
-            NumeroChip = "",
-            Observacoes = "",
-            Padrinho = 0
+             Foto = "icon_nopet.png",
         };
-
         await Shell.Current.GoToAsync($"{nameof(PetAddOrEditPage)}", true,
             new Dictionary<string, object>
             {

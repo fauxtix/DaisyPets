@@ -12,6 +12,8 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding AddOrEditPetCommand  }"
                  IconImageSource="icon_edit.svg" />
+        <ToolbarItem Text="Delete Pet" Command="{Binding DeletePetCommand  }"
+                 IconImageSource="icon_delete.svg" />
         <ToolbarItem Text="Return" Command="{Binding GoBackCommand  }"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>

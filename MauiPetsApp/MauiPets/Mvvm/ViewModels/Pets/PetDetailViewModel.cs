@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -45,7 +47,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
     [RelayCommand]
     async Task GoBack()
     {
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync($"//{nameof(PetsPage)}");
     }
 
     [RelayCommand]
@@ -83,6 +85,40 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         }
     }
 
+    [RelayCommand]
+    private async Task DeletePetAsync()
+    {
+        if (PetDto is null)
+        {
+            return;
+        }
+        try
+        {
+            var _petRecord = await _petService.GetPetVMAsync(PetVM.Id);
+            string petName = _petRecord.Nome;
+            bool deletionConfirmed = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga o Pet {petName}?", "Sim", "Não");
+            if (deletionConfirmed)
+            {
+                var okToDelete = await _petService.DeleteAsync(_petRecord.Id);
+                if(okToDelete)
+                {
+                    await ShowToastMessage($"Pet {petName} apagado com sucesso");
+                    await Shell.Current.GoToAsync($"//{nameof(PetsPage)}", true);
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Apagar Pet", $"{petName} não pode ser apagado, uma vez que tem histórico associado.", "Ok");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowToastMessage($"Erro ao apagar Pet! ({ex.Message})");
+            await Shell.Current.GoToAsync($"{nameof(PetsPage)}", true);
+        }
+    }
+
+
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         PetVM = query[nameof(PetVM)] as PetVM;
@@ -110,4 +146,16 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         Sterilized = PetVM.Esterilizado ? "Sim" : "Não";
         Chipped = PetVM.Chipado? "Sim" : "Não";
     }
+
+    private async Task ShowToastMessage(string text)
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        ToastDuration duration = ToastDuration.Short;
+        double fontSize = 14;
+
+        var toast = Toast.Make(text, duration, fontSize);
+
+        await toast.Show(cancellationTokenSource.Token);
+    }
+
 }

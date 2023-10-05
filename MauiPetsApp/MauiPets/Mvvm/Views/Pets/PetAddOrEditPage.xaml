@@ -19,6 +19,8 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding SavePetDataCommand  }"
                  IconImageSource="icon_save.png" />
+        <ToolbarItem Text="Save data" Command="{Binding DeleteContactCommand  }"
+                 IconImageSource="icon_delete.svg" />
         <ToolbarItem Text="Return" Command="{Binding GoBackCommand  }"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>

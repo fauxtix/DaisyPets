@@ -12,11 +12,8 @@ namespace MauiPets.Mvvm.ViewModels.Pets;
 
 [QueryProperty(nameof(PetDto), "PetDto")]
 
-
 public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 {
-
-    private Dictionary<Picker, Action<object>> pickerActions = new Dictionary<Picker, Action<object>>();
 
     public List<LookupTableVM> Species { get; } = new();
     public List<LookupTableVM> Breeds { get; } = new();
@@ -69,25 +66,18 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         _petService = petService;
         _lookupTablesService = lookupTablesService;
         SetupLookupTables();
-
-        //UpdateSelectedItemCommand = new RelayCommand(ExecuteUpdateSelectedItem);
-
     }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        if(PetDto.Id == 0) // edit
+        PetDto = query[nameof(PetDto)] as PetDto;
+
+        if (PetDto.Id == 0) // insert
         {
-            SpecieSelectedIndex = 0;
-            BreedSelectedIndex = 0;
-            TemperamentSelectedIndex = 0;
-            SituationSelectedIndex = 0;
-            SizeSelectedIndex = 0;
+            return;
         }
         else
         {
-            PetDto = query[nameof(PetDto)] as PetDto;
-
             SpecieSelectedIndex = Species.FindIndex(item => item.Id == PetDto.IdEspecie);
             BreedSelectedIndex = Breeds.FindIndex(item => item.Id == PetDto.IdRaca);
             TemperamentSelectedIndex = Temperaments.FindIndex(item => item.Id == PetDto.IdTemperamento);
@@ -142,7 +132,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
             }
 
             var errorMessages = _petService.RegistoComErros(PetDto);
-            if(!string.IsNullOrEmpty(errorMessages))
+            if (!string.IsNullOrEmpty(errorMessages))
             {
                 await Shell.Current.DisplayAlert("Verifique entradas, p.f.",
                     $"{errorMessages}", "OK");
@@ -191,7 +181,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     [RelayCommand]
     async Task GoBack()
     {
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync($"//{nameof(PetDetailPage)}");
     }
 
     private void SetupLookupTables()
