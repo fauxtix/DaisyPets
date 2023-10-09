@@ -6,6 +6,8 @@ using MauiPetsApp.Core.Domain;
 using MauiPetsApp.Application.Interfaces.Repositories;
 using MauiPetsApp.Application.Interfaces.Services;
 using Microsoft.Extensions.Logging;
+using FluentValidation.Results;
+using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Services
 {
@@ -139,6 +141,29 @@ namespace MauiPetsApp.Infrastructure.Services
                 throw;
             }
         }
+
+        /// <summary>
+        /// Validação de despesa
+        /// </summary>
+        /// <param name="despesa"></param>
+        /// <returns></returns>
+        public string RegistoComErros(DespesaDto expense)
+        {
+            ValidationResult results = _validator.Validate(expense);
+
+            if (!results.IsValid)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var failure in results.Errors)
+                {
+                    sb.AppendLine(failure.ErrorMessage);
+                }
+                return sb.ToString();
+            }
+
+            return "";
+        }
+
     }
 }
 

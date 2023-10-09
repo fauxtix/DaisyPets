@@ -2,11 +2,55 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Expenses.ExpensesPage"
-             Title="Expenses">
-    <VerticalStackLayout>
-        <Label 
-            Text="Esta será a página de despesas"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Expenses"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Expenses"
+             x:DataType="local:ExpensesViewModel"
+             Title="Despesas">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetExpensesCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Expense" Command="{Binding AddExpenseCommand}"
+                 IconImageSource="add.png" />
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <VerticalStackLayout>
+            <CollectionView x:Name="expensesView" ItemsSource="{Binding ExpensesVM}" SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Rectangle Grid.RowSpan="2" 
+                                  WidthRequest="60" 
+                                  HeightRequest="60" 
+                                  Fill="WhiteSmoke" 
+                                  Stroke="LightGray" 
+                                  StrokeThickness="1" 
+                                  Margin="0,0,10,0">
+                            </Rectangle>
+                            <Label Grid.Column="1"
+                              Text="{Binding CreationDate}"
+                              FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                              Grid.Column="1"
+                              Text="{Binding Descricao}"
+                              FontAttributes="Italic"
+                              VerticalOptions="End" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

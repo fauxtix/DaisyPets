@@ -85,13 +85,14 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
 
                 var contactoVM = await _contactsService.GetContactVMAsync(insertedId);
 
-                await Shell.Current.GoToAsync("././ContactDetailPage", true,
+                ContactAddOrEditViewModel.ShowToastMessage("Contact created succesfuly");
+
+                await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
                     new Dictionary<string, object>
                     {
                         {"ContactoVM", contactoVM }
                     });
 
-                ContactAddOrEditViewModel.ShowToastMessage("Contact succesfuly created");
 
             }
             else // Insert (Id > 0)
@@ -101,7 +102,7 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
 
                 var contactoVM = await _contactsService.GetContactVMAsync(_contactId);
 
-                await Shell.Current.GoToAsync($"//{nameof(ContactDetailPage)}", true,
+                await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
                     new Dictionary<string, object>
                     {
                         {"ContactoVM", contactoVM }
@@ -132,12 +133,18 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
     [RelayCommand]
     async Task GoBack()
     {
-
-        await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
-            new Dictionary<string, object>
-            {
+        if (ContactoVM.Id > 0)
+        {
+            await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
+                new Dictionary<string, object>
+                {
                 {"ContactoVM", ContactoVM},
-            });
+                });
+        }
+        else
+        {
+            await Shell.Current.GoToAsync($"//{nameof(ContactsPage)}", true);
+        }
     }
 
     private static async void ShowToastMessage(string text)

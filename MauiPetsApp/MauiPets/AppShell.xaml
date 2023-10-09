@@ -6,9 +6,9 @@
     xmlns:vs="clr-namespace:MauiPets"
     xmlns:petpage="clr-namespace:MauiPets.Mvvm.Views.Pets"
     xmlns:contactspage="clr-namespace:MauiPets.Mvvm.Views.Contacts"
+    xmlns:expensespage="clr-namespace:MauiPets.Mvvm.Views.Expenses"
     FlyoutWidth="200"
     FlyoutHeight="250"
-    xmlns:expensespage="clr-namespace:MauiPets.Mvvm.Views.Expenses"
     Shell.FlyoutBehavior="Flyout">
     
     <Shell.FlyoutBackground>

@@ -36,7 +36,7 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         [RelayCommand]
         async Task GoBack()
         {
-            await Shell.Current.GoToAsync("//ContactsPage");
+            await Shell.Current.GoToAsync($"//{nameof(ContactsPage)}");
         }
 
         [RelayCommand]

@@ -50,90 +50,85 @@
             </Border>
             <Frame Grid.Row="1" CornerRadius="30" HasShadow="True" Margin="0,5,0,5" BorderColor="Black" HeightRequest="65" WidthRequest="200">
                 <Label Style="{StaticResource LargeLabel}" 
-                   TextColor="Black"
                    FontAttributes="Bold"
+                   FontSize="Large"
+                   TextColor="Black"
                    Text="{Binding PetVM.Nome}" 
                    HorizontalOptions="Center"
-                   Margin="0,0,0,3"/>
+                   Margin="0"/>
             </Frame>
-            <Frame Grid.Row="2" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
-                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" 
-                          RowSpacing="5"
-                          HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0">Data Nascº</Label>
-                    <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataNascimento}" />
-                    <Label Grid.Row="1" Grid.Column="0">Espécie</Label>
-                    <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.EspecieAnimal}" />
-                    <Label Grid.Row="2" Grid.Column="0">Género</Label>
-                    <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Gender}" />
-                    <Label Grid.Row="3" Grid.Column="0">Raça</Label>
-                    <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.RacaAnimal}" />
-                    <Label Grid.Row="4" Grid.Column="0">Temperamento</Label>
-                    <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TemperamentoAnimal}" />
-                    <Label Grid.Row="5" Grid.Column="0">Medicação</Label>
-                    <Label Grid.Row="5" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.MedicacaoAnimal}" />
-                    <Label Grid.Row="6" Grid.Column="0">Doença crónica</Label>
-                    <Label Grid.Row="6" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DoencaCronica}" />
-                    <Label Grid.Row="7" Grid.Column="0">Tamanho</Label>
-                    <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TamanhoAnimal}" />
-                    <Label Grid.Row="8" Grid.Column="0">Condição</Label>
-                    <Label Grid.Row="8" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.SituacaoAnimal}" />
-                </Grid>
-            </Frame>
-            <Border Grid.Row="3" Stroke="#2B0B98"
+            <Border Grid.Row="2" Stroke="#2B0B98"
                     StrokeThickness="1"
-                    StrokeShape="RoundRectangle 40,0,0,40"
+                    StrokeShape="RoundRectangle 22"
                     Background="#fff"
                     Padding="8,2,8,0"
-                    Margin="2"
+                    Margin="5"
                     HorizontalOptions="FillAndExpand">
-                <mct:Expander Padding="6" Margin="2"
-                                  IsExpanded="false" IsClippedToBounds="True" >
-                    <mct:Expander.Header>
-                        <Frame 
-                                    BorderColor="Black"
-                                    BackgroundColor="LightSteelBlue"
-                                    CornerRadius="10">
-                            <Label Text="Outos dados" FontSize="14" 
-                                       FontAttributes="Bold" TextColor="Black"/>
-                        </Frame>
-                    </mct:Expander.Header>
-                    <mct:Expander.Content>
-                        <Frame Grid.Row="3" CornerRadius="40" HasShadow="False" BorderColor="Transparent">
-                            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="120" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Row="0" Grid.Column="0">Chipado</Label>
-                                <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Chipped}" />
-                                <Label Grid.Row="1" Grid.Column="0">Código Chip</Label>
-                                <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.NumeroChip}" />
-                                <Label Grid.Row="2" Grid.Column="0">Data Chip</Label>
-                                <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataChip}" />
-                                <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="0">Esterilizado</Label>
-                                <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Sterilized}" />
-                                <Label Grid.Row="4" Grid.Column="0">Padrinho</Label>
-                                <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding GodFather}" />
-                            </Grid>
 
-
-                        </Frame>
-
-
-                    </mct:Expander.Content>
-                </mct:Expander>
+                <Frame Grid.Row="2" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
+                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" 
+                          RowSpacing="5"
+                          HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">Data Nascº</Label>
+                        <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataNascimento}" />
+                        <Label Grid.Row="1" Grid.Column="0">Espécie</Label>
+                        <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.EspecieAnimal}" />
+                        <Label Grid.Row="2" Grid.Column="0">Género</Label>
+                        <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Gender}" />
+                        <Label Grid.Row="3" Grid.Column="0">Raça</Label>
+                        <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.RacaAnimal}" />
+                        <Label Grid.Row="4" Grid.Column="0">Temperamento</Label>
+                        <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TemperamentoAnimal}" />
+                        <Label Grid.Row="5" Grid.Column="0">Medicação</Label>
+                        <Label Grid.Row="5" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.MedicacaoAnimal}" />
+                        <Label Grid.Row="6" Grid.Column="0">Doença crónica</Label>
+                        <Label Grid.Row="6" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DoencaCronica}" />
+                        <Label Grid.Row="7" Grid.Column="0">Tamanho</Label>
+                        <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TamanhoAnimal}" />
+                        <Label Grid.Row="8" Grid.Column="0">Condição</Label>
+                        <Label Grid.Row="8" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.SituacaoAnimal}" />
+                    </Grid>
+                </Frame>
+            </Border>
+            <Border Grid.Row="3" Stroke="#2B0B98"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 22"
+                    Background="#fff"
+                    Padding="8,2,8,0"
+                    Margin="5"
+                    HorizontalOptions="FillAndExpand">
+                <Frame Grid.Row="3" CornerRadius="40" HasShadow="False" BorderColor="Transparent">
+                    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0">Chipado</Label>
+                        <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Chipped}" />
+                        <Label Grid.Row="1" Grid.Column="0">Código Chip</Label>
+                        <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.NumeroChip}" />
+                        <Label Grid.Row="2" Grid.Column="0">Data Chip</Label>
+                        <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataChip}" />
+                        <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="0">Esterilizado</Label>
+                        <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Sterilized}" />
+                        <Label Grid.Row="4" Grid.Column="0">Padrinho</Label>
+                        <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding GodFather}" />
+                        <Label Grid.Row="5"  Margin="0,5,0,0" Grid.Column="0">Notas</Label>
+                        <Label Grid.Row="5"  Margin="0,5,0,0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.Observacoes}" />
+                    </Grid>
+                </Frame>
             </Border>
 
             <Border Grid.Row="4" Stroke="#2B0B98"

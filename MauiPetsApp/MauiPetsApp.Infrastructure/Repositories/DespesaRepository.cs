@@ -1,23 +1,20 @@
-﻿using MauiPetsApp.Core.Application.ViewModels;
+﻿using Dapper;
+using MauiPetsApp.Application.Interfaces.Repositories;
+using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 using MauiPetsApp.Core.Domain;
-using MauiPetsApp.Infrastructure.Context;
-using Dapper;
 using Microsoft.Extensions.Logging;
-using MauiPetsApp.Application.Interfaces.Repositories;
-
-using System.Data;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Repositories
 {
     public class DespesaRepository : IDespesaRepository
     {
-        private readonly DapperContext _context;
+        private readonly IDapperContext _context;
         private readonly ILogger<DespesaRepository> _logger;
 
-        public DespesaRepository(DapperContext context, ILogger<DespesaRepository> logger)
+        public DespesaRepository(IDapperContext context, ILogger<DespesaRepository> logger)
         {
             _context = context;
             _logger = logger;

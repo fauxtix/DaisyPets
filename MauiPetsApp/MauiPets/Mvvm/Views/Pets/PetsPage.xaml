@@ -24,8 +24,7 @@
                        FontSize="30"></Label>
                 <Border Grid.Row="1" Margin="5, 5"  
                         StrokeShape="RoundRectangle 0,0,50,50" 
-                        StrokeThickness="0" HeightRequest="160"
-                        Background="{AppThemeBinding Light={StaticResource Red}, Dark={StaticResource White}}">
+                        StrokeThickness="0" HeightRequest="160">
                     <Border.Shadow>
                         <Shadow  Brush="Black" Offset="-10,20" Radius="70" Opacity="0.4" />
                     </Border.Shadow>
@@ -89,7 +88,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Grid 
+            <!--<Grid 
                 ColumnDefinitions="*,*"
                 ColumnSpacing="5"
                 RowDefinitions="*,Auto"
@@ -104,7 +103,7 @@
                     IsVisible="{Binding IsBusy}"
                     Color="{StaticResource Primary}"
                     VerticalOptions="Center" />
-            </Grid>
+            </Grid>-->
 
             <!--<StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" Margin="10">
                 <Button  Text="Load All Pets" Command="{Binding GetPetsCommand}"

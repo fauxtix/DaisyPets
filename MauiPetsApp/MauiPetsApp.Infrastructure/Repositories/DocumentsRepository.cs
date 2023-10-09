@@ -1,20 +1,19 @@
-﻿using MauiPetsApp.Core.Application.Interfaces.Repositories;
+﻿using Dapper;
+using MauiPetsApp.Core.Application.Interfaces.DapperContext;
+using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using MauiPetsApp.Infrastructure.Context;
-using Dapper;
 using Microsoft.Extensions.Logging;
-using System.Data;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Repositories
 {
     public class DocumentsRepository : IDocumentsRepository
     {
-        private readonly DapperContext _context;
+        private readonly IDapperContext _context;
         private readonly ILogger<ContactRepository> _logger;
 
-        public DocumentsRepository(DapperContext context, ILogger<ContactRepository> logger)
+        public DocumentsRepository(IDapperContext context, ILogger<ContactRepository> logger)
         {
             _context = context;
             _logger = logger;
@@ -115,7 +114,7 @@ namespace MauiPetsApp.Infrastructure.Repositories
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Id, Title, Description, DocumentPath, CreatedOn, PetId ");
             sb.Append("FROM Documento");
-            
+
             try
             {
                 using (var connection = _context.CreateConnection())

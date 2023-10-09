@@ -1,7 +1,5 @@
 ﻿using MauiPets.Mvvm.ViewModels.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
-using SQLite;
-using System.Reflection;
 
 namespace MauiPets
 {

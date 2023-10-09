@@ -1,8 +1,8 @@
 ﻿using Dapper;
-using MauiPetsApp.Core.Domain;
-using MauiPetsApp.Infrastructure.Context;
+using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
+using MauiPetsApp.Core.Domain;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
@@ -10,11 +10,11 @@ namespace MauiPetsApp.Infrastructure.Repositories
 {
     public class TipoDespesaRepository : ITipoDespesaRepository
     {
-        private readonly DapperContext _context;
+        private readonly IDapperContext _context;
         private readonly ILogger<TipoDespesaRepository> _logger;
         private StringBuilder sb = new StringBuilder();
 
-        public TipoDespesaRepository(DapperContext context, ILogger<TipoDespesaRepository> logger)
+        public TipoDespesaRepository(IDapperContext context, ILogger<TipoDespesaRepository> logger)
         {
             _context = context;
             _logger = logger;
