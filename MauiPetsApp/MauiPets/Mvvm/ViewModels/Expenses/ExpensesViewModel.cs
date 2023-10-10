@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
+using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using System.Collections.ObjectModel;
@@ -6,12 +7,12 @@ using System.Diagnostics;
 
 namespace MauiPets.Mvvm.ViewModels.Expenses
 {
+
     public partial class ExpensesViewModel : ExpensesBaseViewModel
     {
         private readonly IDespesaService _service;
         private IConnectivity _connectivity;
-
-        public ObservableCollection<DespesaVM> ExpensesVM { get; set; } = new();
+        public ObservableCollection<DespesaVM> Expenses { get; set; } = new();
 
 
         public ExpensesViewModel(IDespesaService service, IConnectivity connectivity)
@@ -35,16 +36,16 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                     return;
 
                 IsBusy = true;
-                if (ExpensesVM.Count > 0)
+                if (Expenses.Count > 0)
                 {
-                    ExpensesVM.Clear();
+                    Expenses.Clear();
                 }
                 var expenses = (await _service.GetAllVMAsync()).ToList();
 
 
                 foreach (var expense in expenses)
                 {
-                    ExpensesVM.Add(expense);
+                    Expenses.Add(expense);
                 }
 
             }
@@ -56,6 +57,27 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        [RelayCommand]
+        private async Task EditExpenseAsync(DespesaVM expense)
+        {
+            var expenseId = expense.Id;
+            if (expenseId > 0)
+            {
+                var response = await _service.GetByIdAsync(expenseId);
+
+                if (response is not null)
+                {
+
+                    await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,
+                        new Dictionary<string, object>
+                        {
+                            {"DespesaDto", response},
+                        });
+
+                }
             }
         }
     }

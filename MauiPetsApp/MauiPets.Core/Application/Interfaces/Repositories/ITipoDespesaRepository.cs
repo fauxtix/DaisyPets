@@ -13,5 +13,7 @@ namespace MauiPetsApp.Core.Application.Interfaces.Repositories
         Task<IEnumerable<TipoDespesaVM>?> GetAllVM();
         Task<bool> CanRecordBeDeleted(int id);
         Task<TipoDespesaVM?> GetTipoDespesaVM_ById(int Id);
+        Task<IEnumerable<TipoDespesa>?> GetTipoDespesa_ByCategoria(int categoria);
+
     }
 }

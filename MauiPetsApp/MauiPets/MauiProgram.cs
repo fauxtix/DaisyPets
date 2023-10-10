@@ -72,7 +72,6 @@ namespace MauiPets
             builder.Services.AddTransient<ContactAddOrEditViewModel>();
 
             builder.Services.AddTransient<ExpensesViewModel>();
-            builder.Services.AddTransient<ExpensesDetailViewModel>();
             builder.Services.AddTransient<ExpenseAddOrEditViewModel>();
 
             // Views
@@ -85,7 +84,7 @@ namespace MauiPets
             builder.Services.AddTransient<AddOrEditContactPage>();
 
             builder.Services.AddTransient<ExpensesPage>();
-            builder.Services.AddTransient<ExpensesDetailPage>();
+            //builder.Services.AddTransient<ExpensesDetailPage>();
             builder.Services.AddTransient<ExpensesAddOrEditPage>();
 
             // Database context
@@ -118,6 +117,7 @@ namespace MauiPets
             builder.Services.AddTransient<IContactService, ContactService>();
 
             builder.Services.AddTransient<ILookupTableService, LookupTableService>();
+            builder.Services.AddTransient<ITipoDespesaService, TipoDespesaService>();
 
             // repositories
             builder.Services.AddTransient<IPetRepository, PetRepository>();
@@ -129,6 +129,7 @@ namespace MauiPets
             builder.Services.AddTransient<IContactRepository, ContactRepository>();
 
             builder.Services.AddTransient<ILookupTableRepository, LookupTableRepository>();
+            builder.Services.AddTransient<ITipoDespesaRepository, TipoDespesaRepository>();
 
             return builder.Build();
         }

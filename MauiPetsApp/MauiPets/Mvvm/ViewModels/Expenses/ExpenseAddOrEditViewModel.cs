@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Alerts;
+﻿using AutoMapper;
+using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Expenses;
@@ -8,39 +9,48 @@ using MauiPetsApp.Core.Application.ViewModels.Despesas;
 
 namespace MauiPets.Mvvm.ViewModels.Expenses;
 
-[QueryProperty(nameof(WorkingExpenseDto), "WorkingDto")]
+[QueryProperty(nameof(DespesaDto), "DespesaDto")]
 
 public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAttributable
 {
     private readonly IConnectivity _connectivity;
 
     private readonly IDespesaService _service;
+    private readonly ITipoDespesaService _tipoDespesaService;
     private readonly ILookupTableService _lookupTablesService;
+    private readonly IMapper _mapper;
 
 
-    public ExpenseAddOrEditViewModel(IConnectivity connectivity, IDespesaService service, ILookupTableService lookupTablesService)
+    public ExpenseAddOrEditViewModel(IConnectivity connectivity,
+                                     IDespesaService service,
+                                     ILookupTableService lookupTablesService,
+                                     IMapper mapper,
+                                     ITipoDespesaService tipoDespesaService)
     {
         _connectivity = connectivity;
         _service = service;
         _lookupTablesService = lookupTablesService;
 
         SetupLookupTables();
+        _mapper = mapper;
+        _tipoDespesaService = tipoDespesaService;
     }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
 
-        WorkingExpenseDto = query[nameof(WorkingExpenseDto)] as DespesaDto;
+        DespesaDto = query[nameof(DespesaDto)] as DespesaDto;
 
-        if (WorkingExpenseDto is null)
+
+        if (DespesaDto is null)
         {
             IndiceTipoDespesa = 0;
-            IndiceCategoriaDespesaSelecionada = 0;
+            IndiceCategoriaDespesa = 0;
         }
         else
         {
-            IndiceTipoDespesa = TipoDespesas.FindIndex(item => item.Id == WorkingExpenseDto.IdTipoDespesa);
-            IndiceCategoriaDespesaSelecionada = CategoriaDespesas.FindIndex(item => item.Id == WorkingExpenseDto.IdCategoriaDespesa);
+            IndiceTipoDespesa = TipoDespesas.FindIndex(item => item.Id == DespesaDto.IdTipoDespesa);
+            IndiceCategoriaDespesa = CategoriaDespesas.FindIndex(item => item.Id == DespesaDto.IdCategoriaDespesa);
         }
     }
 
@@ -62,6 +72,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
 
             if (tableName.ToLower() == "categoriadespesa")
             {
+
                 CategoriaDespesas.AddRange(result);
             }
             else
@@ -87,7 +98,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                 return;
             }
 
-            var errorMessages = _service.RegistoComErros(WorkingExpenseDto);
+            var errorMessages = _service.RegistoComErros(DespesaDto);
             if (!string.IsNullOrEmpty(errorMessages))
             {
                 await Shell.Current.DisplayAlert("Verifique entradas, p.f.",
@@ -95,43 +106,89 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                 return;
             }
 
-            if (WorkingExpenseDto.Id == 0)
+            if (DespesaDto.Id == 0)
             {
-                var insertedId = await _service.InsertAsync(WorkingExpenseDto);
-                if (insertedId == -1)
+                try
                 {
-                    await Shell.Current.DisplayAlert("Error while inserting expense",
-                        $"Please contact administrator..", "OK");
-                    return;
-                }
-
-                var expenseDto = await _service.GetByIdAsync(insertedId);
-
-                ShowToastMessage("Despesa criada com sucesso");
-
-                await Shell.Current.GoToAsync($"//{nameof(ExpensesDetailPage)}", true,
-                    new Dictionary<string, object>
+                    var insertedId = await _service.InsertAsync(DespesaDto);
+                    if (insertedId == -1)
                     {
-                        {"WorkingDto", expenseDto}
-                    });
+                        await Shell.Current.DisplayAlert("Error while inserting expense",
+                            $"Please contact administrator..", "OK");
+                        return;
+                    }
+
+                    ShowToastMessage("Despesa criada com sucesso");
+
+                    var expenseVM = _mapper.Map<DespesaVM>(await _service.GetVMByIdAsync(insertedId));
+
+                    await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true,
+                        new Dictionary<string, object>
+                        {
+                        {"DespesaVM", expenseVM}
+                        });
+
+                }
+                catch (Exception ex)
+                {
+                    ShowToastMessage($"Erro ao inserir despesa {ex.Message}");
+                }
             }
             else
             {
-                await _service.UpdateAsync(WorkingExpenseDto.Id, WorkingExpenseDto);
-                var expenseDto = await _service.GetByIdAsync(WorkingExpenseDto.Id);
-                ShowToastMessage("Registo atualizado com sucesso");
-                await Shell.Current.GoToAsync($"//{nameof(ExpensesDetailPage)}", true,
-                    new Dictionary<string, object>
-                    {
-                        {"WorkingDto", expenseDto}
-                    });
+                try
+                {
+                    await _service.UpdateAsync(DespesaDto.Id, DespesaDto);
+                    ShowToastMessage("Registo atualizado com sucesso");
+
+
+                    await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true,
+                        new Dictionary<string, object>
+                        {
+                        {"DespesaDto", DespesaDto}
+                        });
+
+                }
+                catch (Exception ex)
+                {
+                    ShowToastMessage($"Erro ao atualizar registo {ex.Message}");
+                }
             }
         }
         catch (Exception ex)
         {
-
-            throw;
+            ShowToastMessage($"Erro na transação {ex.Message}");
         }
+    }
+
+    [RelayCommand]
+    private async Task DeleteExpenseAsync()
+    {
+        if (DespesaDto is null)
+        {
+            return;
+        }
+        try
+        {
+            bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga a despesa  de {DespesaDto.DataMovimento}?", "Sim", "Não");
+            if (okToDelete)
+            {
+                await _service.DeleteAsync(DespesaDto.Id);
+                ShowToastMessage($"Despesa de {DespesaDto.DataMovimento} apagada com sucesso");
+                await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
+            }
+        }
+        catch (Exception ex)
+        {
+            ShowToastMessage($"Erro ao apagar Despesa {DespesaDto.DataMovimento} : {ex.Message} ");
+            await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
+        }
+    }
+
+    [RelayCommand]
+    async Task GoBack()
+    {
+        await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}");
     }
 
     private async void ShowToastMessage(string text)
@@ -144,6 +201,4 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
 
         await toast.Show(cancellationTokenSource.Token);
     }
-
-
 }

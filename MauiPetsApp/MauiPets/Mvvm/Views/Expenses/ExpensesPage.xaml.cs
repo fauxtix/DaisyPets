@@ -6,27 +6,23 @@ namespace MauiPets.Mvvm.Views.Expenses;
 
 public partial class ExpensesPage : ContentPage
 {
-    private readonly IDespesaService _service;
-    private ExpensesViewModel _viewModel;
 
-    public ExpensesPage(IDespesaService service, ExpensesViewModel viewModel)
+    public ExpensesPage(ExpensesViewModel viewModel)
     {
         InitializeComponent();
-        _viewModel = viewModel;
-        BindingContext = _viewModel;
-        _service = service;
+        BindingContext = viewModel;
     }
 
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        expensesView.ItemsSource = _viewModel.ExpensesVM;
-    }
+    //protected override void OnAppearing()
+    //{
+    //    base.OnAppearing();
+    //    //expensesView.ItemsSource = _viewModel.DespesasVM;
+    //}
 
     async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
     {
         DespesaVM item = args.SelectedItem as DespesaVM;
-        await Shell.Current.GoToAsync($"{nameof(ExpensesDetailPage)}", true,
+        await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,
             new Dictionary<string, object>
             {
                 {"DespesaVM", item}

@@ -221,5 +221,28 @@ namespace MauiPetsApp.Infrastructure.Repositories
                 return -1;
             }
         }
+
+        public async Task<IEnumerable<TipoDespesa>?> GetTipoDespesa_ByCategoria(int categoria)
+        {
+            sb.Clear();
+            sb.Append("SELECT TD.Id, TD.Descricao  ");
+            sb.Append("FROM  TipoDespesa TD ");
+            sb.Append("WHERE TD.IdCategoriaDespesa = @Id");
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    var lst = await connection
+                        .QueryAsync<TipoDespesa>(sb.ToString(), new { Id = categoria });
+                    return lst;
+                }
+            }
+            catch (Exception exc)
+            {
+                _logger.LogError(exc.Message);
+                return null;
+            }
+
+        }
     }
 }

@@ -102,9 +102,11 @@ namespace MauiPetsApp.Infrastructure.Services
         }
 
 
-        Task<IEnumerable<TipoDespesaDto>?> ITipoDespesaService.GetTipoDespesa_ByCategoria(int categoria)
+        async Task<IEnumerable<TipoDespesaDto>?> ITipoDespesaService.GetTipoDespesa_ByCategoria(int categoria)
         {
-            throw new NotImplementedException();
+            var list = await _repository.GetTipoDespesa_ByCategoria(categoria);
+            var mappedList = _mapper.Map<IEnumerable<TipoDespesaDto>?>(list);
+            return mappedList;
         }
     }
 }

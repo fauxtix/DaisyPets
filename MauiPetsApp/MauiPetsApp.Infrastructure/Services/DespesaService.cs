@@ -131,6 +131,7 @@ namespace MauiPetsApp.Infrastructure.Services
         {
             try
             {
+               // await _repository.DeleteAsync(31);
                 var expensesVM = await _repository.GetAllVMAsync();
                 return expensesVM;
 

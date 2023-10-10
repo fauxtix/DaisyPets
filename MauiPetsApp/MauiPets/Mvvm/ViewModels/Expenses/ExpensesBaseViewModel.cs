@@ -9,7 +9,8 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
     public partial class ExpensesBaseViewModel : ObservableObject
     {
 
-        public List<LookupTableVM> TipoDespesas { get; } = new();
+        public List<TipoDespesaDto> TipoDespesas_Categorias { get; set; } = new();
+        public List<LookupTableVM> TipoDespesas { get; set; } = new();
         public List<LookupTableVM> CategoriaDespesas { get; } = new();
 
         [ObservableProperty]
@@ -20,21 +21,21 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [ObservableProperty]
         private int _indiceTipoDespesa;
         [ObservableProperty]
-        private int _indiceCategoriaDespesaSelecionada;
+        private int _indiceCategoriaDespesa;
 
 
         [ObservableProperty] public int _id;
-        [ObservableProperty] public DateTime _creationDate;
-        [ObservableProperty] public DateTime _transactionDate;
+        [ObservableProperty] public string _dataCriacao;
+        [ObservableProperty] public string _dataMovimento;
         [ObservableProperty] public decimal _valorPago;
         [ObservableProperty] public string _descricao;
         [ObservableProperty] public int _idTipoDespesa;
         [ObservableProperty] public int _idCategoriaDespesa;
         [ObservableProperty] public string _notas;
-        [ObservableProperty] public string? _tipoMovimento;
+        [ObservableProperty] public string _tipoMovimento = "S";
 
-        [ObservableProperty] public DespesaVM _workingExpenseVM;
-        [ObservableProperty] public DespesaDto _workingExpenseDto;
+        [ObservableProperty] public DespesaVM _despesaVM;
+        [ObservableProperty] public DespesaDto _despesaDto;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
@@ -49,7 +50,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [RelayCommand]
         private async Task AddExpenseAsync()
         {
-            WorkingExpenseDto = new()
+            DespesaDto = new()
             {
                 DataCriacao = DateTime.Now.Date.ToShortDateString(),
                 DataMovimento = DateTime.Now.Date.ToShortDateString(),
@@ -64,7 +65,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
             await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,
                 new Dictionary<string, object>
                 {
-                        {"DespesaDto", WorkingExpenseDto}
+                        {"DespesaDto", DespesaDto}
                 });
         }
     }
