@@ -100,7 +100,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             if (deletionConfirmed)
             {
                 var okToDelete = await _petService.DeleteAsync(_petRecord.Id);
-                if(okToDelete)
+                if (okToDelete)
                 {
                     await ShowToastMessage($"Pet {petName} apagado com sucesso");
                     await Shell.Current.GoToAsync($"//{nameof(PetsPage)}", true);
@@ -115,6 +115,52 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         {
             await ShowToastMessage($"Erro ao apagar Pet! ({ex.Message})");
             await Shell.Current.GoToAsync($"{nameof(PetsPage)}", true);
+        }
+    }
+
+    [RelayCommand]
+    private async Task DeleteVacinaAsync(VacinaVM vaccine)
+    {
+        if (vaccine is null)
+        {
+            return;
+        }
+        try
+        {
+            bool deletionConfirmed = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga a vacina de {vaccine.DataToma} ({vaccine.Marca})?", "Sim", "Não");
+            if (deletionConfirmed)
+            {
+                await _petVaccinesService.DeleteAsync(vaccine.Id);
+                await ShowToastMessage($"Vacina do dia  {vaccine.DataToma} apagada com sucesso");
+                await RefreshPetDetail();
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowToastMessage($"Erro ao apagar Vacina ({ex.Message})");
+        }
+    }
+
+    [RelayCommand]
+    private async Task DeleteDesparasitanteAsync(DesparasitanteVM dewormer)
+    {
+        if (dewormer is null)
+        {
+            return;
+        }
+        try
+        {
+            bool deletionConfirmed = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga o registo do desparasitante de {dewormer.DataAplicacao} ({dewormer.Marca})?", "Sim", "Não");
+            if (deletionConfirmed)
+            {
+                await _petDewormersService.DeleteAsync(dewormer.Id);
+                await ShowToastMessage($"Aplicação do desparasitante do dia  {dewormer.DataAplicacao} apagado com sucesso");
+                await RefreshPetDetail();
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowToastMessage($"Erro ao apagar desparasitante ({ex.Message})");
         }
     }
 
@@ -144,7 +190,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         Gender = PetVM.Genero == "M" ? "Macho" : "Fêmea";
         GodFather = PetVM.Padrinho ? "Sim" : "Não";
         Sterilized = PetVM.Esterilizado ? "Sim" : "Não";
-        Chipped = PetVM.Chipado? "Sim" : "Não";
+        Chipped = PetVM.Chipado ? "Sim" : "Não";
     }
 
     private async Task ShowToastMessage(string text)

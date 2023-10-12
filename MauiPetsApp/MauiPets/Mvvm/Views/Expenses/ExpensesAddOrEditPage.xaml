@@ -4,8 +4,9 @@
              x:Class="MauiPets.Mvvm.Views.Expenses.ExpensesAddOrEditPage"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Expenses"
              xmlns:behaviours="clr-namespace:MauiPets.Mvvm.Behaviours.Pickers"
-              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-              x:DataType="viewmodel:ExpenseAddOrEditViewModel"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:conv="clr-namespace:MauiPets.Converters"
+             x:DataType="viewmodel:ExpenseAddOrEditViewModel"
              Title="Expenses Add or Edit">
 
     <ContentPage.Resources>
@@ -32,8 +33,6 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding SaveExpenseDataCommand  }"
                  IconImageSource="icon_save.png" />
-        <ToolbarItem Text="Save data" Command="{Binding DeleteExpenseCommand}"
-                 IconImageSource="icon_delete.svg" />
         <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
@@ -67,7 +66,7 @@
 			               VerticalOptions="Center">
                 </Label>
                 <DatePicker x:Name="TransactionDate"
-			               Date="{Binding DespesaDto.DataMovimento}" 
+			               Date="{Binding DespesaDto.DataMovimento, Converter={StaticResource stringToDateConverter}}"  
                            Style="{StaticResource MediumLabelBold}"
 			               Grid.Row="0"
                            FontAttributes="Bold" 

@@ -49,8 +49,8 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         }
         else
         {
-            IndiceTipoDespesa = TipoDespesas.FindIndex(item => item.Id == DespesaDto.IdTipoDespesa);
-            IndiceCategoriaDespesa = CategoriaDespesas.FindIndex(item => item.Id == DespesaDto.IdCategoriaDespesa);
+            IndiceTipoDespesa = TipoDespesas.FindIndex(td => td.Id == DespesaDto.IdTipoDespesa);
+            IndiceCategoriaDespesa = CategoriaDespesas.FindIndex(cd => cd.Id == DespesaDto.IdCategoriaDespesa);
         }
     }
 
@@ -161,29 +161,6 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         }
     }
 
-    [RelayCommand]
-    private async Task DeleteExpenseAsync()
-    {
-        if (DespesaDto is null)
-        {
-            return;
-        }
-        try
-        {
-            bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga a despesa  de {DespesaDto.DataMovimento}?", "Sim", "Não");
-            if (okToDelete)
-            {
-                await _service.DeleteAsync(DespesaDto.Id);
-                ShowToastMessage($"Despesa de {DespesaDto.DataMovimento} apagada com sucesso");
-                await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
-            }
-        }
-        catch (Exception ex)
-        {
-            ShowToastMessage($"Erro ao apagar Despesa {DespesaDto.DataMovimento} : {ex.Message} ");
-            await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
-        }
-    }
 
     [RelayCommand]
     async Task GoBack()

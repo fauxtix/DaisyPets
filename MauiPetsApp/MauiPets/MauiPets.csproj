@@ -59,21 +59,29 @@
 	  <None Remove="PetsDB.sqbpro" />
 	  <None Remove="Resources\Images\add.png" />
 	  <None Remove="Resources\Images\appimage.png" />
+	  <None Remove="Resources\Images\bxs_dog.svg" />
 	  <None Remove="Resources\Images\Che.jpg" />
+	  <None Remove="Resources\Images\contacts.svg" />
 	  <None Remove="Resources\Images\daisypetsbing.png" />
+	  <None Remove="Resources\Images\delete_32.png" />
 	  <None Remove="Resources\Images\DogAndCat.svg" />
 	  <None Remove="Resources\Images\edit.png" />
 	  <None Remove="Resources\Images\edit.svg" />
+	  <None Remove="Resources\Images\expenses.png" />
+	  <None Remove="Resources\Images\femenine_icon.png" />
 	  <None Remove="Resources\Images\icon_close.svg" />
 	  <None Remove="Resources\Images\icon_edit.svg" />
 	  <None Remove="Resources\Images\icon_save.png" />
+	  <None Remove="Resources\Images\male_icon.png" />
 	  <None Remove="Resources\Images\nodata.png" />
 	  <None Remove="Resources\Images\nopets.png" />
 	  <None Remove="Resources\Images\Olie.jpg" />
 	  <None Remove="Resources\Images\PaymentList.png" />
 	  <None Remove="Resources\Images\people.png" />
+	  <None Remove="Resources\Images\peticon.png" />
 	  <None Remove="Resources\Images\pets.png" />
 	  <None Remove="Resources\Images\pitbull.jpg" />
+	  <None Remove="Resources\Images\schedule_icon.png" />
 	  <None Remove="Resources\Images\shiva.jpg" />
 	</ItemGroup>
 

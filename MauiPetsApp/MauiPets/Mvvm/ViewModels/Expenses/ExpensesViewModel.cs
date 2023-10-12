@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
@@ -13,7 +16,6 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         private readonly IDespesaService _service;
         private IConnectivity _connectivity;
         public ObservableCollection<DespesaVM> Expenses { get; set; } = new();
-
 
         public ExpensesViewModel(IDespesaService service, IConnectivity connectivity)
         {
@@ -48,6 +50,8 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                     Expenses.Add(expense);
                 }
 
+                TotalDespesas = Expenses.Sum(c => c.ValorPago);
+
             }
             catch (Exception ex)
             {
@@ -80,5 +84,44 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 }
             }
         }
+
+        [RelayCommand]
+        private async Task DeleteExpenseAsync(DespesaVM expenseInputModel)
+        {
+            if (expenseInputModel is null)
+            {
+                return;
+            }
+            try
+            {
+                bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga a despesa  de {expenseInputModel.DataMovimento}?", "Sim", "Não");
+                if (okToDelete)
+                {
+                    await _service.DeleteAsync(expenseInputModel.Id);
+                    ShowToastMessage($"Despesa de {expenseInputModel.DataMovimento} apagada com sucesso");
+
+                    await GetExpensesAsync();
+
+                    await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowToastMessage($"Erro ao apagar Despesa {expenseInputModel.DataMovimento} : {ex.Message} ");
+                await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
+            }
+        }
+
+        private async void ShowToastMessage(string text)
+        {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            ToastDuration duration = ToastDuration.Short;
+            double fontSize = 14;
+
+            var toast = Toast.Make(text, duration, fontSize);
+
+            await toast.Show(cancellationTokenSource.Token);
+        }
+
     }
 }

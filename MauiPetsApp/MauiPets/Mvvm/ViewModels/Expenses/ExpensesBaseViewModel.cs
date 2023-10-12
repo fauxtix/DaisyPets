@@ -37,6 +37,8 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [ObservableProperty] public DespesaVM _despesaVM;
         [ObservableProperty] public DespesaDto _despesaDto;
 
+        [ObservableProperty] public decimal _totalDespesas;
+
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         bool isBusy;
@@ -44,8 +46,6 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
 
         [ObservableProperty]
         private string lookupDescription;
-
-
 
         [RelayCommand]
         private async Task AddExpenseAsync()

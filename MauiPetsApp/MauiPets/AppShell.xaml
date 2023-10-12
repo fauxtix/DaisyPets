@@ -14,27 +14,31 @@
     <Shell.FlyoutBackground>
         <LinearGradientBrush StartPoint="0,0"
                              EndPoint="1,1">
-            <GradientStop Color="#8A2387"
+            <GradientStop Color="#1aa4b8"
                           Offset="0.1" />
-            <GradientStop Color="#E94057"
-                          Offset="0.6" />
-            <GradientStop Color="#F27121"
+            <GradientStop Color="#1a9cb8"
+                          Offset="0.3" />
+            <GradientStop Color="#1a94b8"
+                          Offset="0.5" />
+            <GradientStop Color="#1a8cb8"
+                          Offset="0.8" />
+            <GradientStop Color="#1a84b8"
                           Offset="1.0" />
         </LinearGradientBrush>
     </Shell.FlyoutBackground>
     <ShellContent
         Title="Pets"
-        Icon="pets.png"
+        Icon="peticon.png"
         ContentTemplate="{DataTemplate petpage:PetsPage}"
-        Route="PetsPage" />
+        Route="PetsPage"/>
     <ShellContent
-        Title="Expenses"
-        Icon="paymentlist.png"
+        Title="Despesas"
+        Icon="expenses.png"
         ContentTemplate="{DataTemplate expensespage:ExpensesPage}"
         Route="ExpensesPage" />
     <ShellContent
-        Title="Contacts"
-        Icon="people.png"
+        Title="Contactos"
+        Icon="contacts.svg" 
         ContentTemplate="{DataTemplate contactspage:ContactsPage}"
         Route="ContactsPage" />
 

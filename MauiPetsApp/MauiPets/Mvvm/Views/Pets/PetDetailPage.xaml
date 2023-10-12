@@ -19,6 +19,7 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <converters:NextDoseDateConverter x:Key="nextDoseDateConverter" />
+        <converters:StringToDateConverter x:Key="stringToDateConverter"/>
         <ResourceDictionary>
             <Style x:Key="MediumLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
@@ -66,7 +67,7 @@
                     HorizontalOptions="FillAndExpand">
 
                 <Frame Grid.Row="2" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
-                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" 
+                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" 
                           RowSpacing="5"
                           HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                         <Grid.ColumnDefinitions>
@@ -74,7 +75,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0">Data Nascº</Label>
-                        <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataNascimento}" />
+                        <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataNascimento, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}" />
                         <Label Grid.Row="1" Grid.Column="0">Espécie</Label>
                         <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.EspecieAnimal}" />
                         <Label Grid.Row="2" Grid.Column="0">Género</Label>
@@ -94,6 +95,24 @@
                     </Grid>
                 </Frame>
             </Border>
+            <!--<Border>
+                <Frame>
+                    <Grid x:Name="GridTeste"
+                          ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" ColumnSpacing="10">
+                        <Image Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Source="bxs_dog.svg"/>
+                        <Label Grid.Row="10" Grid.Column="1" Text="Raça" FontSize="Header" FontAttributes="Bold"/>
+                        <Label Grid.Row="10" Grid.Column="1" Text="{Binding PetVM.RacaAnimal}" FontSize="14" />
+                        <Image Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" Source="male_icon.png"/>
+                        <Label Grid.Row="10" Grid.Column="3" Text="Género" FontSize="Header" FontAttributes="Bold"/>
+                        <Label Grid.Row="10" Grid.Column="3" Text="{Binding Gender}" FontSize="14" />
+                        <Image Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="2" Source="schedule_icon.svg"/>
+                        <Label Grid.Row="10" Grid.Column="5" Text="Idade" FontSize="Header" FontAttributes="Bold"/>
+                        <Label Grid.Row="10" Grid.Column="5" Text="{Binding PetVM.DataNascimento}" FontSize="14" />
+                    </Grid>
+
+                </Frame>
+
+            </Border>-->
             <Border Grid.Row="3" Stroke="#2B0B98"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 22"
@@ -140,26 +159,26 @@
                     HorizontalOptions="FillAndExpand">
 
                 <mct:Expander Padding="6" Margin="2"
-                                  IsExpanded="false" IsClippedToBounds="True" >
+                                  IsExpanded="false"  >
                     <mct:Expander.Header>
                         <Frame 
                                     BorderColor="Black"
                                     BackgroundColor="LightSteelBlue"
                                     CornerRadius="10">
                             <Label Text="Vacinas" FontSize="14" 
-                                       FontAttributes="Bold" TextColor="Black"
-                               />
+                                       FontAttributes="Bold" TextColor="Black"/>
                         </Frame>
                     </mct:Expander.Header>
                     <mct:Expander.Content>
 
                         <Frame Grid.Row="4" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent">
                             <Grid Padding="2" RowDefinitions="Auto, Auto">
-                                <Grid ColumnDefinitions="80, 160, *" ColumnSpacing="1"
-                          Grid.Row="0">
-                                    <Label FontAttributes="Bold" FontSize="12" Text="Toma" Grid.Row="0" Grid.Column="0" />
-                                    <Label FontAttributes="Bold" FontSize="12" Text="Marca" Grid.Row="0" Grid.Column="1"/>
-                                    <Label FontAttributes="Bold" FontSize="12" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" />
+                                <Grid  ColumnDefinitions="70, 160, *" 
+                                       ColumnSpacing="2"
+                                       Grid.Row="0">
+                                    <Label FontAttributes="Bold" FontSize="11" Text="Toma" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
+                                    <Label FontAttributes="Bold" FontSize="11" Text="Marca" Grid.Row="0" Grid.Column="1"/>
+                                    <Label FontAttributes="Bold" FontSize="11" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" />
                                 </Grid>
                                 <CollectionView Grid.Row="1" 
                                         x:Name="VaccinesView"
@@ -182,12 +201,31 @@
                                     </CollectionView.ItemsLayout>
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate x:DataType="models:VacinaVM">
-                                            <Grid ColumnSpacing="0" ColumnDefinitions="80, 160, *" Margin="0,3">
-                                                <Label FontAttributes="Bold" FontSize="11"  Grid.Column="0"  Text="{Binding DataToma}"></Label>
-                                                <Label FontAttributes="Bold" FontSize="11" Grid.Column="1" Text="{Binding Marca}"></Label>
-                                                <Label FontAttributes="Bold" FontSize="11" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
-                                                       TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}"/>
-                                            </Grid>
+                                            <SwipeView>
+                                                <SwipeView.RightItems>
+                                                    <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                                        <SwipeItem Text="Apagar"
+                                                       IconImageSource="icon_delete.svg" 
+                                                       BackgroundColor="Transparent"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel }}, Path=DeleteVacinaCommand}" 
+                                                       CommandParameter="{Binding .}"/>
+                                                    </SwipeItems>
+                                                </SwipeView.RightItems>
+                                                <VerticalStackLayout>
+                                                    <Frame CornerRadius="10" HeightRequest="30"
+                                                           VerticalOptions="Center"
+                                                           HasShadow="True" 
+                                                           Margin="2" 
+                                                           Padding="0">
+                                                        <Grid ColumnSpacing="2" ColumnDefinitions="70, 160, *" Margin="0,3">
+                                                            <Label FontAttributes="Bold" FontSize="11"  Grid.Column="0"  Text="{Binding DataToma}" HorizontalOptions="Center"></Label>
+                                                            <Label FontAttributes="Bold" FontSize="11" Grid.Column="1" Text="{Binding Marca}"></Label>
+                                                            <Label FontAttributes="Bold" FontSize="11" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
+                                                       TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" HorizontalOptions="Center"/>
+                                                        </Grid>
+                                                    </Frame>
+                                                </VerticalStackLayout>
+                                            </SwipeView>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
@@ -217,15 +255,15 @@
                     </mct:Expander.Header>
                     <mct:Expander.Content>
 
-                        <Frame Grid.Row="5" CornerRadius="40" HasShadow="False" Margin="1" BorderColor="Transparent">
+                        <Frame Grid.Row="5" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent">
                             <Grid Padding="2" RowDefinitions="Auto, Auto">
-                                <Grid ColumnDefinitions="80, 160, *" ColumnSpacing="0"
+                                <Grid ColumnDefinitions="70, 160, *" ColumnSpacing="2"
                           Grid.Row="0">
-                                    <Label FontAttributes="Bold" FontSize="12" Text="Toma" Grid.Row="0" Grid.Column="0" />
-                                    <Label FontAttributes="Bold" FontSize="12" Text="Marca" Grid.Row="0" Grid.Column="1"/>
-                                    <Label FontAttributes="Bold" FontSize="12" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" />
+                                    <Label FontAttributes="Bold" FontSize="11" Text="Toma" Grid.Row="0" Grid.Column="0" />
+                                    <Label FontAttributes="Bold" FontSize="11" Text="Marca" Grid.Row="0" Grid.Column="1"/>
+                                    <Label FontAttributes="Bold" FontSize="11" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" />
                                 </Grid>
-                                <CollectionView Grid.Row="5" 
+                                <CollectionView Grid.Row="1" 
                                     x:Name="DewormersView"
                                     ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetDewormersVM}" 
                                     SelectionMode="Single">
@@ -246,12 +284,31 @@
                                     </CollectionView.ItemsLayout>
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate x:DataType="models:DesparasitanteVM">
-                                            <Grid Margin="0,2,0,0" ColumnSpacing="0" ColumnDefinitions="80, 160, *">
-                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="0" Text="{Binding DataAplicacao}"/>
-                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="1" Text="{Binding Marca}"/>
-                                                <Label FontAttributes="Bold" FontSize="12" Grid.Column="2" Text="{Binding DataProximaAplicacao}"
+                                            <SwipeView>
+                                                <SwipeView.RightItems>
+                                                    <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                                        <SwipeItem Text="Apagar"
+                                                       IconImageSource="icon_delete.svg" 
+                                                       BackgroundColor="Transparent"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel }}, Path=DeleteDesparasitanteCommand}" 
+                                                       CommandParameter="{Binding .}"/>
+                                                    </SwipeItems>
+                                                </SwipeView.RightItems>
+                                                <VerticalStackLayout>
+                                                    <Frame CornerRadius="10" HeightRequest="30"
+                                                           VerticalOptions="Center"
+                                                           HasShadow="True" 
+                                                           Margin="3" 
+                                                           Padding="2">
+                                                        <Grid ColumnSpacing="2" ColumnDefinitions="70, 160, *" Margin="3,3">
+                                                            <Label FontAttributes="Bold" FontSize="11" Grid.Column="0" Text="{Binding DataAplicacao}"/>
+                                                            <Label FontAttributes="Bold" FontSize="11" Grid.Column="1" Text="{Binding Marca}"/>
+                                                            <Label FontAttributes="Bold" FontSize="11" Grid.Column="2" Text="{Binding DataProximaAplicacao}"
                                                        TextColor="{Binding DataProximaAplicacao, Converter={StaticResource nextDoseDateConverter}}"/>
-                                            </Grid>
+                                                        </Grid>
+                                                    </Frame>
+                                                </VerticalStackLayout>
+                                            </SwipeView>
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
