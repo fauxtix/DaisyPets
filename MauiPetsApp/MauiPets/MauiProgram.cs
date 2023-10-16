@@ -24,6 +24,7 @@ using MauiPets.Helpers;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 using Microsoft.Data.Sqlite;
+using Plugin.LocalNotification;
 
 namespace MauiPets
 {
@@ -39,7 +40,8 @@ namespace MauiPets
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             })
-                .UseMauiCommunityToolkit();
+                .UseMauiCommunityToolkit()
+                .UseLocalNotification();
 
 
 #if ANDROID
@@ -146,6 +148,8 @@ namespace MauiPets
 
             builder.Services.AddTransient<ILookupTableRepository, LookupTableRepository>();
             builder.Services.AddTransient<ITipoDespesaRepository, TipoDespesaRepository>();
+
+            builder.Services.AddTransient<LocalNotificationCenter>();
 
             return builder.Build();
         }

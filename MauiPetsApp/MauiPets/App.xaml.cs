@@ -1,5 +1,7 @@
 ﻿using MauiPets.Mvvm.ViewModels.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
+using Plugin.LocalNotification;
+using Plugin.LocalNotification.EventArgs;
 
 namespace MauiPets
 {
@@ -7,8 +9,28 @@ namespace MauiPets
     {
         public App(IServiceProvider serviceProvider)
         {
-
+            LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationActionTapped;
             MainPage = new AppShell();
+        }
+
+
+        private void OnNotificationActionTapped(NotificationActionEventArgs e)
+        {
+            if (e.IsDismissed)
+            {
+                // your code goes here
+                return;
+            }
+            if (e.IsTapped)
+            {
+                // your code goes here
+                return;
+            }
+            // if Notification Action are setup
+            switch (e.ActionId)
+            {
+                // your code goes here
+            }
         }
 
         public static class ViewModelFactory
