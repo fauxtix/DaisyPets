@@ -131,7 +131,7 @@ namespace DaisyPets.Web.Blazor.Pages.CodeBehind.Pets
             PetDocumentId = 0;
             documentFilePath = "";
 
-            proximaVacinaEmMeses = int.Parse(config?["ApiSettings:ProximaVacinaEmMeses"]);
+            proximaVacinaEmMeses = int.Parse(config["ApiSettings:ProximaVacinaEmMeses"]);
             proximoDesparasitanteEmMeses = int.Parse(config?["ApiSettings:ProximoDesparasitanteEmMeses"]);
 
             urlBaseAddress = config?["ApiSettings:UrlBase"];

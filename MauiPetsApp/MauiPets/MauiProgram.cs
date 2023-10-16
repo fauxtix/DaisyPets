@@ -20,8 +20,10 @@ using MauiPetsApp.Infrastructure.Context;
 using MauiPetsApp.Infrastructure.Repositories;
 using MauiPetsApp.Infrastructure.Services;
 using MauiPetsApp.Infrastructure.Validators;
+using MauiPets.Helpers;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
+using Microsoft.Data.Sqlite;
 
 namespace MauiPets
 {
@@ -29,6 +31,8 @@ namespace MauiPets
     {
         public static MauiApp CreateMauiApp()
         {
+            //DatabaseHelper.CopyDatabaseIfNeeded();
+
             var builder = MauiApp.CreateBuilder();
             builder.UseMauiApp<App>().ConfigureFonts(fonts =>
             {
@@ -50,9 +54,20 @@ namespace MauiPets
             builder.Configuration.AddConfiguration(config);
 #endif
 
+            string destinationDatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PetsDB.db");
 
-
-
+            // Check if the destination file already exists
+            if (!File.Exists(destinationDatabasePath))
+            {
+                // Open and copy the embedded database file to the destination
+                using (var sourceStream = typeof(App).Assembly.GetManifestResourceStream("MauiPets.Database.PetsDB.db"))
+                {
+                    using (var destinationStream = File.Create(destinationDatabasePath))
+                    {
+                        sourceStream.CopyTo(destinationStream);
+                    }
+                }
+            }
 #if DEBUG
             //builder.Logging.AddDebug();
 #endif
@@ -88,6 +103,7 @@ namespace MauiPets
             builder.Services.AddTransient<ExpensesAddOrEditPage>();
 
             // Database context
+
             builder.Services.AddTransient<IDapperContext, DapperContext>();
 
             // Validators

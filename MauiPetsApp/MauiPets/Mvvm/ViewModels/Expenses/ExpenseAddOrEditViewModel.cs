@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
@@ -36,7 +37,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         _tipoDespesaService = tipoDespesaService;
     }
 
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
 
         DespesaDto = query[nameof(DespesaDto)] as DespesaDto;
@@ -44,13 +45,15 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
 
         if (DespesaDto is null)
         {
-            IndiceTipoDespesa = 0;
             IndiceCategoriaDespesa = 0;
+            IndiceTipoDespesa = 0;
         }
         else
         {
-            IndiceTipoDespesa = TipoDespesas.FindIndex(td => td.Id == DespesaDto.IdTipoDespesa);
-            IndiceCategoriaDespesa = CategoriaDespesas.FindIndex(cd => cd.Id == DespesaDto.IdCategoriaDespesa);
+            var idxCategoria = DespesaDto.IdCategoriaDespesa;
+            var idxTipo = DespesaDto.IdTipoDespesa;
+            IndiceCategoriaDespesa = CategoriaDespesas.FindIndex(cd => cd.Id == idxCategoria);
+            IndiceTipoDespesa = TipoDespesasFiltradas.FindIndex(td => td.Id == idxTipo);
         }
     }
 
@@ -60,7 +63,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         GetLookupData("TipoDespesa");
     }
 
-    private async void GetLookupData(string tableName)
+    public async void GetLookupData(string tableName)
     {
         try
         {
@@ -77,7 +80,11 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
             }
             else
             {
-                TipoDespesas.AddRange(result);
+                foreach (var item in result)
+                {
+                    TipoDespesas.Add(item);
+                }
+                
             }
         }
         catch (Exception ex)

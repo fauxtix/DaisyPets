@@ -12,7 +12,6 @@ namespace DaisyPets.Infrastructure.Repositories
 {
     public class VacinasRepository : IVacinasRepository
     {
-        DataAccessStatus dataAccessStatus = new DataAccessStatus();
         private readonly IDapperContext _context;
         private readonly ILogger<ContactRepository> _logger;
 

@@ -27,16 +27,9 @@ public partial class PetAddOrEditPage : ContentPage
 
             if (BindingContext is PetAddOrEditViewModel viewModel && sender is Picker picker)
             {
-                var sit = picker.SelectedItem as LookupTableVM;
+                if (picker.SelectedItem is null) return;
 
-                //if (_viewModel.Id == 0)
-                //{
-                //    _viewModel.SpecieSelectedIndex = 0;
-                //    _viewModel.BreedSelectedIndex = 2;
-                //    _viewModel.SituationSelectedIndex = 3;
-                //    _viewModel.TemperamentSelectedIndex = 1;
-                //    _viewModel.SizeSelectedIndex = 2;
-                //}
+                var sit = picker.SelectedItem as LookupTableVM;
 
                 switch (picker)
                 {

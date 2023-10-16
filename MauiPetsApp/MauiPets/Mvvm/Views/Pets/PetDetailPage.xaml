@@ -218,10 +218,10 @@
                                                            Margin="2" 
                                                            Padding="0">
                                                         <Grid ColumnSpacing="2" ColumnDefinitions="70, 160, *" Margin="0,3">
-                                                            <Label FontAttributes="Bold" FontSize="11"  Grid.Column="0"  Text="{Binding DataToma}" HorizontalOptions="Center"></Label>
-                                                            <Label FontAttributes="Bold" FontSize="11" Grid.Column="1" Text="{Binding Marca}"></Label>
+                                                            <Label FontAttributes="Bold" FontSize="11"  Grid.Column="0"  Text="{Binding DataToma}" HorizontalOptions="Center"/>
+                                                            <Label FontAttributes="Bold" FontSize="11" Grid.Column="1" Text="{Binding Marca}"/>
                                                             <Label FontAttributes="Bold" FontSize="11" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
-                                                       TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" HorizontalOptions="Center"/>
+                                                                   TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" HorizontalOptions="Center"/>
                                                         </Grid>
                                                     </Frame>
                                                 </VerticalStackLayout>

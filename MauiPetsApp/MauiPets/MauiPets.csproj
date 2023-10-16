@@ -54,7 +54,6 @@
 	  <None Remove="Database\PetsDB.db" />
 	  <None Remove="Database\PetsDB.db.sql" />
 	  <None Remove="Database\PetsDB.sqbpro" />
-	  <None Remove="PetsDB.db" />
 	  <None Remove="PetsDB.db.sql" />
 	  <None Remove="PetsDB.sqbpro" />
 	  <None Remove="Resources\Images\add.png" />
@@ -93,16 +92,13 @@
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Database\PetsDB.db">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Database\PetsDB.db.sql">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Database\PetsDB.sqbpro">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="PetsDB.db">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="PetsDB.db.sql">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -169,6 +165,12 @@
 	  <MauiXaml Update="Mvvm\Views\Pets\PetsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="PetsDB.db">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 </Project>

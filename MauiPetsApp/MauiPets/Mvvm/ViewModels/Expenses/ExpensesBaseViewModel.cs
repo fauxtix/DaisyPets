@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
+using System.Collections.ObjectModel;
 
 namespace MauiPets.Mvvm.ViewModels.Expenses
 {
@@ -10,8 +11,10 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
     {
 
         public List<TipoDespesaDto> TipoDespesas_Categorias { get; set; } = new();
-        public List<LookupTableVM> TipoDespesas { get; set; } = new();
+        public ObservableCollection<LookupTableVM> TipoDespesas { get; set; } = new();
         public List<LookupTableVM> CategoriaDespesas { get; } = new();
+        public List<LookupTableVM> TipoDespesasFiltradas { get; set; } = new();
+
 
         [ObservableProperty]
         private LookupTableVM _tipoDespesaSelecionada;
@@ -40,6 +43,9 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [ObservableProperty] public decimal _totalDespesas;
 
         [ObservableProperty]
+        private bool isEditing;
+
+        [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         bool isBusy;
         public bool IsNotBusy => !IsBusy;
@@ -50,13 +56,14 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [RelayCommand]
         private async Task AddExpenseAsync()
         {
+            IsEditing = false;
             DespesaDto = new()
             {
                 DataCriacao = DateTime.Now.Date.ToShortDateString(),
                 DataMovimento = DateTime.Now.Date.ToShortDateString(),
                 ValorPago = 0M,
-                IdCategoriaDespesa = 0,
-                IdTipoDespesa = 0,
+                //IdCategoriaDespesa = 0,
+                //IdTipoDespesa = 0,
                 Descricao = "",
                 Notas = "",
                 TipoMovimento = ""

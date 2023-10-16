@@ -98,29 +98,28 @@
                 <Picker x:Name="PickerCategoriaTipoDespesa" 
                         Title="Categoria" 
                         Grid.Row="2" 
-                        Grid.Column="1"
+                        Grid.Column="1"                       
                         ItemsSource="{Binding CategoriaDespesas}"
                         SelectedItem="{Binding TipoCategoriaDespesaSelecionada}"
-                        SelectedIndex="{Binding IndiceCategoriaDespesa}"
+                        SelectedIndex="{Binding IndiceCategoriaDespesa, Mode=TwoWay}"
                         SelectedIndexChanged="SelectedCategoriaDespesaIndexChanged"
                         ItemDisplayBinding="{Binding Descricao}">
                 </Picker>
                 <Label x:Name="LabelTipoDespesa" Text="Tipo"
-                       IsVisible="false"
+                        IsVisible="{Binding IsEditing}}"
                        Grid.Row="3" 
                        Grid.Column="0" FontSize="Small"></Label>
                 <Picker x:Name="PickerTipoDespesa" 
-                        IsVisible="false"
+                        IsVisible="{Binding IsEditing}}"
                         Title="Tipo" 
                         Grid.Row="3" 
                         Grid.Column="1"
                         ItemsSource="{Binding TipoDespesas}"
                         SelectedItem="{Binding TipoDespesaSelecionada}"
-                        SelectedIndex="{Binding IndiceTipoDespesa}"
+                        SelectedIndex="{Binding IndiceTipoDespesa, Mode=TwoWay}"
                         SelectedIndexChanged="SelectedTipoDespesaIndexChanged"
                         ItemDisplayBinding="{Binding Descricao}">
                 </Picker>
-
                 <Label Text="Observações"
                                        Grid.Row="4"
                                        Grid.Column="0"

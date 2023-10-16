@@ -24,8 +24,6 @@ namespace MauiPetsApp.Infrastructure.Repositories
 
         public async Task<int> InsertAsync(Pet pet)
         {
-            var currentCulture = CultureInfo.CurrentCulture;
-
             DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("@Chip", pet.Chip);
             dynamicParameters.Add("@Chipado", pet.Chipado);
@@ -295,25 +293,6 @@ namespace MauiPetsApp.Infrastructure.Repositories
 
         public async Task<IEnumerable<PetVM>> GetAllVMAsync()
         {
-
-            //var sbDel = "DELETE FROM Pet WHERE Id > 18";
-            //using (var connection = _context.CreateConnection())
-            //{
-            //    var allPets = await connection.ExecuteAsync(sbDel);
-            //}
-
-
-            //StringBuilder stringBuilder = new StringBuilder();
-            //stringBuilder.Append("SELECT * FROM Pet");
-            //using (var connection = _context.CreateConnection())
-            //{
-            //    var allPets = await connection.QueryAsync<Pet>(stringBuilder.ToString());
-            //    if (allPets != null)
-            //    {
-            //        var xxx = allPets;
-            //    }
-            //}
-
             string sqlQuery = GetPetsVM_Query();
 
             try

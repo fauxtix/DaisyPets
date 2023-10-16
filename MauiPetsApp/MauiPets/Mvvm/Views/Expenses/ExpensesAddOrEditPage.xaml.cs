@@ -25,23 +25,28 @@ public partial class ExpensesAddOrEditPage : ContentPage
         {
             if (BindingContext is ExpenseAddOrEditViewModel viewModel && sender is Picker picker)
             {
+                _viewModel.TipoDespesasFiltradas.Clear();
+
                 var sit = picker.SelectedItem as LookupTableVM;
 
                 if (_viewModel.DespesaDto is not null && sit is not null)
                 {
                     _viewModel.DespesaDto.IdCategoriaDespesa = sit.Id;
-                    List<LookupTableVM> filteredExpensesTypes = new();
                     var despesas_Categorias = (await _tipoDespesaService.GetTipoDespesa_ByCategoria(sit.Id)).ToList();
                     if (despesas_Categorias.Any())
                     {
                         _viewModel.TipoDespesas.Clear();
                         foreach (var item in despesas_Categorias)
                         {
-                            filteredExpensesTypes.Add(new LookupTableVM { Id = item.Id, Descricao = item.Descricao });
+                            _viewModel.TipoDespesasFiltradas. Add(new LookupTableVM { Id = item.Id, Descricao = item.Descricao });
                         }
-                        PickerTipoDespesa.ItemsSource = filteredExpensesTypes;
-                        LabelTipoDespesa.IsVisible = true;
-                        PickerTipoDespesa.IsVisible = true;
+
+                        foreach (var item in _viewModel.TipoDespesasFiltradas)
+                        {
+                            _viewModel.TipoDespesas.Add(item);
+                        }
+                        
+                        _viewModel.IsEditing = true;
                     }
                     else
                     {

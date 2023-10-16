@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
+using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -67,6 +68,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [RelayCommand]
         private async Task EditExpenseAsync(DespesaVM expense)
         {
+            IsEditing = true;
             var expenseId = expense.Id;
             if (expenseId > 0)
             {

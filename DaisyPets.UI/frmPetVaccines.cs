@@ -1,6 +1,7 @@
 ﻿using DaisyPets.Core.Application.Formatting;
 using DaisyPets.Core.Application.ViewModels;
 using DaisyPets.Core.Application.ViewModels.Pdfs;
+using DaisyPets.UI.ApiServices;
 using Newtonsoft.Json;
 using Syncfusion.Windows.Forms;
 using System.Net.Http.Json;
@@ -16,10 +17,19 @@ namespace DaisyPets.UI
         private int _previousIndex;
         private bool _sortDirection;
 
+        private HttpClient httpClient;
+
+        private string PetsApiEndpoint { get; set; } = string.Empty;
+        private string PetsVaccinesApiEndpoint { get; set; } = string.Empty;
 
         public frmPetVaccines(int petId = 0)
         {
+            httpClient = new HttpClient();
             InitializeComponent();
+
+            PetsVaccinesApiEndpoint = AccessSettingsService.VacinacoesEndpoint;
+            PetsApiEndpoint = AccessSettingsService.PetsEndpoint;
+
             IdPet = petId;
             var petData = GetPetData(petId);
             txtPetName.Text = petData.Nome;
@@ -42,28 +52,25 @@ namespace DaisyPets.UI
         {
             IEnumerable<VacinaVM> vaccines;
 
-            string url = $"https://localhost:7161/api/Vacinacao/PetVaccines/{IdPet}";
+            string url = $"{PetsVaccinesApiEndpoint}/PetVaccines/{IdPet}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var task = httpClient.GetAsync(url);
+                var response = task.Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    var task = httpClient.GetAsync(url);
-                    var response = task.Result;
-                    if (response.IsSuccessStatusCode)
+                    vaccines = response.Content.ReadAsAsync<IEnumerable<VacinaVM>>().Result;
+                    if (vaccines != null)
                     {
-                        vaccines = response.Content.ReadAsAsync<IEnumerable<VacinaVM>>().Result;
-                        if (vaccines != null)
-                        {
-                            dgvVacinas.DataSource = vaccines?.ToList();
-                        }
-                        else
-                        {
-                            dgvVacinas.DataSource = null;
-                        }
+                        dgvVacinas.DataSource = vaccines?.ToList();
                     }
-                    task.Wait();
-                    task.Dispose();
+                    else
+                    {
+                        dgvVacinas.DataSource = null;
+                    }
                 }
+                task.Wait();
+                task.Dispose();
 
             }
             catch (Exception ex)
@@ -107,15 +114,14 @@ namespace DaisyPets.UI
 
         private async Task<VacinaDto> GetVaccine(int Id)
         {
-            string url = $"https://localhost:7161/api/Vacinacao/{Id}";
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var vaccine = await httpClient.GetFromJsonAsync<VacinaDto>(url);
-                if (vaccine != null)
-                    return vaccine;
-                else
-                    return null;
-            }
+            string url = $"{PetsVaccinesApiEndpoint}/{Id}";
+
+            //string url = $"https://localhost:7161/api/Vacinacao/{Id}";
+            var vaccine = await httpClient.GetFromJsonAsync<VacinaDto>(url);
+            if (vaccine != null)
+                return vaccine;
+            else
+                return null;
         }
 
 
@@ -172,7 +178,7 @@ namespace DaisyPets.UI
         private void btnInsert_Click(object sender, EventArgs e)
         {
 
-            string url = "https://localhost:7161/api/Vacinacao";
+            string url = PetsVaccinesApiEndpoint; // "https://localhost:7161/api/Vacinacao";
 
             var validationErrors = ValidateVaccine();
 
@@ -202,26 +208,21 @@ namespace DaisyPets.UI
 
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    var task = httpClient.PostAsJsonAsync(url, newVaccine);
-                    var response = task.Result;
+                var task = httpClient.PostAsJsonAsync(url, newVaccine);
+                var response = task.Result;
 
-                    var key = response.Content.ReadAsStringAsync().Result;
-                    var definition = new { Id = 0 };
-                    var obj = JsonConvert.DeserializeAnonymousType(key, definition);
-                    IdVacina = Convert.ToInt32(obj?.Id);
+                var key = response.Content.ReadAsStringAsync().Result;
+                var definition = new { Id = 0 };
+                var obj = JsonConvert.DeserializeAnonymousType(key, definition);
+                IdVacina = Convert.ToInt32(obj?.Id);
 
-                    task.Wait();
-                    task.Dispose();
+                task.Wait();
+                task.Dispose();
 
-                    MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets - Vacinação");
-                    SetToolbar(OpcoesRegisto.Inserir);
-                    FillGrid();
-                    ClearForm();
-
-                }
-
+                MessageBoxAdv.Show("Registo criado com sucesso", "Daisy Pets - Vacinação");
+                SetToolbar(OpcoesRegisto.Inserir);
+                FillGrid();
+                ClearForm();
             }
             catch (Exception ex)
             {
@@ -243,31 +244,29 @@ namespace DaisyPets.UI
                     Marca = txtMarca.Text,
                 };
 
-                string url = $"https://localhost:7161/api/Vacinacao/ValidateVaccine";
-                using (HttpClient httpClient = new HttpClient())
+                string url = $"{PetsVaccinesApiEndpoint}/ValidateVaccine";
+
+                //string url = $"https://localhost:7161/api/Vacinacao/ValidateVaccine";
+                var task = httpClient.PostAsJsonAsync(url, vaccineToValidate);
+                var response = task.Result;
+
+                task.Wait();
+                task.Dispose();
+
+                if (response.IsSuccessStatusCode == false)
                 {
-
-                    var task = httpClient.PostAsJsonAsync(url, vaccineToValidate);
-                    var response = task.Result;
-
-                    task.Wait();
-                    task.Dispose();
-
-                    if (response.IsSuccessStatusCode == false)
+                    var errors = response.Content.ReadAsAsync<List<string>>().Result;
+                    if (errors.Count() > 0)
                     {
-                        var errors = response.Content.ReadAsAsync<List<string>>().Result;
-                        if (errors.Count() > 0)
-                        {
-                            return errors;
-                        }
-
-                        else
-
-                            return new List<string>();
+                        return errors;
                     }
 
-                    return new List<string>();
+                    else
+
+                        return new List<string>();
                 }
+
+                return new List<string>();
             }
             catch (Exception ex)
             {
@@ -309,17 +308,16 @@ namespace DaisyPets.UI
                 ProximaTomaEmMeses = (int)nupPrxToma.Value
             };
 
-            string url = $"https://localhost:7161/api/Vacinacao/{IdVacina}";
+            string url = $"{PetsVaccinesApiEndpoint}/{IdVacina}";
+
+            //string url = $"https://localhost:7161/api/Vacinacao/{IdVacina}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    var task = httpClient.PutAsJsonAsync(url, updateVaccine);
-                    var response = task.Result;
+                var task = httpClient.PutAsJsonAsync(url, updateVaccine);
+                var response = task.Result;
 
-                    task.Wait();
-                    task.Dispose();
-                }
+                task.Wait();
+                task.Dispose();
 
                 FillGrid();
                 SetToolbar(OpcoesRegisto.Gravar);
@@ -344,30 +342,29 @@ namespace DaisyPets.UI
         private PetVM GetPetData(int Id)
         {
             PetVM pet;
-            string url = $"https://localhost:7161/api/Pets/PetVMById/{Id}";
+            string url = $"{PetsApiEndpoint}/PetVMById/{Id}";
+
+            //string url = $"https://localhost:7161/api/Pets/PetVMById/{Id}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var task = httpClient.GetAsync(url);
+                var response = task.Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    var task = httpClient.GetAsync(url);
-                    var response = task.Result;
-                    if (response.IsSuccessStatusCode)
+                    pet = response.Content.ReadAsAsync<PetVM>().Result;
+                    if (pet != null)
                     {
-                        pet = response.Content.ReadAsAsync<PetVM>().Result;
-                        if (pet != null)
-                        {
-                            return pet;
-                        }
-                        else
-                        {
-                            return new PetVM();
-                        }
+                        return pet;
                     }
-                    task.Wait();
-                    task.Dispose();
-
-                    return new PetVM();
+                    else
+                    {
+                        return new PetVM();
+                    }
                 }
+                task.Wait();
+                task.Dispose();
+
+                return new PetVM();
 
             }
             catch (Exception ex)
@@ -420,36 +417,35 @@ namespace DaisyPets.UI
 
         private async Task DeletePetVaccine()
         {
-            string url = $"https://localhost:7161/api/Vacinacao/{IdVacina}";
+            string url = $"{PetsVaccinesApiEndpoint}/{IdVacina}";
+
+            //string url = $"https://localhost:7161/api/Vacinacao/{IdVacina}";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
+                var response = await httpClient.DeleteAsync(url);
+                response.EnsureSuccessStatusCode();
+                if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
                 {
-                    var response = await httpClient.DeleteAsync(url);
-                    response.EnsureSuccessStatusCode();
-                    if (response.StatusCode != System.Net.HttpStatusCode.NoContent)
+                    MessageBoxAdv.Show("Erro ao apagar registo", "Vacinas");
+                    return;
+                }
+                else
+                {
+                    if (dgvVacinas.RowCount > 0)
                     {
-                        MessageBoxAdv.Show("Erro ao apagar registo", "Vacinas");
-                        return;
+                        dgvVacinas.Rows[0].Selected = true;
+                        int petId = DataFormat.GetInteger(dgvVacinas.Rows[0].Cells["PetId"].Value);
+                        ShowRecord(petId);
                     }
                     else
                     {
-                        if (dgvVacinas.RowCount > 0)
-                        {
-                            dgvVacinas.Rows[0].Selected = true;
-                            int petId = DataFormat.GetInteger(dgvVacinas.Rows[0].Cells["PetId"].Value);
-                            ShowRecord(petId);
-                        }
-                        else
-                        {
-                            dgvVacinas.DataSource = null;
-                            ClearForm();
-                        }
+                        dgvVacinas.DataSource = null;
+                        ClearForm();
                     }
-
-                    response.Dispose();
-                    FillGrid();
                 }
+
+                response.Dispose();
+                FillGrid();
 
                 MessageBoxAdv.Show("Operação terminada com sucesso,", "Apagar registo de vacinação", MessageBoxButtons.OK);
             }
@@ -474,19 +470,18 @@ namespace DaisyPets.UI
 
         private string GetVaccines_InfoPdf()
         {
-            string url = $"https://localhost:7161/api/Vacinacao/Vaccines_Info_Pdf";
+            string url = $"{PetsVaccinesApiEndpoint}/Vaccines_Info_Pdf";
+
+            string urlLocal = $"https://localhost:7161/api/Vacinacao/Vaccines_Info_Pdf";
             try
             {
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    var task = httpClient.GetStringAsync(url);
-                    task.Wait();
+                var task = httpClient.GetStringAsync(url);
+                task.Wait();
 
-                    var response = task.Result;
-                    task.Dispose();
+                var response = task.Result;
+                task.Dispose();
 
-                    return response;
-                }
+                return response;
             }
             catch (Exception ex)
             {
