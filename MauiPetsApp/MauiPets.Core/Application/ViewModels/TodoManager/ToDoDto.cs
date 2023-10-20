@@ -30,7 +30,7 @@
         {
             get
             {
-                return Completed == 0 ? false : true;
+                return Completed != 0;
             }
         }
 

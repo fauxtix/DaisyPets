@@ -13,35 +13,51 @@
         <toolkit:EventToCommandBehavior Command="{Binding GetContactsCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Pet" Command="{Binding AddContactCommand}"
+        <ToolbarItem Text="Add Contact" Command="{Binding AddContactCommand}"
                  IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
 
     <ScrollView>
         <VerticalStackLayout>
-            <Grid RowDefinitions="Auto,100*" ColumnDefinitions=".70*, .30*">
-                <SearchBar Grid.Row="0"
+            <Grid RowDefinitions="100, Auto,100*" ColumnDefinitions=".70*, .30*">
+                <Border Grid.Row="0" HorizontalOptions="Center" Grid.ColumnSpan="2"
+                        StrokeShape="RoundRectangle 22,22,22,22" 
+                        StrokeThickness="1" HeightRequest="80">
+                    <Image Margin="5, 5"
+                        Grid.Row="0" WidthRequest="80" 
+                        HeightRequest="80" Aspect="AspectFill" 
+                        Source="contacts.svg"/>
+                </Border>
+
+                <SearchBar Grid.Row="1"
                            Grid.Column="0"
+                           FontSize="14"
                            Placeholder="Pesquisar contacto"
-                           Margin="10"
+                           Margin="5, 5, 5, 25"
                            x:Name="searchBar"
                            TextChanged="searchBar_TextChanged"/>
                 <ListView x:Name="ContactsList"
-                          Grid.Row="1"
+                          Grid.Row="2"
                           Grid.ColumnSpan="2"
                           ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ContactsViewModel}}, Path=ContactoVM}" 
                           BackgroundColor="Transparent"
-                          SeparatorColor="Black"
                           ItemSelected="OnItemSelected"
+                          SeparatorColor="Green"
                           SelectionMode="Single">
-
                     <ListView.ItemTemplate>
-
                         <DataTemplate>
-                            <TextCell  Text="{Binding Nome}" Detail="{Binding  Movel}"/>
-                        </DataTemplate>
+                            <ViewCell>
+                                <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                        <Label Text="{Binding Nome}" FontAttributes="Bold"
+                                               FontSize="16"/>
+                                        <Label Text="{Binding Movel}" FontSize="14" FontAttributes="Italic" CharacterSpacing="1.8"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                            <!--<TextCell  Text="{Binding Nome}" Detail="{Binding  Movel}"/>-->
+                            </DataTemplate>
                     </ListView.ItemTemplate>
-
                 </ListView>
             </Grid>
         </VerticalStackLayout>

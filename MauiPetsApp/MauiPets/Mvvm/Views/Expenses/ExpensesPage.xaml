@@ -23,6 +23,14 @@
     </ContentPage.ToolbarItems>
     <Grid Margin="5, 25, 5, 5" Padding="5" CompressedLayout.IsHeadless="True">
         <VerticalStackLayout>
+            <Border Margin="0, 0, 0, 20" Grid.Row="0" HorizontalOptions="Center" Grid.ColumnSpan="2"
+                        StrokeShape="RoundRectangle 22,22,22,22" 
+                        StrokeThickness="1" HeightRequest="80">
+                <Image Margin="5, 5"
+                        Grid.Row="0" WidthRequest="80" 
+                        HeightRequest="80" Aspect="AspectFill" 
+                        Source="paymentlist.svg"/>
+            </Border>
             <CollectionView x:Name="expensesView"
                             ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel}}, Path=Expenses}" 
                             SelectionMode="Single">
@@ -39,7 +47,7 @@
                 </CollectionView.Footer>
 
                 <CollectionView.ItemTemplate>
-                    
+
                     <DataTemplate x:DataType="models:DespesaVM">
                         <SwipeView>
                             <SwipeView.RightItems>
@@ -53,13 +61,13 @@
                             </SwipeView.RightItems>
 
                             <VerticalStackLayout >
-                            <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" 
+                                <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" 
                                                    Padding="2">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer 
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel }}, Path=EditExpenseCommand}"
                                                 CommandParameter="{Binding .}"/>
-                                </Frame.GestureRecognizers>
+                                    </Frame.GestureRecognizers>
                                     <Grid Padding="2" ColumnSpacing="10" Margin="4" RowSpacing="3">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
@@ -81,8 +89,8 @@
                                            HorizontalOptions="End"
                                           VerticalOptions="Start" />
                                     </Grid>
-                            </Frame>
-                        </VerticalStackLayout>
+                                </Frame>
+                            </VerticalStackLayout>
                         </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

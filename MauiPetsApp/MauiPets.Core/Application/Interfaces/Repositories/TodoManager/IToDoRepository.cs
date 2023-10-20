@@ -11,7 +11,7 @@ namespace MauiPetsApp.Core.Application.Interfaces.Repositories.TodoManager
         Task<IEnumerable<ToDoDto>> GetAllVMAsync();
         Task<IEnumerable<ToDoDto>> GetCompleted();
         Task<IEnumerable<ToDoDto>> GetPending();
-        Task<IEnumerable<ToDoDto>> GetToDoVM_ByIdAsync(int Id);
+        Task<ToDoDto> GetToDoVM_ByIdAsync(int Id);
         Task<int> InsertAsync(ToDo toDo);
         Task UpdateAsync(int Id, ToDo toDo);
     }

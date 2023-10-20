@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiPets.Mvvm.Views.Todo.TodoPage"
+             xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.TodoManager;assembly=MauiPets.Core"
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Todo"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Todo"
+             xmlns:conv="clr-namespace:MauiPets.Converters"
+             x:DataType="local:TodoViewModel"
+             Title="Todo List">
+
+    <ContentPage.Resources>
+        <conv:StringToDateConverter x:Key="stringToDateConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior Command="{Binding GetTodosCommand}" EventName="Appearing" />
+    </ContentPage.Behaviors>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="todoView" Text="Add Todo" Command="{Binding AddTodoCommand}"
+                     CommandParameter="{Binding .}"
+                 IconImageSource="add.png" />
+    </ContentPage.ToolbarItems>
+    <Grid Margin="0" Padding="0">
+        <ScrollView>
+
+            <StackLayout>
+                <Border Stroke="#C49B33"
+                    StrokeThickness="4"
+                    StrokeShape="RoundRectangle 40,0,0,40"
+                    Background="#2B0B98"
+                    Padding="16,8"
+                    HorizontalOptions="Center">
+                    <Label Text="{Binding FilterText, Mode=TwoWay}"
+                   TextColor="White"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+                </Border>
+
+                <Frame HeightRequest="50" CornerRadius="10" HasShadow="True" Margin="20, 5, 20, 6" Padding="2">
+                    <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly">
+                        <ImageButton Command="{Binding FilterCompletedCommand}"
+                        HorizontalOptions="Start"
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        Margin="5, 0, 0, 0"
+                        Source="schedule_icon.png"
+                        VerticalOptions="Center" />
+                        <ImageButton Command="{Binding FilterPendingCommand}"
+                        HorizontalOptions="Start"
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        Margin="5, 0, 0, 0"
+                        Source="tasks.png"
+                        VerticalOptions="Center" />
+                        <ImageButton Command="{Binding GetTodosCommand}"
+                        HorizontalOptions="Start"
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        Margin="5, 0, 0, 0"
+                        Source="check_all.png"
+                        VerticalOptions="Center" />
+                    </FlexLayout>
+                </Frame>
+                <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" >
+                    <CollectionView.EmptyView>
+                        <StackLayout Padding="10">
+                            <Label HorizontalOptions="Center" Padding="10">No data to view</Label>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:ToDoDto">
+                            <VerticalStackLayout >
+                                <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" 
+                                                   Padding="2">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TodoViewModel }}, Path=EditTodoCommand}"
+                                                CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                    <Grid Padding="2" ColumnSpacing="10" Margin="4" RowSpacing="3">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="80" />
+                                        </Grid.ColumnDefinitions>
+                                        <!--<ActivityIndicator x:Name="todoActivity"
+                                Grid.RowSpan="2"
+                                Grid.ColumnSpan="2"
+                                HorizontalOptions="Fill"
+                                IsRunning="{Binding IsBusy}"
+                                IsVisible="{Binding IsBusy}"
+                                Color="{StaticResource Primary}"
+                                VerticalOptions="Center" />-->
+
+                                        <Label Grid.Column="0"
+                                           Text="{Binding StartDate, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}"
+                                          FontAttributes="Bold" />
+                                        <Label Grid.Column="1"
+                                          Text="{Binding Description, Mode=OneWay}"
+                                           HorizontalOptions="Start"
+                                          VerticalOptions="Start" />
+                                        <Switch Grid.Column="2" IsToggled="{Binding Completed}"
+                                           HorizontalOptions="Start"
+                                          VerticalOptions="Start" />
+                                    </Grid>
+                                </Frame>
+                            </VerticalStackLayout>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+        <AbsoluteLayout x:Name="aiLayout" IsVisible="{Binding IsBusy}" Margin="0" Padding="0" BackgroundColor="Gray" Opacity="0.5" >
+            <AbsoluteLayout.GestureRecognizers>
+                <TapGestureRecognizer />
+            </AbsoluteLayout.GestureRecognizers>
+            <StackLayout  Margin="0" Padding="0" AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
+                     AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" >
+                <ActivityIndicator x:Name="ai" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Color="Black"/>
+            </StackLayout>
+        </AbsoluteLayout>
+    </Grid>
+</ContentPage>

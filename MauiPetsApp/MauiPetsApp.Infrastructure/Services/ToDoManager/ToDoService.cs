@@ -69,7 +69,7 @@ namespace MauiPetsApp.Infrastructure.Services.ToDoManager
             return output;
         }
 
-        public async Task<IEnumerable<ToDoDto>> GetToDoVM_ByIdAsync(int Id)
+        public async Task<ToDoDto> GetToDoVM_ByIdAsync(int Id)
         {
             return await _repository.GetToDoVM_ByIdAsync(Id);
         }

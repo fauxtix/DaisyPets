@@ -1,6 +1,7 @@
 ﻿using MauiPets.Mvvm.Views.Contacts;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPets.Mvvm.Views.Pets;
+using MauiPets.Mvvm.Views.Todo;
 
 namespace MauiPets
 {
@@ -23,6 +24,9 @@ namespace MauiPets
             Routes.Add(nameof(ExpensesPage), typeof(ExpensesPage));
             Routes.Add(nameof(ExpensesAddOrEditPage), typeof(ExpensesAddOrEditPage));
 
+            Routes.Add(nameof(TodoPage), typeof(TodoPage));
+            Routes.Add(nameof(TodoAddOrEditPage), typeof(TodoAddOrEditPage));
+
             Routes.Add(nameof(ContactsPage), typeof(ContactsPage));
             Routes.Add(nameof(ContactDetailPage), typeof(ContactDetailPage));
             Routes.Add(nameof(AddOrEditContactPage), typeof(AddOrEditContactPage));
@@ -32,7 +36,6 @@ namespace MauiPets
             {
                 Routing.RegisterRoute(item.Key, item.Value);
             }
-
         }
     }
 }

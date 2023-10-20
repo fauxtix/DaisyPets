@@ -60,6 +60,8 @@
 	  <None Remove="Resources\Images\appimage.png" />
 	  <None Remove="Resources\Images\bxs_dog.svg" />
 	  <None Remove="Resources\Images\Che.jpg" />
+	  <None Remove="Resources\Images\check.png" />
+	  <None Remove="Resources\Images\check_all.png" />
 	  <None Remove="Resources\Images\contacts.svg" />
 	  <None Remove="Resources\Images\daisypetsbing.png" />
 	  <None Remove="Resources\Images\delete_32.png" />
@@ -82,6 +84,7 @@
 	  <None Remove="Resources\Images\pitbull.jpg" />
 	  <None Remove="Resources\Images\schedule_icon.png" />
 	  <None Remove="Resources\Images\shiva.jpg" />
+	  <None Remove="Resources\Images\tasks.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -164,6 +167,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Pets\PetsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Todo\TodoAddOrEditPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Todo\TodoPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

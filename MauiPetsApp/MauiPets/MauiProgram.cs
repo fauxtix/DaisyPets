@@ -20,11 +20,16 @@ using MauiPetsApp.Infrastructure.Context;
 using MauiPetsApp.Infrastructure.Repositories;
 using MauiPetsApp.Infrastructure.Services;
 using MauiPetsApp.Infrastructure.Validators;
-using MauiPets.Helpers;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
-using Microsoft.Data.Sqlite;
 using Plugin.LocalNotification;
+using MauiPets.Mvvm.ViewModels.Todo;
+using MauiPets.Mvvm.Views.Todo;
+using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
+using MauiPetsApp.Infrastructure.Services.ToDoManager;
+using MauiPetsApp.Core.Application.Interfaces.Repositories.TodoManager;
+using MauiPetsApp.Infrastructure.Repositories.TodoManager;
+using System.Globalization;
 
 namespace MauiPets
 {
@@ -33,6 +38,10 @@ namespace MauiPets
         public static MauiApp CreateMauiApp()
         {
             //DatabaseHelper.CopyDatabaseIfNeeded();
+
+            CultureInfo cultureInfo = new CultureInfo("pt-PT"); // For Portuguese culture
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             var builder = MauiApp.CreateBuilder();
             builder.UseMauiApp<App>().ConfigureFonts(fonts =>
@@ -88,6 +97,9 @@ namespace MauiPets
             builder.Services.AddTransient<ContactDetailViewModel>();
             builder.Services.AddTransient<ContactAddOrEditViewModel>();
 
+            builder.Services.AddTransient<TodoViewModel>();
+            builder.Services.AddTransient<TodosAddOrEditViewModel>();
+
             builder.Services.AddTransient<ExpensesViewModel>();
             builder.Services.AddTransient<ExpenseAddOrEditViewModel>();
 
@@ -101,8 +113,10 @@ namespace MauiPets
             builder.Services.AddTransient<AddOrEditContactPage>();
 
             builder.Services.AddTransient<ExpensesPage>();
-            //builder.Services.AddTransient<ExpensesDetailPage>();
             builder.Services.AddTransient<ExpensesAddOrEditPage>();
+
+            builder.Services.AddTransient<TodoPage>();
+            builder.Services.AddTransient<TodoAddOrEditPage>();
 
             // Database context
 
@@ -133,6 +147,7 @@ namespace MauiPets
             builder.Services.AddTransient<IRacaoService, RacaoService>();
             builder.Services.AddTransient<IConsultaService, ConsultaService>();
             builder.Services.AddTransient<IContactService, ContactService>();
+            builder.Services.AddTransient<IToDoService, ToDoService>();
 
             builder.Services.AddTransient<ILookupTableService, LookupTableService>();
             builder.Services.AddTransient<ITipoDespesaService, TipoDespesaService>();
@@ -145,6 +160,7 @@ namespace MauiPets
             builder.Services.AddTransient<IRacaoRepository, RacaoRepository>();
             builder.Services.AddTransient<IConsultaRepository, ConsultaRepository>();
             builder.Services.AddTransient<IContactRepository, ContactRepository>();
+            builder.Services.AddTransient<IToDoRepository, ToDoRepository>();
 
             builder.Services.AddTransient<ILookupTableRepository, LookupTableRepository>();
             builder.Services.AddTransient<ITipoDespesaRepository, TipoDespesaRepository>();

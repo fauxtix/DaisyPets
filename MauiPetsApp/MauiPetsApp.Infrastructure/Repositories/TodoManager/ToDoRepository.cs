@@ -5,6 +5,7 @@ using MauiPetsApp.Core.Application.Interfaces.Repositories.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
 using Microsoft.Extensions.Logging;
 using System.Text;
+using System.Globalization;
 
 namespace MauiPetsApp.Infrastructure.Repositories.TodoManager
 {
@@ -150,10 +151,10 @@ namespace MauiPetsApp.Infrastructure.Repositories.TodoManager
 
             using (var connection = _context.CreateConnection())
             {
-                var ToDosVM = await connection.QueryAsync<ToDoDto>(sb.ToString());
-                if (ToDosVM != null)
+                var result = await connection.QueryAsync<ToDoDto>(sb.ToString());
+                if (result != null)
                 {
-                    return ToDosVM;
+                    return result;
                 }
                 else
                 {
@@ -162,7 +163,19 @@ namespace MauiPetsApp.Infrastructure.Repositories.TodoManager
             }
         }
 
-        public async Task<IEnumerable<ToDoDto>> GetToDoVM_ByIdAsync(int Id)
+        string ParseDate(string dateString, CultureInfo culture)
+        {
+            var dateParts = dateString.Split('-');
+            if (dateParts.Length == 3)
+            {
+                int day = int.Parse(dateParts[0]);
+                int month = int.Parse(dateParts[1]);
+                int year = int.Parse(dateParts[2]);
+                return $"{day:D2}-{month:D2}-{year:D4}"; // Format as "dd-MM-yyyy"
+            }
+            return string.Empty; // Handle parsing failure as needed
+        }
+        public async Task<ToDoDto> GetToDoVM_ByIdAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Completed, Generated, ");
@@ -175,14 +188,14 @@ namespace MauiPetsApp.Infrastructure.Repositories.TodoManager
 
             using (var connection = _context.CreateConnection())
             {
-                var ToDoVM = await connection.QueryAsync<ToDoDto>(sb.ToString(), new { Id });
+                var ToDoVM = await connection.QueryFirstOrDefaultAsync<ToDoDto>(sb.ToString(), new { Id });
                 if (ToDoVM != null)
                 {
                     return ToDoVM;
                 }
                 else
                 {
-                    return Enumerable.Empty<ToDoDto>();
+                    return new ToDoDto();
                 }
             }
         }

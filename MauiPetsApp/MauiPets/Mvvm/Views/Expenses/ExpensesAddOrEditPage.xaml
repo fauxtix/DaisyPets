@@ -7,7 +7,7 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:conv="clr-namespace:MauiPets.Converters"
              x:DataType="viewmodel:ExpenseAddOrEditViewModel"
-             Title="Expenses Add or Edit">
+             Title="Add or Edit">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -106,11 +106,11 @@
                         ItemDisplayBinding="{Binding Descricao}">
                 </Picker>
                 <Label x:Name="LabelTipoDespesa" Text="Tipo"
-                        IsVisible="{Binding IsEditing}}"
+                        IsVisible="{Binding IsEditing}"
                        Grid.Row="3" 
                        Grid.Column="0" FontSize="Small"></Label>
                 <Picker x:Name="PickerTipoDespesa" 
-                        IsVisible="{Binding IsEditing}}"
+                        IsVisible="{Binding IsEditing}"
                         Title="Tipo" 
                         Grid.Row="3" 
                         Grid.Column="1"
