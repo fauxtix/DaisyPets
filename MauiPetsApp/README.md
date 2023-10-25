@@ -1,6 +1,6 @@
 # Daisy Pets 🐶🐱
 
-This is the front-end for the mobile project.
+This is the front-end for the mobile project (work in progress).
 
 It was designed with Microsoft .Net7 Maui technology
 
