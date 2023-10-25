@@ -7,7 +7,7 @@ It was designed with Microsoft .Net7 Maui technology
 
 # Screenshots
 
-![AppLoading](https://github.com/fauxtix/DaisyPets/assets/49880538/4dc35a3f-5a14-43a2-8c70-2f6230deaac3)
+![AppLoading](https://github.com/fauxtix/DaisyPets/assets/49880538/500a3fa0-078c-4d5d-9f03-3861c2de1402)
 
 ![PetsMainPage](https://github.com/fauxtix/DaisyPets/assets/49880538/a44362e2-74a0-4530-a802-1cc52ca14163)
 ![PestsMainPage_Options](https://github.com/fauxtix/DaisyPets/assets/49880538/c728cab4-38fc-4dd3-ac14-6ccfa40d9df1)
@@ -33,4 +33,5 @@ It was designed with Microsoft .Net7 Maui technology
 ![ContactsAddPage](https://github.com/fauxtix/DaisyPets/assets/49880538/730e7a88-4b00-4a31-b7cb-27581cae3009)
 ![ContactsDetailPage](https://github.com/fauxtix/DaisyPets/assets/49880538/3bfa3636-7826-4274-8805-8c18125a735a)
 ![ContactsEditPage](https://github.com/fauxtix/DaisyPets/assets/49880538/f60963f2-8790-4d4f-b7b7-46d4f2393320)
+
 
