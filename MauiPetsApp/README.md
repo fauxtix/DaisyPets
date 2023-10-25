@@ -22,7 +22,6 @@ It was designed with Microsoft .Net7 Maui technology
 ![TodoListEditPage](https://github.com/fauxtix/DaisyPets/assets/49880538/5f220c1b-e5e1-4ddf-968f-c98fa4ec02a4)
 
 ![ExpensesMainPage](https://github.com/fauxtix/DaisyPets/assets/49880538/de5b77b9-0ec7-4701-9bd2-b3e021b46d72)
-![Expenses_Main](https://github.com/fauxtix/DaisyPets/assets/49880538/4bd5eefc-a6c9-444a-a27b-edcfa705f16a)
 ![Expenses_Adding](https://github.com/fauxtix/DaisyPets/assets/49880538/9f3e3b9b-08f7-44be-991c-4fa4bedf9ef3)
 ![Expenses_Editing_1](https://github.com/fauxtix/DaisyPets/assets/49880538/8f7a7ae1-02a6-40c5-9660-160e5ad920c8)
 ![Expenses_Editing_2](https://github.com/fauxtix/DaisyPets/assets/49880538/8d2208d5-9bf9-4805-bc10-5393f645fd5b)
