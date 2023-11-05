@@ -668,7 +668,7 @@ Pode copiar o detalhe ou reportar o problema por e-mail.</value>
     <value>Entre</value>
   </data>
   <data name="lblProcess" xml:space="preserve">
-    <value />
+    <value>Processar</value>
   </data>
   <data name="MSG_Consulta" xml:space="preserve">
     <value>Consulta</value>

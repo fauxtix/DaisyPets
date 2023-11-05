@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.Web.React", "Dais
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "DaisyPets", "..\Publish\DaisyPets.Desktop\DaisyPets\DaisyPets.vdproj", "{7ADE3AB9-CC52-4369-92AE-01218C3497A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaisyPets.Web.Blazor", "DaisyPets.Web.Blazor\DaisyPets.Web.Blazor.csproj", "{9A6622E7-B51A-409E-BF14-3195A5E5704C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.Web.Blazor", "DaisyPets.Web.Blazor\DaisyPets.Web.Blazor.csproj", "{9A6622E7-B51A-409E-BF14-3195A5E5704C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

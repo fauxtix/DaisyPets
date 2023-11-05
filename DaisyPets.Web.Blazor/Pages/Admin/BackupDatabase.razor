@@ -1,0 +1,163 @@
+﻿@page "/BackupDatabase"
+
+@using DaisyPets.Web.Blazor.Services;
+@using Microsoft.Extensions.Configuration;
+@using Microsoft.Extensions.Localization;
+@using Newtonsoft.Json;
+@using static DaisyPets.Core.Application.Enums.Common;
+
+@implements IDisposable
+@inject NavigationManager navigationManager
+@inject IConfiguration _env
+@inject HttpClient http;
+@inject IStringLocalizer<App> localizerApp
+
+<SfSpinner @ref="SpinnerObj"
+           Label="Processando..."
+           Type="@SpinnerType.Bootstrap4"
+           CssClass="e-spin-overlay">
+</SfSpinner>
+<div>
+    <SfDialog Visible="@dialogVisibility"
+              Width="450px" Height="auto"
+              ShowCloseIcon="false">
+        <DialogTemplates>
+            <Header>
+                <div class="text-wrap">Backup da base de dados</div>
+            </Header>
+            <Content>
+                <div id="spinnerContainer"></div>
+                <div class="row">
+                    <div class="col-9">
+                        <AlertMessage Message="Confirme operação, p.f." MessageType="AlertMessageType.Warning"></AlertMessage>
+                    </div>
+                    <RightSideImageComponent Operation="@(OpcoesRegisto.Backup)" />
+                </div>
+            </Content>
+            <FooterTemplate>
+                <div class="oi">
+                    <SfButton CssClass="e-btn e-primary e-round-corner"
+                              IconCss="fa fa-check"
+                    @onclick="btnBackup_Click">
+                        &nbsp;@localizerApp["lblProcess"].Value
+                    </SfButton>
+                    <SfButton CssClass="e-btn e-normal e-round-corner" IconCss="fa fa-times"
+                    @onclick="btnExit">
+                        &nbsp;@localizerApp["btnFechar"].Value
+                    </SfButton>
+                </div>
+            </FooterTemplate>
+        </DialogTemplates>
+        <DialogAnimationSettings Effect="Syncfusion.Blazor.Popups.DialogEffect.FlipXDown" Duration=500></DialogAnimationSettings>
+    </SfDialog>
+</div>
+<SfToast ID="toast_default" @ref="ToastObj"
+         Title="Backup da base de dados"
+         Content="@ToastContent"
+         Icon="@ToastIcon"
+         CssClass="@ToastCssClass"
+         Timeout="5000" ShowCloseButton="false" ShowProgressBar="true">
+    <ToastPosition X="Right" Y="Bottom"></ToastPosition>
+    <ToastButtons>
+        <ToastButton CssClass="btn btn-primary" Content="@localizerApp["btnFechar"].Value"
+                     OnClick="@HideToast">
+        </ToastButton>
+    </ToastButtons>
+</SfToast>
+
+@code {
+    protected SfToast? ToastObj;
+    protected SfSpinner? SpinnerObj;
+    protected string spinnerTarget { get; set; } = "#spinnerContainer";
+    protected string? urlBaseAddress;
+
+    protected bool dialogVisibility = true;
+
+    protected string ToastIcon = "e-icon-ThumbsUp";
+
+    public string? ToastContent { get; set; }
+    public string? ToastCssClass { get; set; }
+
+    async Task btnBackup_Click()
+    {
+        urlBaseAddress = _env.GetValue<string>("ApiSettings:UrlBase");
+        await Task.Delay(200);
+        await SpinnerObj!.ShowAsync();
+
+
+        var backupEndpoint = $"{urlBaseAddress}/AppUtils/BackupSqlite";
+        var response = await http.GetAsync(backupEndpoint);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var result = await response.Content.ReadAsStringAsync();
+            ToastContent = "Backup database successfully";
+            ToastCssClass = "e-toast-success";
+            ToastIcon = "e-icon-ThumbsUp";
+        }
+        else
+        {
+            ToastContent = "Error occured during DB backup process !";
+            ToastCssClass = "e-toast-danger";
+            ToastIcon = "e-icon-ThumbsDown";
+
+        }
+
+        StateHasChanged();
+
+        await Task.Delay(200);
+        await ToastObj!.ShowAsync();
+
+        await Task.Delay(3000);
+        await SpinnerObj!.HideAsync();
+
+
+        await ToastObj!.HideAsync();
+        dialogVisibility = false;
+        GoHome();
+
+    }
+
+    void btnExit()
+    {
+        navigationManager.NavigateTo("/");
+    }
+
+    private async Task HideToast()
+    {
+        await ToastObj!.HideAsync();
+        GoHome();
+    }
+
+    private void GoHome()
+    {
+        navigationManager.NavigateTo("/");
+    }
+
+    public void Dispose()
+    {
+        ToastObj?.Dispose();
+        SpinnerObj?.Dispose();
+    }
+}
+
+<style type="text/css" scoped>
+    #toast_default .e-meeting::before {
+        content: "\e705";
+        font-size: 17px;
+    }
+
+    .e-icon-ThumbsUp:before {
+        content: '\e682';
+    }
+
+    .e-icon-ThumbsDown:before {
+        content: '\e683';
+    }
+
+    .in-middle {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+</style>

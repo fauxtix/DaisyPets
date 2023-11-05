@@ -17,6 +17,7 @@ namespace DaisyPets.WebApi.Controllers
         private  readonly IConfiguration _configuration;
         private readonly ILogger<AppUtilsController> _logger;
         private readonly IAppSettingsService _appSettingsService;
+        private readonly UtilsService _utilsService;
 
         /// <summary>
         /// Constuctor
@@ -24,11 +25,12 @@ namespace DaisyPets.WebApi.Controllers
         /// <param name="configuration"></param>
         /// <param name="logger"></param>
         /// <param name="appSettingsService"></param>
-        public AppUtilsController(IConfiguration configuration, ILogger<AppUtilsController> logger, IAppSettingsService appSettingsService)
+        public AppUtilsController(IConfiguration configuration, ILogger<AppUtilsController> logger, IAppSettingsService appSettingsService, UtilsService utilsService)
         {
             _configuration = configuration;
             _logger = logger;
             _appSettingsService = appSettingsService;
+            _utilsService = utilsService;
         }
         /// <summary>
         /// Backup Sqlite Db
@@ -41,7 +43,7 @@ namespace DaisyPets.WebApi.Controllers
             {
                 var _databaseName = _configuration?.GetConnectionString("PetsConnection") ?? "";
 
-                UtilsService.BackupDatabase(_databaseName);
+                _utilsService.BackupDatabase(_databaseName);
                 return Ok();
 
             }
