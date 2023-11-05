@@ -5,12 +5,10 @@
 A project for helping busy pet owners keep track of the daily, and long-term routine care of their pets.
 
 It uses C# as the development language, and was built using the .Net 7 platform.
-It comprises a web api that serves a desktop application (windows forms) and a web project (Blazor Server).
+It comprises a web api that serves a desktop application (windows forms) a web project (Blazor Server) and a mobile app (Maui).
 
-It is up to the user to choose between the desktop (DaisyPets.UI) or the web/blazor application (DaisyPets.Web.Blazor).
+It is up to the user to choose between the desktop (DaisyPets.UI), the web/blazor application (DaisyPets.Web.Blazor) or mobile app (DaisyPets.MauiPets).
 Just start/run the Api first, and choose wich of the projects to use ('set as the startup project').
-
-I'm in the initial phase of creating a mobile App, using .Net MAUI (my first one), using the existing api... let's see if anything 'decent' comes out of it :-)
 
 Due to its simplicity, the SQLite database was chosen for data storage.
 
