@@ -23,13 +23,13 @@
               ShowCloseIcon="false">
         <DialogTemplates>
             <Header>
-                <div class="text-wrap">Backup da base de dados</div>
+                <div class="text-wrap">@localizerApp["mnuBackup"]</div>
             </Header>
             <Content>
                 <div id="spinnerContainer"></div>
                 <div class="row">
                     <div class="col-9">
-                        <AlertMessage Message="Confirme operação, p.f." MessageType="AlertMessageType.Warning"></AlertMessage>
+                        <AlertMessage Message="@localizerApp["MSG_ConfirmarOperacao"]" MessageType="AlertMessageType.Warning"></AlertMessage>
                     </div>
                     <RightSideImageComponent Operation="@(OpcoesRegisto.Backup)" />
                 </div>
@@ -39,7 +39,7 @@
                     <SfButton CssClass="e-btn e-primary e-round-corner"
                               IconCss="fa fa-check"
                     @onclick="btnBackup_Click">
-                        &nbsp;@localizerApp["lblProcess"].Value
+                        &nbsp;@localizerApp["TituloConfirmar"].Value
                     </SfButton>
                     <SfButton CssClass="e-btn e-normal e-round-corner" IconCss="fa fa-times"
                     @onclick="btnExit">
@@ -52,7 +52,7 @@
     </SfDialog>
 </div>
 <SfToast ID="toast_default" @ref="ToastObj"
-         Title="Backup da base de dados"
+         Title="@localizerApp["mnuBackup"]"
          Content="@ToastContent"
          Icon="@ToastIcon"
          CssClass="@ToastCssClass"
@@ -91,13 +91,13 @@
         if (response.IsSuccessStatusCode)
         {
             var result = await response.Content.ReadAsStringAsync();
-            ToastContent = "Backup database successfully";
+            ToastContent = localizerApp["TituloOperacaoOk"];
             ToastCssClass = "e-toast-success";
             ToastIcon = "e-icon-ThumbsUp";
         }
         else
         {
-            ToastContent = "Error occured during DB backup process !";
+            ToastContent = localizerApp["MSG_ApiError"];
             ToastCssClass = "e-toast-danger";
             ToastIcon = "e-icon-ThumbsDown";
 
