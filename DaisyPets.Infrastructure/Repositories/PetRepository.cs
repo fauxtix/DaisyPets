@@ -199,7 +199,7 @@ namespace DaisyPets.Infrastructure.Repositories
         }
 
 
-        public async Task<Pet> FindByIdAsync(int Id)
+        public async Task<Pet?> FindByIdAsync(int Id)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT * FROM Pet ");
@@ -224,7 +224,7 @@ namespace DaisyPets.Infrastructure.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(ex.ToString(), ex);
-                throw;
+                return null;
             }
         }
 

@@ -33,37 +33,41 @@
                     Padding="16,8"
                     HorizontalOptions="Center">
                     <Label Text="{Binding FilterText, Mode=TwoWay}"
-                   TextColor="White"
-                   FontSize="18"
-                   FontAttributes="Bold" />
+                           TextColor="White"
+                           FontSize="18"
+                           FontAttributes="Bold" />
                 </Border>
 
-                <Frame HeightRequest="50" CornerRadius="10" HasShadow="True" Margin="20, 5, 20, 6" Padding="2">
+                <Frame HeightRequest="50" CornerRadius="10" HasShadow="True" Margin="10, 6" Padding="2">
                     <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly">
-                        <ImageButton Command="{Binding FilterCompletedCommand}"
-                        HorizontalOptions="Start"
-                        HeightRequest="40"
-                        WidthRequest="40"
-                        Margin="5, 0, 0, 0"
-                        Source="schedule_icon.png"
-                        VerticalOptions="Center" />
+                        <SearchBar x:Name="searchBar" Placeholder="Filter" 
+                                   WidthRequest="250"  TextChanged="SearchBar_TextChanged">
+                        </SearchBar>
+                        <ImageButton Command="{Binding FilterCompletedCommand}" Aspect="AspectFill"
+                            HorizontalOptions="Start"
+                            HeightRequest="30" 
+                            WidthRequest="30"
+                            Source="schedule_icon.png"
+                            VerticalOptions="Center" />
+
                         <ImageButton Command="{Binding FilterPendingCommand}"
-                        HorizontalOptions="Start"
-                        HeightRequest="40"
-                        WidthRequest="40"
-                        Margin="5, 0, 0, 0"
-                        Source="tasks.png"
-                        VerticalOptions="Center" />
-                        <ImageButton Command="{Binding GetTodosCommand}"
-                        HorizontalOptions="Start"
-                        HeightRequest="40"
-                        WidthRequest="40"
-                        Margin="5, 0, 0, 0"
-                        Source="check_all.png"
-                        VerticalOptions="Center" />
+                            HorizontalOptions="Start"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            Margin="5, 0, 0, 0"
+                            Source="tasks.png"
+                            VerticalOptions="Center" />
+                            <ImageButton Command="{Binding GetTodosCommand}"
+                            HorizontalOptions="Start"
+                            HeightRequest="30"
+                            WidthRequest="30"
+                            Margin="5, 0, 0, 0"
+                            Source="check_all.png"
+                            VerticalOptions="Center" />
                     </FlexLayout>
                 </Frame>
-                <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" >
+                <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" 
+                                ItemsUpdatingScrollMode="KeepItemsInView" >
                     <CollectionView.EmptyView>
                         <StackLayout Padding="10">
                             <Label HorizontalOptions="Center" Padding="10">No data to view</Label>
@@ -76,7 +80,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:ToDoDto">
                             <VerticalStackLayout >
-                                <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" 
+                                <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 2" 
                                                    Padding="2">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
@@ -90,17 +94,9 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="80" />
                                             <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="80" />
+                                            <ColumnDefinition Width="40" />
+                                            <ColumnDefinition Width="40" />
                                         </Grid.ColumnDefinitions>
-                                        <!--<ActivityIndicator x:Name="todoActivity"
-                                Grid.RowSpan="2"
-                                Grid.ColumnSpan="2"
-                                HorizontalOptions="Fill"
-                                IsRunning="{Binding IsBusy}"
-                                IsVisible="{Binding IsBusy}"
-                                Color="{StaticResource Primary}"
-                                VerticalOptions="Center" />-->
-
                                         <Label Grid.Column="0"
                                            Text="{Binding StartDate, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}"
                                           FontAttributes="Bold" />
@@ -109,7 +105,10 @@
                                            HorizontalOptions="Start"
                                           VerticalOptions="Start" />
                                         <Switch Grid.Column="2" IsToggled="{Binding Completed}"
-                                           HorizontalOptions="Start"
+                                           HorizontalOptions="Center"
+                                          VerticalOptions="Start" />
+                                        <Switch Grid.Column="3" IsToggled="{Binding Generated}"
+                                           HorizontalOptions="Center"
                                           VerticalOptions="Start" />
                                     </Grid>
                                 </Frame>
@@ -118,6 +117,18 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                <StackLayout Padding="10" Spacing="4" HorizontalOptions="Center"
+                            VerticalOptions="Center" Orientation="Horizontal">
+                    <Button Text="First"
+                            Clicked="OnFirstPageButtonClicked" />
+                    <Button Text="Previous"
+                            Clicked="OnPreviousPageButtonClicked" />
+                    <Button Text="Next"
+                            Clicked="OnNextPageButtonClicked" />
+                    <Button Text="Last"
+                            Clicked="OnLastPageButtonClicked" />
+                </StackLayout>
+
             </StackLayout>
         </ScrollView>
         <AbsoluteLayout x:Name="aiLayout" IsVisible="{Binding IsBusy}" Margin="0" Padding="0" BackgroundColor="Gray" Opacity="0.5" >

@@ -57,11 +57,9 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
             catch (Exception ex)
             {
-
-                throw;
+                Shell.Current.DisplayAlert("Error while 'FillCategoryTypes", ex.Message, "Ok");
             }
         }
-
 
         [RelayCommand]
         private async Task GetTodosAsync()
@@ -136,8 +134,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
             catch (Exception ex)
             {
-
-                throw;
+                await Shell.Current.DisplayAlert("Error while 'GetTodoAsync", ex.Message, "Ok");
             }
         }
 
@@ -165,7 +162,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
             catch (Exception ex)
             {
-                throw;
+                await Shell.Current.DisplayAlert("Error while 'EditTodoAsync", ex.Message, "Ok");
             }
         }
 
@@ -194,7 +191,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
             catch (Exception ex)
             {
-                throw;
+                await Shell.Current.DisplayAlert("Error while 'FilterCompleted", ex.Message, "Ok");
             }
         }
 
@@ -223,10 +220,46 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
             catch (Exception ex)
             {
-                throw;
+                await Shell.Current.DisplayAlert("Error while 'FilterPending", ex.Message, "Ok");
             }
         }
 
+        //[RelayCommand]
+        public async Task PerformSearch(string searchText)
+        {
+            if(string.IsNullOrEmpty(searchText))
+            {
+                IsBusy = true;
+                await GetTodosAsync();
 
+                IsBusy = false;
+                return;
+
+            }
+            IsBusy = true;
+            await GetTodosAsync(); // 'Todos' setted  (all records)
+            var searchResults = Todos.Where(t => t.Description.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)).ToList();
+            if (!searchResults.Any())
+            {
+                IsBusy = true;
+                await GetTodosAsync();
+                IsBusy = false;
+                return;
+            }
+
+            await Task.Delay(100);
+            if (searchResults.Count != 0)
+            {
+                Todos.Clear();
+            }
+
+            foreach (var todo in searchResults)
+            {
+                Todos.Add(todo);
+            }
+
+            FilterText = "By filter";
+            IsBusy = false;
+        }
     }
 }

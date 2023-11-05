@@ -74,8 +74,7 @@ namespace MauiPets.Helpers
             }
             catch (Exception ex)
             {
-
-                throw;
+                await Shell.Current.DisplayAlert("Error while 'CopyFileToAppDataDirectory", ex.Message, "Ok");
             }
         }
     }

@@ -37,7 +37,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         _tipoDespesaService = tipoDespesaService;
     }
 
-    public async void ApplyQueryAttributes(IDictionary<string, object> query)
+    public  void ApplyQueryAttributes(IDictionary<string, object> query)
     {
 
         DespesaDto = query[nameof(DespesaDto)] as DespesaDto;
@@ -89,7 +89,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         }
         catch (Exception ex)
         {
-            //WarningMessage = ex.Message;
+            await Shell.Current.DisplayAlert("Error while 'GetLookupData", ex.Message, "Ok");
         }
     }
 

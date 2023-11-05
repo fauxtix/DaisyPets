@@ -57,7 +57,7 @@ public partial class ExpensesAddOrEditPage : ContentPage
         }
         catch (Exception ex)
         {
-            throw;
+            await Shell.Current.DisplayAlert("Error while 'GetLookupData", ex.Message, "Ok");
         }
     }
 
@@ -80,7 +80,7 @@ public partial class ExpensesAddOrEditPage : ContentPage
         }
         catch (Exception ex)
         {
-            throw;
+            Shell.Current.DisplayAlert("Error while 'SelectedTipoDespesaIndexChanged", ex.Message, "Ok");
         }
     }
 

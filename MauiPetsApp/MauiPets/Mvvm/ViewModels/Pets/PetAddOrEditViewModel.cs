@@ -7,7 +7,6 @@ using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
-using MauiPetsApp.Core.Domain;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
@@ -168,8 +167,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         }
         catch (Exception ex)
         {
-
-            throw;
+            await Shell.Current.DisplayAlert("Error while 'SavePetData", ex.Message, "Ok");
         }
     }
     [RelayCommand]
@@ -226,7 +224,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         }
         catch (Exception ex)
         {
-            //WarningMessage = ex.Message;
+            Shell.Current.DisplayAlert("Error while 'GetLookupData", ex.Message, "Ok");
         }
     }
 

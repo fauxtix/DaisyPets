@@ -28,7 +28,7 @@ public partial class AddOrEditContactPage : ContentPage
         }
         catch (Exception ex)
 		{
-			throw;
-		}
+            Shell.Current.DisplayAlert("Error while 'SelectedIndexChanged", ex.Message, "Ok");
+        }
     }
 }

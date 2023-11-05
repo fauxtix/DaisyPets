@@ -44,7 +44,7 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         public bool IsNotBusy => !IsBusy;
 
         [RelayCommand]
-        private async Task OnPickerSelected()
+        private void OnPickerSelected()
         {
             Contacto.IdTipoContacto = SelectedContactType.Id;
             // Outras ações que você deseja executar após a seleção do Picker

@@ -13,6 +13,7 @@ namespace MauiPetsApp.Core.Application.Interfaces.Repositories.TodoManager
         Task<IEnumerable<ToDoDto>> GetPending();
         Task<ToDoDto> GetToDoVM_ByIdAsync(int Id);
         Task<int> InsertAsync(ToDo toDo);
+        Task<IEnumerable<ToDoDto>> SearchTodosByTextAsync(string filter);
         Task UpdateAsync(int Id, ToDo toDo);
     }
 }

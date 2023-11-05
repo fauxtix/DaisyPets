@@ -81,6 +81,11 @@ namespace MauiPetsApp.Infrastructure.Services.ToDoManager
             return insertedId;
         }
 
+        public async Task<IEnumerable<ToDoDto>> SearchTodosByText(string filter)
+        {
+           return await _repository.SearchTodosByTextAsync(filter);
+        }
+
         public async Task UpdateAsync(int Id, ToDoDto toDoDto)
         {
             try

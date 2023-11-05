@@ -23,7 +23,7 @@ namespace MauiPets.Extensions
                         {
                             destinationProperty.SetValue(destination, sourceProperty.GetValue(source, null), null);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             // Handle any exceptions that occur during property mapping here.
                             // You might want to log the exception or take appropriate action.

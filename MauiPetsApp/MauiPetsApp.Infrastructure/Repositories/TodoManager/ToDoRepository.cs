@@ -6,6 +6,7 @@ using MauiPetsApp.Core.Application.TodoManager;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Globalization;
+using MauiPetsApp.Core.Application.ViewModels;
 
 namespace MauiPetsApp.Infrastructure.Repositories.TodoManager
 {
@@ -249,6 +250,17 @@ namespace MauiPetsApp.Infrastructure.Repositories.TodoManager
 
             return sb.ToString();
 
+        }
+
+        public async Task<IEnumerable<ToDoDto>> SearchTodosByTextAsync(string filter)
+        {
+            if (string.IsNullOrEmpty(filter))
+                return await GetAllVMAsync();
+
+            var todos = (await GetAllVMAsync())
+                .ToList().
+                Where(c => c.Description.Contains(filter, StringComparison.CurrentCultureIgnoreCase));
+            return todos;
         }
     }
 }
