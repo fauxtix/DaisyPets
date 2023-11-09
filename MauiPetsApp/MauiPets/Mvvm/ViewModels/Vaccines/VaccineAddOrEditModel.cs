@@ -1,115 +1,111 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.Views.Vaccines;
+using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
-using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
-using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MauiPets.Mvvm.ViewModels.Vaccines
+namespace MauiPets.Mvvm.ViewModels.Vaccines;
+
+[QueryProperty(nameof(SelectedVaccine), "SelectedVaccine")]
+
+public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttributable
 {
-    public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttributable
+    public IVacinasService _vaccinesService { get; set; }
+    public IPetService _petService { get; set; }
+    public int SelectedVaccineId { get; set; }
+    public IConnectivity _connectivity;
+
+    public VaccineAddOrEditModel(IVacinasService vacinnesService, IConnectivity connectivity, IPetService petService)
     {
-        public IVacinasService _vaccinesService { get; set; }
-        public int SelectedTodoId { get; set; }
-        public IConnectivity _connectivity;
+        _vaccinesService = vacinnesService;
+        _petService = petService;
+        _connectivity = connectivity;
+    }
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        SelectedVaccine = query[nameof(SelectedVaccine)] as VacinaDto;
+    }
 
-        public VaccineAddOrEditModel(IVacinasService vacinnesService, IConnectivity connectivity)
-        {
-            _vaccinesService = vacinnesService;
-            _connectivity = connectivity;
-        }
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            SelectedVaccine = query[nameof(SelectedVaccine)] as VacinaDto;
-        }
+    [RelayCommand]
+    async Task GoBack()
+    {
+        await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}");
+    }
 
-        [RelayCommand]
-        async Task GoBack()
+    [RelayCommand]
+    async Task SaveVaccine()
+    {
+        try
         {
-            await Shell.Current.GoToAsync($"//{nameof(VaccinesPage)}");
-        }
+            //if(IsNotBusy)
+            //    IsBusy = true;
 
-        [RelayCommand]
-        async Task SaveTodo()
-        {
-            try
+            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
             {
-                //if(IsNotBusy)
-                //    IsBusy = true;
+                await Shell.Current.DisplayAlert("No connectivity!",
+                    $"Please check internet and try again.", "OK");
+                return;
+            }
 
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
+            if (SelectedVaccine.Id == 0)
+            {
+                var insertedId = await _vaccinesService.InsertAsync(SelectedVaccine);
+                if (insertedId == -1)
                 {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
+                    await Shell.Current.DisplayAlert("Error while updating",
+                        $"Please contact administrator..", "OK");
                     return;
                 }
 
-                if (SelectedVaccine.Id == 0)
-                {
-                    var insertedId = await _vaccinesService.InsertAsync(SelectedVaccine);
-                    if (insertedId == -1)
+                var _petId = SelectedVaccine.IdPet;
+                var petVM = await _petService.GetPetVMAsync(_petId);
+
+                //IsBusy = false;
+
+                ShowToastMessage("Contact created succesfuly");
+
+                await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
+                    new Dictionary<string, object>
                     {
-                        await Shell.Current.DisplayAlert("Error while updating",
-                            $"Please contact administrator..", "OK");
-                        return;
-                    }
-
-                    var vaccineDto = await _vaccinesService.GetPetVaccinesVMAsync(insertedId);
-                    //IsBusy = false;
-
-                    ShowToastMessage("Contact created succesfuly");
-
-                    await Shell.Current.GoToAsync($"//{nameof(VaccinesPage)}", true,
-                        new Dictionary<string, object>
-                        {
-                        {"SelectedVaccine", vaccineDto}
-                        });
-
-
-                }
-                else // Insert (Id > 0)
-                {
-                    var _vaccineId = SelectedVaccine.Id;
-                    await _vaccinesService.UpdateAsync(_vaccineId, SelectedVaccine);
-
-                    var vaccineDto = await _vaccinesService.GetPetVaccinesVMAsync(_vaccineId);
-
-                    await Shell.Current.GoToAsync($"//{nameof(VaccinesPage)}", true,
-                        new Dictionary<string, object>
-                        {
-                        {"SelectedVaccine", vaccineDto}
-                        });
-
-                    //IsBusy = false;
-                    ShowToastMessage("Record updated successfuly");
-
-                }
+                        {"PetVM", petVM}
+                    });
             }
-            catch (Exception ex)
+            else // Insert (Id > 0)
             {
-                IsBusy = false;
-                ShowToastMessage($"Error while creating Vaccine ({ex.Message})");
+                var _vaccineId = SelectedVaccine.Id;
+                var _petId = SelectedVaccine.IdPet;
+                await _vaccinesService.UpdateAsync(_vaccineId, SelectedVaccine);
+
+                var petVM = await _petService.GetPetVMAsync(_petId);
+
+
+                await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
+                    new Dictionary<string, object>
+                    {
+                        {"PetVM", petVM}
+                    });
+
+                //IsBusy = false;
+                ShowToastMessage("Record updated successfuly");
+
             }
         }
-
-        private async void ShowToastMessage(string text)
+        catch (Exception ex)
         {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            ToastDuration duration = ToastDuration.Short;
-            double fontSize = 14;
-
-            var toast = Toast.Make(text, duration, fontSize);
-
-            await toast.Show(cancellationTokenSource.Token);
+            IsBusy = false;
+            ShowToastMessage($"Error while creating Vaccine ({ex.Message})");
         }
+    }
 
+    private async void ShowToastMessage(string text)
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        ToastDuration duration = ToastDuration.Short;
+        double fontSize = 14;
 
+        var toast = Toast.Make(text, duration, fontSize);
+
+        await toast.Show(cancellationTokenSource.Token);
     }
 }

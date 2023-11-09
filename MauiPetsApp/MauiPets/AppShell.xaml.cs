@@ -2,6 +2,7 @@
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Todo;
+using MauiPets.Mvvm.Views.Vaccines;
 
 namespace MauiPets
 {
@@ -20,6 +21,8 @@ namespace MauiPets
             Routes.Add(nameof(MainPage), typeof(MainPage));
             Routes.Add(nameof(PetDetailPage), typeof(PetDetailPage));
             Routes.Add(nameof(PetAddOrEditPage), typeof(PetAddOrEditPage));
+
+            Routes.Add(nameof(VaccineAddOrEditPage), typeof(VaccineAddOrEditPage));
 
             Routes.Add(nameof(ExpensesPage), typeof(ExpensesPage));
             Routes.Add(nameof(ExpensesAddOrEditPage), typeof(ExpensesAddOrEditPage));

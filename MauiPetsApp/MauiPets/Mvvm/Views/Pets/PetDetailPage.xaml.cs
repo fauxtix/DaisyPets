@@ -1,8 +1,5 @@
-using CommunityToolkit.Mvvm.DependencyInjection;
-using MauiPets.Converters;
 using MauiPets.Mvvm.ViewModels.Pets;
 using Plugin.LocalNotification;
-using Plugin.LocalNotification.EventArgs;
 
 namespace MauiPets.Mvvm.Views.Pets;
 
@@ -15,7 +12,7 @@ public partial class PetDetailPage : ContentPage
 
         _viewModel = viewModel;
         BindingContext = _viewModel;
-       
+
     }
 
     protected override async void OnAppearing()

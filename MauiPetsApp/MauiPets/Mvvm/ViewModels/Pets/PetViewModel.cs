@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Helpers;
 using MauiPets.Mvvm.Views.Pets;
@@ -21,6 +23,7 @@ public partial class PetViewModel : BaseViewModel
 
 
     private readonly IPetService _petService;
+
     private readonly IVacinasService _petVaccinesService;
     IConnectivity _connectivity;
     IGeolocation _geolocation;
@@ -148,5 +151,103 @@ public partial class PetViewModel : BaseViewModel
                     {"PetDto", PetDto}
             });
     }
+
+    [RelayCommand]
+    async Task GoBack()
+    {
+        var petId = Id;
+        if (petId > 0)
+        {
+            var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
+
+            if (response is not null)
+            {
+                Pet = response;
+
+                await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
+                    new Dictionary<string, object>
+                    {
+                            {"PetVM", Pet },
+                    });
+
+            }
+        }
+
+    }
+
+    [RelayCommand]
+    async Task SaveVaccine()
+    {
+        try
+        {
+            //if(IsNotBusy)
+            //    IsBusy = true;
+
+            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                await Shell.Current.DisplayAlert("No connectivity!",
+                    $"Please check internet and try again.", "OK");
+                return;
+            }
+
+            if (SelectedVaccine.Id == 0)
+            {
+                var insertedId = await _petVaccinesService.InsertAsync(SelectedVaccine);
+                if (insertedId == -1)
+                {
+                    await Shell.Current.DisplayAlert("Error while updating",
+                        $"Please contact administrator..", "OK");
+                    return;
+                }
+
+                var vaccineDto = await _petVaccinesService.GetPetVaccinesVMAsync(insertedId);
+                //IsBusy = false;
+
+                ShowToastMessage("Contact created succesfuly");
+
+                await Shell.Current.GoToAsync($"//{nameof(PetDetailPage)}", true,
+                    new Dictionary<string, object>
+                    {
+                    {"SelectedVaccine", vaccineDto}
+                    });
+
+
+            }
+            else // Insert (Id > 0)
+            {
+                var _vaccineId = SelectedVaccine.Id;
+                await _petVaccinesService.UpdateAsync(_vaccineId, SelectedVaccine);
+
+                var vaccineDto = await _petVaccinesService.GetPetVaccinesVMAsync(_vaccineId);
+
+                await Shell.Current.GoToAsync($"//{nameof(PetDetailPage)}", true,
+                    new Dictionary<string, object>
+                    {
+                    {"SelectedVaccine", vaccineDto}
+                    });
+
+                //IsBusy = false;
+                ShowToastMessage("Record updated successfuly");
+
+            }
+        }
+        catch (Exception ex)
+        {
+            IsBusy = false;
+            ShowToastMessage($"Error while creating Vaccine ({ex.Message})");
+        }
+    }
+
+    private async void ShowToastMessage(string text)
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        ToastDuration duration = ToastDuration.Short;
+        double fontSize = 14;
+
+        var toast = Toast.Make(text, duration, fontSize);
+
+        await toast.Show(cancellationTokenSource.Token);
+    }
+
 }
 

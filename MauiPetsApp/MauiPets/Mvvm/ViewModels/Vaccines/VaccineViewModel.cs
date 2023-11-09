@@ -1,23 +1,21 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AutoMapper;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Vaccines;
 using MauiPetsApp.Core.Application.Interfaces.Services;
-using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
-using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels;
-using System;
-using System.Collections.Generic;
+using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MauiPets.Mvvm.ViewModels.Vaccines;
+
 public partial class VaccineViewModel : VaccineBaseViewModel
 {
     public ObservableCollection<VacinaDto> Vaccines { get; set; } = new();
     private readonly IVacinasService _service;
+    private readonly IMapper _mapper;
+
     private IConnectivity _connectivity;
 
     [ObservableProperty]
@@ -26,10 +24,11 @@ public partial class VaccineViewModel : VaccineBaseViewModel
     [ObservableProperty]
     string filterText = string.Empty;
 
-    public VaccineViewModel(IVacinasService vaccinesService, IConnectivity connectivity)
+    public VaccineViewModel(IVacinasService vaccinesService, IConnectivity connectivity, IMapper mapper)
     {
         _service = vaccinesService;
         _connectivity = connectivity;
+        _mapper = mapper;
     }
 
     [RelayCommand]
@@ -76,35 +75,6 @@ public partial class VaccineViewModel : VaccineBaseViewModel
         {
             IsBusy = false;
             IsRefreshing = false;
-        }
-    }
-
-
-    [RelayCommand]
-    private async Task EditTodoAsync(VacinaDto vaccine)
-    {
-        try
-        {
-            IsEditing = true;
-            var vaccineId = vaccine.Id;
-            if (vaccineId> 0)
-            {
-                var response = await _service.FindByIdAsync(vaccineId);
-
-                if (response is not null)
-                {
-
-                    await Shell.Current.GoToAsync($"{nameof(VaccineAddOrEditPage)}", true,
-                        new Dictionary<string, object>
-                        {
-                                {"SelectedVaccine", response},
-                        });
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            await Shell.Current.DisplayAlert("Error while 'EditVaccineAsync", ex.Message, "Ok");
         }
     }
 }

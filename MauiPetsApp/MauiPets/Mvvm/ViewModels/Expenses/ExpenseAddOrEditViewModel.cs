@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
@@ -37,7 +36,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         _tipoDespesaService = tipoDespesaService;
     }
 
-    public  void ApplyQueryAttributes(IDictionary<string, object> query)
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
 
         DespesaDto = query[nameof(DespesaDto)] as DespesaDto;
@@ -84,7 +83,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                 {
                     TipoDespesas.Add(item);
                 }
-                
+
             }
         }
         catch (Exception ex)

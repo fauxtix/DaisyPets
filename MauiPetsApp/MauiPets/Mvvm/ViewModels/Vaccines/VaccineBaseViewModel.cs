@@ -1,10 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MauiPetsApp.Core.Application.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MauiPets.Mvvm.ViewModels.Vaccines
 {
@@ -31,6 +26,8 @@ namespace MauiPets.Mvvm.ViewModels.Vaccines
 
         [ObservableProperty]
         VacinaDto _selectedVaccine;
+        [ObservableProperty]
+        VacinaVM _selectedVMVaccine;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
@@ -40,7 +37,7 @@ namespace MauiPets.Mvvm.ViewModels.Vaccines
         [ObservableProperty]
         private bool isEditing;
 
-        private async Task AddTodoAsync()
+        private void AddVaccine()
         {
             IsEditing = false;
             SelectedVaccine = new()
@@ -50,7 +47,6 @@ namespace MauiPets.Mvvm.ViewModels.Vaccines
                 ProximaTomaEmMeses = 3,
                 IdPet = 0
             };
-
         }
     }
 }

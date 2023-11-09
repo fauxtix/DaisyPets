@@ -30,6 +30,8 @@ using MauiPetsApp.Infrastructure.Services.ToDoManager;
 using MauiPetsApp.Core.Application.Interfaces.Repositories.TodoManager;
 using MauiPetsApp.Infrastructure.Repositories.TodoManager;
 using System.Globalization;
+using MauiPets.Mvvm.ViewModels.Vaccines;
+using MauiPets.Mvvm.Views.Vaccines;
 
 namespace MauiPets
 {
@@ -103,6 +105,10 @@ namespace MauiPets
             builder.Services.AddTransient<ExpensesViewModel>();
             builder.Services.AddTransient<ExpenseAddOrEditViewModel>();
 
+            builder.Services.AddTransient<VaccineViewModel>();
+            builder.Services.AddTransient<VaccineAddOrEditModel>();
+
+
             // Views
             builder.Services.AddSingleton<PetsPage>();
             builder.Services.AddTransient<PetDetailPage>();
@@ -117,6 +123,8 @@ namespace MauiPets
 
             builder.Services.AddTransient<TodoPage>();
             builder.Services.AddTransient<TodoAddOrEditPage>();
+
+            builder.Services.AddTransient<VaccineAddOrEditPage>();
 
             // Database context
 
@@ -137,6 +145,7 @@ namespace MauiPets
             builder.Services.AddScoped<IValidator<ToDoDto>, ToDoValidator>();
             builder.Services.AddScoped<IValidator<AppointmentDataDto>, Appointmentvalidator>();
             builder.Services.AddScoped<IValidator<ContactoVM>, ContactValidator>();
+            builder.Services.AddScoped<IValidator<VacinaDto>, VacinaValidator>();
 
 
             // Services

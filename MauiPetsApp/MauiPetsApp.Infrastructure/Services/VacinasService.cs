@@ -36,6 +36,12 @@ namespace MauiPetsApp.Infrastructure.Services
             var output = _mapper.Map<VacinaVM>(resp);
             return output;
         }
+        public async Task<VacinaDto> FindDtoByIdAsync(int Id)
+        {
+            var resp = await _repository.FindByIdAsync(Id);
+            var output = _mapper.Map<VacinaDto>(resp);
+            return output;
+        }
 
         public async Task<IEnumerable<VacinaDto>> GetAllAsync()
         {

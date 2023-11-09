@@ -4,6 +4,7 @@
              x:Class="MauiPets.Mvvm.Views.Pets.PetDetailPage"
              xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
+             xmlns:viewmodelVaccine="clr-namespace:MauiPets.Mvvm.ViewModels.Vaccines"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters ="clr-namespace:MauiPets.Converters"             
               x:DataType="viewmodel:PetDetailViewModel"
@@ -217,6 +218,11 @@
                                                            HasShadow="True" 
                                                            Margin="2" 
                                                            Padding="0">
+                                                        <Frame.GestureRecognizers>
+                                                            <TapGestureRecognizer 
+                                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=EditVaccineCommand}"
+                                                                CommandParameter="{Binding .}"/>
+                                                        </Frame.GestureRecognizers>
                                                         <Grid ColumnSpacing="2" ColumnDefinitions="70, 160, *" Margin="0,3">
                                                             <Label FontAttributes="Bold" FontSize="11"  Grid.Column="0"  Text="{Binding DataToma}" HorizontalOptions="Center"/>
                                                             <Label FontAttributes="Bold" FontSize="11" Grid.Column="1" Text="{Binding Marca}"/>

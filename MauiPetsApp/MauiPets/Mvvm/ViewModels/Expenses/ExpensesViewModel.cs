@@ -1,11 +1,9 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
-using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 

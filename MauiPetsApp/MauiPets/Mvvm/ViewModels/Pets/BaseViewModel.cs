@@ -76,6 +76,9 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         [ObservableProperty]
         public PetVM _pet = new();
 
+        [ObservableProperty]
+        public VacinaDto _selectedVaccine = new();
+
 
         [ObservableProperty]
         public PetDto _petDto = new();

@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
+using MauiPets.Mvvm.Views.Vaccines;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using System.Collections.ObjectModel;
@@ -86,6 +87,35 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
     }
 
     [RelayCommand]
+    private async Task EditVaccineAsync(VacinaVM vaccine)
+    {
+        try
+        {
+//            IsEditing = true;
+            var vaccineId = vaccine.Id;
+            if (vaccineId > 0)
+            {
+                var response = await _petVaccinesService.FindDtoByIdAsync(vaccineId);
+                SelectedVaccine = response;
+                if (response is not null)
+                {
+
+                    await Shell.Current.GoToAsync($"{nameof(VaccineAddOrEditPage)}", true,
+                        new Dictionary<string, object>
+                        {
+                                {"SelectedVaccine", response},
+                        });
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error while 'EditVaccineAsync", ex.Message, "Ok");
+        }
+    }
+
+
+[RelayCommand]
     private async Task DeletePetAsync()
     {
         if (PetDto is null)
