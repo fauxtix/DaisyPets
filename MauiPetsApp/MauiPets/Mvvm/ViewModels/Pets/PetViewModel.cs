@@ -164,7 +164,7 @@ public partial class PetViewModel : BaseViewModel
             {
                 Pet = response;
 
-                await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
+                await Shell.Current.GoToAsync($"//{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
                     {
                             {"PetVM", Pet },
