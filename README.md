@@ -11,6 +11,7 @@ It is up to the user to choose between the desktop (DaisyPets.UI), the web/blazo
 Just start/run the Api first, and choose wich of the projects to use ('set as the startup project').
 
 Due to its simplicity, the SQLite database was chosen for data storage. 
+
 For its structure, please see https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/MauiPets/PetsDB.db.sql
 
 The front-end screenshots presented in this Read.me file are in Portuguese, but I plan to include English, French and Spanish versions for all the projects.
