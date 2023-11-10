@@ -88,7 +88,7 @@ To download and run the Daisy Pets project, follow these steps:
    dotnet build
    ```
 
-4. Apply the database migrations to create the SQLite database:
+4. Apply the database migrations to create the SQLite database (if you want to use Entity Framework):
 
    ```bash
    dotnet ef database update --project DaisyPets
