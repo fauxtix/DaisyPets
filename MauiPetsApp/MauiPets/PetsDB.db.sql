@@ -282,7 +282,8 @@ INSERT INTO "Contacto" ("Id","Nome","Morada","Localidade","Movel","EMail","Notas
 
 https://www.absolutpets.com/horario-e-contactos.html
 ',1);
-INSERT INTO "Contacto" ("Id","Nome","Morada","Localidade","Movel","EMail","Notas","IdTipoContacto") VALUES (6,'Clínica Veterinária Dom Dinis','Rua Abel Manta 1','Odivelas','219338652','','https://www.clinicaveterinariadomdinis.pt/clinica-geral
+INSERT INTO "Contacto" ("Id","Nome","Morada","Localidade","Movel","EMail","Notas","IdTipoContacto") VALUES (6,'Clínica Veterinária Dom Dinis','Rua Abel Manta 1','Odivelas','219338652','','https://www.clinicaveterinariadomdinis.pt/clinica-geral
+
 ',1);
 INSERT INTO "Contacto" ("Id","Nome","Morada","Localidade","Movel","EMail","Notas","IdTipoContacto") VALUES (7,'União Zoófila',' R. Padre Carlos dos Santos','Alto das Furnas - Lisboa','0','uniaozoofila@gmail.com ','Horários de funcionamento em:
 
@@ -296,7 +297,8 @@ INSERT INTO "Contacto" ("Id","Nome","Morada","Localidade","Movel","EMail","Notas
 
 https://azp.pt/
 ',2);
-INSERT INTO "Contacto" ("Id","Nome","Morada","Localidade","Movel","EMail","Notas","IdTipoContacto") VALUES (16,'A Casota dos bichos','Av 25 Abril 22 Loja B','Ramada - Odivelas','910318189','acasotadosbichos@hotmail.com','https://www.nicepage.com/website-templates
+INSERT INTO "Contacto" ("Id","Nome","Morada","Localidade","Movel","EMail","Notas","IdTipoContacto") VALUES (16,'A Casota dos bichos','Av 25 Abril 22 Loja B','Ramada - Odivelas','910318189','acasotadosbichos@hotmail.com','https://www.nicepage.com/website-templates
+
 ',1);
 INSERT INTO "Contacto" ("Id","Nome","Morada","Localidade","Movel","EMail","Notas","IdTipoContacto") VALUES (17,'VetMonti - Drª Susana Barão Alves','R. Dr. Augusto Pereira Coutinho 4 - 2870 309 - Montijo','Montijo','918700387','vetmonti@gmail.com','Horários de funcionamento em:
 
@@ -359,63 +361,8 @@ INSERT INTO "Documento" ("Id","Title","Description","DocumentPath","CreatedOn","
 INSERT INTO "Documento" ("Id","Title","Description","DocumentPath","CreatedOn","PetId") VALUES (22,'Titulo para teste','Descrição para teste','Shiva_AnalisesUrina.pdf','27/07/2023',19);
 INSERT INTO "AppSettings" ("CultureName") VALUES ('fr');
 INSERT INTO "AppSettings" ("CultureName") VALUES ('en-US');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-US');
 INSERT INTO "AppSettings" ("CultureName") VALUES ('pt-PT');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-US');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('fr');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
 INSERT INTO "AppSettings" ("CultureName") VALUES ('es');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('fr');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('pt-PT');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('es');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('pt-PT');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('pt-PT');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('pt-PT');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('pt-PT');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('fr');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('pt-PT');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('pt-PT');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('es');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('fr');
-INSERT INTO "AppSettings" ("CultureName") VALUES ('en-GB');
 INSERT INTO "Comment" ("Id","PostId","BlogUserId","CommentText","Created") VALUES (1,1,'fauxtix.luix@hotmail.com','Comentário do Post','2023-07-26 10:08:11.1564614');
 INSERT INTO "Comment" ("Id","PostId","BlogUserId","CommentText","Created") VALUES (2,1,'fauxtix.luix@hotmail.com','Mais um comentário','2023-07-26 10:08:32.7603425');
 INSERT INTO "Comment" ("Id","PostId","BlogUserId","CommentText","Created") VALUES (3,1,'fauxtix.luix@hotmail.com','Aind mais um comentário do post.','2023-07-26 10:31:50.9951884');
@@ -440,7 +387,6 @@ INSERT INTO "Todo" ("Id","StartDate","EndDate","Status","Description","CategoryI
 INSERT INTO "Todo" ("Id","StartDate","EndDate","Status","Description","CategoryId","Generated") VALUES (7,'03/06/2023','04/06/2023',0,'Shiva -  Comprimido Bravecto (Desparasitação Externa)',5,0);
 INSERT INTO "Todo" ("Id","StartDate","EndDate","Status","Description","CategoryId","Generated") VALUES (8,'13/09/2023','14/09/2023',1,'Shiva -  Comprimido Bravecto (Desparasitação Externa)',5,0);
 INSERT INTO "Todo" ("Id","StartDate","EndDate","Status","Description","CategoryId","Generated") VALUES (9,'13/06/2023','14/06/2023',0,'Shiva - FERIDAS - Aplicar OMNIMATRIX 2 vezes por dia até cicratizar
-
 - axila direita
 - atrás da orelha direita',6,0);
 INSERT INTO "Todo" ("Id","StartDate","EndDate","Status","Description","CategoryId","Generated") VALUES (10,'13/06/2023','14/06/2023',1,'Shiva - ORELHAS (ouvidos) - Aplicar ABELIA 1x por dia - massajar, desinfetar com seringa e retirar excesso com compressa.',6,0);
