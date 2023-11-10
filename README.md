@@ -15,9 +15,9 @@ For its structure, please see https://github.com/fauxtix/DaisyPets/blob/master/M
 
 The ORM chosen to work with the database was Dapper, due to its ease of use and speed, especially in queries.
 
-The front-end screenshots presented in this Read.me file are in Portuguese, but I plan to include English, French and Spanish versions for all the projects.
+The front-end screenshots presented in this Read.me file are in Portuguese, but I plan to include English, French and Spanish versions for the three projects.
 
-The web version (blazor) already includes the four languages.
+The web version (Blazor) already includes the four languages.
 
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities related to them.
 
