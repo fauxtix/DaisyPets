@@ -5,7 +5,7 @@
 A project for helping busy pet owners keep track of the daily, and long-term routine care of their pets.
 
 It uses C# as the development language, and was built using the .Net 7 platform.
-It comprises a web api that serves a desktop application (windows forms) a web project (Blazor Server) and a mobile app (Maui).
+It comprises a web api that serves a desktop application (windows forms) and a web project (Blazor Server).
 
 It is up to the user to choose between the desktop (DaisyPets.UI), the web/blazor application (DaisyPets.Web.Blazor) or mobile app (DaisyPets.MauiPets).
 Just start/run the Api first, and choose wich of the projects to use ('set as the startup project').
@@ -26,8 +26,8 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 - Easy to use
 - Simple to upload documents related to the pet (medical records, for instance) and others that may apply;
 
-- Record vaccinations, visits to the vet, dewormers and feed dosage;
-- Alerts for vaccines and application of dewormers;
+- Record vaccinations, visits to the vet, dewormers, feed dosage and documents (examination reports, blood and urine tests, and others that may apply);
+- Alerts for vaccines and application of dewormers, that may be occurring within 15 or 30 days.
   
 - Expenses management;
 - Blog entries (web project) - user entries / from url's;
