@@ -11,9 +11,12 @@ It is up to the user to choose between the desktop (DaisyPets.UI), the web/blazo
 Just start/run the Api first, and choose wich of the projects to use ('set as the startup project').
 
 Due to its simplicity, the SQLite database was chosen for data storage. 
-For its structure, please see https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/MauiPets/PetsDB.db.sql
+For its structure, please see https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/MauiPets/PetsDB.db.sql.
+
+The ORM chosen to work with the database was Dapper, due to its ease of use and speed, especially in queries.
 
 The front-end screenshots presented in this Read.me file are in Portuguese, but I plan to include English, French and Spanish versions for all the projects.
+
 The web version (blazor) already includes the four languages.
 
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities related to them.
