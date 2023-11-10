@@ -33,7 +33,8 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 - Scheduler (agenda).
 
 # Screenshots (Windows forms)
-(for the web project screenshots, please navigate to 'daisypets.web.blazor')
+For the web project screenshots, navigate to 'daisypets.web.blazor'.
+For the Maui project screenshots, navigate to 'daisypets.maui'.
 
 ![main](https://github.com/fauxtix/DaisyPets/assets/49880538/54768f18-9e6d-44f3-8a27-c4cffb7bbae7)
 ![Pets](https://github.com/fauxtix/DaisyPets/assets/49880538/e9d904d9-1a33-415f-b12e-0833f17e8b85)
