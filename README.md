@@ -36,7 +36,7 @@ For the Blazor project, the syncfusion packages (community edition) were chosen.
 - Todo lists (web project);
 - Photo gallery (desktop project, for now);
 - Contacts management;
-- Scheduler/agenda (Blazor project).
+- Scheduler/agenda (web project).
 
 # Screenshots (Windows forms)
 For the web project screenshots, navigate to 'daisypets.web.blazor'.
