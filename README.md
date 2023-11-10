@@ -29,12 +29,12 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 - Record vaccinations, visits to the vet, dewormers, feed dosage and documents (examination reports, blood and urine tests, and others that may apply);
 - Alerts for vaccines and application of dewormers, that may be occurring within 15 or 30 days.
   
-- Expenses management;
+- Expenses management (with selection of categories and sub-categories);
 - Blog entries (web project) - user entries / from url's;
 - Todo lists (web project);
 - Photo gallery (desktop project, for now);
 - Contacts management;
-- Scheduler (agenda).
+- Scheduler/agenda (web project).
 
 # Screenshots (Windows forms)
 For the web project screenshots, navigate to 'daisypets.web.blazor'.
