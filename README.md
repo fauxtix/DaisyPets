@@ -21,6 +21,8 @@ The web version (Blazor) already includes the four languages.
 
 It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and other entities related to them.
 
+For the Blazor project, the syncfusion packages (community edition) were chosen.
+
 # Key Features
 
 - Easy to use
@@ -34,7 +36,7 @@ It provides mostly CRUD (Create, Read, Update, Delete) operations for Pets and o
 - Todo lists (web project);
 - Photo gallery (desktop project, for now);
 - Contacts management;
-- Scheduler/agenda (web project).
+- Scheduler/agenda (Blazor project).
 
 # Screenshots (Windows forms)
 For the web project screenshots, navigate to 'daisypets.web.blazor'.
