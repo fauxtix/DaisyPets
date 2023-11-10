@@ -10,7 +10,8 @@ It comprises a web api that serves a desktop application (windows forms) a web p
 It is up to the user to choose between the desktop (DaisyPets.UI), the web/blazor application (DaisyPets.Web.Blazor) or mobile app (DaisyPets.MauiPets).
 Just start/run the Api first, and choose wich of the projects to use ('set as the startup project').
 
-Due to its simplicity, the SQLite database was chosen for data storage. For its structure, please see https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/MauiPets/PetsDB.db.sql
+Due to its simplicity, the SQLite database was chosen for data storage. 
+For its structure, please see https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/MauiPets/PetsDB.db.sql
 
 The front-end screenshots presented in this Read.me file are in Portuguese, but I plan to include English, French and Spanish versions for all the projects.
 The web version (blazor) already includes the four languages.
