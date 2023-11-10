@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
+using MauiPetsApp.Core.Domain;
 
 namespace MauiPets.Mvvm.ViewModels.Vaccines;
 
@@ -30,7 +31,25 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
     [RelayCommand]
     async Task GoBack()
     {
-        await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}");
+        var petId = SelectedVaccine.IdPet;
+        if (petId > 0)
+        {
+            var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
+
+            if (response is not null)
+            {
+                PetVM pet = response as PetVM;
+
+                await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
+                    new Dictionary<string, object>
+                    {
+                            {"PetVM", pet },
+                    });
+
+            }
+        }
+
+        // await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}");
     }
 
     [RelayCommand]

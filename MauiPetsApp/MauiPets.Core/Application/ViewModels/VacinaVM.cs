@@ -30,6 +30,14 @@ namespace MauiPetsApp.Core.Application.ViewModels
             }
         }
 
+        public string DataTomaFormatada
+        {
+            get
+            {
+                return DateTime.Parse(DataToma).ToShortDateString();
+            }
+        }
+
         public VacinaVM()
         {
 

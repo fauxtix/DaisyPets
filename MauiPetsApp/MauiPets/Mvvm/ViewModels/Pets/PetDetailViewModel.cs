@@ -59,7 +59,6 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         PetVM = await _petService.GetPetVMAsync(petId);
 
         IsRefreshing = false;
-
     }
 
     [RelayCommand]

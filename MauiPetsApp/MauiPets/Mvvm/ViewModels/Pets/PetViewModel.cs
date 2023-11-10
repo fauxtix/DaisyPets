@@ -2,11 +2,9 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiPets.Helpers;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
-using MauiPetsApp.Core.Domain;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.Json;
@@ -17,7 +15,6 @@ public partial class PetViewModel : BaseViewModel
 {
     //    public DevHttpsConnectionHelper devSslHelper;
     public HttpClient http;
-    public JsonSerializerOptions _serializerOptions;
 
     public ObservableCollection<PetVM> Pets { get; } = new();
 
@@ -29,13 +26,6 @@ public partial class PetViewModel : BaseViewModel
     IGeolocation _geolocation;
     public PetViewModel(IConnectivity connectivity, IGeolocation geolocation, IPetService petService, IVacinasService petVaccinesService)
     {
-        //devSslHelper = new DevHttpsConnectionHelper(sslPort: 4400);
-        //http = devSslHelper.HttpClient;
-        _serializerOptions = new JsonSerializerOptions
-        {
-            IncludeFields = true,
-            PropertyNameCaseInsensitive = true
-        };
         _petService = petService;
         _connectivity = connectivity;
         _geolocation = geolocation;
@@ -117,6 +107,7 @@ public partial class PetViewModel : BaseViewModel
         {
             return;
         }
+
 
         await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
             new Dictionary<string, object>
