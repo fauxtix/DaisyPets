@@ -97,7 +97,7 @@ To download and run the Daisy Pets project, follow these steps:
 5. Run the API:
 
    ```bash
-   dotnet run --project DaisyPets
+   dotnet run --project DaisyPets.WebApi
    ```
 
 The API should now be running locally on `http://localhost:[PORT]`.
@@ -224,7 +224,7 @@ ServerPdf
 - GET /api/ServerPdf/Download/{folder}/{filename}
 - GET /api/ServerPdf/GetServerPdfName/{folder}/{filename}
 
-TipoDespesas (Expense type)
+TipoDespesas (Type of expenses)
 - POST /api/TipoDespesas
 - PUT /api/TipoDespesas/{id}
 - DELETE /api/TipoDespesas/{id}
