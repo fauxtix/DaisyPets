@@ -10,18 +10,6 @@
              Title="Add or Edit">
 
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="MediumLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="FontAttributes" Value="Bold"/>
-            </Style>
-            <Style x:Key="MediumBlueLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="FontAttributes" Value="Italic"></Setter>
-                <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="TextColor" Value="Blue"/>
-            </Style>
-        </ResourceDictionary>
         <Style x:Key="InvalidEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Red" />
         </Style>
@@ -65,7 +53,6 @@
                 </Label>
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding SelectedTodo.StartDate, Converter={StaticResource stringToDateConverter}}"  
-                           Style="{StaticResource MediumLabelBold}"
 			               Grid.Row="0"
                            FontAttributes="Bold" 
                            Grid.Column="1"
