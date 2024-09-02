@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
@@ -80,8 +81,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         }
         catch (Exception ex)
         {
-            var s = ex.Message;
-            throw;
+            await ShowToastMessage($"Erro ao editar Pet ({ex.Message})");
         }
     }
 
@@ -104,6 +104,10 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
                         {
                                 {"SelectedVaccine", response},
                         });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Vacina não encontrada", $"ID#: {vaccineId}" , "Ok");
                 }
             }
         }

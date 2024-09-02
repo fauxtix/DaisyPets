@@ -19,5 +19,7 @@ namespace MauiPetsApp.Application.Interfaces.Services
         Task<IEnumerable<TipoDespesa>?> GetTipoDespesas();
         Task<LookupTableVM> GetDescricaoCategoriaDespesa(int Id);
         string RegistoComErros(DespesaDto expense);
+        Task<IEnumerable<DespesaVM>?> GetExpensesByYearAsync(int year);
+        Task<IEnumerable<DespesaVM>?> GetExpensesByMonthAsync(int year, int month);
     }
 }

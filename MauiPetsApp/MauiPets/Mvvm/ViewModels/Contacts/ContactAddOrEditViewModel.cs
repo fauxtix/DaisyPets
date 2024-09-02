@@ -85,7 +85,7 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
 
                 var contactoVM = await _contactsService.GetContactVMAsync(insertedId);
 
-                ContactAddOrEditViewModel.ShowToastMessage("Contact created succesfuly");
+                await ShowToastMessage("Contact created succesfuly");
 
                 await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
                     new Dictionary<string, object>
@@ -108,13 +108,13 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
                         {"ContactoVM", contactoVM }
                     });
 
-                ContactAddOrEditViewModel.ShowToastMessage("Record updated successfuly");
+               await ShowToastMessage("Record updated successfuly");
 
             }
         }
         catch (Exception ex)
         {
-            ContactAddOrEditViewModel.ShowToastMessage($"Error while creating Contact ({ex.Message})");
+            await ShowToastMessage($"Error while creating Contact ({ex.Message})");
         }
     }
 
@@ -147,7 +147,7 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
         }
     }
 
-    private static async void ShowToastMessage(string text)
+    private async Task ShowToastMessage(string text)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         ToastDuration duration = ToastDuration.Short;

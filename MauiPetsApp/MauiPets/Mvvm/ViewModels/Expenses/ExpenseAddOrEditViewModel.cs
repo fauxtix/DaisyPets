@@ -20,7 +20,6 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
     private readonly ILookupTableService _lookupTablesService;
     private readonly IMapper _mapper;
 
-
     public ExpenseAddOrEditViewModel(IConnectivity connectivity,
                                      IDespesaService service,
                                      ILookupTableService lookupTablesService,
@@ -40,7 +39,6 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
     {
 
         DespesaDto = query[nameof(DespesaDto)] as DespesaDto;
-
 
         if (DespesaDto is null)
         {
@@ -74,7 +72,6 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
 
             if (tableName.ToLower() == "categoriadespesa")
             {
-
                 CategoriaDespesas.AddRange(result);
             }
             else
@@ -83,7 +80,6 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                 {
                     TipoDespesas.Add(item);
                 }
-
             }
         }
         catch (Exception ex)
@@ -151,9 +147,8 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                     await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true,
                         new Dictionary<string, object>
                         {
-                        {"DespesaDto", DespesaDto}
+                            {"DespesaDto", DespesaDto}
                         });
-
                 }
                 catch (Exception ex)
                 {

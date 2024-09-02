@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MauiPetsApp.Core.Application.Formatting;
 using MauiPetsApp.Core.Application.ViewModels;
 
 namespace MauiPets.Mvvm.ViewModels.Vaccines

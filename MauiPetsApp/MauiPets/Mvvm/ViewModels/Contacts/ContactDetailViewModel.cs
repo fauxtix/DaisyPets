@@ -58,8 +58,7 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
             }
             catch (Exception ex)
             {
-                var s = ex.Message;
-                throw;
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
             }
         }
 

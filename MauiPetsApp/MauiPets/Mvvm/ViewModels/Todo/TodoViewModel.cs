@@ -82,6 +82,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 await Task.Delay(100);
                 var todos = (await _service.GetAllVMAsync()).ToList();
 
+                //RefreshTodoList(todos, "All Tasks");
+
                 if (todos.Count != 0)
                 {
                     Todos.Clear();
@@ -121,13 +123,6 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                     if (response is not null)
                     {
                         SelectedTodo = response;
-
-                        //await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
-                        //    new Dictionary<string, object>
-                        //    {
-                        //        {"PetVM", Pet },
-                        //    });
-
                     }
                 }
 
@@ -175,7 +170,12 @@ namespace MauiPets.Mvvm.ViewModels.Todo
 
                 var completed = Todos.Where(c => c.Completed == 1).ToList();
                 if (!completed.Any())
+                {
+                    await Shell.Current.DisplayAlert("Completed items", "No data to show", "Ok");
                     return;
+                }
+
+                //RefreshTodoList(completed, "Completed");
 
                 if (Todos.Count != 0)
                 {
@@ -186,7 +186,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 {
                     Todos.Add(todo);
                 }
-                FilterText = "Completed Tasks";
+                FilterText = "Completed";
 
             }
             catch (Exception ex)
@@ -204,7 +204,12 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 await GetTodosAsync();
                 var pending = Todos.Where(c => c.Completed == 0).ToList();
                 if (!pending.Any())
+                {
+                    await Shell.Current.DisplayAlert("Pending items","No data to show", "Ok");
                     return;
+                }
+
+                //RefreshTodoList(pending, "Pending");
 
                 if (Todos.Count != 0)
                 {
@@ -215,7 +220,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 {
                     Todos.Add(todo);
                 }
-                FilterText = "Pending Tasks";
+                FilterText = "Pending";
 
             }
             catch (Exception ex)
@@ -260,6 +265,21 @@ namespace MauiPets.Mvvm.ViewModels.Todo
 
             FilterText = "By filter";
             IsBusy = false;
+        }
+
+        private void RefreshTodoList(List<ToDoDto> data, string filterCaption)
+        {
+            if (data.Count != 0)
+            {
+                Todos.Clear();
+            }
+
+            foreach (var todo in data)
+            {
+                Todos.Add(todo);
+            }
+
+            FilterText = filterCaption;
         }
     }
 }

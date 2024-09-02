@@ -4,8 +4,8 @@
              x:Class="MauiPets.Mvvm.Views.Vaccines.VaccineAddOrEditPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:conv="clr-namespace:MauiPets.Converters"
-             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
-             x:DataType="viewmodel:PetViewModel"
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Vaccines"
+             x:DataType="viewmodel:VaccineAddOrEditModel"
              Title="Vacinas">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding SaveVaccineCommand  }"
@@ -13,6 +13,17 @@
         <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <conv:NextDoseDateConverter x:Key="nextDoseDateConverter" />
+        <conv:StringToDateConverter x:Key="stringToDateConverter" />
+        <Style x:Key="MediumLabelBold" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+        <Style x:Key="LargeLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </ContentPage.Resources>
 
     <VerticalStackLayout>
         <Border Stroke="#2B0B98"
@@ -25,6 +36,7 @@
 
             <Grid Margin="4">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
@@ -71,7 +83,6 @@
                         IsSpellCheckEnabled="false"
 			            VerticalOptions="Start">
                 </Entry>
-
             </Grid>
         </Border>
     </VerticalStackLayout>

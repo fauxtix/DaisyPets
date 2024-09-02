@@ -2,12 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Expenses.ExpensesPage"
-             xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels.Despesas;assembly=MauiPets.Core"
+             xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels.Despesas;assembly=MauiPets.Core"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Expenses"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:conv="clr-namespace:MauiPets.Converters"
              x:DataType="viewmodel:ExpensesViewModel"
              Title="Despesas">
+
 
     <ContentPage.Resources>
         <conv:StringToDateConverter x:Key="stringToDateConverter" />
@@ -16,85 +17,124 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetExpensesCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
+
     <ContentPage.ToolbarItems>
+        <!-- Add Button Toolbar Item -->
         <ToolbarItem Text="Add Expense" Command="{Binding AddExpenseCommand}"
                      CommandParameter="{Binding .}"
                  IconImageSource="add.png" />
+
+        <!-- Image Toolbar Item -->
+        <ToolbarItem>
+            <ToolbarItem.IconImageSource>
+                <FileImageSource File="paymentlist.svg" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
     </ContentPage.ToolbarItems>
+
     <Grid Margin="5, 25, 5, 5" Padding="5" CompressedLayout.IsHeadless="True">
-        <VerticalStackLayout>
-            <Border Margin="0, 0, 0, 20" Grid.Row="0" HorizontalOptions="Center" Grid.ColumnSpan="2"
-                        StrokeShape="RoundRectangle 22,22,22,22" 
-                        StrokeThickness="1" HeightRequest="80">
-                <Image Margin="5, 5"
-                        Grid.Row="0" WidthRequest="80" 
-                        HeightRequest="80" Aspect="AspectFill" 
-                        Source="paymentlist.svg"/>
-            </Border>
-            <CollectionView x:Name="expensesView"
-                            ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel}}, Path=Expenses}" 
-                            SelectionMode="Single">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout ItemSpacing="2" Orientation="Vertical" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.Footer>
-                    <VerticalStackLayout BackgroundColor="LightGray">
-                        <Label Margin="10,0,0,0" Padding="8"
-                                Text="{Binding TotalDespesas, Mode=OneWay, StringFormat='{0:C2}'}"
-                                HorizontalOptions="End"
-                                FontAttributes="Bold" />
+        <ScrollView>
+            <VerticalStackLayout Padding="10">
+                <!-- Your Image and Filter Buttons -->
+                <Frame CornerRadius="22"
+                       HasShadow="True"
+                       Padding="10"
+                       BackgroundColor="WhiteSmoke"
+                       Margin="0,0,0,20">
+                    <VerticalStackLayout>
+                        <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+                            <Button Text="Este ano"
+                                    Command="{Binding FilterExpensesByYearCommand}"
+                                    BackgroundColor="#3498db"  
+                                TextColor="White"
+                                    CornerRadius="20"
+                                    BorderColor="Transparent" />
+                            <Button Text="Este mês"
+                                    Command="{Binding FilterExpensesByMonthCommand}"
+                                    BackgroundColor="#e74c3c"  
+                                    TextColor="White"
+                                    CornerRadius="20"
+                                    BorderColor="Transparent" />
+                            <Button Text="Todas"
+                                    Command="{Binding GetExpensesCommand}"
+                                    BackgroundColor="Gold"  
+                                        TextColor="Black"
+                                    CornerRadius="20"
+                                    BorderColor="Transparent" />
+                        </HorizontalStackLayout>
                     </VerticalStackLayout>
-                </CollectionView.Footer>
+                </Frame>
+                <CollectionView x:Name="expensesView" 
+                            ItemsSource="{Binding Expenses}" 
+                            VerticalScrollBarVisibility ="Always"
+                            SelectionMode="Single">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="2" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.Footer>
+                        <VerticalStackLayout BackgroundColor="LightGray">
+                            <Label Margin="10,0,0,0" Padding="8"
+                               Text="{Binding TotalDespesas, Mode=OneWay, StringFormat='{0:C2}'}"
+                               HorizontalOptions="End"
+                               FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                    </CollectionView.Footer>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:DespesaVM">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                        <SwipeItem Text="Delete"
+                                               IconImageSource="icon_delete.svg"
+                                               BackgroundColor="LightPink"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel}}, Path=DeleteExpenseCommand}"
+                                               CommandParameter="{Binding .}" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <VerticalStackLayout>
+                                    <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" Padding="2">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel}}, Path=EditExpenseCommand}"
+                                            CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
+                                        <Grid Padding="2" ColumnSpacing="10" Margin="4" RowSpacing="3">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0"
+                                               Text="{Binding DataMovimento, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
+                                               FontAttributes="Bold" />
+                                            <Label Grid.Column="1"
+                                               Text="{Binding DescricaoCategoriaDespesa, Mode=OneTime}"
+                                               FontAttributes="Italic"
+                                               VerticalOptions="End" />
+                                            <Label Grid.Column="2"
+                                               Text="{Binding ValorPago, Mode=OneWay, StringFormat='{0:C2}'}"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="Start" />
+                                        </Grid>
+                                    </Frame>
+                                </VerticalStackLayout>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <ActivityIndicator x:Name="ai"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    BackgroundColor="LightBlue" 
+                    HeightRequest="100"
+                    WidthRequest="100" />
 
-                <CollectionView.ItemTemplate>
-
-                    <DataTemplate x:DataType="models:DespesaVM">
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems SwipeBehaviorOnInvoked="Close">
-                                    <SwipeItem Text="Apagar"
-                                                       IconImageSource="icon_delete.svg" 
-                                                       BackgroundColor="LightPink"
-                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel }}, Path=DeleteExpenseCommand}" 
-                                                       CommandParameter="{Binding .}"/>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
-
-                            <VerticalStackLayout >
-                                <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" 
-                                                   Padding="2">
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer 
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel }}, Path=EditExpenseCommand}"
-                                                CommandParameter="{Binding .}"/>
-                                    </Frame.GestureRecognizers>
-                                    <Grid Padding="2" ColumnSpacing="10" Margin="4" RowSpacing="3">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0"
-                                           Text="{Binding DataMovimento, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}"
-                                          FontAttributes="Bold" />
-                                        <Label Grid.Column="1"
-                                          Text="{Binding DescricaoCategoriaDespesa, Mode=OneTime}"
-                                          FontAttributes="Italic"
-                                          VerticalOptions="End" />
-                                        <Label Grid.Column="2"
-                                          Text="{Binding ValorPago, Mode=OneWay, StringFormat='{0:C2}'}"
-                                           HorizontalOptions="End"
-                                          VerticalOptions="Start" />
-                                    </Grid>
-                                </Frame>
-                            </VerticalStackLayout>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
     </Grid>
 </ContentPage>

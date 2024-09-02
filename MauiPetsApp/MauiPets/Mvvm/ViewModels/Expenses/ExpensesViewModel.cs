@@ -1,127 +1,146 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using MauiPets.Mvvm.Views.Expenses;
 
 namespace MauiPets.Mvvm.ViewModels.Expenses
 {
-
     public partial class ExpensesViewModel : ExpensesBaseViewModel
     {
         private readonly IDespesaService _service;
-        private IConnectivity _connectivity;
-        public ObservableCollection<DespesaVM> Expenses { get; set; } = new();
 
-        public ExpensesViewModel(IDespesaService service, IConnectivity connectivity)
+        public ObservableCollection<DespesaVM> Expenses { get; } = new();
+        //public decimal TotalDespesas { get; set; }
+
+        [ObservableProperty]
+        private bool _isBusy;
+
+        public ExpensesViewModel(IDespesaService service)
         {
             _service = service;
-            _connectivity = connectivity;
         }
 
         [RelayCommand]
-        private async Task GetExpensesAsync()
+        private async Task AddExpenseAsync()
         {
-            try
+            IsEditing = false;
+            DespesaDto = new()
             {
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
-                    return;
-                }
-                if (IsBusy)
-                    return;
+                DataCriacao = DateTime.Now.Date.ToShortDateString(),
+                DataMovimento = DateTime.Now.Date.ToShortDateString(),
+                ValorPago = 0M,
+                Descricao = "",
+                Notas = "",
+                TipoMovimento = ""
+            };
 
-                IsBusy = true;
-                if (Expenses.Count > 0)
-                {
-                    Expenses.Clear();
-                }
-                var expenses = (await _service.GetAllVMAsync()).ToList();
-
-
-                foreach (var expense in expenses)
-                {
-                    Expenses.Add(expense);
-                }
-
-                TotalDespesas = Expenses.Sum(c => c.ValorPago);
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Unable to get expenses: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            await NavigateToEditPage(DespesaDto);
         }
 
         [RelayCommand]
         private async Task EditExpenseAsync(DespesaVM expense)
         {
-            IsEditing = true;
-            var expenseId = expense.Id;
-            if (expenseId > 0)
+            if (expense?.Id > 0)
             {
-                var response = await _service.GetByIdAsync(expenseId);
-
-                if (response is not null)
+                var response = await _service.GetByIdAsync(expense.Id);
+                if (response != null)
                 {
-
-                    await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,
-                        new Dictionary<string, object>
-                        {
-                            {"DespesaDto", response},
-                        });
-
+                    await NavigateToEditPage(response);
                 }
             }
         }
 
         [RelayCommand]
-        private async Task DeleteExpenseAsync(DespesaVM expenseInputModel)
+        private async Task GetExpensesAsync()
         {
-            if (expenseInputModel is null)
-            {
-                return;
-            }
-            try
-            {
-                bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga a despesa  de {expenseInputModel.DataMovimento}?", "Sim", "Não");
-                if (okToDelete)
-                {
-                    await _service.DeleteAsync(expenseInputModel.Id);
-                    ShowToastMessage($"Despesa de {expenseInputModel.DataMovimento} apagada com sucesso");
+            if (IsBusy) return;
 
-                    await GetExpensesAsync();
+            IsBusy = true;
+            await RefreshExpensesAsync();
+            IsBusy = false;
+        }
 
-                    await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
-                }
-            }
-            catch (Exception ex)
+        [RelayCommand]
+        private async Task FilterExpensesByYearAsync()
+        {
+            if (IsBusy) return;
+
+            IsBusy = true;
+            Expenses.Clear();
+            var currentYear = DateTime.Now.Year;
+            var expenses = (await _service.GetExpensesByYearAsync(currentYear)).ToList();
+            foreach (var expense in expenses)
             {
-                ShowToastMessage($"Erro ao apagar Despesa {expenseInputModel.DataMovimento} : {ex.Message} ");
+                Expenses.Add(expense);
+            }
+            TotalDespesas = Expenses.Sum(c => c.ValorPago);
+            IsBusy = false;
+        }
+
+        [RelayCommand]
+        private async Task FilterExpensesByMonthAsync()
+        {
+            if (IsBusy) return;
+
+            IsBusy = true;
+            Expenses.Clear();
+            var now = DateTime.Now;
+            var currentYear = now.Year;
+            var currentMonth = now.Month;
+            var expenses = (await _service.GetExpensesByMonthAsync(currentYear, currentMonth)).ToList();
+            foreach (var expense in expenses)
+            {
+                Expenses.Add(expense);
+            }
+            TotalDespesas = Expenses.Sum(c => c.ValorPago);
+            IsBusy = false;
+        }
+
+        [RelayCommand]
+        private async Task DeleteExpenseAsync(DespesaVM expense)
+        {
+            if (expense == null) return;
+
+            bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apagar a despesa de {expense.DataMovimento}?", "Sim", "Não");
+            if (okToDelete)
+            {
+                IsBusy = true;
+                await _service.DeleteAsync(expense.Id);
+                await RefreshExpensesAsync();
+                await ShowToastMessage($"Despesa de {expense.DataMovimento} apagada com sucesso");
                 await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
             }
+            IsBusy = false;
         }
 
-        private async void ShowToastMessage(string text)
+        private async Task RefreshExpensesAsync()
         {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            ToastDuration duration = ToastDuration.Short;
-            double fontSize = 14;
-
-            var toast = Toast.Make(text, duration, fontSize);
-
-            await toast.Show(cancellationTokenSource.Token);
+            Expenses.Clear();
+            var expenses = (await _service.GetAllVMAsync()).ToList();
+            foreach (var expense in expenses)
+            {
+                Expenses.Add(expense);
+            }
+            TotalDespesas = Expenses.Sum(c => c.ValorPago);
         }
 
+        private async Task NavigateToEditPage(DespesaDto expenseDto)
+        {
+            await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,
+                new Dictionary<string, object>
+                {
+                    {"DespesaDto", expenseDto}
+                });
+        }
+
+        private async Task ShowToastMessage(string text)
+        {
+            var toast = Toast.Make(text, ToastDuration.Short, 14);
+            await toast.Show();
+        }
     }
 }

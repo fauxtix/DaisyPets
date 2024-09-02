@@ -10,17 +10,23 @@
              Title="Add or Edit">
 
     <ContentPage.Resources>
-        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+        <ResourceDictionary>
+            <conv:StringToDateConverter x:Key="stringToDateConverter" />
+
+            <Style x:Key="InvalidEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Red" />
         </Style>
         <Style x:Key="ValidEntryStyle" TargetType="Entry">
             <Setter Property="TextColor" Value="Green" />
         </Style>
+        </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save data" Command="{Binding SaveTodoCommand  }"
+        <ToolbarItem Text="Save" Command="{Binding SaveTodoCommand  }"
                  IconImageSource="icon_save.png" />
+        <ToolbarItem Text="Delete" Command="{Binding DeleteTodoCommand  }"
+                 IconImageSource="delete_32.png" />
         <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>

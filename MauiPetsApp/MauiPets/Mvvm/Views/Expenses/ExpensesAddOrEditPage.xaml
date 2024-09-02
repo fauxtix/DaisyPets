@@ -7,27 +7,32 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:conv="clr-namespace:MauiPets.Converters"
              x:DataType="viewmodel:ExpenseAddOrEditViewModel"
-             Title="Add or Edit">
+             Title="">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="MediumLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+            <conv:StringToDateConverter x:Key="stringToDateConverter" />
+
+            <Style x:Key="MediumLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
-            <Style x:Key="MediumBlueLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+            <Style x:Key="MediumBlueLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="Italic"></Setter>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="Blue"/>
             </Style>
+
+            <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+            <Style x:Key="ValidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Green" />
+            </Style>
+
+            <!-- Add other resources if needed -->
         </ResourceDictionary>
-        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Red" />
-        </Style>
-        <Style x:Key="ValidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Green" />
-        </Style>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
@@ -71,7 +76,7 @@
 			               Grid.Row="0"
                            FontAttributes="Bold" 
                            Grid.Column="1"
-			               VerticalOptions="Center"></DatePicker>
+			               VerticalOptions="Center"/>
                 <Label Text="Valor"
                                        Grid.Row="1"
                                        Grid.Column="0"

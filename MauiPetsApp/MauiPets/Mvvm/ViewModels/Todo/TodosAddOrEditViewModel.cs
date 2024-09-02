@@ -7,6 +7,7 @@ using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
+using MauiPetsApp.Infrastructure.Services;
 
 namespace MauiPets.Mvvm.ViewModels.Todo;
 
@@ -57,7 +58,7 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
         }
 
         SelectedTodo = query[nameof(SelectedTodo)] as ToDoDto;
-//        TodoCategorySelectedIndex = TodoCategories.FindIndex(item => item.Id == SelectedTodo.CategoryId);
+        //        TodoCategorySelectedIndex = TodoCategories.FindIndex(item => item.Id == SelectedTodo.CategoryId);
     }
 
 
@@ -86,45 +87,69 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
                     return;
                 }
 
-                var todoDto = await _todosService.GetToDoVM_ByIdAsync(insertedId);
+                //var todoDto = await _todosService.GetToDoVM_ByIdAsync(insertedId);
                 //IsBusy = false;
 
-                ShowToastMessage("Contact created succesfuly");
-
-                await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true,
-                    new Dictionary<string, object>
-                    {
-                        {"SelectedTodo", todoDto}
-                    });
-
-
+                await ShowToastMessage("Item created succesfuly");
+                await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true);
             }
             else // Insert (Id > 0)
             {
                 var _todoId = SelectedTodo.Id;
                 await _todosService.UpdateAsync(_todoId, SelectedTodo);
-
-                var todoDto = await _todosService.GetToDoVM_ByIdAsync(_todoId);
-
-                await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true,
-                    new Dictionary<string, object>
-                    {
-                        {"SelectedTodo", todoDto}
-                    });
-
-                //IsBusy = false;
-                ShowToastMessage("Record updated successfuly");
+                await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true);
+                await ShowToastMessage("Record updated successfuly");
 
             }
         }
         catch (Exception ex)
         {
             IsBusy = false;
-            ShowToastMessage($"Error while creating Contact ({ex.Message})");
+            await ShowToastMessage($"Error while creating Item ({ex.Message})");
         }
     }
 
-    private static async void ShowToastMessage(string text)
+    [RelayCommand]
+    async Task DeleteTodo()
+    {
+        try
+        {
+            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                await Shell.Current.DisplayAlert("No connectivity!",
+                    $"Please check internet and try again.", "OK");
+                return;
+            }
+
+            if (SelectedTodo.Id > 0)
+            {
+                bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga o registo?", "Sim", "Não");
+                if (okToDelete)
+                {
+                    try
+                    {
+                        await _todosService.DeleteAsync(SelectedTodo.Id);
+                        await ShowToastMessage($"Registo  apagado com sucesso");
+                        await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        await ShowToastMessage($"Erro ao apagar registo ({ex.Message})");
+                        await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true);
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            IsBusy = false;
+            await ShowToastMessage($"Error while creating Todo ({ex.Message})");
+        }
+    }
+
+
+    private async Task ShowToastMessage(string text)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         ToastDuration duration = ToastDuration.Short;

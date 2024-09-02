@@ -7,7 +7,6 @@ using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Text.Json;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
@@ -109,11 +108,19 @@ public partial class PetViewModel : BaseViewModel
         }
 
 
-        await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
-            new Dictionary<string, object>
-            {
+        try
+        {
+            await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
+        new Dictionary<string, object>
+        {
                         {"PetVM", petVM },
-             });
+         });
+
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+        }
     }
 
     [RelayCommand]

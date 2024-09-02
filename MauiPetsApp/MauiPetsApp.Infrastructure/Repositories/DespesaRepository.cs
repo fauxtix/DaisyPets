@@ -272,6 +272,19 @@ namespace MauiPetsApp.Infrastructure.Repositories
             }
         }
 
+        public async Task<IEnumerable<DespesaVM>?> GetExpensesByYearAsync(int year)
+        {
+
+            var yearExpenses = (await GetAllVMAsync())?.ToList();
+            return yearExpenses?.Where(w=>DateTime.Parse(w.DataMovimento).Year == year);
+        }
+
+        public async Task<IEnumerable<DespesaVM>?> GetExpensesByMonthAsync(int year, int month)
+        {
+            var yearExpenses = (await GetAllVMAsync())?.ToList();
+            return yearExpenses?.Where(w => DateTime.Parse(w.DataMovimento).Year == year && DateTime.Parse(w.DataMovimento).Month== month);
+        }
+
         public async Task<LookupTableVM> GetDescricaoCategoriaDespesa(int Id)
         {
             StringBuilder sb = new StringBuilder();

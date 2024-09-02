@@ -24,18 +24,17 @@
     </ContentPage.ToolbarItems>
     <Grid Margin="0" Padding="0">
         <ScrollView>
-
             <StackLayout>
                 <Border Stroke="#C49B33"
-                    StrokeThickness="4"
-                    StrokeShape="RoundRectangle 40,0,0,40"
+                    StrokeThickness="3"
+                    StrokeShape="RoundRectangle 15,15,15,15"
                     Background="#2B0B98"
                     Padding="16,8"
                     HorizontalOptions="Center">
                     <Label Text="{Binding FilterText, Mode=TwoWay}"
-                           TextColor="White"
-                           FontSize="18"
-                           FontAttributes="Bold" />
+                           TextColor="White" WidthRequest="120" HorizontalTextAlignment="Center"
+                           FontSize="16"
+                           FontAttributes="None" />
                 </Border>
 
                 <Frame HeightRequest="50" CornerRadius="10" HasShadow="True" Margin="10, 6" Padding="2">
@@ -44,9 +43,10 @@
                                    WidthRequest="250"  TextChanged="SearchBar_TextChanged">
                         </SearchBar>
                         <ImageButton Command="{Binding FilterCompletedCommand}" Aspect="AspectFill"
-                            HorizontalOptions="Start"
+                            HorizontalOptions="Start" 
+                                     BorderWidth="2" BorderColor="Black" CornerRadius="10"
                             HeightRequest="30" 
-                            WidthRequest="30"
+                            WidthRequest="30"  
                             Source="schedule_icon.png"
                             VerticalOptions="Center" />
 
@@ -54,20 +54,26 @@
                             HorizontalOptions="Start"
                             HeightRequest="30"
                             WidthRequest="30"
+                            BorderWidth="2" BorderColor="SteelBlue" CornerRadius="10"
+                                     Aspect="AspectFill"
                             Margin="5, 0, 0, 0"
+                            ToolTipProperties.Text ="Pending"
                             Source="tasks.png"
                             VerticalOptions="Center" />
-                            <ImageButton Command="{Binding GetTodosCommand}"
+                        <ImageButton Command="{Binding GetTodosCommand}"
                             HorizontalOptions="Start"
                             HeightRequest="30"
+                            BorderWidth="2" BorderColor="SteelBlue" CornerRadius="10"
+                                     Aspect="AspectFill"
                             WidthRequest="30"
                             Margin="5, 0, 0, 0"
+                            ToolTipProperties.Text ="All"
                             Source="check_all.png"
                             VerticalOptions="Center" />
                     </FlexLayout>
                 </Frame>
-                <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" 
-                                ItemsUpdatingScrollMode="KeepItemsInView" >
+                <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" >
+                    <!--ItemsUpdatingScrollMode="KeepItemsInView" >-->
                     <CollectionView.EmptyView>
                         <StackLayout Padding="10">
                             <Label HorizontalOptions="Center" Padding="10">No data to view</Label>
@@ -104,12 +110,13 @@
                                           Text="{Binding Description, Mode=OneWay}"
                                            HorizontalOptions="Start"
                                           VerticalOptions="Start" />
-                                        <Switch Grid.Column="2" IsToggled="{Binding Completed}"
+                                        <Switch Grid.Column="2" IsToggled="{Binding Completed}" 
+                                                Toggled="Switch_Toggled"
                                            HorizontalOptions="Center"
                                           VerticalOptions="Start" />
-                                        <Switch Grid.Column="3" IsToggled="{Binding Generated}"
-                                           HorizontalOptions="Center"
-                                          VerticalOptions="Start" />
+                                        <!--<Switch Grid.Column="3" IsToggled="{Binding Generated}"
+                                           HorizontalOptions="Center" 
+                                          VerticalOptions="Start" />-->
                                     </Grid>
                                 </Frame>
                             </VerticalStackLayout>
@@ -119,26 +126,26 @@
                 </CollectionView>
                 <StackLayout Padding="10" Spacing="4" HorizontalOptions="Center"
                             VerticalOptions="Center" Orientation="Horizontal">
-                    <Button Text="First"
+                    <Button x:Name="btnFirst" 
+                            Text="First" CornerRadius="10"
                             Clicked="OnFirstPageButtonClicked" />
-                    <Button Text="Previous"
+                    <Button x:Name="btnPrevious" Text="Previous" CornerRadius="10"
                             Clicked="OnPreviousPageButtonClicked" />
-                    <Button Text="Next"
+                    <Button x:Name="btnNext" Text="Next" CornerRadius="10"
                             Clicked="OnNextPageButtonClicked" />
-                    <Button Text="Last"
+                    <Button x:Name="btnLast" Text="Last" CornerRadius="10"
                             Clicked="OnLastPageButtonClicked" />
                 </StackLayout>
-
             </StackLayout>
         </ScrollView>
-        <AbsoluteLayout x:Name="aiLayout" IsVisible="{Binding IsBusy}" Margin="0" Padding="0" BackgroundColor="Gray" Opacity="0.5" >
-            <AbsoluteLayout.GestureRecognizers>
-                <TapGestureRecognizer />
-            </AbsoluteLayout.GestureRecognizers>
-            <StackLayout  Margin="0" Padding="0" AbsoluteLayout.LayoutBounds="0.5,0.5,AutoSize,AutoSize"
-                     AbsoluteLayout.LayoutFlags="PositionProportional" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand" >
-                <ActivityIndicator x:Name="ai" IsRunning="{Binding IsBusy}" HorizontalOptions="Center" VerticalOptions="Center" Color="Black"/>
-            </StackLayout>
-        </AbsoluteLayout>
+        <ActivityIndicator 
+                    x:Name="ai" 
+                    IsRunning="{Binding IsBusy}" 
+                    IsVisible="{Binding IsBusy}" 
+                    HorizontalOptions="CenterAndExpand" 
+                    VerticalOptions="CenterAndExpand" 
+                    BackgroundColor="LightBlue"
+                    Color="white"/>
+
     </Grid>
 </ContentPage>

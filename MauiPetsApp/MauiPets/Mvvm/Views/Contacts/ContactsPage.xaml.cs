@@ -36,12 +36,20 @@ public partial class ContactsPage : ContentPage
 
     async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
     {
-        ContactoVM item = args.SelectedItem as ContactoVM;
-        await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
-            new Dictionary<string, object>
-            {
+        try
+        {
+            ContactoVM item = args.SelectedItem as ContactoVM;
+            await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
+                new Dictionary<string, object>
+                {
                 {"ContactoVM", item}
-             });
+                 });
 
+        }
+        catch (Exception ex)
+        {
+
+            await Shell.Current.DisplayAlert("Error while 'OnItemSelected (Contacts Listview)", ex.Message, "Ok");
+        }
     }
 }

@@ -22,10 +22,16 @@
         <converters:NextDoseDateConverter x:Key="nextDoseDateConverter" />
         <converters:StringToDateConverter x:Key="stringToDateConverter"/>
         <ResourceDictionary>
-            <Style x:Key="MediumLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+            <Style x:Key="MediumLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
+            <Style x:Key="LargeLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="20"/>
+            </Style>
+            <Color x:Key="LightBackground">#FAF9F8</Color>
+            <Color x:Key="DarkBackground">Black</Color>
+            <Color x:Key="Primary">#FFC107</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid>

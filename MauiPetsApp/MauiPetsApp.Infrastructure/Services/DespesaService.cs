@@ -131,10 +131,37 @@ namespace MauiPetsApp.Infrastructure.Services
         {
             try
             {
-               // await _repository.DeleteAsync(31);
                 var expensesVM = await _repository.GetAllVMAsync();
                 return expensesVM;
 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<DespesaVM>?> GetExpensesByYearAsync(int year)
+        {
+            try
+            {
+                var expensesVM = await _repository.GetExpensesByYearAsync(year);
+                return expensesVM;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro: {ex.Message}");
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<DespesaVM>?> GetExpensesByMonthAsync(int year, int month)
+        {
+            try
+            {
+                var expensesVM = await _repository.GetExpensesByMonthAsync(year, month);
+                return expensesVM;
             }
             catch (Exception ex)
             {

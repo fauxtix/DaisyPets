@@ -18,5 +18,7 @@ namespace MauiPetsApp.Application.Interfaces.Repositories
         decimal TotalDespesas(int iTipoDespesa = 0);
         List<DespesaVM> Query_ByYear(string sAno);
         Task<IEnumerable<TipoDespesa>?> GetTipoDespesas();
+        Task<IEnumerable<DespesaVM>?> GetExpensesByYearAsync(int year);
+        Task<IEnumerable<DespesaVM>?> GetExpensesByMonthAsync(int year, int month);
     }
 }

@@ -1,31 +1,46 @@
 using MauiPets.Mvvm.ViewModels.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
+using Microsoft.Maui.Controls;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace MauiPets.Mvvm.Views.Expenses;
-
-public partial class ExpensesPage : ContentPage
+namespace MauiPets.Mvvm.Views.Expenses
 {
-
-    public ExpensesPage(ExpensesViewModel viewModel)
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class ExpensesPage : ContentPage
     {
-        InitializeComponent();
-        BindingContext = viewModel;
-    }
+        public ExpensesPage(ExpensesViewModel viewModel)
+        {
+            InitializeComponent();
+            BindingContext = viewModel;
+        }
 
-    //protected override void OnAppearing()
-    //{
-    //    base.OnAppearing();
-    //    //expensesView.ItemsSource = _viewModel.DespesasVM;
-    //}
-
-    async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-    {
-        DespesaVM item = args.SelectedItem as DespesaVM;
-        await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,
-            new Dictionary<string, object>
+        // Optionally, override OnAppearing if you need to refresh data when the page appears
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (BindingContext is ExpensesViewModel viewModel)
             {
-                {"DespesaVM", item}
-             });
+                viewModel.GetExpensesCommand.Execute(null);
+            }
+        }
+
+        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        {
+            if (args.SelectedItem is DespesaVM item)
+            {
+                await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,
+                    new Dictionary<string, object>
+                    {
+                        { "DespesaVM", item }
+                    });
+            }
+        }
+
+        private void expensesView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
+        {
+
+        }
     }
 }

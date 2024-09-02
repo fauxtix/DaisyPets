@@ -49,30 +49,6 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
                 }
                 var contacts = (await _contactService.GetAllContactVMAsync()).ToList();
 
-                // doesn't work as expected, followed microsoft example
-                
-                //foreach (var contact in contacts)
-                //{
-                //    var contactTypeName = contact.DescricaoTipoContacto;
-                //    ContactGroups.Add(
-                //        new ContactGroup(contactTypeName, new List<ContactoVM>
-                //        {
-                //            new ContactoVM
-                //            {
-                //                Nome = contact.Nome,
-                //                 DescricaoTipoContacto = contact.DescricaoTipoContacto,
-                //                Localidade = contact.Localidade,
-                //                eMail = contact.eMail,
-                //                Morada = contact.Morada,
-                //                Movel = contact.Movel,
-                //                Id = contact.Id,
-                //                IdTipoContacto = contact.IdTipoContacto,
-                //                Notas = contact.Notas,
-                //            }
-                //        })
-                //    );
-                //}
-
                 foreach (var contact in contacts)
                 {
                     ContactsVM.Add(contact);
@@ -81,7 +57,6 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Unable to get contacts: {ex.Message}");
                 await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
             }
             finally

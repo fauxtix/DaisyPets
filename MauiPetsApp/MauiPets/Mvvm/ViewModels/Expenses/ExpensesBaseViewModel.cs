@@ -1,6 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 using System.Collections.ObjectModel;
@@ -53,28 +51,6 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [ObservableProperty]
         private string lookupDescription;
 
-        [RelayCommand]
-        private async Task AddExpenseAsync()
-        {
-            IsEditing = false;
-            DespesaDto = new()
-            {
-                DataCriacao = DateTime.Now.Date.ToShortDateString(),
-                DataMovimento = DateTime.Now.Date.ToShortDateString(),
-                ValorPago = 0M,
-                //IdCategoriaDespesa = 0,
-                //IdTipoDespesa = 0,
-                Descricao = "",
-                Notas = "",
-                TipoMovimento = ""
-            };
-
-            await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,
-                new Dictionary<string, object>
-                {
-                        {"DespesaDto", DespesaDto}
-                });
-        }
     }
 }
 

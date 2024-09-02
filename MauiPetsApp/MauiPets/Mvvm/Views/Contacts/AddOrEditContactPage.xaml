@@ -10,23 +10,25 @@
              Title="{Binding ContactoVM.Nome}">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="MediumLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+            <Style x:Key="MediumLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
-            <Style x:Key="MediumBlueLabelBold" BasedOn="{StaticResource BaseLabel}" TargetType="Label">
+            <Style x:Key="MediumBlueLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="Italic"></Setter>
-                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontAttributes" Value="Bold"/>    
                 <Setter Property="TextColor" Value="Blue"/>
             </Style>
+            <Style x:Key="InvalidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+            <Style x:Key="ValidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Green" />
+            </Style>
+            <Color x:Key="LightBackground">#FAF9F8</Color>
+            <Color x:Key="DarkBackground">Black</Color>
         </ResourceDictionary>
-        <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Red" />
-        </Style>
-        <Style x:Key="ValidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Green" />
-        </Style>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
@@ -35,10 +37,7 @@
         <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
-    <ScrollView 
-        BackgroundColor="{AppThemeBinding 
-        Light={StaticResource 
-        LightBackground}, 
+    <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, 
         Dark={StaticResource DarkBackground}}">
         <VerticalStackLayout Margin="2, 10, 0, 0">
             <Border Stroke="#2B0B98"
