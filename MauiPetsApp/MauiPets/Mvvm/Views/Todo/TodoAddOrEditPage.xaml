@@ -6,38 +6,72 @@
              xmlns:behaviours="clr-namespace:MauiPets.Mvvm.Behaviours.Pickers"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:conv="clr-namespace:MauiPets.Converters"
-             x:DataType="viewmodel:TodosAddOrEditViewModel"
-             Title="Add or Edit">
+             x:DataType="viewmodel:TodosAddOrEditViewModel"    
+             Title="Tarefas">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" />
+    </Shell.BackButtonBehavior>
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringToDateConverter x:Key="stringToDateConverter" />
 
             <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Red" />
-        </Style>
-        <Style x:Key="ValidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Green" />
-        </Style>
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+            <Style x:Key="ValidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Green" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save" Command="{Binding SaveTodoCommand  }"
                  IconImageSource="icon_save.png" />
-        <ToolbarItem Text="Delete" Command="{Binding DeleteTodoCommand  }"
-                 IconImageSource="delete_32.png" />
+        <ToolbarItem Text="Delete" 
+                     Command="{Binding DeleteTodoCommand  }"
+                     IsEnabled="{Binding IsEditing}"
+                     IconImageSource="icon_delete.svg" />
         <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
 
     <VerticalStackLayout Margin="2, 10, 0, 0">
+        <VerticalStackLayout>
+            <Border Stroke="#2B0B98"
+            StrokeThickness="2"
+            StrokeShape="RoundRectangle 22"
+            Background="#fff"
+            Padding="8,4"
+            Margin="4"
+            HeightRequest="40"
+            HorizontalOptions="FillAndExpand">
+                <HorizontalStackLayout VerticalOptions="Center"
+                               Spacing="8">
+                    <Image Source="tasks.png"
+                   WidthRequest="24"  
+                        HeightRequest="24"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        Margin="5,0,8,0"/>
+                        <Label VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           TextColor="Green"
+                           Text="{Binding EditCaption}"
+                           HorizontalOptions="FillAndExpand"/>
+                </HorizontalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+
         <Border Stroke="#2B0B98"
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 22"
                     Background="#fff"
                     Padding="8,4"
-                    Margin="4"
+                    Margin="2"
                     HorizontalOptions="FillAndExpand">
 
             <Grid Margin="4">
@@ -55,34 +89,37 @@
                            Grid.Row="0"
                            Grid.Column="0"
                            FontSize="Small"
-			               VerticalOptions="Center">
-                </Label>
+			               VerticalOptions="Center"/>
+
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding SelectedTodo.StartDate, Converter={StaticResource stringToDateConverter}}"  
 			               Grid.Row="0"
                            FontAttributes="Bold" 
                            Grid.Column="1"
-			               VerticalOptions="Center"></DatePicker>
+			               VerticalOptions="Center"/>
                 <Label Text="Descrição"
                                        Grid.Row="1"
                                        Grid.Column="0"
                                        FontSize="Small"
-			                           VerticalOptions="Start"></Label>
+			                           VerticalOptions="Start"/>
                 <Editor x:Name="TodoDescription"
                         Text="{Binding SelectedTodo.Description}" 
 			            Grid.Row="1"
                         Grid.Column="1"
-			            VerticalOptions="Start">
-                </Editor>
-                <Label Text="Terminado"
-                                       Grid.Row="2"
-                                       Grid.Column="0"
-                                       FontSize="Small"
-			                           VerticalOptions="Start"></Label>
+			            VerticalOptions="Start"/>
 
-                <Switch Grid.Row="2" Grid.Column="1" IsToggled="{Binding SelectedTodo.Completed}"
-                                           HorizontalOptions="Start"
-                                          VerticalOptions="Start" />
+                <Label Text="Terminado"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       FontSize="Small"
+                       IsVisible="{Binding IsEditing}"
+			           VerticalOptions="Start"/>
+
+                <Switch Grid.Row="2" 
+                        Grid.Column="1" IsToggled="{Binding SelectedTodo.Completed}"
+                        HorizontalOptions="Start"
+                        IsVisible="{Binding IsEditing}"
+                        VerticalOptions="Start" />
 
             </Grid>
 

@@ -7,7 +7,6 @@ using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
-using MauiPetsApp.Infrastructure.Services;
 
 namespace MauiPets.Mvvm.ViewModels.Todo;
 
@@ -58,7 +57,8 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
         }
 
         SelectedTodo = query[nameof(SelectedTodo)] as ToDoDto;
-        //        TodoCategorySelectedIndex = TodoCategories.FindIndex(item => item.Id == SelectedTodo.CategoryId);
+        EditCaption = query[nameof(EditCaption)] as string;
+       IsEditing = (bool) query[nameof(IsEditing)];
     }
 
 

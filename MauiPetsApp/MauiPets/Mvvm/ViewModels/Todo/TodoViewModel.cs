@@ -5,7 +5,6 @@ using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
-using MauiPetsApp.Core.Domain.TodoManager;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -29,6 +28,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
 
         [ObservableProperty]
         bool isRefreshing;
+
 
         [ObservableProperty]
         string filterText = string.Empty;
@@ -139,6 +139,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             try
             {
                 IsEditing = true;
+                EditCaption = "Edição de registo";
+
                 var todoId = todo.Id;
                 if (todoId > 0)
                 {
@@ -151,6 +153,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                             new Dictionary<string, object>
                             {
                                 {"SelectedTodo", response},
+                                {"EditCaption", EditCaption},
+                                {"IsEditing", IsEditing },
                             });
                     }
                 }
