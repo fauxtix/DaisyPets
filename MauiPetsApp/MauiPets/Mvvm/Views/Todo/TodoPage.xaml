@@ -37,10 +37,10 @@
                            FontAttributes="None" />
                 </Border>
 
-                <Frame HeightRequest="50" CornerRadius="10" HasShadow="True" Margin="10, 6" Padding="2">
+                <Frame HeightRequest="50" CornerRadius="10" HasShadow="True" Margin="2, 5, 2, 20" Padding="2">
                     <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly">
                         <SearchBar x:Name="searchBar" Placeholder="Filter" 
-                                   WidthRequest="250"  TextChanged="SearchBar_TextChanged">
+                                   WidthRequest="200"  TextChanged="SearchBar_TextChanged">
                         </SearchBar>
                         <ImageButton Command="{Binding FilterCompletedCommand}" Aspect="AspectFill"
                             HorizontalOptions="Start" 
@@ -103,17 +103,18 @@
                                             <ColumnDefinition Width="40" />
                                             <ColumnDefinition Width="40" />
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0"
+                                        <Label Grid.Column="0" FontSize="11"
                                            Text="{Binding StartDate, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}"
                                           FontAttributes="Bold" />
-                                        <Label Grid.Column="1"
+                                        <Label Grid.Column="1" FontSize="12"
                                           Text="{Binding Description, Mode=OneWay}"
                                            HorizontalOptions="Start"
                                           VerticalOptions="Start" />
                                         <Switch Grid.Column="2" IsToggled="{Binding Completed}" 
                                                 Toggled="Switch_Toggled"
-                                           HorizontalOptions="Center"
-                                          VerticalOptions="Start" />
+                                                HorizontalOptions="Center"
+                                                Margin="0,0,0,10"
+                                                VerticalOptions="Start" />
                                         <!--<Switch Grid.Column="3" IsToggled="{Binding Generated}"
                                            HorizontalOptions="Center" 
                                           VerticalOptions="Start" />-->

@@ -58,7 +58,7 @@ public partial class TodoBaseViewModel : ObservableObject
             StartDate = DateTime.Now.Date.ToShortDateString(),
             EndDate = DateTime.Now.Date.AddDays(1).ToShortDateString(),
             Description = "",
-            CategoryId = 0,
+            CategoryId = 1, // dummy value
             Completed = 0,
             Generated = 1,
         };

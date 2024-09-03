@@ -48,14 +48,14 @@
             HeightRequest="40"
             HorizontalOptions="FillAndExpand">
                 <HorizontalStackLayout VerticalOptions="Center"
-                               Spacing="8">
+                                       Spacing="8">
                     <Image Source="tasks.png"
-                   WidthRequest="24"  
-                        HeightRequest="24"
-                        VerticalOptions="Center"
-                        HorizontalOptions="Start"
-                        Margin="5,0,8,0"/>
-                        <Label VerticalTextAlignment="Center"
+                           WidthRequest="24"  
+                           HeightRequest="24"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           Margin="5,0,8,0"/>
+                    <Label VerticalTextAlignment="Center"
                            HorizontalTextAlignment="Center"
                            FontSize="Medium"
                            FontAttributes="Bold"
@@ -88,7 +88,7 @@
                 <Label Text="Movimento" 
                            Grid.Row="0"
                            Grid.Column="0"
-                           FontSize="Small"
+                           FontSize="13"
 			               VerticalOptions="Center"/>
 
                 <DatePicker x:Name="TransactionDate"
@@ -100,7 +100,7 @@
                 <Label Text="Descrição"
                                        Grid.Row="1"
                                        Grid.Column="0"
-                                       FontSize="Small"
+                                       FontSize="13"
 			                           VerticalOptions="Start"/>
                 <Editor x:Name="TodoDescription"
                         Text="{Binding SelectedTodo.Description}" 
@@ -111,13 +111,13 @@
                 <Label Text="Terminado"
                        Grid.Row="2"
                        Grid.Column="0"
-                       FontSize="Small"
+                       FontSize="13"
                        IsVisible="{Binding IsEditing}"
 			           VerticalOptions="Start"/>
 
                 <Switch Grid.Row="2" 
                         Grid.Column="1" IsToggled="{Binding SelectedTodo.Completed}"
-                        HorizontalOptions="Start"
+                        HorizontalOptions="Start" 
                         IsVisible="{Binding IsEditing}"
                         VerticalOptions="Start" />
 

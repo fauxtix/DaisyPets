@@ -115,7 +115,7 @@
                                 <Label Text="Nome" 
                                        Grid.Row="0"
                                        Grid.Column="0"
-                                       FontSize="Small"
+                                       FontSize="12"   
 			                           VerticalOptions="Center"></Label>
                                 <Entry x:Name="PetName"
 			                           Text="{Binding PetDto.Nome}" 
@@ -125,7 +125,7 @@
                                 <Label Text="Data Nascº"
                                        Grid.Row="1"
                                        Grid.Column="0"
-                                       FontSize="Small"
+                                       FontSize="12"   
 			                           VerticalOptions="Center"></Label>
                                 <DatePicker x:Name="dobPicker" 
   			                            Date="{Binding PetDto.DataNascimento}"
@@ -135,21 +135,21 @@
                                 <Label Text="Doenças"
                                        Grid.Row="2"
                                        Grid.Column="0"
-                                       FontSize="Small"
+                                       FontSize="12"   
 			                           VerticalOptions="Start"></Label>
                                 <Editor x:Name="PetDisease" AutoSize="TextChanges"
 			                           Text="{Binding PetDto.DoencaCronica}"  
                                        Placeholder="Doenças"
 			                           Grid.Row="2"
                                        Grid.Column="1"
-                                       FontSize="Small"
+                                       FontSize="12"   
                                         VerticalOptions="Start"
 			                           HorizontalOptions="Start">
                                 </Editor>
                                 <Label Text="Peso"
                                        Grid.Row="3"
                                        Grid.Column="0"
-                                       FontSize="Small"
+                                       FontSize="12"   
 			                           VerticalOptions="Center"></Label>
                                 <Entry x:Name="PetWeigh" Keyboard="Numeric"
 			                           Text="{Binding PetDto.IdPeso}" 
@@ -169,7 +169,7 @@
                                 <Label Text="Cor"
                                        Grid.Row="4"
                                        Grid.Column="0"
-                                       FontSize="Small"
+                                       FontSize="12"   
 			                           VerticalOptions="Center"></Label>
                                 <Entry x:Name="PetColor"
 			                           Text="{Binding PetDto.Cor}" 
@@ -179,7 +179,7 @@
                                 <Label Text="Medicacao"
                                        Grid.Row="5"
                                        Grid.Column="0"
-                                       FontSize="Small"
+                                       FontSize="12"   
 			                           VerticalOptions="Center"></Label>
                                 <Entry x:Name="PetMedication"
 			                           Text="{Binding PetDto.Medicacao}" 
@@ -190,12 +190,12 @@
                                 <Label Text="Observações"
                                        Grid.Row="6"
                                        Grid.Column="0"
-                                       FontSize="Small"></Label>
+                                       FontSize="12"   ></Label>
                                 <Editor x:Name="PetNotes" AutoSize="TextChanges"
 			                        Text="{Binding PetDto.Observacoes}"
 			                        Grid.Row="6"
                                     Grid.Column="1"
-                                    FontSize="Small"
+                                    FontSize="12"   
                                     Keyboard="Text"
                                     IsSpellCheckEnabled="false"
 			                        VerticalOptions="Start">
@@ -238,7 +238,7 @@
                                 </Grid.ColumnDefinitions>
 
 
-                                <Label Text="Espécie" Grid.Row="0" Grid.Column="0" FontSize="Small"></Label>
+                                <Label Text="Espécie" Grid.Row="0" Grid.Column="0" FontSize="12"   ></Label>
                                 <Picker x:Name="SpeciesPicker" 
                                         Title="Escolha Espécie" 
                                         Grid.Row="0" 
@@ -250,7 +250,7 @@
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
 
-                                <Label Text="Situação" Grid.Row="1" Grid.Column="0" FontSize="Small"></Label>
+                                <Label Text="Situação" Grid.Row="1" Grid.Column="0" FontSize="12"   ></Label>
                                 <Picker x:Name="SituationsPicker"
                                         Title="Escolha Situação" Grid.Row="1" Grid.Column="1"
                                         ItemsSource="{Binding Situations}"
@@ -259,7 +259,7 @@
                                         SelectedIndexChanged="SelectedIndexChanged"
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
-                                <Label Text="Temperamento" Grid.Row="2" Grid.Column="0" FontSize="Small"></Label>
+                                <Label Text="Temperamento" Grid.Row="2" Grid.Column="0" FontSize="12"   ></Label>
                                 <Picker x:Name="TemperamentsPicker"
                                         Title="Escolha Temperamento" Grid.Row="2" Grid.Column="1"
                                         ItemsSource="{Binding Temperaments}" 
@@ -269,7 +269,7 @@
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
 
-                                <Label Text="Raça" Grid.Row="3" Grid.Column="0" FontSize="Small"></Label>
+                                <Label Text="Raça" Grid.Row="3" Grid.Column="0" FontSize="12"   ></Label>
                                 <Picker x:Name="BreedsPicker"
                                         Title="Escolha Raça" Grid.Row="3" Grid.Column="1"
                                         ItemsSource="{Binding Breeds}"
@@ -278,7 +278,7 @@
                                         SelectedIndexChanged="SelectedIndexChanged"
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
-                                <Label Text="Tamanho" Grid.Row="4" Grid.Column="0" FontSize="Small"></Label>
+                                <Label Text="Tamanho" Grid.Row="4" Grid.Column="0" FontSize="12"   ></Label>
                                 <Picker x:Name="SizesPicker"
                                         Title="Éscolha Tamanho" Grid.Row="4" Grid.Column="1"
                                         ItemsSource="{Binding Sizes}"

@@ -58,7 +58,7 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
 
         SelectedTodo = query[nameof(SelectedTodo)] as ToDoDto;
         EditCaption = query[nameof(EditCaption)] as string;
-       IsEditing = (bool) query[nameof(IsEditing)];
+        IsEditing = (bool)query[nameof(IsEditing)];
     }
 
 
@@ -152,7 +152,7 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
     private async Task ShowToastMessage(string text)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        ToastDuration duration = ToastDuration.Short;
+        ToastDuration duration = ToastDuration.Long;
         double fontSize = 14;
 
         var toast = Toast.Make(text, duration, fontSize);

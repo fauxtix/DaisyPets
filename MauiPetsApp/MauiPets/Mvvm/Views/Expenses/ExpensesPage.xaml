@@ -40,22 +40,22 @@
                        HasShadow="True"
                        Padding="10"
                        BackgroundColor="WhiteSmoke"
-                       Margin="0,0,0,20">
-                    <VerticalStackLayout>
-                        <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
-                            <Button Text="Este ano"
+                       Margin="5,0,1,5">
+                    <VerticalStackLayout >
+                        <HorizontalStackLayout Spacing="15" HorizontalOptions="Center" >
+                            <Button Text="Este ano" FontSize="12"
                                     Command="{Binding FilterExpensesByYearCommand}"
                                     BackgroundColor="#3498db"  
                                 TextColor="White"
                                     CornerRadius="20"
                                     BorderColor="Transparent" />
-                            <Button Text="Este mês"
+                            <Button Text="Este mês" FontSize="12"
                                     Command="{Binding FilterExpensesByMonthCommand}"
                                     BackgroundColor="#e74c3c"  
                                     TextColor="White"
                                     CornerRadius="20"
                                     BorderColor="Transparent" />
-                            <Button Text="Todas"
+                            <Button Text="Todas" FontSize="12"
                                     Command="{Binding GetExpensesCommand}"
                                     BackgroundColor="Gold"  
                                         TextColor="Black"
