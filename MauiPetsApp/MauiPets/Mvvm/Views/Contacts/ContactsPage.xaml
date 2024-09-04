@@ -19,7 +19,7 @@
 
     <ScrollView>
         <VerticalStackLayout>
-            <Grid RowDefinitions="100, Auto,100*" ColumnDefinitions=".70*, .30*">
+            <Grid RowDefinitions="*, *,*" ColumnDefinitions=".70*, .30*">
                 <Border Grid.Row="0" HorizontalOptions="Center" Grid.ColumnSpan="2"
                         StrokeShape="RoundRectangle 22,22,22,22" 
                         StrokeThickness="1" HeightRequest="80">
@@ -46,11 +46,11 @@
                     <ListView.ItemTemplate>
                         <DataTemplate >
                             <ViewCell >
-                                <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand">
+                                <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                     <StackLayout Orientation="Vertical" HorizontalOptions="Start" >
                                         <Label Text="{Binding Nome}" FontAttributes="Bold" 
                                                FontSize="13"/>
-                                        <Label Margin="0, 5, 0, 10" Text="{Binding Movel}" FontSize="13" FontAttributes="Italic" 
+                                        <Label Margin="0, 0, 0, 10" Text="{Binding Movel}" FontSize="12" FontAttributes="Italic" 
                                                CharacterSpacing="1.8"/>
                                     </StackLayout>
                                 </StackLayout>

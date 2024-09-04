@@ -57,7 +57,7 @@
                            Margin="5,0,8,0"/>
                     <Label VerticalTextAlignment="Center"
                            HorizontalTextAlignment="Center"
-                           FontSize="Medium"
+                           FontSize="16"
                            FontAttributes="Bold"
                            TextColor="Green"
                            Text="{Binding EditCaption}"
@@ -88,7 +88,7 @@
                 <Label Text="Movimento" 
                            Grid.Row="0"
                            Grid.Column="0"
-                           FontSize="13"
+                           FontSize="12"
 			               VerticalOptions="Center"/>
 
                 <DatePicker x:Name="TransactionDate"
@@ -96,22 +96,24 @@
 			               Grid.Row="0"
                            FontAttributes="Bold" 
                            Grid.Column="1"
+                            FontSize="12"
 			               VerticalOptions="Center"/>
                 <Label Text="Descrição"
                                        Grid.Row="1"
                                        Grid.Column="0"
-                                       FontSize="13"
+                                       FontSize="12"
 			                           VerticalOptions="Start"/>
                 <Editor x:Name="TodoDescription"
                         Text="{Binding SelectedTodo.Description}" 
 			            Grid.Row="1"
+                        FontSize="12"
                         Grid.Column="1"
 			            VerticalOptions="Start"/>
 
                 <Label Text="Terminado"
                        Grid.Row="2"
                        Grid.Column="0"
-                       FontSize="13"
+                       FontSize="12"
                        IsVisible="{Binding IsEditing}"
 			           VerticalOptions="Start"/>
 

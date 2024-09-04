@@ -26,8 +26,11 @@
                 <Setter Property="FontSize" Value="12"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
+            <Style x:Key="MediumLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
             <Style x:Key="LargeLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontSize" Value="14"/>
             </Style>
             <Color x:Key="LightBackground">#FAF9F8</Color>
             <Color x:Key="DarkBackground">Black</Color>
@@ -60,7 +63,7 @@
                 <Frame Grid.Row="1" CornerRadius="30" HasShadow="True" Margin="0,5,0,5" BorderColor="Black" HeightRequest="65" WidthRequest="200">
                     <Label Style="{StaticResource LargeLabel}" 
                    FontAttributes="Bold"
-                   FontSize="Medium"
+                   FontSize="18"
                    TextColor="Black"
                    Text="{Binding PetVM.Nome}" 
                    HorizontalOptions="Center"
@@ -82,23 +85,23 @@
                                 <ColumnDefinition Width="120" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Data Nascº</Label>
+                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MediumLabel}" >Data Nascº</Label>
                             <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}"  Text="{Binding PetVM.DataNascimento, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}" />
-                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabelBold}"  >Espécie</Label>
+                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Espécie</Label>
                             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.EspecieAnimal}" />
-                            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabelBold}"  >Género</Label>
+                            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Género</Label>
                             <Label Grid.Row="2" Grid.Column="1"  Style="{StaticResource MediumLabelBold}" Text="{Binding Gender}" />
-                            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Raça</Label>
+                            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource MediumLabel}" >Raça</Label>
                             <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.RacaAnimal}" />
-                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Temperamento</Label>
+                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabel}" >Temperamento</Label>
                             <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TemperamentoAnimal}" />
-                            <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Medicação</Label>
+                            <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource MediumLabel}" >Medicação</Label>
                             <Label Grid.Row="5" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.MedicacaoAnimal}" />
-                            <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource MediumLabelBold}"  >Doença crónica</Label>
+                            <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Doença crónica</Label>
                             <Label Grid.Row="6" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DoencaCronica}" />
-                            <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource MediumLabelBold}"  >Tamanho</Label>
+                            <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Tamanho</Label>
                             <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TamanhoAnimal}" />
-                            <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Condição</Label>
+                            <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource MediumLabel}" >Condição</Label>
                             <Label Grid.Row="8" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.SituacaoAnimal}" />
                         </Grid>
                     </Frame>
@@ -142,17 +145,17 @@
                                 <ColumnDefinition Width="120" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Chipado</Label>
+                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MediumLabel}" >Chipado</Label>
                             <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Chipped}" />
-                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Código Chip</Label>
+                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabel}" >Código Chip</Label>
                             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.NumeroChip}" />
-                            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Data Chip</Label>
+                            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabel}" >Data Chip</Label>
                             <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataChip}" />
-                            <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Esterilizado</Label>
+                            <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="0" Style="{StaticResource MediumLabel}" >Esterilizado</Label>
                             <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Sterilized}" />
-                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Padrinho</Label>
+                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabel}" >Padrinho</Label>
                             <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding GodFather}" />
-                            <Label Grid.Row="5"  Margin="0,5,0,0" Grid.Column="0" Style="{StaticResource MediumLabelBold}" >Notas</Label>
+                            <Label Grid.Row="5"  Margin="0,5,0,0" Grid.Column="0" Style="{StaticResource MediumLabel}" >Notas</Label>
                             <Label Grid.Row="5"  Margin="0,5,0,0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.Observacoes}" />
                         </Grid>
                     </Frame>
@@ -181,7 +184,7 @@
 
                             <Frame Grid.Row="4" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent">
                                 <Grid Padding="2" RowDefinitions="Auto, Auto">
-                                    <Grid  ColumnDefinitions="70, 160, *" 
+                                    <Grid  ColumnDefinitions=".3*, .4*, .3*" 
                                        ColumnSpacing="2"
                                        Grid.Row="0">
                                         <Label FontAttributes="Bold" FontSize="10" Text="Toma" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
@@ -230,7 +233,7 @@
                                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=EditVaccineCommand}"
                                                                 CommandParameter="{Binding .}"/>
                                                             </Frame.GestureRecognizers>
-                                                            <Grid ColumnSpacing="2" ColumnDefinitions="70, 160, *" Margin="0,3">
+                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".3*, .4*, .3*" Margin="0,3">
                                                                 <Label FontAttributes="Bold" FontSize="10"  Grid.Column="0"  Text="{Binding DataTomaFormatada}" HorizontalOptions="Center"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="1" Text="{Binding Marca}"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
@@ -270,7 +273,7 @@
 
                             <Frame Grid.Row="5" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent">
                                 <Grid Padding="2" RowDefinitions="Auto, Auto">
-                                    <Grid ColumnDefinitions="70, 160, *" ColumnSpacing="2"
+                                    <Grid ColumnDefinitions=".33*, .4*, .27*" ColumnSpacing="2"
                           Grid.Row="0">
                                         <Label FontAttributes="Bold" FontSize="10" Text="Toma" Grid.Row="0" Grid.Column="0" />
                                         <Label FontAttributes="Bold" FontSize="10" Text="Marca" Grid.Row="0" Grid.Column="1"/>
@@ -313,7 +316,7 @@
                                                            HasShadow="True" 
                                                            Margin="3" 
                                                            Padding="2">
-                                                            <Grid ColumnSpacing="2" ColumnDefinitions="70, 160, *" Margin="3,3">
+                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".33*, .4*, .27*" Margin="3,3">
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="0" Text="{Binding DataAplicacao}"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="1" Text="{Binding Marca}"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="2" Text="{Binding DataProximaAplicacao}"
@@ -352,7 +355,7 @@
                         <mct:Expander.Content>
                             <Frame Grid.Row="6" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
                                 <Grid Padding="2" RowDefinitions="Auto, Auto">
-                                    <Grid ColumnDefinitions="100, 150, *" ColumnSpacing="4"
+                                    <Grid ColumnDefinitions=".33*, .4*, .27*" ColumnSpacing="4"
                           Grid.Row="0">
                                         <Label FontSize="10" Text="Compra" Grid.Row="0" Grid.Column="0" />
                                         <Label FontSize="10" Text="Marca" Grid.Row="0" Grid.Column="1"/>
@@ -379,7 +382,7 @@
                                         </CollectionView.ItemsLayout>
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate x:DataType="models:RacaoVM">
-                                                <Grid ColumnSpacing="4" ColumnDefinitions="100, 150, *">
+                                                <Grid ColumnSpacing="4" ColumnDefinitions=".33*, .4*, .27*">
                                                     <Label Grid.Column="0" FontAttributes="Bold" FontSize="10" Text="{Binding DataCompra}"/>
                                                     <Label Grid.Column="1" FontSize="10" Text="{Binding Marca}"/>
                                                     <Label Grid.Column="2" FontSize="10" Text="{Binding QuantidadeDiaria, StringFormat='{0}' }"/>

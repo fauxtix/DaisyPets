@@ -67,24 +67,26 @@
                 <Label Text="Movimento" 
                            Grid.Row="0"
                            Grid.Column="0"
-                           FontSize="Small"
+                           FontSize="13"
 			               VerticalOptions="Center">
                 </Label>
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding DespesaDto.DataMovimento, Converter={StaticResource stringToDateConverter}}"  
                            Style="{StaticResource MediumLabelBold}"
 			               Grid.Row="0"
+                            FontSize="12"
                            FontAttributes="Bold" 
                            Grid.Column="1"
 			               VerticalOptions="Center"/>
                 <Label Text="Valor"
                                        Grid.Row="1"
                                        Grid.Column="0"
-                                       FontSize="Small"
+                                       FontSize="13"
 			                           VerticalOptions="Center"></Label>
                 <Entry x:Name="TransactionAmount" Keyboard="Numeric"
 			                           Text="{Binding DespesaDto.ValorPago}" 
 			                           Grid.Row="1"
+                                        FontSize="12"
                                        Grid.Column="1"
 			                           VerticalOptions="Center">
                     <Entry.Behaviors>
@@ -99,11 +101,12 @@
                 </Entry>
                 <Label Text="Categoria" 
                        Grid.Row="2" 
-                       Grid.Column="0" FontSize="Small"></Label>
+                       Grid.Column="0" FontSize="13"/>
                 <Picker x:Name="PickerCategoriaTipoDespesa" 
                         Title="Categoria" 
                         Grid.Row="2" 
-                        Grid.Column="1"                       
+                        Grid.Column="1"             
+                        FontSize="12"
                         ItemsSource="{Binding CategoriaDespesas}"
                         SelectedItem="{Binding TipoCategoriaDespesaSelecionada}"
                         SelectedIndex="{Binding IndiceCategoriaDespesa, Mode=TwoWay}"
@@ -113,10 +116,11 @@
                 <Label x:Name="LabelTipoDespesa" Text="Tipo"
                         IsVisible="{Binding IsEditing}"
                        Grid.Row="3" 
-                       Grid.Column="0" FontSize="Small"></Label>
+                       Grid.Column="0" FontSize="13"></Label>
                 <Picker x:Name="PickerTipoDespesa" 
                         IsVisible="{Binding IsEditing}"
                         Title="Tipo" 
+                        FontSize="12"
                         Grid.Row="3" 
                         Grid.Column="1"
                         ItemsSource="{Binding TipoDespesas}"
@@ -127,13 +131,14 @@
                 </Picker>
                 <Label Text="Observações"
                                        Grid.Row="4"
+                       VerticalOptions="Center"
                                        Grid.Column="0"
-                                       FontSize="Small"></Label>
+                                       FontSize="12"></Label>
                 <Editor x:Name="TransactionNotes" AutoSize="TextChanges"
 			                        Text="{Binding DespesaDto.Notas}"
 			                        Grid.Row="4"
                                     Grid.Column="1"
-                                    FontSize="Small"
+                                    FontSize="12"
                                     Keyboard="Text"
                                     IsSpellCheckEnabled="false"
 			                        VerticalOptions="Start">
