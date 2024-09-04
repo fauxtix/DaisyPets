@@ -16,6 +16,7 @@ namespace MauiPets.WinUI
         /// </summary>
         public App()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzQ1OTUyMUAzMjM0MmUzMDJlMzBuNWZpV3doZVE5UStMMnptWXlxVWlNSmtvemx5VDZ2VmQzM1B3dnRwc2RvPQ==");
             this.InitializeComponent();
         }
 

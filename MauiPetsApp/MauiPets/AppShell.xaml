@@ -8,6 +8,7 @@
     xmlns:contactspage="clr-namespace:MauiPets.Mvvm.Views.Contacts"
     xmlns:expensespage="clr-namespace:MauiPets.Mvvm.Views.Expenses"
     xmlns:todospage="clr-namespace:MauiPets.Mvvm.Views.Todo"
+    xmlns:settingspage="clr-namespace:MauiPets.Mvvm.Views.Settings"
     FlyoutWidth="200"
     FlyoutHeight="250"
     Shell.FlyoutBehavior="Flyout">
@@ -47,5 +48,10 @@
         Icon="tasks.png" 
         ContentTemplate="{DataTemplate todospage:TodoPage}"
         Route="TodoPage" />
+    <ShellContent
+        Title="Settings"
+        Icon="gear.png" 
+        ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
+        Route="MainSettingsPage" />
 
 </Shell>

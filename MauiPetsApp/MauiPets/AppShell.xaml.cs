@@ -1,6 +1,7 @@
 ﻿using MauiPets.Mvvm.Views.Contacts;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPets.Mvvm.Views.Pets;
+using MauiPets.Mvvm.Views.Settings;
 using MauiPets.Mvvm.Views.Todo;
 using MauiPets.Mvvm.Views.Vaccines;
 
@@ -33,6 +34,8 @@ namespace MauiPets
             Routes.Add(nameof(ContactsPage), typeof(ContactsPage));
             Routes.Add(nameof(ContactDetailPage), typeof(ContactDetailPage));
             Routes.Add(nameof(AddOrEditContactPage), typeof(AddOrEditContactPage));
+
+            Routes.Add(nameof(MainSettingsPage), typeof(MainSettingsPage));
 
 
             foreach (var item in Routes)

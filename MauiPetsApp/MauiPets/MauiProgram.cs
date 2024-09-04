@@ -33,6 +33,8 @@ using System.Globalization;
 using MauiPets.Mvvm.ViewModels.Vaccines;
 using MauiPets.Mvvm.Views.Vaccines;
 
+using Syncfusion.Maui.Core.Hosting;
+
 namespace MauiPets
 {
     public static class MauiProgram
@@ -54,6 +56,7 @@ namespace MauiPets
                 .UseMauiCommunityToolkit()
                 .UseLocalNotification();
 
+            builder.ConfigureSyncfusionCore();
 
 #if ANDROID
             using var stream = Assembly.GetExecutingAssembly()
