@@ -50,6 +50,9 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        EditCaption = query[nameof(EditCaption)] as string;
+        IsEditing = (bool)query[nameof(IsEditing)];
+
         if (ContactoVM is null)
         {
             ContactTypeSelectedIndex = 0;

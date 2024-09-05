@@ -46,13 +46,19 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
             {
                 return;
             }
+
+            IsEditing = false;
+            EditCaption = "Editar contacto";
+
             try
             {
                 var _contact = await _contactService.GetContactVMAsync(ContactoVM.Id);
                 await Shell.Current.GoToAsync($"{nameof(AddOrEditContactPage)}", true,
                     new Dictionary<string, object>
                     {
-                    {"ContactoVM", _contact}
+                        {"ContactoVM", _contact},
+                        {"EditCaption", EditCaption},
+                        {"IsEditing", IsEditing },
                     });
 
             }

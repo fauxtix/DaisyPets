@@ -77,6 +77,10 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         TemperamentSelectedIndex = Temperaments.FindIndex(item => item.Id == PetDto.IdTemperamento);
         SituationSelectedIndex = Situations.FindIndex(item => item.Id == PetDto.IdSituacao);
         SizeSelectedIndex = Sizes.FindIndex(item => item.Id == PetDto.IdTamanho);
+
+        EditCaption = query[nameof(EditCaption)] as string;
+        IsEditing = (bool)query[nameof(IsEditing)];
+
     }
     private void ExecuteUpdateSelectedItem()
     {

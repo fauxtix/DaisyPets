@@ -37,6 +37,8 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        EditCaption = query[nameof(EditCaption)] as string;
+        IsEditing = (bool)query[nameof(IsEditing)];
 
         DespesaDto = query[nameof(DespesaDto)] as DespesaDto;
 

@@ -28,6 +28,8 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         private async Task AddExpenseAsync()
         {
             IsEditing = false;
+            EditCaption = "Nova despesa";
+
             DespesaDto = new()
             {
                 DataCriacao = DateTime.Now.Date.ToShortDateString(),
@@ -46,6 +48,9 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         {
             if (expense?.Id > 0)
             {
+                IsEditing = false;
+                EditCaption = "Editar Despesa";
+
                 var response = await _service.GetByIdAsync(expense.Id);
                 if (response != null)
                 {
@@ -133,7 +138,9 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
             await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,
                 new Dictionary<string, object>
                 {
-                    {"DespesaDto", expenseDto}
+                    {"DespesaDto", expenseDto},
+                    {"EditCaption", EditCaption},
+                    {"IsEditing", IsEditing },
                 });
         }
 

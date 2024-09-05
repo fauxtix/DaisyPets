@@ -43,6 +43,13 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         bool isBusy;
         public bool IsNotBusy => !IsBusy;
 
+        [ObservableProperty]
+        private bool isEditing;
+
+        [ObservableProperty]
+        private string _editCaption;
+
+
         [RelayCommand]
         private void OnPickerSelected()
         {
@@ -53,6 +60,9 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         [RelayCommand]
         private async Task AddContactAsync()
         {
+            IsEditing = false;
+            EditCaption = "Novo contacto";
+
             ContactoVM contact = new()
             {
                 eMail = "",
@@ -66,7 +76,9 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
             await Shell.Current.GoToAsync($"{nameof(AddOrEditContactPage)}", true,
                 new Dictionary<string, object>
                 {
-                    {"ContactoVM", contact}
+                    {"ContactoVM", contact},
+                    {"EditCaption", EditCaption},
+                    {"IsEditing", IsEditing },
                 });
         }
 

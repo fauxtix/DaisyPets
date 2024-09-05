@@ -43,6 +43,34 @@
     </ContentPage.ToolbarItems>
 
     <VerticalStackLayout Margin="2, 10, 0, 0">
+        <VerticalStackLayout>
+            <Border Stroke="#2B0B98"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 22"
+                        Background="#fff"
+                        Padding="8,4"
+                        Margin="4"
+                        HeightRequest="40"
+                        HorizontalOptions="FillAndExpand">
+                <HorizontalStackLayout VerticalOptions="Center"
+                                Spacing="8">
+                    <Image Source="tasks.png"
+                                        WidthRequest="24"  
+                                        HeightRequest="24"
+                                        VerticalOptions="Center"
+                                        HorizontalOptions="Start"
+                                        Margin="5,0,8,0"/>
+                    <Label VerticalTextAlignment="Center"
+                                    HorizontalTextAlignment="Center"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    TextColor="Green"
+                                    Text="{Binding EditCaption}"
+                                    HorizontalOptions="FillAndExpand"/>
+                </HorizontalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+
         <Border Stroke="#2B0B98"
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 22"
@@ -50,7 +78,6 @@
                     Padding="8,4"
                     Margin="4"
                     HorizontalOptions="FillAndExpand">
-
             <Grid Margin="4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"></RowDefinition>

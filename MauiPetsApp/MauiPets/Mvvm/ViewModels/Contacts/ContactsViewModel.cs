@@ -1,11 +1,9 @@
-﻿        using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.Models;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace MauiPets.Mvvm.ViewModels.Contacts
 {

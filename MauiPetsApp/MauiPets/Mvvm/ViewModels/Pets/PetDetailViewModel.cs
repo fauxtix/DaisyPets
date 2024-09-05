@@ -69,13 +69,20 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         {
             return;
         }
+
+        IsEditing = true;
+        EditCaption = "Edição de registo";
+
         try
         {
             var petDto = await _petService.FindByIdAsync(PetVM.Id);
             await Shell.Current.GoToAsync($"{nameof(PetAddOrEditPage)}", true,
                 new Dictionary<string, object>
                 {
-                    {"PetDto", petDto}
+                    {"PetDto", petDto},
+                    {"EditCaption", EditCaption},
+                    {"IsEditing", IsEditing },
+
                 });
 
         }
@@ -90,7 +97,6 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
     {
         try
         {
-//            IsEditing = true;
             var vaccineId = vaccine.Id;
             if (vaccineId > 0)
             {

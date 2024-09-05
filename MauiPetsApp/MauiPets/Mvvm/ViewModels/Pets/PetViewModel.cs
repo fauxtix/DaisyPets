@@ -126,6 +126,9 @@ public partial class PetViewModel : BaseViewModel
     [RelayCommand]
     private async Task AddPetAsync()
     {
+        EditCaption = "Novo registo";
+        IsEditing = false;
+
         PetDto = new PetDto()
         {
             Chip = "",
@@ -146,7 +149,9 @@ public partial class PetViewModel : BaseViewModel
         await Shell.Current.GoToAsync($"{nameof(PetAddOrEditPage)}", true,
             new Dictionary<string, object>
             {
-                    {"PetDto", PetDto}
+                    {"PetDto", PetDto},
+                    {"EditCaption", EditCaption},
+                    {"IsEditing", IsEditing },
             });
     }
 

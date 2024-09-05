@@ -33,7 +33,9 @@ namespace MauiPets.Mvvm.Views.Expenses
                 await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,
                     new Dictionary<string, object>
                     {
-                        { "DespesaVM", item }
+                        {"DespesaVM", item },
+                        {"EdtCaption","Editar Despesa"},
+                        {"IsEditing", true },
                     });
             }
         }

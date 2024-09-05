@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace MauiPets.Mvvm.ViewModels.Pets
 {
@@ -90,5 +88,12 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         bool isBusy;
         public bool IsNotBusy => !IsBusy;
+
+        [ObservableProperty]
+        private bool isEditing;
+
+        [ObservableProperty]
+        private string _editCaption;
+
     }
 }

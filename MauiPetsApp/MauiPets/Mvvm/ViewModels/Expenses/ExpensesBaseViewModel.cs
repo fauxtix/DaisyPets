@@ -51,6 +51,9 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [ObservableProperty]
         private string lookupDescription;
 
+        [ObservableProperty]
+        private string _editCaption;
+
     }
 }
 
