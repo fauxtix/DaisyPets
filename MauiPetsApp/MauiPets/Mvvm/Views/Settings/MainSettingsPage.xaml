@@ -2,11 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Settings.MainSettingsPage"
+             xmlns:controls="clr-namespace:MauiPets.Controls"             
+             xmlns:viewModels="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
-             Title="MainSettingsPage">
+             x:DataType="viewModels:MainSettingsViewModel"
+             Title="Settings">
 
-    <VerticalStackLayout VerticalOptions="Center" Margin="10, 0, 10, 0">
-        <!-- Frame with Rounded Corners -->
+    <!--<StackLayout Padding="10">
+        <controls:SettingsCardControl 
+            LabelText="Raça"
+            ButtonCommand="{Binding NavigateToTableCommand}"
+            CommandParameter="Raca" />
+
+        <controls:SettingsCardControl 
+            LabelText="Espécies"
+            ButtonCommand="{Binding NavigateToTableCommand}"
+            CommandParameter="Especie" />
+    </StackLayout>-->
+
+    <VerticalStackLayout>
         <Frame CornerRadius="15"
                HasShadow="True"
                BackgroundColor="SteelBlue"
@@ -43,21 +57,7 @@
 
                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,4,0,8"/>
 
-                    <Frame Grid.Row="2"
-                           CornerRadius="15"
-                           HasShadow="True"
-                           BackgroundColor="White"
-                           BorderColor="Gray"
-                           Margin="10">
-                        <Label Text="Antigamente, a vida dos cães circunscrevia-se às quintas e era 
-imperativo que os animais tivessem um propósito. Com base nestas definições, as diversas raças de cães foram divididas em vários grupos e secções. 
-O conjunto das raças caninas foi redefinida em 1983 por Raymond Triquet. 
-Este especialista identificou 10 grupos com traços característicos em comum" 
-                               FontAttributes="None" TextColor="Black" FontSize="16"
-                               HorizontalOptions="Start" VerticalOptions="End" Padding="2,0,0,2"/>
-                    </Frame>
-
-                    <Button Grid.Row="3" 
+                    <Button x:Name="Raca" Grid.Row="3" 
                             Text="Manutenção" 
                             HorizontalOptions="Center" 
                             VerticalOptions="Center" 
@@ -68,10 +68,118 @@ Este especialista identificou 10 grupos com traços característicos em comum"
                             Margin="0,10"
                             FontSize="15"
                             FontAttributes="Bold"
+                            Clicked="RacaButton_Clicked"
                             BorderWidth="0" 
                             BorderColor="Transparent"/>
                 </Grid>
             </cards:SfCardView>
         </Frame>
+        <Frame CornerRadius="15"
+               HasShadow="True"
+               BackgroundColor="SteelBlue"
+               Margin="10">
+            <cards:SfCardView Background="AliceBlue">
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="gear.png" 
+                               Grid.Column="0" 
+                               HeightRequest="40" 
+                               WidthRequest="40" 
+                               VerticalOptions="Center" 
+                               Margin="0,0,10,0"/>
+                        <Label Text="Espécies" 
+                               Grid.Column="1" 
+                               HorizontalOptions="Start" 
+                               TextColor="Green" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                    </Grid>
+
+                    <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,4,0,8"/>
+
+                    <Button x:Name="Especies" Grid.Row="3" 
+                            Text="Manutenção" 
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center" 
+                            BackgroundColor="#6200EE"  
+                        TextColor="White" 
+                            CornerRadius="14" 
+                            Padding="10" 
+                            Margin="0,10"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            Clicked= "Especie_Clicked"
+                            BorderWidth="0" 
+                            BorderColor="Transparent"/>
+                </Grid>
+            </cards:SfCardView>
+        </Frame>
+        <Frame CornerRadius="15"
+               HasShadow="True"
+               BackgroundColor="SteelBlue"
+               Margin="10">
+            <cards:SfCardView Background="AliceBlue">
+                <Grid Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="gear.png" 
+                               Grid.Column="0" 
+                               HeightRequest="40" 
+                               WidthRequest="40" 
+                               VerticalOptions="Center" 
+                               Margin="0,0,10,0"/>
+                        <Label Text="Medicação" 
+                               Grid.Column="1" 
+                               HorizontalOptions="Start" 
+                               TextColor="Green" 
+                               FontSize="20" 
+                               FontAttributes="Bold"
+                               VerticalOptions="Center"/>
+                    </Grid>
+
+                    <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,4,0,8"/>
+
+                    <Button x:Name="Medicacao" Grid.Row="3" 
+                            Text="Manutenção" 
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center" 
+                            BackgroundColor="#6200EE"  
+                        TextColor="White" 
+                            CornerRadius="14" 
+                            Padding="10" 
+                            Margin="0,10"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            Clicked= "Medicacao_Clicked"
+                            BorderWidth="0" 
+                            BorderColor="Transparent"/>
+                </Grid>
+            </cards:SfCardView>
+        </Frame>
+
     </VerticalStackLayout>
 </ContentPage>

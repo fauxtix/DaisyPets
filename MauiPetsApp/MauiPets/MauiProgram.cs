@@ -34,6 +34,8 @@ using MauiPets.Mvvm.ViewModels.Vaccines;
 using MauiPets.Mvvm.Views.Vaccines;
 
 using Syncfusion.Maui.Core.Hosting;
+using MauiPets.Mvvm.ViewModels.Settings;
+using MauiPets.Mvvm.Views.Settings;
 
 namespace MauiPets
 {
@@ -111,6 +113,11 @@ namespace MauiPets
             builder.Services.AddTransient<VaccineViewModel>();
             builder.Services.AddTransient<VaccineAddOrEditModel>();
 
+            builder.Services.AddTransient<SettingsViewModel>();
+            builder.Services.AddTransient<SettingsAddOrEditViewModel>();
+            builder.Services.AddTransient<MainSettingsBaseViewModel>();
+            builder.Services.AddTransient<MainSettingsViewModel>();
+
 
             // Views
             builder.Services.AddSingleton<PetsPage>();
@@ -128,6 +135,11 @@ namespace MauiPets
             builder.Services.AddTransient<TodoAddOrEditPage>();
 
             builder.Services.AddTransient<VaccineAddOrEditPage>();
+
+            builder.Services.AddTransient<MainSettingsPage>();
+            builder.Services.AddTransient<SettingsManagementPage>();
+            builder.Services.AddTransient<SettingsAddOrEditPage>();
+
 
             // Database context
 
@@ -149,7 +161,6 @@ namespace MauiPets
             builder.Services.AddScoped<IValidator<AppointmentDataDto>, Appointmentvalidator>();
             builder.Services.AddScoped<IValidator<ContactoVM>, ContactValidator>();
             builder.Services.AddScoped<IValidator<VacinaDto>, VacinaValidator>();
-
 
             // Services
             builder.Services.AddTransient<IPetService, PetService>();

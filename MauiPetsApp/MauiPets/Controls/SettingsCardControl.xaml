@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiPets.Controls.SettingsCardControl">
+    <Frame CornerRadius="15"
+           HasShadow="True"
+           BackgroundColor="SteelBlue"
+           Margin="10">
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Image Source="gear.png" 
+                       Grid.Column="0" 
+                       HeightRequest="40" 
+                       WidthRequest="40" 
+                       VerticalOptions="Center" 
+                       Margin="0,0,10,0"/>
+                <Label Text="{Binding LabelText, Source={RelativeSource Mode=TemplatedParent}}" 
+                       Grid.Column="1" 
+                       HorizontalOptions="Start" 
+                       TextColor="Green" 
+                       FontSize="20" 
+                       FontAttributes="Bold"
+                       VerticalOptions="Center"/>
+            </Grid>
+
+            <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,4,0,8"/>
+
+            <Button Grid.Row="3" 
+                    Text="Manutenção" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center" 
+                    BackgroundColor="#6200EE"  
+                    TextColor="White" 
+                    CornerRadius="14" 
+                    Padding="10" 
+                    Margin="0,10"
+                    FontSize="15"
+                    FontAttributes="Bold"
+                    Command="{Binding ButtonCommand, Source={RelativeSource Mode=TemplatedParent}}"
+                    CommandParameter="{Binding CommandParameter, Source={RelativeSource Mode=TemplatedParent}}"
+                    BorderWidth="0" 
+                    BorderColor="Transparent"/>
+        </Grid>
+    </Frame>
+</ContentView>

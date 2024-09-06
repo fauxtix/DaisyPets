@@ -27,10 +27,10 @@ namespace MauiPets
                 return;
             }
             // if Notification Action are setup
-            switch (e.ActionId)
-            {
-                // your code goes here
-            }
+            //switch (e.ActionId)
+            //{
+                
+            //}
         }
 
         public static class ViewModelFactory

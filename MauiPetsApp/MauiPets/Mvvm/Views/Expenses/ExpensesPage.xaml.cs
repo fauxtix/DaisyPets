@@ -1,9 +1,5 @@
 using MauiPets.Mvvm.ViewModels.Expenses;
-using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
-using Microsoft.Maui.Controls;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MauiPets.Mvvm.Views.Expenses
 {
@@ -16,7 +12,6 @@ namespace MauiPets.Mvvm.Views.Expenses
             BindingContext = viewModel;
         }
 
-        // Optionally, override OnAppearing if you need to refresh data when the page appears
         protected override void OnAppearing()
         {
             base.OnAppearing();

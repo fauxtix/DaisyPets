@@ -4,7 +4,7 @@ using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 
 namespace MauiPets.Mvvm.Views.Expenses;
 
-[XamlCompilation(XamlCompilationOptions.Compile)]
+//[XamlCompilation(XamlCompilationOptions.Compile)]
 public partial class ExpensesAddOrEditPage : ContentPage
 {
     private ExpenseAddOrEditViewModel _viewModel;

@@ -258,6 +258,8 @@
 		<PackageReference Include="Syncfusion.Licensing" Version="24.1.41" />
 		<PackageReference Include="Syncfusion.Maui.Cards" Version="24.1.41" />
 		<PackageReference Include="Syncfusion.Maui.Core" Version="24.1.41" />
+		<PackageReference Include="Syncfusion.Maui.DataGrid" Version="24.1.41" />
+		<PackageReference Include="Syncfusion.Maui.TabView" Version="24.1.41" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -272,6 +274,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Controls\SettingsCardControl.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Contacts\AddOrEditContactPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -302,6 +307,12 @@
 	  <MauiXaml Update="Mvvm\Views\Settings\MainSettingsPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Settings\SettingsAddOrEditPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Settings\SettingsManagementPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Todo\TodoAddOrEditPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -317,10 +328,6 @@
 	  <None Update="PetsDB.db">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Controls\" />
 	</ItemGroup>
 
 </Project>

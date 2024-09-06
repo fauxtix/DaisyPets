@@ -36,7 +36,8 @@ namespace MauiPets
             Routes.Add(nameof(AddOrEditContactPage), typeof(AddOrEditContactPage));
 
             Routes.Add(nameof(MainSettingsPage), typeof(MainSettingsPage));
-
+            Routes.Add(nameof(SettingsAddOrEditPage), typeof(SettingsAddOrEditPage));
+            Routes.Add(nameof(SettingsManagementPage), typeof(SettingsManagementPage));
 
             foreach (var item in Routes)
             {

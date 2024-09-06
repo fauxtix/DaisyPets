@@ -22,12 +22,10 @@ public partial class PetViewModel : BaseViewModel
 
     private readonly IVacinasService _petVaccinesService;
     IConnectivity _connectivity;
-    IGeolocation _geolocation;
-    public PetViewModel(IConnectivity connectivity, IGeolocation geolocation, IPetService petService, IVacinasService petVaccinesService)
+    public PetViewModel(IConnectivity connectivity, IPetService petService, IVacinasService petVaccinesService)
     {
         _petService = petService;
         _connectivity = connectivity;
-        _geolocation = geolocation;
         _petService = petService;
         _petVaccinesService = petVaccinesService;
     }
