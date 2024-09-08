@@ -136,7 +136,9 @@ namespace MauiPets.Mvvm.ViewModels.Settings
                     new Dictionary<string, object>
                     {
                             {"TableName", TableName},
+                            {"Title", Title},
                     });
+
             }
             IsBusy = false;
         }

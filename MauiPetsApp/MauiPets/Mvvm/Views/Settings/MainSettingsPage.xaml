@@ -8,188 +8,145 @@
              x:DataType="viewModels:MainSettingsViewModel"
              Title="Settings">
 
-    <StackLayout Padding="10">
-        <controls:SettingsCardControl 
-            LabelText="Raça"
-            TableName="Raca"
-            Title="Raças"
-            ButtonCommand="{Binding NavigateToTableCommand}" />
+    <ScrollView>
+        <StackLayout Padding="20">
+            <Label Text="Desparasitantes" FontSize="Medium" FontAttributes="Bold" Padding="0,5"/>
+            <Grid ColumnSpacing="10" RowSpacing="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="0"
+                    LabelText="Interno"
+                    TableName="TipoDesparasitanteInterno"
+                    Title="Desparasitante (I)"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
 
-        <controls:SettingsCardControl 
-            LabelText="Espécies"
-            TableName="Especie"
-            Title="Espécies"
-            ButtonCommand="{Binding NavigateToTableCommand}" />
-        <controls:SettingsCardControl 
-            LabelText="Medicação"
-            TableName="Medicacao"
-            Title="Medicamentos"
-            ButtonCommand="{Binding NavigateToTableCommand}" />
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="1"
+                    LabelText="Externo"
+                    TableName="TipoDesparasitanteExterno"
+                    Title="Desparasitante (E)"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+            </Grid>
+            <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,8,0,8"/>
+            <Label Text="Despesas" FontSize="Medium" FontAttributes="Bold" Padding="0,5"/>
+            <Grid ColumnSpacing="10" RowSpacing="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="0" Margin="0, 10, 0, 0"
+                    LabelText="Tipo"
+                    TableName="TipoDespesa"
+                    Title="Tipo"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
 
-    </StackLayout>
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="1" Margin="0, 10, 0, 0"
+                    LabelText="Categoria"
+                    TableName="CategoriaDespesa"
+                    Title="Categoria"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+            </Grid>
+            <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,8,0,8"/>
+
+            <Grid ColumnSpacing="10" RowSpacing="10">
+                <!-- Define Grid with 2 columns (adjust for larger screens if needed) -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- First Row -->
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="0" Margin="0, 0, 0, 10"
+                    LabelText="Raças"
+                    TableName="Raca"
+                    Title="Raças"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="1" Margin="0, 0, 0, 10"
+                    LabelText="Espécies"
+                    TableName="Especie"
+                    Title="Espécies"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+            </Grid>
+            <Grid ColumnSpacing="10" RowSpacing="10">
+                <!-- Define Grid with 2 columns (adjust for larger screens if needed) -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <controls:SettingsCardControl 
+                    Grid.Row="1" Grid.Column="0"
+                    LabelText="Medicação"
+                    TableName="Medicacao"
+                    Title="Medicamentos"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+
+                <controls:SettingsCardControl 
+                    Grid.Row="1" Grid.Column="1"
+                    LabelText="Rações"
+                    TableName="MarcaRacao"
+                    Title="Rações"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+            </Grid>
+
+            <Grid ColumnSpacing="10" RowSpacing="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Fourth Row -->
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="0" Margin="0, 10, 0, 0"
+                    LabelText="Temperamentos"
+                    TableName="Temperamento"
+                    Title="Temperamentos"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="1" Margin="0, 10, 0, 0"
+                    LabelText="Situação"
+                    TableName="Situacao"
+                    Title="Situação"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+            </Grid>
+            <!-- Fifth Row -->
+            <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,8,0,8"/>
 
 
+            <!-- Sixth Row -->
+            <Grid ColumnSpacing="10" RowSpacing="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-    <!--<VerticalStackLayout>
-        <Frame CornerRadius="15"
-               HasShadow="True"
-               BackgroundColor="SteelBlue"
-               Margin="10">
-            <cards:SfCardView Background="AliceBlue">
-                <Grid Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Image Source="gear.png" 
-                               Grid.Column="0" 
-                               HeightRequest="40" 
-                               WidthRequest="40" 
-                               VerticalOptions="Center" 
-                               Margin="0,0,10,0"/>
-                        <Label Text="Raça" 
-                               Grid.Column="1" 
-                               HorizontalOptions="Start" 
-                               TextColor="Green" 
-                               FontSize="20" 
-                               FontAttributes="Bold"
-                               VerticalOptions="Center"/>
-                    </Grid>
-
-                    <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,4,0,8"/>
-
-                    <Button x:Name="Raca" Grid.Row="3" 
-                            Text="Manutenção" 
-                            HorizontalOptions="Center" 
-                            VerticalOptions="Center" 
-                            BackgroundColor="#6200EE"  
-                        TextColor="White" 
-                            CornerRadius="14" 
-                            Padding="10" 
-                            Margin="0,10"
-                            FontSize="15"
-                            FontAttributes="Bold"
-                            Clicked="RacaButton_Clicked"
-                            BorderWidth="0" 
-                            BorderColor="Transparent"/>
-                </Grid>
-            </cards:SfCardView>
-        </Frame>
-        <Frame CornerRadius="15"
-               HasShadow="True"
-               BackgroundColor="SteelBlue"
-               Margin="10">
-            <cards:SfCardView Background="AliceBlue">
-                <Grid Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Image Source="gear.png" 
-                               Grid.Column="0" 
-                               HeightRequest="40" 
-                               WidthRequest="40" 
-                               VerticalOptions="Center" 
-                               Margin="0,0,10,0"/>
-                        <Label Text="Espécies" 
-                               Grid.Column="1" 
-                               HorizontalOptions="Start" 
-                               TextColor="Green" 
-                               FontSize="20" 
-                               FontAttributes="Bold"
-                               VerticalOptions="Center"/>
-                    </Grid>
-
-                    <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,4,0,8"/>
-
-                    <Button x:Name="Especies" Grid.Row="3" 
-                            Text="Manutenção" 
-                            HorizontalOptions="Center" 
-                            VerticalOptions="Center" 
-                            BackgroundColor="#6200EE"  
-                        TextColor="White" 
-                            CornerRadius="14" 
-                            Padding="10" 
-                            Margin="0,10"
-                            FontSize="15"
-                            FontAttributes="Bold"
-                            Clicked= "Especie_Clicked"
-                            BorderWidth="0" 
-                            BorderColor="Transparent"/>
-                </Grid>
-            </cards:SfCardView>
-        </Frame>
-        <Frame CornerRadius="15"
-               HasShadow="True"
-               BackgroundColor="SteelBlue"
-               Margin="10">
-            <cards:SfCardView Background="AliceBlue">
-                <Grid Padding="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Image Source="gear.png" 
-                               Grid.Column="0" 
-                               HeightRequest="40" 
-                               WidthRequest="40" 
-                               VerticalOptions="Center" 
-                               Margin="0,0,10,0"/>
-                        <Label Text="Medicação" 
-                               Grid.Column="1" 
-                               HorizontalOptions="Start" 
-                               TextColor="Green" 
-                               FontSize="20" 
-                               FontAttributes="Bold"
-                               VerticalOptions="Center"/>
-                    </Grid>
-
-                    <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,4,0,8"/>
-
-                    <Button x:Name="Medicacao" Grid.Row="3" 
-                            Text="Manutenção" 
-                            HorizontalOptions="Center" 
-                            VerticalOptions="Center" 
-                            BackgroundColor="#6200EE"  
-                        TextColor="White" 
-                            CornerRadius="14" 
-                            Padding="10" 
-                            Margin="0,10"
-                            FontSize="15"
-                            FontAttributes="Bold"
-                            Clicked= "Medicacao_Clicked"
-                            BorderWidth="0" 
-                            BorderColor="Transparent"/>
-                </Grid>
-            </cards:SfCardView>
-        </Frame>
-
-    </VerticalStackLayout>-->
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="0" Margin="0, 10, 0, 0"
+                    LabelText="Tipo Tarefas"
+                    TableName="ToDoCategories"
+                    Title="Tipo de Tarefas"
+                    Icon="peticon.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+            </Grid>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

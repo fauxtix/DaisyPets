@@ -5,7 +5,7 @@
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              x:DataType="viewmodel:SettingsAddOrEditViewModel"
              Shell.BackButtonBehavior="{Binding BackButtonBehavior}"
-             Title="">
+             Title="{Binding Title}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="MediumLabelBold" TargetType="Label">

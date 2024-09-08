@@ -77,6 +77,7 @@ public partial class SettingsAddOrEditViewModel : SettingsBaseViewModel, IQueryA
                         new Dictionary<string, object>
                         {
                             {"TableName", TableName},
+                            {"Title", Title},
                         });
 
                 }
@@ -98,6 +99,7 @@ public partial class SettingsAddOrEditViewModel : SettingsBaseViewModel, IQueryA
                         new Dictionary<string, object>
                         {
                             {"TableName", TableName},
+                            {"Title", Title},
                         });
 
                 }
@@ -121,6 +123,7 @@ public partial class SettingsAddOrEditViewModel : SettingsBaseViewModel, IQueryA
             new Dictionary<string, object>
             {
                     {"TableName", TableName},
+                    {"Title", Title},
             });
     }
 
