@@ -69,20 +69,17 @@
                                         </Frame.GestureRecognizers>
                                         <Grid Padding="2" ColumnSpacing="10" Margin="4" RowSpacing="3">
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Column="0"
-                                               Text="{Binding Id}"
-                                               FontAttributes="Bold" />
-                                            <Label Grid.Column="1"
-                                               Text="{Binding Descricao, Mode=OneTime}"
-                                               FontAttributes="Italic"
-                                               VerticalOptions="End" />
+                                                   Text="{Binding Descricao, Mode=OneTime}"
+                                                   HorizontalOptions="FillAndExpand"
+                                                   VerticalOptions="Start" 
+                                                   FontAttributes="Italic"
+                                                   LineBreakMode="WordWrap"/>
                                         </Grid>
                                     </Frame>
                                 </VerticalStackLayout>
@@ -100,8 +97,5 @@
                     BackgroundColor="LightBlue" 
                     HeightRequest="100"
                     WidthRequest="100" />
-
     </Grid>
-
-
 </ContentPage>

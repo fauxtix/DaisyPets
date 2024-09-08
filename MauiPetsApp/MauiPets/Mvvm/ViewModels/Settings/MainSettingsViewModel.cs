@@ -5,23 +5,25 @@ namespace MauiPets.Mvvm.ViewModels.Settings
 {
     public partial class MainSettingsViewModel : MainSettingsBaseViewModel
     {
-
         public MainSettingsViewModel()
         {
             Title = "Configurações Principais";
         }
 
         [RelayCommand]
-        private async Task NavigateToTableAsync(string tableName)
+        public async Task NavigateToTableAsync(Dictionary<string, string> parameters)
         {
-            if (IsBusy) return;
+            if (parameters == null || !parameters.ContainsKey("TableName") || !parameters.ContainsKey("Title"))
+                return;
 
-            IsBusy = true;
-            await NavigateTo($"{nameof(SettingsManagementPage)}", new Dictionary<string, object>
+            string tableName = parameters["TableName"];
+            string title = parameters["Title"];
+
+            await Shell.Current.GoToAsync($"{nameof(SettingsManagementPage)}", true, new Dictionary<string, object>
             {
-                { "TableName", tableName }
+                { "TableName", tableName },
+                { "Title", title }
             });
-            IsBusy = false;
         }
     }
 }

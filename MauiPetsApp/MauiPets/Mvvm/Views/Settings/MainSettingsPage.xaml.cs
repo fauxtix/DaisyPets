@@ -5,9 +5,10 @@ namespace MauiPets.Mvvm.Views.Settings;
 public partial class MainSettingsPage : ContentPage
 {
 
-    public MainSettingsPage()
+    public MainSettingsPage(MainSettingsViewModel viewModel)
     {
         InitializeComponent();
+        BindingContext = viewModel;
     }
 
     private async void RacaButton_Clicked(object sender, EventArgs e)

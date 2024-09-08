@@ -2,25 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Settings.MainSettingsPage"
-             xmlns:controls="clr-namespace:MauiPets.Controls"             
+             xmlns:controls="clr-namespace:MauiPets.Controls"
              xmlns:viewModels="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
              x:DataType="viewModels:MainSettingsViewModel"
              Title="Settings">
 
-    <!--<StackLayout Padding="10">
+    <StackLayout Padding="10">
         <controls:SettingsCardControl 
             LabelText="Raça"
-            ButtonCommand="{Binding NavigateToTableCommand}"
-            CommandParameter="Raca" />
+            TableName="Raca"
+            Title="Raças"
+            ButtonCommand="{Binding NavigateToTableCommand}" />
 
         <controls:SettingsCardControl 
             LabelText="Espécies"
-            ButtonCommand="{Binding NavigateToTableCommand}"
-            CommandParameter="Especie" />
-    </StackLayout>-->
+            TableName="Especie"
+            Title="Espécies"
+            ButtonCommand="{Binding NavigateToTableCommand}" />
+        <controls:SettingsCardControl 
+            LabelText="Medicação"
+            TableName="Medicacao"
+            Title="Medicamentos"
+            ButtonCommand="{Binding NavigateToTableCommand}" />
 
-    <VerticalStackLayout>
+    </StackLayout>
+
+
+
+    <!--<VerticalStackLayout>
         <Frame CornerRadius="15"
                HasShadow="True"
                BackgroundColor="SteelBlue"
@@ -181,5 +191,5 @@
             </cards:SfCardView>
         </Frame>
 
-    </VerticalStackLayout>
+    </VerticalStackLayout>-->
 </ContentPage>

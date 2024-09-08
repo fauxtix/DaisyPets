@@ -72,7 +72,7 @@
                     Margin="4"
                     HorizontalOptions="FillAndExpand">
                 <Grid Margin="4">
-                    <Grid.RowDefinitions>
+                    <!--<Grid.RowDefinitions>
                         <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
@@ -80,19 +80,12 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width=".3*"></ColumnDefinition>
                         <ColumnDefinition Width=".7*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Text="Descrição" 
-                           Grid.Row="0"
-                           Grid.Column="0"
-                           FontSize="Small"
-			               VerticalOptions="Center">
-                    </Label>
-                    <Entry x:Name="TableDescription" 
-			                           Text="{Binding LookupRecordSelected.Descricao}" 
-			                           Grid.Row="0"
-                                       Grid.Column="1"
-			                           VerticalOptions="Center">
-                    </Entry>
+                    </Grid.ColumnDefinitions>-->
+                    <Editor x:Name="TableDescription" 
+			               Text="{Binding LookupRecordSelected.Descricao}" 
+                           HorizontalOptions="FillAndExpand"                          
+                           VerticalOptions="End">
+                    </Editor>
                 </Grid>
             </Border>
         </VerticalStackLayout>

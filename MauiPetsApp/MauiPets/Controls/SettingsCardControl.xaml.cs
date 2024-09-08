@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Windows.Input;
+using Microsoft.Maui.Controls;
 
 namespace MauiPets.Controls
 {
@@ -7,8 +9,10 @@ namespace MauiPets.Controls
         public SettingsCardControl()
         {
             InitializeComponent();
+            UpdateCommandParameter(); // Initialize CommandParameter with default values
         }
 
+        // BindableProperty for LabelText
         public static readonly BindableProperty LabelTextProperty = BindableProperty.Create(
             nameof(LabelText),
             typeof(string),
@@ -21,6 +25,35 @@ namespace MauiPets.Controls
             set => SetValue(LabelTextProperty, value);
         }
 
+        // BindableProperty for TableName
+        public static readonly BindableProperty TableNameProperty = BindableProperty.Create(
+            nameof(TableName),
+            typeof(string),
+            typeof(SettingsCardControl),
+            default(string),
+            propertyChanged: OnTableNameOrTitleChanged); // Notify on change
+
+        public string TableName
+        {
+            get => (string)GetValue(TableNameProperty);
+            set => SetValue(TableNameProperty, value);
+        }
+
+        // BindableProperty for Title
+        public static readonly BindableProperty TitleProperty = BindableProperty.Create(
+            nameof(Title),
+            typeof(string),
+            typeof(SettingsCardControl),
+            default(string),
+            propertyChanged: OnTableNameOrTitleChanged); // Notify on change
+
+        public string Title
+        {
+            get => (string)GetValue(TitleProperty);
+            set => SetValue(TitleProperty, value);
+        }
+
+        // BindableProperty for ButtonCommand
         public static readonly BindableProperty ButtonCommandProperty = BindableProperty.Create(
             nameof(ButtonCommand),
             typeof(ICommand),
@@ -33,6 +66,7 @@ namespace MauiPets.Controls
             set => SetValue(ButtonCommandProperty, value);
         }
 
+        // BindableProperty for CommandParameter
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
             nameof(CommandParameter),
             typeof(object),
@@ -43,6 +77,22 @@ namespace MauiPets.Controls
         {
             get => GetValue(CommandParameterProperty);
             set => SetValue(CommandParameterProperty, value);
+        }
+
+        // Method to update CommandParameter based on TableName and Title
+        private void UpdateCommandParameter()
+        {
+            CommandParameter = new Dictionary<string, string>
+            {
+                { "TableName", TableName },
+                { "Title", Title }
+            };
+        }
+
+        private static void OnTableNameOrTitleChanged(BindableObject bindable, object oldValue, object newValue)
+        {
+            var control = (SettingsCardControl)bindable;
+            control.UpdateCommandParameter(); // Update CommandParameter on property change
         }
     }
 }

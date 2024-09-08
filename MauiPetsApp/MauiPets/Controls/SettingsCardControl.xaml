@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Name="this"
              x:Class="MauiPets.Controls.SettingsCardControl">
     <Frame CornerRadius="15"
            HasShadow="True"
@@ -26,10 +27,10 @@
                        WidthRequest="40" 
                        VerticalOptions="Center" 
                        Margin="0,0,10,0"/>
-                <Label Text="{Binding LabelText, Source={RelativeSource Mode=TemplatedParent}}" 
+                <Label Text="{Binding LabelText, Source={x:Reference this}}" 
                        Grid.Column="1" 
                        HorizontalOptions="Start" 
-                       TextColor="Green" 
+                       TextColor="Yellow" 
                        FontSize="20" 
                        FontAttributes="Bold"
                        VerticalOptions="Center"/>
@@ -48,8 +49,8 @@
                     Margin="0,10"
                     FontSize="15"
                     FontAttributes="Bold"
-                    Command="{Binding ButtonCommand, Source={RelativeSource Mode=TemplatedParent}}"
-                    CommandParameter="{Binding CommandParameter, Source={RelativeSource Mode=TemplatedParent}}"
+                    Command="{Binding ButtonCommand, Source={x:Reference this}}"
+                    CommandParameter="{Binding CommandParameter, Source={x:Reference this}}"
                     BorderWidth="0" 
                     BorderColor="Transparent"/>
         </Grid>
