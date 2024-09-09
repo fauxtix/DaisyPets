@@ -1,30 +1,100 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Extensions;
 using MauiPets.Mvvm.Views.Settings;
 using MauiPetsApp.Core.Application.Interfaces.Application;
-using MauiPetsApp.Core.Application.ViewModels;
-using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace MauiPets.Mvvm.ViewModels.Settings
 {
     [QueryProperty(nameof(TableName), "TableName")]
-
     public partial class SettingsViewModel : SettingsBaseViewModel, IQueryAttributable
     {
         private readonly ILookupTableRepository _service;
         private readonly IConnectivity _connectivity;
         private readonly IMapper _mapper;
 
+        [ObservableProperty]
+        private ObservableCollection<LookupTableVM> filteredLookupCollection;
+
+        [ObservableProperty]
+        private string searchText;
+
         public SettingsViewModel(ILookupTableRepository service, IConnectivity connectivity, IMapper mapper)
         {
             _service = service;
             _connectivity = connectivity;
             _mapper = mapper;
+
+            LookupCollection = new ObservableCollection<LookupTableVM>();
+            FilteredLookupCollection = new ObservableCollection<LookupTableVM>();
+        }
+
+        partial void OnSearchTextChanged(string value)
+        {
+            FilterLookupCollection();
+        }
+
+        private void FilterLookupCollection()
+        {
+            if (string.IsNullOrWhiteSpace(SearchText))
+            {
+                FilteredLookupCollection = new ObservableCollection<LookupTableVM>(LookupCollection);
+            }
+            else
+            {
+                var filteredItems = LookupCollection
+                    .Where(item => item.Descricao != null && item.Descricao.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+                FilteredLookupCollection = new ObservableCollection<LookupTableVM>(filteredItems);
+            }
+        }
+
+        [RelayCommand]
+        private async Task GetLookupDataAsync()
+        {
+            try
+            {
+                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
+                {
+                    await Shell.Current.DisplayAlert("No connectivity!", "Please check internet and try again.", "OK");
+                    return;
+                }
+
+                if (IsBusy) return;
+
+                IsBusy = true;
+
+                var data = (await _service.GetLookupTableData(TableName)).ToList();
+                var mappedData = _mapper.Map<List<LookupTableVM>>(data);
+                if (data.Count != 0)
+                {
+                    LookupCollection.Clear();
+                }
+
+                foreach (var item in mappedData)
+                {
+                    LookupCollection.Add(item);
+                }
+
+                FilterLookupCollection();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to get data: {ex.Message}");
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+                IsRefreshing = false;
+            }
         }
 
         [RelayCommand]
@@ -35,8 +105,8 @@ namespace MauiPets.Mvvm.ViewModels.Settings
 
             LookupRecordSelected = new()
             {
-                Descricao = "", 
-                Tabela = TableName                
+                Descricao = "",
+                Tabela = TableName
             };
 
             await NavigateToEditPage(LookupRecordSelected);
@@ -59,66 +129,6 @@ namespace MauiPets.Mvvm.ViewModels.Settings
             }
         }
 
-
-
-        [RelayCommand]
-        private async Task GetLookupDataAsync()
-        {
-            try
-            {
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
-                    return;
-                }
-
-                if (IsBusy)
-                    return;
-
-                IsBusy = true;
-
-                var data = (await _service.GetLookupTableData(TableName)).ToList();
-                var mappedData = _mapper.Map<List<LookupTableVM>>(data);
-                if (data.Count != 0)
-                {
-                    LookupCollection.Clear();
-                }
-
-                foreach (var item in mappedData)
-                {
-                    LookupCollection.Add(item);
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Unable to get data: {ex.Message}");
-                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
-            }
-            finally
-            {
-                IsBusy = false;
-                IsRefreshing = false;
-            }
-        }
-
-        [RelayCommand]
-        private async Task GetPetAsync()
-        {
-            var petId = Id;
-            if (petId > 0)
-            {
-                var source = await _service.GetRecordById(LookupRecordSelected.Id, TableName);
-                LookupTableVM destination = new LookupTableVM();
-                if (source is not null)
-                {
-                    LookupRecordSelected = _mapper.Map<LookupTableVM>(source);
-                    await NavigateToEditPage(LookupRecordSelected);
-                }
-            }
-        }
-
         [RelayCommand]
         private async Task DeleteLookupRecordAsync(LookupTableVM recordToDelete)
         {
@@ -135,10 +145,9 @@ namespace MauiPets.Mvvm.ViewModels.Settings
                 await Shell.Current.GoToAsync($"{nameof(SettingsManagementPage)}", true,
                     new Dictionary<string, object>
                     {
-                            {"TableName", TableName},
-                            {"Title", Title},
+                        {"TableName", TableName},
+                        {"Title", Title},
                     });
-
             }
             IsBusy = false;
         }
@@ -152,6 +161,7 @@ namespace MauiPets.Mvvm.ViewModels.Settings
             {
                 LookupCollection.Add(item);
             }
+            FilterLookupCollection();
         }
 
         private async Task NavigateToEditPage(LookupTableVM lookupDto)
@@ -173,6 +183,12 @@ namespace MauiPets.Mvvm.ViewModels.Settings
             await Shell.Current.GoToAsync($"//{nameof(MainSettingsPage)}", true);
         }
 
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            TableName = query[nameof(TableName)] as string;
+            Title = query[nameof(Title)] as string;
+        }
+
         private async void ShowToastMessage(string text)
         {
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
@@ -182,12 +198,6 @@ namespace MauiPets.Mvvm.ViewModels.Settings
             var toast = Toast.Make(text, duration, fontSize);
 
             await toast.Show(cancellationTokenSource.Token);
-        }
-
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
-        {
-            TableName = query[nameof(TableName)] as string;
-            Title= query[nameof(Title)] as string;
         }
     }
 }

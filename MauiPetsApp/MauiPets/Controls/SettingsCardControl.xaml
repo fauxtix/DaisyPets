@@ -23,14 +23,16 @@
 
                 <Image 
                     Source="{Binding Icon, Source={x:Reference this}}" 
-                    WidthRequest="40" 
-                    HeightRequest="40" 
+                    WidthRequest="32" 
+                    HeightRequest="32" 
+                    BackgroundColor="Transparent"
                     VerticalOptions="Center" />
                 <Label Text="{Binding LabelText, Source={x:Reference this}}" 
                        Grid.Column="1" 
+                       Padding="7, 0, 0, 0"
                        HorizontalOptions="Start" 
                        TextColor="Yellow" 
-                       FontSize="11" 
+                       FontSize="12" 
                        FontAttributes="Bold"
                        VerticalOptions="Center"/>
             </Grid>

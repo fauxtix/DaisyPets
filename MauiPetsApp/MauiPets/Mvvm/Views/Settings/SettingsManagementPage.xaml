@@ -5,46 +5,37 @@
              xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels.LookupTables;assembly=MauiPets.Core"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:conv="clr-namespace:MauiPets.Converters"
-             x:DataType="viewmodel:SettingsViewModel"
-             xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              Title="{Binding Title}">
 
-    <ContentPage.Resources>
-        <OnPlatform x:Key="minimumWidth" x:TypeArguments="x:Double">
-            <On Platform="Android,iOS" Value="115"></On>
-        </OnPlatform>
-        <OnPlatform x:Key="optionRowSpacing" x:TypeArguments="x:Double">
-            <On Platform="iOS, WinUI, MacCatalyst" Value="5"></On>
-        </OnPlatform>
-        <OnPlatform x:Key="margin" x:TypeArguments="Thickness">
-            <On Platform="WinUI,MacCatalyst" Value="-5"/>
-        </OnPlatform>
-        <Color x:Key="lightThemeColor">#CAC4D0</Color>
-        <Color x:Key="darkThemeColor">#49454F</Color>
-    </ContentPage.Resources>
-
     <ContentPage.ToolbarItems>
-        <!-- Add Button Toolbar Item -->
-        <ToolbarItem Text="Add entry" Command="{Binding AddLookupTableDataCommand}"
-                  CommandParameter="{Binding .}"
-              IconImageSource="add.png" />
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand  }"
-                 IconImageSource="icon_close.svg" />
-
+        <ToolbarItem Text="Add entry" Command="{Binding AddLookupTableDataCommand}" IconImageSource="add.png" />
+        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}" IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
 
-    <ContentPage.BindingContext>
-        <local:SettingsBaseViewModel x:Name="viewModel" />
-    </ContentPage.BindingContext>
+    <Grid Margin="5, 25, 5, 5" Padding="5">
 
-    <Grid Margin="5, 25, 5, 5" Padding="5" CompressedLayout.IsHeadless="True">
-        <ScrollView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- Search Bar in the first row -->
+        <SearchBar Grid.Row="0"
+                   Placeholder="Descrição a pesquisar" 
+                   Text="{Binding SearchText}" 
+                   SearchCommand="{Binding GetLookupDataCommand}" />
+        <BoxView Grid.Row="1"
+                 HeightRequest="1"
+                 BackgroundColor="Gray"
+                 HorizontalOptions="FillAndExpand"
+                 Margin="0,10,0,10" />
+        <ScrollView Grid.Row="2">
             <VerticalStackLayout Padding="10">
+
                 <CollectionView x:Name="lookupTablesView" 
-                            ItemsSource="{Binding LookupCollection}" 
-                            VerticalScrollBarVisibility ="Always"
-                            SelectionMode="Single">
+                                ItemsSource="{Binding FilteredLookupCollection}" 
+                                VerticalScrollBarVisibility="Always"
+                                SelectionMode="Single">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="2" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
@@ -54,18 +45,18 @@
                                 <SwipeView.RightItems>
                                     <SwipeItems SwipeBehaviorOnInvoked="Close">
                                         <SwipeItem Text="Delete"
-                                               IconImageSource="icon_delete.svg"
-                                               BackgroundColor="LightPink"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=DeleteLookupRecordCommand}"
-                                               CommandParameter="{Binding .}" />
+                                                   IconImageSource="icon_delete.svg"
+                                                   BackgroundColor="LightPink"
+                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=DeleteLookupRecordCommand}"
+                                                   CommandParameter="{Binding .}" />
                                     </SwipeItems>
                                 </SwipeView.RightItems>
                                 <VerticalStackLayout>
                                     <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" Padding="2">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=EditLookupRecordCommand}"
-                                            CommandParameter="{Binding .}" />
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=EditLookupRecordCommand}"
+                                                CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
                                         <Grid Padding="2" ColumnSpacing="10" Margin="4" RowSpacing="3">
                                             <Grid.RowDefinitions>
@@ -74,12 +65,7 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Column="0"
-                                                   Text="{Binding Descricao, Mode=OneTime}"
-                                                   HorizontalOptions="FillAndExpand"
-                                                   VerticalOptions="Start" 
-                                                   FontAttributes="Italic"
-                                                   LineBreakMode="WordWrap"/>
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Descricao}" FontSize="14" VerticalOptions="Center" />
                                         </Grid>
                                     </Frame>
                                 </VerticalStackLayout>
@@ -89,13 +75,6 @@
                 </CollectionView>
             </VerticalStackLayout>
         </ScrollView>
-        <ActivityIndicator x:Name="ai"
-                    IsRunning="{Binding IsBusy}"
-                    IsVisible="{Binding IsBusy}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    BackgroundColor="LightBlue" 
-                    HeightRequest="100"
-                    WidthRequest="100" />
+
     </Grid>
 </ContentPage>
