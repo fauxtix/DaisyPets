@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
-using MauiPetsApp.Core.Domain;
 
 namespace MauiPets.Mvvm.ViewModels.Vaccines;
 
@@ -72,17 +71,16 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
                 var insertedId = await _vaccinesService.InsertAsync(SelectedVaccine);
                 if (insertedId == -1)
                 {
-                    await Shell.Current.DisplayAlert("Error while updating",
+                    await Shell.Current.DisplayAlert("Error while creating",
                         $"Please contact administrator..", "OK");
                     return;
                 }
-
-                var _petId = SelectedVaccine.IdPet;
-                var petVM = await _petService.GetPetVMAsync(_petId);
+                var vaccineCreated = await _vaccinesService.GetVacinaVMAsync(insertedId);
+                var petVM = await _petService.GetPetVMAsync(vaccineCreated.IdPet);
 
                 //IsBusy = false;
 
-                ShowToastMessage("Contact created succesfuly");
+                ShowToastMessage("Vaccine created succesfuly");
 
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>

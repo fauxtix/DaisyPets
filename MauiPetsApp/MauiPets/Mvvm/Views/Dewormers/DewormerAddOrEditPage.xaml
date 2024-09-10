@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiPets.Mvvm.Views.Dewormers.DewormerAddOrEditPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:conv="clr-namespace:MauiPets.Converters"
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Dewormers"
+             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
+             x:DataType="viewmodel:DewormerBaseViewModel"
+             Title="Desparasitantes">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save data" Command="{Binding SaveDewormerCommand}"
+                     IconImageSource="icon_save.png" />
+        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+                     IconImageSource="icon_close.svg" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <conv:NextDoseDateConverter x:Key="nextDoseDateConverter" />
+        <conv:StringToDateConverter x:Key="stringToDateConverter" />
+        <Style x:Key="MediumLabelBold" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+        <Style x:Key="LargeLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout Padding="4">
+        <Border Stroke="#2B0B98"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 22"
+                Background="#fff"
+                Padding="8,4"
+                Margin="4"
+                HorizontalOptions="FillAndExpand">
+
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".3*" />
+                    <ColumnDefinition Width=".7*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Existing Fields -->
+                <Label Text="Movimento" 
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="Small"
+                       VerticalOptions="Center"/>
+                <DatePicker x:Name="TransactionDate"
+                           Date="{Binding SelectedDewormer.DataAplicacao, Converter={StaticResource stringToDateConverter}}"  
+                           Style="{StaticResource MediumLabelBold}"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           FontAttributes="Bold" 
+                           VerticalOptions="Center"/>
+
+                <Label Text="Marca"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       FontSize="Small"
+                       VerticalOptions="Center"/>
+                <Entry x:Name="DewormerBrand" 
+                       Text="{Binding SelectedDewormer.Marca}" 
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       VerticalOptions="Center"/>
+
+                <Label Text="Prx. Aplicação" 
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       FontSize="Small"
+                       VerticalOptions="Center"/>
+                <DatePicker x:Name="NextApplicationDate"
+                           Date="{Binding SelectedDewormer.DataProximaAplicacao, Converter={StaticResource stringToDateConverter}}"  
+                           Style="{StaticResource MediumLabelBold}"
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           FontAttributes="Bold" 
+                           VerticalOptions="Center"/>
+
+
+                <!-- Radio Buttons with Improved Alignment -->
+                <Label Text="Tipo" Grid.Row="3" Grid.Column="0" FontSize="Small" VerticalOptions="Center"/>
+
+                <Grid Grid.Row="3" Grid.Column="1" ColumnDefinitions="*,*" VerticalOptions="Center">
+                    <RadioButton Content="Interno" 
+                                 IsChecked="{Binding IsTypeInternal, Mode=TwoWay}"
+                                 GroupName="DewormerType" 
+                                 Grid.Column="0" 
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Start"/>
+
+                    <RadioButton Content="Externo" 
+                                 IsChecked="{Binding IsTypeExternal, Mode=TwoWay}"
+                                 GroupName="DewormerType" 
+                                 Grid.Column="1" 
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Start"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

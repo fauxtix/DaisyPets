@@ -34,7 +34,6 @@ public partial class VaccineViewModel : VaccineBaseViewModel
     [RelayCommand]
     private async Task GetVaccinesAsync()
     {
-
         try
         {
             if (_connectivity.NetworkAccess != NetworkAccess.Internet)

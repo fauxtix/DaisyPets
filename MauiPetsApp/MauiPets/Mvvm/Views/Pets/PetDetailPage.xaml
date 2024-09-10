@@ -182,62 +182,85 @@
                         </mct:Expander.Header>
                         <mct:Expander.Content>
 
-                            <Frame Grid.Row="4" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent">
-                                <Grid Padding="2" RowDefinitions="Auto, Auto">
-                                    <Grid  ColumnDefinitions=".3*, .4*, .3*" 
-                                       ColumnSpacing="2"
-                                       Grid.Row="0">
+                            <Frame Grid.Row="4" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent" Padding="8">
+                                <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *">
+                                    <!-- New Row for Add Button -->
+                                    <Button Text="Novo" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddVaccineCommand}" 
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center"
+                                        HeightRequest="25" 
+                                        WidthRequest="60"
+                                        CornerRadius="15"
+                                        Padding="0"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        Margin="0, 3, 0, 8"
+                                        BackgroundColor="SteelBlue"
+                                        Grid.Row="0" />
+                                    <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
+                                    <!-- Existing Header Row -->
+                                    <Grid ColumnDefinitions=".3*, .4*, .3*" 
+                                          ColumnSpacing="2"
+                                          Grid.Row="2">
                                         <Label FontAttributes="Bold" FontSize="10" Text="Toma" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
                                         <Label FontAttributes="Bold" FontSize="10" Text="Marca" Grid.Row="0" Grid.Column="1"/>
                                         <Label FontAttributes="Bold" FontSize="10" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" />
                                     </Grid>
-                                    <CollectionView Grid.Row="1" 
-                                        x:Name="VaccinesView"
-                                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetVaccinesVM}" 
-                                        SelectionMode="Single">
-                                        <CollectionView.EmptyView>
-                                            <StackLayout Grid.Column="1" 
-                                                 Padding="10">
-                                                <Image
-                                                        HorizontalOptions="Center"
-                                                        HeightRequest="80"
-                                                        WidthRequest="80"
-                                                        Source="nopets.png"
-                                                        VerticalOptions="Center" />
+                                    <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
+
+                                    <!-- CollectionView Row -->
+                                    <CollectionView Grid.Row="4"
+                                            x:Name="VaccinesView"
+                                            ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetVaccinesVM}" 
+                                            SelectionMode="Single">
+                                            <CollectionView.EmptyView>
+                                                <StackLayout Grid.Column="1" 
+                                                     Padding="10">
+                                                    <Image
+                                                            HorizontalOptions="Center"
+                                                            HeightRequest="80"
+                                                            WidthRequest="80"
+                                                            Source="nopets.png"
+                                                            VerticalOptions="Center" />
                                                 <Label HorizontalOptions="Center" Padding="10">No data for vaccines</Label>
                                             </StackLayout>
                                         </CollectionView.EmptyView>
+
                                         <CollectionView.ItemsLayout>
                                             <GridItemsLayout Orientation="Vertical" />
                                         </CollectionView.ItemsLayout>
+
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate x:DataType="models:VacinaVM">
                                                 <SwipeView>
                                                     <SwipeView.RightItems>
                                                         <SwipeItems SwipeBehaviorOnInvoked="Close">
                                                             <SwipeItem Text="Apagar"
-                                                       IconImageSource="icon_delete.svg" 
-                                                       BackgroundColor="Transparent"
-                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel }}, Path=DeleteVacinaCommand}" 
-                                                       CommandParameter="{Binding .}"/>
+                                                                   IconImageSource="icon_delete.svg" 
+                                                                   BackgroundColor="Transparent"
+                                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel }}, Path=DeleteVacinaCommand}" 
+                                                                   CommandParameter="{Binding .}"/>
                                                         </SwipeItems>
                                                     </SwipeView.RightItems>
+
                                                     <VerticalStackLayout>
                                                         <Frame CornerRadius="10" HeightRequest="30"
-                                                           VerticalOptions="Center"
-                                                           HasShadow="True" 
-                                                           Margin="2" 
-                                                           Padding="0">
+                                                               VerticalOptions="Center"
+                                                               HasShadow="True" 
+                                                               Margin="3" 
+                                                               Padding="0">
                                                             <Frame.GestureRecognizers>
                                                                 <TapGestureRecognizer 
-                                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=EditVaccineCommand}"
-                                                                CommandParameter="{Binding .}"/>
+                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=EditVaccineCommand}"
+                                                                    CommandParameter="{Binding .}"/>
                                                             </Frame.GestureRecognizers>
-                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".3*, .4*, .3*" Margin="0,3">
+
+                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".3*, .4*, .3*" Margin="0,4">
                                                                 <Label FontAttributes="Bold" FontSize="10"  Grid.Column="0"  Text="{Binding DataTomaFormatada}" HorizontalOptions="Center"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="1" Text="{Binding Marca}"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
-                                                                   TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" HorizontalOptions="Center"/>
+                                                                       TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" HorizontalOptions="Center"/>
                                                             </Grid>
                                                         </Frame>
                                                     </VerticalStackLayout>
@@ -271,15 +294,31 @@
                         </mct:Expander.Header>
                         <mct:Expander.Content>
 
-                            <Frame Grid.Row="5" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent">
-                                <Grid Padding="2" RowDefinitions="Auto, Auto">
+                            <Frame Grid.Row="5" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent" Padding="8">
+                                <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *">
+                                    <Button Text="Novo" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddDewormerCommand}" 
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center"
+                                        HeightRequest="25" 
+                                        WidthRequest="60"
+                                        CornerRadius="15"
+                                        Padding="0"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        Margin="0, 3, 0, 8"
+                                        BackgroundColor="SteelBlue"
+                                        Grid.Row="0" />
+                                    <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <Grid ColumnDefinitions=".33*, .4*, .27*" ColumnSpacing="2"
-                          Grid.Row="0">
+                                          Grid.Row="2">
                                         <Label FontAttributes="Bold" FontSize="10" Text="Toma" Grid.Row="0" Grid.Column="0" />
                                         <Label FontAttributes="Bold" FontSize="10" Text="Marca" Grid.Row="0" Grid.Column="1"/>
                                         <Label FontAttributes="Bold" FontSize="10" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" />
                                     </Grid>
-                                    <CollectionView Grid.Row="1" 
+                                    <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
+
+                                    <CollectionView Grid.Row="4" 
                                     x:Name="DewormersView"
                                     ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetDewormersVM}" 
                                     SelectionMode="Single">
@@ -316,6 +355,11 @@
                                                            HasShadow="True" 
                                                            Margin="3" 
                                                            Padding="2">
+                                                            <Frame.GestureRecognizers>
+                                                                <TapGestureRecognizer 
+                                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=EditDewormerCommand}"
+                                                                CommandParameter="{Binding .}"/>
+                                                            </Frame.GestureRecognizers>
                                                             <Grid ColumnSpacing="2" ColumnDefinitions=".33*, .4*, .27*" Margin="3,3">
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="0" Text="{Binding DataAplicacao}"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="1" Text="{Binding Marca}"/>

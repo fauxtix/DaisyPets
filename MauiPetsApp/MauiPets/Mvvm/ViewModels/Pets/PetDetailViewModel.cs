@@ -3,6 +3,8 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MauiPets.Mvvm.ViewModels.Dewormers;
+using MauiPets.Mvvm.Views.Dewormers;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Vaccines;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -92,6 +94,27 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         }
     }
 
+
+    [RelayCommand]
+    private async Task AddVaccine()
+    {
+        IsEditing = false;
+        SelectedVaccine = new()
+        {
+            DataToma = DateTime.Now.Date.ToShortDateString(),
+            Marca = "",
+            ProximaTomaEmMeses = 3,
+            IdPet = PetVM.Id
+        };
+
+        await Shell.Current.GoToAsync($"{nameof(VaccineAddOrEditPage)}", true,
+            new Dictionary<string, object>
+            {
+                    {"SelectedVaccine", SelectedVaccine},
+            });
+    }
+
+
     [RelayCommand]
     private async Task EditVaccineAsync(VacinaVM vaccine)
     {
@@ -113,7 +136,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("Vacina não encontrada", $"ID#: {vaccineId}" , "Ok");
+                    await Shell.Current.DisplayAlert("Vacina não encontrada", $"ID#: {vaccineId}", "Ok");
                 }
             }
         }
@@ -123,8 +146,61 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         }
     }
 
+    [RelayCommand]
+    private async Task AddDewormer()
+    {
+        IsEditing = false;
+        SelectedDewormer = new()
+        {
+            DataAplicacao = DateTime.Now.Date.ToShortDateString(),
+            DataProximaAplicacao = DateTime.Now.Date.AddMonths(6).ToShortTimeString(),
+            Tipo = "",
+            Marca = "",
+            IdPet = PetVM.Id
+        };
 
-[RelayCommand]
+        await Shell.Current.GoToAsync($"{nameof(DewormerAddOrEditPage)}", true,
+            new Dictionary<string, object>
+            {
+                {"SelectedDewormer", SelectedDewormer},
+            });
+
+    }
+
+    [RelayCommand]
+    private async Task EditDewormerAsync(DesparasitanteVM dewormer)
+    {
+        try
+        {
+            var dewormerId = dewormer.Id;
+            if (dewormerId > 0)
+            {
+                var response = await _petDewormersService.FindByIdAsync(dewormerId);
+                SelectedDewormer = response;
+                if (response is not null)
+                {
+
+                    await Shell.Current.GoToAsync($"{nameof(DewormerAddOrEditPage)}", true,
+                        new Dictionary<string, object>
+                        {
+                                {"SelectedDewormer", response},
+                        });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Desparasitante não encontrado", $"ID#: {dewormerId}", "Ok");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error while 'EditDewormerAsync", ex.Message, "Ok");
+        }
+    }
+
+
+
+    [RelayCommand]
     private async Task DeletePetAsync()
     {
         if (PetDto is null)

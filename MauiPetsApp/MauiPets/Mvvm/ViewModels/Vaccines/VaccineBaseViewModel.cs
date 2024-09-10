@@ -1,4 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using MauiPets.Mvvm.Views.Vaccines;
 using MauiPetsApp.Core.Application.Formatting;
 using MauiPetsApp.Core.Application.ViewModels;
 
@@ -38,16 +40,5 @@ namespace MauiPets.Mvvm.ViewModels.Vaccines
         [ObservableProperty]
         private bool isEditing;
 
-        private void AddVaccine()
-        {
-            IsEditing = false;
-            SelectedVaccine = new()
-            {
-                DataToma = DateTime.Now.Date.ToShortDateString(),
-                Marca = "",
-                ProximaTomaEmMeses = 3,
-                IdPet = 0
-            };
-        }
     }
 }

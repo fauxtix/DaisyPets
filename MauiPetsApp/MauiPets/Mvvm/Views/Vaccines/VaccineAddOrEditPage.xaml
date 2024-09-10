@@ -85,5 +85,8 @@
                 </Entry>
             </Grid>
         </Border>
+        <VerticalStackLayout>
+            
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
