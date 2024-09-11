@@ -519,18 +519,17 @@
                                         <Label FontSize="10" Text="Motivo" Grid.Row="0" Grid.Column="1"/>
                                     </Grid>
                                     <CollectionView Grid.Row="6" HeightRequest="200"
-                                    x:Name="ConsultationsView"
-                                    ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetConsultationsVM}" 
-                                    SelectionMode="Single">
+                                        x:Name="ConsultationsView"
+                                        ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetConsultationsVM}" 
+                                        SelectionMode="Single">
                                         <CollectionView.EmptyView>
-                                            <StackLayout Grid.Column="1" 
-                                         Padding="10">
+                                            <StackLayout Grid.Column="1" Padding="10">
                                                 <Image
-                                                HorizontalOptions="Center"
-                                                HeightRequest="80"
-                                                WidthRequest="80"
-                                                Source="nopets.png"
-                                                VerticalOptions="Center" />
+                                                    HorizontalOptions="Center"
+                                                    HeightRequest="80"
+                                                    WidthRequest="80"
+                                                    Source="nopets.png"
+                                                    VerticalOptions="Center" />
                                                 <Label HorizontalOptions="Center" Padding="10">No data for Pet consultations</Label>
                                             </StackLayout>
                                         </CollectionView.EmptyView>

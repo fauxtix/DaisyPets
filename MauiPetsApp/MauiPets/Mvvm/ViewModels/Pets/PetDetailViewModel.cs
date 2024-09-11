@@ -1,9 +1,7 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.ViewModels.Dewormers;
 using MauiPets.Mvvm.Views.Dewormers;
 using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
@@ -62,7 +60,6 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         int petId = PetVM.Id;
         IsRefreshing = true;
         PetVM = await _petService.GetPetVMAsync(petId);
-
         IsRefreshing = false;
     }
 
@@ -355,7 +352,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             {
                 await _petVaccinesService.DeleteAsync(vaccine.Id);
                 await ShowToastMessage($"Vacina do dia  {vaccine.DataToma} apagada com sucesso");
-                await RefreshPetDetail();
+                PetVaccinesVM.Remove(vaccine);
             }
         }
         catch (Exception ex)
@@ -377,8 +374,8 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             if (deletionConfirmed)
             {
                 await _petDewormersService.DeleteAsync(dewormer.Id);
-                await ShowToastMessage($"Aplicação do desparasitante do dia  {dewormer.DataAplicacao} apagado com sucesso");
-                await RefreshPetDetail();
+                await ShowToastMessage($"Aplicação do desparasitante no dia  {dewormer.DataAplicacao} apagado com sucesso");
+                PetDewormersVM.Remove(dewormer);
             }
         }
         catch (Exception ex)
@@ -401,7 +398,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             {
                 await _petFoodService.DeleteAsync(petFood.Id);
                 await ShowToastMessage($"Ração comprada em  {petFood.DataCompra} apagada com sucesso");
-                await RefreshPetDetail();
+                PetFoodVM.Remove(petFood);
             }
         }
         catch (Exception ex)
@@ -425,7 +422,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             {
                 await _petVeterinaryAppointmentsService.DeleteAsync(petAppt.Id);
                 await ShowToastMessage($"Consulta de  {petAppt.DataConsulta} apagada com sucesso");
-                await RefreshPetDetail();
+                PetConsultationsVM.Remove(petAppt);
             }
         }
         catch (Exception ex)
