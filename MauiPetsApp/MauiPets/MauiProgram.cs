@@ -38,6 +38,10 @@ using MauiPets.Mvvm.ViewModels.Settings;
 using MauiPets.Mvvm.Views.Settings;
 using MauiPets.Mvvm.ViewModels.Dewormers;
 using MauiPets.Mvvm.Views.Dewormers;
+using MauiPets.Mvvm.ViewModels.PetFood;
+using MauiPets.Mvvm.Views.PetFood;
+using MauiPets.Mvvm.ViewModels.VetAppointments;
+using MauiPets.Mvvm.Views.VetAppointments;
 
 namespace MauiPets
 {
@@ -114,8 +118,15 @@ namespace MauiPets
 
             builder.Services.AddTransient<VaccineViewModel>();
             builder.Services.AddTransient<VaccineAddOrEditModel>();
+
             builder.Services.AddTransient<DewormerViewModel>();
             builder.Services.AddTransient<DewormerAddOrEditViewModel>();
+
+            builder.Services.AddTransient<PetFoodViewModel>();
+            builder.Services.AddTransient<PetFoodAddOrEditViewModel>();
+
+            builder.Services.AddTransient<VetAppointmentsViewModel>();
+            builder.Services.AddTransient<VetAppointmentsAddOrEditViewModel>();
 
             builder.Services.AddTransient<SettingsViewModel>();
             builder.Services.AddTransient<SettingsAddOrEditViewModel>();
@@ -140,6 +151,8 @@ namespace MauiPets
 
             builder.Services.AddTransient<VaccineAddOrEditPage>();
             builder.Services.AddTransient<DewormerAddOrEditPage>();
+            builder.Services.AddTransient<PetFoodAddOrEditPage>();
+            builder.Services.AddTransient<VetAppointmentAddOrEditPage>();
 
             builder.Services.AddTransient<MainSettingsPage>();
             builder.Services.AddTransient<SettingsManagementPage>();

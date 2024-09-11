@@ -269,6 +269,9 @@
 	  <Compile Update="Mvvm\Views\Pets\PetAddOrEditPage.xaml.cs">
 	    <DependentUpon>PetAddOrEditPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Mvvm\Views\VetAppointments\VetAppointmentAddOrEditPage.xaml.cs">
+	    <DependentUpon>VetAppointmentAddOrEditPage.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -296,6 +299,9 @@
 	  <MauiXaml Update="Mvvm\Views\Expenses\ExpensesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\PetFood\PetFoodAddOrEditPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Pets\PetAddOrEditPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -321,6 +327,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Vaccines\VaccineAddOrEditPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\VetAppointments\VetAppointmentAddOrEditPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

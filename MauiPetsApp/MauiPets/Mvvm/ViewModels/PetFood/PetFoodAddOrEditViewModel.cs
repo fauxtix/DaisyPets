@@ -5,18 +5,18 @@ using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 
-namespace MauiPets.Mvvm.ViewModels.Dewormers
+namespace MauiPets.Mvvm.ViewModels.PetFood
 {
-    [QueryProperty(nameof(SelectedDewormer), "SelectedDewormer")]
+    [QueryProperty(nameof(SelectedPetFood), "SelectedPetFood")]
 
-    public partial class DewormerAddOrEditViewModel : DewormerBaseViewModel, IQueryAttributable
+    public partial class PetFoodAddOrEditViewModel : PetFoodBaseViewModel, IQueryAttributable
     {
-        public IDesparasitanteService _service { get; set; }
+        public IRacaoService _service { get; set; }
         public IPetService _petService { get; set; }
-        public int SelectedDewormerId { get; set; }
+        public int SelectedPetFoodId { get; set; }
         public IConnectivity _connectivity;
 
-        public DewormerAddOrEditViewModel(IDesparasitanteService service, IConnectivity connectivity, IPetService petService)
+        public PetFoodAddOrEditViewModel(IRacaoService service, IConnectivity connectivity,IPetService petService)
         {
             _service = service;
             _petService = petService;
@@ -24,16 +24,13 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         }
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            SelectedDewormer = query[nameof(SelectedDewormer)] as DesparasitanteDto;
-            var dewormerType = SelectedDewormer.Tipo;
-            IsTypeInternal = dewormerType == "I";
-            IsTypeExternal = dewormerType == "E";
+            SelectedPetFood = query[nameof(SelectedPetFood)] as RacaoDto;
         }
 
         [RelayCommand]
         async Task GoBack()
         {
-            var petId = SelectedDewormer.IdPet;
+            var petId = SelectedPetFood.IdPet;
             if (petId > 0)
             {
                 var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
@@ -47,13 +44,12 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
                         {
                             {"PetVM", pet },
                         });
-
                 }
             }
         }
 
         [RelayCommand]
-        async Task SaveDewormer()
+        async Task SavePetFood()
         {
             try
             {
@@ -67,11 +63,10 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
                     return;
                 }
 
-                if (SelectedDewormer.Id == 0)
+                if (SelectedPetFood.Id == 0)
                 {
-                    SelectedDewormer.Tipo = IsTypeInternal ? "I" : "E";
 
-                    var insertedId = await _service.InsertAsync(SelectedDewormer);
+                    var insertedId = await _service.InsertAsync(SelectedPetFood);
                     if (insertedId == -1)
                     {
                         await Shell.Current.DisplayAlert("Error while updating",
@@ -79,11 +74,11 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
                         return;
                     }
 
-                    var _petId = SelectedDewormer.IdPet;
+                    var _petId = SelectedPetFood.IdPet;
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
 
-                    ShowToastMessage("Desparasitante criado com sucesso");
+                    ShowToastMessage("Ração criada com sucesso");
 
                     await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                         new Dictionary<string, object>
@@ -93,10 +88,9 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
                 }
                 else // Insert (Id > 0)
                 {
-                    var _dewormerId = SelectedDewormer.Id;
-                    var _petId = SelectedDewormer.IdPet;
-                    SelectedDewormer.Tipo = IsTypeInternal ? "I" : "E";
-                    await _service.UpdateAsync(_dewormerId, SelectedDewormer);
+                    var _petFoodId = SelectedPetFood.Id;
+                    var _petId = SelectedPetFood.IdPet;
+                    await _service.UpdateAsync(_petFoodId, SelectedPetFood);
 
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
@@ -108,14 +102,14 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
                         });
 
                     //IsBusy = false;
-                    ShowToastMessage("Record updated successfuly");
+                    ShowToastMessage("Registo atualizado com sucesso");
 
                 }
             }
             catch (Exception ex)
             {
                 IsBusy = false;
-                ShowToastMessage($"Error while creating Dewormer ({ex.Message})");
+                ShowToastMessage($"Error while creating Vaccine ({ex.Message})");
             }
         }
 

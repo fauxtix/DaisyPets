@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="MauiPets.Mvvm.Views.PetFood.PetFoodAddOrEditPage"
+            xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+            xmlns:conv="clr-namespace:MauiPets.Converters"
+            xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.PetFood"
+            x:DataType="viewmodel:PetFoodBaseViewModel"
+            Title="Ração">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Save data" Command="{Binding SavePetFoodCommand}"
+                     IconImageSource="icon_save.png" />
+        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+                     IconImageSource="icon_close.svg" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <conv:StringToDateConverter x:Key="stringToDateConverter" />
+        <Style x:Key="MediumLabelBold" TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+        </Style>
+        <Style x:Key="LargeLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout Padding="4">
+        <Border Stroke="#2B0B98"
+                StrokeThickness="2"
+                StrokeShape="RoundRectangle 22"
+                Background="#fff"
+                Padding="8,4"
+                Margin="4"
+                HorizontalOptions="FillAndExpand">
+
+            <Grid Margin="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".3*" />
+                    <ColumnDefinition Width=".7*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Existing Fields -->
+                <Label Text="Compra" 
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="Small"
+                       VerticalOptions="Center"/>
+                <DatePicker x:Name="TransactionDate"
+                           Date="{Binding SelectedPetFood.DataCompra, Converter={StaticResource stringToDateConverter}}"  
+                           Style="{StaticResource MediumLabelBold}"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           FontAttributes="Bold" 
+                           VerticalOptions="Center"/>
+
+                <Label Text="Marca"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       FontSize="Small"
+                       VerticalOptions="Center"/>
+                <Entry x:Name="PetFoodBrand" 
+                       Text="{Binding SelectedPetFood.Marca}" 
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       VerticalOptions="Center"/>
+                <Label Text="Qtd. diária"
+                                       Grid.Row="2"
+                                       Grid.Column="0"
+                                       FontSize="13"
+			                           VerticalOptions="Center"></Label>
+                <Entry x:Name="TransactionAmount" Keyboard="Numeric"
+			                           Text="{Binding SelectedPetFood.QuantidadeDiaria}" 
+			                           Grid.Row="2"
+                                        FontSize="12"
+                                       Grid.Column="1"
+			                           VerticalOptions="Center">
+                    <Entry.Behaviors>
+                        <toolkit:NumericValidationBehavior 
+                                            InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                            ValidStyle="{StaticResource ValidEntryStyle}"
+                                            Flags="ValidateOnValueChanged"
+                                            MinimumValue="1"
+                                            MaximumValue="3"
+                                            MaximumDecimalPlaces="0" />
+                    </Entry.Behaviors>
+                </Entry>
+            </Grid>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

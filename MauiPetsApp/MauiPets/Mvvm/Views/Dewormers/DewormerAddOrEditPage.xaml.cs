@@ -1,7 +1,4 @@
 using MauiPets.Mvvm.ViewModels.Dewormers;
-using MauiPetsApp.Core.Application.ViewModels.LookupTables;
-using Syncfusion.Maui.Core.Carousel;
-using System.IO.Pipes;
 
 namespace MauiPets.Mvvm.Views.Dewormers;
 

@@ -5,7 +5,6 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:conv="clr-namespace:MauiPets.Converters"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Dewormers"
-             xmlns:syncfusion="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
              x:DataType="viewmodel:DewormerBaseViewModel"
              Title="Desparasitantes">
     <ContentPage.ToolbarItems>
@@ -87,7 +86,6 @@
                            VerticalOptions="Center"/>
 
 
-                <!-- Radio Buttons with Improved Alignment -->
                 <Label Text="Tipo" Grid.Row="3" Grid.Column="0" FontSize="Small" VerticalOptions="Center"/>
 
                 <Grid Grid.Row="3" Grid.Column="1" ColumnDefinitions="*,*" VerticalOptions="Center">

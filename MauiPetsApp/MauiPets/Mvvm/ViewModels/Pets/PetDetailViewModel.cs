@@ -5,8 +5,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.ViewModels.Dewormers;
 using MauiPets.Mvvm.Views.Dewormers;
+using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Vaccines;
+using MauiPets.Mvvm.Views.VetAppointments;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using System.Collections.ObjectModel;
@@ -198,6 +200,112 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         }
     }
 
+    [RelayCommand]
+    private async Task AddPetFood()
+    {
+        IsEditing = false;
+        SelectedPetFood = new()
+        {
+            IdPet = PetVM.Id,
+            Marca = "",
+            DataCompra = DateTime.Now.Date.ToShortDateString(),
+            QuantidadeDiaria = 1
+        };
+
+        await Shell.Current.GoToAsync($"{nameof(PetFoodAddOrEditPage)}", true,
+            new Dictionary<string, object>
+            {
+                {"SelectedPetFood", SelectedPetFood},
+            });
+
+    }
+
+    [RelayCommand]
+    private async Task AddVetAppointment()
+    {
+        IsEditing = false;
+        SelectedAppointment = new()
+        {
+            IdPet = PetVM.Id,
+            DataConsulta = DateTime.Now.Date.ToShortDateString(),
+            Motivo = string.Empty,
+            Diagnostico = string.Empty,
+            Tratamento = string.Empty,
+            Notas = string.Empty,
+        };
+
+        await Shell.Current.GoToAsync($"{nameof(VetAppointmentAddOrEditPage)}", true,
+            new Dictionary<string, object>
+            {
+                {"SelectedAppointment", SelectedAppointment},
+            });
+
+    }
+
+
+    [RelayCommand]
+    private async Task EditPetFoodAsync(RacaoVM petFood)
+    {
+        try
+        {
+            var petFoodId = petFood.Id;
+            if (petFoodId > 0)
+            {
+                var response = await _petFoodService.FindByIdAsync(petFoodId);
+                SelectedPetFood = response;
+                if (response is not null)
+                {
+
+                    await Shell.Current.GoToAsync($"{nameof(PetFoodAddOrEditPage)}", true,
+                        new Dictionary<string, object>
+                        {
+                            {"SelectedPetFood", SelectedPetFood},
+                        });
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Desparasitante não encontrado", $"ID#: {petFoodId}", "Ok");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error while 'EditPetFoodAsync", ex.Message, "Ok");
+        }
+    }
+
+    [RelayCommand]
+    private async Task EditVetAppointmentAsync(ConsultaVeterinarioVM petAppointment)
+    {
+        try
+        {
+            var petApptId = petAppointment.Id;
+            if (petApptId > 0)
+            {
+                var response = await _petVeterinaryAppointmentsService.FindByIdAsync(petApptId);
+                SelectedAppointment = response;
+                if (response is not null)
+                {
+
+                    await Shell.Current.GoToAsync($"{nameof(VetAppointmentAddOrEditPage)}", true,
+                        new Dictionary<string, object>
+                        {
+                            {"SelectedAppointment", SelectedAppointment},
+                        });
+
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Consulta não encontrada", $"ID#: {petApptId}", "Ok");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error while 'EditAddVetAppointmentAsync", ex.Message, "Ok");
+        }
+    }
+
 
 
     [RelayCommand]
@@ -276,6 +384,53 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         catch (Exception ex)
         {
             await ShowToastMessage($"Erro ao apagar desparasitante ({ex.Message})");
+        }
+    }
+
+    [RelayCommand]
+    private async Task DeletePetFoodAsync(RacaoVM petFood)
+    {
+        if (petFood is null)
+        {
+            return;
+        }
+        try
+        {
+            bool deletionConfirmed = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga o registo da Ração de {petFood.DataCompra} ({petFood.Marca})?", "Sim", "Não");
+            if (deletionConfirmed)
+            {
+                await _petFoodService.DeleteAsync(petFood.Id);
+                await ShowToastMessage($"Ração comprada em  {petFood.DataCompra} apagada com sucesso");
+                await RefreshPetDetail();
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowToastMessage($"Erro ao apagar desparasitante ({ex.Message})");
+        }
+    }
+
+
+    [RelayCommand]
+    private async Task DeletePetAppointment(ConsultaVeterinarioVM petAppt)
+    {
+        if (petAppt is null)
+        {
+            return;
+        }
+        try
+        {
+            bool deletionConfirmed = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga o registo da Consulya de {petAppt.DataConsulta}?", "Sim", "Não");
+            if (deletionConfirmed)
+            {
+                await _petVeterinaryAppointmentsService.DeleteAsync(petAppt.Id);
+                await ShowToastMessage($"Consulta de  {petAppt.DataConsulta} apagada com sucesso");
+                await RefreshPetDetail();
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowToastMessage($"Erro ao apagar consulta ({ex.Message})");
         }
     }
 

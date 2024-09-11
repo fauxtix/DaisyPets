@@ -1,7 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MauiPetsApp.Core.Application.ViewModels;
-using MauiPetsApp.Core.Application.ViewModels.LookupTables;
-using System.Collections.Generic;
 
 namespace MauiPets.Mvvm.ViewModels.Dewormers
 {

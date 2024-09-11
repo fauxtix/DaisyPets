@@ -78,6 +78,10 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         public VacinaDto _selectedVaccine = new();
         [ObservableProperty]
         public DesparasitanteDto _selectedDewormer = new();
+        [ObservableProperty]
+        public RacaoDto _selectedPetFood = new();
+        [ObservableProperty]
+        public ConsultaVeterinarioDto _selectedAppointment= new();
 
 
         [ObservableProperty]
