@@ -141,6 +141,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         }
         catch (Exception ex)
         {
+            await Task.CompletedTask;
             await Shell.Current.DisplayAlert("Error while 'EditVaccineAsync", ex.Message, "Ok");
         }
     }

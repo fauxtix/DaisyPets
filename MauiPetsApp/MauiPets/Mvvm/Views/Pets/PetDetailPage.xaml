@@ -513,12 +513,13 @@
                                         Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
 
-                                    <Grid ColumnDefinitions="100, *" ColumnSpacing="4"
-                                          Grid.Row="0">
-                                        <Label FontSize="10" Text="Visita" Grid.Row="0" Grid.Column="0" />
+                                    <Grid ColumnDefinitions=".2*, .8*" ColumnSpacing="4"
+                                          Grid.Row="2">
+                                        <Label FontSize="10" Text="Visita" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
                                         <Label FontSize="10" Text="Motivo" Grid.Row="0" Grid.Column="1"/>
                                     </Grid>
-                                    <CollectionView Grid.Row="6" HeightRequest="200"
+                                    <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
+                                    <CollectionView Grid.Row="4" 
                                         x:Name="ConsultationsView"
                                         ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetConsultationsVM}" 
                                         SelectionMode="Single">
@@ -559,9 +560,9 @@
                                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=EditVetAppointmentCommand}"
                                                                 CommandParameter="{Binding .}"/>
                                                             </Frame.GestureRecognizers>
-                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".3*, .7*">
-                                                                <Label Grid.Column="0" FontAttributes="Bold" FontSize="10" Text="{Binding DataConsulta}"/>
-                                                                <Label Grid.Column="1" FontSize="10" Text="{Binding Motivo}"/>
+                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".2*, .8*">
+                                                                <Label Grid.Column="0" FontAttributes="Bold" FontSize="11" Text="{Binding DataConsulta}" HorizontalOptions="Center"/>
+                                                                <Label Grid.Column="1"  FontSize="11" VerticalOptions="Start" HorizontalOptions="Start" Text="{Binding Motivo}"/>
                                                             </Grid>
                                                         </Frame>
                                                     </VerticalStackLayout>
