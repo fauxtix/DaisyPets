@@ -34,15 +34,19 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         string filterText = string.Empty;
 
         [ObservableProperty]
-        private int pageSize = 8; // Number of items per page
+        private int pageSize = 6; // Number of items per page
 
         [ObservableProperty]
         private int currentPage = 1; // Current page index
 
         [ObservableProperty]
         private int totalPages = 1; // Total number of pages
+
         [ObservableProperty]
-        private string pageInfo = "Page 1 of 1";
+        private bool isPaginationVisible = false; // Controls visibility of pagination
+
+        [ObservableProperty]
+        private string pageInfo = string.Empty; // Page info display text
 
         public ILookupTableService _lookupTablesService { get; set; }
 
@@ -77,7 +81,6 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
         }
 
-
         [RelayCommand]
         private async Task GetTodosAsync()
         {
@@ -97,9 +100,10 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 var todos = (await _service.GetAllVMAsync()).ToList();
 
                 TotalPages = (int)Math.Ceiling((double)todos.Count / PageSize); // Calculate total pages
+                IsPaginationVisible = TotalPages > 1; // Update visibility
 
                 UpdatePagedData(todos); // Get the items for the current page
-                UpdatePageInfo();
+                UpdatePageInfo(); // Update page info display
             }
             catch (Exception ex)
             {
@@ -153,6 +157,15 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             {
                 FilterText = filterType;
             }
+
+            // Update pagination visibility after filtering
+            IsPaginationVisible = TotalPages > 1;
+        }
+
+        private void UpdatePageInfo()
+        {
+            // Update the page info display (e.g., "Page 1 of 3")
+            PageInfo = $"Page {CurrentPage} of {TotalPages}";
         }
 
         private bool CanNavigatePrevious() => CurrentPage > 1;
@@ -165,7 +178,6 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             {
                 CurrentPage--;
                 await GetTodosAsync(); // Reload todos for the previous page
-                UpdatePageInfo();
             }
         }
 
@@ -176,7 +188,6 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             {
                 CurrentPage++;
                 await GetTodosAsync(); // Reload todos for the next page
-                UpdatePageInfo();
             }
         }
 
@@ -185,7 +196,6 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             CurrentPage = 1;
             await GetTodosAsync(); // Reload todos for the first page
-            UpdatePageInfo();
         }
 
         [RelayCommand]
@@ -193,7 +203,6 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             CurrentPage = TotalPages;
             await GetTodosAsync(); // Reload todos for the last page
-            UpdatePageInfo();
         }
 
         [RelayCommand]
@@ -232,21 +241,32 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); // Reload all todos
 
                 var completed = Todos.Where(c => c.Completed == 1).ToList();
+
                 if (!completed.Any())
                 {
                     await Shell.Current.DisplayAlert("Tarefas concluídas", "Sem dados para mostrar", "Ok");
+                    await GetTodosAsync(); // Reset to all records if none found
+                    FilterText = "All records";
+                    UpdatePageInfo(); // Update page info display
                     return;
                 }
 
-                RefreshTodoList(completed);
+                // Update pagination visibility
+                TotalPages = (int)Math.Ceiling((double)completed.Count / PageSize);
+                IsPaginationVisible = TotalPages > 1;
+
+                CurrentPage = 1; // Reset to the first page
+                UpdatePagedData(completed); // Update displayed todos
+                UpdatePageInfo(); // Update page info display
+
                 FilterText = "Tarefas concluídas";
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Error while 'FilterCompleted", ex.Message, "Ok");
+                await Shell.Current.DisplayAlert("Error while 'FilterCompletedAsync", ex.Message, "Ok");
             }
         }
 
@@ -255,20 +275,32 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); // Reload all todos
+
                 var pending = Todos.Where(c => c.Completed == 0).ToList();
+
                 if (!pending.Any())
                 {
                     await Shell.Current.DisplayAlert("Tarefas pendentes", "Sem dados para mostrar", "Ok");
+                    await GetTodosAsync(); // Reset to all records if none found
+                    FilterText = "All records";
+                    UpdatePageInfo(); // Update page info display
                     return;
                 }
 
-                RefreshTodoList(pending);
+                // Update pagination visibility
+                TotalPages = (int)Math.Ceiling((double)pending.Count / PageSize);
+                IsPaginationVisible = TotalPages > 1;
+
+                CurrentPage = 1; // Reset to the first page
+                UpdatePagedData(pending); // Update displayed todos
+                UpdatePageInfo(); // Update page info display
+
                 FilterText = "Tarefas pendentes";
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Error while 'FilterPending", ex.Message, "Ok");
+                await Shell.Current.DisplayAlert("Error while 'FilterPendingAsync", ex.Message, "Ok");
             }
         }
 
@@ -277,7 +309,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); // Reload all todos
+
                 var now = DateTime.Now;
                 var startOfWeek = now.StartOfWeek(DayOfWeek.Sunday);
                 var endOfWeek = startOfWeek.AddWeeks(1).AddDays(-1);
@@ -290,10 +323,20 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 if (!thisWeekTodos.Any())
                 {
                     await Shell.Current.DisplayAlert("Para esta semana", "Sem dados para mostrar", "Ok");
+                    await GetTodosAsync(); // Reset to all records if none found
+                    FilterText = "All records";
+                    UpdatePageInfo(); // Update page info display
                     return;
                 }
 
-                RefreshTodoList(thisWeekTodos);
+                // Update pagination visibility
+                TotalPages = (int)Math.Ceiling((double)thisWeekTodos.Count / PageSize);
+                IsPaginationVisible = TotalPages > 1;
+
+                CurrentPage = 1; // Reset to the first page
+                UpdatePagedData(thisWeekTodos); // Update displayed todos
+                UpdatePageInfo(); // Update page info display
+
                 FilterText = "Para esta semana";
             }
             catch (Exception ex)
@@ -307,7 +350,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); // Reload all todos
+
                 var now = DateTime.Now;
                 var startOfWeek = now.StartOfWeek(DayOfWeek.Sunday).AddWeeks(1);
                 var endOfWeek = startOfWeek.AddWeeks(1).AddDays(-1);
@@ -320,10 +364,20 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 if (!nextWeekTodos.Any())
                 {
                     await Shell.Current.DisplayAlert("Para a próxima semana", "Sem dados para mostrar", "Ok");
+                    await GetTodosAsync(); // Reset to all records if none found
+                    FilterText = "All records";
+                    UpdatePageInfo(); // Update page info display
                     return;
                 }
 
-                RefreshTodoList(nextWeekTodos);
+                // Update pagination visibility
+                TotalPages = (int)Math.Ceiling((double)nextWeekTodos.Count / PageSize);
+                IsPaginationVisible = TotalPages > 1;
+
+                CurrentPage = 1; // Reset to the first page
+                UpdatePagedData(nextWeekTodos); // Update displayed todos
+                UpdatePageInfo(); // Update page info display
+
                 FilterText = "Para a próxima semana";
             }
             catch (Exception ex)
@@ -337,7 +391,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); // Reload all todos
+
                 var now = DateTime.Now;
                 var startOfMonth = now.StartOfMonth();
                 var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
@@ -350,10 +405,20 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 if (!thisMonthTodos.Any())
                 {
                     await Shell.Current.DisplayAlert("Para este mês", "Sem dados para mostrar", "Ok");
+                    await GetTodosAsync(); // Reset to all records if none found
+                    FilterText = "All records";
+                    UpdatePageInfo(); // Update page info display
                     return;
                 }
 
-                RefreshTodoList(thisMonthTodos);
+                // Update pagination visibility
+                TotalPages = (int)Math.Ceiling((double)thisMonthTodos.Count / PageSize);
+                IsPaginationVisible = TotalPages > 1;
+
+                CurrentPage = 1; // Reset to the first page
+                UpdatePagedData(thisMonthTodos); // Update displayed todos
+                UpdatePageInfo(); // Update page info display
+
                 FilterText = "Para este mês";
             }
             catch (Exception ex)
@@ -367,7 +432,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); // Reload all todos
+
                 var now = DateTime.Now;
                 var startOfNextMonth = now.StartOfMonth().AddMonths(1);
                 var endOfNextMonth = startOfNextMonth.AddMonths(1).AddDays(-1);
@@ -380,21 +446,26 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 if (!nextMonthTodos.Any())
                 {
                     await Shell.Current.DisplayAlert("Para o próximo mês", "Sem dados para mostrar", "Ok");
+                    await GetTodosAsync(); // Reset to all records if none found
+                    FilterText = "All records";
+                    UpdatePageInfo(); // Update page info display
                     return;
                 }
 
-                RefreshTodoList(nextMonthTodos);
+                // Update pagination visibility
+                TotalPages = (int)Math.Ceiling((double)nextMonthTodos.Count / PageSize);
+                IsPaginationVisible = TotalPages > 1;
+
+                CurrentPage = 1; // Reset to the first page
+                UpdatePagedData(nextMonthTodos); // Update displayed todos
+                UpdatePageInfo(); // Update page info display
+
                 FilterText = "Para o próximo mês";
             }
             catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Error while 'FilterNextMonthAsync", ex.Message, "Ok");
             }
-        }
-
-        private void UpdatePageInfo()
-        {
-            PageInfo = $"Page {CurrentPage} of {TotalPages}";
         }
     }
 }

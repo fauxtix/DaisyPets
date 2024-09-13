@@ -2,21 +2,21 @@
 
 namespace MauiPets.Converters
 {
-    public class LessThanTotalPagesConverter : IValueConverter
+    public class LessThanTotalPagesConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var pageInfo = value as Tuple<int, int>;
-            if (pageInfo != null)
+            if (values.Length == 2
+                  && values[0] is int currentPage
+                  && values[1] is int totalPages)
             {
-                var currentPage = pageInfo.Item1;
-                var totalPages = pageInfo.Item2;
                 return currentPage < totalPages;
             }
             return false;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

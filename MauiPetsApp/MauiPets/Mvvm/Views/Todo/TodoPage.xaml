@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Todo.TodoPage"
-             xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.TodoManager;assembly=MauiPets.Core"
+             xmlns:models="clr-namespace:MauiPetsApp.Core.Application.TodoManager;assembly=MauiPets.Core"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Todo"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Todo"
@@ -12,8 +12,8 @@
 
     <ContentPage.Resources>
         <conv:StringToDateConverter x:Key="stringToDateConverter" />
-        <conv:GreaterThanOneConverter  x:Key="GreaterThanOneConverter " />
-        <conv:LessThanTotalPagesConverter  x:Key="LessThanTotalPagesConverter " />
+        <conv:GreaterThanOneConverter x:Key="GreaterThanOneConverter" />
+        <conv:LessThanTotalPagesConverter x:Key="LessThanTotalPagesConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Behaviors>
@@ -26,9 +26,7 @@
                      IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
 
-    <!-- Use Grid Layout for better control -->
     <Grid Margin="0" Padding="0" RowDefinitions="Auto, Auto, Auto, *, Auto, Auto">
-        <!-- Header Border -->
         <Border Stroke="#C49B33" Margin="0, 2, 0, 0"
                 StrokeThickness="1"
                 StrokeShape="RoundRectangle 15,15,15,15"
@@ -42,29 +40,27 @@
                    FontAttributes="None" />
         </Border>
 
-        <!-- Filters Frame -->
         <Frame HeightRequest="70" CornerRadius="12" HasShadow="True" Margin="10, 10, 10, 20" Padding="10"
                BackgroundColor="LightGray"
                Grid.Row="1">
             <ScrollView Orientation="Horizontal">
                 <HorizontalStackLayout Spacing="10" Padding="5">
-                    <Button Text="This Week" Command="{Binding FilterThisWeekCommand}" 
+                    <Button Text="Esta semana" Command="{Binding FilterThisWeekCommand}" 
                             CornerRadius="10" BackgroundColor="LightSkyBlue" TextColor="White" 
                             BorderWidth="1" BorderColor="SkyBlue" WidthRequest="120" />
-                    <Button Text="Next Week" Command="{Binding FilterNextWeekCommand}" 
+                    <Button Text="Próx. semana" Command="{Binding FilterNextWeekCommand}" 
                             CornerRadius="10" BackgroundColor="LightSeaGreen" TextColor="White" 
                             BorderWidth="1" BorderColor="SeaGreen" WidthRequest="120" />
-                    <Button Text="This Month" Command="{Binding FilterThisMonthCommand}" 
+                    <Button Text="Este mês" Command="{Binding FilterThisMonthCommand}" 
                             CornerRadius="10" BackgroundColor="Coral" TextColor="White" 
                             BorderWidth="1" BorderColor="DarkOrange" WidthRequest="120" />
-                    <Button Text="Next Month" Command="{Binding FilterNextMonthCommand}" 
+                    <Button Text="Próx. mês" Command="{Binding FilterNextMonthCommand}" 
                             CornerRadius="10" BackgroundColor="Goldenrod" TextColor="White" 
                             BorderWidth="1" BorderColor="DarkGoldenrod" WidthRequest="120" />
                 </HorizontalStackLayout>
             </ScrollView>
         </Frame>
 
-        <!-- Search and Filter Buttons -->
         <Frame HeightRequest="50" CornerRadius="10" HasShadow="True" Margin="2, 5, 2, 20" Padding="2"
                Grid.Row="2">
             <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly">
@@ -91,7 +87,7 @@
                              BorderWidth="2" BorderColor="SteelBlue" CornerRadius="10"
                              Aspect="AspectFill"
                              Margin="5, 0, 0, 0"
-                             ToolTipProperties.Text ="Pending"
+                             ToolTipProperties.Text="Pending"
                              Source="tasks.png"
                              VerticalOptions="Center" />
                 <ImageButton Command="{Binding GetTodosCommand}"
@@ -101,13 +97,12 @@
                              Aspect="AspectFill"
                              WidthRequest="30"
                              Margin="5, 0, 0, 0"
-                             ToolTipProperties.Text ="All"
+                             ToolTipProperties.Text="All"
                              Source="check_all.png"
                              VerticalOptions="Center" />
             </FlexLayout>
         </Frame>
 
-        <!-- CollectionView -->
         <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" 
                         ItemsUpdatingScrollMode="KeepItemsInView"
                         Grid.Row="3">
@@ -127,7 +122,7 @@
                                Padding="1">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TodoViewModel }}, Path=EditTodoCommand}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TodoViewModel}}, Path=EditTodoCommand}"
                                         CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
                             <Grid Padding="2" ColumnSpacing="5" Margin="1" RowSpacing="2">
@@ -140,7 +135,7 @@
                                     <ColumnDefinition Width="60" />
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" FontSize="11"
-                                       Text="{Binding StartDate, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}"
+                                       Text="{Binding StartDate, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
                                        FontAttributes="Bold" />
                                 <Label Grid.Column="1" FontSize="12"
                                        Text="{Binding Description, Mode=OneWay}"
@@ -158,26 +153,41 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Pagination Buttons and Page Info -->
+        <!-- Pagination Controls -->
         <StackLayout Padding="1, 10, 1, 10" Spacing="5" HorizontalOptions="Center" Margin="0, 2, 1, 0"
-                     VerticalOptions="Center" Orientation="Horizontal"
-                     Grid.Row="4">
-            <Button Text="First" Command="{Binding FirstPageCommand}" />
-            <Button Text="Previous" Command="{Binding PreviousPageCommand}" 
-                    IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" />
-            <Button Text="Next" Command="{Binding NextPageCommand}" 
-                    IsEnabled="{Binding CurrentPage, Converter={StaticResource LessThanTotalPagesConverter}}" />
-            <Button Text="Last" Command="{Binding LastPageCommand}" />
+             VerticalOptions="Center" Orientation="Horizontal"
+             Grid.Row="4"
+             IsVisible="{Binding IsPaginationVisible}">
+            <Button Text="Início" Command="{Binding FirstPageCommand}" CornerRadius="10" WidthRequest="80" />
+            <Button Text="Anterior" Command="{Binding PreviousPageCommand}" CornerRadius="10"
+                 IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" />
+            <Button Text="Seguinte" 
+                    Command="{Binding NextPageCommand}" 
+                    CornerRadius="10" WidthRequest="90">
+                <Button.IsEnabled>
+                    <MultiBinding>
+                        <Binding Path="CurrentPage" />
+                        <Binding Path="TotalPages" />
+                        <MultiBinding.Converter>
+                            <conv:LessThanTotalPagesConverter/>
+                        </MultiBinding.Converter>
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
+
+            <Button Text="Fim" Command="{Binding LastPageCommand}" CornerRadius="10" WidthRequest="80" />
         </StackLayout>
 
-        <!-- Page Info Label -->
+        <!-- Page Info -->
         <Label Text="{Binding PageInfo}"
-       HorizontalOptions="Center"
-       VerticalOptions="Center"
-       FontSize="14"
-       FontAttributes="Bold"
-       Grid.Row="5" />
-        
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               FontSize="14"
+               FontAttributes="Bold"
+               Margin="0, 0, 0, 10"
+               Grid.Row="5" />
+
+        <!-- Activity Indicator -->
         <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#00000080" Grid.Row="0" Grid.RowSpan="7">
             <ActivityIndicator 
                     x:Name="ai" 
