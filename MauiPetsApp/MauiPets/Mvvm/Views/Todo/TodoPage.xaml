@@ -8,7 +8,7 @@
              xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Todo"
              xmlns:conv="clr-namespace:MauiPets.Converters"
              x:DataType="local:TodoViewModel"
-             Title="Todo List">
+             Title="Lista de tarefas">
 
     <ContentPage.Resources>
         <conv:StringToDateConverter x:Key="stringToDateConverter" />
@@ -25,23 +25,44 @@
     <Grid Margin="0" Padding="0">
         <ScrollView>
             <StackLayout>
-                <Border Stroke="#C49B33"
-                    StrokeThickness="3"
+                <Border Stroke="#C49B33" Margin="0, 2, 0, 0"
+                    StrokeThickness="1"
                     StrokeShape="RoundRectangle 15,15,15,15"
-                    Background="#2B0B98"
+                    Background="Beige"
                     Padding="16,8"
                     HorizontalOptions="Center">
                     <Label Text="{Binding FilterText, Mode=TwoWay}"
-                           TextColor="White" WidthRequest="120" HorizontalTextAlignment="Center"
+                           TextColor="Black" WidthRequest="160" HorizontalTextAlignment="Center"
                            FontSize="16"
                            FontAttributes="None" />
                 </Border>
+                <Frame HeightRequest="70" CornerRadius="12" HasShadow="True" Margin="10, 10, 10, 20" Padding="10"
+                       BackgroundColor="LightGray">
+                    <ScrollView Orientation="Horizontal">
+                        <HorizontalStackLayout Spacing="10" Padding="5">
+                            <Button Text="This Week" Command="{Binding FilterThisWeekCommand}" 
+                                    CornerRadius="10" BackgroundColor="LightSkyBlue" TextColor="White" 
+                                    BorderWidth="1" BorderColor="SkyBlue" WidthRequest="120" />
+                            <Button Text="Next Week" Command="{Binding FilterNextWeekCommand}" 
+                                    CornerRadius="10" BackgroundColor="LightSeaGreen" TextColor="White" 
+                                    BorderWidth="1" BorderColor="SeaGreen" WidthRequest="120" />
+                            <Button Text="This Month" Command="{Binding FilterThisMonthCommand}" 
+                                    CornerRadius="10" BackgroundColor="Coral" TextColor="White" 
+                                    BorderWidth="1" BorderColor="DarkOrange" WidthRequest="120" />
+                            <Button Text="Next Month" Command="{Binding FilterNextMonthCommand}" 
+                                    CornerRadius="10" BackgroundColor="Goldenrod" TextColor="White" 
+                                    BorderWidth="1" BorderColor="DarkGoldenrod" WidthRequest="120" />
+                        </HorizontalStackLayout>
+                    </ScrollView>
+                </Frame>
 
                 <Frame HeightRequest="50" CornerRadius="10" HasShadow="True" Margin="2, 5, 2, 20" Padding="2">
                     <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly">
-                        <SearchBar x:Name="searchBar" Placeholder="Filter" 
+                        
+                        <SearchBar x:Name="searchBar" Placeholder="Pesquisar" 
                                    WidthRequest="200"  TextChanged="SearchBar_TextChanged">
                         </SearchBar>
+
                         <ImageButton Command="{Binding FilterCompletedCommand}" Aspect="AspectFill"
                             HorizontalOptions="Start" 
                                      BorderWidth="2" BorderColor="Black" CornerRadius="10"
@@ -49,7 +70,6 @@
                             WidthRequest="30"  
                             Source="schedule_icon.png"
                             VerticalOptions="Center" />
-
                         <ImageButton Command="{Binding FilterPendingCommand}"
                             HorizontalOptions="Start"
                             HeightRequest="30"
@@ -72,8 +92,8 @@
                             VerticalOptions="Center" />
                     </FlexLayout>
                 </Frame>
-                <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" >
-                    <!--ItemsUpdatingScrollMode="KeepItemsInView" >-->
+                <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" 
+                    ItemsUpdatingScrollMode="KeepItemsInView">
                     <CollectionView.EmptyView>
                         <StackLayout Padding="10">
                             <Label HorizontalOptions="Center" Padding="10">No data to view</Label>
@@ -86,22 +106,21 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:ToDoDto">
                             <VerticalStackLayout >
-                                <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 2" 
-                                                   Padding="2">
+                                <Frame CornerRadius="10" HasShadow="True" Margin="3, 1, 3, 1" VerticalOptions="Center"
+                                                   Padding="1">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TodoViewModel }}, Path=EditTodoCommand}"
                                                 CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    <Grid Padding="2" ColumnSpacing="10" Margin="4" RowSpacing="3">
+                                    <Grid Padding="2" ColumnSpacing="5" Margin="1" RowSpacing="2">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="80" />
+                                            <ColumnDefinition Width="60" />
                                             <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="40" />
-                                            <ColumnDefinition Width="40" />
+                                            <ColumnDefinition Width="60" />
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0" FontSize="11"
                                            Text="{Binding StartDate, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}"
@@ -112,12 +131,9 @@
                                           VerticalOptions="Start" />
                                         <Switch Grid.Column="2" IsToggled="{Binding Completed}" 
                                                 Toggled="Switch_Toggled"
-                                                HorizontalOptions="Center"
-                                                Margin="0,0,0,10"
-                                                VerticalOptions="Start" />
-                                        <!--<Switch Grid.Column="3" IsToggled="{Binding Generated}"
-                                           HorizontalOptions="Center" 
-                                          VerticalOptions="Start" />-->
+                                                HorizontalOptions="Start"
+                                                Margin="0,-16,0,10"
+                                                VerticalOptions="Center" />
                                     </Grid>
                                 </Frame>
                             </VerticalStackLayout>
@@ -125,18 +141,27 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <StackLayout Padding="10" Spacing="4" HorizontalOptions="Center"
-                            VerticalOptions="Center" Orientation="Horizontal">
-                    <Button x:Name="btnFirst" 
-                            Text="First" CornerRadius="10"
-                            Clicked="OnFirstPageButtonClicked" />
-                    <Button x:Name="btnPrevious" Text="Previous" CornerRadius="10"
-                            Clicked="OnPreviousPageButtonClicked" />
-                    <Button x:Name="btnNext" Text="Next" CornerRadius="10"
-                            Clicked="OnNextPageButtonClicked" />
-                    <Button x:Name="btnLast" Text="Last" CornerRadius="10"
-                            Clicked="OnLastPageButtonClicked" />
+                <StackLayout Padding="1, 10, 1, 10" Spacing="5" HorizontalOptions="Center" Margin="0, 2, 1, 0"
+                         VerticalOptions="Center" Orientation="Horizontal">
+                        <Button x:Name="btnFirst" 
+                            Text="Início" CornerRadius="12"
+                            Clicked="OnFirstPageButtonClicked"
+                            WidthRequest="80" />
+                        <Button x:Name="btnPrevious" Text="Anterior" CornerRadius="12"
+                            Clicked="OnPreviousPageButtonClicked"
+                            WidthRequest="90" />
+                        <Button x:Name="btnNext" Text="Sequinte" CornerRadius="12"
+                            Clicked="OnNextPageButtonClicked"
+                            WidthRequest="90" />
+                        <Button x:Name="btnLast" Text="Fim" CornerRadius="12"
+                            Clicked="OnLastPageButtonClicked"
+                            WidthRequest="80" />
                 </StackLayout>
+                <Label x:Name="pageInfoLabel"
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center"
+                   FontSize="14" 
+                   FontAttributes="Bold" />
             </StackLayout>
         </ScrollView>
         <ActivityIndicator 

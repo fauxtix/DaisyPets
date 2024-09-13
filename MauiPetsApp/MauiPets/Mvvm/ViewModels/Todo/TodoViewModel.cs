@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MauiPets.Extensions;
 using MauiPets.Mvvm.Views.Todo;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
@@ -25,10 +26,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         [ObservableProperty]
         private int _todoCategorySelectedIndex;
 
-
         [ObservableProperty]
         bool isRefreshing;
-
 
         [ObservableProperty]
         string filterText = string.Empty;
@@ -53,7 +52,6 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 {
                     TodoCategories.Add(categoryType);
                 }
-
             }
             catch (Exception ex)
             {
@@ -64,13 +62,11 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         [RelayCommand]
         private async Task GetTodosAsync()
         {
-
             try
             {
                 if (_connectivity.NetworkAccess != NetworkAccess.Internet)
                 {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
+                    await Shell.Current.DisplayAlert("No connectivity!", "Please check internet and try again.", "OK");
                     return;
                 }
 
@@ -82,21 +78,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 await Task.Delay(100);
                 var todos = (await _service.GetAllVMAsync()).ToList();
 
-                //RefreshTodoList(todos, "All Tasks");
-
-                if (todos.Count != 0)
-                {
-                    Todos.Clear();
-                }
-
-                foreach (var todo in todos)
-                {
-                    Todos.Add(todo);
-                }
-
-                FilterText = "All Tasks";
-
-
+                RefreshTodoList(todos, "Todas as tarefas");
             }
             catch (Exception ex)
             {
@@ -107,29 +89,6 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             {
                 IsBusy = false;
                 IsRefreshing = false;
-            }
-        }
-
-        [RelayCommand]
-        private async Task GetTodoAsync()
-        {
-            try
-            {
-                var todoId = Id;
-                if (todoId > 0)
-                {
-                    var response = await _service.GetToDoVM_ByIdAsync(todoId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
-
-                    if (response is not null)
-                    {
-                        SelectedTodo = response;
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-                await Shell.Current.DisplayAlert("Error while 'GetTodoAsync", ex.Message, "Ok");
             }
         }
 
@@ -148,7 +107,6 @@ namespace MauiPets.Mvvm.ViewModels.Todo
 
                     if (response is not null)
                     {
-
                         await Shell.Current.GoToAsync($"{nameof(TodoAddOrEditPage)}", true,
                             new Dictionary<string, object>
                             {
@@ -166,7 +124,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         }
 
         [RelayCommand]
-        private async Task FilterCompleted()
+        private async Task FilterCompletedAsync()
         {
             try
             {
@@ -175,23 +133,11 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 var completed = Todos.Where(c => c.Completed == 1).ToList();
                 if (!completed.Any())
                 {
-                    await Shell.Current.DisplayAlert("Completed items", "No data to show", "Ok");
+                    await Shell.Current.DisplayAlert("Tarefas concluídas", "Sem dados para mostrar", "Ok");
                     return;
                 }
 
-                //RefreshTodoList(completed, "Completed");
-
-                if (Todos.Count != 0)
-                {
-                    Todos.Clear();
-                }
-
-                foreach (var todo in completed)
-                {
-                    Todos.Add(todo);
-                }
-                FilterText = "Completed";
-
+                RefreshTodoList(completed, "Tarefas concluídas");
             }
             catch (Exception ex)
             {
@@ -200,32 +146,19 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         }
 
         [RelayCommand]
-        private async Task FilterPending()
+        private async Task FilterPendingAsync()
         {
-
             try
             {
                 await GetTodosAsync();
                 var pending = Todos.Where(c => c.Completed == 0).ToList();
                 if (!pending.Any())
                 {
-                    await Shell.Current.DisplayAlert("Pending items","No data to show", "Ok");
+                    await Shell.Current.DisplayAlert("Tarefas pendentes", "Sem dados para mostrar", "Ok");
                     return;
                 }
 
-                //RefreshTodoList(pending, "Pending");
-
-                if (Todos.Count != 0)
-                {
-                    Todos.Clear();
-                }
-
-                foreach (var todo in pending)
-                {
-                    Todos.Add(todo);
-                }
-                FilterText = "Pending";
-
+                RefreshTodoList(pending, "Tarefas pendentes");
             }
             catch (Exception ex)
             {
@@ -233,57 +166,131 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
         }
 
-        //[RelayCommand]
-        public async Task PerformSearch(string searchText)
+        [RelayCommand]
+        private async Task FilterThisWeekAsync()
         {
-            if(string.IsNullOrEmpty(searchText))
+            try
             {
-                IsBusy = true;
                 await GetTodosAsync();
+                var now = DateTime.Now;
+                var startOfWeek = now.StartOfWeek(DayOfWeek.Sunday);
+                var endOfWeek = startOfWeek.AddWeeks(1).AddDays(-1);
 
-                IsBusy = false;
-                return;
+                var thisWeekTodos = Todos.Where(t =>
+                    DateTime.TryParse(t.StartDate, out var startDate) &&
+                    startDate >= startOfWeek && startDate <= endOfWeek
+                ).ToList();
 
+                if (!thisWeekTodos.Any())
+                {
+                    await Shell.Current.DisplayAlert("Para esta semana", "Sem dados para mostrar", "Ok");
+                    return;
+                }
+
+                RefreshTodoList(thisWeekTodos, "Para esta semana");
             }
-            IsBusy = true;
-            await GetTodosAsync(); // 'Todos' setted  (all records)
-            var searchResults = Todos.Where(t => t.Description.Contains(searchText, StringComparison.CurrentCultureIgnoreCase)).ToList();
-            if (!searchResults.Any())
+            catch (Exception ex)
             {
-                IsBusy = true;
-                await GetTodosAsync();
-                IsBusy = false;
-                return;
+                await Shell.Current.DisplayAlert("Error while 'FilterThisWeekAsync", ex.Message, "Ok");
             }
-
-            await Task.Delay(100);
-            if (searchResults.Count != 0)
-            {
-                Todos.Clear();
-            }
-
-            foreach (var todo in searchResults)
-            {
-                Todos.Add(todo);
-            }
-
-            FilterText = "By filter";
-            IsBusy = false;
         }
 
-        private void RefreshTodoList(List<ToDoDto> data, string filterCaption)
+        [RelayCommand]
+        private async Task FilterNextWeekAsync()
         {
-            if (data.Count != 0)
+            try
             {
-                Todos.Clear();
-            }
+                await GetTodosAsync();
+                var now = DateTime.Now;
+                var startOfWeek = now.StartOfWeek(DayOfWeek.Sunday).AddWeeks(1);
+                var endOfWeek = startOfWeek.AddWeeks(1).AddDays(-1);
 
-            foreach (var todo in data)
+                var nextWeekTodos = Todos.Where(t =>
+                    DateTime.TryParse(t.StartDate, out var startDate) &&
+                    startDate >= startOfWeek && startDate <= endOfWeek
+                ).ToList();
+
+                if (!nextWeekTodos.Any())
+                {
+                    await Shell.Current.DisplayAlert("Para a próxima semana", "Sem dados para mostrar", "Ok");
+                    return;
+                }
+
+                RefreshTodoList(nextWeekTodos, "Para a próxima semana");
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error while 'FilterNextWeekAsync", ex.Message, "Ok");
+            }
+        }
+
+        [RelayCommand]
+        private async Task FilterThisMonthAsync()
+        {
+            try
+            {
+                await GetTodosAsync();
+                var now = DateTime.Now;
+                var startOfMonth = now.StartOfMonth();
+                var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
+
+                var thisMonthTodos = Todos.Where(t =>
+                    DateTime.TryParse(t.StartDate, out var startDate) &&
+                    startDate >= startOfMonth && startDate <= endOfMonth
+                ).ToList();
+
+                if (!thisMonthTodos.Any())
+                {
+                    await Shell.Current.DisplayAlert("Para este mês", "Sem dados para mostrar", "Ok");
+                    return;
+                }
+
+                RefreshTodoList(thisMonthTodos, "Para este mês");
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error while 'FilterThisMonthAsync", ex.Message, "Ok");
+            }
+        }
+
+        [RelayCommand]
+        private async Task FilterNextMonthAsync()
+        {
+            try
+            {
+                await GetTodosAsync();
+                var now = DateTime.Now;
+                var startOfNextMonth = now.StartOfMonth().AddMonths(1);
+                var endOfNextMonth = startOfNextMonth.AddMonths(1).AddDays(-1);
+
+                var nextMonthTodos = Todos.Where(t =>
+                    DateTime.TryParse(t.StartDate, out var startDate) &&
+                    startDate >= startOfNextMonth && startDate <= endOfNextMonth
+                ).ToList();
+
+                if (!nextMonthTodos.Any())
+                {
+                    await Shell.Current.DisplayAlert("Para o próximo mês", "Sem dados para mostrar", "Ok");
+                    return;
+                }
+
+                RefreshTodoList(nextMonthTodos, "Para o próximo mês");
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error while 'FilterNextMonthAsync", ex.Message, "Ok");
+            }
+        }
+
+        private void RefreshTodoList(IEnumerable<ToDoDto> todos, string filterType)
+        {
+            Todos.Clear();
+            foreach (var todo in todos)
             {
                 Todos.Add(todo);
             }
 
-            FilterText = filterCaption;
+            FilterText = filterType;
         }
     }
 }
