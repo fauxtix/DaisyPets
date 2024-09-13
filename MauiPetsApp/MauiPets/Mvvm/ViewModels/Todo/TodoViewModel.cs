@@ -23,6 +23,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
 
         [ObservableProperty]
         private int _selectedCategoryType;
+
         [ObservableProperty]
         private int _todoCategorySelectedIndex;
 
@@ -31,6 +32,17 @@ namespace MauiPets.Mvvm.ViewModels.Todo
 
         [ObservableProperty]
         string filterText = string.Empty;
+
+        [ObservableProperty]
+        private int pageSize = 8; // Number of items per page
+
+        [ObservableProperty]
+        private int currentPage = 1; // Current page index
+
+        [ObservableProperty]
+        private int totalPages = 1; // Total number of pages
+        [ObservableProperty]
+        private string pageInfo = "Page 1 of 1";
 
         public ILookupTableService _lookupTablesService { get; set; }
 
@@ -41,6 +53,12 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             _connectivity = connectivity;
 
             FillCategoryTypes();
+            LoadInitialData(); // Load initial todos with paging
+        }
+
+        private async void LoadInitialData()
+        {
+            await GetTodosAsync();
         }
 
         private void FillCategoryTypes()
@@ -59,6 +77,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
         }
 
+
         [RelayCommand]
         private async Task GetTodosAsync()
         {
@@ -75,10 +94,12 @@ namespace MauiPets.Mvvm.ViewModels.Todo
 
                 IsBusy = true;
 
-                await Task.Delay(100);
                 var todos = (await _service.GetAllVMAsync()).ToList();
 
-                RefreshTodoList(todos, "Todas as tarefas");
+                TotalPages = (int)Math.Ceiling((double)todos.Count / PageSize); // Calculate total pages
+
+                UpdatePagedData(todos); // Get the items for the current page
+                UpdatePageInfo();
             }
             catch (Exception ex)
             {
@@ -90,6 +111,89 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 IsBusy = false;
                 IsRefreshing = false;
             }
+        }
+
+        [RelayCommand]
+        private async Task SearchTodosAsync(string searchText)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(searchText))
+                {
+                    await GetTodosAsync(); // Reload all todos if search text is empty
+                }
+                else
+                {
+                    var filteredTodos = await _service.SearchTodosByText(searchText);
+                    RefreshTodoList(filteredTodos);
+                    FilterText = $"Filtered by: {searchText}";
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error while 'SearchTodosAsync", ex.Message, "Ok");
+            }
+        }
+
+        private void UpdatePagedData(List<ToDoDto> todos)
+        {
+            var pagedTodos = todos.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList(); // Apply paging logic
+            RefreshTodoList(pagedTodos); // Update the displayed todos
+        }
+
+        private void RefreshTodoList(IEnumerable<ToDoDto> todos, string filterType = null)
+        {
+            Todos.Clear();
+            foreach (var todo in todos)
+            {
+                Todos.Add(todo);
+            }
+
+            if (filterType != null)
+            {
+                FilterText = filterType;
+            }
+        }
+
+        private bool CanNavigatePrevious() => CurrentPage > 1;
+        private bool CanNavigateNext() => CurrentPage < TotalPages;
+
+        [RelayCommand(CanExecute = nameof(CanNavigatePrevious))]
+        private async Task PreviousPageAsync()
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                await GetTodosAsync(); // Reload todos for the previous page
+                UpdatePageInfo();
+            }
+        }
+
+        [RelayCommand(CanExecute = nameof(CanNavigateNext))]
+        private async Task NextPageAsync()
+        {
+            if (CurrentPage < TotalPages)
+            {
+                CurrentPage++;
+                await GetTodosAsync(); // Reload todos for the next page
+                UpdatePageInfo();
+            }
+        }
+
+        [RelayCommand]
+        private async Task FirstPageAsync()
+        {
+            CurrentPage = 1;
+            await GetTodosAsync(); // Reload todos for the first page
+            UpdatePageInfo();
+        }
+
+        [RelayCommand]
+        private async Task LastPageAsync()
+        {
+            CurrentPage = TotalPages;
+            await GetTodosAsync(); // Reload todos for the last page
+            UpdatePageInfo();
         }
 
         [RelayCommand]
@@ -137,7 +241,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                     return;
                 }
 
-                RefreshTodoList(completed, "Tarefas concluídas");
+                RefreshTodoList(completed);
+                FilterText = "Tarefas concluídas";
             }
             catch (Exception ex)
             {
@@ -158,7 +263,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                     return;
                 }
 
-                RefreshTodoList(pending, "Tarefas pendentes");
+                RefreshTodoList(pending);
+                FilterText = "Tarefas pendentes";
             }
             catch (Exception ex)
             {
@@ -187,7 +293,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                     return;
                 }
 
-                RefreshTodoList(thisWeekTodos, "Para esta semana");
+                RefreshTodoList(thisWeekTodos);
+                FilterText = "Para esta semana";
             }
             catch (Exception ex)
             {
@@ -216,7 +323,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                     return;
                 }
 
-                RefreshTodoList(nextWeekTodos, "Para a próxima semana");
+                RefreshTodoList(nextWeekTodos);
+                FilterText = "Para a próxima semana";
             }
             catch (Exception ex)
             {
@@ -245,7 +353,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                     return;
                 }
 
-                RefreshTodoList(thisMonthTodos, "Para este mês");
+                RefreshTodoList(thisMonthTodos);
+                FilterText = "Para este mês";
             }
             catch (Exception ex)
             {
@@ -274,7 +383,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                     return;
                 }
 
-                RefreshTodoList(nextMonthTodos, "Para o próximo mês");
+                RefreshTodoList(nextMonthTodos);
+                FilterText = "Para o próximo mês";
             }
             catch (Exception ex)
             {
@@ -282,15 +392,9 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
         }
 
-        private void RefreshTodoList(IEnumerable<ToDoDto> todos, string filterType)
+        private void UpdatePageInfo()
         {
-            Todos.Clear();
-            foreach (var todo in todos)
-            {
-                Todos.Add(todo);
-            }
-
-            FilterText = filterType;
+            PageInfo = $"Page {CurrentPage} of {TotalPages}";
         }
     }
 }
