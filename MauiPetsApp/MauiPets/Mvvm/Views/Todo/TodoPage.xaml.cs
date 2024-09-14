@@ -1,21 +1,17 @@
 using MauiPets.Mvvm.ViewModels.Todo;
 using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
-using Syncfusion.Maui.Core.Carousel;
-using System.Collections.ObjectModel;
 
 namespace MauiPets.Mvvm.Views.Todo
 {
     public partial class TodoPage : ContentPage
     {
-        private TodoViewModel _viewModel;
         private IToDoService _service;
         public TodoPage(TodoViewModel viewModel, IToDoService service)
         {
             InitializeComponent();
             _service = service;
-            _viewModel = viewModel;
-            BindingContext = _viewModel; // Bind the ViewModel to the page
+            BindingContext = viewModel;        
         }
 
         private async void Switch_Toggled(object sender, ToggledEventArgs e)

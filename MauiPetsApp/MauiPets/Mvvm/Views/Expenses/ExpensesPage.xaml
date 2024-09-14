@@ -199,14 +199,14 @@
 
             </VerticalStackLayout>
         </ScrollView>
-        <ActivityIndicator x:Name="ai"
-                    IsRunning="{Binding IsBusy}"
-                    IsVisible="{Binding IsBusy}"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    BackgroundColor="LightBlue" 
-                    HeightRequest="100"
-                    WidthRequest="100" />
-
+        <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.RowSpan="7" >
+            <ActivityIndicator 
+                BackgroundColor="Orange" 
+                x:Name="ai" 
+                IsRunning="{Binding IsBusy}" 
+                HorizontalOptions="Center" 
+                VerticalOptions="Center" 
+                Color="White"/>
+        </Grid>
     </Grid>
 </ContentPage>

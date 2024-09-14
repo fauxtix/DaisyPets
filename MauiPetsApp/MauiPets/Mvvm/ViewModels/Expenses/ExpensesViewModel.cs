@@ -41,8 +41,11 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
 
         private async void LoadInitialData()
         {
+            IsBusy = true;
+            await Task.Delay(100);
             await GetExpensesAsync();
             await GetTotalExpensesAsync();
+            IsBusy = false;
         }
 
         [RelayCommand]
@@ -89,11 +92,8 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         {
             try
             {
-                if (IsBusy)
-                    return;
-
                 IsBusy = true;
-
+                await Task.Delay(100);
                 var expenses = (await _service.GetAllVMAsync()).ToList();
 
                 TotalPages = (int)Math.Ceiling((double)expenses.Count / PageSize);
@@ -116,10 +116,8 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         {
             try
             {
-                if (IsBusy)
-                    return;
-
                 IsBusy = true;
+                await Task.Delay(200);
 
                 var expenses = (await _service.GetAllVMAsync()).ToList();
                 TotalGeralDespesas = Expenses.Sum(c => c.ValorPago);
@@ -183,6 +181,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
             try
             {
                 IsBusy = true;
+                await Task.Delay(100);
                 var expenses = (await _service.GetAllVMAsync()).ToList();
 
 
@@ -230,6 +229,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                     return;
 
                 IsBusy = true;
+                await Task.Delay(100);
                 Expenses.Clear();
                 var currentYear = DateTime.Now.Year;
                 var expenses = (await _service.GetExpensesByYearAsync(currentYear)).ToList();
@@ -259,6 +259,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                     return;
 
                 IsBusy = true;
+                await Task.Delay(100);
                 Expenses.Clear();
                 var now = DateTime.Now;
                 var currentYear = now.Year;

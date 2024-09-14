@@ -108,16 +108,21 @@ public partial class PetViewModel : BaseViewModel
 
         try
         {
+            IsBusy = true;
+            await Task.Delay(100);
             await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
-        new Dictionary<string, object>
-        {
-                        {"PetVM", petVM },
-         });
-
+                new Dictionary<string, object>
+                {
+                    {"PetVM", petVM },
+                 });
         }
         catch (Exception ex)
         {
             await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
 

@@ -27,19 +27,27 @@
                         StrokeShape="RoundRectangle 0,0,50,50" 
                         StrokeThickness="0" HeightRequest="160">
                     <Border.Shadow>
-                        <Shadow  Brush="Black" Offset="-10,20" Radius="70" Opacity="0.4" />
+                        <Shadow  Brush="Black" Offset="-10,20" Radius="10" Opacity="0.4" />
                     </Border.Shadow>
                     <Image Margin="5, 5"
                         Grid.Row="1" WidthRequest="250" 
                         HeightRequest="200" Aspect="Fill"                    
                         Source="daisypetsbing.png"/>
                 </Border>
-                <Label Margin="5, 20, 5, 30" 
-                       Padding="5, 10, 5, 0"
+                <Border Grid.Row="2" Margin="15, 25, 15, 15"  
+                        StrokeShape="RoundRectangle 15,15,15,15" 
+                        StrokeThickness="0" HeightRequest="60">
+                    <Border.Shadow>
+                        <Shadow  Brush="Black" Offset="1,1" Radius="10" Opacity="0.2" />
+                    </Border.Shadow>
+
+                    <Label Margin="5, 2, 5, 3" 
+                       Padding="5, 0, 5, 0"
                        FontSize="Header"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
                        Grid.Row="2" Text="Selecione um dos Pets abaixo, para visualizar/alterar os dados. Use a opção no topo para criar novo registo."></Label>
+                </Border>
             </Grid>
             <CollectionView  x:Name="ColView1" ItemsSource="{Binding Pets }" SelectionMode="Single">
                 <CollectionView.EmptyView>
@@ -60,8 +68,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:PetVM">
                         <VerticalStackLayout Padding="5">
-                            <Frame CornerRadius="10" HasShadow="True" 
-                                                   Padding="2">
+                            <Frame CornerRadius="10" HasShadow="True" Padding="2">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:PetViewModel}}, Path=DisplayPetCommand}"
@@ -83,9 +90,13 @@
                                         StrokeThickness="6"
                                         HeightRequest="160"
                                         WidthRequest="220"
-                                        Margin="0,8,0,0"
+                                        Margin="4,8,0,4"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center">
+                                        <Border.Shadow>
+                                            <Shadow  Brush="Black" Offset="1,1" Radius="10" Opacity="0.4" />
+                                        </Border.Shadow>
+
                                         <Image Aspect="AspectFill"
                                                 HeightRequest="160"
                                                 HorizontalOptions="Center"
@@ -94,7 +105,7 @@
                                                 WidthRequest="200"/>
                                     </Border>
                                     <Label Grid.Row="2" Text="{Binding Nome}" 
-                                                      TextColor="Magenta" Padding="10" FontSize="Small"
+                                                      TextColor="Magenta" Padding="10" FontSize="18"
                                                       HorizontalTextAlignment="Center" />
                                 </Grid>
                             </Frame>
@@ -102,7 +113,7 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <!--<Grid 
+            <Grid 
                 ColumnDefinitions="*,*"
                 ColumnSpacing="5"
                 RowDefinitions="*,Auto"
@@ -116,8 +127,9 @@
                     IsRunning="{Binding IsBusy}"
                     IsVisible="{Binding IsBusy}"
                     Color="{StaticResource Primary}"
+                    BackgroundColor="Beige"
                     VerticalOptions="Center" />
-            </Grid>-->
+            </Grid>
 
             <!--<StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" Margin="10">
                 <Button  Text="Load All Pets" Command="{Binding GetPetsCommand}"

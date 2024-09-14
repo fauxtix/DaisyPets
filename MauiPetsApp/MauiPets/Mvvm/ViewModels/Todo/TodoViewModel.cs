@@ -14,6 +14,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
     public partial class TodoViewModel : TodoBaseViewModel
     {
         public ObservableCollection<ToDoDto> Todos { get; set; } = new();
+        private List<ToDoDto> FullTodos { get; set; } = new(); 
         private readonly IToDoService _service;
         private IConnectivity _connectivity;
 
@@ -62,7 +63,10 @@ namespace MauiPets.Mvvm.ViewModels.Todo
 
         private async void LoadInitialData()
         {
-            await GetTodosAsync();
+            IsBusy = true;
+            await Task.Delay(100);
+            await GetTodosAsync(); 
+            IsBusy = false;
         }
 
         private void FillCategoryTypes()
@@ -92,15 +96,16 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                     return;
                 }
 
-                if (IsBusy)
-                    return;
 
                 IsBusy = true;
+
+                await Task.Delay(200);
 
                 var todos = (await _service.GetAllVMAsync())
                     .OrderByDescending(c => DateTime.Parse(c.StartDate.ToString()))
                     .ToList();
 
+                FullTodos = todos; 
                 TotalPages = (int)Math.Ceiling((double)todos.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
                 FilterText = "Todas as tarefas";
@@ -130,7 +135,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 }
                 else
                 {
-                    var filteredTodos = await _service.SearchTodosByText(searchText);
+                    var filteredTodos = FullTodos.Where(t => t.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
                     RefreshTodoList(filteredTodos);
                     FilterText = $"Filtered by: {searchText}";
                 }
@@ -147,7 +152,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             RefreshTodoList(pagedTodos);
         }
 
-        private void RefreshTodoList(IEnumerable<ToDoDto> todos, string filterType = null)
+        private async void RefreshTodoList(IEnumerable<ToDoDto> todos, string filterType = null)
         {
             Todos.Clear();
             foreach (var todo in todos)
@@ -171,7 +176,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         private bool CanNavigatePrevious() => CurrentPage > 1;
         private bool CanNavigateNext() => CurrentPage < TotalPages;
 
-        [RelayCommand(CanExecute = nameof(CanNavigatePrevious))]
+        [RelayCommand(CanExecute = nameof(CanNavigatePrevious))] 
         private async Task PreviousPageAsync()
         {
             if (CurrentPage > 1)
@@ -181,7 +186,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
         }
 
-        [RelayCommand(CanExecute = nameof(CanNavigateNext))]
+        [RelayCommand(CanExecute = nameof(CanNavigateNext))] 
         private async Task NextPageAsync()
         {
             if (CurrentPage < TotalPages)
@@ -191,14 +196,14 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             }
         }
 
-        [RelayCommand]
+        [RelayCommand] 
         private async Task FirstPageAsync()
         {
             CurrentPage = 1;
             await GetTodosAsync();
         }
 
-        [RelayCommand]
+        [RelayCommand] 
         private async Task LastPageAsync()
         {
             CurrentPage = TotalPages;
@@ -241,11 +246,9 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); 
 
-                var completed = Todos
-                    .Where(c => c.Completed == 1)
-                    .ToList();
+                var completed = FullTodos.Where(c => c.Completed == 1).ToList();
 
                 if (!completed.Any())
                 {
@@ -276,9 +279,9 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); 
 
-                var pending = Todos.Where(c => c.Completed == 0).ToList();
+                var pending = FullTodos.Where(c => c.Completed == 0).ToList();
 
                 if (!pending.Any())
                 {
@@ -309,13 +312,13 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); 
 
                 var now = DateTime.Now;
                 var startOfWeek = now.StartOfWeek(DayOfWeek.Sunday);
                 var endOfWeek = startOfWeek.AddWeeks(1).AddDays(-1);
 
-                var thisWeekTodos = Todos.Where(t =>
+                var thisWeekTodos = FullTodos.Where(t =>
                     DateTime.TryParse(t.StartDate, out var startDate) &&
                     startDate >= startOfWeek && startDate <= endOfWeek
                 ).ToList();
@@ -349,13 +352,13 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); 
 
                 var now = DateTime.Now;
                 var startOfWeek = now.StartOfWeek(DayOfWeek.Sunday).AddWeeks(1);
                 var endOfWeek = startOfWeek.AddWeeks(1).AddDays(-1);
 
-                var nextWeekTodos = Todos.Where(t =>
+                var nextWeekTodos = FullTodos.Where(t =>
                     DateTime.TryParse(t.StartDate, out var startDate) &&
                     startDate >= startOfWeek && startDate <= endOfWeek
                 ).ToList();
@@ -389,13 +392,13 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); 
 
                 var now = DateTime.Now;
                 var startOfMonth = now.StartOfMonth();
                 var endOfMonth = startOfMonth.AddMonths(1).AddDays(-1);
 
-                var thisMonthTodos = Todos.Where(t =>
+                var thisMonthTodos = FullTodos.Where(t =>
                     DateTime.TryParse(t.StartDate, out var startDate) &&
                     startDate >= startOfMonth && startDate <= endOfMonth
                 ).ToList();
@@ -429,13 +432,13 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                await GetTodosAsync();
+                await GetTodosAsync(); 
 
                 var now = DateTime.Now;
                 var startOfNextMonth = now.StartOfMonth().AddMonths(1);
                 var endOfNextMonth = startOfNextMonth.AddMonths(1).AddDays(-1);
 
-                var nextMonthTodos = Todos.Where(t =>
+                var nextMonthTodos = FullTodos.Where(t =>
                     DateTime.TryParse(t.StartDate, out var startDate) &&
                     startDate >= startOfNextMonth && startDate <= endOfNextMonth
                 ).ToList();

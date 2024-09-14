@@ -106,11 +106,11 @@
         <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" 
                         ItemsUpdatingScrollMode="KeepItemsInView"
                         Grid.Row="3">
-            <CollectionView.EmptyView>
+            <!--<CollectionView.EmptyView>
                 <StackLayout Padding="10">
                     <Label HorizontalOptions="Center" Padding="10">No data to view</Label>
                 </StackLayout>
-            </CollectionView.EmptyView>
+            </CollectionView.EmptyView>-->
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" />
             </CollectionView.ItemsLayout>
@@ -188,14 +188,14 @@
                Grid.Row="5" />
 
         <!-- Activity Indicator -->
-        <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#00000080" Grid.Row="0" Grid.RowSpan="7">
+        <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.RowSpan="6" >
             <ActivityIndicator 
-                    x:Name="ai" 
-                    IsRunning="{Binding IsBusy}" 
-                    IsVisible="{Binding IsBusy}" 
-                    HorizontalOptions="Center" 
-                    VerticalOptions="Center" 
-                    Color="White"/>
+                BackgroundColor="Orange" 
+                x:Name="ai" 
+                IsRunning="{Binding IsBusy}" 
+                HorizontalOptions="Center" 
+                VerticalOptions="Center" 
+                Color="White"/>
         </Grid>
     </Grid>
 </ContentPage>
