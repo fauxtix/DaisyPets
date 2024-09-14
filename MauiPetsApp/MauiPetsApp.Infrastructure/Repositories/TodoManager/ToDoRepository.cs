@@ -143,23 +143,12 @@ namespace MauiPetsApp.Infrastructure.Repositories.TodoManager
         public async Task<IEnumerable<ToDoDto>> GetAllVMAsync()
         {
 
-            //StringBuilder sb2 = new StringBuilder();
-            //sb2.Append("UPDATE ToDo ");
-            //sb2.Append("SET CategoryId = 1 ");
-            //sb2.Append("WHERE CategoryId = 0");
-            //using (var connection = _context.CreateConnection())
-            //{
-            //    var result = await connection.ExecuteAsync((sb2.ToString()));
-            //}
-
-
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT ToDo.Id, ToDo.Description, StartDate, EndDate, Completed, Generated, ");
             sb.Append("TodoCategories.Id as [CategoryId], TodoCategories.Descricao AS [CategoryDescription] ");
             sb.Append("FROM ToDo ");
             sb.Append("INNER JOIN ToDoCategories ON ");
-            sb.Append("ToDo.CategoryId = ToDoCategories.Id ");
-            sb.Append("ORDER BY ToDo.Id DESC");
+            sb.Append("ToDo.CategoryId = ToDoCategories.Id");
 
             using (var connection = _context.CreateConnection())
             {
@@ -270,7 +259,7 @@ namespace MauiPetsApp.Infrastructure.Repositories.TodoManager
 
             var todos = (await GetAllVMAsync())
                 .ToList().
-                Where(c => c.Description.Contains(filter, StringComparison.CurrentCultureIgnoreCase));
+                Where(c => c.Description!.Contains(filter, StringComparison.CurrentCultureIgnoreCase));
             return todos;
         }
     }

@@ -110,7 +110,7 @@
                         Grid.Column="1"
 			            VerticalOptions="Start"/>
 
-                <Label Text="Terminado"
+                <Label Text="Concluído"
                        Grid.Row="2"
                        Grid.Column="0"
                        FontSize="12"

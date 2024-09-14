@@ -39,6 +39,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [ObservableProperty] public DespesaDto _despesaDto;
 
         [ObservableProperty] public decimal _totalDespesas;
+        [ObservableProperty] public decimal _totalGeralDespesas;
 
         [ObservableProperty]
         private bool isEditing;

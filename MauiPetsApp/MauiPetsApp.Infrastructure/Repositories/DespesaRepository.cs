@@ -257,6 +257,7 @@ namespace MauiPetsApp.Infrastructure.Repositories
             sb.Append("Despesa.IdCategoriaDespesa = CD.Id ");
             sb.Append("INNER JOIN TipoDespesa TD ON ");
             sb.Append("Despesa.IdTipoDespesa = TD.Id ");
+            sb.Append("ORDER BY date(Despesa.DataMovimento) DESC");
 
             using (var connection = _context.CreateConnection())
             {

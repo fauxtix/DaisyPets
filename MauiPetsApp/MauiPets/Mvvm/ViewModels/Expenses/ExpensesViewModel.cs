@@ -1,11 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using System.Collections.ObjectModel;
-using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using MauiPets.Mvvm.Views.Expenses;
 
 namespace MauiPets.Mvvm.ViewModels.Expenses
 {
@@ -14,14 +14,35 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         private readonly IDespesaService _service;
 
         public ObservableCollection<DespesaVM> Expenses { get; } = new();
-        //public decimal TotalDespesas { get; set; }
 
         [ObservableProperty]
         private bool _isBusy;
 
+        [ObservableProperty]
+        private int _pageSize = 9;
+
+        [ObservableProperty]
+        private int _currentPage = 1;
+
+        [ObservableProperty]
+        private int _totalPages = 1;
+
+        [ObservableProperty]
+        private bool _isPaginationVisible = false;
+
+        [ObservableProperty]
+        private string _pageInfo = string.Empty;
+
         public ExpensesViewModel(IDespesaService service)
         {
             _service = service;
+            LoadInitialData();
+        }
+
+        private async void LoadInitialData()
+        {
+            await GetExpensesAsync();
+            await GetTotalExpensesAsync();
         }
 
         [RelayCommand]
@@ -41,6 +62,9 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
             };
 
             await NavigateToEditPage(DespesaDto);
+            await GetTotalExpensesAsync();
+
+            await RefreshExpensesAsync();
         }
 
         [RelayCommand]
@@ -55,6 +79,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 if (response != null)
                 {
                     await NavigateToEditPage(response);
+                    await GetTotalExpensesAsync();
                 }
             }
         }
@@ -62,47 +87,199 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [RelayCommand]
         private async Task GetExpensesAsync()
         {
-            if (IsBusy) return;
+            try
+            {
+                if (IsBusy)
+                    return;
 
-            IsBusy = true;
-            await RefreshExpensesAsync();
-            IsBusy = false;
+                IsBusy = true;
+
+                var expenses = (await _service.GetAllVMAsync()).ToList();
+
+                TotalPages = (int)Math.Ceiling((double)expenses.Count / PageSize);
+                IsPaginationVisible = TotalPages > 1;
+
+                UpdatePagedData(expenses);
+                UpdatePageInfo();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async Task GetTotalExpensesAsync()
+        {
+            try
+            {
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+
+                var expenses = (await _service.GetAllVMAsync()).ToList();
+                TotalGeralDespesas = Expenses.Sum(c => c.ValorPago);
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+
+        private bool CanNavigatePrevious() => CurrentPage > 1;
+        private bool CanNavigateNext() => CurrentPage < TotalPages;
+
+        [RelayCommand(CanExecute = nameof(CanNavigatePrevious))]
+        private async Task PreviousPageAsync()
+        {
+            if (CurrentPage > 1)
+            {
+                CurrentPage--;
+                await GetExpensesAsync();
+            }
+        }
+
+        [RelayCommand(CanExecute = nameof(CanNavigateNext))]
+        private async Task NextPageAsync()
+        {
+            if (CurrentPage < TotalPages)
+            {
+                CurrentPage++;
+                await GetExpensesAsync();
+            }
+        }
+
+        [RelayCommand]
+        private async Task FirstPageAsync()
+        {
+            CurrentPage = 1;
+            await GetExpensesAsync();
+        }
+
+        [RelayCommand]
+        private async Task LastPageAsync()
+        {
+            CurrentPage = TotalPages;
+            await GetExpensesAsync();
+        }
+
+        private void UpdatePagedData(List<DespesaVM> expenses)
+        {
+            var pagedExpenses = expenses.Skip((CurrentPage - 1) * PageSize).Take(PageSize).ToList();
+            RefreshExpenseList(pagedExpenses);
+        }
+
+        private async Task RefreshExpensesAsync()
+        {
+            try
+            {
+                IsBusy = true;
+                var expenses = (await _service.GetAllVMAsync()).ToList();
+
+
+                TotalPages = (int)Math.Ceiling((double)expenses.Count / PageSize);
+                IsPaginationVisible = TotalPages > 1;
+
+                CurrentPage = 1;
+                UpdatePagedData(expenses);
+
+                UpdatePageInfo();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+        private void RefreshExpenseList(IEnumerable<DespesaVM> expenses)
+        {
+            Expenses.Clear();
+            foreach (var expense in expenses)
+            {
+                Expenses.Add(expense);
+            }
+
+            TotalDespesas = Expenses.Sum(c => c.ValorPago);
+
+            IsPaginationVisible = TotalPages > 1;
+        }
+
+        private void UpdatePageInfo()
+        {
+            PageInfo = $"Page {CurrentPage} of {TotalPages}";
         }
 
         [RelayCommand]
         private async Task FilterExpensesByYearAsync()
         {
-            if (IsBusy) return;
-
-            IsBusy = true;
-            Expenses.Clear();
-            var currentYear = DateTime.Now.Year;
-            var expenses = (await _service.GetExpensesByYearAsync(currentYear)).ToList();
-            foreach (var expense in expenses)
+            try
             {
-                Expenses.Add(expense);
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+                Expenses.Clear();
+                var currentYear = DateTime.Now.Year;
+                var expenses = (await _service.GetExpensesByYearAsync(currentYear)).ToList();
+                TotalPages = (int)Math.Ceiling((double)expenses.Count / PageSize);
+                IsPaginationVisible = TotalPages > 1;
+
+                CurrentPage = 1;
+                UpdatePagedData(expenses);
+                UpdatePageInfo();
             }
-            TotalDespesas = Expenses.Sum(c => c.ValorPago);
-            IsBusy = false;
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         [RelayCommand]
         private async Task FilterExpensesByMonthAsync()
         {
-            if (IsBusy) return;
-
-            IsBusy = true;
-            Expenses.Clear();
-            var now = DateTime.Now;
-            var currentYear = now.Year;
-            var currentMonth = now.Month;
-            var expenses = (await _service.GetExpensesByMonthAsync(currentYear, currentMonth)).ToList();
-            foreach (var expense in expenses)
+            try
             {
-                Expenses.Add(expense);
+                if (IsBusy)
+                    return;
+
+                IsBusy = true;
+                Expenses.Clear();
+                var now = DateTime.Now;
+                var currentYear = now.Year;
+                var currentMonth = now.Month;
+                var expenses = (await _service.GetExpensesByMonthAsync(currentYear, currentMonth)).ToList();
+
+                TotalPages = (int)Math.Ceiling((double)expenses.Count / PageSize);
+                IsPaginationVisible = TotalPages > 1;
+
+                CurrentPage = 1;
+                UpdatePagedData(expenses);
+                UpdatePageInfo();
             }
-            TotalDespesas = Expenses.Sum(c => c.ValorPago);
-            IsBusy = false;
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         [RelayCommand]
@@ -117,22 +294,13 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 await _service.DeleteAsync(expense.Id);
                 await RefreshExpensesAsync();
                 await ShowToastMessage($"Despesa de {expense.DataMovimento} apagada com sucesso");
+
+                await GetTotalExpensesAsync();
+
                 await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
             }
             IsBusy = false;
         }
-
-        private async Task RefreshExpensesAsync()
-        {
-            Expenses.Clear();
-            var expenses = (await _service.GetAllVMAsync()).ToList();
-            foreach (var expense in expenses)
-            {
-                Expenses.Add(expense);
-            }
-            TotalDespesas = Expenses.Sum(c => c.ValorPago);
-        }
-
         private async Task NavigateToEditPage(DespesaDto expenseDto)
         {
             await Shell.Current.GoToAsync($"{nameof(ExpensesAddOrEditPage)}", true,

@@ -12,6 +12,8 @@
 
     <ContentPage.Resources>
         <conv:StringToDateConverter x:Key="stringToDateConverter" />
+        <conv:GreaterThanOneConverter x:Key="GreaterThanOneConverter" />
+        <conv:LessThanTotalPagesConverter x:Key="LessThanTotalPagesConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Behaviors>
@@ -19,63 +21,101 @@
     </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Expense" Command="{Binding AddExpenseCommand}"
-                     CommandParameter="{Binding .}"
+        <ToolbarItem Text="Add Expense" Command="{Binding AddExpenseCommand}" 
+                     CommandParameter="{Binding .}" 
                  IconImageSource="add.png" />
-
-        <ToolbarItem>
-            <ToolbarItem.IconImageSource>
-                <FileImageSource File="paymentlist.svg" />
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <Grid Margin="5, 25, 5, 5" Padding="5" CompressedLayout.IsHeadless="True">
+    <Grid Margin="5, 0, 5, 5" Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, Auto">
         <ScrollView>
             <VerticalStackLayout Padding="10">
-                <Frame CornerRadius="22"
-                       HasShadow="True"
-                       Padding="10"
-                       BackgroundColor="WhiteSmoke"
-                       Margin="5,0,1,5">
-                    <VerticalStackLayout >
-                        <HorizontalStackLayout Spacing="15" HorizontalOptions="Center" >
-                            <Button Text="Este ano" FontSize="12"
-                                    Command="{Binding FilterExpensesByYearCommand}"
-                                    BackgroundColor="#3498db"  
-                                TextColor="White"
-                                    CornerRadius="20"
-                                    BorderColor="Transparent" />
-                            <Button Text="Este mês" FontSize="12"
-                                    Command="{Binding FilterExpensesByMonthCommand}"
-                                    BackgroundColor="#e74c3c"  
-                                    TextColor="White"
-                                    CornerRadius="20"
-                                    BorderColor="Transparent" />
-                            <Button Text="Todas" FontSize="12"
-                                    Command="{Binding GetExpensesCommand}"
-                                    BackgroundColor="Gold"  
-                                        TextColor="Black"
-                                    CornerRadius="20"
-                                    BorderColor="Transparent" />
-                        </HorizontalStackLayout>
-                    </VerticalStackLayout>
+                <Frame CornerRadius="15"
+                   VerticalOptions="Start" 
+                   HorizontalOptions="CenterAndExpand"
+                   HasShadow="True"
+                   Padding="10"
+                   HeightRequest="80"
+                   BackgroundColor="WhiteSmoke"
+                   Grid.Row="0"
+                   Margin="10,10,10,10"
+                   BorderColor="Transparent">
+
+                    <Frame.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#3498db" Offset="0.1" />
+                            <GradientStop Color="#9b59b6" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5" Padding="5">
+                        <Image Source="expenses.svg" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" />
+                        <Label Text="{Binding TotalGeralDespesas, Mode=OneWay, StringFormat='Total: {0:C2}'}"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           VerticalOptions="Center" />
+                    </HorizontalStackLayout>
                 </Frame>
+                <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,8,0,8"/>
+                <Frame CornerRadius="30"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Center"
+                   HasShadow="True"
+                   Padding="15, 10"
+                   BackgroundColor="White"
+                   BorderColor="#dcdcdc"
+                   Margin="1,15"
+                   HeightRequest="60"
+                   WidthRequest="370">
+                    <FlexLayout Direction="Row"
+                        JustifyContent="Center"
+                        AlignItems="Center"
+                        Wrap="NoWrap">
+                        <Button Text="Este ano"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            Command="{Binding FilterExpensesByYearCommand}"
+                            BackgroundColor="#2ECC71"
+                            TextColor="White"
+                            CornerRadius="30"
+                            WidthRequest="100"
+                            HeightRequest="40"
+                            BorderColor="Transparent"
+                            FontFamily="OpenSansRegular"
+                            Margin="0,0,10,0"/>
+                        <Button Text="Este mês"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            Command="{Binding FilterExpensesByMonthCommand}"
+                            BackgroundColor="#3498db"
+                            TextColor="White"
+                            CornerRadius="30"
+                            WidthRequest="100"
+                            HeightRequest="40"
+                            BorderColor="Transparent"
+                            FontFamily="OpenSansRegular"
+                            Margin="0,0,10,0"/>
+                        <Button Text="Todas"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            Command="{Binding GetExpensesCommand}"
+                            BackgroundColor="#f1c40f"
+                            TextColor="White"
+                            CornerRadius="30"
+                            WidthRequest="100"
+                            HeightRequest="40"
+                            BorderColor="Transparent"
+                            FontFamily="OpenSansRegular"/>
+                    </FlexLayout>
+                </Frame>
+                <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Black" Margin="0,8,0,8"/>
                 <CollectionView x:Name="expensesView" 
                             ItemsSource="{Binding Expenses}" 
                             VerticalScrollBarVisibility ="Always"
+                                Grid.Row="4"
                             SelectionMode="Single">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="2" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
-                    <CollectionView.Footer>
-                        <VerticalStackLayout BackgroundColor="LightGray">
-                            <Label Margin="10,0,0,0" Padding="8"
-                               Text="{Binding TotalDespesas, Mode=OneWay, StringFormat='{0:C2}'}"
-                               HorizontalOptions="End"
-                               FontAttributes="Bold" />
-                        </VerticalStackLayout>
-                    </CollectionView.Footer>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:DespesaVM">
                             <SwipeView>
@@ -122,6 +162,41 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+                <!-- Pagination Controls -->
+                <StackLayout Padding="1, 10, 1, 10" Spacing="5" HorizontalOptions="Center" Margin="0, 2, 1, 0"
+                         VerticalOptions="Center" Orientation="Horizontal"
+                         Grid.Row="5"
+                         IsVisible="{Binding IsPaginationVisible}">
+                    <Button Text="Início" Command="{Binding FirstPageCommand}" CornerRadius="10" WidthRequest="80" />
+                    <Button Text="Anterior" Command="{Binding PreviousPageCommand}" CornerRadius="10"
+                        IsEnabled="{Binding CurrentPage, 
+                        Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" />
+                    <Button Text="Seguinte" 
+                        Command="{Binding NextPageCommand}" 
+                        CornerRadius="10" WidthRequest="90">
+                        <Button.IsEnabled>
+                            <MultiBinding>
+                                <Binding Path="CurrentPage" />
+                                <Binding Path="TotalPages" />
+                                <MultiBinding.Converter>
+                                    <conv:LessThanTotalPagesConverter/>
+                                </MultiBinding.Converter>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+
+                    <Button Text="Fim" Command="{Binding LastPageCommand}" CornerRadius="10" WidthRequest="80" />
+                </StackLayout>
+
+                <!-- Page Info -->
+                <Label Text="{Binding PageInfo}"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               FontSize="14"
+               FontAttributes="Bold"
+               Margin="0, 0, 0, 10"
+               Grid.Row="6" />
+
             </VerticalStackLayout>
         </ScrollView>
         <ActivityIndicator x:Name="ai"
