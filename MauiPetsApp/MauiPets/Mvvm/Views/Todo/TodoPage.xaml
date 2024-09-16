@@ -142,9 +142,8 @@
                                        HorizontalOptions="Start"
                                        VerticalOptions="Start" />
                                 <Switch Grid.Column="2" IsToggled="{Binding Completed}" 
-                                        Toggled="Switch_Toggled"
                                         HorizontalOptions="Start"
-                                        Margin="0,-16,0,10"
+                                        Margin="0,-16,0,10" 
                                         VerticalOptions="Center" />
                             </Grid>
                         </Frame>

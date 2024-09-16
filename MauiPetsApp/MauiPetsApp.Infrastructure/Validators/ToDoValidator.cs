@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using MauiPetsApp.Core.Application.Formatting;
 using MauiPetsApp.Core.Application.TodoManager;
+using System.Reflection.Metadata.Ecma335;
 
 namespace MauiPetsApp.Infrastructure.Validators
 {
@@ -19,12 +20,12 @@ namespace MauiPetsApp.Infrastructure.Validators
                 .NotEmpty().WithMessage("Preencha descrição, p.f.");
             RuleFor(p => p.StartDate)
                 .Must(BeAValidDate).WithMessage("Data iinício nválida");
-            RuleFor(x => DataFormat.DateParse(x.EndDate).Date >= DataFormat.DateParse(x.EndDate).Date);
+            RuleFor(x => DataFormat.DateParse(x.EndDate!).Date >= DataFormat.DateParse(x.EndDate!).Date);
 
-            RuleFor(r => DataFormat.DateParse(r.EndDate))
-                .NotNull()
-                .NotEmpty().WithMessage("End date is required")
-                .GreaterThan(r => DataFormat.DateParse(r.StartDate)).WithMessage("End date must after Start date");
+            RuleFor(r => r.StartDate!)
+                .Must(NotUpdateStateInFuture)
+                .When(r=>r.Completed == 1)
+                .WithMessage("Não pode dar tarefa como concluída.... está no futuro! Verifique, p.f.");
         }
 
         #region Custom Validators
@@ -34,11 +35,19 @@ namespace MauiPetsApp.Infrastructure.Validators
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        protected bool BeAValidDate(string date)
+        protected bool BeAValidDate(string? date)
         {
-            var parsedDate = DateTime.Parse(date);
+            var parsedDate = DateTime.Parse(date!);
             if (!DataFormat.IsValidDate(parsedDate))
                 return false;
+
+            return true;
+        }
+
+        protected bool NotUpdateStateInFuture(string? date)
+        {
+            var parsedDate = DateTime.Parse(date!);
+            if(parsedDate.Date > DateTime.Now.Date) return false;
 
             return true;
         }

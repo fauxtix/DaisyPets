@@ -19,7 +19,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         private bool _isBusy;
 
         [ObservableProperty]
-        private int _pageSize = 9;
+        private int _pageSize = 8;
 
         [ObservableProperty]
         private int _currentPage = 1;
@@ -32,6 +32,9 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
 
         [ObservableProperty]
         private string _pageInfo = string.Empty;
+
+        [ObservableProperty]
+        string filterText = string.Empty;
 
         public ExpensesViewModel(IDespesaService service)
         {
@@ -95,9 +98,13 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 IsBusy = true;
                 await Task.Delay(100);
                 var expenses = (await _service.GetAllVMAsync()).ToList();
+                TotalGeralDespesas = expenses.Sum(c => c.ValorPago);
 
                 TotalPages = (int)Math.Ceiling((double)expenses.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
+
+                FilterText = "Todas as despesas";
+
 
                 UpdatePagedData(expenses);
                 UpdatePageInfo();
@@ -120,7 +127,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 await Task.Delay(200);
 
                 var expenses = (await _service.GetAllVMAsync()).ToList();
-                TotalGeralDespesas = Expenses.Sum(c => c.ValorPago);
+                TotalGeralDespesas = expenses.Sum(c => c.ValorPago);
             }
             catch (Exception ex)
             {
@@ -210,8 +217,6 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 Expenses.Add(expense);
             }
 
-            TotalDespesas = Expenses.Sum(c => c.ValorPago);
-
             IsPaginationVisible = TotalPages > 1;
         }
 
@@ -235,6 +240,9 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 var expenses = (await _service.GetExpensesByYearAsync(currentYear)).ToList();
                 TotalPages = (int)Math.Ceiling((double)expenses.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
+                FilterText = "Este ano";
+                TotalGeralDespesas = expenses.Sum(c => c.ValorPago);
+
 
                 CurrentPage = 1;
                 UpdatePagedData(expenses);
@@ -265,8 +273,11 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 var currentYear = now.Year;
                 var currentMonth = now.Month;
                 var expenses = (await _service.GetExpensesByMonthAsync(currentYear, currentMonth)).ToList();
+                FilterText = "Este mês";
 
                 TotalPages = (int)Math.Ceiling((double)expenses.Count / PageSize);
+                TotalGeralDespesas = expenses.Sum(c => c.ValorPago);
+
                 IsPaginationVisible = TotalPages > 1;
 
                 CurrentPage = 1;

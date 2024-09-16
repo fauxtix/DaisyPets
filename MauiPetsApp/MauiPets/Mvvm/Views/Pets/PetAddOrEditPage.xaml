@@ -202,6 +202,7 @@
 			                           Text="{Binding PetDto.Cor}" 
 			                           Grid.Row="4"
                                        Grid.Column="1"
+                                       FontSize="12"
 			                           VerticalOptions="Center"></Entry>
                                 <Label Text="Medicacao"
                                        Grid.Row="5"
@@ -212,12 +213,14 @@
 			                           Text="{Binding PetDto.Medicacao}" 
 			                           Grid.Row="5"
                                        Grid.Column="1"
+                                       FontSize="12"
 			                           VerticalOptions="Center"></Entry>
 
                                 <Label Text="Observações"
                                        Grid.Row="6"
                                        Grid.Column="0"
-                                       FontSize="12"   ></Label>
+                                       FontSize="12">
+                                </Label>
                                 <Editor x:Name="PetNotes" AutoSize="TextChanges"
 			                        Text="{Binding PetDto.Observacoes}"
 			                        Grid.Row="6"

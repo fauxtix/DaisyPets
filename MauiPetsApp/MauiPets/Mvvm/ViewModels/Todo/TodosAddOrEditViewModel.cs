@@ -7,6 +7,9 @@ using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
+using MauiPetsApp.Infrastructure.Services.ToDoManager;
+using MauiPetsApp.Infrastructure.Validators;
+using System.Text;
 
 namespace MauiPets.Mvvm.ViewModels.Todo;
 
@@ -65,11 +68,9 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
     [RelayCommand]
     async Task SaveTodo()
     {
+        bool errorsFound = false;
         try
         {
-            //if(IsNotBusy)
-            //    IsBusy = true;
-
             if (_connectivity.NetworkAccess != NetworkAccess.Internet)
             {
                 await Shell.Current.DisplayAlert("No connectivity!",
@@ -77,6 +78,27 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
                 return;
             }
 
+            var toDoValidator = new ToDoValidator();
+            var result = toDoValidator.Validate(SelectedTodo);
+
+            if (!result.IsValid)
+            {
+                var errorMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
+                StringBuilder sbErrors = new StringBuilder();
+                foreach (var error in errorMessages)
+                {
+                    sbErrors.AppendLine(error);
+                }
+
+                await Shell.Current.DisplayAlert("Erros na validação!",
+                    sbErrors.ToString(), "OK");
+
+                errorsFound = true;
+                return;
+
+            }
+
+            IsBusy = true;
             if (SelectedTodo.Id == 0)
             {
                 var insertedId = await _todosService.InsertAsync(SelectedTodo);
@@ -90,22 +112,30 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
                 //var todoDto = await _todosService.GetToDoVM_ByIdAsync(insertedId);
                 //IsBusy = false;
 
-                await ShowToastMessage("Item created succesfuly");
+                await ShowToastMessage("Tarefa criada com sucesso");
                 await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true);
             }
             else // Insert (Id > 0)
             {
+                if (errorsFound) return;
+
                 var _todoId = SelectedTodo.Id;
                 await _todosService.UpdateAsync(_todoId, SelectedTodo);
                 await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true);
-                await ShowToastMessage("Record updated successfuly");
-
+                await ShowToastMessage("Tarefa atualizada com sucesso");
             }
+
+            IsBusy = false;
+
         }
         catch (Exception ex)
         {
             IsBusy = false;
             await ShowToastMessage($"Error while creating Item ({ex.Message})");
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
 

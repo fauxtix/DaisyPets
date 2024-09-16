@@ -66,9 +66,12 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
     {
         try
         {
+            IsBusy = true;
+            await Task.Delay(100);
             var result = (await _lookupTablesService.GetLookupTableData(tableName)).ToList();
             if (result is null)
             {
+                IsBusy = false; ;
                 return;
             }
 
@@ -88,13 +91,20 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         {
             await Shell.Current.DisplayAlert("Error while 'GetLookupData", ex.Message, "Ok");
         }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     [RelayCommand]
     async Task SaveExpenseData()
     {
+
         try
         {
+            IsBusy = true;
+            await Task.Delay(100);
             if (_connectivity.NetworkAccess != NetworkAccess.Internet)
             {
                 await Shell.Current.DisplayAlert("No connectivity!",
@@ -129,7 +139,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                     await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true,
                         new Dictionary<string, object>
                         {
-                        {"DespesaVM", expenseVM}
+                            {"DespesaVM", expenseVM}
                         });
 
                 }
@@ -137,11 +147,17 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                 {
                     ShowToastMessage($"Erro ao inserir despesa {ex.Message}");
                 }
+                finally
+                {
+                    IsBusy = false;
+                }
+
             }
             else
             {
                 try
                 {
+                    await Task.Delay(200);
                     await _service.UpdateAsync(DespesaDto.Id, DespesaDto);
                     ShowToastMessage("Registo atualizado com sucesso");
 
@@ -156,11 +172,20 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                 {
                     ShowToastMessage($"Erro ao atualizar registo {ex.Message}");
                 }
+                finally
+                {
+                    IsBusy = false;
+                }
+
             }
         }
         catch (Exception ex)
         {
             ShowToastMessage($"Erro na transação {ex.Message}");
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
 
