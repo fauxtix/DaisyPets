@@ -38,7 +38,7 @@ For the Blazor project, the syncfusion packages (community edition) were chosen.
 - Scheduler/agenda (web project).
 
 # Screenshots (Windows forms)
-For the web project screenshots, navigate to the DaisyPets.Web.Blazor project, and watch them in the ReadMe file.
+For the web project screenshots, please navigate to the DaisyPets.Web.Blazor project.
 
 For the Maui project screenshots, navigate to 'MauiPetsApp'.
 
