@@ -38,7 +38,7 @@ For the Blazor project, the syncfusion packages (community edition) were chosen.
 - Scheduler/agenda (web project).
 
 # Screenshots (Windows forms)
-For the web project screenshots, navigate to [Web Project](https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/MauiPets/PetsDB.db.sql) 'daisypets.web.blazor'.
+For the web project screenshots, navigate to [Web Project]([https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/MauiPets/PetsDB.db.sql](https://github.com/fauxtix/DaisyPets/tree/master/DaisyPets.Web.Blazor/Screenshots)) 'daisypets.web.blazor'.
 
 For the Maui project screenshots, navigate to 'MauiPetsApp'.
 
