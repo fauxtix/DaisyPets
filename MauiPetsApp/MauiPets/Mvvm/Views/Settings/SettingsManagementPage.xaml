@@ -23,6 +23,8 @@
         <SearchBar Grid.Row="0"
                    Placeholder="Descrição a pesquisar" 
                    Text="{Binding SearchText}" 
+                   FontFamily="Poppins-Regular"
+                   FontSize="14"
                    SearchCommand="{Binding GetLookupDataCommand}" />
         <BoxView Grid.Row="1"
                  HeightRequest="1"
@@ -65,7 +67,9 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Descricao}" FontSize="14" VerticalOptions="Center" />
+                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Descricao}"
+                                                   FontFamily="NotoSerif-Bold" Padding="3, 0, 0, 0"
+                                                   FontSize="14" VerticalOptions="Center" />
                                         </Grid>
                                     </Frame>
                                 </VerticalStackLayout>

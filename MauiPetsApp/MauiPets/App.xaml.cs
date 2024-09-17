@@ -2,6 +2,7 @@
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using Plugin.LocalNotification;
 using Plugin.LocalNotification.EventArgs;
+using System.Globalization;
 
 namespace MauiPets
 {

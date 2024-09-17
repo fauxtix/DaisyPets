@@ -58,20 +58,23 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
 
     private void SetupLookupTables()
     {
+        IsBusy = true;
+
         GetLookupData("CategoriaDespesa");
         GetLookupData("TipoDespesa");
+
+        IsBusy = false;
+
     }
 
     public async void GetLookupData(string tableName)
     {
         try
         {
-            IsBusy = true;
-            await Task.Delay(100);
             var result = (await _lookupTablesService.GetLookupTableData(tableName)).ToList();
             if (result is null)
             {
-                IsBusy = false; ;
+                IsBusy = false;
                 return;
             }
 
@@ -93,7 +96,6 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         }
         finally
         {
-            IsBusy = false;
         }
     }
 

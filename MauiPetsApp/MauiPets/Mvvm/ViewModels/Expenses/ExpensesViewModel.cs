@@ -78,7 +78,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         {
             if (expense?.Id > 0)
             {
-                IsEditing = false;
+                IsEditing = true;
                 EditCaption = "Editar Despesa";
 
                 var response = await _service.GetByIdAsync(expense.Id);
@@ -222,7 +222,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
 
         private void UpdatePageInfo()
         {
-            PageInfo = $"Page {CurrentPage} of {TotalPages}";
+            PageInfo = $"Pagª {CurrentPage} de {TotalPages}";
         }
 
         [RelayCommand]

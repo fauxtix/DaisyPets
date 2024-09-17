@@ -60,6 +60,11 @@ namespace MauiPets
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("NotoSerif-Bold.ttf", "NotoSerifBold");
+                fonts.AddFont("Poppins-Bold.ttf", "PoppinsBold");
+                fonts.AddFont("Poppins-SemiBold.ttf", "PoppinsSemibold");
+                fonts.AddFont("Poppins-Regular.ttf", "Poppins");
+                fonts.AddFont("MaterialIconsOutlined-Regular.otf", "Material");
             })
                 .UseMauiCommunityToolkit()
                 .UseLocalNotification();

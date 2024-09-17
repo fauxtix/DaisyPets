@@ -12,7 +12,6 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringToDateConverter x:Key="stringToDateConverter" />
-
             <Style x:Key="MediumLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="Bold"/>

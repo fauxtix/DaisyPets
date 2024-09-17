@@ -172,6 +172,11 @@
 	  <None Remove="PetsDB.db.sql" />
 	  <None Remove="PetsDB.sqbpro" />
 	  <None Remove="Resources\AppIcon\appicon_round.svg" />
+	  <None Remove="Resources\Fonts\MaterialIconsOutlined-Regular.otf" />
+	  <None Remove="Resources\Fonts\NotoSerif-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Poppins-Bold.ttf" />
+	  <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
+	  <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
 	  <None Remove="Resources\Images\add.png" />
 	  <None Remove="Resources\Images\appimage.png" />
 	  <None Remove="Resources\Images\bxs_dog.svg" />

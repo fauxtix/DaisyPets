@@ -80,6 +80,14 @@
                 <Setter Property="CornerRadius" Value="10" />
                 <Setter Property="IsClippedToBounds" Value="True"/>
             </Style>
+
+            <!--<Style x:Key="PaginationButtonsStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="SteelBlue" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontFamily" Value="Poppins-Regular" />
+                <Setter Property="CornerRadius" Value="12" />
+            </Style>-->
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

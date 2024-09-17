@@ -10,7 +10,7 @@
     xmlns:todospage="clr-namespace:MauiPets.Mvvm.Views.Todo"
     xmlns:settingspage="clr-namespace:MauiPets.Mvvm.Views.Settings"
     FlyoutWidth="200"
-    FlyoutHeight="250"
+    FlyoutHeight="350"
     Shell.FlyoutBehavior="Flyout">
     
     <Shell.FlyoutBackground>
@@ -53,5 +53,4 @@
         Icon="gear.png" 
         ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
         Route="MainSettingsPage" />
-
 </Shell>

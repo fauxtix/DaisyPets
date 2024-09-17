@@ -3,57 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Name="this"
              x:Class="MauiPets.Controls.SettingsCardControl">
+    
     <Frame CornerRadius="15"
            HasShadow="True"
            BackgroundColor="SteelBlue"
-           Margin="1">
+           HeightRequest="105"
+           Margin="2">
+        <Frame.Shadow>
+            <Shadow Brush="LightGray"
+                    Offset="20,20"
+                    Radius="40"
+                    Opacity="0.8"/>
+        </Frame.Shadow>
+        <Frame.GestureRecognizers>
+            <TapGestureRecognizer 
+                Command="{Binding ButtonCommand, Source={x:Reference this}}"
+                CommandParameter="{Binding CommandParameter, Source={x:Reference this}}"/>
+        </Frame.GestureRecognizers>
         <Grid Padding="2" ColumnSpacing="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Image 
+            <Image 
                     Source="{Binding Icon, Source={x:Reference this}}" 
+                    Grid.Row="0"
                     WidthRequest="32" 
                     HeightRequest="32" 
+                    Margin="0,-5"                    
                     BackgroundColor="Transparent"
-                    VerticalOptions="Center" />
-                <Label Text="{Binding LabelText, Source={x:Reference this}}" 
-                       Grid.Column="1" 
-                       Padding="7, 0, 0, 0"
-                       HorizontalOptions="Start" 
-                       TextColor="Yellow" 
-                       FontSize="12" 
-                       FontAttributes="Bold"
-                       VerticalOptions="Center"/>
-            </Grid>
-
-            <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,4,0,8"/>
-
-            <Button Grid.Row="3" 
-                    Text="Manutenção" 
                     HorizontalOptions="Center" 
-                    VerticalOptions="Center" 
-                    BackgroundColor="#6200EE"  
-                    TextColor="White" 
-                    CornerRadius="14" 
-                    Padding="10" 
-                    Margin="0,6, 0, 0"
-                    FontSize="11"
-                    FontAttributes="None"
-                    Command="{Binding ButtonCommand, Source={x:Reference this}}"
-                    CommandParameter="{Binding CommandParameter, Source={x:Reference this}}"
-                    BorderWidth="0" 
-                    BorderColor="Transparent"/>
+                    VerticalOptions="StartAndExpand" />
+            <Label Text="{Binding LabelText, Source={x:Reference this}}" 
+                       Grid.Row="1" 
+                       Padding="0, 15, 0, 00"
+                       TextColor="Yellow" 
+                       FontSize="14" 
+                       FontFamily="Poppins-SemiBold"
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center"/>
         </Grid>
     </Frame>
 </ContentView>
