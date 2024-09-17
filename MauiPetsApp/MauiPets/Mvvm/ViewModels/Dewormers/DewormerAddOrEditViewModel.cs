@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -16,18 +17,36 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         public int SelectedDewormerId { get; set; }
         public IConnectivity _connectivity;
 
+        [ObservableProperty]
+        public string _petPhoto;
+        [ObservableProperty]
+        public string _petName;
+
+
         public DewormerAddOrEditViewModel(IDesparasitanteService service, IConnectivity connectivity, IPetService petService)
         {
             _service = service;
             _petService = petService;
             _connectivity = connectivity;
         }
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
+            IsBusy = true;
+            await Task.Delay(100);
+
             SelectedDewormer = query[nameof(SelectedDewormer)] as DesparasitanteDto;
             var dewormerType = SelectedDewormer.Tipo;
             IsTypeInternal = dewormerType == "I";
             IsTypeExternal = dewormerType == "E";
+
+            IsEditing = (bool)query[nameof(IsEditing)];
+            AddEditCaption = IsEditing ? "Editar desparasitante" : "Novo desparasitante";
+
+            var selectedPet = await _petService.GetPetVMAsync(SelectedDewormer.IdPet);
+
+            PetPhoto = selectedPet.Foto;
+            PetName = selectedPet.Nome;
+            IsBusy = false;
         }
 
         [RelayCommand]
@@ -64,6 +83,19 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
                 {
                     await Shell.Current.DisplayAlert("No connectivity!",
                         $"Please check internet and try again.", "OK");
+                    return;
+                }
+
+                if (SelectedDewormer.Id == 0 && (IsTypeInternal || IsTypeExternal))
+                {
+                    SelectedDewormer.Tipo = IsTypeInternal ? "I" : "E";
+                }
+
+                var errorMessages = _service.RegistoComErros(SelectedDewormer);
+                if (!string.IsNullOrEmpty(errorMessages))
+                {
+                    await Shell.Current.DisplayAlert("Verifique entradas, p.f.",
+                        $"{errorMessages}", "OK");
                     return;
                 }
 

@@ -4,7 +4,10 @@ using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
 using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
+using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace MauiPetsApp.Infrastructure.Services
 {
@@ -100,5 +103,28 @@ namespace MauiPetsApp.Infrastructure.Services
                 throw;
             }
         }
+
+        /// <summary>
+        /// Validação de Vacina
+        /// </summary>
+        /// <param name="vacina"></param>
+        /// <returns></returns>
+        public string RegistoComErros(DesparasitanteDto desparasitante)
+        {
+            FluentValidation.Results.ValidationResult results = _validator.Validate(desparasitante);
+
+            if (!results.IsValid)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var failure in results.Errors)
+                {
+                    sb.AppendLine(failure.ErrorMessage);
+                }
+                return sb.ToString();
+            }
+
+            return "";
+        }
+
     }
 }

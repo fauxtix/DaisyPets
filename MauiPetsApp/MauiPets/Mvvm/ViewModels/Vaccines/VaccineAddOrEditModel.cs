@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
+using MauiPetsApp.Core.Application.Formatting;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 
@@ -14,6 +16,13 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
     public IVacinasService _vaccinesService { get; set; }
     public IPetService _petService { get; set; }
     public int SelectedVaccineId { get; set; }
+
+    [ObservableProperty]
+    public string _petPhoto;
+    [ObservableProperty]
+    public string _petName;
+
+
     public IConnectivity _connectivity;
 
     public VaccineAddOrEditModel(IVacinasService vacinnesService, IConnectivity connectivity, IPetService petService)
@@ -22,9 +31,23 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
         _petService = petService;
         _connectivity = connectivity;
     }
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
+        IsBusy = true;
+        await Task.Delay(100);
         SelectedVaccine = query[nameof(SelectedVaccine)] as VacinaDto;
+
+        IsEditing = (bool) query[nameof(IsEditing)];
+        AddEditCaption = IsEditing ? "Editar vacina" : "Nova vacina";
+
+        DataProximaToma = DataFormat.DateParse(SelectedVaccine.DataToma).AddMonths(SelectedVaccine.ProximaTomaEmMeses);
+
+        var selectedPet = await _petService.GetPetVMAsync(SelectedVaccine.IdPet);
+
+        PetPhoto = selectedPet.Foto;
+        PetName = selectedPet.Nome;
+
+        IsBusy = false;
     }
 
     [RelayCommand]
@@ -47,8 +70,6 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
 
             }
         }
-
-        // await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}");
     }
 
     [RelayCommand]
@@ -65,6 +86,15 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
                     $"Please check internet and try again.", "OK");
                 return;
             }
+
+            var errorMessages = _vaccinesService.RegistoComErros(SelectedVaccine);
+            if (!string.IsNullOrEmpty(errorMessages))
+            {
+                await Shell.Current.DisplayAlert("Verifique entradas, p.f.",
+                    $"{errorMessages}", "OK");
+                return;
+            }
+
 
             if (SelectedVaccine.Id == 0)
             {

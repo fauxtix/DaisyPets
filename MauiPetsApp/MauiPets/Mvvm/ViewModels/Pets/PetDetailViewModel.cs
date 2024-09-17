@@ -109,7 +109,8 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         await Shell.Current.GoToAsync($"{nameof(VaccineAddOrEditPage)}", true,
             new Dictionary<string, object>
             {
-                    {"SelectedVaccine", SelectedVaccine},
+                {"SelectedVaccine", SelectedVaccine},
+                {"IsEditing", IsEditing},
             });
     }
 
@@ -122,6 +123,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             var vaccineId = vaccine.Id;
             if (vaccineId > 0)
             {
+                IsEditing = true;
                 var response = await _petVaccinesService.FindDtoByIdAsync(vaccineId);
                 SelectedVaccine = response;
                 if (response is not null)
@@ -130,7 +132,8 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
                     await Shell.Current.GoToAsync($"{nameof(VaccineAddOrEditPage)}", true,
                         new Dictionary<string, object>
                         {
-                                {"SelectedVaccine", response},
+                            {"SelectedVaccine", response},
+                            {"IsEditing", IsEditing},
                         });
                 }
                 else
@@ -153,7 +156,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         SelectedDewormer = new()
         {
             DataAplicacao = DateTime.Now.Date.ToShortDateString(),
-            DataProximaAplicacao = DateTime.Now.Date.AddMonths(6).ToShortTimeString(),
+            DataProximaAplicacao = DateTime.Now.Date.AddMonths(3).ToShortDateString(),
             Tipo = "",
             Marca = "",
             IdPet = PetVM.Id
@@ -163,6 +166,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             new Dictionary<string, object>
             {
                 {"SelectedDewormer", SelectedDewormer},
+                {"IsEditing", IsEditing},
             });
 
     }
@@ -172,6 +176,8 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
     {
         try
         {
+            IsEditing = true;
+
             var dewormerId = dewormer.Id;
             if (dewormerId > 0)
             {
@@ -183,7 +189,8 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
                     await Shell.Current.GoToAsync($"{nameof(DewormerAddOrEditPage)}", true,
                         new Dictionary<string, object>
                         {
-                                {"SelectedDewormer", response},
+                            {"SelectedDewormer", response},
+                            {"IsEditing", IsEditing},
                         });
                 }
                 else

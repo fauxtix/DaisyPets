@@ -8,9 +8,6 @@ public class StringToDateConverter : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         object date = null;
-        //if (culture.Name.ToLower().Contains("us"))
-        //    culture = new CultureInfo("pt-PT");
-
         if (value is string)
         {
             date = DataFormat.DateParse(value);

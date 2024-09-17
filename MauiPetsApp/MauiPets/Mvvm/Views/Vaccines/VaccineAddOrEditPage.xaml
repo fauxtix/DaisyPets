@@ -6,7 +6,7 @@
              xmlns:conv="clr-namespace:MauiPets.Converters"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Vaccines"
              x:DataType="viewmodel:VaccineAddOrEditModel"
-             Title="Vacinas">
+             Title="{Binding AddEditCaption}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding SaveVaccineCommand  }"
                  IconImageSource="icon_save.png" />
@@ -26,6 +26,28 @@
     </ContentPage.Resources>
 
     <VerticalStackLayout>
+        <Border StrokeShape="RoundRectangle 50"
+                    Stroke="Black"
+                    StrokeThickness="2"
+                    HeightRequest="160"
+                    WidthRequest="220"
+                    Margin="0,8,0,0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+            <Image Aspect="AspectFill"
+                        HeightRequest="160"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding PetPhoto}"
+                        WidthRequest="200"/>
+        </Border>
+        <Label Text="{Binding PetName}" 
+               TextColor="Magenta" Padding="10" FontSize="18"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+        </Label>
+
         <Border Stroke="#2B0B98"
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 22"
@@ -39,7 +61,7 @@
                     <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
                     <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width=".3*"></ColumnDefinition>
@@ -47,10 +69,10 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Text="Movimento" 
-                           Grid.Row="0"
-                           Grid.Column="0"
-                           FontSize="Small"
-			               VerticalOptions="Center">
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="12"
+                       VerticalOptions="Center">
                 </Label>
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding SelectedVaccine.DataToma, Converter={StaticResource stringToDateConverter}}"  
@@ -62,7 +84,7 @@
                 <Label Text="Marca"
                                        Grid.Row="1"
                                        Grid.Column="0"
-                                       FontSize="Small"
+                                       FontSize="12"
 			                           VerticalOptions="Center"></Label>
                 <Entry x:Name="VaccineBrand" 
 			                           Text="{Binding SelectedVaccine.Marca}" 
@@ -73,7 +95,7 @@
                 <Label Text="Prx. toma em meses"
                                        Grid.Row="2"
                                        Grid.Column="0"
-                                       FontSize="Small"></Label>
+                                       FontSize="12"/>
                 <Entry x:Name="NextPriodInMonths"
                         Keyboard="Numeric"
 			            Text="{Binding SelectedVaccine.ProximaTomaEmMeses}"
@@ -83,6 +105,25 @@
                         IsSpellCheckEnabled="false"
 			            VerticalOptions="Start">
                 </Entry>
+
+                <Label Text="Data Prx. toma"
+                       IsVisible="{Binding IsEditing}"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Start"
+                       FontSize="12"/>
+
+                <Label FontAttributes="Bold" 
+                       IsVisible="{Binding IsEditing}"
+                       FontSize="12"
+                       Grid.Column="1"
+                       Grid.Row="3"
+                       Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
+                       TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" 
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center"/>
+
             </Grid>
         </Border>
         <VerticalStackLayout>

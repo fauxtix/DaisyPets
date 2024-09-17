@@ -43,6 +43,10 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         [ObservableProperty]
         private List<string> dewormerTypes;
 
+        [ObservableProperty]
+        private string _addEditCaption;
+
+
         // Constructor or initialization method
         public DewormerBaseViewModel()
         {

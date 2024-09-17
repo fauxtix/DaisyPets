@@ -40,5 +40,8 @@ namespace MauiPets.Mvvm.ViewModels.Vaccines
         [ObservableProperty]
         private bool isEditing;
 
+        [ObservableProperty]
+        private string _addEditCaption;
+
     }
 }

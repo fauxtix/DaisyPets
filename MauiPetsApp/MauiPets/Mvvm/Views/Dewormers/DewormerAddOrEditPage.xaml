@@ -5,8 +5,8 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:conv="clr-namespace:MauiPets.Converters"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Dewormers"
-             x:DataType="viewmodel:DewormerBaseViewModel"
-             Title="Desparasitantes">
+             x:DataType="viewmodel:DewormerAddOrEditViewModel"
+             Title="{Binding AddEditCaption}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding SaveDewormerCommand}"
                      IconImageSource="icon_save.png" />
@@ -26,6 +26,30 @@
     </ContentPage.Resources>
 
     <VerticalStackLayout Padding="4">
+
+        <Border StrokeShape="RoundRectangle 50"
+                    Stroke="Black"
+                    StrokeThickness="2"
+                    HeightRequest="160"
+                    WidthRequest="220"
+                    Margin="0,8,0,0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+            <Image Aspect="AspectFill"
+                        HeightRequest="160"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding PetPhoto}"
+                        WidthRequest="200"/>
+        </Border>
+        <Label Text="{Binding PetName}" 
+               TextColor="Magenta" Padding="10" FontSize="18"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+        </Label>
+
+
         <Border Stroke="#2B0B98"
                 StrokeThickness="2"
                 StrokeShape="RoundRectangle 22"
@@ -47,19 +71,19 @@
                     <ColumnDefinition Width=".7*" />
                 </Grid.ColumnDefinitions>
 
-                <!-- Existing Fields -->
                 <Label Text="Movimento" 
                        Grid.Row="0"
                        Grid.Column="0"
                        FontSize="Small"
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="TransactionDate"
-                           Date="{Binding SelectedDewormer.DataAplicacao, Converter={StaticResource stringToDateConverter}}"  
-                           Style="{StaticResource MediumLabelBold}"
-                           Grid.Row="0"
-                           Grid.Column="1"
-                           FontAttributes="Bold" 
-                           VerticalOptions="Center"/>
+                            Date="{Binding SelectedDewormer.DataAplicacao, Converter={StaticResource stringToDateConverter}}"  
+                            Style="{StaticResource MediumLabelBold}"
+                            DateSelected="TransactionDate_DateSelected"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            FontAttributes="Bold" 
+                            VerticalOptions="Center"/>
 
                 <Label Text="Marca"
                        Grid.Row="1"
@@ -89,16 +113,19 @@
                 <Label Text="Tipo" Grid.Row="3" Grid.Column="0" FontSize="Small" VerticalOptions="Center"/>
 
                 <Grid Grid.Row="3" Grid.Column="1" ColumnDefinitions="*,*" VerticalOptions="Center">
-                    <RadioButton Content="Interno" 
+                    <RadioButton x:Name="dwI" Content="Interno" 
                                  IsChecked="{Binding IsTypeInternal, Mode=TwoWay}"
                                  GroupName="DewormerType" 
                                  Grid.Column="0" 
                                  VerticalOptions="Center"
+                                 CheckedChanged="DewormerType_CheckedChanged"
                                  HorizontalOptions="Start"/>
 
                     <RadioButton Content="Externo" 
+                                 x:Name="dwE"
                                  IsChecked="{Binding IsTypeExternal, Mode=TwoWay}"
                                  GroupName="DewormerType" 
+                                 CheckedChanged="DewormerType_CheckedChanged"
                                  Grid.Column="1" 
                                  VerticalOptions="Center"
                                  HorizontalOptions="Start"/>

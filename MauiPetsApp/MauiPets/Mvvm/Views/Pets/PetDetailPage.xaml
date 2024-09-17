@@ -200,7 +200,7 @@
                                         Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <!-- Existing Header Row -->
-                                    <Grid ColumnDefinitions=".3*, .4*, .3*" 
+                                    <Grid ColumnDefinitions=".2*, .6*, .2*" 
                                           ColumnSpacing="2"
                                           Grid.Row="2">
                                         <Label FontAttributes="Bold" FontSize="10" Text="Toma" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
@@ -256,7 +256,7 @@
                                                                     CommandParameter="{Binding .}"/>
                                                             </Frame.GestureRecognizers>
 
-                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".3*, .4*, .3*" Margin="0,4">
+                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".2*, .6*, .2*" Margin="0,4">
                                                                 <Label FontAttributes="Bold" FontSize="10"  Grid.Column="0"  Text="{Binding DataTomaFormatada}" HorizontalOptions="Center"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="1" Text="{Binding Marca}"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
@@ -310,11 +310,11 @@
                                         BackgroundColor="SteelBlue"
                                         Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
-                                    <Grid ColumnDefinitions=".23*, .5*, .27*" ColumnSpacing="2"
+                                    <Grid ColumnDefinitions=".2*, .6*, .2*" ColumnSpacing="2"
                                           Grid.Row="2">
                                         <Label FontAttributes="Bold" FontSize="10" Text="Toma" Grid.Row="0" Grid.Column="0" />
                                         <Label FontAttributes="Bold" FontSize="10" Text="Marca" Grid.Row="0" Grid.Column="1"/>
-                                        <Label FontAttributes="Bold" FontSize="10" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" />
+                                        <Label FontAttributes="Bold" FontSize="10" Text="Prx. Toma" Grid.Row="0" Grid.Column="2"  />
                                     </Grid>
                                     <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <CollectionView Grid.Row="4" 
@@ -359,11 +359,11 @@
                                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=EditDewormerCommand}"
                                                                 CommandParameter="{Binding .}"/>
                                                             </Frame.GestureRecognizers>
-                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".23*, .5*, .27*" Margin="3,3">
-                                                                <Label FontAttributes="Bold" FontSize="10" Grid.Column="0" Text="{Binding DataAplicacao}"/>
+                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".2*, .6*, .2*" Margin="0, 1, 0, 2">
+                                                                <Label FontAttributes="Bold" FontSize="10" Grid.Column="0" Text="{Binding DataAplicacao}" HorizontalOptions="Center" />
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="1" Text="{Binding Marca}"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="2" Text="{Binding DataProximaAplicacao}"
-                                                       TextColor="{Binding DataProximaAplicacao, Converter={StaticResource nextDoseDateConverter}}"/>
+                                                       TextColor="{Binding DataProximaAplicacao, Converter={StaticResource nextDoseDateConverter}}" HorizontalOptions="Center"/>
                                                             </Grid>
                                                         </Frame>
                                                     </VerticalStackLayout>
@@ -412,9 +412,9 @@
                                         BackgroundColor="SteelBlue"
                                         Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
-                                    <Grid ColumnDefinitions=".23*, .5*, .27*" ColumnSpacing="2"
+                                    <Grid ColumnDefinitions=".2*, .6*, .2*" ColumnSpacing="2"
                                           Grid.Row="2">
-                                        <Label FontSize="10" Text="Compra" Grid.Row="0" Grid.Column="0" />
+                                        <Label FontSize="10" Text="Compra" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center"  />
                                         <Label FontSize="10" Text="Marca" Grid.Row="0" Grid.Column="1"/>
                                         <Label FontSize="10" Text="Qtd. diária" Grid.Row="0" HorizontalOptions="Center" Grid.Column="2" />
                                     </Grid>
@@ -460,10 +460,10 @@
                                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=EditPetFoodCommand}"
                                                                 CommandParameter="{Binding .}"/>
                                                             </Frame.GestureRecognizers>
-                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".23*, .5*, .27*">
-                                                                <Label Grid.Column="0" FontAttributes="Bold" FontSize="10" Text="{Binding DataCompra}"/>
-                                                                <Label Grid.Column="1" FontSize="10" Text="{Binding Marca}"/>
-                                                                <Label Grid.Column="2" HorizontalTextAlignment="Center" FontSize="10" Text="{Binding QuantidadeDiaria, StringFormat='{0}' }"/>
+                                                            <Grid ColumnSpacing="2" ColumnDefinitions=".2*, .6*, .2*">
+                                                                <Label Grid.Column="0" FontAttributes="Bold" FontSize="11" Text="{Binding DataCompra}" HorizontalOptions="Center"  />
+                                                                <Label Grid.Column="1" FontAttributes="Bold" FontSize="11" Text="{Binding Marca}"/>
+                                                                <Label Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="11" Text="{Binding QuantidadeDiaria, StringFormat='{0}' }"/>
                                                             </Grid>
                                                         </Frame>
                                                     </VerticalStackLayout>
@@ -562,7 +562,7 @@
                                                             </Frame.GestureRecognizers>
                                                             <Grid ColumnSpacing="2" ColumnDefinitions=".2*, .8*">
                                                                 <Label Grid.Column="0" FontAttributes="Bold" FontSize="11" Text="{Binding DataConsulta}" HorizontalOptions="Center"/>
-                                                                <Label Grid.Column="1"  FontSize="11" VerticalOptions="Start" HorizontalOptions="Start" Text="{Binding Motivo}"/>
+                                                                <Label Grid.Column="1" FontAttributes="Bold" FontSize="11" VerticalOptions="Start" HorizontalOptions="Start" Text="{Binding Motivo}"/>
                                                             </Grid>
                                                         </Frame>
                                                     </VerticalStackLayout>

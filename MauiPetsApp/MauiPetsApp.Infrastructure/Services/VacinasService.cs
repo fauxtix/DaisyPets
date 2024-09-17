@@ -106,9 +106,9 @@ namespace MauiPetsApp.Infrastructure.Services
 
 
         /// <summary>
-        /// Validação de Vacinação
+        /// Validação de Vacina
         /// </summary>
-        /// <param name="Vacinao"></param>
+        /// <param name="vacina"></param>
         /// <returns></returns>
         public string RegistoComErros(VacinaDto vacina)
         {

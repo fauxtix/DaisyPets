@@ -11,6 +11,7 @@ namespace MauiPetsApp.Core.Application.Interfaces.Services
         Task<IEnumerable<DesparasitanteVM>?> GetAllDesparasitantesVMAsync();
         Task<IEnumerable<DesparasitanteVM>> GetDesparasitanteVMAsync(int Id);
         Task<int> InsertAsync(DesparasitanteDto desparasitante);
+        string RegistoComErros(DesparasitanteDto desparasitante);
         Task UpdateAsync(int Id, DesparasitanteDto desparasitante);
 
     }

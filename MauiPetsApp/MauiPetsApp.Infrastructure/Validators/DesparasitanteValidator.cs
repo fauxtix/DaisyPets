@@ -16,14 +16,14 @@ namespace MauiPetsApp.Infrastructure.Validators
         {
             RuleFor(p => p.Marca)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha marca do desparasitante, p.f.");
+                .NotEmpty().WithMessage("Marca do desparasitante em falta");
             RuleFor(p => p.Tipo)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha tipo de desparasitante, p.f.");
+                .NotEmpty().WithMessage("Tipo de desparasitante em falta");
             RuleFor(p => p.DataAplicacao)
                 .Must(BeAValidDate).WithMessage("Data da aplicação deverá ser inferior à data corrente");
-            RuleFor(p => p.DataProximaAplicacao)
-                .GreaterThan(x => x.DataAplicacao).WithMessage("Próxima aplicação deverá ser posterior à data da aplicação");
+            RuleFor(p => DataFormat.DateParse(p.DataProximaAplicacao))
+                .GreaterThan(x => DataFormat.DateParse(x.DataAplicacao)).WithMessage("Próxima aplicação deverá ser posterior à data da aplicação");
         }
 
         #region Custom Validators
