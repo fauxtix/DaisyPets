@@ -11,6 +11,7 @@ namespace MauiPetsApp.Core.Application.Interfaces.Services
         Task<IEnumerable<RacaoVM>> GetAllRacoesVMAsync();
         Task<IEnumerable<RacaoVM>> GetRacaoVMAsync(int Id);
         Task<int> InsertAsync(RacaoDto racao);
+        string RegistoComErros(RacaoDto racao);
         Task UpdateAsync(int Id, RacaoDto racao);
 
 

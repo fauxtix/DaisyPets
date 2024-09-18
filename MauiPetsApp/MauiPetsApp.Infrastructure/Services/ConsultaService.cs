@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
 using Microsoft.Extensions.Logging;
+using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Services
 {
@@ -13,12 +15,15 @@ namespace MauiPetsApp.Infrastructure.Services
 
         private readonly IMapper _mapper;
         private readonly ILogger<ConsultaService> _logger;
+        private readonly IValidator<ConsultaVeterinarioDto> _validator;
 
-        public ConsultaService(IConsultaRepository repository, IMapper mapper, ILogger<ConsultaService> logger)
+
+        public ConsultaService(IConsultaRepository repository, IMapper mapper, ILogger<ConsultaService> logger, IValidator<ConsultaVeterinarioDto> validator)
         {
             _repository = repository;
             _mapper = mapper;
             _logger = logger;
+            _validator = validator;
         }
 
         public async Task DeleteAsync(int Id)
@@ -86,5 +91,23 @@ namespace MauiPetsApp.Infrastructure.Services
                 throw;
             }
         }
+
+        public string RegistoComErros(ConsultaVeterinarioDto appointment)
+        {
+            FluentValidation.Results.ValidationResult results = _validator.Validate(appointment);
+
+            if (!results.IsValid)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var failure in results.Errors)
+                {
+                    sb.AppendLine(failure.ErrorMessage);
+                }
+                return sb.ToString();
+            }
+
+            return "";
+        }
+
     }
 }

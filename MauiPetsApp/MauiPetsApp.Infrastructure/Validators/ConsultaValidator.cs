@@ -16,14 +16,14 @@ namespace MauiPetsApp.Infrastructure.Validators
         {
             RuleFor(p => p.Motivo)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha campo motivo, p.f.");
+                .NotEmpty().WithMessage("Motivo é um campo requerido");
             RuleFor(p => p.Diagnostico)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha campo diagnóstico, p.f.");
+                .NotEmpty().WithMessage("Diagnóstico é um campo requerido");
 
             RuleFor(p => p.Tratamento)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha campo tratamento, p.f.");
+                .NotEmpty().WithMessage("Tratamento é um campo requerido");
 
             RuleFor(p => p.DataConsulta)
                 .Must(BeAValidDate).WithMessage("Data inválida");

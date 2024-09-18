@@ -33,5 +33,8 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
 
         [ObservableProperty]
         private bool isEditing;
+
+        [ObservableProperty]
+        private string _editCaption;
     }
 }

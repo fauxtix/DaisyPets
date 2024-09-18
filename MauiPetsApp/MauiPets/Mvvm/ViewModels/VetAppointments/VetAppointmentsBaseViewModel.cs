@@ -1,11 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MauiPetsApp.Core.Application.ViewModels;
-using MauiPetsApp.Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MauiPets.Mvvm.ViewModels.VetAppointments
 {
@@ -42,5 +36,7 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
         [ObservableProperty]
         private bool isEditing;
 
+        [ObservableProperty]
+        private string _addEditCaption;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -16,15 +17,27 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         public int SelectedPetFoodId { get; set; }
         public IConnectivity _connectivity;
 
+        [ObservableProperty]
+        public string _petPhoto;
+        [ObservableProperty]
+        public string _petName;
+
         public PetFoodAddOrEditViewModel(IRacaoService service, IConnectivity connectivity,IPetService petService)
         {
             _service = service;
             _petService = petService;
             _connectivity = connectivity;
         }
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             SelectedPetFood = query[nameof(SelectedPetFood)] as RacaoDto;
+            IsEditing = (bool)query[nameof(IsEditing)];
+
+            EditCaption = IsEditing ? "Editar ração" : "Nova ração";
+            var selectedPet = await _petService.GetPetVMAsync(SelectedPetFood.IdPet);
+
+            PetPhoto = selectedPet.Foto;
+            PetName = selectedPet.Nome;
         }
 
         [RelayCommand]
@@ -53,13 +66,19 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         {
             try
             {
-                //if(IsNotBusy)
-                //    IsBusy = true;
 
                 if (_connectivity.NetworkAccess != NetworkAccess.Internet)
                 {
                     await Shell.Current.DisplayAlert("No connectivity!",
                         $"Please check internet and try again.", "OK");
+                    return;
+                }
+
+                var errorMessages = _service.RegistoComErros(SelectedPetFood);
+                if (!string.IsNullOrEmpty(errorMessages))
+                {
+                    await Shell.Current.DisplayAlert("Verifique entradas, p.f.",
+                        $"{errorMessages}", "OK");
                     return;
                 }
 

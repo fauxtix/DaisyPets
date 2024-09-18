@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -16,15 +17,33 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
         public IConnectivity _connectivity;
         public int SelectedAppointmentId { get; set; }
 
+        [ObservableProperty]
+        public string _petPhoto;
+        [ObservableProperty]
+        public string _petName;
+
+
         public VetAppointmentsAddOrEditViewModel(IConsultaService service, IPetService petService, IConnectivity connectivity)
         {
             _service = service;
             _petService = petService;
             _connectivity = connectivity;
         }
-        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
+            IsBusy = true;
+            await Task.Delay(100);
+
             SelectedAppointment = query[nameof(SelectedAppointment)] as ConsultaVeterinarioDto;
+
+            IsEditing = (bool)query[nameof(IsEditing)];
+            AddEditCaption = IsEditing ? "Editar consulta" : "Nova visita";
+
+            var selectedPet = await _petService.GetPetVMAsync(SelectedAppointment.IdPet);
+
+            PetPhoto = selectedPet.Foto;
+            PetName = selectedPet.Nome;
+            IsBusy = false;
         }
 
         [RelayCommand]
@@ -62,6 +81,15 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
                         $"Please check internet and try again.", "OK");
                     return;
                 }
+
+                var errorMessages = _service.RegistoComErros(SelectedAppointment);
+                if (!string.IsNullOrEmpty(errorMessages))
+                {
+                    await Shell.Current.DisplayAlert("Verifique entradas, p.f.",
+                        $"{errorMessages}", "OK");
+                    return;
+                }
+
 
                 if (SelectedAppointment.Id == 0)
                 {

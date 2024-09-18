@@ -221,6 +221,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             new Dictionary<string, object>
             {
                 {"SelectedPetFood", SelectedPetFood},
+                {"IsEditing", IsEditing},
             });
 
     }
@@ -243,6 +244,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             new Dictionary<string, object>
             {
                 {"SelectedAppointment", SelectedAppointment},
+                {"IsEditing", IsEditing},
             });
 
     }
@@ -253,6 +255,8 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
     {
         try
         {
+            IsEditing = true;
+
             var petFoodId = petFood.Id;
             if (petFoodId > 0)
             {
@@ -265,11 +269,12 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
                         new Dictionary<string, object>
                         {
                             {"SelectedPetFood", SelectedPetFood},
+                            {"IsEditing", IsEditing},
                         });
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("Desparasitante não encontrado", $"ID#: {petFoodId}", "Ok");
+                    await Shell.Current.DisplayAlert("Ração não encontrada", $"ID#: {petFoodId}", "Ok");
                 }
             }
         }
@@ -284,6 +289,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
     {
         try
         {
+            IsEditing = true;
             var petApptId = petAppointment.Id;
             if (petApptId > 0)
             {
@@ -296,8 +302,8 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
                         new Dictionary<string, object>
                         {
                             {"SelectedAppointment", SelectedAppointment},
+                            {"IsEditing", IsEditing},
                         });
-
                 }
                 else
                 {

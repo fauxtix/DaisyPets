@@ -45,17 +45,19 @@
                           SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate >
-                            <ViewCell >
+                            <ViewCell>
                                 <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                     <StackLayout Orientation="Vertical" HorizontalOptions="Start" >
-                                        <Label Text="{Binding Nome}" FontAttributes="Bold" 
-                                               FontSize="13"/>
-                                        <Label Margin="0, 0, 0, 10" Text="{Binding Movel}" FontSize="12" FontAttributes="Italic" 
+                                        <Label Text="{Binding Nome}" FontFamily="Poppins-Bold" 
+                                             FontSize="14"/>
+                                        <Label Margin="0, 0, 0, 10" Text="{Binding Movel}" 
+                                               FontSize="13" 
+                                               TextColor="DarkMagenta"
+                                               FontFamily="Poppins-Bold" 
                                                CharacterSpacing="1.8"/>
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>
-                            <!--<TextCell  Text="{Binding Nome}" Detail="{Binding  Movel}"/>-->
                             </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

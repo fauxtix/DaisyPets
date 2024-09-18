@@ -5,8 +5,9 @@
             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
             xmlns:conv="clr-namespace:MauiPets.Converters"
             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.VetAppointments"
-            x:DataType="viewmodel:VetAppointmentsBaseViewModel"
-            Title="Consultas">
+            x:DataType="viewmodel:VetAppointmentsAddOrEditViewModel"
+             Title="{Binding AddEditCaption}">
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding SaveVetAppointmentCommand}"
                      IconImageSource="icon_save.png" />
@@ -25,6 +26,29 @@
     </ContentPage.Resources>
 
     <VerticalStackLayout Padding="4">
+
+        <Border StrokeShape="RoundRectangle 50"
+                    Stroke="Black"
+                    StrokeThickness="2"
+                    HeightRequest="160"
+                    WidthRequest="220"
+                    Margin="0,8,0,0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+            <Image Aspect="AspectFill"
+                        HeightRequest="160"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding PetPhoto}"
+                        WidthRequest="200"/>
+        </Border>
+        <Label Text="{Binding PetName}" 
+               TextColor="Magenta" Padding="10" FontSize="18"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+        </Label>
+
         <Border Stroke="#2B0B98"
                 StrokeThickness="2"
                 StrokeShape="RoundRectangle 22"
@@ -33,7 +57,7 @@
                 Margin="4"
                 HorizontalOptions="FillAndExpand">
 
-            <Grid Margin="4">
+            <Grid Margin="4" ColumnSpacing="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
@@ -69,7 +93,11 @@
                        Text="{Binding SelectedAppointment.Motivo}" 
                        Grid.Row="1"
                        Grid.Column="1"
-                       VerticalOptions="Center"/>
+                        FontSize="12"
+                        Keyboard="Text"
+                        AutoSize="TextChanges"
+                        IsSpellCheckEnabled="false"
+                       VerticalOptions="Start"/>
                 <Label Text="Diagnóstico"
                        Grid.Row="2"
                        Grid.Column="0"
@@ -79,7 +107,11 @@
                        Text="{Binding SelectedAppointment.Diagnostico}" 
                        Grid.Row="2" 
                        Grid.Column="1"
-                       VerticalOptions="CenterAndExpand"/>
+                        FontSize="12"
+                        Keyboard="Text"
+                        AutoSize="TextChanges"
+                        IsSpellCheckEnabled="false"
+                       VerticalOptions="Start"/>
                 <Label Text="Tratamento"
                        Grid.Row="3"
                        Grid.Column="0"
@@ -89,7 +121,11 @@
                        Text="{Binding SelectedAppointment.Tratamento}" 
                        Grid.Row="3" 
                        Grid.Column="1"
-                       VerticalOptions="CenterAndExpand"/>
+                        FontSize="12"
+                        Keyboard="Text"
+                        AutoSize="TextChanges"
+                        IsSpellCheckEnabled="false"
+                       VerticalOptions="Start"/>
                 <Label Text="Notas"
                        Grid.Row="4"
                        Grid.Column="0"
@@ -99,7 +135,11 @@
                        Text="{Binding SelectedAppointment.Notas}" 
                        Grid.Row="4" 
                        Grid.Column="1"
-                       VerticalOptions="CenterAndExpand"/>
+                        FontSize="12"
+                        Keyboard="Text"
+                        AutoSize="TextChanges"
+                        IsSpellCheckEnabled="false"
+                       VerticalOptions="Start"/>
             </Grid>
         </Border>
     </VerticalStackLayout>

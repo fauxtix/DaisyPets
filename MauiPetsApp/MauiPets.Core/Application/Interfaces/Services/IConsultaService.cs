@@ -11,6 +11,7 @@ namespace MauiPetsApp.Core.Application.Interfaces.Services
         Task<IEnumerable<ConsultaVeterinarioVM>> GetAllConsultaVMAsync();
         Task<IEnumerable<ConsultaVeterinarioVM>> GetConsultaVMAsync(int Id);
         Task<int> InsertAsync(ConsultaVeterinarioDto Consulta);
+        string RegistoComErros(ConsultaVeterinarioDto appointment);
         Task UpdateAsync(int Id, ConsultaVeterinarioDto Consulta);
 
     }
