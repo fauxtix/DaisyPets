@@ -209,7 +209,7 @@ public partial class PetViewModel : BaseViewModel
                 var vaccineDto = await _petVaccinesService.GetPetVaccinesVMAsync(insertedId);
                 //IsBusy = false;
 
-                ShowToastMessage("Contact created succesfuly");
+                ShowToastMessage("Registo criado com sucesso");
 
                 await Shell.Current.GoToAsync($"//{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
@@ -233,7 +233,7 @@ public partial class PetViewModel : BaseViewModel
                     });
 
                 //IsBusy = false;
-                ShowToastMessage("Record updated successfuly");
+                ShowToastMessage("Registo atualizado com sucesso");
 
             }
         }

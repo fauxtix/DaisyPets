@@ -110,7 +110,7 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
 
                 //IsBusy = false;
 
-                ShowToastMessage("Vaccine created succesfuly");
+                ShowToastMessage("Registo criado com sucesso");
 
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
@@ -134,7 +134,7 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
                     });
 
                 //IsBusy = false;
-                ShowToastMessage("Record updated successfuly");
+                ShowToastMessage("Registo atualizado com sucesso");
 
             }
         }

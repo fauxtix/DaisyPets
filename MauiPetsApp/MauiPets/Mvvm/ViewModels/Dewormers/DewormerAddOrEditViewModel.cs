@@ -140,7 +140,7 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
                         });
 
                     //IsBusy = false;
-                    ShowToastMessage("Record updated successfuly");
+                    ShowToastMessage("Desparasitante atualizado com sucesso");
 
                 }
             }

@@ -81,14 +81,14 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
                 var insertedId = await _contactsService.InsertAsync(ContactoVM);
                 if (insertedId == -1)
                 {
-                    await Shell.Current.DisplayAlert("Error while updating",
+                    await Shell.Current.DisplayAlert("Error while updating contact",
                         $"Please contact administrator..", "OK");
                     return;
                 }
 
                 var contactoVM = await _contactsService.GetContactVMAsync(insertedId);
 
-                await ShowToastMessage("Contact created succesfuly");
+                await ShowToastMessage("Contacto criado com sucesso");
 
                 await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
                     new Dictionary<string, object>
@@ -111,7 +111,7 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
                         {"ContactoVM", contactoVM }
                     });
 
-               await ShowToastMessage("Record updated successfuly");
+               await ShowToastMessage("Contacto atualizado com sucesso");
 
             }
         }
