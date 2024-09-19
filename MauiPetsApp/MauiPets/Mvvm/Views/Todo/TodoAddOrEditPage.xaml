@@ -33,8 +33,8 @@
                      Command="{Binding DeleteTodoCommand  }"
                      IsEnabled="{Binding IsEditing}"
                      IconImageSource="icon_delete.svg" />
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
-                 IconImageSource="icon_close.svg" />
+        <!--<ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+                 IconImageSource="icon_close.svg" />-->
     </ContentPage.ToolbarItems>
 
     <VerticalStackLayout Margin="2, 10, 0, 0">
@@ -86,42 +86,46 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Text="Movimento" 
-                           Grid.Row="0"
-                           Grid.Column="0"
-                           FontSize="12"
-			               VerticalOptions="Center"/>
+                       Grid.Row="0"
+                       FontFamily="OpenSans-Semibold"
+                       Grid.Column="0"
+                       FontSize="14"
+                       VerticalOptions="Center"/>
 
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding SelectedTodo.StartDate, Converter={StaticResource stringToDateConverter}}"  
 			               Grid.Row="0"
-                           FontAttributes="Bold" 
+                           FontFamily="OpenSans-Semibold"
                            Grid.Column="1"
-                            FontSize="12"
+                            FontSize="14"
 			               VerticalOptions="Center"/>
                 <Label Text="Descrição"
-                                       Grid.Row="1"
-                                       Grid.Column="0"
-                                       FontSize="12"
-			                           VerticalOptions="Start"/>
+                       Grid.Row="1"
+                       FontFamily="OpenSans-Semibold"
+                       Grid.Column="0"
+                       FontSize="14"
+                       VerticalOptions="Center"/>
                 <Editor x:Name="TodoDescription"
                         Text="{Binding SelectedTodo.Description}" 
 			            Grid.Row="1"
-                        FontSize="12"
+                        FontFamily="OpenSans-Semibold"
+                        FontSize="14"
                         Grid.Column="1"
-			            VerticalOptions="Start"/>
+			            VerticalOptions="Center"/>
 
-                <Label Text="Concluído"
+                <Label Text="Concluída"
                        Grid.Row="2"
                        Grid.Column="0"
-                       FontSize="12"
+                       FontFamily="OpenSans-Semibold"
+                       FontSize="14"
                        IsVisible="{Binding IsEditing}"
-			           VerticalOptions="Start"/>
+			           VerticalOptions="Center"/>
 
                 <Switch Grid.Row="2" 
                         Grid.Column="1" IsToggled="{Binding SelectedTodo.Completed}"
+                        IsVisible="{Binding IsEditing}"                        
                         HorizontalOptions="Start" 
-                        IsVisible="{Binding IsEditing}"
-                        VerticalOptions="Start" />
+                        VerticalOptions="Center" />
 
             </Grid>
 

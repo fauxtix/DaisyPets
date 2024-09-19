@@ -174,11 +174,11 @@
              VerticalOptions="Center" Orientation="Horizontal"
              Grid.Row="4"
              IsVisible="{Binding IsPaginationVisible}">
-            <Button Text="Início" Command="{Binding FirstPageCommand}" CornerRadius="10" WidthRequest="80" />
-            <Button Text="Anterior" Command="{Binding PreviousPageCommand}" CornerRadius="10"
+            <Button Text="Início" Command="{Binding FirstPageAsyncCommand}" CornerRadius="10" WidthRequest="80" />
+            <Button Text="Anterior" Command="{Binding PreviousPageAsyncCommand}" CornerRadius="10"
                  IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" />
             <Button Text="Seguinte" 
-                    Command="{Binding NextPageCommand}" 
+                    Command="{Binding NextPageAsyncCommand}" 
                     CornerRadius="10" WidthRequest="90">
                 <Button.IsEnabled>
                     <MultiBinding>
@@ -191,7 +191,7 @@
                 </Button.IsEnabled>
             </Button>
 
-            <Button Text="Fim" Command="{Binding LastPageCommand}" CornerRadius="10" WidthRequest="80" />
+            <Button Text="Fim" Command="{Binding LastPageAsyncCommand}" CornerRadius="10" WidthRequest="80" />
         </StackLayout>
 
         <!-- Page Info -->
