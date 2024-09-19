@@ -135,32 +135,32 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:ToDoDto">
                     <VerticalStackLayout>
-                        <Frame CornerRadius="10" HasShadow="True" Margin="3, 1, 3, 1" VerticalOptions="Center"
-                               Padding="1">
+                        <Frame CornerRadius="10" HasShadow="True" Margin="2, 1, 2, 1" VerticalOptions="Center"
+                               Padding="0">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TodoViewModel}}, Path=EditTodoCommand}"
                                         CommandParameter="{Binding .}"/>
                             </Frame.GestureRecognizers>
-                            <Grid Padding="2" ColumnSpacing="5" Margin="1" RowSpacing="2">
+                            <Grid Padding="1" ColumnSpacing="5" Margin="2" RowSpacing="1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="70" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="60" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" FontSize="11"
+                                <Label Grid.Column="0" FontSize="12"
                                        Text="{Binding StartDate, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
-                                       FontAttributes="Bold" />
-                                <Label Grid.Column="1" FontSize="12"
+                                       FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
+                                <Label Grid.Column="1" FontSize="13" Margin="0, -1, 0, 0"
                                        Text="{Binding Description, Mode=OneWay}"
                                        HorizontalOptions="Start"
-                                       VerticalOptions="Start" />
+                                       VerticalOptions="Center" />
                                 <Switch Grid.Column="2" IsToggled="{Binding Completed}" 
                                         HorizontalOptions="Start"
-                                        Margin="0,-16,0,10" 
+                                        Margin="0,-2,0,5" 
                                         VerticalOptions="Center" />
                             </Grid>
                         </Frame>
