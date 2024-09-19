@@ -45,32 +45,4 @@ public partial class TodoBaseViewModel : ObservableObject
 
     [ObservableProperty]
     private string _editCaption;
-
-
-    [RelayCommand]
-    private async Task AddTodoAsync()
-    {
-        EditCaption = "Novo registo";
-
-        IsEditing = false;
-        SelectedTodo = new()
-        {
-            StartDate = DateTime.Now.Date.ToShortDateString(),
-            EndDate = DateTime.Now.Date.AddDays(1).ToShortDateString(),
-            Description = "",
-            CategoryId = 1, // dummy value
-            Completed = 0,
-            Generated = 1,
-        };
-
-        await Shell.Current.GoToAsync($"{nameof(TodoAddOrEditPage)}", true,
-            new Dictionary<string, object>
-            {
-                        {"SelectedTodo", SelectedTodo},
-                        {"EditCaption", EditCaption},
-                        {"IsEditing", IsEditing },
-
-            });
-    }
-
 }

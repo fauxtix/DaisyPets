@@ -70,10 +70,10 @@
                             BorderColor="DarkOrange"
                             Style="{StaticResource CommonWeekMonthButtonStyle}" />
                     <Button Text="Próx. mês"
-        Command="{Binding FilterNextMonthCommand}"
-        BackgroundColor="Goldenrod"
-        BorderColor="DarkGoldenrod"
-        Style="{StaticResource CommonWeekMonthButtonStyle}" />
+                            Command="{Binding FilterNextMonthCommand}"
+                            BackgroundColor="Goldenrod"
+                            BorderColor="DarkGoldenrod"
+                            Style="{StaticResource CommonWeekMonthButtonStyle}" />
                 </HorizontalStackLayout>
             </ScrollView>
         </Frame>
