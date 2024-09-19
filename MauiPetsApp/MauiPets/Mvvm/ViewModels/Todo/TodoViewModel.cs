@@ -152,7 +152,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             RefreshTodoList(pagedTodos);
         }
 
-        private async void RefreshTodoList(IEnumerable<ToDoDto> todos, string filterType = null)
+        private void RefreshTodoList(IEnumerable<ToDoDto> todos, string filterType = null)
         {
             Todos.Clear();
             foreach (var todo in todos)

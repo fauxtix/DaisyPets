@@ -14,6 +14,15 @@
         <conv:StringToDateConverter x:Key="stringToDateConverter" />
         <conv:GreaterThanOneConverter x:Key="GreaterThanOneConverter" />
         <conv:LessThanTotalPagesConverter x:Key="LessThanTotalPagesConverter" />
+
+        <Style x:Key="CommonWeekMonthButtonStyle" TargetType="Button">
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontFamily" Value="Poppins-SemiBold" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="WidthRequest" Value="120" />
+        </Style>
     </ContentPage.Resources>
 
     <ContentPage.Behaviors>
@@ -45,18 +54,26 @@
                Grid.Row="1">
             <ScrollView Orientation="Horizontal">
                 <HorizontalStackLayout Spacing="10" Padding="5">
-                    <Button Text="Esta semana" Command="{Binding FilterThisWeekCommand}" 
-                            CornerRadius="10" BackgroundColor="LightSkyBlue" TextColor="White" 
-                            BorderWidth="1" BorderColor="SkyBlue" WidthRequest="120" />
-                    <Button Text="Próx. semana" Command="{Binding FilterNextWeekCommand}" 
-                            CornerRadius="10" BackgroundColor="LightSeaGreen" TextColor="White" 
-                            BorderWidth="1" BorderColor="SeaGreen" WidthRequest="120" />
-                    <Button Text="Este mês" Command="{Binding FilterThisMonthCommand}" 
-                            CornerRadius="10" BackgroundColor="Coral" TextColor="White" 
-                            BorderWidth="1" BorderColor="DarkOrange" WidthRequest="120" />
-                    <Button Text="Próx. mês" Command="{Binding FilterNextMonthCommand}" 
-                            CornerRadius="10" BackgroundColor="Goldenrod" TextColor="White" 
-                            BorderWidth="1" BorderColor="DarkGoldenrod" WidthRequest="120" />
+                    <Button Text="Esta semana"
+                            Command="{Binding FilterThisWeekCommand}"
+                            BackgroundColor="LightSkyBlue"
+                            BorderColor="SkyBlue"
+                            Style="{StaticResource CommonWeekMonthButtonStyle}" />
+                    <Button Text="Próx. semana"
+                            Command="{Binding FilterNextWeekCommand}"
+                            BackgroundColor="LightSeaGreen"
+                            BorderColor="SeaGreen"
+                            Style="{StaticResource CommonWeekMonthButtonStyle}" />
+                    <Button Text="Este mês"
+                            Command="{Binding FilterThisMonthCommand}"
+                            BackgroundColor="Coral"
+                            BorderColor="DarkOrange"
+                            Style="{StaticResource CommonWeekMonthButtonStyle}" />
+                    <Button Text="Próx. mês"
+        Command="{Binding FilterNextMonthCommand}"
+        BackgroundColor="Goldenrod"
+        BorderColor="DarkGoldenrod"
+        Style="{StaticResource CommonWeekMonthButtonStyle}" />
                 </HorizontalStackLayout>
             </ScrollView>
         </Frame>
@@ -73,13 +90,13 @@
                                                         CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
                     </SearchBar.Behaviors>
                 </SearchBar>
-                <ImageButton Command="{Binding FilterCompletedCommand}" Aspect="AspectFill"
+                <!--<ImageButton Command="{Binding FilterCompletedCommand}" Aspect="AspectFill"
                              HorizontalOptions="Start" 
                              BorderWidth="2" BorderColor="Black" CornerRadius="10"
                              HeightRequest="30" 
                              WidthRequest="30"  
                              Source="schedule_icon.png"
-                             VerticalOptions="Center" />
+                             VerticalOptions="Center" />-->
                 <ImageButton Command="{Binding FilterPendingCommand}"
                              HorizontalOptions="Start"
                              HeightRequest="30"
@@ -88,7 +105,7 @@
                              Aspect="AspectFill"
                              Margin="5, 0, 0, 0"
                              ToolTipProperties.Text="Pending"
-                             Source="tasks.png"
+                             Source="pending.png"
                              VerticalOptions="Center" />
                 <ImageButton Command="{Binding GetTodosCommand}"
                              HorizontalOptions="Start"

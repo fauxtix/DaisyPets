@@ -6,7 +6,7 @@
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
              xmlns:viewmodelVaccine="clr-namespace:MauiPets.Mvvm.ViewModels.Vaccines"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:converters ="clr-namespace:MauiPets.Converters"             
+             xmlns:converters ="clr-namespace:MauiPets.Converters"
               x:DataType="viewmodel:PetDetailViewModel"
              Title="{Binding  PetVM.Nome}">
 
@@ -15,8 +15,8 @@
                  IconImageSource="icon_edit.svg" />
         <ToolbarItem Text="Delete Pet" Command="{Binding DeletePetCommand  }"
                  IconImageSource="icon_delete.svg" />
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand  }"
-                 IconImageSource="icon_close.svg" />
+        <!--<ToolbarItem Text="Return" Command="{Binding GoBackCommand  }"
+                 IconImageSource="icon_close.svg" />-->
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <converters:NextDoseDateConverter x:Key="nextDoseDateConverter" />
@@ -35,6 +35,19 @@
             <Color x:Key="LightBackground">#FAF9F8</Color>
             <Color x:Key="DarkBackground">Black</Color>
             <Color x:Key="Primary">#FFC107</Color>
+
+            <Style x:Key="CommonAddButtonStyle" TargetType="Button">
+                <Setter Property="HorizontalOptions" Value="End" />
+                <Setter Property="VerticalOptions" Value="Center" />
+                <Setter Property="HeightRequest" Value="35" />
+                <Setter Property="WidthRequest" Value="60" />
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Margin" Value="0, 3, 0, 8" />
+                <Setter Property="BackgroundColor" Value="SteelBlue" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
     <Grid>
@@ -187,16 +200,7 @@
                                     <!-- New Row for Add Button -->
                                     <Button Text="Novo" 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddVaccineCommand}" 
-                                        HorizontalOptions="End"
-                                        VerticalOptions="Center"
-                                        HeightRequest="25" 
-                                        WidthRequest="60"
-                                        CornerRadius="15"
-                                        Padding="0"
-                                        FontSize="11"
-                                        FontAttributes="Bold"
-                                        Margin="0, 3, 0, 8"
-                                        BackgroundColor="SteelBlue"
+                                                    Style="{StaticResource CommonAddButtonStyle}"
                                         Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <!-- Existing Header Row -->
@@ -297,18 +301,9 @@
                             <Frame Grid.Row="5" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent" Padding="8">
                                 <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *">
                                     <Button Text="Novo" 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddDewormerCommand}" 
-                                        HorizontalOptions="End"
-                                        VerticalOptions="Center"
-                                        HeightRequest="25" 
-                                        WidthRequest="60"
-                                        CornerRadius="15"
-                                        Padding="0"
-                                        FontSize="11"
-                                        FontAttributes="Bold"
-                                        Margin="0, 3, 0, 8"
-                                        BackgroundColor="SteelBlue"
-                                        Grid.Row="0" />
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddDewormerCommand}" 
+                                            Style="{StaticResource CommonAddButtonStyle}"
+                                            Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <Grid ColumnDefinitions=".2*, .6*, .2*" ColumnSpacing="2"
                                           Grid.Row="2">
@@ -399,18 +394,9 @@
                             <Frame Grid.Row="6" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent" Padding="8">
                                 <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *">
                                     <Button Text="Novo" 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddPetFoodCommand}" 
-                                        HorizontalOptions="End"
-                                        VerticalOptions="Center"
-                                        HeightRequest="25" 
-                                        WidthRequest="60"
-                                        CornerRadius="15"
-                                        Padding="0"
-                                        FontSize="11"
-                                        FontAttributes="Bold"
-                                        Margin="0, 3, 0, 8"
-                                        BackgroundColor="SteelBlue"
-                                        Grid.Row="0" />
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddPetFoodCommand}" 
+                                            Style="{StaticResource CommonAddButtonStyle}"
+                                            Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <Grid ColumnDefinitions=".2*, .6*, .2*" ColumnSpacing="2"
                                           Grid.Row="2">
@@ -499,18 +485,9 @@
                             <Frame Grid.Row="7" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent" Padding="8">
                                 <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *">
                                     <Button Text="Novo" 
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddVetAppointmentCommand}" 
-                                        HorizontalOptions="End"
-                                        VerticalOptions="Center"
-                                        HeightRequest="25" 
-                                        WidthRequest="60"
-                                        CornerRadius="15"
-                                        Padding="0"
-                                        FontSize="11"
-                                        FontAttributes="Bold"
-                                        Margin="0, 3, 0, 8"
-                                        BackgroundColor="SteelBlue"
-                                        Grid.Row="0" />
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddVetAppointmentCommand}" 
+                                            Style="{StaticResource CommonAddButtonStyle}"
+                                            Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
 
                                     <Grid ColumnDefinitions=".2*, .8*" ColumnSpacing="4"

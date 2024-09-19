@@ -14,6 +14,19 @@
         <conv:StringToDateConverter x:Key="stringToDateConverter" />
         <conv:GreaterThanOneConverter x:Key="GreaterThanOneConverter" />
         <conv:LessThanTotalPagesConverter x:Key="LessThanTotalPagesConverter" />
+
+
+        <Style x:Key="ExpensesFilterButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="Poppins-Regular" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="30" />
+            <Setter Property="WidthRequest" Value="100" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="BorderColor" Value="Transparent" />
+            <Setter Property="Margin" Value="0,0,10,0" />
+        </Style>
+        
     </ContentPage.Resources>
 
     <ContentPage.Behaviors>
@@ -87,39 +100,17 @@
                     AlignItems="Center"
                     Wrap="NoWrap">
                     <Button Text="Este ano"
-                            FontSize="14"
-                            FontFamily="Poppins-Regular"
                             Command="{Binding FilterExpensesByYearCommand}"
                             BackgroundColor="#2ECC71"
-                            TextColor="White"
-                            CornerRadius="30"
-                            WidthRequest="100"
-                            HeightRequest="40"
-                            BorderColor="Transparent"
-                            Margin="0,0,10,0"/>
+                            Style="{StaticResource ExpensesFilterButtonStyle}" />
                     <Button Text="Este mês"
-                        FontSize="14"
-                        FontAttributes="Bold"
-                        Command="{Binding FilterExpensesByMonthCommand}"
+                            Command="{Binding FilterExpensesByMonthCommand}"
                         BackgroundColor="#3498db"
-                        TextColor="White"
-                        CornerRadius="30"
-                        WidthRequest="100"
-                        HeightRequest="40"
-                        BorderColor="Transparent"
-                            FontFamily="Poppins-Regular"
-                        Margin="0,0,10,0"/>
+                            Style="{StaticResource ExpensesFilterButtonStyle}" />
                     <Button Text="Todas"
-                        FontSize="14"
-                        FontAttributes="Bold"
-                        Command="{Binding GetExpensesCommand}"
-                        BackgroundColor="#f1c40f"
-                        TextColor="White"
-                        CornerRadius="30"
-                        WidthRequest="100"
-                        HeightRequest="40"
-                        BorderColor="Transparent"
-                            FontFamily="Poppins-Regular"/>
+                            Command="{Binding GetExpensesCommand}"
+                            BackgroundColor="#f1c40f"
+                            Style="{StaticResource ExpensesFilterButtonStyle}" />
                 </FlexLayout>
             </Frame>
 
