@@ -153,11 +153,11 @@
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" FontSize="12"
                                        Text="{Binding StartDate, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
-                                       FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" />
+                                       FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" HorizontalTextAlignment="Center" />
                                 <Label Grid.Column="1" FontSize="13" Margin="0, -1, 0, 0"
                                        Text="{Binding Description, Mode=OneWay}"
                                        HorizontalOptions="Start"
-                                       VerticalOptions="Center" />
+                                       VerticalOptions="Start" />
                                 <Switch Grid.Column="2" IsToggled="{Binding Completed}" 
                                         HorizontalOptions="Start"
                                         Margin="0,-2,0,5" 

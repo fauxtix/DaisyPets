@@ -7,7 +7,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:conv="clr-namespace:MauiPets.Converters"
              x:DataType="viewmodel:ExpensesViewModel"
-             Title="Despesas">
+             Title="{Binding FilterText}">
 
 
     <ContentPage.Resources>
@@ -34,16 +34,19 @@
     </ContentPage.Behaviors>
     
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Grouped Expenses"
+                 Command="{Binding NavigateToGroupedExpensesCommand}" 
+                 IconImageSource="paymentlist.png" />
         <ToolbarItem Text="Add Expense" Command="{Binding AddExpenseCommand}" 
                      CommandParameter="{Binding .}" 
                      IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
 
-    <Grid Margin="5, 0, 5, 5" Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *, Auto, Auto, Auto">
+    <Grid Margin="5, 0, 5, 5" Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, Auto, Auto">
 
         <!-- Conteúdo superior da página -->
         <VerticalStackLayout Padding="10">
-            <Border Stroke="#C49B33" Margin="0, 2, 0, 0"
+            <!--<Border Stroke="#C49B33" Margin="0, 2, 0, 0"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 15,15,15,15"
                     Background="Beige"
@@ -55,7 +58,7 @@
                        FontFamily="Poppins-Regular"
                        FontSize="16"
                        FontAttributes="None" />
-            </Border>
+            </Border>-->
 
             <Frame CornerRadius="15"
                VerticalOptions="Start" 
@@ -85,7 +88,7 @@
             </Frame>
 
             <!-- Botões de filtro -->
-            <Frame CornerRadius="30"
+            <Frame CornerRadius="30" Grid.Row="2"
                VerticalOptions="Start"
                HorizontalOptions="Center"
                HasShadow="True"
@@ -113,6 +116,20 @@
                             Style="{StaticResource ExpensesFilterButtonStyle}" />
                 </FlexLayout>
             </Frame>
+
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="3">
+            <SearchBar x:Name="searchBar"
+                       Placeholder="Pesquisar"
+                       HorizontalOptions="Start"
+                       WidthRequest="300">
+                <SearchBar.Behaviors>
+                    <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                    Command="{Binding SearchExpensesCommand}" 
+                                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                </SearchBar.Behaviors>
+            </SearchBar>
+            <BoxView HeightRequest="0.4" BackgroundColor="Gray" Margin="0,7,0,5"/>
 
         </VerticalStackLayout>
 

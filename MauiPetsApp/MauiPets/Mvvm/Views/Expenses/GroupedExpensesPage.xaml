@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiPets.Mvvm.Views.Expenses.GroupedExpensesPage"
+             xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels.Despesas;assembly=MauiPets.Core"
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Expenses"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Despesas Agrupadas">
+
+    <ScrollView>
+        
+        <StackLayout Padding="10">
+            <Frame CornerRadius="15"
+               VerticalOptions="Start" 
+               HorizontalOptions="CenterAndExpand"
+               HasShadow="True"
+               Padding="10"
+               HeightRequest="80"
+               BackgroundColor="WhiteSmoke"
+               Grid.Row="1"
+               Margin="10,10,10,10"
+               BorderColor="Transparent">
+
+                <Frame.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#3498db" Offset="0.1" />
+                        <GradientStop Color="#9b59b6" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Frame.Background>
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5" Padding="5">
+                    <Image Source="expenses.svg" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" />
+                    <Label Text="{Binding TotalGeralDespesas, StringFormat='Total: {0:C2}'}"
+                           FontSize="20"
+                           FontFamily="Poppins-Regular"
+                           TextColor="White"
+                           VerticalOptions="Center" />
+                </HorizontalStackLayout>
+            </Frame>
+            <BoxView HeightRequest="2" BackgroundColor="DarkGray" Margin="0,7,0,5"/>
+
+
+            <CollectionView ItemsSource="{Binding GroupedExpenses}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="{Binding CategoriaDespesa}" FontAttributes="Bold" FontSize="Large" TextColor="CadetBlue" />
+
+                            <!-- Listar tipos de despesas na categoria -->
+                            <CollectionView ItemsSource="{Binding TiposDespesa}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Orientation="Horizontal" Spacing="10">
+                                            <Label Text="{Binding Descricao}" HorizontalOptions="StartAndExpand" FontSize="14" FontAttributes="Bold" />
+                                            <Label Text="{Binding SubTotal, StringFormat='{0:C}'}" 
+                                                   HorizontalOptions="End" 
+                                                   VerticalOptions="Center" />
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                            <!-- Subtotal para a categoria -->
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,5,0,0">
+                                <Label Text="{Binding SubTotal, StringFormat='Subtotal: {0:C}'}" 
+                                       FontSize="14" 
+                                       FontAttributes="Bold"
+                                       TextColor="DarkGreen" 
+                                       HorizontalTextAlignment="End" />
+                            </StackLayout>
+
+                            <BoxView HeightRequest="0.4" BackgroundColor="Gray" Margin="0,7,0,5"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

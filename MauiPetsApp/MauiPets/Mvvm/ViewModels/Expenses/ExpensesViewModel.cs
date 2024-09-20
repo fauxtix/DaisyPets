@@ -36,6 +36,8 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [ObservableProperty]
         string filterText = string.Empty;
 
+        [ObservableProperty]
+        private string _searchText = string.Empty;
         public ExpensesViewModel(IDespesaService service)
         {
             _service = service;
@@ -98,13 +100,21 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 IsBusy = true;
                 await Task.Delay(100);
                 var expenses = (await _service.GetAllVMAsync()).ToList();
+
+                // Filtrar despesas com base no SearchText
+                if (!string.IsNullOrWhiteSpace(SearchText))
+                {
+                    expenses = expenses
+                        .Where(e =>
+                            e.DescricaoCategoriaDespesa.Contains(SearchText, StringComparison.OrdinalIgnoreCase) ||
+                            e.DescricaoTipoDespesa.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                }
+
                 TotalGeralDespesas = expenses.Sum(c => c.ValorPago);
 
                 TotalPages = (int)Math.Ceiling((double)expenses.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
-
-                FilterText = "Todas as despesas";
-
 
                 UpdatePagedData(expenses);
                 UpdatePageInfo();
@@ -295,6 +305,13 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         }
 
         [RelayCommand]
+        private async Task SearchExpensesAsync(string searchText)
+        {
+            SearchText = searchText;
+            await GetExpensesAsync();
+        }
+
+        [RelayCommand]
         private async Task DeleteExpenseAsync(DespesaVM expense)
         {
             if (expense == null) return;
@@ -324,6 +341,11 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 });
         }
 
+        [RelayCommand]
+        private async Task NavigateToGroupedExpensesAsync()
+        {
+            await Shell.Current.GoToAsync(nameof(GroupedExpensesPage));
+        }
         private async Task ShowToastMessage(string text)
         {
             var toast = Toast.Make(text, ToastDuration.Short, 14);

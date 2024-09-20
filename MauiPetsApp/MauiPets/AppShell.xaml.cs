@@ -33,6 +33,7 @@ namespace MauiPets
 
             Routes.Add(nameof(ExpensesPage), typeof(ExpensesPage));
             Routes.Add(nameof(ExpensesAddOrEditPage), typeof(ExpensesAddOrEditPage));
+            Routing.RegisterRoute(nameof(GroupedExpensesPage), typeof(GroupedExpensesPage));
 
             Routes.Add(nameof(TodoPage), typeof(TodoPage));
             Routes.Add(nameof(TodoAddOrEditPage), typeof(TodoAddOrEditPage));

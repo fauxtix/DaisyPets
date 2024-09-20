@@ -120,6 +120,8 @@ namespace MauiPets
 
             builder.Services.AddTransient<ExpensesViewModel>();
             builder.Services.AddTransient<ExpenseAddOrEditViewModel>();
+            builder.Services.AddTransient<GroupedExpensesPage>();
+            builder.Services.AddTransient<GroupedExpensesViewModel>();
 
             builder.Services.AddTransient<VaccineViewModel>();
             builder.Services.AddTransient<VaccineAddOrEditModel>();

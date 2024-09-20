@@ -165,7 +165,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                     var filteredTodos = FullTodos.Where(t => t.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
                     FilteredTodos = filteredTodos; 
                     RefreshTodoList(filteredTodos);
-                    FilterText = $"Filtered by: {searchText}";
+                    FilterText = $"Filtrado por: {searchText}";
                 }
             }
             catch (Exception ex)
