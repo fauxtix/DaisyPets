@@ -1,47 +1,47 @@
 ﻿using CommunityToolkit.Maui;
 using FluentValidation;
 using MauiPets.Mvvm.ViewModels.Contacts;
+using MauiPets.Mvvm.ViewModels.Dewormers;
 using MauiPets.Mvvm.ViewModels.Expenses;
+using MauiPets.Mvvm.ViewModels.PetFood;
 using MauiPets.Mvvm.ViewModels.Pets;
+using MauiPets.Mvvm.ViewModels.Settings;
+using MauiPets.Mvvm.ViewModels.Todo;
+using MauiPets.Mvvm.ViewModels.Vaccines;
+using MauiPets.Mvvm.ViewModels.VetAppointments;
 using MauiPets.Mvvm.Views.Contacts;
+using MauiPets.Mvvm.Views.Dewormers;
 using MauiPets.Mvvm.Views.Expenses;
+using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
+using MauiPets.Mvvm.Views.Settings;
+using MauiPets.Mvvm.Views.Todo;
+using MauiPets.Mvvm.Views.Vaccines;
+using MauiPets.Mvvm.Views.VetAppointments;
 using MauiPetsApp.Application.Interfaces.Repositories;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
+using MauiPetsApp.Core.Application.Interfaces.Repositories.TodoManager;
 using MauiPetsApp.Core.Application.Interfaces.Services;
+using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Application.ViewModels.Scheduler;
 using MauiPetsApp.Infrastructure.Context;
-using MauiPetsApp.Infrastructure.Repositories;
+using MauiPetsApp.Infrastructure.OldRepositories;
+using MauiPetsApp.Infrastructure.OldRepositories.TodoManager;
 using MauiPetsApp.Infrastructure.Services;
+using MauiPetsApp.Infrastructure.Services.ToDoManager;
 using MauiPetsApp.Infrastructure.Validators;
 using Microsoft.Extensions.Configuration;
-using System.Reflection;
 using Plugin.LocalNotification;
-using MauiPets.Mvvm.ViewModels.Todo;
-using MauiPets.Mvvm.Views.Todo;
-using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
-using MauiPetsApp.Infrastructure.Services.ToDoManager;
-using MauiPetsApp.Core.Application.Interfaces.Repositories.TodoManager;
-using MauiPetsApp.Infrastructure.Repositories.TodoManager;
+using Serilog;
+using Serilog.Events;
 using System.Globalization;
-using MauiPets.Mvvm.ViewModels.Vaccines;
-using MauiPets.Mvvm.Views.Vaccines;
-
-using Syncfusion.Maui.Core.Hosting;
-using MauiPets.Mvvm.ViewModels.Settings;
-using MauiPets.Mvvm.Views.Settings;
-using MauiPets.Mvvm.ViewModels.Dewormers;
-using MauiPets.Mvvm.Views.Dewormers;
-using MauiPets.Mvvm.ViewModels.PetFood;
-using MauiPets.Mvvm.Views.PetFood;
-using MauiPets.Mvvm.ViewModels.VetAppointments;
-using MauiPets.Mvvm.Views.VetAppointments;
+using System.Reflection;
 
 namespace MauiPets
 {
@@ -55,7 +55,11 @@ namespace MauiPets
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
+
             var builder = MauiApp.CreateBuilder();
+
+            SetupSerilog(builder);
+
             builder.UseMauiApp<App>().ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -69,7 +73,8 @@ namespace MauiPets
                 .UseMauiCommunityToolkit()
                 .UseLocalNotification();
 
-            builder.ConfigureSyncfusionCore();
+            builder.Logging.AddSerilog(dispose: true);
+
 
 #if ANDROID
             using var stream = Assembly.GetExecutingAssembly()
@@ -216,6 +221,35 @@ namespace MauiPets
             builder.Services.AddTransient<LocalNotificationCenter>();
 
             return builder.Build();
+        }
+
+        private static void SetupSerilog(MauiAppBuilder builder)
+        {
+            var flushInterval = new TimeSpan(0, 0, 1);
+
+            try
+            {
+                var logFolder = Path.Combine(FileSystem.Current.AppDataDirectory, "MauiPetsLogs");
+                if (!Directory.Exists(logFolder))
+                {
+                    Directory.CreateDirectory(logFolder);
+                }
+                string file = Path.Combine(logFolder, "MauiPets.Log");
+
+                var logger = new LoggerConfiguration()
+                .MinimumLevel.Verbose()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .WriteTo.File(file, rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            //            builder.Services.AddSingleton<ILogger>(logger);
+
         }
     }
 }

@@ -1,13 +1,13 @@
-﻿using MauiPetsApp.Core.Application.Exceptions;
+﻿using Dapper;
+using MauiPetsApp.Core.Application.Exceptions;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Dapper;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories
+namespace MauiPetsApp.Infrastructure
 {
     public class ContactRepository : IContactRepository
     {
@@ -201,8 +201,8 @@ namespace MauiPetsApp.Infrastructure.Repositories
                 .ToList().
                 Where(c => c.Nome.Contains(filter));
             return contacts;
-                
-                
+
+
         }
 
     }

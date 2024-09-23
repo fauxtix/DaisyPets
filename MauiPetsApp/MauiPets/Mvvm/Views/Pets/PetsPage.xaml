@@ -46,7 +46,7 @@
                        FontSize="Header"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
-                       Grid.Row="2" Text="Selecione um dos Pets abaixo, para visualizar/alterar os dados. Use a opção no topo para criar novo registo."></Label>
+                       Grid.Row="2" Text="Selecione um dos Pets abaixo, para visualizar/alterar os dados."></Label>
                 </Border>
             </Grid>
             <CollectionView  x:Name="ColView1" ItemsSource="{Binding Pets }" SelectionMode="Single">

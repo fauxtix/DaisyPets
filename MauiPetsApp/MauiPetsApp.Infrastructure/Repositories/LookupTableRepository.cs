@@ -1,13 +1,11 @@
-﻿using MauiPetsApp.Core.Application.Interfaces.Application;
-using MauiPetsApp.Core.Application.ViewModels;
-using MauiPetsApp.Infrastructure.Context;
-using Dapper;
-using Microsoft.Extensions.Logging;
-
-using System.Text;
+﻿using Dapper;
+using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
+using MauiPetsApp.Core.Application.ViewModels;
+using Microsoft.Extensions.Logging;
+using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories
+namespace MauiPetsApp.Infrastructure
 {
     public class LookupTableRepository : ILookupTableRepository
     {
@@ -33,7 +31,7 @@ namespace MauiPetsApp.Infrastructure.Repositories
             }
         }
 
-        public async Task< string> GetDescription(int id, string tableName)
+        public async Task<string> GetDescription(int id, string tableName)
         {
             DynamicParameters paramCollection = new DynamicParameters();
             paramCollection.Add("@Id", id);
@@ -129,7 +127,7 @@ namespace MauiPetsApp.Infrastructure.Repositories
                 using (var connection = _context.CreateConnection())
                 {
                     iCnt = Convert.ToInt32(await connection.QueryFirstOrDefaultAsync<bool>(Query, paramCollection));
-                    return (iCnt > 0);
+                    return iCnt > 0;
                 }
             }
             catch (Exception ex)
@@ -158,7 +156,7 @@ namespace MauiPetsApp.Infrastructure.Repositories
                 using (var connection = _context.CreateConnection())
                 {
                     iCnt = Convert.ToInt32(await connection.QueryFirstOrDefaultAsync<int>(Query, paramCollection));
-                    return (iCnt > 0);
+                    return iCnt > 0;
                 }
             }
             catch (Exception ex)

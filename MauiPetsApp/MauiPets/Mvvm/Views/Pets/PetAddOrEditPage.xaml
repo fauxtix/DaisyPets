@@ -10,11 +10,11 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Red" />
-        </Style>
-        <Style x:Key="ValidEntryStyle" TargetType="Entry">
-            <Setter Property="TextColor" Value="Green" />
-        </Style>
+                <Setter Property="TextColor" Value="Red" />
+            </Style>
+            <Style x:Key="ValidEntryStyle" TargetType="Entry">
+                <Setter Property="TextColor" Value="Green" />
+            </Style>
             <Color x:Key="LightBackground">#FAF9F8</Color>
             <Color x:Key="DarkBackground">Black</Color>
             <Color x:Key="Primary">#FFC107</Color>
@@ -64,13 +64,13 @@
                         HorizontalOptions="FillAndExpand">
                         <HorizontalStackLayout VerticalOptions="Center"
                                 Spacing="8">
-                                <Image Source="tasks.png"
+                            <Image Source="tasks.png"
                                         WidthRequest="24"  
                                         HeightRequest="24"
                                         VerticalOptions="Center"
                                         HorizontalOptions="Start"
                                         Margin="5,0,8,0"/>
-                                <Label VerticalTextAlignment="Center"
+                            <Label VerticalTextAlignment="Center"
                                     HorizontalTextAlignment="Center"
                                     FontSize="16"
                                     FontAttributes="Bold"
@@ -85,7 +85,7 @@
                        IsClippedToBounds="True"
                        HorizontalOptions="Center"
                        VerticalOptions="Center">
-                    
+
                     <Image x:Name="PetPhoto"
                            Source="{Binding PetDto.Foto}"
                            Margin="0"
@@ -164,14 +164,14 @@
                                        Grid.Row="2"
                                        Grid.Column="0"
                                        FontSize="12"   
-			                           VerticalOptions="Start"></Label>
+			                           VerticalOptions="Center"></Label>
                                 <Editor x:Name="PetDisease" AutoSize="TextChanges"
 			                           Text="{Binding PetDto.DoencaCronica}"  
                                        Placeholder="Doenças"
 			                           Grid.Row="2"
                                        Grid.Column="1"
                                        FontSize="12"   
-                                        VerticalOptions="Start">
+                                        VerticalOptions="Center">
                                 </Editor>
                                 <Label Text="Peso"
                                        Grid.Row="3"
@@ -204,7 +204,7 @@
                                        Grid.Column="1"
                                        FontSize="12"
 			                           VerticalOptions="Center"></Entry>
-                                <Label Text="Medicacao"
+                                <Label Text="Medicação"
                                        Grid.Row="5"
                                        Grid.Column="0"
                                        FontSize="12"   
@@ -219,6 +219,7 @@
                                 <Label Text="Observações"
                                        Grid.Row="6"
                                        Grid.Column="0"
+                                       VerticalTextAlignment="Center"
                                        FontSize="12">
                                 </Label>
                                 <Editor x:Name="PetNotes" AutoSize="TextChanges"
@@ -226,6 +227,7 @@
 			                        Grid.Row="6"
                                     Grid.Column="1"
                                     FontSize="12"   
+                                        VerticalTextAlignment="Center"
                                     Keyboard="Text"
                                     IsSpellCheckEnabled="false"
 			                        VerticalOptions="Start">
@@ -248,7 +250,7 @@
                             BorderColor="Black"
                             BackgroundColor="LightSteelBlue"
                             CornerRadius="10">
-                                <Label Text="Outos dados" FontSize="16"
+                                <Label Text="Outros dados" FontSize="16"
                                    FontAttributes="Bold" TextColor="Black"/>
                             </Frame>
                         </mct:Expander.Header>
@@ -268,12 +270,13 @@
                                 </Grid.ColumnDefinitions>
 
 
-                                <Label Text="Espécie" Grid.Row="0" Grid.Column="0" FontSize="10"   ></Label>
+                                <Label Text="Espécie" Grid.Row="0" Grid.Column="0" FontSize="11"  VerticalTextAlignment="Center" ></Label>
                                 <Picker x:Name="SpeciesPicker" 
                                         Title="Escolha Espécie" 
                                         Grid.Row="0" 
                                         Grid.Column="1"
-                                        FontSize="10"
+                                        FontSize="12"
+                                        VerticalTextAlignment="Center"
                                         ItemsSource="{Binding Species}"
                                         SelectedItem="{Binding SelectedSpecie}"
                                         SelectedIndex="{Binding SpecieSelectedIndex}"
@@ -281,43 +284,46 @@
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
 
-                                <Label Text="Situação" Grid.Row="1" Grid.Column="0" FontSize="10"   ></Label>
+                                <Label Text="Situação" Grid.Row="1" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="SituationsPicker"
                                         Title="Escolha Situação" Grid.Row="1" Grid.Column="1"
                                         ItemsSource="{Binding Situations}"
-                                        FontSize="10"
+                                        FontSize="12"
+                                        VerticalTextAlignment="Center"
                                         SelectedItem="{Binding SelectedSituation}"
                                         SelectedIndex="{Binding SituationSelectedIndex}"
                                         SelectedIndexChanged="SelectedIndexChanged"
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
-                                <Label Text="Temperamento" Grid.Row="2" Grid.Column="0" FontSize="10"   ></Label>
+                                <Label Text="Temperamento" Grid.Row="2" Grid.Column="0" FontSize="10"  VerticalTextAlignment="Center"></Label>
                                 <Picker x:Name="TemperamentsPicker"
                                         Title="Escolha Temperamento" Grid.Row="2" Grid.Column="1"
                                         ItemsSource="{Binding Temperaments}" 
-                                        FontSize="10"
+                                        FontSize="12"
+                                        VerticalTextAlignment="Center"
                                         SelectedItem="{Binding SelectedTemperament}"
                                         SelectedIndex="{Binding TemperamentSelectedIndex}"
                                         SelectedIndexChanged="SelectedIndexChanged"
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
 
-                                <Label Text="Raça" Grid.Row="3" Grid.Column="0" FontSize="10"   ></Label>
+                                <Label Text="Raça" Grid.Row="3" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="BreedsPicker"
                                         Title="Escolha Raça" Grid.Row="3" Grid.Column="1"
                                         ItemsSource="{Binding Breeds}"
                                         SelectedItem="{Binding SelectedBreed}"
-                                        FontSize="10"
+                                        FontSize="12"
+                                        VerticalTextAlignment="Center"
                                         SelectedIndex="{Binding BreedSelectedIndex}"
                                         SelectedIndexChanged="SelectedIndexChanged"
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
-                                <Label Text="Tamanho" Grid.Row="4" Grid.Column="0" FontSize="10"   ></Label>
+                                <Label Text="Tamanho" Grid.Row="4" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="SizesPicker"
                                         Title="Éscolha Tamanho" Grid.Row="4" Grid.Column="1"
-                                        ItemsSource="{Binding Sizes}"
+                                        ItemsSource="{Binding Sizes}" VerticalTextAlignment="Center"
                                         SelectedItem="{Binding SelectedSize}"
-                                        FontSize="10"
+                                        FontSize="12"
                                         SelectedIndex="{Binding SizeSelectedIndex}"
                                         SelectedIndexChanged="SelectedIndexChanged"
                                         ItemDisplayBinding="{Binding Descricao}">

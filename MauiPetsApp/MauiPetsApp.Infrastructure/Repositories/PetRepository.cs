@@ -1,14 +1,13 @@
-﻿using MauiPetsApp.Core.Application.Exceptions;
+﻿using Dapper;
+using MauiPetsApp.Core.Application.Exceptions;
 using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Dapper;
 using Microsoft.Extensions.Logging;
-using System.Globalization;
 using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories
+namespace MauiPetsApp.Infrastructure
 {
     public class PetRepository : IPetRepository
     {

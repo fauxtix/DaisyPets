@@ -1,6 +1,6 @@
 ﻿using MauiPetsApp.Core.Domain;
 
-namespace MauiPetsApp.Infrastructure.Repositories
+namespace MauiPetsApp.Infrastructure
 {
     public class SummaryRepository
     {

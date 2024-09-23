@@ -17,7 +17,7 @@
 
 
         <Style x:Key="ExpensesFilterButtonStyle" TargetType="Button">
-            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontSize" Value="11" />
             <Setter Property="FontFamily" Value="Poppins-Regular" />
             <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="30" />
@@ -36,7 +36,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Grouped Expenses"
                  Command="{Binding NavigateToGroupedExpensesCommand}" 
-                 IconImageSource="paymentlist.png" />
+                 IconImageSource="expense.png" />
         <ToolbarItem Text="Add Expense" Command="{Binding AddExpenseCommand}" 
                      CommandParameter="{Binding .}" 
                      IconImageSource="add.png" />

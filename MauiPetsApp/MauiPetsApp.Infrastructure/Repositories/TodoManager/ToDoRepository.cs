@@ -1,14 +1,13 @@
 ﻿using Dapper;
-using MauiPetsApp.Core.Domain.TodoManager;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
+using MauiPetsApp.Core.Domain.TodoManager;
 using Microsoft.Extensions.Logging;
-using System.Text;
 using System.Globalization;
-using MauiPetsApp.Core.Application.ViewModels;
+using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories.TodoManager
+namespace MauiPetsApp.Infrastructure.TodoManager
 {
     public class ToDoRepository : IToDoRepository
     {

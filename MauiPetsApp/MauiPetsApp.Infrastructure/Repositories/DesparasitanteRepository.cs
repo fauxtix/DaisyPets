@@ -1,14 +1,14 @@
-﻿using MauiPetsApp.Core.Application.Exceptions;
+﻿using Dapper;
+using MauiPetsApp.Core.Application.Exceptions;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
 using MauiPetsApp.Core.Domain.TodoManager;
-using Dapper;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories
+namespace MauiPetsApp.Infrastructure
 {
     public class DesparasitanteRepository : IDesparasitanteRepository
     {
@@ -54,7 +54,7 @@ namespace MauiPetsApp.Infrastructure.Repositories
                 Description = description,
                 StartDate = startDate,
                 EndDate = endDate,
-                Completed = 0, 
+                Completed = 0,
                 Generated = 1
             };
 

@@ -4,7 +4,7 @@ using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories
+namespace MauiPetsApp.Infrastructure
 {
     public class AppSettingsRepository : IAppSettingsRepository
     {
@@ -17,7 +17,7 @@ namespace MauiPetsApp.Infrastructure.Repositories
             _logger = logger;
         }
 
-        public async Task<String> GetLanguage()
+        public async Task<string> GetLanguage()
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT CultureName FROM AppSettings ");

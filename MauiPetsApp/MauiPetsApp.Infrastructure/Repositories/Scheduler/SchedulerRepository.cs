@@ -1,14 +1,14 @@
-﻿using MauiPetsApp.Core.Application.Interfaces.DapperContext;
+﻿using Dapper;
+using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories.Scheduler;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.Scheduler;
 using MauiPetsApp.Core.Domain.Scheduler;
-using Dapper;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories.Scheduler
+namespace MauiPetsApp.Infrastructure.Scheduler
 {
     public class SchedulerRepository : IScheduler
     {

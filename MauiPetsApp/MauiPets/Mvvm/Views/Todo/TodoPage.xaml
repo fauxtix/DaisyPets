@@ -18,10 +18,11 @@
         <Style x:Key="CommonWeekMonthButtonStyle" TargetType="Button">
             <Setter Property="CornerRadius" Value="10" />
             <Setter Property="TextColor" Value="White" />
-            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontSize" Value="10" />
             <Setter Property="FontFamily" Value="Poppins-SemiBold" />
             <Setter Property="BorderWidth" Value="1" />
-            <Setter Property="WidthRequest" Value="120" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="WidthRequest" Value="130" />
         </Style>
     </ContentPage.Resources>
 
@@ -53,7 +54,7 @@
                BackgroundColor="LightGray"
                Grid.Row="1">
             <ScrollView Orientation="Horizontal">
-                <HorizontalStackLayout Spacing="10" Padding="5">
+                <HorizontalStackLayout Spacing="5" Padding="3">
                     <Button Text="Esta semana"
                             Command="{Binding FilterThisWeekCommand}"
                             BackgroundColor="LightSkyBlue"
@@ -136,6 +137,7 @@
                 <DataTemplate x:DataType="models:ToDoDto">
                     <VerticalStackLayout>
                         <Frame CornerRadius="10" HasShadow="True" Margin="2, 1, 2, 1" VerticalOptions="Center"
+                               HeightRequest="50"
                                Padding="0">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer 
@@ -144,24 +146,24 @@
                             </Frame.GestureRecognizers>
                             <Grid Padding="1" ColumnSpacing="5" Margin="2" RowSpacing="1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="40" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="70" />
+                                    <ColumnDefinition Width="80" />
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="60" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" FontSize="12"
+                                <Label Grid.Column="0" FontSize="11"
                                        Text="{Binding StartDate, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
                                        FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" HorizontalTextAlignment="Center" />
-                                <Label Grid.Column="1" FontSize="13" Margin="0, -1, 0, 0"
+                                <Label Grid.Column="1" FontSize="11" Margin="0, -1, 0, 0"
                                        Text="{Binding Description, Mode=OneWay}"
                                        HorizontalOptions="Start"
                                        VerticalOptions="Start" />
                                 <Switch Grid.Column="2" IsToggled="{Binding Completed}" 
                                         HorizontalOptions="Start"
-                                        Margin="0,-2,0,5" 
-                                        VerticalOptions="Center" />
+                                        Margin="0,-5,0,10" 
+                                        VerticalOptions="Start" />
                             </Grid>
                         </Frame>
                     </VerticalStackLayout>
@@ -170,16 +172,16 @@
         </CollectionView>
 
         <!-- Pagination Controls -->
-        <StackLayout Padding="1, 10, 1, 10" Spacing="5" HorizontalOptions="Center" Margin="0, 2, 1, 0"
+        <StackLayout Padding="1, 10, 1, 10" Spacing="2" HorizontalOptions="Center" Margin="0, 2, 1, 0"
              VerticalOptions="Center" Orientation="Horizontal"
              Grid.Row="4"
              IsVisible="{Binding IsPaginationVisible}">
-            <Button Text="Início" Command="{Binding FirstPageAsyncCommand}" CornerRadius="10" WidthRequest="80" />
+            <Button Text="Início" Command="{Binding FirstPageAsyncCommand}" CornerRadius="10" WidthRequest="80" FontSize="12" />
             <Button Text="Anterior" Command="{Binding PreviousPageAsyncCommand}" CornerRadius="10"
-                 IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" />
+                 IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" FontSize="12"/>
             <Button Text="Seguinte" 
-                    Command="{Binding NextPageAsyncCommand}" 
-                    CornerRadius="10" WidthRequest="90">
+                    Command="{Binding NextPageAsyncCommand}" FontSize="12"
+                    CornerRadius="10" WidthRequest="95">
                 <Button.IsEnabled>
                     <MultiBinding>
                         <Binding Path="CurrentPage" />
@@ -191,7 +193,7 @@
                 </Button.IsEnabled>
             </Button>
 
-            <Button Text="Fim" Command="{Binding LastPageAsyncCommand}" CornerRadius="10" WidthRequest="80" />
+            <Button Text="Fim" Command="{Binding LastPageAsyncCommand}" CornerRadius="10" WidthRequest="80" FontSize="12" />
         </StackLayout>
 
         <!-- Page Info -->

@@ -1,5 +1,5 @@
 using MauiPets.Mvvm.ViewModels.Dewormers;
-using Syncfusion.Maui.Core.Carousel;
+
 
 namespace MauiPets.Mvvm.Views.Dewormers;
 

@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
+using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -12,22 +13,22 @@ namespace MauiPets.Mvvm.ViewModels.Pets;
 
 public partial class PetViewModel : BaseViewModel
 {
-    //    public DevHttpsConnectionHelper devSslHelper;
-    public HttpClient http;
 
     public ObservableCollection<PetVM> Pets { get; } = new();
 
 
     private readonly IPetService _petService;
+    private readonly ILogger<PetViewModel> _logger;
 
     private readonly IVacinasService _petVaccinesService;
     IConnectivity _connectivity;
-    public PetViewModel(IConnectivity connectivity, IPetService petService, IVacinasService petVaccinesService)
+    public PetViewModel(IConnectivity connectivity, IPetService petService, IVacinasService petVaccinesService, ILogger<PetViewModel> logger)
     {
         _petService = petService;
         _connectivity = connectivity;
         _petService = petService;
         _petVaccinesService = petVaccinesService;
+        _logger = logger;
     }
 
     [ObservableProperty]
@@ -50,6 +51,8 @@ public partial class PetViewModel : BaseViewModel
 
             IsBusy = true;
 
+            _logger.LogWarning("Lendo tabela dos Pets");
+
             var pets = (await _petService.GetAllVMAsync()).ToList();
 
             if (pets.Count != 0)
@@ -65,6 +68,7 @@ public partial class PetViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
+            _logger.LogError($"Unable to get pets: {ex.Message}");
             Debug.WriteLine($"Unable to get pets: {ex.Message}");
             await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
         }
@@ -81,7 +85,7 @@ public partial class PetViewModel : BaseViewModel
         var petId = Id;
         if (petId > 0)
         {
-            var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
+            var response = await _petService.GetPetVMAsync(petId);
 
             if (response is not null)
             {
@@ -164,7 +168,7 @@ public partial class PetViewModel : BaseViewModel
         var petId = Id;
         if (petId > 0)
         {
-            var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
+            var response = await _petService.GetPetVMAsync(petId);
 
             if (response is not null)
             {

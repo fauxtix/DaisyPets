@@ -23,12 +23,14 @@
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">30.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">22.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
-		<Copyright>2023 Fausto Luis</Copyright>
+		<Copyright>2024 Fausto Luis</Copyright>
 		<PackageIcon>DaisyPetsPingImage.jpg</PackageIcon>
+		<Description>Helping busy pet owners keep track of the daily care of their pets.</Description>
+		<PlatformTarget>AnyCPU</PlatformTarget>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
@@ -39,6 +41,7 @@
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
 	  <ApplicationId>com.FLSystems.mauipets</ApplicationId>
+	  <ApplicationTitle>DaisyPets</ApplicationTitle>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
@@ -46,6 +49,21 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
+	  <ApplicationId>com.FLSystems.mauipets</ApplicationId>
+	  <ApplicationTitle>DaisyPets</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
+	  <ApplicationTitle>DaisyPets</ApplicationTitle>
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	  <RunAOTCompilation>False</RunAOTCompilation>
+	  <ApplicationId>com.FLSystems.mauipets</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+	  <ApplicationTitle>DaisyPets</ApplicationTitle>
+	  <RunAOTCompilation>True</RunAOTCompilation>
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	  <ApplicationId>com.FLSystems.mauipets</ApplicationId>
 	</PropertyGroup>
 
@@ -78,9 +96,6 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\check_all.png">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</MauiImage>
-		<MauiImage Update="Resources\Images\contacts.svg">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\daisypetsbing.png">
@@ -183,18 +198,22 @@
 	  <None Remove="Resources\Images\Che.jpg" />
 	  <None Remove="Resources\Images\check.png" />
 	  <None Remove="Resources\Images\check_all.png" />
-	  <None Remove="Resources\Images\contacts.svg" />
+	  <None Remove="Resources\Images\contacts.png" />
 	  <None Remove="Resources\Images\daisypetsbing.png" />
 	  <None Remove="Resources\Images\delete_32.png" />
 	  <None Remove="Resources\Images\DogAndCat.svg" />
+	  <None Remove="Resources\Images\doghouse.png" />
 	  <None Remove="Resources\Images\edit.png" />
 	  <None Remove="Resources\Images\edit.svg" />
+	  <None Remove="Resources\Images\expense.png" />
 	  <None Remove="Resources\Images\expenses.png" />
 	  <None Remove="Resources\Images\femenine_icon.png" />
 	  <None Remove="Resources\Images\icon_close.svg" />
 	  <None Remove="Resources\Images\icon_edit.svg" />
 	  <None Remove="Resources\Images\icon_save.png" />
+	  <None Remove="Resources\Images\list.png" />
 	  <None Remove="Resources\Images\male_icon.png" />
+	  <None Remove="Resources\Images\money_preview.png" />
 	  <None Remove="Resources\Images\nodata.png" />
 	  <None Remove="Resources\Images\nopets.png" />
 	  <None Remove="Resources\Images\Olie.jpg" />
@@ -203,6 +222,7 @@
 	  <None Remove="Resources\Images\people.png" />
 	  <None Remove="Resources\Images\peticon.png" />
 	  <None Remove="Resources\Images\pets.png" />
+	  <None Remove="Resources\Images\phone.png" />
 	  <None Remove="Resources\Images\pitbull.jpg" />
 	  <None Remove="Resources\Images\schedule_icon.png" />
 	  <None Remove="Resources\Images\shiva.jpg" />
@@ -253,17 +273,14 @@
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
 		<PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
+		<PackageReference Include="Serilog" Version="4.0.0" />
+		<PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
+		<PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.6" />
 		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.6" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.6" />
-		<PackageReference Include="Syncfusion.Licensing" Version="24.1.41" />
-		<PackageReference Include="Syncfusion.Maui.Buttons" Version="24.1.41" />
-		<PackageReference Include="Syncfusion.Maui.Cards" Version="24.1.41" />
-		<PackageReference Include="Syncfusion.Maui.Core" Version="24.1.41" />
-		<PackageReference Include="Syncfusion.Maui.DataGrid" Version="24.1.41" />
-		<PackageReference Include="Syncfusion.Maui.Inputs" Version="24.1.41" />
-		<PackageReference Include="Syncfusion.Maui.TabView" Version="24.1.41" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -281,6 +298,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Controls\FlyoutFooter.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\FlyoutHeader.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\SettingsCardControl.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -6,7 +6,7 @@ using MauiPetsApp.Core.Domain;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories
+namespace MauiPetsApp.Infrastructure
 {
     public class DocumentsRepository : IDocumentsRepository
     {

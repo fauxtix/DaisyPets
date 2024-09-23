@@ -1,14 +1,14 @@
 ﻿using Dapper;
-using MauiPetsApp.Core.Domain;
-using MauiPetsApp.Core.Domain.TodoManager;
 using MauiPetsApp.Core.Application.Exceptions;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
+using MauiPetsApp.Core.Domain;
+using MauiPetsApp.Core.Domain.TodoManager;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories
+namespace MauiPetsApp.Infrastructure
 {
     public class VacinasRepository : IVacinasRepository
     {

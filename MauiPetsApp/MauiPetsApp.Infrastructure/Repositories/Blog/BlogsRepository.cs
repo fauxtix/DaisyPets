@@ -1,12 +1,12 @@
 ﻿using Dapper;
-using MauiPetsApp.Core.Domain.Blog;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories.Blog;
 using MauiPetsApp.Core.Application.ViewModels;
+using MauiPetsApp.Core.Domain.Blog;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories.Blog
+namespace MauiPetsApp.Infrastructure.Blog
 {
     public class BlogsRepository : IBlogRepository
     {

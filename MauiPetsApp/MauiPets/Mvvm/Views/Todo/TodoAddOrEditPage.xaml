@@ -89,7 +89,7 @@
                        Grid.Row="0"
                        FontFamily="OpenSans-Semibold"
                        Grid.Column="0"
-                       FontSize="14"
+                       FontSize="12"
                        VerticalOptions="Center"/>
 
                 <DatePicker x:Name="TransactionDate"
@@ -97,19 +97,19 @@
 			               Grid.Row="0"
                            FontFamily="OpenSans-Semibold"
                            Grid.Column="1"
-                            FontSize="14"
+                            FontSize="12"
 			               VerticalOptions="Center"/>
                 <Label Text="Descrição"
                        Grid.Row="1"
                        FontFamily="OpenSans-Semibold"
                        Grid.Column="0"
-                       FontSize="14"
+                       FontSize="12"
                        VerticalOptions="Center"/>
                 <Editor x:Name="TodoDescription"
                         Text="{Binding SelectedTodo.Description}" 
 			            Grid.Row="1"
                         FontFamily="OpenSans-Semibold"
-                        FontSize="14"
+                        FontSize="12"
                         Grid.Column="1"
 			            VerticalOptions="Center"/>
 
@@ -117,9 +117,9 @@
                        Grid.Row="2"
                        Grid.Column="0"
                        FontFamily="OpenSans-Semibold"
-                       FontSize="14"
+                       FontSize="12"
                        IsVisible="{Binding IsEditing}"
-			           VerticalOptions="Center"/>
+			           VerticalTextAlignment="Center"/>
 
                 <Switch Grid.Row="2" 
                         Grid.Column="1" IsToggled="{Binding SelectedTodo.Completed}"

@@ -22,11 +22,11 @@
             <Grid RowDefinitions="*, *,*" ColumnDefinitions=".70*, .30*">
                 <Border Grid.Row="0" HorizontalOptions="Center" Grid.ColumnSpan="2"
                         StrokeShape="RoundRectangle 22,22,22,22" 
-                        StrokeThickness="1" HeightRequest="80">
+                        StrokeThickness="1" HeightRequest="90">
                     <Image Margin="5, 5"
                         Grid.Row="0" WidthRequest="80" 
                         HeightRequest="80" Aspect="AspectFill" 
-                        Source="contacts.svg"/>
+                        Source="contacts.png"/>
                 </Border>
 
                 <SearchBar Grid.Row="1"
@@ -49,9 +49,9 @@
                                 <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                     <StackLayout Orientation="Vertical" HorizontalOptions="Start" >
                                         <Label Text="{Binding Nome}" FontFamily="Poppins-Bold" 
-                                             FontSize="14"/>
-                                        <Label Margin="0, 0, 0, 10" Text="{Binding Movel}" 
-                                               FontSize="13" 
+                                             FontSize="12"/>
+                                        <Label Margin="0, 0, 0, 15" Text="{Binding Movel}" 
+                                               FontSize="10" 
                                                TextColor="DarkMagenta"
                                                FontFamily="Poppins-Bold" 
                                                CharacterSpacing="1.8"/>

@@ -43,14 +43,14 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
-                            <Label Text="{Binding CategoriaDespesa}" FontAttributes="Bold" FontSize="Large" TextColor="CadetBlue" />
+                            <Label Text="{Binding CategoriaDespesa}" FontAttributes="Bold" FontSize="20" TextColor="CadetBlue" />
 
                             <!-- Listar tipos de despesas na categoria -->
                             <CollectionView ItemsSource="{Binding TiposDespesa}">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <StackLayout Orientation="Horizontal" Spacing="10">
-                                            <Label Text="{Binding Descricao}" HorizontalOptions="StartAndExpand" FontSize="14" FontAttributes="Bold" />
+                                            <Label Text="{Binding Descricao}" HorizontalOptions="StartAndExpand" FontSize="13" FontAttributes="Bold" />
                                             <Label Text="{Binding SubTotal, StringFormat='{0:C}'}" 
                                                    HorizontalOptions="End" 
                                                    VerticalOptions="Center" />

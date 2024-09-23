@@ -101,7 +101,7 @@
 			            Text="{Binding SelectedVaccine.ProximaTomaEmMeses}"
 			            Grid.Row="2"
                         Grid.Column="1"
-                        FontSize="Small"
+                        FontSize="12"
                         IsSpellCheckEnabled="false"
 			            VerticalOptions="Start">
                 </Entry>

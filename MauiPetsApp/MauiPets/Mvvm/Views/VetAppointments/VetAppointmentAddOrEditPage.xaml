@@ -74,7 +74,7 @@
                 <Label Text="Consulta" 
                        Grid.Row="0"
                        Grid.Column="0"
-                       FontSize="Small"
+                       FontSize="13"
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="BuyDate"
                            Date="{Binding SelectedAppointment.DataConsulta, Converter={StaticResource stringToDateConverter}}"  
@@ -87,7 +87,7 @@
                 <Label Text="Motivo"
                        Grid.Row="1"
                        Grid.Column="0"
-                       FontSize="Small"
+                       FontSize="13"
                        VerticalOptions="CenterAndExpand"/>
                 <Editor x:Name="ApptReason" 
                        Text="{Binding SelectedAppointment.Motivo}" 
@@ -101,7 +101,7 @@
                 <Label Text="Diagnóstico"
                        Grid.Row="2"
                        Grid.Column="0"
-                       FontSize="Small"
+                       FontSize="13"
                        VerticalOptions="Center"/>
                 <Editor x:Name="ApptDiagnosis" 
                        Text="{Binding SelectedAppointment.Diagnostico}" 
@@ -115,7 +115,7 @@
                 <Label Text="Tratamento"
                        Grid.Row="3"
                        Grid.Column="0"
-                       FontSize="Small"
+                       FontSize="13"
                        VerticalOptions="Center"/>
                 <Editor x:Name="ApptTreatment" 
                        Text="{Binding SelectedAppointment.Tratamento}" 
@@ -129,7 +129,7 @@
                 <Label Text="Notas"
                        Grid.Row="4"
                        Grid.Column="0"
-                       FontSize="Small"
+                       FontSize="13"
                        VerticalOptions="Center"/>
                 <Editor x:Name="ApptNotes" 
                        Text="{Binding SelectedAppointment.Notas}" 

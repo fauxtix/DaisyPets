@@ -72,25 +72,27 @@
                 <Label Text="Compra" 
                        Grid.Row="0"
                        Grid.Column="0"
-                       FontSize="Small"
+                       FontSize="13"
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="TransactionDate"
                            Date="{Binding SelectedPetFood.DataCompra, Converter={StaticResource stringToDateConverter}}"  
                            Style="{StaticResource MediumLabelBold}"
                            Grid.Row="0"
                            Grid.Column="1"
+                           FontSize="13"
                            FontAttributes="Bold" 
                            VerticalOptions="Center"/>
 
                 <Label Text="Marca"
                        Grid.Row="1"
                        Grid.Column="0"
-                       FontSize="Small"
+                       FontSize="13"
                        VerticalOptions="Center"/>
                 <Entry x:Name="PetFoodBrand" 
                        Text="{Binding SelectedPetFood.Marca}" 
                        Grid.Row="1"
                        Grid.Column="1"
+                       FontSize="13"
                        VerticalOptions="Center"/>
                 <Label Text="Qtd. diária"
                                        Grid.Row="2"
@@ -100,7 +102,7 @@
                 <Entry x:Name="TransactionAmount" Keyboard="Numeric"
 			                           Text="{Binding SelectedPetFood.QuantidadeDiaria}" 
 			                           Grid.Row="2"
-                                        FontSize="12"
+                                        FontSize="13"
                                        Grid.Column="1"
 			                           VerticalOptions="Center">
                     <Entry.Behaviors>

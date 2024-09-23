@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             HeightRequest="100"
+             x:Class="MauiPets.Controls.FlyoutHeader">
+    <Grid BackgroundColor="Black"                
+          Margin="0,0,0,5">
+        <Image Aspect="AspectFill"
+               Source="daisypetsbing.png"
+               Opacity="0.6" />
+        <Label Text="Daisy Pets"
+               TextColor="White"
+               FontFamily="NotoSerif-Bold"
+               FontSize="18"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center" />
+    </Grid>
+</ContentView>

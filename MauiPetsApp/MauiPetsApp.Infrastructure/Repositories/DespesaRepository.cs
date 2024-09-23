@@ -7,7 +7,7 @@ using MauiPetsApp.Core.Domain;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
-namespace MauiPetsApp.Infrastructure.Repositories
+namespace MauiPetsApp.Infrastructure
 {
     public class DespesaRepository : IDespesaRepository
     {
@@ -277,13 +277,13 @@ namespace MauiPetsApp.Infrastructure.Repositories
         {
 
             var yearExpenses = (await GetAllVMAsync())?.ToList();
-            return yearExpenses?.Where(w=>DateTime.Parse(w.DataMovimento).Year == year);
+            return yearExpenses?.Where(w => DateTime.Parse(w.DataMovimento).Year == year);
         }
 
         public async Task<IEnumerable<DespesaVM>?> GetExpensesByMonthAsync(int year, int month)
         {
             var yearExpenses = (await GetAllVMAsync())?.ToList();
-            return yearExpenses?.Where(w => DateTime.Parse(w.DataMovimento).Year == year && DateTime.Parse(w.DataMovimento).Month== month);
+            return yearExpenses?.Where(w => DateTime.Parse(w.DataMovimento).Year == year && DateTime.Parse(w.DataMovimento).Month == month);
         }
 
         public async Task<LookupTableVM> GetDescricaoCategoriaDespesa(int Id)

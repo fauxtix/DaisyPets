@@ -5,14 +5,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vs="clr-namespace:MauiPets"
     xmlns:petpage="clr-namespace:MauiPets.Mvvm.Views.Pets"
+    xmlns:controls ="clr-namespace:MauiPets.Controls"
     xmlns:contactspage="clr-namespace:MauiPets.Mvvm.Views.Contacts"
     xmlns:expensespage="clr-namespace:MauiPets.Mvvm.Views.Expenses"
     xmlns:todospage="clr-namespace:MauiPets.Mvvm.Views.Todo"
     xmlns:settingspage="clr-namespace:MauiPets.Mvvm.Views.Settings"
     FlyoutWidth="200"
-    FlyoutHeight="350"
+    FlyoutHeight="360"
     Shell.FlyoutBehavior="Flyout">
     
+    <Shell.FlyoutHeader>
+        <controls:FlyoutHeader />
+    </Shell.FlyoutHeader>
     <Shell.FlyoutBackground>
         <LinearGradientBrush StartPoint="0,0"
                              EndPoint="1,1">
@@ -28,22 +32,22 @@
                           Offset="1.0" />
         </LinearGradientBrush>
     </Shell.FlyoutBackground>
-    <ShellContent
-        Title="Pets"
-        Icon="peticon.png"
+        <ShellContent
+        Title="Início"
+        Icon="doghouse.png"
         ContentTemplate="{DataTemplate petpage:PetsPage}"
         Route="PetsPage"/>
-    <ShellContent
+        <ShellContent
         Title="Despesas"
         Icon="expenses.png"
         ContentTemplate="{DataTemplate expensespage:ExpensesPage}"
         Route="ExpensesPage" />
-    <ShellContent
+        <ShellContent
         Title="Contactos"
-        Icon="contacts.svg" 
+        Icon="phone.png" 
         ContentTemplate="{DataTemplate contactspage:ContactsPage}"
         Route="ContactsPage" />
-    <ShellContent
+        <ShellContent
         Title="Tarefas"
         Icon="tasks.png" 
         ContentTemplate="{DataTemplate todospage:TodoPage}"
@@ -53,4 +57,8 @@
         Icon="gear.png" 
         ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
         Route="MainSettingsPage" />
+    <!--<Shell.FlyoutFooter>
+        <controls:FlyoutFooter />
+    </Shell.FlyoutFooter>-->
+
 </Shell>
