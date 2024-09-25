@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MauiPets.Mvvm.ViewModels.Logs"
+             xmlns:models="clr-namespace:MauiPets.Core.Application.ViewModels.Logs;assembly=MauiPets.Core"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2021/maui/toolkit"
+             x:Class="MauiPets.Mvvm.Views.Logs.LogsMainPage"
+             x:DataType="vm:LogViewModel"
+             Title="Logs">
+    <ContentPage.ToolbarItems>
+            <ToolbarItem Text="Delete All"
+                 Command="{Binding DeleteAllLogsCommand}" 
+                 IconImageSource="expense.png" />
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <StackLayout Padding="10">
+            <Label Text="{Binding TotalLogs}" 
+                   FontSize="Medium" 
+                   HorizontalOptions="Center" 
+                   Margin="5" />
+            <Label Text="Total Logs" 
+                   FontSize="Medium" 
+                   HorizontalOptions="Center" 
+                   Margin="5" />
+            <SearchBar Placeholder="Search Logs" 
+                       Text="{Binding SearchText}" 
+                       BackgroundColor="White" 
+                       SearchCommand="{Binding LoadFilteredLogsCommand}" />
+
+            <Button Text="Load Logs" Command="{Binding LoadLogsCommand}" />
+
+            <CollectionView ItemsSource="{Binding Logs}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:LogEntry">
+                        <StackLayout Padding="10" Margin="5" BackgroundColor="LightGray">
+                            <Label Text="{Binding Message}" FontAttributes="Bold" />
+                            <Label Text="{Binding Level}" TextColor="Gray" />
+                            <Label Text="{Binding TimeStamp}" FontSize="12" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Page Information and Page Size Adjustments -->
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
+                <Label Text="Page: " />
+                <Label Text="{Binding CurrentPage}" />
+                <Label Text=" of " />
+                <Label Text="{Binding TotalPages}" />
+            </StackLayout>
+
+            <StackLayout Spacing="3" Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
+                <Button Text="Previous" Command="{Binding LoadPreviousPageCommand}" />
+                <Button Text="Next" Command="{Binding LoadNextPageCommand}" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10" VerticalOptions="Center">
+                <Label Text="Items per page: " 
+           VerticalOptions="Center" 
+           HorizontalOptions="End" 
+           Margin="0,0,5,0" />
+                <!-- Optional margin for spacing -->
+                <Entry Text="{Binding PageSize, Mode=TwoWay}" 
+           WidthRequest="50" 
+           Keyboard="Numeric" 
+           VerticalOptions="Center" />
+            </StackLayout>
+
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
