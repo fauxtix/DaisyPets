@@ -10,7 +10,7 @@
 
     <ScrollView>
         <StackLayout Padding="20">
-            <Label Text="Desparasitantes" FontSize="20" FontFamily="Poppins-Bold"  Padding="0,5"/>
+            <Label Text="Desparasitantes" FontSize="20" FontFamily="PoppinsBold"  Padding="0,5"/>
             <Grid ColumnSpacing="10" RowSpacing="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -33,7 +33,7 @@
                     ButtonCommand="{Binding NavigateToTableCommand}" />
             </Grid>
             <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,6,0,5"/>
-            <Label Text="Despesas" FontSize="20" Padding="0,2" FontFamily="Poppins-Bold" />
+            <Label Text="Despesas" FontSize="20" Padding="0,2" FontFamily="PoppinsBold" />
             <Grid ColumnSpacing="10" RowSpacing="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

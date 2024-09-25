@@ -18,7 +18,7 @@
 
         <Style x:Key="ExpensesFilterButtonStyle" TargetType="Button">
             <Setter Property="FontSize" Value="11" />
-            <Setter Property="FontFamily" Value="Poppins-Regular" />
+            <Setter Property="FontFamily" Value="Poppins" />
             <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="30" />
             <Setter Property="WidthRequest" Value="100" />
@@ -81,7 +81,7 @@
                     <Image Source="expenses.svg" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" />
                     <Label Text="{Binding TotalGeralDespesas, Mode=OneWay, StringFormat='Total: {0:C2}'}"
                            FontSize="20"
-                           FontFamily="Poppins-Regular"
+                           FontFamily="Poppins"
                            TextColor="White"
                            VerticalOptions="Center" />
                 </HorizontalStackLayout>
@@ -169,20 +169,20 @@
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0"
                                            Text="{Binding DataMovimento, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
-                                           FontFamily="Poppins-Bold"
+                                           FontFamily="PoppinsBold"
                                            FontAttributes="Bold" />
                                     <Label Grid.Column="1"
                                            Text="{Binding DescricaoCategoriaDespesa, Mode=OneTime}"
-                                           FontFamily="Poppins-Bold"
+                                           FontFamily="PoppinsBold"
                                            FontAttributes="Italic"
                                            VerticalOptions="End" />
                                     <Label Grid.Column="2"
                                            Text="{Binding ValorPago, Mode=OneWay, StringFormat='{0:C2}'}"
-                                           FontFamily="Poppins-Bold"
+                                           FontFamily="PoppinsBold"
                                            HorizontalOptions="End"
                                            VerticalOptions="Start" />
                                     <Label Grid.Row="1" Grid.ColumnSpan="3"
-                                           FontFamily="Poppins-Regular"
+                                           FontFamily="Poppins"
                                            FontSize="12" Margin="0, -7, 0, 0"
                                            Text="{Binding DescricaoTipoDespesa, Mode=OneWay}"
                                            HorizontalOptions="Start" 

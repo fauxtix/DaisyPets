@@ -31,7 +31,7 @@
                     <Image Source="expenses.svg" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" />
                     <Label Text="{Binding TotalGeralDespesas, StringFormat='Total: {0:C2}'}"
                            FontSize="20"
-                           FontFamily="Poppins-Regular"
+                           FontFamily="Poppins"
                            TextColor="White"
                            VerticalOptions="Center" />
                 </HorizontalStackLayout>

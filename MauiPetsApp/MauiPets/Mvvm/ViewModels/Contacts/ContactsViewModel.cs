@@ -11,7 +11,6 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
     {
         private readonly IContactService _contactService;
         private IConnectivity _connectivity;
-        private IGeolocation _geolocation;
 
         [ObservableProperty]
         private string _searchFilter;
@@ -19,11 +18,10 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         public ObservableCollection<ContactoVM> ContactsVM { get; set; } = new();
         public ObservableCollection<TipoContacto> ContactTypes { get; set; } = new();
 
-        public ContactsViewModel(IContactService contactService, IConnectivity connectivity, IGeolocation geolocation)
+        public ContactsViewModel(IContactService contactService, IConnectivity connectivity)
         {
             _contactService = contactService;
             _connectivity = connectivity;
-            _geolocation = geolocation;
         }
 
         [RelayCommand]

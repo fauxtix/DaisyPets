@@ -39,7 +39,7 @@
                        Padding="0, 15, 0, 00"
                        TextColor="Yellow" 
                        FontSize="14" 
-                       FontFamily="Poppins-SemiBold"
+                       FontFamily="PoppinsSemiBold"
                        HorizontalOptions="Center" 
                        VerticalOptions="Center"/>
         </Grid>

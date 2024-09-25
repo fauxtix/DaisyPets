@@ -15,11 +15,11 @@
     <ScrollView>
         <StackLayout Padding="10">
             <Label Text="{Binding TotalLogs}" 
-                   FontSize="Medium" 
+                   FontSize="12" 
                    HorizontalOptions="Center" 
                    Margin="5" />
             <Label Text="Total Logs" 
-                   FontSize="Medium" 
+                   FontSize="12" 
                    HorizontalOptions="Center" 
                    Margin="5" />
             <SearchBar Placeholder="Search Logs" 

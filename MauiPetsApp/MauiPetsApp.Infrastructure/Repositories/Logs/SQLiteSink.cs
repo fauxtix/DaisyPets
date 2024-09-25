@@ -1,7 +1,9 @@
 ﻿using Dapper;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
+using Serilog;
 using Serilog.Core;
 using Serilog.Events;
+using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Repositories.Logs
 {
@@ -12,51 +14,64 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
         public SQLiteSink(IDapperContext context, IFormatProvider formatProvider)
         {
             _context = context;
-            EnsureDatabase();
+            EnsureDatabase().Wait();
             _formatProvider = formatProvider;
         }
 
         // Ensure the database and the PetsLogs table exist
-        private void EnsureDatabase()
+        private async Task EnsureDatabase()
         {
-            using (var connection = _context.CreateConnection())
+            try
             {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = @"
-                CREATE TABLE IF NOT EXISTS PetsLogs (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Message TEXT NOT NULL,
-                    MessageTemplate TEXT,
-                    Level TEXT,
-                    TimeStamp TEXT,
-                    Exception TEXT,
-                    Properties TEXT
-                );";
-                command.ExecuteNonQuery();
+                using (var connection = _context.CreateConnection())
+                {
+
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append("CREATE TABLE IF NOT EXISTS PetsLogs (");
+                    sb.Append("Id INTEGER PRIMARY KEY AUTOINCREMENT, ");
+                    sb.Append("Message TEXT, ");
+                    sb.Append("MessageTemplate TEXT, ");
+                    sb.Append("Level TEXT, ");
+                    sb.Append("TimeStamp TEXT, ");
+                    sb.Append("Exception TEXT, ");
+                    sb.Append("Properties TEXT)");
+                    await connection.ExecuteAsync(sb.ToString());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Erro ao criar tabela de logs {ex.Message}");
             }
         }
 
-        public void Emit(LogEvent logEvent)
+        public async void Emit(LogEvent logEvent)
         {
             using (var connection = _context.CreateConnection())
             {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = @"
-                INSERT INTO PetsLogs (Message, MessageTemplate, Level, TimeStamp, Exception, Properties) 
-                VALUES (@Message, @MessageTemplate, @Level, @TimeStamp, @Exception, @Properties)";
+                try
+                {
+                    StringBuilder sb = new();
+                    sb.Append("INSERT INTO PetsLogs(Message, MessageTemplate, Level, TimeStamp, Exception, Properties) ");
+                    sb.Append("VALUES(@Message, @MessageTemplate, @Level, @TimeStamp, @Exception, @Properties)");
 
-                DynamicParameters dynamicParameters = new DynamicParameters();
+                    DynamicParameters dynamicParameters = new DynamicParameters();
 
-                dynamicParameters.Add("@Message", logEvent.RenderMessage(_formatProvider));
-                dynamicParameters.Add("@MessageTemplate", logEvent.MessageTemplate.Text);
-                dynamicParameters.Add("@Level", logEvent.Level.ToString());
-                dynamicParameters.Add("@TimeStamp", logEvent.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
-                dynamicParameters.Add("@Exception", logEvent.Exception?.ToString());
-                dynamicParameters.Add("@Properties", logEvent.Properties.Count > 0 ? logEvent.Properties.ToString() : null);
+                    dynamicParameters.Add("@Message", logEvent.RenderMessage(_formatProvider));
+                    dynamicParameters.Add("@MessageTemplate", logEvent.MessageTemplate.Text);
+                    dynamicParameters.Add("@Level", logEvent.Level.ToString());
+                    dynamicParameters.Add("@TimeStamp", logEvent.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+                    dynamicParameters.Add("@Exception", logEvent.Exception?.ToString());
+                    dynamicParameters.Add("@Properties", logEvent.Properties.Count > 0 ? logEvent.Properties.ToString() : null);
 
-                command.ExecuteNonQuery();
+                    await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
+
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"Erro em SQLiteSink; {ex.Message}");
+                    throw;
+                }
             }
         }
 

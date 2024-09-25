@@ -48,12 +48,12 @@
                             <ViewCell>
                                 <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                     <StackLayout Orientation="Vertical" HorizontalOptions="Start" >
-                                        <Label Text="{Binding Nome}" FontFamily="Poppins-Bold" 
+                                        <Label Text="{Binding Nome}" FontFamily="PoppinsBold" 
                                              FontSize="12"/>
                                         <Label Margin="0, 0, 0, 15" Text="{Binding Movel}" 
                                                FontSize="10" 
                                                TextColor="DarkMagenta"
-                                               FontFamily="Poppins-Bold" 
+                                               FontFamily="PoppinsBold" 
                                                CharacterSpacing="1.8"/>
                                     </StackLayout>
                                 </StackLayout>

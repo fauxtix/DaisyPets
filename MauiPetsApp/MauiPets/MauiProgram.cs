@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using DaisyPets.WebApi.Helpers;
 using FluentValidation;
 using MauiPets.Core.Application.Interfaces.Repositories.Logs;
 using MauiPets.Mvvm.ViewModels.Contacts;
@@ -67,14 +68,13 @@ namespace MauiPets
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("NotoSerif-Bold.ttf", "NotoSerifBold");
                 fonts.AddFont("Poppins-Bold.ttf", "PoppinsBold");
-                fonts.AddFont("Poppins-SemiBold.ttf", "PoppinsSemibold");
+                fonts.AddFont("Poppins-SemiBold.ttf", "PoppinsSemiBold");
                 fonts.AddFont("Poppins-Regular.ttf", "Poppins");
                 fonts.AddFont("MaterialIconsOutlined-Regular.otf", "Material");
             })
                 .UseMauiCommunityToolkit()
                 .UseLocalNotification();
 
-            builder.Logging.AddSerilog(dispose: true);
 
 
 #if ANDROID
@@ -116,11 +116,9 @@ namespace MauiPets
 #if DEBUG
             //builder.Logging.AddDebug();
 #endif
-
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+            //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
-            //builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
-            //builder.Services.AddSingleton<IMap>(Map.Default);
 
             // ViewModels
             builder.Services.AddSingleton<PetViewModel>();
@@ -236,15 +234,30 @@ namespace MauiPets
 
             SetupSerilog(builder);
 
+            builder.Logging.AddSerilog(dispose: true);
+
             return builder.Build();
         }
 
-        private static void SetupSerilog(MauiAppBuilder builder) => Log.Logger = new LoggerConfiguration()
-                  .MinimumLevel.Information()
-                  .WriteTo.Debug()
-                  .WriteTo.Sink(new SQLiteSink(
-                      builder.Services.BuildServiceProvider().GetRequiredService<IDapperContext>(),
-                      null)) // Resolve IDapperContext for the sink
-                  .CreateLogger();
+        //private static void SetupSerilog(MauiAppBuilder builder) => Log.Logger = new LoggerConfiguration()
+        //          .MinimumLevel.Information()
+        //          .WriteTo.Debug()
+        //          .WriteTo.Sink(new SQLiteSink(
+        //              builder.Services.BuildServiceProvider().GetRequiredService<IDapperContext>(),
+        //              null)) // Resolve IDapperContext for the sink
+        //          .CreateLogger();
+
+        private static void SetupSerilog(MauiAppBuilder builder)
+        {
+            var serviceProvider = builder.Services.BuildServiceProvider();
+            var dapperContext = serviceProvider.GetRequiredService<IDapperContext>();
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information() // Set the minimum level you want to capture
+                .WriteTo.Debug() // Outputs logs to debug output
+                .WriteTo.Sink(new SQLiteSink(dapperContext, null)) // Ensure this sink is implemented properly
+                .CreateLogger();
+        }
+
     }
 }

@@ -19,7 +19,7 @@
             <Setter Property="CornerRadius" Value="10" />
             <Setter Property="TextColor" Value="White" />
             <Setter Property="FontSize" Value="10" />
-            <Setter Property="FontFamily" Value="Poppins-SemiBold" />
+            <Setter Property="FontFamily" Value="PoppinsSemiBold" />
             <Setter Property="BorderWidth" Value="1" />
             <Setter Property="HeightRequest" Value="40" />
             <Setter Property="WidthRequest" Value="130" />

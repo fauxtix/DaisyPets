@@ -5,9 +5,8 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
@@ -18,17 +17,15 @@ public partial class PetViewModel : BaseViewModel
 
 
     private readonly IPetService _petService;
-    private readonly ILogger<PetViewModel> _logger;
 
     private readonly IVacinasService _petVaccinesService;
     IConnectivity _connectivity;
-    public PetViewModel(IConnectivity connectivity, IPetService petService, IVacinasService petVaccinesService, ILogger<PetViewModel> logger)
+    public PetViewModel(IConnectivity connectivity, IPetService petService, IVacinasService petVaccinesService)
     {
         _petService = petService;
         _connectivity = connectivity;
         _petService = petService;
         _petVaccinesService = petVaccinesService;
-        _logger = logger;
     }
 
     [ObservableProperty]
@@ -50,7 +47,7 @@ public partial class PetViewModel : BaseViewModel
                 return;
 
             IsBusy = true;
-            _logger.LogError($"Loading Pets");
+            Log.Information("Lendo os ficheiros de Pets.");
 
 
             var pets = (await _petService.GetAllVMAsync()).ToList();
@@ -68,8 +65,7 @@ public partial class PetViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unable to get pets: {ex.Message}");
-            Debug.WriteLine($"Unable to get pets: {ex.Message}");
+            Log.Error($"Erro ao ler ficheiro de Pets. {ex.Message}");
             await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
         }
         finally
