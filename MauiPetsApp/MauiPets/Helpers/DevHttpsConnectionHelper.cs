@@ -27,7 +27,7 @@ namespace MauiPets.Helpers
         private Lazy<HttpClient> LazyHttpClient;
         public HttpClient HttpClient => LazyHttpClient.Value;
 
-        public HttpMessageHandler? GetPlatformMessageHandler()
+        public HttpMessageHandler GetPlatformMessageHandler()
         {
 #if WINDOWS
         return null;

@@ -15,7 +15,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
     {
         public ObservableCollection<ToDoDto> Todos { get; set; } = new();
         private List<ToDoDto> FullTodos { get; set; } = new();
-        private List<ToDoDto> FilteredTodos { get; set; } = new(); 
+        private List<ToDoDto> FilteredTodos { get; set; } = new();
         private readonly IToDoService _service;
         private IConnectivity _connectivity;
 
@@ -131,7 +131,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                     .ToList();
 
                 FullTodos = todos;
-                FilteredTodos = todos; 
+                FilteredTodos = todos;
                 TotalPages = (int)Math.Ceiling((double)todos.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
                 FilterText = "Todas as tarefas";
@@ -163,7 +163,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 else
                 {
                     var filteredTodos = FullTodos.Where(t => t.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList();
-                    FilteredTodos = filteredTodos; 
+                    FilteredTodos = filteredTodos;
                     RefreshTodoList(filteredTodos);
                     FilterText = $"Filtrado por: {searchText}";
                 }
@@ -210,7 +210,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             if (CurrentPage > 1)
             {
                 CurrentPage--;
-                UpdatePagedData(FilteredTodos); 
+                UpdatePagedData(FilteredTodos);
                 UpdatePageInfo();
             }
         }
@@ -221,7 +221,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
             if (CurrentPage < TotalPages)
             {
                 CurrentPage++;
-                UpdatePagedData(FilteredTodos); 
+                UpdatePagedData(FilteredTodos);
                 UpdatePageInfo();
             }
         }
@@ -230,7 +230,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         private void FirstPageAsync()
         {
             CurrentPage = 1;
-            UpdatePagedData(FilteredTodos); 
+            UpdatePagedData(FilteredTodos);
             UpdatePageInfo();
         }
 
@@ -238,7 +238,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         private void LastPageAsync()
         {
             CurrentPage = TotalPages;
-            UpdatePagedData(FilteredTodos); 
+            UpdatePagedData(FilteredTodos);
             UpdatePageInfo();
         }
 
@@ -283,21 +283,21 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 if (!completed.Any())
                 {
                     await Shell.Current.DisplayAlert("Tarefas concluídas", "Sem dados para mostrar", "Ok");
-                    await GetTodosAsync(); 
+                    await GetTodosAsync();
                     FilterText = "Todas as tarefas";
-                    FilteredTodos = FullTodos; 
-                    CurrentPage = 1; 
+                    FilteredTodos = FullTodos;
+                    CurrentPage = 1;
                     UpdatePageInfo();
                     return;
                 }
 
-                FilteredTodos = completed; 
+                FilteredTodos = completed;
                 TotalPages = (int)Math.Ceiling((double)completed.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
 
-                CurrentPage = 1; 
-                UpdatePagedData(completed); 
-                UpdatePageInfo(); 
+                CurrentPage = 1;
+                UpdatePagedData(completed);
+                UpdatePageInfo();
 
                 FilterText = "Tarefas concluídas";
             }
@@ -316,21 +316,21 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 if (!pending.Any())
                 {
                     await Shell.Current.DisplayAlert("Tarefas pendentes", "Sem dados para mostrar", "Ok");
-                    await GetTodosAsync(); 
+                    await GetTodosAsync();
                     FilterText = "Todas as tarefas";
-                    FilteredTodos = FullTodos; 
-                    CurrentPage = 1; 
+                    FilteredTodos = FullTodos;
+                    CurrentPage = 1;
                     UpdatePageInfo();
                     return;
                 }
 
-                FilteredTodos = pending; 
+                FilteredTodos = pending;
                 TotalPages = (int)Math.Ceiling((double)pending.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
 
-                CurrentPage = 1; 
-                UpdatePagedData(pending); 
-                UpdatePageInfo(); 
+                CurrentPage = 1;
+                UpdatePagedData(pending);
+                UpdatePageInfo();
 
                 FilterText = "Tarefas pendentes";
             }
@@ -356,21 +356,21 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 if (!thisWeekTodos.Any())
                 {
                     await Shell.Current.DisplayAlert("Para esta semana", "Sem dados para mostrar", "Ok");
-                    await GetTodosAsync(); 
+                    await GetTodosAsync();
                     FilterText = "Todas as tarefas";
-                    FilteredTodos = FullTodos; 
-                    CurrentPage = 1; 
+                    FilteredTodos = FullTodos;
+                    CurrentPage = 1;
                     UpdatePageInfo();
                     return;
                 }
 
-                FilteredTodos = thisWeekTodos; 
+                FilteredTodos = thisWeekTodos;
                 TotalPages = (int)Math.Ceiling((double)thisWeekTodos.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
 
-                CurrentPage = 1; 
-                UpdatePagedData(thisWeekTodos); 
-                UpdatePageInfo(); 
+                CurrentPage = 1;
+                UpdatePagedData(thisWeekTodos);
+                UpdatePageInfo();
 
                 FilterText = "Para esta semana";
             }
@@ -396,21 +396,21 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 if (!nextWeekTodos.Any())
                 {
                     await Shell.Current.DisplayAlert("Para a próxima semana", "Sem dados para mostrar", "Ok");
-                    await GetTodosAsync(); 
+                    await GetTodosAsync();
                     FilterText = "Todas as tarefas";
-                    FilteredTodos = FullTodos; 
-                    CurrentPage = 1; 
+                    FilteredTodos = FullTodos;
+                    CurrentPage = 1;
                     UpdatePageInfo();
                     return;
                 }
 
-                FilteredTodos = nextWeekTodos; 
+                FilteredTodos = nextWeekTodos;
                 TotalPages = (int)Math.Ceiling((double)nextWeekTodos.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
 
-                CurrentPage = 1; 
-                UpdatePagedData(nextWeekTodos); 
-                UpdatePageInfo(); 
+                CurrentPage = 1;
+                UpdatePagedData(nextWeekTodos);
+                UpdatePageInfo();
 
                 FilterText = "Para a próxima semana";
             }
@@ -436,21 +436,21 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 if (!thisMonthTodos.Any())
                 {
                     await Shell.Current.DisplayAlert("Para este mês", "Sem dados para mostrar", "Ok");
-                    await GetTodosAsync(); 
+                    await GetTodosAsync();
                     FilterText = "Todas as tarefas";
-                    FilteredTodos = FullTodos; 
-                    CurrentPage = 1; 
+                    FilteredTodos = FullTodos;
+                    CurrentPage = 1;
                     UpdatePageInfo();
                     return;
                 }
 
-                FilteredTodos = thisMonthTodos; 
+                FilteredTodos = thisMonthTodos;
                 TotalPages = (int)Math.Ceiling((double)thisMonthTodos.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
 
-                CurrentPage = 1; 
-                UpdatePagedData(thisMonthTodos); 
-                UpdatePageInfo(); 
+                CurrentPage = 1;
+                UpdatePagedData(thisMonthTodos);
+                UpdatePageInfo();
 
                 FilterText = "Para este mês";
             }
@@ -476,21 +476,21 @@ namespace MauiPets.Mvvm.ViewModels.Todo
                 if (!nextMonthTodos.Any())
                 {
                     await Shell.Current.DisplayAlert("Para o próximo mês", "Sem dados para mostrar", "Ok");
-                    await GetTodosAsync(); 
+                    await GetTodosAsync();
                     FilterText = "Todas as tarefas";
-                    FilteredTodos = FullTodos; 
-                    CurrentPage = 1; 
+                    FilteredTodos = FullTodos;
+                    CurrentPage = 1;
                     UpdatePageInfo();
                     return;
                 }
 
-                FilteredTodos = nextMonthTodos; 
+                FilteredTodos = nextMonthTodos;
                 TotalPages = (int)Math.Ceiling((double)nextMonthTodos.Count / PageSize);
                 IsPaginationVisible = TotalPages > 1;
 
-                CurrentPage = 1; 
-                UpdatePagedData(nextMonthTodos); 
-                UpdatePageInfo(); 
+                CurrentPage = 1;
+                UpdatePagedData(nextMonthTodos);
+                UpdatePageInfo();
 
                 FilterText = "Para o próximo mês";
             }

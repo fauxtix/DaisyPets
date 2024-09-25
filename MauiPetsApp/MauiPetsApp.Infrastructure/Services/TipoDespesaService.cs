@@ -58,24 +58,9 @@ namespace MauiPetsApp.Infrastructure.Services
 
         }
 
-        public async Task<int> GetFirstId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<int> GetID_ByDescription(string Descricao)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<TipoDespesaVM?> GetTipoDespesaVM_ById(int Id)
         {
             return await _repository.GetTipoDespesaVM_ById(Id);
-        }
-
-        public async Task<IEnumerable<TipoDespesaVM>> GetTipoDespesa_ByCategoria(int categoria)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<TipoDespesaDto?> Get_ById(int Id)

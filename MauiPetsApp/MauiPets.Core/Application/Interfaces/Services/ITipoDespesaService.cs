@@ -1,5 +1,4 @@
 ﻿using MauiPetsApp.Core.Application.ViewModels.Despesas;
-using MauiPetsApp.Core.Domain;
 
 namespace MauiPetsApp.Core.Application.Interfaces.Services
 {
@@ -13,7 +12,6 @@ namespace MauiPetsApp.Core.Application.Interfaces.Services
         Task<IEnumerable<TipoDespesaDto>?> GetAll();
         Task<IEnumerable<TipoDespesaVM>?> GetAllVM();
         string RegistoComErros(TipoDespesaDto tipoDespesa);
-        Task<int> GetID_ByDescription(string Descricao);
         Task<IEnumerable<TipoDespesaDto>?> GetTipoDespesa_ByCategoria(int categoria);
         Task<bool> CanRecordBeDeleted(int id);
 

@@ -307,7 +307,7 @@ namespace MauiPetsApp.Infrastructure
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                return Enumerable.Empty<LookUp>();
             }
         }
 
@@ -333,7 +333,7 @@ namespace MauiPetsApp.Infrastructure
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                return Enumerable.Empty<LookUp>();
             }
         }
 
@@ -359,7 +359,7 @@ namespace MauiPetsApp.Infrastructure
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                return Enumerable.Empty<LookUp>();
             }
         }
 
@@ -390,7 +390,7 @@ namespace MauiPetsApp.Infrastructure
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                return Enumerable.Empty<LookUp>();
             }
         }
 
@@ -435,7 +435,7 @@ namespace MauiPetsApp.Infrastructure
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                return (LookUp)Enumerable.Empty<LookUp>();
             }
         }
 

@@ -30,16 +30,16 @@ using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Application.ViewModels.Scheduler;
+using MauiPetsApp.Infrastructure;
 using MauiPetsApp.Infrastructure.Context;
-using MauiPetsApp.Infrastructure.OldRepositories;
-using MauiPetsApp.Infrastructure.OldRepositories.TodoManager;
+using MauiPetsApp.Infrastructure.Repositories.Logs;
 using MauiPetsApp.Infrastructure.Services;
 using MauiPetsApp.Infrastructure.Services.ToDoManager;
+using MauiPetsApp.Infrastructure.TodoManager;
 using MauiPetsApp.Infrastructure.Validators;
 using Microsoft.Extensions.Configuration;
 using Plugin.LocalNotification;
 using Serilog;
-using Serilog.Events;
 using System.Globalization;
 using System.Reflection;
 
@@ -57,8 +57,6 @@ namespace MauiPets
 
 
             var builder = MauiApp.CreateBuilder();
-
-            SetupSerilog(builder);
 
             builder.UseMauiApp<App>().ConfigureFonts(fonts =>
             {
@@ -94,12 +92,22 @@ namespace MauiPets
             if (!File.Exists(destinationDatabasePath))
             {
                 // Open and copy the embedded database file to the destination
-                using (var sourceStream = typeof(App).Assembly.GetManifestResourceStream("MauiPets.Database.PetsDB.db"))
+                try
                 {
-                    using (var destinationStream = File.Create(destinationDatabasePath))
+                    using (var sourceStream = typeof(App).Assembly.GetManifestResourceStream("MauiPets.Database.PetsDB.db"))
                     {
-                        sourceStream.CopyTo(destinationStream);
+                        using (var destinationStream = File.Create(destinationDatabasePath))
+                        {
+                            sourceStream.CopyTo(destinationStream);
+                        }
                     }
+
+                }
+                catch (Exception ex)
+                {
+                    Shell.Current.DisplayAlert("Error while 'CopyFileToAppDataDirectory", ex.Message, "Ok");
+
+                    throw;
                 }
             }
 #if DEBUG
@@ -108,8 +116,8 @@ namespace MauiPets
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
-            builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
-            builder.Services.AddSingleton<IMap>(Map.Default);
+            //builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
+            //builder.Services.AddSingleton<IMap>(Map.Default);
 
             // ViewModels
             builder.Services.AddSingleton<PetViewModel>();
@@ -220,36 +228,17 @@ namespace MauiPets
 
             builder.Services.AddTransient<LocalNotificationCenter>();
 
+            SetupSerilog(builder);
+
             return builder.Build();
         }
 
-        private static void SetupSerilog(MauiAppBuilder builder)
-        {
-            var flushInterval = new TimeSpan(0, 0, 1);
-
-            try
-            {
-                var logFolder = Path.Combine(FileSystem.Current.AppDataDirectory, "MauiPetsLogs");
-                if (!Directory.Exists(logFolder))
-                {
-                    Directory.CreateDirectory(logFolder);
-                }
-                string file = Path.Combine(logFolder, "MauiPets.Log");
-
-                var logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                .WriteTo.File(file, rollingInterval: RollingInterval.Day)
-                .CreateLogger();
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            //            builder.Services.AddSingleton<ILogger>(logger);
-
-        }
+        private static void SetupSerilog(MauiAppBuilder builder) => Log.Logger = new LoggerConfiguration()
+                  .MinimumLevel.Information()
+                  .WriteTo.Debug()
+                  .WriteTo.Sink(new SQLiteSink(
+                      builder.Services.BuildServiceProvider().GetRequiredService<IDapperContext>(),
+                      null)) // Resolve IDapperContext for the sink
+                  .CreateLogger();
     }
 }

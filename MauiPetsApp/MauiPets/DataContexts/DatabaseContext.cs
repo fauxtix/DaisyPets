@@ -30,7 +30,7 @@ namespace MauiPets.DataContexts
             return await table.ToListAsync();
         }
 
-        public async Task<IEnumerable<TTable>> GetFileteredAsync<TTable>(Expression<Func<TTable, bool>> predicate) where TTable : class, new()
+        public async Task<IEnumerable<TTable>> GetFilteredAsync<TTable>(Expression<Func<TTable, bool>> predicate) where TTable : class, new()
         {
             var table = await GetTableAsync<TTable>();
             return await table.Where(predicate).ToListAsync();

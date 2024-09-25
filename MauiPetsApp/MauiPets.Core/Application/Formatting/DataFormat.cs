@@ -75,7 +75,7 @@ namespace MauiPetsApp.Core.Application.Formatting
         #region Core Formatting Metods
         public static bool IsValidDate(string date)
         {
-            bool retValue = false;            
+            bool retValue = false;
             DateTime result = new DateTime();
             if (DateTime.TryParse(date, out result))
                 retValue = true;
@@ -121,7 +121,7 @@ namespace MauiPetsApp.Core.Application.Formatting
             bool retValue = false;
 
             if (value != null)
-                retValue = IsNumeric(value.ToString());
+                retValue = IsNumeric(value.ToString() ?? "");
 
             return retValue;
         }
@@ -142,7 +142,7 @@ namespace MauiPetsApp.Core.Application.Formatting
             bool retValue = false;
 
             if (value != null)
-                retValue = IsInteger(value.ToString());
+                retValue = IsInteger(value.ToString() ?? "");
 
             return retValue;
         }
@@ -173,7 +173,7 @@ namespace MauiPetsApp.Core.Application.Formatting
             bool retValue = false;
 
             if (value != null)
-                retValue = IsBoolean(value.ToString());
+                retValue = IsBoolean(value.ToString() ?? "");
 
             return retValue;
         }
@@ -182,7 +182,7 @@ namespace MauiPetsApp.Core.Application.Formatting
         {
             string retValue = string.Empty;
             if (value != null)
-                retValue = value.ToString();
+                retValue = value.ToString() ?? "";
 
             return retValue;
         }

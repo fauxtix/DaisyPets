@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.Results;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
@@ -87,7 +87,7 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, "Erro ni update do contacto");
+                _logger.LogError(ex.Message, "Erro no update do contacto");
                 throw;
             }
         }
@@ -101,8 +101,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, "Erro ni update do contacto");
-                return null;
+                _logger.LogError(ex.Message, "Erro no update do contacto");
+                return Enumerable.Empty<ContactoVM>();
             }
         }
 

@@ -51,7 +51,6 @@ public partial class PetViewModel : BaseViewModel
 
             IsBusy = true;
 
-            _logger.LogWarning("Lendo tabela dos Pets");
 
             var pets = (await _petService.GetAllVMAsync()).ToList();
 

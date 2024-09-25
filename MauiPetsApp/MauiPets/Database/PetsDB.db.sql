@@ -1,4 +1,16 @@
 BEGIN TRANSACTION;
+
+CREATE TABLE IF NOT EXISTS "PetsLog" (
+	"Id"	INTEGER NOT NULL,
+	"Message"	TEXT NOT NULL,
+	"MessageTemplate"	TEXT,
+	"Level"	TEXT,
+	"TimeStamp"	TEXT,
+	"Exception"	TEXT NOT NULL,
+	"Properties"	TEXT,
+	PRIMARY KEY("Id" AUTOINCREMENT)
+);
+
 CREATE TABLE IF NOT EXISTS "Especie" (
 	"Id"	INTEGER NOT NULL UNIQUE,
 	"Descricao"	TEXT NOT NULL,

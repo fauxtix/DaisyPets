@@ -5,7 +5,6 @@ using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.Extensions.Logging;
 using System.Text;
 
@@ -84,19 +83,19 @@ namespace MauiPetsApp.Infrastructure.Services
                 var listaPesos = (await _repository.GetPesos()).ToList();
                 _logger.LogInformation($"Mapeando pesos dos animais via Service, sem o AutoMapper");
 
-                var mappedDto= new List<PesoDto>();
-                foreach ( var peso in listaPesos)
+                var mappedDto = new List<PesoDto>();
+                foreach (var peso in listaPesos)
                 {
                     mappedDto.Add(new PesoDto()
                     {
-                         Id = peso.Id,
-                          A = peso.A,
-                          De = peso.De,
-                          Descricao = peso.Descricao,
+                        Id = peso.Id,
+                        A = peso.A,
+                        De = peso.De,
+                        Descricao = peso.Descricao,
                     });
                 }
 
-                var resp = mappedDto; 
+                var resp = mappedDto;
                 //var auto = _mapper.Map<IEnumerable<PesoDto>>(listaPesos);
                 _logger.LogInformation($"Pesos dos animais mapeado manualmente, sem recurso ao AutoMapper");
 

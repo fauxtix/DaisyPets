@@ -62,7 +62,7 @@ public partial class PetAddOrEditPage : ContentPage
         }
     }
 
-    private  void ImageSelect_Clicked(object sender, EventArgs e)
+    private void ImageSelect_Clicked(object sender, EventArgs e)
     {
         //var images = await FilePicker.Default.PickAsync(new PickOptions
         //{

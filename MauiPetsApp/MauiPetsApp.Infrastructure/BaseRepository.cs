@@ -1,8 +1,7 @@
-﻿using MauiPetsApp.Infrastructure.Context;
-using Dapper;
+﻿using Dapper;
 using MauiPetsApp.Core.Application.Exceptions;
 using MauiPetsApp.Core.Application.Interfaces;
-using Microsoft.Extensions.Logging;
+using MauiPetsApp.Infrastructure.Context;
 using System.Data;
 using System.Reflection;
 using System.Text;
@@ -13,11 +12,10 @@ namespace MauiPetsApp.Infrastructure
     {
         DataAccessStatus? dataAccessStatus = new DataAccessStatus();
         private readonly DapperContext _context;
-        private readonly ILogger? _logger;
 
-        public BaseRepository()
+        public BaseRepository(DapperContext context)
         {
-
+            _context = context;
         }
         private IEnumerable<string> GetColumns()
         {
@@ -49,14 +47,9 @@ namespace MauiPetsApp.Infrastructure
 
                 return await GetLastId();
             }
-            catch (DataAccessException ex)
+            catch (DataAccessException)
             {
-                ex.DataAccessStatusInfo.Status = "Erro";
-                ex.DataAccessStatusInfo.OperationSucceeded = false;
-                ex.DataAccessStatusInfo.CustomMessage = $"Erro na inserção de registo (tabela '{typeof(T).Name}').";
-                ex.DataAccessStatusInfo.ExceptionMessage = ex.Message;
-                ex.DataAccessStatusInfo.StackTrace = ex.StackTrace; ;
-                throw ex;
+                throw;
             }
         }
 
@@ -71,14 +64,9 @@ namespace MauiPetsApp.Infrastructure
                     await connection.ExecuteAsync(query, entity);
                 }
             }
-            catch (DataAccessException ex)
+            catch (DataAccessException)
             {
-                ex.DataAccessStatusInfo.Status = "Erro";
-                ex.DataAccessStatusInfo.OperationSucceeded = false;
-                ex.DataAccessStatusInfo.CustomMessage = $"Erro na anulação de registo (tabela '{typeof(T).Name}').";
-                ex.DataAccessStatusInfo.ExceptionMessage = ex.Message;
-                ex.DataAccessStatusInfo.StackTrace = ex.StackTrace;
-                throw ex;
+                throw;
             }
         }
 
@@ -95,18 +83,13 @@ namespace MauiPetsApp.Infrastructure
                     await connection.ExecuteAsync(query, entity);
                 }
             }
-            catch (DataAccessException ex)
+            catch (DataAccessException)
             {
-                ex.DataAccessStatusInfo.Status = "Erro";
-                ex.DataAccessStatusInfo.OperationSucceeded = false;
-                ex.DataAccessStatusInfo.CustomMessage = $"Erro na atualização de registo (tabela '{typeof(T).Name}').";
-                ex.DataAccessStatusInfo.ExceptionMessage = ex.Message;
-                ex.DataAccessStatusInfo.StackTrace = ex.StackTrace;
-                throw ex;
+                throw;
             }
         }
 
-        public async Task<IEnumerable<T>> Query(string where = null)
+        public async Task<IEnumerable<T>> Query(string? where = null)
         {
             var query = $"SELECT * FROM {typeof(T).Name} ";
 
@@ -218,14 +201,9 @@ namespace MauiPetsApp.Infrastructure
                     await connection.ExecuteAsync(query, new { Id });
                 }
             }
-            catch (DataAccessException ex)
+            catch (DataAccessException)
             {
-                ex.DataAccessStatusInfo.Status = "Erro";
-                ex.DataAccessStatusInfo.OperationSucceeded = false;
-                ex.DataAccessStatusInfo.CustomMessage = $"Erro na atualização de registo (tabela '{typeof(T).Name}').";
-                ex.DataAccessStatusInfo.ExceptionMessage = ex.Message;
-                ex.DataAccessStatusInfo.StackTrace = ex.StackTrace;
-                throw ex;
+                throw;
             }
         }
 
@@ -240,14 +218,9 @@ namespace MauiPetsApp.Infrastructure
                     await connection.ExecuteAsync(query, new { Id });
                 }
             }
-            catch (DataAccessException ex)
+            catch (DataAccessException)
             {
-                ex.DataAccessStatusInfo.Status = "Erro";
-                ex.DataAccessStatusInfo.OperationSucceeded = false;
-                ex.DataAccessStatusInfo.CustomMessage = $"Erro na anulação - tabela '{typeof(T).Name}'.";
-                ex.DataAccessStatusInfo.ExceptionMessage = ex.Message;
-                ex.DataAccessStatusInfo.StackTrace = ex.StackTrace;
-                throw ex;
+                throw;
             }
         }
     }

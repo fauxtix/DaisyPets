@@ -50,6 +50,8 @@ namespace MauiPets
             {
                 Routing.RegisterRoute(item.Key, item.Value);
             }
+
+
         }
     }
 }

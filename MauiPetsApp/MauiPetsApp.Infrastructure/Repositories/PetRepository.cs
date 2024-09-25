@@ -227,7 +227,6 @@ namespace MauiPetsApp.Infrastructure
 
         public async Task<PetVM> GetPetVMAsync(int Id)
         {
-
             string sqlQuery = GetPetsVM_Query();
 
             StringBuilder sb = new StringBuilder();
@@ -310,7 +309,7 @@ namespace MauiPetsApp.Infrastructure
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw;
