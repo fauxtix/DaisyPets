@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Maui;
 using FluentValidation;
+using MauiPets.Core.Application.Interfaces.Repositories.Logs;
 using MauiPets.Mvvm.ViewModels.Contacts;
 using MauiPets.Mvvm.ViewModels.Dewormers;
 using MauiPets.Mvvm.ViewModels.Expenses;
+using MauiPets.Mvvm.ViewModels.Logs;
 using MauiPets.Mvvm.ViewModels.PetFood;
 using MauiPets.Mvvm.ViewModels.Pets;
 using MauiPets.Mvvm.ViewModels.Settings;
@@ -12,6 +14,7 @@ using MauiPets.Mvvm.ViewModels.VetAppointments;
 using MauiPets.Mvvm.Views.Contacts;
 using MauiPets.Mvvm.Views.Dewormers;
 using MauiPets.Mvvm.Views.Expenses;
+using MauiPets.Mvvm.Views.Logs;
 using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Settings;
@@ -152,6 +155,7 @@ namespace MauiPets
             builder.Services.AddTransient<SettingsAddOrEditViewModel>();
             builder.Services.AddTransient<MainSettingsBaseViewModel>();
             builder.Services.AddTransient<MainSettingsViewModel>();
+            builder.Services.AddTransient<LogViewModel>();
 
 
             // Views
@@ -178,6 +182,7 @@ namespace MauiPets
             builder.Services.AddTransient<SettingsManagementPage>();
             builder.Services.AddTransient<SettingsAddOrEditPage>();
 
+            builder.Services.AddTransient<LogsMainPage>();
 
             // Database context
 
@@ -225,6 +230,7 @@ namespace MauiPets
 
             builder.Services.AddTransient<ILookupTableRepository, LookupTableRepository>();
             builder.Services.AddTransient<ITipoDespesaRepository, TipoDespesaRepository>();
+            builder.Services.AddTransient<ILogRepository, LogRepository>();
 
             builder.Services.AddTransient<LocalNotificationCenter>();
 

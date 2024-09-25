@@ -25,19 +25,19 @@ public partial class GroupedExpensesViewModel : ObservableObject
         var despesas = await _service.GetAllVMAsync();
 
         var groupedExpenses = despesas
-            .GroupBy(d => d.DescricaoCategoriaDespesa) 
+            .GroupBy(d => d.DescricaoCategoriaDespesa)
             .Select(c => new GrupoDespesasDto
             {
                 CategoriaDespesa = c.Key,
-                TiposDespesa = c.GroupBy(d => d.DescricaoTipoDespesa) 
+                TiposDespesa = c.GroupBy(d => d.DescricaoTipoDespesa)
                     .Select(t => new TipoAgrupadoDto
                     {
                         Descricao = t.Key,
-                        Despesas = t.ToList(), 
-                        SubTotal = t.Sum(d => d.ValorPago) 
+                        Despesas = t.ToList(),
+                        SubTotal = t.Sum(d => d.ValorPago)
                     })
                     .ToList(),
-                SubTotal = c.Sum(d => d.ValorPago) 
+                SubTotal = c.Sum(d => d.ValorPago)
             })
             .ToList();
 

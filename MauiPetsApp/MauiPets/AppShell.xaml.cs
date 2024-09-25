@@ -1,6 +1,7 @@
 ﻿using MauiPets.Mvvm.Views.Contacts;
 using MauiPets.Mvvm.Views.Dewormers;
 using MauiPets.Mvvm.Views.Expenses;
+using MauiPets.Mvvm.Views.Logs;
 using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Settings;
@@ -45,13 +46,12 @@ namespace MauiPets
             Routes.Add(nameof(MainSettingsPage), typeof(MainSettingsPage));
             Routes.Add(nameof(SettingsAddOrEditPage), typeof(SettingsAddOrEditPage));
             Routes.Add(nameof(SettingsManagementPage), typeof(SettingsManagementPage));
+            Routes.Add(nameof(LogsMainPage), typeof(LogsMainPage));
 
             foreach (var item in Routes)
             {
                 Routing.RegisterRoute(item.Key, item.Value);
             }
-
-
         }
     }
 }

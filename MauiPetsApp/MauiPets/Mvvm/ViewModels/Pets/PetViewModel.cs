@@ -50,6 +50,7 @@ public partial class PetViewModel : BaseViewModel
                 return;
 
             IsBusy = true;
+            _logger.LogError($"Loading Pets");
 
 
             var pets = (await _petService.GetAllVMAsync()).ToList();
