@@ -47,9 +47,6 @@ public partial class PetViewModel : BaseViewModel
                 return;
 
             IsBusy = true;
-            Log.Information("Lendo os ficheiros de Pets.");
-
-
             var pets = (await _petService.GetAllVMAsync()).ToList();
 
             if (pets.Count != 0)

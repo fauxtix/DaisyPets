@@ -19,7 +19,6 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
         {
             try
             {
-                Log.Information("Lendo os registos do log");
                 using var connection = _context.CreateConnection();
                 var offset = (page - 1) * pageSize;
                 var sql = "SELECT * FROM PetsLogs ORDER BY date(TimeStamp) DESC LIMIT @PageSize OFFSET @Offset";
@@ -38,8 +37,6 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
         {
             try
             {
-                Log.Information("Contando os registos do log");
-
                 using var connection = _context.CreateConnection();
                 var sql = "SELECT COUNT(*) FROM PetsLogs";
                 var output = await connection.QuerySingleOrDefaultAsync<int>(sql);
@@ -57,8 +54,6 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
         {
             try
             {
-                Log.Information("Filtrando os registos do log, através de pesquisa de texto");
-
                 using var connection = _context.CreateConnection();
                 var sql = "SELECT * FROM PetsLogs WHERE Message LIKE @SearchText ORDER BY date(TimeStamp) DESC";
 

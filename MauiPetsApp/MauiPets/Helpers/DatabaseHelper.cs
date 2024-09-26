@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MauiPets.Helpers
+﻿namespace MauiPets.Helpers
 {
     public class DatabaseHelper
     {
         public static async void CopyDatabaseIfNeeded()
         {
             await CopyFileToAppDataDirectory("PetsDB.db");
-            string mainDir = FileSystem.Current.AppDataDirectory;
 
-            string databaseName = "PetsDB.db"; // Replace with your database name
+            string databaseName = "PetsDB.db";
             string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             string destinationPath = Path.Combine(localAppDataPath, databaseName);
 

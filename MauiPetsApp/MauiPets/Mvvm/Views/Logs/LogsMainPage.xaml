@@ -23,81 +23,100 @@
                  IconImageSource="delete_32.png" />
     </ContentPage.ToolbarItems>
 
-    <Grid>
     <ScrollView>
+        <Grid RowDefinitions="Auto, Auto, *">
+            <StackLayout Padding="10" Grid.Row="0">
+                <SearchBar x:Name="searchBar" Placeholder="Search Logs" 
+                           HorizontalOptions="Start"
+                           WidthRequest="300">
+                    <SearchBar.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                    Command="{Binding LoadFilteredLogsCommand}" 
+                                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                    </SearchBar.Behaviors>
 
-        <StackLayout Padding="10">
-            <Label Text="{Binding TotalLogs}" 
-                   FontSize="12" 
-                   HorizontalOptions="Center" 
-                   Margin="5" />
-            <Label Text="Total Logs" 
-                   FontSize="12" 
-                   HorizontalOptions="Center" 
-                   Margin="5" />
-            <SearchBar Placeholder="Search Logs" 
-                       Text="{Binding SearchText}" 
-                       BackgroundColor="White" 
-                       SearchCommand="{Binding LoadFilteredLogsCommand}" />
-            <CollectionView ItemsSource="{Binding Logs}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:LogEntry">
-                        <StackLayout Padding="10" Margin="5" BackgroundColor="LightGray">
-                            <Label Text="{Binding Message}" FontAttributes="Bold" />
-                            <Label Text="{Binding Level}" TextColor="Gray" />
-                            <Label Text="{Binding TimeStamp}" FontSize="12" />
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
 
-            <!-- Page Information and Page Size Adjustments -->
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
-                <Label Text="Pagª: " />
-                <Label Text="{Binding CurrentPage}" />
-                <Label Text=" de " />
-                <Label Text="{Binding TotalPages}" />
-            </StackLayout>
+                </SearchBar>
+                <CollectionView ItemsSource="{Binding Logs}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:LogEntry">
+                            <StackLayout Padding="10" Margin="5" BackgroundColor="LightGray">
+                                <Label Text="{Binding Message}" FontAttributes="Bold" />
+                                <Label Text="{Binding Level}" TextColor="Gray" />
+                                <Label Text="{Binding TimeStamp}" FontSize="12" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-            <StackLayout Spacing="3" Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
-                <Button Text="Anterior" Command="{Binding LoadPreviousPageCommand}"
+                <!-- Page Information and Page Size Adjustments -->
+                <Grid Grid.Row="1" ColumnDefinitions="Auto, *">
+                    <StackLayout Grid.Column="0" HorizontalOptions="Start"
+                                 VerticalOptions="Center">
+                        <Grid ColumnDefinitions="Auto, 35, Auto, *">
+                            <Label Text="Total de Logs" Grid.Column="0"
+                                   FontSize="12" 
+                                   HorizontalOptions="Start" 
+                                   Margin="5" />
+                            <Label Text="{Binding TotalLogs}" Grid.Column="1"
+                                   FontSize="12" 
+                                   HorizontalOptions="Start" 
+                                   FontAttributes="Bold"
+                                   Margin="5" />
+                            <Label Text="IRegistos por pagª: " 
+                                   Grid.Column="2"
+                                   Margin="20, 5"
+                                   FontSize="12"
+                                   VerticalOptions="Start" 
+                                   HorizontalOptions="Center" />
+                            <Entry Grid.Column="3" Text="{Binding PageSize, Mode=TwoWay, Converter={StaticResource EntryToNullableIntConverter}}"  
+                                   WidthRequest="30" 
+                                   Keyboard="Numeric"  MaxLength="2"
+                                   Margin="-20, -5"
+                                   HorizontalOptions="Start"
+                                   VerticalOptions="Center">
+                            </Entry>
+                        </Grid>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="3" 
+                                 Orientation="Horizontal" 
+                                 HorizontalOptions="End" Margin="10, 5, 10, 5">
+                        <Label Text="Pagª: " FontSize="12" />
+                        <Label Text="{Binding CurrentPage}" FontSize="12" />
+                        <Label Text=" de " FontSize="12" />
+                        <Label Text="{Binding TotalPages}" FontSize="12" />
+                    </StackLayout>
+                </Grid>
+
+                <StackLayout IsVisible="{Binding IsPaginationVisible}" Spacing="3" Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
+                    <Button Text="Início" Command="{Binding FirstPageCommand}" CornerRadius="10" WidthRequest="80" />
+                    <Button Text="Anterior" Command="{Binding LoadPreviousPageCommand}" CornerRadius="10"
                         IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" />
-                <Button Text="Seguinte" Command="{Binding LoadNextPageCommand}">
-                    <Button.IsEnabled>
-                        <MultiBinding>
-                            <Binding Path="CurrentPage" />
-                            <Binding Path="TotalPages" />
-                            <MultiBinding.Converter>
-                                <conv:LessThanTotalPagesConverter/>
-                            </MultiBinding.Converter>
-                        </MultiBinding>
-                    </Button.IsEnabled>
-                </Button>
-            </StackLayout>
+                    <Button Text="Seguinte" Command="{Binding LoadNextPageCommand}" CornerRadius="10">
+                        <Button.IsEnabled>
+                            <MultiBinding>
+                                <Binding Path="CurrentPage" />
+                                <Binding Path="TotalPages" />
+                                <MultiBinding.Converter>
+                                    <conv:LessThanTotalPagesConverter/>
+                                </MultiBinding.Converter>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                    <Button Text="Fim" Command="{Binding LastPageCommand}" CornerRadius="10" WidthRequest="80"/>
+                </StackLayout>
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10" VerticalOptions="Center">
-                <Label Text="Items per page: " 
-                       VerticalOptions="Center" 
-                       HorizontalOptions="End" 
-                       Margin="0,0,5,0" />
-                <!-- Optional margin for spacing -->
-                <Entry Text="{Binding PageSize, Mode=TwoWay, Converter={StaticResource EntryToNullableIntConverter}}"  
-                       WidthRequest="50" 
-                       Keyboard="Numeric"  MaxLength="2"
-                       VerticalOptions="Center">
-                    <!--<Entry.Behaviors>
-                        <behaviours:WholeNumberValidationBehavior/>
-                    </Entry.Behaviors>-->
-                </Entry>
             </StackLayout>
-        </StackLayout>
-    </ScrollView>
-        <Grid IsVisible="{Binding IsLoading}" BackgroundColor="Black" Opacity="0.6">
-            <ActivityIndicator 
+            <Grid IsVisible="{Binding IsLoading}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+              Grid.RowSpan="3">
+                <ActivityIndicator 
                 IsRunning="{Binding IsLoading}" 
                 HorizontalOptions="Center" 
                 VerticalOptions="Center" 
-                Color="White"/>
+                BackgroundColor="WhiteSmoke"
+                Color="Black"/>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollView>
 </ContentPage>

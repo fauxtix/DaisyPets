@@ -43,7 +43,6 @@
     </ContentPage.ToolbarItems>
 
     <Grid Margin="5, 0, 5, 5" Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, Auto, Auto">
-
         <!-- Conteúdo superior da página -->
         <VerticalStackLayout Padding="10">
             <!--<Border Stroke="#C49B33" Margin="0, 2, 0, 0"
@@ -232,7 +231,8 @@
                Grid.Row="7" />
 
         <!-- Indicador de atividade -->
-        <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.RowSpan="8" >
+        <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+              Grid.RowSpan="8" >
             <ActivityIndicator                
                 x:Name="ai" 
                 IsRunning="{Binding IsBusy}" 

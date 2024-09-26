@@ -90,30 +90,8 @@ namespace MauiPets
             builder.Configuration.AddConfiguration(config);
 #endif
 
-            string destinationDatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PetsDB.db");
+            CopyDatabaseIfNeeded();
 
-            // Check if the destination file already exists
-            if (!File.Exists(destinationDatabasePath))
-            {
-                // Open and copy the embedded database file to the destination
-                try
-                {
-                    using (var sourceStream = typeof(App).Assembly.GetManifestResourceStream("MauiPets.Database.PetsDB.db"))
-                    {
-                        using (var destinationStream = File.Create(destinationDatabasePath))
-                        {
-                            sourceStream.CopyTo(destinationStream);
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    Shell.Current.DisplayAlert("Error while 'CopyFileToAppDataDirectory", ex.Message, "Ok");
-
-                    throw;
-                }
-            }
 #if DEBUG
             //builder.Logging.AddDebug();
 #endif
@@ -240,14 +218,6 @@ namespace MauiPets
             return builder.Build();
         }
 
-        //private static void SetupSerilog(MauiAppBuilder builder) => Log.Logger = new LoggerConfiguration()
-        //          .MinimumLevel.Information()
-        //          .WriteTo.Debug()
-        //          .WriteTo.Sink(new SQLiteSink(
-        //              builder.Services.BuildServiceProvider().GetRequiredService<IDapperContext>(),
-        //              null)) // Resolve IDapperContext for the sink
-        //          .CreateLogger();
-
         private static void SetupSerilog(MauiAppBuilder builder)
         {
             var serviceProvider = builder.Services.BuildServiceProvider();
@@ -260,5 +230,36 @@ namespace MauiPets
                 .CreateLogger();
         }
 
+        private static void CopyDatabaseIfNeeded()
+        {
+            string destinationDatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PetsDB.db");
+
+            // Check if the destination file already exists
+            if (!File.Exists(destinationDatabasePath))
+            {
+                // Open and copy the embedded database file to the destination
+                try
+                {
+                    using (var sourceStream = typeof(App).Assembly.GetManifestResourceStream("MauiPets.Database.PetsDB.db"))
+                    {
+                        using (var destinationStream = File.Create(destinationDatabasePath))
+                        {
+                            sourceStream.CopyTo(destinationStream);
+                        }
+                    }
+
+                    Shell.Current.DisplayAlert("First run...", "Database copied to physical device", "Ok");
+                }
+                catch (Exception ex)
+                {
+                    Shell.Current.DisplayAlert("Error while 'CopyDatabaseIfNeeded", ex.Message, "Ok");
+                    Log.Error(ex.Message);
+                }
+            }
+            else
+            {
+                Log.Information($"Database {destinationDatabasePath} was already copied...");
+            }
+        }
     }
 }
