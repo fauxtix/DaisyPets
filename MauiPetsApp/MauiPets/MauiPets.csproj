@@ -184,6 +184,7 @@
 	  <None Remove="PetsDB.sqbpro" />
 	  <None Remove="Resources\Fonts\MaterialIconsOutlined-Regular.otf" />
 	  <None Remove="Resources\Fonts\NotoSerif-Bold.ttf" />
+	  <None Remove="Resources\Fonts\OpenSans-Medium.ttf" />
 	  <None Remove="Resources\Fonts\Poppins-Bold.ttf" />
 	  <None Remove="Resources\Fonts\Poppins-Regular.ttf" />
 	  <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
@@ -233,9 +234,6 @@
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Database\PetsDB.db">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Database\PetsDB.db.sql">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Database\PetsDB.sqbpro">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -309,9 +307,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Contacts\ContactsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Contacts\EditContactPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Dewormers\DewormerAddOrEditPage.xaml">

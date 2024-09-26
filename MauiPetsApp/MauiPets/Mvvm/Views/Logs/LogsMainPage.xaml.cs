@@ -7,6 +7,7 @@ public partial class LogsMainPage : ContentPage
     public LogsMainPage(LogViewModel viewModell)
     {
         InitializeComponent();
+        viewModell.IsLoading = true;
         BindingContext = viewModell;
     }
 }

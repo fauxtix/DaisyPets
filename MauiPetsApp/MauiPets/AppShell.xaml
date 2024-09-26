@@ -15,9 +15,9 @@
     FlyoutHeight="460"
     Shell.FlyoutBehavior="Flyout">
     
-    <Shell.FlyoutHeader>
+    <!--<Shell.FlyoutHeader>
         <controls:FlyoutHeader />
-    </Shell.FlyoutHeader>
+    </Shell.FlyoutHeader>-->
     <Shell.FlyoutBackground>
         <LinearGradientBrush StartPoint="0,0"
                              EndPoint="1,1">

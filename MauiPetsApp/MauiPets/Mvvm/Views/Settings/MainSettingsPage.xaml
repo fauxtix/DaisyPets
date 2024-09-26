@@ -4,7 +4,6 @@
              x:Class="MauiPets.Mvvm.Views.Settings.MainSettingsPage"
              xmlns:controls="clr-namespace:MauiPets.Controls"
              xmlns:viewModels="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
-             xmlns:cards="clr-namespace:Syncfusion.Maui.Cards;assembly=Syncfusion.Maui.Cards"
              x:DataType="viewModels:MainSettingsViewModel"
              Title="Settings">
 

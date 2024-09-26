@@ -202,7 +202,7 @@
                      Grid.Row="6">
             <Button Text="Início" Command="{Binding FirstPageCommand}" CornerRadius="10" WidthRequest="80" />
             <Button Text="Anterior" Command="{Binding PreviousPageCommand}" CornerRadius="10"
-                    Style="{StaticResource PaginationButtonsStyle}"
+                    Style="{StaticResource ExpensesFilterButtonStyle}"
                     IsEnabled="{Binding CurrentPage, 
                     Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" />
             <Button Text="Seguinte" 

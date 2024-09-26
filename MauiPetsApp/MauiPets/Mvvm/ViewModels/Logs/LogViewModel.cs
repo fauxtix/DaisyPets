@@ -15,63 +15,106 @@ namespace MauiPets.Mvvm.ViewModels.Logs
 
         [ObservableProperty]
         private string _searchText;
+        [ObservableProperty]
+        private bool _isLoading;
 
         [ObservableProperty]
-        private int _totalLogs; // This now holds the total number of records
+        private int _totalLogs;
 
         [ObservableProperty]
-        private int _pageSize = 10; // Default page size
+        private int _pageSize = 10;
 
         [ObservableProperty]
-        private int _currentPage = 1; // Default starting page
+        private int _currentPage = 1;
 
         [ObservableProperty]
-        private int _totalPages; // Total number of pages
+        private int _totalPages;
+
+        private bool CanNavigatePrevious() => CurrentPage > 1;
+        private bool CanNavigateNext() => CurrentPage < TotalPages;
 
         public LogViewModel(ILogRepository logRepository)
         {
             _logRepository = logRepository;
+            InitializeAsync();
+        }
+
+        private async void InitializeAsync()
+        {
+            await LoadLogsAsync();
         }
 
         [RelayCommand]
         public async Task LoadLogsAsync()
         {
-            CurrentPage = 1; // Reset to the first page
+            await Task.Delay(100);
+            IsLoading = true;
+            CurrentPage = 1;
             await LoadPageAsync();
+            IsLoading = false;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanNavigateNext))]
         public async Task LoadNextPageAsync()
         {
-            if (CurrentPage < TotalPages) // Check against TotalPages
+            if (CurrentPage < TotalPages)
             {
-                CurrentPage++;
-                await LoadPageAsync();
+                try
+                {
+                    CurrentPage++;
+                    await LoadPageAsync();
+
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"LoadNextPageAsync: {ex.Message}");
+                }
             }
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanNavigatePrevious))]
         public async Task LoadPreviousPageAsync()
         {
             if (CurrentPage > 1)
             {
-                CurrentPage--;
-                await LoadPageAsync();
+                try
+                {
+                    CurrentPage--;
+                    await LoadPageAsync();
+
+                }
+                catch (Exception ex)
+                {
+                    Log.Error($"LoadPreviousPageAsync: {ex.Message}");
+                }
             }
         }
 
         private async Task LoadPageAsync()
         {
-            var logs = await _logRepository.GetLogsAsync(CurrentPage, PageSize);
-            Logs.Clear();
-
-            foreach (var log in logs)
+            try
             {
-                Logs.Add(log);
-            }
+                IsLoading = true;
 
-            TotalLogs = await _logRepository.GetLogCountAsync(); // Fetch total logs
-            TotalPages = (int)Math.Ceiling((double)TotalLogs / PageSize); // Calculate TotalPages
+                var logs = await _logRepository.GetLogsAsync(CurrentPage, PageSize);
+                Logs.Clear();
+
+                foreach (var log in logs)
+                {
+                    Logs.Add(log);
+                }
+
+                TotalLogs = await _logRepository.GetLogCountAsync();
+                TotalPages = (int)Math.Ceiling((double)TotalLogs / PageSize);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"LoadPageAsync: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
 
         [RelayCommand]
@@ -83,46 +126,70 @@ namespace MauiPets.Mvvm.ViewModels.Logs
             }
             else
             {
-                var logs = await _logRepository.GetFilteredLogsAsync(SearchText);
-                Logs.Clear();
-
-                foreach (var log in logs)
+                try
                 {
-                    Logs.Add(log);
+                    IsLoading = true;
+                    var logs = await _logRepository.GetFilteredLogsAsync(SearchText);
+                    Logs.Clear();
+
+                    foreach (var log in logs)
+                    {
+                        Logs.Add(log);
+                    }
+                    TotalLogs = Logs.Count;
+                    TotalPages = 1;
+
                 }
-                TotalLogs = Logs.Count; // Update TotalLogs with filtered logs
-                TotalPages = 1; // Only one page when filtered
+                catch (Exception ex)
+                {
+                    Log.Error($"LoadFilteredLogsAsync: {ex.Message}");
+                }
+                finally
+                {
+                    IsLoading = false;
+                }
+
             }
         }
 
         [RelayCommand]
         public async Task DeleteAllLogsAsync()
         {
-            //if (TotalLogs == 0) return;
 
-            // Optional: Display confirmation before deleting
             var confirm = await Application.Current.MainPage.DisplayAlert("Confirm", "Are you sure you want to delete all log entries?", "Yes", "No");
             if (confirm)
             {
                 try
                 {
-                    Log.Information("Attempting to delete all logs.");
-                    await _logRepository.DeleteLogsAsync(); // Ensure this method is correctly implemented
+                    IsLoading = true;
+                    await _logRepository.DeleteLogsAsync();
                     Log.Warning("All logs have been deleted successfully.");
-                    await LoadLogsAsync(); // Reload logs to update UI
+                    await LoadLogsAsync();
                 }
                 catch (Exception ex)
                 {
-                    Log.Error($"Error deleting logs: {ex.Message}"); // Log the error if any
+                    Log.Error($"Error deleting logs: {ex.Message}");
+                }
+                finally
+                {
+                    IsLoading = false;
                 }
             }
         }
 
-        // This method is called automatically when PageSize changes
         partial void OnPageSizeChanged(int value)
         {
-            CurrentPage = 1; // Reset to the first page
-            _ = LoadLogsAsync(); // Start loading logs without awaiting
+            try
+            {
+                CurrentPage = 1;
+                TotalPages = (int)Math.Ceiling((double)TotalLogs / value);
+                _ = LoadLogsAsync();
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"OnPageSizeChanged: {ex.Message}");
+            }
         }
     }
 }

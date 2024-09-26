@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Serilog;
+using System.Globalization;
 
 namespace MauiPets.Converters
 {
@@ -6,13 +7,22 @@ namespace MauiPets.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Length == 2
-                  && values[0] is int currentPage
-                  && values[1] is int totalPages)
+            try
             {
-                return currentPage < totalPages;
+                if (values.Length == 2
+              && values[0] is int currentPage
+              && values[1] is int totalPages)
+                {
+                    return currentPage < totalPages;
+                }
+                return false;
+
             }
-            return false;
+            catch (Exception ex)
+            {
+                Log.Error($"OnPageSizeChanged: {ex.Message}");
+                return false;
+            }
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

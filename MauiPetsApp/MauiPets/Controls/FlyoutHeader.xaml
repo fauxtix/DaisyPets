@@ -10,8 +10,7 @@
                Opacity="0.6" />
         <Label Text="Daisy Pets"
                TextColor="White"
-               FontFamily="NotoSerifBold"
-               FontSize="18"
+               FontFamily="Poppins"
                HorizontalTextAlignment="Center"
                VerticalTextAlignment="Center" />
     </Grid>

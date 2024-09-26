@@ -19,6 +19,7 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
         {
             try
             {
+                Log.Information("Lendo os registos do log");
                 using var connection = _context.CreateConnection();
                 var offset = (page - 1) * pageSize;
                 var sql = "SELECT * FROM PetsLogs ORDER BY date(TimeStamp) DESC LIMIT @PageSize OFFSET @Offset";
@@ -35,18 +36,41 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
 
         public async Task<int> GetLogCountAsync()
         {
-            using var connection = _context.CreateConnection();
-            var sql = "SELECT COUNT(*) FROM PetsLogs";
+            try
+            {
+                Log.Information("Contando os registos do log");
 
-            return await connection.QuerySingleOrDefaultAsync<int>(sql);
+                using var connection = _context.CreateConnection();
+                var sql = "SELECT COUNT(*) FROM PetsLogs";
+                var output = await connection.QuerySingleOrDefaultAsync<int>(sql);
+                return output;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"GetLogCountAsync: {ex.Message}");
+                return 0;
+            }
         }
 
         public async Task<IEnumerable<LogEntry>> GetFilteredLogsAsync(string searchText)
         {
-            using var connection = _context.CreateConnection();
-            var sql = "SELECT * FROM PetsLogs WHERE Message LIKE @SearchText ORDER BY date(TimeStamp) DESC";
+            try
+            {
+                Log.Information("Filtrando os registos do log, através de pesquisa de texto");
 
-            return await connection.QueryAsync<LogEntry>(sql, new { SearchText = $"%{searchText}%" });
+                using var connection = _context.CreateConnection();
+                var sql = "SELECT * FROM PetsLogs WHERE Message LIKE @SearchText ORDER BY date(TimeStamp) DESC";
+
+                return await connection.QueryAsync<LogEntry>(sql, new { SearchText = $"%{searchText}%" });
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"GetFilteredLogsAsync: {ex.Message}");
+                return Enumerable.Empty<LogEntry>();
+
+            }
         }
 
         public async Task DeleteLogsAsync()

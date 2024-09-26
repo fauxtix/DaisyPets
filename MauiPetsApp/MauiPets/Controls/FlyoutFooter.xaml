@@ -9,6 +9,7 @@
                HorizontalOptions="Center" />
         <Label Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:dd MMMM, yyyy}'}"
                TextColor="GhostWhite"
+               FontFamily="Poppins"
                HorizontalOptions="Center" />
     </StackLayout>
 </ContentView>

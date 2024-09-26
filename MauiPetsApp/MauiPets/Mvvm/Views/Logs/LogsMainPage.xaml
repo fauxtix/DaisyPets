@@ -3,16 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:MauiPets.Mvvm.ViewModels.Logs"
              xmlns:models="clr-namespace:MauiPets.Core.Application.ViewModels.Logs;assembly=MauiPets.Core"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2021/maui/toolkit"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"           
+             xmlns:behaviours="clr-namespace:MauiPets.Mvvm.Behaviours"
+             xmlns:conv="clr-namespace:MauiPets.Converters"
              x:Class="MauiPets.Mvvm.Views.Logs.LogsMainPage"
              x:DataType="vm:LogViewModel"
              Title="Logs">
+
+    <ContentPage.Resources>
+        <conv:StringToDateConverter x:Key="stringToDateConverter" />
+        <conv:GreaterThanOneConverter x:Key="GreaterThanOneConverter" />
+        <conv:LessThanTotalPagesConverter x:Key="LessThanTotalPagesConverter"/>
+        <conv:EntryToNullableIntConverter x:Key="EntryToNullableIntConverter"/>
+    </ContentPage.Resources>
+
     <ContentPage.ToolbarItems>
-            <ToolbarItem Text="Delete All"
+        <ToolbarItem Text="Delete All"
                  Command="{Binding DeleteAllLogsCommand}" 
-                 IconImageSource="expense.png" />
+                 IconImageSource="delete_32.png" />
     </ContentPage.ToolbarItems>
+
+    <Grid>
     <ScrollView>
+
         <StackLayout Padding="10">
             <Label Text="{Binding TotalLogs}" 
                    FontSize="12" 
@@ -26,9 +39,6 @@
                        Text="{Binding SearchText}" 
                        BackgroundColor="White" 
                        SearchCommand="{Binding LoadFilteredLogsCommand}" />
-
-            <Button Text="Load Logs" Command="{Binding LoadLogsCommand}" />
-
             <CollectionView ItemsSource="{Binding Logs}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:LogEntry">
@@ -43,30 +53,51 @@
 
             <!-- Page Information and Page Size Adjustments -->
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
-                <Label Text="Page: " />
+                <Label Text="Pagª: " />
                 <Label Text="{Binding CurrentPage}" />
-                <Label Text=" of " />
+                <Label Text=" de " />
                 <Label Text="{Binding TotalPages}" />
             </StackLayout>
 
             <StackLayout Spacing="3" Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
-                <Button Text="Previous" Command="{Binding LoadPreviousPageCommand}" />
-                <Button Text="Next" Command="{Binding LoadNextPageCommand}" />
+                <Button Text="Anterior" Command="{Binding LoadPreviousPageCommand}"
+                        IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" />
+                <Button Text="Seguinte" Command="{Binding LoadNextPageCommand}">
+                    <Button.IsEnabled>
+                        <MultiBinding>
+                            <Binding Path="CurrentPage" />
+                            <Binding Path="TotalPages" />
+                            <MultiBinding.Converter>
+                                <conv:LessThanTotalPagesConverter/>
+                            </MultiBinding.Converter>
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Margin="10" VerticalOptions="Center">
                 <Label Text="Items per page: " 
-           VerticalOptions="Center" 
-           HorizontalOptions="End" 
-           Margin="0,0,5,0" />
+                       VerticalOptions="Center" 
+                       HorizontalOptions="End" 
+                       Margin="0,0,5,0" />
                 <!-- Optional margin for spacing -->
-                <Entry Text="{Binding PageSize, Mode=TwoWay}" 
-           WidthRequest="50" 
-           Keyboard="Numeric" 
-           VerticalOptions="Center" />
+                <Entry Text="{Binding PageSize, Mode=TwoWay, Converter={StaticResource EntryToNullableIntConverter}}"  
+                       WidthRequest="50" 
+                       Keyboard="Numeric"  MaxLength="2"
+                       VerticalOptions="Center">
+                    <!--<Entry.Behaviors>
+                        <behaviours:WholeNumberValidationBehavior/>
+                    </Entry.Behaviors>-->
+                </Entry>
             </StackLayout>
-
-
         </StackLayout>
     </ScrollView>
+        <Grid IsVisible="{Binding IsLoading}" BackgroundColor="Black" Opacity="0.6">
+            <ActivityIndicator 
+                IsRunning="{Binding IsLoading}" 
+                HorizontalOptions="Center" 
+                VerticalOptions="Center" 
+                Color="White"/>
+        </Grid>
+    </Grid>
 </ContentPage>
