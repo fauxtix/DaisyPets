@@ -66,7 +66,7 @@ namespace MauiPetsApp.Infrastructure
             catch (Exception ex)
             {
                 _logger.LogError(ex.ToString(), ex);
-                throw;
+                return new Contacto();
             }
         }
 

@@ -37,14 +37,38 @@
 
 
                 </SearchBar>
-                <CollectionView ItemsSource="{Binding Logs}">
+                <CollectionView ItemsSource="{Binding Logs}" SelectionMode="Single">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:LogEntry">
-                            <StackLayout Padding="10" Margin="5" BackgroundColor="LightGray">
-                                <Label Text="{Binding Message}" FontAttributes="Bold" />
-                                <Label Text="{Binding Level}" TextColor="Gray" />
-                                <Label Text="{Binding TimeStamp}" FontSize="12" />
-                            </StackLayout>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                        <SwipeItem Text="Delete"
+                                               IconImageSource="icon_delete.svg" 
+                                               BackgroundColor="LightPink"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LogViewModel}}, Path=DeleteLogByIdCommand}"
+                                               CommandParameter="{Binding .}" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <StackLayout Padding="2" Margin="5,0" 
+                                                     BackgroundColor="LightGray">
+                                    <Frame CornerRadius="12">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LogViewModel}}, Path=ViewLogExceptionCommand}"
+                                        CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
+                                        <Grid Padding="2" RowDefinitions="Auto, Auto, Auto" ColumnSpacing="10" Margin="0" RowSpacing="1">
+                                            <Label Grid.Row="0" Text="{Binding Message}" FontSize="12" FontAttributes="Bold" />
+                                            <Label Grid.Row="1" Text="{Binding Level}" FontSize="12" TextColor="Gray" />
+                                            <Label Grid.Row="2" Text="{Binding TimeStamp}" FontSize="10" />
+                                        </Grid>
+                                    </Frame>
+                                </StackLayout>
+                            </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
@@ -72,7 +96,7 @@
                             <Entry Grid.Column="3" Text="{Binding PageSize, Mode=TwoWay, Converter={StaticResource EntryToNullableIntConverter}}"  
                                    WidthRequest="30" 
                                    Keyboard="Numeric"  MaxLength="2"
-                                   Margin="-20, -5"
+                                   Margin="-20, -8"
                                    HorizontalOptions="Start"
                                    VerticalOptions="Center">
                             </Entry>

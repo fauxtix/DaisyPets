@@ -8,5 +8,7 @@ namespace MauiPets.Core.Application.Interfaces.Repositories.Logs
         Task<int> GetLogCountAsync();
         Task<IEnumerable<LogEntry>> GetFilteredLogsAsync(string searchText);
         Task DeleteLogsAsync();
+        Task DeleteAsync(int Id);
+        Task<LogEntry> FindByIdAsync(int Id);
     }
 }

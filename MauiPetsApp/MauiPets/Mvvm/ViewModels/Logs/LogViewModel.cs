@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Core.Application.Interfaces.Repositories.Logs;
 using MauiPets.Core.Application.ViewModels.Logs;
@@ -10,6 +12,7 @@ namespace MauiPets.Mvvm.ViewModels.Logs
     public partial class LogViewModel : ObservableObject
     {
         private readonly ILogRepository _logRepository;
+
 
         public ObservableCollection<LogEntry> Logs { get; } = new ObservableCollection<LogEntry>();
 
@@ -70,9 +73,6 @@ namespace MauiPets.Mvvm.ViewModels.Logs
             CurrentPage = TotalPages;
             await LoadPageAsync();
         }
-
-
-
 
         [RelayCommand(CanExecute = nameof(CanNavigateNext))]
         public async Task LoadNextPageAsync()
@@ -173,7 +173,7 @@ namespace MauiPets.Mvvm.ViewModels.Logs
                     IsLoading = true;
                     await Task.Delay(200);
                     await _logRepository.DeleteLogsAsync();
-                    Log.Information($"{TotalLogs} registos do Log foram apagados com sucesso");
+                    //Log.Information($"{TotalLogs} registos do Log foram apagados com sucesso");
                     await LoadLogsAsync();
                 }
                 catch (Exception ex)
@@ -186,6 +186,48 @@ namespace MauiPets.Mvvm.ViewModels.Logs
                 }
             }
         }
+
+        [RelayCommand]
+        private async Task ViewLogExceptionAsync(LogEntry logEntry)
+        {
+            var response = await _logRepository.FindByIdAsync(logEntry.Id);
+            if (response != null)
+            {
+
+                await NavigateToViewExceptionPage(response);
+            }
+        }
+
+        private async Task NavigateToViewExceptionPage(LogEntry response)
+        {
+            await Shell.Current.GoToAsync($"{nameof(LogViewExceptionViewModel)}", true,
+                new Dictionary<string, object>
+                {
+                    {"SelectedLogEntry", response},
+                });
+        }
+
+        [RelayCommand]
+        public async Task DeleteLogByIdAsync(LogEntry log)
+        {
+            if (log == null) return;
+
+            bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apagar entrada de {log.TimeStamp}?", "Sim", "Não");
+            if (okToDelete)
+            {
+                IsLoading = true;
+                await _logRepository.DeleteAsync(log.Id);
+                await ShowToastMessage($"Log apagado com sucesso");
+
+                await LoadLogsAsync();
+
+                //await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
+            }
+            IsLoading = false;
+
+        }
+
+
 
         partial void OnPageSizeChanged(int value)
         {
@@ -201,5 +243,12 @@ namespace MauiPets.Mvvm.ViewModels.Logs
                 Log.Error($"OnPageSizeChanged: {ex.Message}");
             }
         }
+
+        private async Task ShowToastMessage(string text)
+        {
+            var toast = Toast.Make(text, ToastDuration.Short, 14);
+            await toast.Show();
+        }
+
     }
 }

@@ -26,13 +26,13 @@
             <Setter Property="BorderColor" Value="Transparent" />
             <Setter Property="Margin" Value="0,0,10,0" />
         </Style>
-        
+
     </ContentPage.Resources>
 
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetExpensesCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Grouped Expenses"
                  Command="{Binding NavigateToGroupedExpensesCommand}" 
@@ -77,7 +77,7 @@
                     </LinearGradientBrush>
                 </Frame.Background>
                 <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5" Padding="5">
-                    <Image Source="expenses.svg" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" />
+                    <Image Source="icon_group_data.png" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" />
                     <Label Text="{Binding TotalGeralDespesas, Mode=OneWay, StringFormat='Total: {0:C2}'}"
                            FontSize="20"
                            FontFamily="Poppins"
@@ -87,34 +87,41 @@
             </Frame>
 
             <!-- Botões de filtro -->
-            <Frame CornerRadius="30" Grid.Row="2"
-               VerticalOptions="Start"
-               HorizontalOptions="Center"
-               HasShadow="True"
-               Padding="15, 10"
-               BackgroundColor="White"
-               BorderColor="#dcdcdc"
-               Margin="1,15"
-               HeightRequest="60"
-               WidthRequest="370">
+            <Border StrokeThickness="1"
+                Stroke="#dcdcdc"
+                BackgroundColor="White"
+                Padding="5,1"
+                Margin="1,15"
+                HeightRequest="60"
+                WidthRequest="370"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                StrokeShape="RoundRectangle 30">
                 <FlexLayout Direction="Row"
-                    JustifyContent="Center"
-                    AlignItems="Center"
-                    Wrap="NoWrap">
+                            JustifyContent="SpaceBetween" 
+                            AlignItems="Center"
+                            Wrap="NoWrap"
+                            Margin="0,0">
                     <Button Text="Este ano"
                             Command="{Binding FilterExpensesByYearCommand}"
                             BackgroundColor="#2ECC71"
-                            Style="{StaticResource ExpensesFilterButtonStyle}" />
+                            Style="{StaticResource ExpensesFilterButtonStyle}"
+                            WidthRequest="100"
+                            Margin="5,0" />
                     <Button Text="Este mês"
                             Command="{Binding FilterExpensesByMonthCommand}"
-                        BackgroundColor="#3498db"
-                            Style="{StaticResource ExpensesFilterButtonStyle}" />
+                            BackgroundColor="#3498db"
+                            Style="{StaticResource ExpensesFilterButtonStyle}"
+                            WidthRequest="100"
+                            Margin="5,0" />
                     <Button Text="Todas"
-                            Command="{Binding GetExpensesCommand}"
-                            BackgroundColor="#f1c40f"
-                            Style="{StaticResource ExpensesFilterButtonStyle}" />
+                        Command="{Binding GetExpensesCommand}"
+                        BackgroundColor="#f1c40f"
+                        Style="{StaticResource ExpensesFilterButtonStyle}"
+                        WidthRequest="100"
+                        Margin="5,0" />
                 </FlexLayout>
-            </Frame>
+            </Border>
 
         </VerticalStackLayout>
         <VerticalStackLayout Grid.Row="3">

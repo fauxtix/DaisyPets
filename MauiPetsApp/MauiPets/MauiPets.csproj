@@ -206,9 +206,10 @@
 	  <None Remove="Resources\Images\femenine_icon.png" />
 	  <None Remove="Resources\Images\icon_close.svg" />
 	  <None Remove="Resources\Images\icon_edit.svg" />
+	  <None Remove="Resources\Images\icon_group_data.png" />
+	  <None Remove="Resources\Images\icon_log.png" />
 	  <None Remove="Resources\Images\icon_save.png" />
 	  <None Remove="Resources\Images\list.png" />
-	  <None Remove="Resources\Images\log_icon.png" />
 	  <None Remove="Resources\Images\male_icon.png" />
 	  <None Remove="Resources\Images\money_preview.png" />
 	  <None Remove="Resources\Images\nodata.png" />
@@ -323,6 +324,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Logs\LogsMainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Logs\LogViewException.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\PetFood\PetFoodAddOrEditPage.xaml">

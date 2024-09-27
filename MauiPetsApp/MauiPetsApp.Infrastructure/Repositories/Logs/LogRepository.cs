@@ -3,6 +3,7 @@ using MauiPets.Core.Application.Interfaces.Repositories.Logs;
 using MauiPets.Core.Application.ViewModels.Logs;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using Serilog;
+using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Repositories.Logs
 {
@@ -50,6 +51,35 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
             }
         }
 
+        public async Task<LogEntry> FindByIdAsync(int Id)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT * FROM PetsLogs ");
+            sb.Append($"WHERE Id = @Id");
+
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    var pet = await connection.QuerySingleOrDefaultAsync<LogEntry>(sb.ToString(), new { Id });
+                    if (pet != null)
+                    {
+                        return pet;
+                    }
+                    else
+                    {
+                        return new LogEntry();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString());
+                return new LogEntry();
+            }
+        }
+
         public async Task<IEnumerable<LogEntry>> GetFilteredLogsAsync(string searchText)
         {
             try
@@ -83,5 +113,26 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
                 throw;
             }
         }
+
+        public async Task DeleteAsync(int Id)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("DELETE FROM PetsLogs ");
+            sb.Append("WHERE Id = @Id");
+
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    await connection.ExecuteAsync(sb.ToString(), new { Id });
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString());
+            }
+
+        }
+
     }
 }

@@ -132,7 +132,9 @@ namespace MauiPets
             builder.Services.AddTransient<SettingsAddOrEditViewModel>();
             builder.Services.AddTransient<MainSettingsBaseViewModel>();
             builder.Services.AddTransient<MainSettingsViewModel>();
+
             builder.Services.AddTransient<LogViewModel>();
+            builder.Services.AddTransient<LogViewException>();
 
 
             // Views

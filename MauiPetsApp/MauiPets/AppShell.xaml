@@ -61,7 +61,7 @@
 
     <ShellContent
         Title="Settings"
-        Icon="gear.png" 
+        Icon="icon_log.png" 
         ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
         Route="MainSettingsPage" />
     <Shell.FlyoutFooter>
