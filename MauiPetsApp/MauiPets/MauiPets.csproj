@@ -208,6 +208,7 @@
 	  <None Remove="Resources\Images\icon_edit.svg" />
 	  <None Remove="Resources\Images\icon_save.png" />
 	  <None Remove="Resources\Images\list.png" />
+	  <None Remove="Resources\Images\log_icon.png" />
 	  <None Remove="Resources\Images\male_icon.png" />
 	  <None Remove="Resources\Images\money_preview.png" />
 	  <None Remove="Resources\Images\nodata.png" />
@@ -343,6 +344,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Settings\SettingsManagementPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Settings\SettingsPage2.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Settings\SettingsPage3.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Todo\TodoAddOrEditPage.xaml">

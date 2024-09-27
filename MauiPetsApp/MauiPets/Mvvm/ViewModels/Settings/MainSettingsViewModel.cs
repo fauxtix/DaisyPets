@@ -11,6 +11,18 @@ namespace MauiPets.Mvvm.ViewModels.Settings
         }
 
         [RelayCommand]
+        public async Task NavigateToAdditionalPage1Async()
+        {
+            await Shell.Current.GoToAsync($"{nameof(SettingsPage2)}", true);
+        }
+
+        [RelayCommand]
+        public async Task NavigateToAdditionalPage2Async()
+        {
+            await Shell.Current.GoToAsync($"{nameof(SettingsPage2)}", true);
+        }
+
+        [RelayCommand]
         public async Task NavigateToTableAsync(Dictionary<string, string> parameters)
         {
             if (parameters == null || !parameters.ContainsKey("TableName") || !parameters.ContainsKey("Title"))

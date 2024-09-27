@@ -12,7 +12,7 @@
     xmlns:logsmainpage="clr-namespace:MauiPets.Mvvm.Views.Logs"
     xmlns:settingspage="clr-namespace:MauiPets.Mvvm.Views.Settings"
     FlyoutWidth="200"
-    FlyoutHeight="460"
+    FlyoutHeight="400"
     Shell.FlyoutBehavior="Flyout">
     
     <!--<Shell.FlyoutHeader>
@@ -38,17 +38,17 @@
         Icon="doghouse.png"
         ContentTemplate="{DataTemplate petpage:PetsPage}"
         Route="PetsPage"/>
-        <ShellContent
+    <ShellContent
         Title="Despesas"
         Icon="expenses.png"
         ContentTemplate="{DataTemplate expensespage:ExpensesPage}"
         Route="ExpensesPage" />
-        <ShellContent
+    <ShellContent
         Title="Contactos"
         Icon="phone.png" 
         ContentTemplate="{DataTemplate contactspage:ContactsPage}"
         Route="ContactsPage" />
-        <ShellContent
+    <ShellContent
         Title="Tarefas"
         Icon="tasks.png" 
         ContentTemplate="{DataTemplate todospage:TodoPage}"
@@ -64,8 +64,8 @@
         Icon="gear.png" 
         ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
         Route="MainSettingsPage" />
-    <!--<Shell.FlyoutFooter>
+    <Shell.FlyoutFooter>
         <controls:FlyoutFooter />
-    </Shell.FlyoutFooter>-->
+    </Shell.FlyoutFooter>
 
 </Shell>
