@@ -13,20 +13,17 @@ namespace MauiPets.Mvvm.ViewModels.Expenses;
 
 public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAttributable
 {
-    private readonly IConnectivity _connectivity;
 
     private readonly IDespesaService _service;
     private readonly ITipoDespesaService _tipoDespesaService;
     private readonly ILookupTableService _lookupTablesService;
     private readonly IMapper _mapper;
 
-    public ExpenseAddOrEditViewModel(IConnectivity connectivity,
-                                     IDespesaService service,
+    public ExpenseAddOrEditViewModel(IDespesaService service,
                                      ILookupTableService lookupTablesService,
                                      IMapper mapper,
                                      ITipoDespesaService tipoDespesaService)
     {
-        _connectivity = connectivity;
         _service = service;
         _lookupTablesService = lookupTablesService;
 
@@ -107,13 +104,6 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         {
             IsBusy = true;
             await Task.Delay(100);
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await Shell.Current.DisplayAlert("No connectivity!",
-                    $"Please check internet and try again.", "OK");
-                return;
-            }
-
             var errorMessages = _service.RegistoComErros(DespesaDto);
             if (!string.IsNullOrEmpty(errorMessages))
             {

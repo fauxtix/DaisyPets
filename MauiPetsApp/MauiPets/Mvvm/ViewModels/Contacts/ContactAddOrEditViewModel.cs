@@ -25,7 +25,6 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
     [ObservableProperty]
     private int _contactTypeSelectedIndex;
 
-    public IConnectivity _connectivity;
     public IContactService _contactsService { get; set; }
     public ILookupTableService _lookupTablesService { get; set; }
 
@@ -35,11 +34,9 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
     public BackButtonBehavior BackButtonBehavior { get; set; }
 
     public int SelectedContactId { get; set; }
-    public ContactAddOrEditViewModel(IConnectivity connectivity,
-                                     IContactService contactsService,
+    public ContactAddOrEditViewModel(IContactService contactsService,
                                      ILookupTableService lookupTablesService)
     {
-        _connectivity = connectivity;
         _contactsService = contactsService;
         _lookupTablesService = lookupTablesService;
 
@@ -69,13 +66,6 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
     {
         try
         {
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await Shell.Current.DisplayAlert("No connectivity!",
-                    $"Please check internet and try again.", "OK");
-                return;
-            }
-
             if (ContactoVM.Id == 0)
             {
                 var insertedId = await _contactsService.InsertAsync(ContactoVM);
@@ -111,7 +101,7 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
                         {"ContactoVM", contactoVM }
                     });
 
-               await ShowToastMessage("Contacto atualizado com sucesso");
+                await ShowToastMessage("Contacto atualizado com sucesso");
 
             }
         }

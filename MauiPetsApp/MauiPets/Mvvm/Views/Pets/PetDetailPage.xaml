@@ -260,11 +260,12 @@
                                                                     CommandParameter="{Binding .}"/>
                                                             </Frame.GestureRecognizers>
 
-                                                            <Grid ColumnDefinitions=".3*, .7*" Margin="0,4">
+                                                            <Grid ColumnDefinitions=".3*, .4*, .3*" Margin="0,4">
                                                                 <Label FontAttributes="Bold" FontSize="11"  Grid.Column="0"  Text="{Binding DataTomaFormatada}" HorizontalOptions="Center"/>
                                                                 <Label FontAttributes="Bold" FontSize="11" Grid.Column="1" Text="{Binding Marca}"/>
                                                                 <Label FontAttributes="Bold" FontSize="11" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
-                                                                       TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" HorizontalOptions="End"/>
+                                                                       TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" 
+                                                                       HorizontalOptions="End" Margin="0,0,12,0"/>
                                                             </Grid>
                                                         </Frame>
                                                     </VerticalStackLayout>

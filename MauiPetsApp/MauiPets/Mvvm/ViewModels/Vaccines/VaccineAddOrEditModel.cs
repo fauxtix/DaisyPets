@@ -23,13 +23,10 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
     public string _petName;
 
 
-    public IConnectivity _connectivity;
-
-    public VaccineAddOrEditModel(IVacinasService vacinnesService, IConnectivity connectivity, IPetService petService)
+    public VaccineAddOrEditModel(IVacinasService vacinnesService, IPetService petService)
     {
         _vaccinesService = vacinnesService;
         _petService = petService;
-        _connectivity = connectivity;
     }
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
@@ -37,10 +34,10 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
         await Task.Delay(100);
         SelectedVaccine = query[nameof(SelectedVaccine)] as VacinaDto;
 
-        IsEditing = (bool) query[nameof(IsEditing)];
+        IsEditing = (bool)query[nameof(IsEditing)];
         AddEditCaption = IsEditing ? "Editar vacina" : "Nova vacina";
 
-        DataProximaToma = DataFormat.DateParse(SelectedVaccine.DataToma).AddMonths(SelectedVaccine.ProximaTomaEmMeses);
+        UpdateNextDose();
 
         var selectedPet = await _petService.GetPetVMAsync(SelectedVaccine.IdPet);
 
@@ -80,13 +77,6 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
             //if(IsNotBusy)
             //    IsBusy = true;
 
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await Shell.Current.DisplayAlert("No connectivity!",
-                    $"Please check internet and try again.", "OK");
-                return;
-            }
-
             var errorMessages = _vaccinesService.RegistoComErros(SelectedVaccine);
             if (!string.IsNullOrEmpty(errorMessages))
             {
@@ -111,6 +101,7 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
                 //IsBusy = false;
 
                 ShowToastMessage("Registo criado com sucesso");
+                UpdateNextDose();
 
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
@@ -135,8 +126,10 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
 
                 //IsBusy = false;
                 ShowToastMessage("Registo atualizado com sucesso");
+                UpdateNextDose();
 
             }
+
         }
         catch (Exception ex)
         {
@@ -154,5 +147,10 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
         var toast = Toast.Make(text, duration, fontSize);
 
         await toast.Show(cancellationTokenSource.Token);
+    }
+
+    private void UpdateNextDose()
+    {
+        DataProximaToma = DataFormat.DateParse(SelectedVaccine.DataToma).AddMonths(SelectedVaccine.ProximaTomaEmMeses);
     }
 }

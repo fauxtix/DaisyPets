@@ -14,7 +14,6 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         private readonly IRacaoService _service;
         private readonly IMapper _mapper;
 
-        private IConnectivity _connectivity;
 
         [ObservableProperty]
         bool isRefreshing;
@@ -22,10 +21,9 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         [ObservableProperty]
         string filterText = string.Empty;
 
-        public PetFoodViewModel(IRacaoService Service, IConnectivity connectivity, IMapper mapper)
+        public PetFoodViewModel(IRacaoService Service, IMapper mapper)
         {
             _service = Service;
-            _connectivity = connectivity;
             _mapper = mapper;
         }
 
@@ -35,13 +33,6 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
 
             try
             {
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
-                    return;
-                }
-
                 if (IsBusy)
                     return;
 

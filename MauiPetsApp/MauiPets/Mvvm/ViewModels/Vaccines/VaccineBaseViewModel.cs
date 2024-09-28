@@ -1,7 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.Views.Vaccines;
-using MauiPetsApp.Core.Application.Formatting;
 using MauiPetsApp.Core.Application.ViewModels;
 
 namespace MauiPets.Mvvm.ViewModels.Vaccines
@@ -16,11 +13,13 @@ namespace MauiPets.Mvvm.ViewModels.Vaccines
         private string _marca;
         [ObservableProperty]
         private string _dataToma;
+
         [ObservableProperty]
         private int _dataProximaTomaEmMeses;
 
         [ObservableProperty]
         private DateTime _dataProximaToma;
+
         [ObservableProperty]
         private int _diasParaProximaToma;
 

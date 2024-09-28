@@ -428,4 +428,8 @@
 	  </None>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="DataContexts\" />
+	</ItemGroup>
+
 </Project>

@@ -2,7 +2,6 @@
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using Plugin.LocalNotification;
 using Plugin.LocalNotification.EventArgs;
-using System.Globalization;
 
 namespace MauiPets
 {
@@ -30,7 +29,7 @@ namespace MauiPets
             // if Notification Action are setup
             //switch (e.ActionId)
             //{
-                
+
             //}
         }
 
@@ -38,11 +37,10 @@ namespace MauiPets
         {
             public static PetAddOrEditViewModel CreatePetAddOrEditViewModel()
             {
-                var connectivity = DependencyService.Get<IConnectivity>();
                 var petService = DependencyService.Get<IPetService>();
                 var lookupTablesService = DependencyService.Get<ILookupTableService>();
 
-                return new PetAddOrEditViewModel(connectivity, petService, lookupTablesService);
+                return new PetAddOrEditViewModel(petService, lookupTablesService);
             }
         }
     }

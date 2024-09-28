@@ -10,11 +10,10 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
 {
     public partial class VetAppointmentsViewModel : VetAppointmentsBaseViewModel
     {
-        public ObservableCollection<ConsultaVeterinarioDto> VetAppointments{ get; set; } = new();
+        public ObservableCollection<ConsultaVeterinarioDto> VetAppointments { get; set; } = new();
         private readonly IConsultaService _service;
         private readonly IMapper _mapper;
 
-        private IConnectivity _connectivity;
 
         [ObservableProperty]
         bool isRefreshing;
@@ -22,11 +21,10 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
         [ObservableProperty]
         string filterText = string.Empty;
 
-        public VetAppointmentsViewModel(IConsultaService service, IMapper mapper, IConnectivity connectivity)
+        public VetAppointmentsViewModel(IConsultaService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
-            _connectivity = connectivity;
         }
 
         [RelayCommand]
@@ -35,13 +33,6 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
 
             try
             {
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
-                    return;
-                }
-
                 if (IsBusy)
                     return;
 

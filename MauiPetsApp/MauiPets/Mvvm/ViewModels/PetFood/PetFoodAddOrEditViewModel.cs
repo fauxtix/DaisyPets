@@ -15,18 +15,15 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         public IRacaoService _service { get; set; }
         public IPetService _petService { get; set; }
         public int SelectedPetFoodId { get; set; }
-        public IConnectivity _connectivity;
-
         [ObservableProperty]
         public string _petPhoto;
         [ObservableProperty]
         public string _petName;
 
-        public PetFoodAddOrEditViewModel(IRacaoService service, IConnectivity connectivity,IPetService petService)
+        public PetFoodAddOrEditViewModel(IRacaoService service, IPetService petService)
         {
             _service = service;
             _petService = petService;
-            _connectivity = connectivity;
         }
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
@@ -66,14 +63,6 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         {
             try
             {
-
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
-                    return;
-                }
-
                 var errorMessages = _service.RegistoComErros(SelectedPetFood);
                 if (!string.IsNullOrEmpty(errorMessages))
                 {

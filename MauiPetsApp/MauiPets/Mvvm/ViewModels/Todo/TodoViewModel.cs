@@ -17,8 +17,6 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         private List<ToDoDto> FullTodos { get; set; } = new();
         private List<ToDoDto> FilteredTodos { get; set; } = new();
         private readonly IToDoService _service;
-        private IConnectivity _connectivity;
-
         public List<LookupTableVM> TodoCategories = new();
         [ObservableProperty]
         private LookupTableVM _todoCategory;
@@ -52,11 +50,10 @@ namespace MauiPets.Mvvm.ViewModels.Todo
 
         public ILookupTableService _lookupTablesService { get; set; }
 
-        public TodoViewModel(IToDoService service, ILookupTableService lookupTablesService, IConnectivity connectivity)
+        public TodoViewModel(IToDoService service, ILookupTableService lookupTablesService)
         {
             _service = service;
             _lookupTablesService = lookupTablesService;
-            _connectivity = connectivity;
 
             FillCategoryTypes();
             LoadInitialData();
@@ -116,14 +113,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         {
             try
             {
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!", "Please check internet and try again.", "OK");
-                    return;
-                }
-
                 IsBusy = true;
-
                 await Task.Delay(200);
 
                 var todos = (await _service.GetAllVMAsync())

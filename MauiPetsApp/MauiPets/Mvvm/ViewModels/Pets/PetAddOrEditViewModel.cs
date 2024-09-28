@@ -54,15 +54,12 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         get { return selectedPickerName; }
         set { SetProperty(ref selectedPickerName, value); }
     }
-    public IConnectivity _connectivity;
     public IPetService _petService { get; set; }
     public ILookupTableService _lookupTablesService { get; set; }
 
-    public PetAddOrEditViewModel(IConnectivity connectivity,
-                                 IPetService petService,
+    public PetAddOrEditViewModel(IPetService petService,
                                  ILookupTableService lookupTablesService)
     {
-        _connectivity = connectivity;
         _petService = petService;
         _lookupTablesService = lookupTablesService;
         SetupLookupTables();
@@ -121,13 +118,6 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     {
         try
         {
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await Shell.Current.DisplayAlert("No connectivity!",
-                    $"Please check internet and try again.", "OK");
-                return;
-            }
-
             var errorMessages = _petService.RegistoComErros(PetDto);
             if (!string.IsNullOrEmpty(errorMessages))
             {

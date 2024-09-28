@@ -15,7 +15,6 @@ namespace MauiPets.Mvvm.ViewModels.Settings
     public partial class SettingsViewModel : SettingsBaseViewModel, IQueryAttributable
     {
         private readonly ILookupTableRepository _service;
-        private readonly IConnectivity _connectivity;
         private readonly IMapper _mapper;
 
         [ObservableProperty]
@@ -24,10 +23,9 @@ namespace MauiPets.Mvvm.ViewModels.Settings
         [ObservableProperty]
         private string searchText;
 
-        public SettingsViewModel(ILookupTableRepository service, IConnectivity connectivity, IMapper mapper)
+        public SettingsViewModel(ILookupTableRepository service, IMapper mapper)
         {
             _service = service;
-            _connectivity = connectivity;
             _mapper = mapper;
 
             LookupCollection = new ObservableCollection<LookupTableVM>();
@@ -60,15 +58,10 @@ namespace MauiPets.Mvvm.ViewModels.Settings
         {
             try
             {
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!", "Please check internet and try again.", "OK");
-                    return;
-                }
-
                 if (IsBusy) return;
 
                 IsBusy = true;
+                await Task.Delay(100);
 
                 var data = (await _service.GetLookupTableData(TableName)).ToList();
                 var mappedData = _mapper.Map<List<LookupTableVM>>(data);

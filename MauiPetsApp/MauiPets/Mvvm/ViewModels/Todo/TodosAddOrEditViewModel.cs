@@ -7,7 +7,6 @@ using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
-using MauiPetsApp.Infrastructure.Services.ToDoManager;
 using MauiPetsApp.Infrastructure.Validators;
 using System.Text;
 
@@ -35,13 +34,11 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
     public int SelectedTodoId { get; set; }
 
 
-    public IConnectivity _connectivity;
 
 
-    public TodosAddOrEditViewModel(IToDoService todosService, ILookupTableService lookupTablesService, IConnectivity connectivity)
+    public TodosAddOrEditViewModel(IToDoService todosService, ILookupTableService lookupTablesService)
     {
         _todosService = todosService;
-        _connectivity = connectivity;
     }
 
     [RelayCommand]
@@ -72,13 +69,6 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
         bool errorsFound = false;
         try
         {
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await Shell.Current.DisplayAlert("No connectivity!",
-                    $"Please check internet and try again.", "OK");
-                return;
-            }
-
             var toDoValidator = new ToDoValidator();
             var result = toDoValidator.Validate(SelectedTodo);
 
@@ -145,13 +135,6 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
     {
         try
         {
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await Shell.Current.DisplayAlert("No connectivity!",
-                    $"Please check internet and try again.", "OK");
-                return;
-            }
-
             if (SelectedTodo.Id > 0)
             {
                 bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga o registo?", "Sim", "Não");
@@ -174,7 +157,6 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
         }
         catch (Exception ex)
         {
-            IsBusy = false;
             await ShowToastMessage($"Error while creating Todo ({ex.Message})");
         }
     }

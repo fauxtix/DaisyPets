@@ -14,7 +14,6 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         private readonly IDesparasitanteService _service;
         private readonly IMapper _mapper;
 
-        private IConnectivity _connectivity;
 
         [ObservableProperty]
         bool isRefreshing;
@@ -22,10 +21,9 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         [ObservableProperty]
         string filterText = string.Empty;
 
-        public DewormerViewModel(IDesparasitanteService dewormersService, IConnectivity connectivity, IMapper mapper)
+        public DewormerViewModel(IDesparasitanteService dewormersService, IMapper mapper)
         {
             _service = dewormersService;
-            _connectivity = connectivity;
             _mapper = mapper;
         }
 
@@ -36,13 +34,6 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
 
             try
             {
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
-                    return;
-                }
-
                 if (IsBusy)
                     return;
 

@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.Views.Vaccines;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
-using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 
@@ -16,7 +14,6 @@ public partial class VaccineViewModel : VaccineBaseViewModel
     private readonly IVacinasService _service;
     private readonly IMapper _mapper;
 
-    private IConnectivity _connectivity;
 
     [ObservableProperty]
     bool isRefreshing;
@@ -24,10 +21,9 @@ public partial class VaccineViewModel : VaccineBaseViewModel
     [ObservableProperty]
     string filterText = string.Empty;
 
-    public VaccineViewModel(IVacinasService vaccinesService, IConnectivity connectivity, IMapper mapper)
+    public VaccineViewModel(IVacinasService vaccinesService, IMapper mapper)
     {
         _service = vaccinesService;
-        _connectivity = connectivity;
         _mapper = mapper;
     }
 
@@ -36,13 +32,6 @@ public partial class VaccineViewModel : VaccineBaseViewModel
     {
         try
         {
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await Shell.Current.DisplayAlert("No connectivity!",
-                    $"Please check internet and try again.", "OK");
-                return;
-            }
-
             if (IsBusy)
                 return;
 

@@ -10,7 +10,6 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
     public partial class ContactsViewModel : BaseViewModel
     {
         private readonly IContactService _contactService;
-        private IConnectivity _connectivity;
 
         [ObservableProperty]
         private string _searchFilter;
@@ -18,10 +17,10 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         public ObservableCollection<ContactoVM> ContactsVM { get; set; } = new();
         public ObservableCollection<TipoContacto> ContactTypes { get; set; } = new();
 
-        public ContactsViewModel(IContactService contactService, IConnectivity connectivity)
+        public ContactsViewModel(IContactService contactService)
         {
             _contactService = contactService;
-            _connectivity = connectivity;
+
         }
 
         [RelayCommand]
@@ -29,12 +28,6 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         {
             try
             {
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
-                    return;
-                }
                 if (IsBusy)
                     return;
 

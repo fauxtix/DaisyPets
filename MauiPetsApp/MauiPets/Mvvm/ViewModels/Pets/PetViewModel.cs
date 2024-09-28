@@ -19,11 +19,9 @@ public partial class PetViewModel : BaseViewModel
     private readonly IPetService _petService;
 
     private readonly IVacinasService _petVaccinesService;
-    IConnectivity _connectivity;
-    public PetViewModel(IConnectivity connectivity, IPetService petService, IVacinasService petVaccinesService)
+    public PetViewModel(IPetService petService, IVacinasService petVaccinesService)
     {
         _petService = petService;
-        _connectivity = connectivity;
         _petService = petService;
         _petVaccinesService = petVaccinesService;
     }
@@ -36,17 +34,11 @@ public partial class PetViewModel : BaseViewModel
     {
         try
         {
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await Shell.Current.DisplayAlert("No connectivity!",
-                    $"Please check internet and try again.", "OK");
-                return;
-            }
-
             if (IsBusy)
                 return;
 
             IsBusy = true;
+            await Task.Delay(100);
             var pets = (await _petService.GetAllVMAsync()).ToList();
 
             if (pets.Count != 0)
@@ -185,13 +177,6 @@ public partial class PetViewModel : BaseViewModel
         {
             //if(IsNotBusy)
             //    IsBusy = true;
-
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await Shell.Current.DisplayAlert("No connectivity!",
-                    $"Please check internet and try again.", "OK");
-                return;
-            }
 
             if (SelectedVaccine.Id == 0)
             {

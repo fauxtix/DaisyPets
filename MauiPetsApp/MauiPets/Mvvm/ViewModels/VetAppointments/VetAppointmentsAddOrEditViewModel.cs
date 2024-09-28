@@ -14,7 +14,6 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
     {
         public IConsultaService _service { get; set; }
         public IPetService _petService { get; set; }
-        public IConnectivity _connectivity;
         public int SelectedAppointmentId { get; set; }
 
         [ObservableProperty]
@@ -23,11 +22,10 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
         public string _petName;
 
 
-        public VetAppointmentsAddOrEditViewModel(IConsultaService service, IPetService petService, IConnectivity connectivity)
+        public VetAppointmentsAddOrEditViewModel(IConsultaService service, IPetService petService)
         {
             _service = service;
             _petService = petService;
-            _connectivity = connectivity;
         }
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
@@ -75,12 +73,6 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
                 //if(IsNotBusy)
                 //    IsBusy = true;
 
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
-                    return;
-                }
 
                 var errorMessages = _service.RegistoComErros(SelectedAppointment);
                 if (!string.IsNullOrEmpty(errorMessages))

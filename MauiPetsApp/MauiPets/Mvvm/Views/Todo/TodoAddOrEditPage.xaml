@@ -76,53 +76,46 @@
 
             <Grid Margin="4">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="60"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".3*"></ColumnDefinition>
-                    <ColumnDefinition Width=".7*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
                 <Label Text="Movimento" 
                        Grid.Row="0"
                        FontFamily="OpenSansSemibold"
-                       Grid.Column="0"
                        FontSize="12"
                        VerticalOptions="Center"/>
 
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding SelectedTodo.StartDate, Converter={StaticResource stringToDateConverter}}"  
-			               Grid.Row="0"
+			               Grid.Row="1"
                            FontFamily="OpenSansSemibold"
-                           Grid.Column="1"
                             FontSize="12"
 			               VerticalOptions="Center"/>
                 <Label Text="Descrição"
-                       Grid.Row="1"
+                       Grid.Row="2"
                        FontFamily="OpenSansSemibold"
-                       Grid.Column="0"
                        FontSize="12"
                        VerticalOptions="Center"/>
                 <Editor x:Name="TodoDescription"
                         Text="{Binding SelectedTodo.Description}" 
-			            Grid.Row="1"
+			            Grid.Row="3"
                         FontFamily="OpenSansSemibold"
                         FontSize="12"
-                        Grid.Column="1"
 			            VerticalOptions="Center"/>
 
                 <Label Text="Concluída"
-                       Grid.Row="2"
-                       Grid.Column="0"
+                       Grid.Row="4"
                        FontFamily="OpenSansSemibold"
                        FontSize="12"
                        IsVisible="{Binding IsEditing}"
 			           VerticalTextAlignment="Center"/>
 
-                <Switch Grid.Row="2" 
-                        Grid.Column="1" IsToggled="{Binding SelectedTodo.Completed}"
+                <Switch Grid.Row="5" 
+                        IsToggled="{Binding SelectedTodo.Completed}"
                         IsVisible="{Binding IsEditing}"                        
                         HorizontalOptions="Start" 
                         VerticalOptions="Center" />

@@ -12,15 +12,13 @@ namespace MauiPets.Mvvm.ViewModels.Settings;
 
 public partial class SettingsAddOrEditViewModel : SettingsBaseViewModel, IQueryAttributable
 {
-    private readonly IConnectivity _connectivity;
     private readonly ILookupTableService _lookupTablesService;
     private readonly IMapper _mapper;
 
     public BackButtonBehavior BackButtonBehavior { get; set; }
 
-    public SettingsAddOrEditViewModel(IConnectivity connectivity, ILookupTableService lookupTablesService, IMapper mapper)
+    public SettingsAddOrEditViewModel(ILookupTableService lookupTablesService, IMapper mapper)
     {
-        _connectivity = connectivity;
         _lookupTablesService = lookupTablesService;
         _mapper = mapper;
 
@@ -43,12 +41,6 @@ public partial class SettingsAddOrEditViewModel : SettingsBaseViewModel, IQueryA
     {
         try
         {
-            if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-            {
-                await Shell.Current.DisplayAlert("No connectivity!",
-                    $"Please check internet and try again.", "OK");
-                return;
-            }
 
             //var errorMessages = _lookupTablesService..RegistoComErros(DespesaDto);
             //if (!string.IsNullOrEmpty(errorMessages))

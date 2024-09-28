@@ -61,50 +61,41 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40" />
                     <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".3*" />
-                    <ColumnDefinition Width=".7*" />
-                </Grid.ColumnDefinitions>
-
-                <!-- Existing Fields -->
                 <Label Text="Compra" 
                        Grid.Row="0"
-                       Grid.Column="0"
-                       FontSize="13"
+                       FontSize = "14"
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="TransactionDate"
                            Date="{Binding SelectedPetFood.DataCompra, Converter={StaticResource stringToDateConverter}}"  
                            Style="{StaticResource MediumLabelBold}"
-                           Grid.Row="0"
-                           Grid.Column="1"
-                           FontSize="13"
+                           Grid.Row="1"
+                           FontSize = "14"
                            FontAttributes="Bold" 
                            VerticalOptions="Center"/>
 
                 <Label Text="Marca"
-                       Grid.Row="1"
-                       Grid.Column="0"
-                       FontSize="13"
+                       Grid.Row="2"
+                       FontSize = "14"
                        VerticalOptions="Center"/>
                 <Entry x:Name="PetFoodBrand" 
                        Text="{Binding SelectedPetFood.Marca}" 
-                       Grid.Row="1"
-                       Grid.Column="1"
-                       FontSize="13"
+                       Grid.Row="3"
+                       FontSize = "14"
                        VerticalOptions="Center"/>
                 <Label Text="Qtd. diária"
-                                       Grid.Row="2"
-                                       Grid.Column="0"
-                                       FontSize="13"
-			                           VerticalOptions="Center"></Label>
-                <Entry x:Name="TransactionAmount" Keyboard="Numeric"
-			                           Text="{Binding SelectedPetFood.QuantidadeDiaria}" 
-			                           Grid.Row="2"
-                                        FontSize="13"
-                                       Grid.Column="1"
-			                           VerticalOptions="Center">
+                       Grid.Row="4"
+                       FontSize = "14"
+			           VerticalOptions="Center"></Label>
+                <Entry x:Name="TransactionAmount" Keyboard="Numeric"                       
+			           Text="{Binding SelectedPetFood.QuantidadeDiaria}" 
+			           Grid.Row="5"
+                        FontSize = "14" 
+			           VerticalOptions="Center">
                     <Entry.Behaviors>
                         <toolkit:NumericValidationBehavior 
                                             InvalidStyle="{StaticResource InvalidEntryStyle}"

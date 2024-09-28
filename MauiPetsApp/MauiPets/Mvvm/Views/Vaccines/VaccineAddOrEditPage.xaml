@@ -52,73 +52,66 @@
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 22"
                     Background="#fff"
-                    Padding="8,4"
-                    Margin="4"
+                    Padding="18,14"
+                    Margin="2,12"
+                WidthRequest="350"
                     HorizontalOptions="FillAndExpand">
 
-            <Grid Margin="4">
+            <Grid Margin="1" RowSpacing="3">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".3*"></ColumnDefinition>
-                    <ColumnDefinition Width=".7*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
 
-                <Label Text="Movimento" 
+                <Label Text="Data" 
                        Grid.Row="0"
-                       Grid.Column="0"
-                       FontSize="12"
+                       FontSize="14"
                        VerticalOptions="Center">
                 </Label>
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding SelectedVaccine.DataToma, Converter={StaticResource stringToDateConverter}}"  
                            Style="{StaticResource MediumLabelBold}"
-			               Grid.Row="0"
+			               Grid.Row="1" WidthRequest="100" HorizontalOptions="Start"
                            FontAttributes="Bold" 
-                           Grid.Column="1"
 			               VerticalOptions="Center"></DatePicker>
                 <Label Text="Marca"
-                                       Grid.Row="1"
-                                       Grid.Column="0"
-                                       FontSize="12"
+                                       Grid.Row="2"
+                                       FontSize="14"
 			                           VerticalOptions="Center"></Label>
                 <Entry x:Name="VaccineBrand" 
 			                           Text="{Binding SelectedVaccine.Marca}" 
-			                           Grid.Row="1"
-                                       Grid.Column="1"
+			                           Grid.Row="3"
 			                           VerticalOptions="Center">
                 </Entry>
                 <Label Text="Prx. toma em meses"
-                                       Grid.Row="2"
-                                       Grid.Column="0"
-                                       FontSize="12"/>
+                                       Grid.Row="4"
+                                       FontSize="14"/>
                 <Entry x:Name="NextPriodInMonths"
                         Keyboard="Numeric"
 			            Text="{Binding SelectedVaccine.ProximaTomaEmMeses}"
-			            Grid.Row="2"
-                        Grid.Column="1"
-                        FontSize="12"
+			            Grid.Row="5"
+                        FontSize="14" WidthRequest="50" HorizontalOptions="Start"
                         IsSpellCheckEnabled="false"
 			            VerticalOptions="Start">
                 </Entry>
 
                 <Label Text="Data Prx. toma"
                        IsVisible="{Binding IsEditing}"
-                       Grid.Row="3"
-                       Grid.Column="0"
+                       Grid.Row="6"
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Start"
-                       FontSize="12"/>
+                       FontSize="14"/>
 
                 <Label FontAttributes="Bold" 
                        IsVisible="{Binding IsEditing}"
-                       FontSize="12"
-                       Grid.Column="1"
-                       Grid.Row="3"
+                       FontSize="14"
+                       Grid.Row="7"
                        Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
                        TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" 
                        HorizontalOptions="Start"

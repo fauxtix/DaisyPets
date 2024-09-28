@@ -54,7 +54,7 @@
                 StrokeThickness="2"
                 StrokeShape="RoundRectangle 22"
                 Background="#fff"
-                Padding="8,12"
+                Padding="8,4"
                 Margin="4"
                 HorizontalOptions="FillAndExpand">
 

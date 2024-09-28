@@ -15,7 +15,6 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         public IDesparasitanteService _service { get; set; }
         public IPetService _petService { get; set; }
         public int SelectedDewormerId { get; set; }
-        public IConnectivity _connectivity;
 
         [ObservableProperty]
         public string _petPhoto;
@@ -23,11 +22,10 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         public string _petName;
 
 
-        public DewormerAddOrEditViewModel(IDesparasitanteService service, IConnectivity connectivity, IPetService petService)
+        public DewormerAddOrEditViewModel(IDesparasitanteService service, IPetService petService)
         {
             _service = service;
             _petService = petService;
-            _connectivity = connectivity;
         }
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
@@ -78,13 +76,6 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
             {
                 //if(IsNotBusy)
                 //    IsBusy = true;
-
-                if (_connectivity.NetworkAccess != NetworkAccess.Internet)
-                {
-                    await Shell.Current.DisplayAlert("No connectivity!",
-                        $"Please check internet and try again.", "OK");
-                    return;
-                }
 
                 if (SelectedDewormer.Id == 0 && (IsTypeInternal || IsTypeExternal))
                 {
