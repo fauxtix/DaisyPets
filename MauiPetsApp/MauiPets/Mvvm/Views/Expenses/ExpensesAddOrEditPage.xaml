@@ -79,41 +79,38 @@
                     HorizontalOptions="FillAndExpand">
             <Grid Margin="4">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
-                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".3*"></ColumnDefinition>
-                    <ColumnDefinition Width=".7*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
 
                 <Label Text="Movimento" 
                            Grid.Row="0"
-                           Grid.Column="0"
-                           FontSize="13"
+                           FontSize = "14"
 			               VerticalTextAlignment="Center">
                 </Label>
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding DespesaDto.DataMovimento, Converter={StaticResource stringToDateConverter}}"  
                            Style="{StaticResource MediumLabelBold}"
-			               Grid.Row="0"
-                            FontSize="12"
+			               Grid.Row="1"
+                            FontSize = "14"
                            FontAttributes="Bold" 
-                           Grid.Column="1"
 			               VerticalOptions="Center"/>
                 <Label Text="Valor"
-                                       Grid.Row="1"
-                                       Grid.Column="0"
-                                       FontSize="13"
+                                       Grid.Row="2"
+                                       FontSize = "14"
 			                           VerticalTextAlignment="Center"/>
                 <Entry x:Name="TransactionAmount" Keyboard="Numeric"
 			                           Text="{Binding DespesaDto.ValorPago}" 
-			                           Grid.Row="1"
-                                        FontSize="12"
-                                       Grid.Column="1"
+			                           Grid.Row="3"
+                                        FontSize = "14"
 			                           VerticalTextAlignment="Center">
                     <Entry.Behaviors>
                         <mct:NumericValidationBehavior 
@@ -126,14 +123,13 @@
                     </Entry.Behaviors>
                 </Entry>
                 <Label Text="Categoria" 
-                       Grid.Row="2" 
+                       Grid.Row="4" 
                        VerticalTextAlignment="Center"
-                       Grid.Column="0" FontSize="13"/>
+                       FontSize = "14"/>
                 <Picker x:Name="PickerCategoriaTipoDespesa" 
                         Title="Categoria" 
-                        Grid.Row="2" 
-                        Grid.Column="1"             
-                        FontSize="12"
+                        Grid.Row="5" 
+                        FontSize = "14"
                         VerticalTextAlignment="Center"
                         ItemsSource="{Binding CategoriaDespesas}"
                         SelectedItem="{Binding TipoCategoriaDespesaSelecionada}"
@@ -143,16 +139,15 @@
                 </Picker>
                 <Label x:Name="LabelTipoDespesa" Text="Tipo"
                         IsVisible="{Binding IsEditing}"
-                       Grid.Row="3" 
+                       Grid.Row="6" 
                        VerticalTextAlignment="Center"
-                       Grid.Column="0" FontSize="13"></Label>
+                       FontSize = "14"></Label>
                 <Picker x:Name="PickerTipoDespesa" 
                         IsVisible="{Binding IsEditing}"
                         VerticalTextAlignment="Center"
                         Title="Tipo" 
-                        FontSize="12"
-                        Grid.Row="3" 
-                        Grid.Column="1"
+                        FontSize = "14"
+                        Grid.Row="7" 
                         ItemsSource="{Binding TipoDespesas}"
                         SelectedItem="{Binding TipoDespesaSelecionada}"
                         SelectedIndex="{Binding IndiceTipoDespesa, Mode=TwoWay}"
@@ -160,15 +155,13 @@
                         ItemDisplayBinding="{Binding Descricao}">
                 </Picker>
                 <Label Text="Observações"
-                       Grid.Row="4"
+                       Grid.Row="8"
                        VerticalTextAlignment="Center"
-                       Grid.Column="0"
-                       FontSize="12"/>
+                       FontSize = "14"/>
                 <Editor x:Name="TransactionNotes" AutoSize="TextChanges"
 			                        Text="{Binding DespesaDto.Notas}"
-			                        Grid.Row="4"
-                                    Grid.Column="1"
-                                    FontSize="12"
+			                        Grid.Row="9"
+                                    FontSize = "14"
                                     Keyboard="Text"
                         VerticalTextAlignment="Start"
                                     IsSpellCheckEnabled="false"

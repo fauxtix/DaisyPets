@@ -70,8 +70,8 @@
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 22"
                     Background="#fff"
-                    Padding="8,4"
-                    Margin="2"
+                    Padding="10,4"
+                    Margin="4"
                     HorizontalOptions="FillAndExpand">
 
             <Grid Margin="4">
@@ -86,31 +86,31 @@
                 <Label Text="Movimento" 
                        Grid.Row="0"
                        FontFamily="OpenSansSemibold"
-                       FontSize="12"
+                       FontSize = "14"
                        VerticalOptions="Center"/>
 
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding SelectedTodo.StartDate, Converter={StaticResource stringToDateConverter}}"  
 			               Grid.Row="1"
                            FontFamily="OpenSansSemibold"
-                            FontSize="12"
+                            FontSize = "14"
 			               VerticalOptions="Center"/>
                 <Label Text="Descrição"
                        Grid.Row="2"
                        FontFamily="OpenSansSemibold"
-                       FontSize="12"
+                       FontSize = "14"
                        VerticalOptions="Center"/>
                 <Editor x:Name="TodoDescription"
                         Text="{Binding SelectedTodo.Description}" 
 			            Grid.Row="3"
                         FontFamily="OpenSansSemibold"
-                        FontSize="12"
+                        FontSize = "14"
 			            VerticalOptions="Center"/>
 
                 <Label Text="Concluída"
                        Grid.Row="4"
                        FontFamily="OpenSansSemibold"
-                       FontSize="12"
+                       FontSize = "14"
                        IsVisible="{Binding IsEditing}"
 			           VerticalTextAlignment="Center"/>
 

@@ -10,8 +10,8 @@ namespace MauiPets.Converters
             try
             {
                 if (values.Length == 2
-              && values[0] is int currentPage
-              && values[1] is int totalPages)
+                    && values[0] is int currentPage
+                    && values[1] is int totalPages)
                 {
                     return currentPage < totalPages;
                 }

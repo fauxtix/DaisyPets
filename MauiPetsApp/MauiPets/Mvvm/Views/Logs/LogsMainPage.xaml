@@ -79,26 +79,27 @@
                     <StackLayout Grid.Column="0" HorizontalOptions="Start"
                                  VerticalOptions="Center">
                         <Grid ColumnDefinitions="Auto, 35, Auto, *">
-                            <Label Text="Total de Logs" Grid.Column="0"
+                            <Label Text="Logs" Grid.Column="0"
                                    FontSize="12" 
                                    HorizontalOptions="Start" 
                                    Margin="5" />
                             <Label Text="{Binding TotalLogs}" Grid.Column="1"
                                    FontSize="12" 
                                    HorizontalOptions="Start" 
+                                   VerticalOptions="Center"
                                    FontAttributes="Bold"
                                    Margin="5" />
-                            <Label Text="IRegistos por pagª: " 
+                            <Label Text="Reg/pagª: " 
                                    Grid.Column="2"
                                    Margin="20, 5"
                                    FontSize="12"
-                                   VerticalOptions="Start" 
+                                   VerticalOptions="Center" 
                                    HorizontalOptions="Center" />
                             <Entry Grid.Column="3" Text="{Binding PageSize, Mode=TwoWay, Converter={StaticResource EntryToNullableIntConverter}}"  
                                    WidthRequest="30" 
                                    Keyboard="Numeric"  MaxLength="2"
                                    Margin="-20, -8"
-                                   HorizontalOptions="Start"
+                                   HorizontalOptions="Center"
                                    VerticalOptions="Center">
                             </Entry>
                         </Grid>
@@ -106,20 +107,29 @@
 
                     <StackLayout Grid.Column="3" 
                                  Orientation="Horizontal" 
-                                 HorizontalOptions="End" Margin="10, 5, 10, 5">
+                                 HorizontalOptions="Center" Margin="10, 5, 10, 5">
                         <Label Text="Pagª: " FontSize="12" />
-                        <Label Text="{Binding CurrentPage}" FontSize="12" />
+                        <Label Text="{Binding CurrentPage}" FontSize="12" FontAttributes="Bold" />
                         <Label Text=" de " FontSize="12" />
-                        <Label Text="{Binding TotalPages}" FontSize="12" />
+                        <Label Text="{Binding TotalPages}" FontSize="12" FontAttributes="Bold" />
                     </StackLayout>
                 </Grid>
 
-                <StackLayout IsVisible="{Binding IsPaginationVisible}" Spacing="3" Orientation="Horizontal" HorizontalOptions="Center" Margin="10">
-                    <Button Text="Início" Command="{Binding FirstPageCommand}" CornerRadius="10" WidthRequest="80" />
-                    <Button Text="Anterior" Command="{Binding LoadPreviousPageCommand}" CornerRadius="10"
-                        IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" />
-                    <Button Text="Seguinte" Command="{Binding LoadNextPageCommand}" CornerRadius="10">
-                        <Button.IsEnabled>
+                <StackLayout IsVisible="{Binding IsPaginationVisible}" Spacing="12" Orientation="Horizontal" 
+                             HorizontalOptions="Center" Margin="10">
+                    <ImageButton Source="first_page.svg" 
+                                 BorderWidth="2" 
+                                 BorderColor="Black" 
+                                 Command="{Binding FirstPageCommand}" 
+                                 CornerRadius="5" WidthRequest="50" HeightRequest="30" />
+                    <ImageButton Source="previous_page.svg" BorderWidth="2" 
+                                 BorderColor="Black" Command="{Binding LoadPreviousPageCommand}" 
+                                 CornerRadius="5"
+                                 IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" 
+                                 WidthRequest="50" />
+                    <ImageButton Source="next_page.svg" BorderWidth="2"  WidthRequest="50"
+                                 BorderColor="Black" Command="{Binding LoadNextPageCommand}" CornerRadius="5">
+                        <ImageButton.IsEnabled>
                             <MultiBinding>
                                 <Binding Path="CurrentPage" />
                                 <Binding Path="TotalPages" />
@@ -127,9 +137,12 @@
                                     <conv:LessThanTotalPagesConverter/>
                                 </MultiBinding.Converter>
                             </MultiBinding>
-                        </Button.IsEnabled>
-                    </Button>
-                    <Button Text="Fim" Command="{Binding LastPageCommand}" CornerRadius="10" WidthRequest="80"/>
+                        </ImageButton.IsEnabled>
+                    </ImageButton>
+                    <ImageButton Source="last_page.svg" BorderWidth="2" 
+                                 BorderColor="Black"
+                                 Command="{Binding LastPageCommand}" 
+                                 CornerRadius="5" WidthRequest="50"/>
                 </StackLayout>
 
             </StackLayout>

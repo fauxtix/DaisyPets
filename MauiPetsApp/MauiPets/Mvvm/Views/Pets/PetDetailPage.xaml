@@ -360,7 +360,8 @@
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="0" Text="{Binding DataAplicacao}" HorizontalOptions="Center" />
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="1" Text="{Binding Marca}"/>
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="2" Text="{Binding DataProximaAplicacao}"
-                                                       TextColor="{Binding DataProximaAplicacao, Converter={StaticResource nextDoseDateConverter}}" HorizontalOptions="Center"/>
+                                                                       TextColor="{Binding DataProximaAplicacao, Converter={StaticResource nextDoseDateConverter}}" 
+                                                                       HorizontalOptions="Center"/>
                                                             </Grid>
                                                         </Frame>
                                                     </VerticalStackLayout>

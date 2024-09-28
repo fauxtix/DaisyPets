@@ -74,8 +74,8 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         {
             try
             {
-                //if(IsNotBusy)
-                //    IsBusy = true;
+                if (IsNotBusy)
+                    IsBusy = true;
 
                 if (SelectedDewormer.Id == 0 && (IsTypeInternal || IsTypeExternal))
                 {
@@ -105,6 +105,7 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
                     var _petId = SelectedDewormer.IdPet;
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
+                    SelectedDewormer.DataProximaAplicacao = DateTime.Parse(SelectedDewormer.DataAplicacao).AddMonths(3).ToShortDateString();
 
                     ShowToastMessage("Desparasitante criado com sucesso");
 
@@ -123,6 +124,7 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
 
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
+                    SelectedDewormer.DataProximaAplicacao = DateTime.Parse(SelectedDewormer.DataAplicacao).AddMonths(3).ToShortDateString();
 
                     await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                         new Dictionary<string, object>

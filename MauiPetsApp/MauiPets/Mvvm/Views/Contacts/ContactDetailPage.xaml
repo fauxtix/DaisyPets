@@ -20,15 +20,15 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="MediumLabelBold" TargetType="Label">
-                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
             <Style x:Key="MediumLabel" TargetType="Label">
-                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="None"/>
             </Style>
             <Style x:Key="MediumBlueLabelBold" TargetType="Label">
-                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="Italic"></Setter>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="Blue"/>
@@ -78,26 +78,24 @@
                     HorizontalOptions="FillAndExpand">
 
                     <Frame Grid.Row="0" CornerRadius="40" HasShadow="False" Margin="2" BorderColor="Transparent">
-                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, *" 
-                              RowSpacing="5"
+                        <Grid RowDefinitions="Auto, Auto,Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto,Auto,*" 
+                              RowSpacing="3"
                               HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="120" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Style="{StaticResource MediumLabel}">Morada</Label>
+                                <Label Grid.Row="1"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Morada}" />
+                                <Label Grid.Row="2" Style="{StaticResource MediumLabel}" Margin="0,5,0,0">Localidade</Label>
+                                <Label Grid.Row="3" Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Localidade}" />
+                            <BoxView Grid.Row="4" HeightRequest="1" Color="Black"></BoxView>
+                                <Label Grid.Row="5" Style="{StaticResource MediumLabel}">Móvel</Label>
+                                <Label Grid.Row="6"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Movel}" />
+                            <Label Grid.Row="7" Style="{StaticResource MediumLabel}" Margin="0,5,0,0">e-Mail</Label>
+                                <Label Grid.Row="8" Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.eMail}" />
+                            <BoxView Grid.Row="9" HeightRequest="1" Color="Black"></BoxView>
 
-                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MediumLabel}">Morada</Label>
-                            <Label Grid.Row="0" Grid.Column="1"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Morada}" />
-                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabel}">Localidade</Label>
-                            <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Localidade}" />
-                            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabel}">Móvel</Label>
-                            <Label Grid.Row="2" Grid.Column="1"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Movel}" />
-                            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource MediumLabel}">e-Mail</Label>
-                            <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.eMail}" />
-                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabel}">Tipo Contacto</Label>
-                            <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumBlueLabelBold}" Text="{Binding ContactoVM.DescricaoTipoContacto}" />
-                            <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource MediumLabel}">Notas</Label>
-                            <Label Grid.Row="5" Grid.Column="1"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Notas}" />
+                            <Label Grid.Row="10" Style="{StaticResource MediumLabel}" >Tipo Contacto</Label>
+                                <Label Grid.Row="11" Style="{StaticResource MediumBlueLabelBold}" Text="{Binding ContactoVM.DescricaoTipoContacto}" />
+                            <Label Grid.Row="12" Style="{StaticResource MediumLabel}" Margin="0,5,0,0">Notas</Label>
+                                <Label Grid.Row="13"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Notas}" />
                         </Grid>
                     </Frame>
                 </Border>

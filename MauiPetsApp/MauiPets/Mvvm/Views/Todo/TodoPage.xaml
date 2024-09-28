@@ -171,18 +171,24 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Pagination Controls -->
-        <StackLayout Padding="1, 10, 1, 10" Spacing="2" HorizontalOptions="Center" Margin="0, 2, 1, 0"
-             VerticalOptions="Center" Orientation="Horizontal"
-             Grid.Row="4"
-             IsVisible="{Binding IsPaginationVisible}">
-            <Button Text="Início" Command="{Binding FirstPageAsyncCommand}" CornerRadius="10" WidthRequest="80" FontSize="12" />
-            <Button Text="Anterior" Command="{Binding PreviousPageAsyncCommand}" CornerRadius="10"
-                 IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" FontSize="12"/>
-            <Button Text="Seguinte" 
-                    Command="{Binding NextPageAsyncCommand}" FontSize="12"
-                    CornerRadius="10" WidthRequest="95">
-                <Button.IsEnabled>
+        <StackLayout Padding="1, 10, 1, 10" Spacing="12" HorizontalOptions="Center" 
+                     Margin="0, 2, 1, 0"
+                     VerticalOptions="Center" Orientation="Horizontal"
+                     Grid.Row="4"
+                     IsVisible="{Binding IsPaginationVisible}">
+            <ImageButton Source="first_page.svg" BorderWidth="2" 
+                         BorderColor="Black"
+                         Command="{Binding FirstPageAsyncCommand}" 
+                         CornerRadius="5" WidthRequest="50" HeightRequest="30" />
+            <ImageButton Source="previous_page.svg" 
+                         BorderWidth="2" BorderColor="Black" 
+                         Command="{Binding PreviousPageAsyncCommand}" 
+                         CornerRadius="5"
+                         IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="50"/>
+            <ImageButton Source="next_page.svg" BorderWidth="2" BorderColor="Black" 
+                    Command="{Binding NextPageAsyncCommand}"
+                    CornerRadius="5" WidthRequest="50">
+                <ImageButton.IsEnabled>
                     <MultiBinding>
                         <Binding Path="CurrentPage" />
                         <Binding Path="TotalPages" />
@@ -190,10 +196,11 @@
                             <conv:LessThanTotalPagesConverter/>
                         </MultiBinding.Converter>
                     </MultiBinding>
-                </Button.IsEnabled>
-            </Button>
+                </ImageButton.IsEnabled>
+            </ImageButton>
 
-            <Button Text="Fim" Command="{Binding LastPageAsyncCommand}" CornerRadius="10" WidthRequest="80" FontSize="12" />
+            <ImageButton Source="previous_page.svg" BorderWidth="2" BorderColor="Black" 
+                         Command="{Binding LastPageAsyncCommand}" CornerRadius="5" WidthRequest="50" />
         </StackLayout>
 
         <!-- Page Info -->

@@ -11,11 +11,11 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="MediumLabelBold" TargetType="Label">
-                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
             <Style x:Key="MediumBlueLabelBold" TargetType="Label">
-                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontAttributes" Value="Italic"></Setter>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="Blue"/>
@@ -47,11 +47,18 @@
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 35,35,0,0"
                     Background="#fff"
-                    Padding="8,4"
+                    Padding="6,8"
                     Margin="4"
                     HorizontalOptions="FillAndExpand">
-                <Grid Margin="5">
+                <Grid Margin="15,5" RowSpacing="0">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -60,79 +67,62 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".3*"></ColumnDefinition>
-                        <ColumnDefinition Width=".7*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
                     <Label Text="Nome" 
                            Grid.Row="0"
-                           Grid.Column="0"
-                           FontSize="11"
+                           FontSize = "14"
 			               VerticalOptions="Center">
                     </Label>
                     <Editor x:Name="TxtName"
 			               Text="{Binding ContactoVM.Nome}" 
                            Style="{StaticResource MediumLabelBold}"
-			               Grid.Row="0"
+			               Grid.Row="1"
                            FontAttributes="Bold" 
-                           Grid.Column="1"
 			               VerticalOptions="Center"></Editor>
                     <Label Text="Morada" 
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            FontSize="11"
+                            Grid.Row="2"
+                            FontSize = "14"
 			                VerticalOptions="Center"></Label>
                     <Editor x:Name="TxtMorada"
 			                Text="{Binding ContactoVM.Morada}" 
                             Style="{StaticResource MediumLabelBold}"
-			                Grid.Row="1"
-                            Grid.Column="1"
+			                Grid.Row="3"
 			                VerticalOptions="Center"></Editor>
                     <Label Text="Localidade" 
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            FontSize="11"
+                            Grid.Row="4"
+                            FontSize = "14"
 			                VerticalOptions="Center"></Label>
                     <Entry x:Name="TxtLocalidade"
 			                Text="{Binding ContactoVM.Localidade}" 
                             Style="{StaticResource MediumLabelBold}"
-			                Grid.Row="2"
-                            Grid.Column="1"
+			                Grid.Row="5"
 			                VerticalOptions="Center"></Entry>
                     <Label Text="Móvel" 
-                            Grid.Row="3"
-                            Grid.Column="0"
-                            FontSize="11"
+                            Grid.Row="6"
+                            FontSize = "14"
 			                VerticalOptions="Center"/>
                     <Entry x:Name="TxtMovel"
 			                Text="{Binding ContactoVM.Movel}" 
                             Style="{StaticResource MediumLabelBold}"
-			                Grid.Row="3"
-                            Grid.Column="1"
+			                Grid.Row="7"
                             Keyboard="Telephone"
 			                VerticalOptions="Center"></Entry>
                     <Label Text="E-Mail" 
-                            Grid.Row="4"
-                            Grid.Column="0"
-                            FontSize="11"
+                            Grid.Row="8"
+                            FontSize = "14"
 			                VerticalOptions="Center"/>
                     <Entry x:Name="TxtEMail"
 			              Text="{Binding ContactoVM.eMail}" 
                            Style="{StaticResource MediumLabelBold}"
-  		                   Grid.Row="4"
-                           Grid.Column="1"
+  		                   Grid.Row="9"
                            Keyboard="Email"
 			               VerticalOptions="Center"></Entry>
                     <Label Text="Tipo Contacto" 
-                           Grid.Row="5"
-                           Grid.Column="0"
-                           FontSize="11"
+                           Grid.Row="10"
+                           FontSize = "14"
 			               VerticalOptions="Center"/>
                     <Picker x:Name="ContactTypesPicker" 
                             Title="Select a Contact Type" 
-                            Grid.Row="5" 
-                            Grid.Column="1"       
+                            Grid.Row="11" 
                             Style="{StaticResource MediumBlueLabelBold}"
                             ItemsSource="{Binding ContactTypes}"
                             SelectedItem="{Binding SelectedContactType}"
@@ -141,14 +131,12 @@
                             ItemDisplayBinding="{Binding Descricao}">
                     </Picker>
                     <Label Text="Notas" 
-                            Grid.Row="6"
-                            Grid.Column="0"
-                            FontSize="11"
+                            Grid.Row="12"
+                            FontSize = "14"
 			                VerticalOptions="Start"></Label>
                     <Editor x:Name="TxtNotas"
 			                Text="{Binding ContactoVM.Notas}" 
-			                Grid.Row="6"
-                            Grid.Column="1"
+			                Grid.Row="13"
                             Keyboard="Plain"  
 			                VerticalOptions="StartAndExpand"></Editor>
                 </Grid>

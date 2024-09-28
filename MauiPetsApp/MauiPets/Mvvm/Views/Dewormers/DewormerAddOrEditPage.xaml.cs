@@ -15,12 +15,12 @@ public partial class DewormerAddOrEditPage : ContentPage
 
     private void TransactionDate_DateSelected(object sender, DateChangedEventArgs e)
     {
-        _viewModel.DataAplicacao = e.NewDate;
-        _viewModel.DataProximaAplicacao = e.NewDate.AddMonths(3);
+        //_viewModel.DataAplicacao = e.NewDate;
+        //_viewModel.DataProximaAplicacao = e.NewDate.AddMonths(3);
     }
     private void NextApplicationDate_DateSelected(object sender, DateChangedEventArgs e)
     {
-        _viewModel.DataProximaAplicacao = e.NewDate;
+        //_viewModel.DataProximaAplicacao = e.NewDate;
     }
 
     private void DewormerType_CheckedChanged(object sender, CheckedChangedEventArgs e)

@@ -204,18 +204,22 @@
         <BoxView Grid.Row="5" HeightRequest="0.4" BackgroundColor="Gray" Margin="0,7,0,5"/>
 
         <!-- Paginação -->
-        <StackLayout Padding="1, 10, 1, 10" Spacing="5" HorizontalOptions="Center" Margin="0, 2, 1, 0"
+        <StackLayout Padding="1, 10, 1, 10" Spacing="12" 
+                     HorizontalOptions="Center" Margin="0, 2, 1, 0"
                      VerticalOptions="Center" Orientation="Horizontal"
                      Grid.Row="6">
-            <Button Text="Início" Command="{Binding FirstPageCommand}" CornerRadius="10" WidthRequest="80" />
-            <Button Text="Anterior" Command="{Binding PreviousPageCommand}" CornerRadius="10"
-                    Style="{StaticResource ExpensesFilterButtonStyle}"
-                    IsEnabled="{Binding CurrentPage, 
-                    Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="90" />
-            <Button Text="Seguinte" 
+            <ImageButton  Source="first_page.svg" BorderWidth="2" BorderColor="Black" 
+                          Command="{Binding FirstPageCommand}" 
+                          CornerRadius="5" WidthRequest="50" HeightRequest="30" />
+            <ImageButton Source="previous_page.svg" BorderWidth="2" BorderColor="Black" Command="{Binding PreviousPageCommand}" 
+                         CornerRadius="5"
+                         Style="{StaticResource ExpensesFilterButtonStyle}"
+                         IsEnabled="{Binding CurrentPage, 
+                Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="50" />
+            <ImageButton Source="next_page.svg" BorderWidth="2" BorderColor="Black" 
                     Command="{Binding NextPageCommand}" 
-                    CornerRadius="10" WidthRequest="95">
-                <Button.IsEnabled>
+                    CornerRadius="5" WidthRequest="50">
+                <ImageButton.IsEnabled>
                     <MultiBinding>
                         <Binding Path="CurrentPage" />
                         <Binding Path="TotalPages" />
@@ -223,10 +227,11 @@
                             <conv:LessThanTotalPagesConverter/>
                         </MultiBinding.Converter>
                     </MultiBinding>
-                </Button.IsEnabled>
-            </Button>
+                </ImageButton.IsEnabled>
+            </ImageButton>
 
-            <Button Text="Fim" Command="{Binding LastPageCommand}" CornerRadius="10" WidthRequest="80"/>
+            <ImageButton Source="last_page.svg" BorderWidth="2" BorderColor="Black"  Command="{Binding LastPageCommand}" 
+                         CornerRadius="5" WidthRequest="50"/>
         </StackLayout>
 
         <!-- Informações da página -->
