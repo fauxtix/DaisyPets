@@ -48,7 +48,7 @@ namespace MauiPets
             Routes.Add(nameof(SettingsManagementPage), typeof(SettingsManagementPage));
 
             Routes.Add(nameof(LogsMainPage), typeof(LogsMainPage));
-            Routes.Add(nameof(LogViewException), typeof(LogViewException));
+            Routes.Add(nameof(LogViewExceptionPage), typeof(LogViewExceptionPage));
 
             foreach (var item in Routes)
             {

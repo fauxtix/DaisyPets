@@ -11,6 +11,26 @@
     <ContentPage.Behaviors>
         <toolkit:EventToCommandBehavior Command="{Binding GetPetsCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="MediumLabelBold" TargetType="Label">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+            </Style>
+            <Style x:Key="MediumLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontAttributes" Value="None"/>
+            </Style>
+            <Style x:Key="MediumBlueLabelBold" TargetType="Label">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontAttributes" Value="Italic"></Setter>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="Blue"/>
+            </Style>
+            <Color x:Key="LightBackground">#FAF9F8</Color>
+            <Color x:Key="DarkBackground">Black</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add Pet" Command="{Binding AddPetCommand  }"
@@ -126,7 +146,7 @@
                     HorizontalOptions="Fill"
                     IsRunning="{Binding IsBusy}"
                     IsVisible="{Binding IsBusy}"
-                    Color="{StaticResource Primary}"
+                    Color="Orange"
                     VerticalOptions="Center" />
             </Grid>
 

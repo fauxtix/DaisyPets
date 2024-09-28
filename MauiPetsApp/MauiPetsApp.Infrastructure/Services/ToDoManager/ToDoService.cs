@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using MauiPetsApp.Core.Domain.TodoManager;
 using MauiPetsApp.Core.Application.Interfaces.Repositories.TodoManager;
 using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
-using Microsoft.Extensions.Logging;
+using MauiPetsApp.Core.Domain.TodoManager;
+using Serilog;
 
 namespace MauiPetsApp.Infrastructure.Services.ToDoManager
 {
@@ -12,13 +12,10 @@ namespace MauiPetsApp.Infrastructure.Services.ToDoManager
         private readonly IToDoRepository _repository;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<ToDoService> _logger;
-
-        public ToDoService(IToDoRepository repository, IMapper mapper, ILogger<ToDoService> logger)
+        public ToDoService(IToDoRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _logger = logger;
 
         }
         public async Task DeleteAsync(int Id)
@@ -50,7 +47,7 @@ namespace MauiPetsApp.Infrastructure.Services.ToDoManager
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
+                Log.Error($"Erro: {ex.Message}");
                 return Enumerable.Empty<ToDoDto>();
             }
         }
@@ -83,7 +80,7 @@ namespace MauiPetsApp.Infrastructure.Services.ToDoManager
 
         public async Task<IEnumerable<ToDoDto>> SearchTodosByText(string filter)
         {
-           return await _repository.SearchTodosByTextAsync(filter);
+            return await _repository.SearchTodosByTextAsync(filter);
         }
 
         public async Task UpdateAsync(int Id, ToDoDto toDoDto)
@@ -101,8 +98,8 @@ namespace MauiPetsApp.Infrastructure.Services.ToDoManager
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, "Erro no update do contacto");
-                throw;
+                Log.Error(ex.Message, "Erro no update do contacto");
+
             }
         }
     }

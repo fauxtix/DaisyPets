@@ -36,7 +36,8 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Grouped Expenses"
                  Command="{Binding NavigateToGroupedExpensesCommand}" 
-                 IconImageSource="expense.png" />
+                 IconImageSource="filter.png">
+        </ToolbarItem>
         <ToolbarItem Text="Add Expense" Command="{Binding AddExpenseCommand}" 
                      CommandParameter="{Binding .}" 
                      IconImageSource="add.png" />
@@ -77,7 +78,7 @@
                     </LinearGradientBrush>
                 </Frame.Background>
                 <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5" Padding="5">
-                    <Image Source="icon_group_data.png" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" />
+                    <Image Source="expenses.png" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" />
                     <Label Text="{Binding TotalGeralDespesas, Mode=OneWay, StringFormat='Total: {0:C2}'}"
                            FontSize="20"
                            FontFamily="Poppins"

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MauiPetsApp.Core.Application.Interfaces.Repositories.Blog;
 using MauiPetsApp.Core.Application.Interfaces.Services.Blog;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain.Blog;
-using FluentValidation;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace MauiPetsApp.Infrastructure.Services.Blog
 {
@@ -14,14 +14,11 @@ namespace MauiPetsApp.Infrastructure.Services.Blog
         private readonly IValidator<PostDto> _validator;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<BlogsService> _logger;
-
-        public BlogsService(IBlogRepository repository, IValidator<PostDto> validator, IMapper mapper, ILogger<BlogsService> logger)
+        public BlogsService(IBlogRepository repository, IValidator<PostDto> validator, IMapper mapper)
         {
             _repository = repository;
             _validator = validator;
             _mapper = mapper;
-            _logger = logger;
         }
 
         public async Task DeletePostAsync(int Id)
@@ -53,8 +50,8 @@ namespace MauiPetsApp.Infrastructure.Services.Blog
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<PostDto>();
             }
         }
 
@@ -107,8 +104,8 @@ namespace MauiPetsApp.Infrastructure.Services.Blog
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, "Erro no update do post");
-                throw;
+                Log.Error(ex.Message, "Erro no update do post");
+
             }
         }
     }

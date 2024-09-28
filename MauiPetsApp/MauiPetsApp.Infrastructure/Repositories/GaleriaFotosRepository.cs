@@ -4,7 +4,7 @@ using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure
@@ -13,12 +13,9 @@ namespace MauiPetsApp.Infrastructure
     {
         DataAccessStatus dataAccessStatus = new DataAccessStatus();
         private readonly IDapperContext _context;
-        private readonly ILogger<GaleriaFotosRepository> _logger;
-
-        public GaleriaFotosRepository(IDapperContext context, ILogger<GaleriaFotosRepository> logger)
+        public GaleriaFotosRepository(IDapperContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public async Task DeleteAsync(int Id)
@@ -36,7 +33,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.ToString());
+                Log.Error(ex.ToString());
             }
 
         }
@@ -65,8 +62,8 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString(), ex);
-                throw;
+                Log.Error(ex.ToString(), ex);
+                return new GaleriaFotos();
             }
         }
 
@@ -159,7 +156,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.ToString());
+                Log.Error(ex.ToString());
                 return -1;
             }
 

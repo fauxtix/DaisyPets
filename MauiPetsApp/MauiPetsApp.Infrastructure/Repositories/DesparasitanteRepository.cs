@@ -5,7 +5,7 @@ using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
 using MauiPetsApp.Core.Domain.TodoManager;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure
@@ -14,12 +14,10 @@ namespace MauiPetsApp.Infrastructure
     {
         DataAccessStatus dataAccessStatus = new DataAccessStatus();
         private readonly IDapperContext _context;
-        private readonly ILogger<DesparasitanteRepository> _logger;
 
-        public DesparasitanteRepository(IDapperContext context, ILogger<DesparasitanteRepository> logger)
+        public DesparasitanteRepository(IDapperContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public async Task<int> InsertAsync(Desparasitante desparasitante)
@@ -74,7 +72,7 @@ namespace MauiPetsApp.Infrastructure
                     }
                     catch (Exception ex)
                     {
-                        _logger.Log(LogLevel.Error, ex.ToString());
+                        Log.Error(ex.ToString());
                         transaction.Rollback();
                         return -1;
                     }
@@ -112,7 +110,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
             }
         }
 
@@ -131,7 +129,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.ToString());
+                Log.Error(ex.ToString());
             }
         }
 
@@ -159,8 +157,8 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString(), ex);
-                throw;
+                Log.Error(ex.ToString(), ex);
+                return new Desparasitante();
             }
         }
 
@@ -254,8 +252,8 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString(), ex);
-                throw;
+                Log.Error(ex.ToString(), ex);
+                return "";
             }
         }
         private async Task<int> GetDewormerTodoCategoryId(string descricao)
@@ -273,7 +271,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return 0;
             }
         }

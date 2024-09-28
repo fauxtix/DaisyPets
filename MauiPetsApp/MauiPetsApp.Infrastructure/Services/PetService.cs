@@ -5,7 +5,7 @@ using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Services
@@ -14,18 +14,15 @@ namespace MauiPetsApp.Infrastructure.Services
     {
         private readonly IPetRepository _repository;
         private readonly IMapper _mapper;
-        private readonly ILogger<PetService> _logger;
         private readonly IValidator<PetDto> _validator;
 
 
         public PetService(IPetRepository repository,
                           IMapper mapper,
-                          ILogger<PetService> logger,
                           IValidator<PetDto> validator)
         {
             _repository = repository;
             _mapper = mapper;
-            _logger = logger;
             _validator = validator;
         }
         public async Task<bool> DeleteAsync(int Id)
@@ -78,10 +75,10 @@ namespace MauiPetsApp.Infrastructure.Services
         {
             try
             {
-                _logger.LogInformation($"Acedendo aos pesos dos animais via Service");
+                Log.Information($"Acedendo aos pesos dos animais via Service");
 
                 var listaPesos = (await _repository.GetPesos()).ToList();
-                _logger.LogInformation($"Mapeando pesos dos animais via Service, sem o AutoMapper");
+                Log.Information($"Mapeando pesos dos animais via Service, sem o AutoMapper");
 
                 var mappedDto = new List<PesoDto>();
                 foreach (var peso in listaPesos)
@@ -97,14 +94,14 @@ namespace MauiPetsApp.Infrastructure.Services
 
                 var resp = mappedDto;
                 //var auto = _mapper.Map<IEnumerable<PesoDto>>(listaPesos);
-                _logger.LogInformation($"Pesos dos animais mapeado manualmente, sem recurso ao AutoMapper");
+                Log.Information($"Pesos dos animais mapeado manualmente, sem recurso ao AutoMapper");
 
                 return resp;
 
             }
             catch
             {
-                _logger.LogError($"Erro ao mapear pesos dos animais com AutoMapper?");
+                Log.Error($"Erro ao mapear pesos dos animais com AutoMapper?");
                 return Enumerable.Empty<PesoDto>();
             }
         }
@@ -125,7 +122,7 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
+                Log.Error(ex.Message, ex);
                 return -1;
             }
         }
@@ -145,7 +142,7 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
+                Log.Error(ex.Message, ex);
             }
         }
 

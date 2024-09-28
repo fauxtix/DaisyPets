@@ -3,7 +3,6 @@ using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
-using Microsoft.Extensions.Logging;
 
 namespace MauiPetsApp.Infrastructure.Services
 {
@@ -11,13 +10,10 @@ namespace MauiPetsApp.Infrastructure.Services
     {
         private readonly ILookupTableRepository _repoLookupTable;
         private readonly IMapper _mapper;
-        private readonly ILogger<LookupTableService> _logger;
-
-        public LookupTableService(ILookupTableRepository repoLookupTable, IMapper mapper, ILogger<LookupTableService> logger)
+        public LookupTableService(ILookupTableRepository repoLookupTable, IMapper mapper)
         {
             _repoLookupTable = repoLookupTable;
             _mapper = mapper;
-            _logger = logger;
         }
 
         public async Task<bool> ActualizaDetalhes(LookupTableVM table)

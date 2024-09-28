@@ -3,20 +3,17 @@ using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Domain;
-using Microsoft.Extensions.Logging;
 
 namespace MauiPetsApp.Infrastructure.Services
 {
     public class TipoDespesaService : ITipoDespesaService
     {
         private readonly ITipoDespesaRepository _repository;
-        private readonly ILogger<TipoDespesaService> _logger;
         private readonly IMapper _mapper;
 
-        public TipoDespesaService(ITipoDespesaRepository repository, ILogger<TipoDespesaService> logger, IMapper mapper)
+        public TipoDespesaService(ITipoDespesaRepository repository, IMapper mapper)
         {
             _repository = repository;
-            _logger = logger;
             _mapper = mapper;
         }
 

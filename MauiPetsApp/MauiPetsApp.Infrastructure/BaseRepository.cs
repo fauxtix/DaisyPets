@@ -49,7 +49,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (DataAccessException)
             {
-                throw;
+                return -1;
             }
         }
 
@@ -66,7 +66,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (DataAccessException)
             {
-                throw;
+
             }
         }
 
@@ -85,7 +85,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (DataAccessException)
             {
-                throw;
+
             }
         }
 
@@ -203,7 +203,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (DataAccessException)
             {
-                throw;
+
             }
         }
 
@@ -220,7 +220,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (DataAccessException)
             {
-                throw;
+
             }
         }
     }

@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using FluentValidation;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Serilog;
 
 namespace MauiPetsApp.Infrastructure.Services
 {
@@ -19,17 +14,13 @@ namespace MauiPetsApp.Infrastructure.Services
         private readonly IGaleriaFotosRepository _repository;
         private readonly IValidator<GaleriaFotosDto> _validator;
         private readonly IMapper _mapper;
-        private readonly ILogger<GaleriaFotosService> _logger;
-
         public GaleriaFotosService(IGaleriaFotosRepository repository,
                                    IValidator<GaleriaFotosDto> validator,
-                                   IMapper mapper,
-                                   ILogger<GaleriaFotosService> logger)
+                                   IMapper mapper)
         {
             _repository = repository;
             _validator = validator;
             _mapper = mapper;
-            _logger = logger;
         }
 
         public async Task DeleteAsync(int Id)
@@ -61,8 +52,9 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<GaleriaFotosVM>();
+
             }
         }
 
@@ -93,8 +85,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, "Erro no update da foto");
-                throw;
+                Log.Error(ex.Message, "Erro no update da foto");
+
             }
         }
     }

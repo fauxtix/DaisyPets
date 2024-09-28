@@ -5,7 +5,7 @@ using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Services
@@ -16,14 +16,11 @@ namespace MauiPetsApp.Infrastructure.Services
         private readonly IValidator<ContactoVM> _validator;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<ContactService> _logger;
-
-        public ContactService(IContactRepository repository, IMapper mapper, IValidator<ContactoVM> validator, ILogger<ContactService> logger)
+        public ContactService(IContactRepository repository, IMapper mapper, IValidator<ContactoVM> validator)
         {
             _repository = repository;
             _mapper = mapper;
             _validator = validator;
-            _logger = logger;
         }
         public async Task DeleteAsync(int Id)
         {
@@ -54,8 +51,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<ContactoVM>();
             }
         }
 
@@ -87,8 +84,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, "Erro no update do contacto");
-                throw;
+                Log.Error(ex.Message, "Erro no update do contacto");
+
             }
         }
 
@@ -101,7 +98,7 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, "Erro no update do contacto");
+                Log.Error(ex.Message, "Erro no update do contacto");
                 return Enumerable.Empty<ContactoVM>();
             }
         }

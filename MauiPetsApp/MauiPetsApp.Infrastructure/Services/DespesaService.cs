@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using FluentValidation.Results;
+using MauiPetsApp.Application.Interfaces.Repositories;
+using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 using MauiPetsApp.Core.Domain;
-using MauiPetsApp.Application.Interfaces.Repositories;
-using MauiPetsApp.Application.Interfaces.Services;
-using Microsoft.Extensions.Logging;
-using FluentValidation.Results;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Services
@@ -17,7 +17,6 @@ namespace MauiPetsApp.Infrastructure.Services
         private readonly IValidator<DespesaDto> _validator;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<DespesaService> _logger;
 
         /// <summary>
         /// Construtor
@@ -28,13 +27,11 @@ namespace MauiPetsApp.Infrastructure.Services
         /// <param name="logger"></param>
         public DespesaService(IDespesaRepository repository,
             IValidator<DespesaDto> validator,
-            IMapper mapper,
-            ILogger<DespesaService> logger)
+            IMapper mapper)
         {
             _repository = repository;
             _validator = validator;
             _mapper = mapper;
-            _logger = logger;
         }
 
         public async Task<int> InsertAsync(DespesaDto expense)
@@ -60,7 +57,7 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, $"Erro no update ({ex.Message})");
+                Log.Error(ex.Message, $"Erro no update ({ex.Message})");
                 return false;
             }
         }
@@ -137,8 +134,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<DespesaVM>();
             }
         }
 
@@ -151,8 +148,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<DespesaVM>();
             }
         }
 
@@ -165,8 +162,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<DespesaVM>();
             }
         }
 

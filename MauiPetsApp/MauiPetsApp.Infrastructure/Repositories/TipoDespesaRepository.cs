@@ -3,7 +3,7 @@ using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Domain;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure
@@ -11,13 +11,11 @@ namespace MauiPetsApp.Infrastructure
     public class TipoDespesaRepository : ITipoDespesaRepository
     {
         private readonly IDapperContext _context;
-        private readonly ILogger<TipoDespesaRepository> _logger;
         private StringBuilder sb = new StringBuilder();
 
-        public TipoDespesaRepository(IDapperContext context, ILogger<TipoDespesaRepository> logger)
+        public TipoDespesaRepository(IDapperContext context)
         {
             _context = context;
-            _logger = logger;
         }
         public async Task<bool> ApagaTipoDespesa(int id)
         {
@@ -37,7 +35,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return false;
             }
         }
@@ -65,7 +63,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception exc)
             {
-                _logger.LogError(exc.Message);
+                Log.Error(exc.Message);
                 return false;
             }
         }
@@ -96,7 +94,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return false;
             }
 
@@ -118,7 +116,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception exc)
             {
-                _logger.LogError(exc.Message);
+                Log.Error(exc.Message);
                 return null;
             }
         }
@@ -141,7 +139,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception exc)
             {
-                _logger.LogError(exc.Message);
+                Log.Error(exc.Message);
                 return null;
             }
         }
@@ -163,7 +161,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception exc)
             {
-                _logger.LogError(exc.Message);
+                Log.Error(exc.Message);
                 return null;
             }
         }
@@ -187,7 +185,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception exc)
             {
-                _logger.LogError(exc.Message);
+                Log.Error(exc.Message);
                 return null;
             }
         }
@@ -217,7 +215,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception exc)
             {
-                _logger.LogError(exc.Message);
+                Log.Error(exc.Message);
                 return -1;
             }
         }
@@ -239,7 +237,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception exc)
             {
-                _logger.LogError(exc.Message);
+                Log.Error(exc.Message);
                 return null;
             }
 

@@ -54,81 +54,73 @@
                 StrokeThickness="2"
                 StrokeShape="RoundRectangle 22"
                 Background="#fff"
-                Padding="8,4"
+                Padding="8,12"
                 Margin="4"
                 HorizontalOptions="FillAndExpand">
 
-            <Grid Margin="4">
+            <Grid Margin="4" RowSpacing="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="40" />
-                    <RowDefinition Height="40" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width=".3*" />
-                    <ColumnDefinition Width=".7*" />
-                </Grid.ColumnDefinitions>
 
                 <Label Text="Movimento" 
                        Grid.Row="0"
-                       Grid.Column="0"
-                       FontSize="Small"
+                       FontSize="14"
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="TransactionDate"
                             Date="{Binding SelectedDewormer.DataAplicacao, Converter={StaticResource stringToDateConverter}}"  
                             Style="{StaticResource MediumLabelBold}"
                             DateSelected="TransactionDate_DateSelected"
-                            Grid.Row="0"
-                            Grid.Column="1"
+                            Grid.Row="1"
                             FontAttributes="Bold" 
                             VerticalOptions="Center"/>
 
                 <Label Text="Marca"
-                       Grid.Row="1"
-                       Grid.Column="0"
-                       FontSize="Small"
+                       Grid.Row="2"
+                       FontSize="14"
                        VerticalOptions="Center"/>
                 <Entry x:Name="DewormerBrand" 
                        Text="{Binding SelectedDewormer.Marca}" 
-                       Grid.Row="1"
-                       Grid.Column="1"
+                       Grid.Row="3"
                        VerticalOptions="Center"/>
 
                 <Label Text="Prx. Aplicação" 
-                       Grid.Row="2"
-                       Grid.Column="0"
-                       FontSize="Small"
+                       Grid.Row="4"
+                       FontSize="14"
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="NextApplicationDate"
                            Date="{Binding SelectedDewormer.DataProximaAplicacao, Converter={StaticResource stringToDateConverter}}"  
                            Style="{StaticResource MediumLabelBold}"
-                           Grid.Row="2"
-                           Grid.Column="1"
+                           Grid.Row="5"
                            FontAttributes="Bold" 
                            VerticalOptions="Center"/>
 
 
-                <Label Text="Tipo" Grid.Row="3" Grid.Column="0" FontSize="Small" VerticalOptions="Center"/>
+                <Label Text="Tipo" Grid.Row="6" FontSize="14" VerticalOptions="Center"/>
 
-                <Grid Grid.Row="3" Grid.Column="1" ColumnDefinitions="*,*" VerticalOptions="Center">
+                <Grid Grid.Row="7" >
+                    <FlexLayout JustifyContent="SpaceAround" AlignItems="Center" >
                     <RadioButton x:Name="dwI" Content="Interno" 
                                  IsChecked="{Binding IsTypeInternal, Mode=TwoWay}"
                                  GroupName="DewormerType" 
-                                 Grid.Column="0" 
-                                 VerticalOptions="Center"
-                                 CheckedChanged="DewormerType_CheckedChanged"
-                                 HorizontalOptions="Start"/>
+                                 CheckedChanged="DewormerType_CheckedChanged"/>
 
                     <RadioButton Content="Externo" 
                                  x:Name="dwE"
                                  IsChecked="{Binding IsTypeExternal, Mode=TwoWay}"
                                  GroupName="DewormerType" 
                                  CheckedChanged="DewormerType_CheckedChanged"
-                                 Grid.Column="1" 
                                  VerticalOptions="Center"
                                  HorizontalOptions="Start"/>
+                    </FlexLayout>
                 </Grid>
             </Grid>
         </Border>

@@ -134,7 +134,7 @@ namespace MauiPets
             builder.Services.AddTransient<MainSettingsViewModel>();
 
             builder.Services.AddTransient<LogViewModel>();
-            builder.Services.AddTransient<LogViewException>();
+            builder.Services.AddTransient<LogViewExceptionViewModel>();
 
 
             // Views
@@ -162,6 +162,7 @@ namespace MauiPets
             builder.Services.AddTransient<SettingsAddOrEditPage>();
 
             builder.Services.AddTransient<LogsMainPage>();
+            builder.Services.AddTransient<LogViewExceptionPage>();
 
             // Database context
 

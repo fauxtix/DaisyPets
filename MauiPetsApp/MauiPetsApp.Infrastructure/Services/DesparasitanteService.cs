@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using FluentValidation;
-using FluentValidation.Results;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
-using System.ComponentModel.DataAnnotations;
 
 namespace MauiPetsApp.Infrastructure.Services
 {
@@ -17,17 +15,13 @@ namespace MauiPetsApp.Infrastructure.Services
         private readonly IValidator<DesparasitanteDto> _validator;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<DesparasitanteService> _logger;
-
         public DesparasitanteService(IDesparasitanteRepository repository,
             IValidator<DesparasitanteDto> validator,
-            IMapper mapper,
-            ILogger<DesparasitanteService> logger)
+            IMapper mapper)
         {
             _repository = repository;
             _validator = validator;
             _mapper = mapper;
-            _logger = logger;
         }
         public async Task DeleteAsync(int Id)
         {
@@ -58,7 +52,7 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
+                Log.Error($"Erro: {ex.Message}");
                 return null;
             }
         }
@@ -79,7 +73,7 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao inserir registo: {ex.Message}");
+                Log.Error($"Erro ao inserir registo: {ex.Message}");
                 return -1;
             }
         }
@@ -99,8 +93,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, $"Erro no update ({ex.Message})");
-                throw;
+                Log.Error(ex.Message, $"Erro no update ({ex.Message})");
+
             }
         }
 

@@ -5,7 +5,7 @@ using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Services
@@ -16,14 +16,11 @@ namespace MauiPetsApp.Infrastructure.Services
         private readonly IValidator<VacinaDto> _validator;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<VacinasService> _logger;
-
-        public VacinasService(IVacinasRepository repository, IMapper mapper, IValidator<VacinaDto> validator, ILogger<VacinasService> logger)
+        public VacinasService(IVacinasRepository repository, IMapper mapper, IValidator<VacinaDto> validator)
         {
             _repository = repository;
             _mapper = mapper;
             _validator = validator;
-            _logger = logger;
         }
         public async Task DeleteAsync(int Id)
         {
@@ -60,8 +57,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<VacinaVM>();
             }
         }
 
@@ -99,8 +96,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, "Erro no update do Vacinação");
-                throw;
+                Log.Error(ex.Message, "Erro no update da Vacinação");
+
             }
         }
 

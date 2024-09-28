@@ -4,7 +4,7 @@ using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure
@@ -13,12 +13,9 @@ namespace MauiPetsApp.Infrastructure
     {
         DataAccessStatus dataAccessStatus = new DataAccessStatus();
         private readonly IDapperContext _context;
-        private readonly ILogger<PetRepository> _logger;
-
-        public PetRepository(IDapperContext context, ILogger<PetRepository> logger)
+        public PetRepository(IDapperContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public async Task<int> InsertAsync(Pet pet)
@@ -68,7 +65,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.ToString());
+                Log.Error(ex.ToString());
                 return -1;
             }
         }
@@ -132,7 +129,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, ex);
+                Log.Error(ex.Message, ex);
             }
         }
 
@@ -171,8 +168,8 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
-                throw;
+                Log.Error(ex.Message);
+                return false;
             }
         }
 
@@ -220,8 +217,8 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString(), ex);
-                throw;
+                Log.Error(ex.ToString(), ex);
+                return new Pet();
             }
         }
 
@@ -311,8 +308,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception)
             {
-
-                throw;
+                return Enumerable.Empty<PetVM>();
             }
         }
         private string GetPetsVM_Query()

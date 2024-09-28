@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using FluentValidation;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Services
@@ -15,14 +15,11 @@ namespace MauiPetsApp.Infrastructure.Services
         private readonly IValidator<RacaoDto> _validator;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<RacaoService> _logger;
-
-        public RacaoService(IRacaoRepository repository, IValidator<RacaoDto> validator, IMapper mapper, ILogger<RacaoService> logger)
+        public RacaoService(IRacaoRepository repository, IValidator<RacaoDto> validator, IMapper mapper)
         {
             _repository = repository;
             _validator = validator;
             _mapper = mapper;
-            _logger = logger;
         }
         public async Task DeleteAsync(int Id)
         {
@@ -53,8 +50,9 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<RacaoVM>();
+
             }
         }
 
@@ -85,8 +83,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, $"Erro no update ({ex.Message})");
-                throw;
+                Log.Error(ex.Message, $"Erro no update ({ex.Message})");
+
             }
         }
 

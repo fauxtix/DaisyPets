@@ -2,7 +2,7 @@
 using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.ViewModels;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure
@@ -10,12 +10,9 @@ namespace MauiPetsApp.Infrastructure
     public class LookupTableRepository : ILookupTableRepository
     {
         private readonly IDapperContext _context;
-        private readonly ILogger<LookupTableRepository> _logger;
-
-        public LookupTableRepository(IDapperContext context, ILogger<LookupTableRepository> logger)
+        public LookupTableRepository(IDapperContext context)
         {
             _context = context;
-            _logger = logger;
         }
         public async Task<IEnumerable<LookUp>> GetLookupTableData(string tableName)
         {
@@ -69,7 +66,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return -1;
             }
         }
@@ -100,7 +97,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return false;
             }
         }
@@ -132,7 +129,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return false;
             }
         }
@@ -161,7 +158,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return false;
             }
         }
@@ -187,7 +184,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return false;
             }
         }
@@ -214,7 +211,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return 0;
             }
         }
@@ -237,7 +234,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return 0;
             }
         }
@@ -267,7 +264,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return "";
             }
         }
@@ -306,7 +303,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return Enumerable.Empty<LookUp>();
             }
         }
@@ -332,7 +329,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return Enumerable.Empty<LookUp>();
             }
         }
@@ -358,7 +355,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return Enumerable.Empty<LookUp>();
             }
         }
@@ -389,7 +386,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return Enumerable.Empty<LookUp>();
             }
         }
@@ -411,7 +408,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return 0;
             }
         }
@@ -434,7 +431,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return (LookUp)Enumerable.Empty<LookUp>();
             }
         }

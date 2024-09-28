@@ -70,7 +70,7 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
                 catch (Exception ex)
                 {
                     Log.Error($"Erro em SQLiteSink; {ex.Message}");
-                    throw;
+    
                 }
             }
         }

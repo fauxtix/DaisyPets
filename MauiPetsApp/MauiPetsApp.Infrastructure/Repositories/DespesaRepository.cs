@@ -155,7 +155,7 @@ namespace MauiPetsApp.Infrastructure
             catch (Exception ex)
             {
                 Log.Error(ex.ToString());
-                throw;
+                return null;
             }
         }
 

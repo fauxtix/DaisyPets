@@ -55,13 +55,13 @@
         Route="TodoPage" />
     <ShellContent
         Title="Logs"
-        Icon="tasks.png" 
+        Icon="icon_log.png" 
         ContentTemplate="{DataTemplate logsmainpage:LogsMainPage}"
         Route="LogsMainPage" />
 
     <ShellContent
         Title="Settings"
-        Icon="icon_log.png" 
+        Icon="gear.png" 
         ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
         Route="MainSettingsPage" />
     <Shell.FlyoutFooter>

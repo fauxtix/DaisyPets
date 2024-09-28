@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
-using Microsoft.Extensions.Logging;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure
@@ -9,12 +8,10 @@ namespace MauiPetsApp.Infrastructure
     public class AppSettingsRepository : IAppSettingsRepository
     {
         private readonly IDapperContext _context;
-        private readonly ILogger<AppSettingsRepository> _logger;
 
-        public AppSettingsRepository(IDapperContext context, ILogger<AppSettingsRepository> logger)
+        public AppSettingsRepository(IDapperContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public async Task<string> GetLanguage()

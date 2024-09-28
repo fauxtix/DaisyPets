@@ -3,7 +3,7 @@ using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories.TodoManager;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Domain.TodoManager;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Globalization;
 using System.Text;
 
@@ -12,12 +12,10 @@ namespace MauiPetsApp.Infrastructure.TodoManager
     public class ToDoRepository : IToDoRepository
     {
         private readonly IDapperContext _context;
-        private readonly ILogger<ToDoRepository> _logger;
 
-        public ToDoRepository(IDapperContext context, ILogger<ToDoRepository> logger)
+        public ToDoRepository(IDapperContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public async Task<int> InsertAsync(ToDo toDo)
@@ -42,7 +40,7 @@ namespace MauiPetsApp.Infrastructure.TodoManager
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.ToString());
+                Log.Error(ex.ToString());
                 return -1;
             }
 
@@ -88,7 +86,7 @@ namespace MauiPetsApp.Infrastructure.TodoManager
             }
             catch (Exception ex)
             {
-                _logger.Log(LogLevel.Error, ex.ToString());
+                Log.Error(ex.ToString());
             }
         }
 
@@ -115,8 +113,8 @@ namespace MauiPetsApp.Infrastructure.TodoManager
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.ToString(), ex);
-                throw;
+                Log.Error(ex.ToString(), ex);
+                return new ToDo();
             }
         }
 

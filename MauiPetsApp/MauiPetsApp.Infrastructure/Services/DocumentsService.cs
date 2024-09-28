@@ -3,7 +3,7 @@ using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace MauiPetsApp.Infrastructure.Services
 {
@@ -11,13 +11,10 @@ namespace MauiPetsApp.Infrastructure.Services
     {
         private readonly IDocumentsRepository _repository;
         private readonly IMapper _mapper;
-        private readonly ILogger<DocumentsService> _logger;
-
-        public DocumentsService(IDocumentsRepository repository, IMapper mapper, ILogger<DocumentsService> logger)
+        public DocumentsService(IDocumentsRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _logger = logger;
         }
         public async Task DeleteDocument(int Id)
         {
@@ -67,7 +64,7 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro ao atualizar documento ({ex.Message})");
+                Log.Error($"Erro ao atualizar documento ({ex.Message})");
                 return false;
             }
         }

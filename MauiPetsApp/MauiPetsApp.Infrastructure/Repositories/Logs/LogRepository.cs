@@ -24,12 +24,13 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
                 var offset = (page - 1) * pageSize;
                 var sql = "SELECT * FROM PetsLogs ORDER BY date(TimeStamp) DESC LIMIT @PageSize OFFSET @Offset";
                 var output = await connection.QueryAsync<LogEntry>(sql, new { PageSize = pageSize, Offset = offset });
+
                 return output;
 
             }
             catch (Exception ex)
             {
-                Log.Error($"An error occurred: {ex.Message}");
+                Log.Error(ex.Message, "An error occurred in GetLogsAsync");
                 return Enumerable.Empty<LogEntry>();
             }
         }
@@ -110,7 +111,7 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
             catch (Exception ex)
             {
                 Log.Error($"Erro ao apagar Logs {ex.Message}");
-                throw;
+
             }
         }
 

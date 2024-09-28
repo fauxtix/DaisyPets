@@ -4,7 +4,7 @@ using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure.Services
@@ -14,15 +14,13 @@ namespace MauiPetsApp.Infrastructure.Services
         private readonly IConsultaRepository _repository;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<ConsultaService> _logger;
         private readonly IValidator<ConsultaVeterinarioDto> _validator;
 
 
-        public ConsultaService(IConsultaRepository repository, IMapper mapper, ILogger<ConsultaService> logger, IValidator<ConsultaVeterinarioDto> validator)
+        public ConsultaService(IConsultaRepository repository, IMapper mapper, IValidator<ConsultaVeterinarioDto> validator)
         {
             _repository = repository;
             _mapper = mapper;
-            _logger = logger;
             _validator = validator;
         }
 
@@ -55,8 +53,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<ConsultaVeterinarioVM>();
             }
         }
 
@@ -87,8 +85,8 @@ namespace MauiPetsApp.Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, "Erro no update do contacto");
-                throw;
+                Log.Error(ex.Message, "Erro no update do contacto");
+
             }
         }
 

@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.Interfaces.Repositories.Scheduler;
 using MauiPetsApp.Core.Application.Interfaces.Services.Sceduler;
-using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.Scheduler;
-using MauiPetsApp.Core.Domain;
 using MauiPetsApp.Core.Domain.Scheduler;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace MauiPetsApp.Infrastructure.Services.Scheduler
 {
@@ -15,13 +12,10 @@ namespace MauiPetsApp.Infrastructure.Services.Scheduler
         private readonly IScheduler _repository;
 
         private readonly IMapper _mapper;
-        private readonly ILogger<SchedulerService> _logger;
-
-        public SchedulerService(IScheduler repository, IMapper mapper, ILogger<SchedulerService> logger)
+        public SchedulerService(IScheduler repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
-            _logger = logger;
         }
         public async Task DeleteAsync(int Id)
         {
@@ -52,8 +46,8 @@ namespace MauiPetsApp.Infrastructure.Services.Scheduler
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Erro: {ex.Message}");
-                throw;
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<AppointmentDataDto>();
             }
         }
 
@@ -83,8 +77,8 @@ namespace MauiPetsApp.Infrastructure.Services.Scheduler
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message, "Erro no update do contacto");
-                throw;
+                Log.Error(ex.Message, "Erro no update do contacto");
+
             }
         }
     }

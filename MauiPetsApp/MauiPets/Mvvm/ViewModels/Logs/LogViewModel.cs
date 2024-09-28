@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Core.Application.Interfaces.Repositories.Logs;
 using MauiPets.Core.Application.ViewModels.Logs;
+using MauiPets.Mvvm.Views.Logs;
 using Serilog;
 using System.Collections.ObjectModel;
 
@@ -200,7 +201,7 @@ namespace MauiPets.Mvvm.ViewModels.Logs
 
         private async Task NavigateToViewExceptionPage(LogEntry response)
         {
-            await Shell.Current.GoToAsync($"{nameof(LogViewExceptionViewModel)}", true,
+            await Shell.Current.GoToAsync($"{nameof(LogViewExceptionPage)}", true,
                 new Dictionary<string, object>
                 {
                     {"SelectedLogEntry", response},

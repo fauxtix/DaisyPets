@@ -1,20 +1,16 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MauiPets.Core.Application.ViewModels.Logs;
+﻿using MauiPets.Core.Application.ViewModels.Logs;
 
 namespace MauiPets.Mvvm.ViewModels.Logs
 {
     [QueryProperty(nameof(SelectedLogEntry), nameof(SelectedLogEntry))]
 
 
-    public partial class LogViewExceptionViewModel : ObservableObject, IQueryAttributable
+    public partial class LogViewExceptionViewModel : LogsBaseViewModel, IQueryAttributable
     {
-        [ObservableProperty]
-        private LogEntry _selectedLogEntry;
-
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            SelectedLogEntry = query[nameof(LogEntry)] as LogEntry;
+            SelectedLogEntry = query[nameof(SelectedLogEntry)] as LogEntry;
         }
     }
 }

@@ -3,7 +3,7 @@ using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure
@@ -11,12 +11,9 @@ namespace MauiPetsApp.Infrastructure
     public class DocumentsRepository : IDocumentsRepository
     {
         private readonly IDapperContext _context;
-        private readonly ILogger<ContactRepository> _logger;
-
-        public DocumentsRepository(IDapperContext context, ILogger<ContactRepository> logger)
+        public DocumentsRepository(IDapperContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public async Task<int> InsertDocument(Documento newDocument)
@@ -47,7 +44,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return -1;
             }
         }
@@ -83,7 +80,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return false;
             }
         }
@@ -103,7 +100,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
             }
         }
 
@@ -126,7 +123,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return null!;
             }
         }
@@ -150,7 +147,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return null!;
             }
         }
@@ -176,7 +173,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                Log.Error(ex.Message);
                 return null!;
             }
         }
