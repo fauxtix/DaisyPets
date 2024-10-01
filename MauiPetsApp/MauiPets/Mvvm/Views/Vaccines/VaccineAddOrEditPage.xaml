@@ -7,11 +7,16 @@
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Vaccines"
              x:DataType="viewmodel:VaccineAddOrEditModel"
              Title="{Binding AddEditCaption}">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding SaveVaccineCommand  }"
                  IconImageSource="icon_save.png" />
-        <!--<ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
-                 IconImageSource="icon_close.svg" />-->
+        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+                 IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <conv:NextDoseDateConverter x:Key="nextDoseDateConverter" />
@@ -77,18 +82,18 @@
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding SelectedVaccine.DataToma, Converter={StaticResource stringToDateConverter}}"  
                            Style="{StaticResource MediumLabelBold}"
-			               Grid.Row="1" WidthRequest="100" HorizontalOptions="Start"
+			               Grid.Row="1" HorizontalOptions="Start"
                            FontAttributes="Bold" 
 			               VerticalOptions="Center"></DatePicker>
                 <Label Text="Marca"
                                        Grid.Row="2"
                                        FontSize="14"
 			                           VerticalOptions="Center"></Label>
-                <Entry x:Name="VaccineBrand" 
-			                           Text="{Binding SelectedVaccine.Marca}" 
-			                           Grid.Row="3"
-			                           VerticalOptions="Center">
-                </Entry>
+                <Editor x:Name="VaccineBrand" 
+			            Text="{Binding SelectedVaccine.Marca}" 
+			            Grid.Row="3"
+			            VerticalOptions="Center">
+                </Editor>
                 <Label Text="Prx. toma em meses"
                                        Grid.Row="4"
                                        FontSize="14"/>
@@ -96,7 +101,7 @@
                         Keyboard="Numeric"
 			            Text="{Binding SelectedVaccine.ProximaTomaEmMeses}"
 			            Grid.Row="5"
-                        FontSize="14" WidthRequest="50" HorizontalOptions="Start"
+                        FontSize="14" HorizontalOptions="Start"
                         IsSpellCheckEnabled="false"
 			            VerticalOptions="Start">
                 </Entry>

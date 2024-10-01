@@ -153,10 +153,15 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="60" />
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" FontSize="11"
+                                <Label Grid.Column="0" FontSize="12"
                                        Text="{Binding StartDate, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
-                                       FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Start" HorizontalTextAlignment="Center" />
-                                <Label Grid.Column="1" FontSize="11" Margin="0, -1, 0, 0"
+                                        FontFamily="PoppinsBold"
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Start" 
+                                       HorizontalTextAlignment="Center" />
+                                <Label Grid.Column="1" FontSize="12" 
+                                        FontFamily="PoppinsBold"
+                                       Margin="0, -1, 0, 0"
                                        Text="{Binding Description, Mode=OneWay}"
                                        HorizontalOptions="Start"
                                        VerticalOptions="Start" />
@@ -171,11 +176,13 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <StackLayout Padding="1, 10, 1, 10" Spacing="12" HorizontalOptions="Center" 
-                     Margin="0, 2, 1, 0"
-                     VerticalOptions="Center" Orientation="Horizontal"
+        <StackLayout IsVisible="{Binding IsPaginationVisible}" 
                      Grid.Row="4"
-                     IsVisible="{Binding IsPaginationVisible}">
+                     Padding="1, 10, 1, 10" 
+                     Spacing="12" 
+                     Margin="0, 2, 1, 0"
+                     HorizontalOptions="Center" 
+                     VerticalOptions="Center" Orientation="Horizontal" >
             <ImageButton Source="first_page.svg" BorderWidth="2" 
                          BorderColor="Black"
                          Command="{Binding FirstPageAsyncCommand}" 

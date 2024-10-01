@@ -5,8 +5,7 @@
              xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels.LookupTables;assembly=MauiPets.Core"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-                          Shell.BackButtonBehavior="{Binding GoBackCommand}"
-
+             Shell.BackButtonBehavior="{Binding GoBackCommand}"
              Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>

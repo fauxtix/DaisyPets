@@ -24,7 +24,6 @@ namespace MauiPetsApp.Infrastructure.Repositories.Logs
                 var offset = (page - 1) * pageSize;
                 var sql = "SELECT * FROM PetsLogs ORDER BY date(TimeStamp) DESC LIMIT @PageSize OFFSET @Offset";
                 var output = await connection.QueryAsync<LogEntry>(sql, new { PageSize = pageSize, Offset = offset });
-
                 return output;
 
             }

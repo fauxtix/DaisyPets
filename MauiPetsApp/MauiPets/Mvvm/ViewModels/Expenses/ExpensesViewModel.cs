@@ -19,7 +19,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         private bool _isBusy;
 
         [ObservableProperty]
-        private int _pageSize = 5;
+        private int _pageSize = 8;
 
         [ObservableProperty]
         private int _currentPage = 1;
@@ -34,7 +34,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         private string _pageInfo = string.Empty;
 
         [ObservableProperty]
-        string filterText = string.Empty;
+        string filterText = "Despesas";
 
         [ObservableProperty]
         private string _searchText = string.Empty;

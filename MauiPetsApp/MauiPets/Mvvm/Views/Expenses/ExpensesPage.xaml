@@ -42,200 +42,186 @@
                      CommandParameter="{Binding .}" 
                      IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
-
-    <Grid Margin="5, 0, 5, 5" Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, Auto, Auto">
-        <!-- Conteúdo superior da página -->
-        <VerticalStackLayout Padding="10">
-            <!--<Border Stroke="#C49B33" Margin="0, 2, 0, 0"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 15,15,15,15"
-                    Background="Beige"
-                    Padding="16,8"
-                    HorizontalOptions="Center"
-                    Grid.Row="0">
-                <Label Text="{Binding FilterText, Mode=TwoWay}"
-                       TextColor="Black" WidthRequest="160" HorizontalTextAlignment="Center"
-                       FontFamily="Poppins-Regular"
-                       FontSize="16"
-                       FontAttributes="None" />
-            </Border>-->
-
-            <Frame CornerRadius="15"
-               VerticalOptions="Start" 
-               HorizontalOptions="CenterAndExpand"
-               HasShadow="True"
-               Padding="10"
-               HeightRequest="80"
-               BackgroundColor="WhiteSmoke"
-               Grid.Row="1"
-               Margin="10,10,10,10"
-               BorderColor="Transparent">
-
-                <Frame.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#3498db" Offset="0.1" />
-                        <GradientStop Color="#9b59b6" Offset="1.0" />
-                    </LinearGradientBrush>
-                </Frame.Background>
-                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5" Padding="5">
-                    <Image Source="expenses.png" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" />
-                    <Label Text="{Binding TotalGeralDespesas, Mode=OneWay, StringFormat='Total: {0:C2}'}"
+    <Grid>
+        <ScrollView>
+            <Grid Margin="5, 0, 5, 5" Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, Auto, Auto">
+                <VerticalStackLayout Padding="10">
+                    <Frame CornerRadius="15"
+                       VerticalOptions="Start" 
+                       HorizontalOptions="CenterAndExpand"
+                       HasShadow="True"
+                       Padding="10"
+                       HeightRequest="80"
+                       BackgroundColor="WhiteSmoke"
+                       Grid.Row="1"
+                       Margin="10,10,10,10"
+                       BorderColor="Transparent">
+                        <Frame.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#3498db" Offset="0.1" />
+                                <GradientStop Color="#9b59b6" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Frame.Background>
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="5" Padding="5">
+                            <Image Source="expenses.png" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" />
+                            <Label Text="{Binding TotalGeralDespesas, Mode=OneWay, StringFormat='Total: {0:C2}'}"
                            FontSize="20"
                            FontFamily="Poppins"
                            TextColor="White"
                            VerticalOptions="Center" />
-                </HorizontalStackLayout>
-            </Frame>
+                        </HorizontalStackLayout>
+                    </Frame>
 
-            <!-- Botões de filtro -->
-            <Border StrokeThickness="1"
+                    <!-- Botões de filtro -->
+                    <Border StrokeThickness="1"
                 Stroke="#dcdcdc"
-                BackgroundColor="White"
-                Padding="5,1"
-                Margin="1,15"
-                HeightRequest="60"
-                WidthRequest="370"
-                HorizontalOptions="Center"
-                VerticalOptions="Start"
-                StrokeShape="RoundRectangle 30">
-                <FlexLayout Direction="Row"
+                        BackgroundColor="White"
+                        Padding="5,1"
+                        Margin="1,5"
+                        HeightRequest="60"
+                        WidthRequest="370"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        StrokeShape="RoundRectangle 30">
+                        <FlexLayout Direction="Row"
                             JustifyContent="SpaceBetween" 
                             AlignItems="Center"
                             Wrap="NoWrap"
                             Margin="0,0">
-                    <Button Text="Este ano"
+                            <Button Text="Este ano"
                             Command="{Binding FilterExpensesByYearCommand}"
                             BackgroundColor="#2ECC71"
                             Style="{StaticResource ExpensesFilterButtonStyle}"
                             WidthRequest="100"
                             Margin="5,0" />
-                    <Button Text="Este mês"
+                            <Button Text="Este mês"
                             Command="{Binding FilterExpensesByMonthCommand}"
                             BackgroundColor="#3498db"
                             Style="{StaticResource ExpensesFilterButtonStyle}"
                             WidthRequest="100"
                             Margin="5,0" />
-                    <Button Text="Todas"
+                            <Button Text="Todas"
                         Command="{Binding GetExpensesCommand}"
                         BackgroundColor="#f1c40f"
                         Style="{StaticResource ExpensesFilterButtonStyle}"
                         WidthRequest="100"
                         Margin="5,0" />
-                </FlexLayout>
-            </Border>
+                        </FlexLayout>
+                    </Border>
 
-        </VerticalStackLayout>
-        <VerticalStackLayout Grid.Row="3">
-            <SearchBar x:Name="searchBar"
-                       Placeholder="Pesquisar"
-                       HorizontalOptions="Start"
-                       WidthRequest="300">
-                <SearchBar.Behaviors>
-                    <toolkit:EventToCommandBehavior EventName="TextChanged"
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="3">
+                    <SearchBar x:Name="searchBar"
+                               Placeholder="Pesquisar"                              
+                               HorizontalOptions="Start"
+                               Margin=" 0, -15, 0, 0"
+                               WidthRequest="300">
+                        <SearchBar.Behaviors>
+                            <toolkit:EventToCommandBehavior EventName="TextChanged"
                                                     Command="{Binding SearchExpensesCommand}" 
                                                     CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
-                </SearchBar.Behaviors>
-            </SearchBar>
-            <BoxView HeightRequest="0.4" BackgroundColor="Gray" Margin="0,7,0,5"/>
+                        </SearchBar.Behaviors>
+                    </SearchBar>
+                    <BoxView HeightRequest="0.4" BackgroundColor="Gray" Margin="0,7,0,5"/>
 
-        </VerticalStackLayout>
+                </VerticalStackLayout>
 
-        <!-- CollectionView com rolagem automática -->
-        <CollectionView x:Name="expensesView" 
+                <!-- CollectionView com rolagem automática -->
+                <CollectionView x:Name="expensesView" 
                         ItemsSource="{Binding Expenses}" 
                         VerticalScrollBarVisibility="Always"
                         Grid.Row="4"
                         SelectionMode="Single">
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout ItemSpacing="2" Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:DespesaVM">
-                    <SwipeView>
-                        <SwipeView.RightItems>
-                            <SwipeItems SwipeBehaviorOnInvoked="Close">
-                                <SwipeItem Text="Delete"
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="2" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:DespesaVM">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                        <SwipeItem Text="Delete"
                                            IconImageSource="icon_delete.svg"
                                            BackgroundColor="LightPink"
                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel}}, Path=DeleteExpenseCommand}"
                                            CommandParameter="{Binding .}" />
-                            </SwipeItems>
-                        </SwipeView.RightItems>
-                        <VerticalStackLayout>
-                            <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" Padding="2">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <VerticalStackLayout>
+                                    <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" Padding="2">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel}}, Path=EditExpenseCommand}"
                                         CommandParameter="{Binding .}" />
-                                </Frame.GestureRecognizers>
-                                <Grid Padding="2" RowDefinitions="Auto, Auto" ColumnSpacing="10" Margin="4" RowSpacing="3">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0"
-                                           Text="{Binding DataMovimento, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
-                                           FontFamily="PoppinsBold"
-                                           FontAttributes="Bold" />
-                                    <Label Grid.Column="1"
-                                           Text="{Binding DescricaoCategoriaDespesa, Mode=OneTime}"
-                                           FontFamily="PoppinsBold"
-                                           FontAttributes="Italic"
-                                           VerticalOptions="End" />
-                                    <Label Grid.Column="2"
-                                           Text="{Binding ValorPago, Mode=OneWay, StringFormat='{0:C2}'}"
-                                           FontFamily="PoppinsBold"
-                                           HorizontalOptions="End"
-                                           VerticalOptions="Start" />
-                                    <Label Grid.Row="1" Grid.ColumnSpan="3"
+                                        </Frame.GestureRecognizers>
+                                        <Grid Padding="2" ColumnSpacing="5" Margin="4" RowSpacing="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Grid.Column="0"
+                                               Text="{Binding DataMovimento, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
+                                               FontFamily="PoppinsBold"
+                                               FontAttributes="Bold" />
+                                            <Label Grid.Column="1"
+                                               Text="{Binding DescricaoCategoriaDespesa, Mode=OneTime}"
+                                               FontFamily="PoppinsBold"
+                                               FontAttributes="Italic"
+                                               VerticalOptions="End" />
+                                            <Label Grid.Column="2"
+                                               Text="{Binding ValorPago, Mode=OneWay, StringFormat='{0:C2}'}"
+                                               FontFamily="PoppinsBold"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="Start" />
+                                            <!--<Label Grid.Row="1" Grid.ColumnSpan="3"
                                            FontFamily="Poppins"
                                            FontSize="12" Margin="0, -7, 0, 0"
                                            Text="{Binding DescricaoTipoDespesa, Mode=OneWay}"
                                            HorizontalOptions="Start" 
-                                           VerticalOptions="Center" />
-                                </Grid>
-                            </Frame>
-                        </VerticalStackLayout>
-                    </SwipeView>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <BoxView Grid.Row="5" HeightRequest="0.4" BackgroundColor="Gray" Margin="0,7,0,5"/>
+                                           VerticalOptions="Center" />-->
+                                        </Grid>
+                                    </Frame>
+                                </VerticalStackLayout>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <BoxView Grid.Row="5" HeightRequest="0.4" BackgroundColor="Gray" Margin="0,7,0,5"/>
 
-        <!-- Paginação -->
-        <StackLayout Padding="1, 10, 1, 10" Spacing="12" 
+                <!-- Paginação -->
+                <StackLayout IsVisible="{Binding IsPaginationVisible}" Padding="1, 10, 1, 10" Spacing="12" 
                      HorizontalOptions="Center" Margin="0, 2, 1, 0"
                      VerticalOptions="Center" Orientation="Horizontal"
                      Grid.Row="6">
-            <ImageButton  Source="first_page.svg" BorderWidth="2" BorderColor="Black" 
+                    <ImageButton  Source="first_page.svg" BorderWidth="2" BorderColor="Black" 
                           Command="{Binding FirstPageCommand}" 
                           CornerRadius="5" WidthRequest="50" HeightRequest="30" />
-            <ImageButton Source="previous_page.svg" BorderWidth="2" BorderColor="Black" Command="{Binding PreviousPageCommand}" 
+                    <ImageButton Source="previous_page.svg" BorderWidth="2" BorderColor="Black" Command="{Binding PreviousPageCommand}" 
                          CornerRadius="5"
                          Style="{StaticResource ExpensesFilterButtonStyle}"
                          IsEnabled="{Binding CurrentPage, 
                 Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="50" />
-            <ImageButton Source="next_page.svg" BorderWidth="2" BorderColor="Black" 
+                    <ImageButton Source="next_page.svg" BorderWidth="2" BorderColor="Black" 
                     Command="{Binding NextPageCommand}" 
                     CornerRadius="5" WidthRequest="50">
-                <ImageButton.IsEnabled>
-                    <MultiBinding>
-                        <Binding Path="CurrentPage" />
-                        <Binding Path="TotalPages" />
-                        <MultiBinding.Converter>
-                            <conv:LessThanTotalPagesConverter/>
-                        </MultiBinding.Converter>
-                    </MultiBinding>
-                </ImageButton.IsEnabled>
-            </ImageButton>
+                        <ImageButton.IsEnabled>
+                            <MultiBinding>
+                                <Binding Path="CurrentPage" />
+                                <Binding Path="TotalPages" />
+                                <MultiBinding.Converter>
+                                    <conv:LessThanTotalPagesConverter/>
+                                </MultiBinding.Converter>
+                            </MultiBinding>
+                        </ImageButton.IsEnabled>
+                    </ImageButton>
 
-            <ImageButton Source="last_page.svg" BorderWidth="2" BorderColor="Black"  Command="{Binding LastPageCommand}" 
+                    <ImageButton Source="last_page.svg" BorderWidth="2" BorderColor="Black"  Command="{Binding LastPageCommand}" 
                          CornerRadius="5" WidthRequest="50"/>
-        </StackLayout>
+                </StackLayout>
 
-        <!-- Informações da página -->
-        <Label Text="{Binding PageInfo}"
+                <!-- Informações da página -->
+                <Label Text="{Binding PageInfo}"
                HorizontalOptions="Center"
                VerticalOptions="Center"
                FontSize="14"
@@ -243,17 +229,18 @@
                Margin="0, 0, 0, 10"
                Grid.Row="7" />
 
-        <!-- Indicador de atividade -->
-        <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
+                <!-- Indicador de atividade -->
+                <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
               Grid.RowSpan="8" >
-            <ActivityIndicator                
+                    <ActivityIndicator                
                 x:Name="ai" 
                 IsRunning="{Binding IsBusy}" 
                 HorizontalOptions="Center" 
                 VerticalOptions="Center" 
                 BackgroundColor="WhiteSmoke"
                 Color="Black"/>
-        </Grid>
-
+                </Grid>
+            </Grid>
+        </ScrollView>
     </Grid>
 </ContentPage>

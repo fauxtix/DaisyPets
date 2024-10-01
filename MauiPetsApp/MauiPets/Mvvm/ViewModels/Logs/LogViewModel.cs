@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPets.Core.Application.Interfaces.Repositories.Logs;
 using MauiPets.Core.Application.ViewModels.Logs;
 using MauiPets.Mvvm.Views.Logs;
+using MauiPets.Mvvm.Views.Pets;
 using Serilog;
 using System.Collections.ObjectModel;
 
@@ -13,7 +14,6 @@ namespace MauiPets.Mvvm.ViewModels.Logs
     public partial class LogViewModel : ObservableObject
     {
         private readonly ILogRepository _logRepository;
-
 
         public ObservableCollection<LogEntry> Logs { get; } = new ObservableCollection<LogEntry>();
 
@@ -39,6 +39,7 @@ namespace MauiPets.Mvvm.ViewModels.Logs
         private int _totalPages;
 
         public bool IsPaginationVisible => TotalLogs > PageSize;
+        public bool WeHaveLogsToDisplay => TotalLogs > 0;
 
         private bool CanNavigatePrevious() => CurrentPage > 1;
         private bool CanNavigateNext() => CurrentPage < TotalPages;
@@ -47,6 +48,12 @@ namespace MauiPets.Mvvm.ViewModels.Logs
         {
             _logRepository = logRepository;
             InitializeAsync();
+        }
+
+        [RelayCommand]
+        async Task GoBack()
+        {
+            await Shell.Current.GoToAsync($"//{nameof(PetsPage)}");
         }
 
         private async void InitializeAsync()
@@ -174,7 +181,6 @@ namespace MauiPets.Mvvm.ViewModels.Logs
                     IsLoading = true;
                     await Task.Delay(200);
                     await _logRepository.DeleteLogsAsync();
-                    //Log.Information($"{TotalLogs} registos do Log foram apagados com sucesso");
                     await LoadLogsAsync();
                 }
                 catch (Exception ex)
@@ -192,10 +198,10 @@ namespace MauiPets.Mvvm.ViewModels.Logs
         private async Task ViewLogExceptionAsync(LogEntry logEntry)
         {
             var response = await _logRepository.FindByIdAsync(logEntry.Id);
-            if (response != null)
+            if (!string.IsNullOrEmpty(response.Exception))
             {
-
-                await NavigateToViewExceptionPage(response);
+                if (response.Exception != null)
+                    await NavigateToViewExceptionPage(response);
             }
         }
 
@@ -216,19 +222,23 @@ namespace MauiPets.Mvvm.ViewModels.Logs
             bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apagar entrada de {log.TimeStamp}?", "Sim", "Não");
             if (okToDelete)
             {
-                IsLoading = true;
-                await _logRepository.DeleteAsync(log.Id);
-                await ShowToastMessage($"Log apagado com sucesso");
-
-                await LoadLogsAsync();
-
-                //await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true);
+                try
+                {
+                    IsLoading = true;
+                    await _logRepository.DeleteAsync(log.Id);
+                    await ShowToastMessage($"Log apagado com sucesso");
+                    await LoadLogsAsync();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex.Message);
+                }
+                finally
+                {
+                    IsLoading = false;
+                }
             }
-            IsLoading = false;
-
         }
-
-
 
         partial void OnPageSizeChanged(int value)
         {

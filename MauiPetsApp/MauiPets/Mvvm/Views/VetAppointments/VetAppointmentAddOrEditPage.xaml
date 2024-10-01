@@ -8,11 +8,15 @@
             x:DataType="viewmodel:VetAppointmentsAddOrEditViewModel"
              Title="{Binding AddEditCaption}">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding SaveVetAppointmentCommand}"
                      IconImageSource="icon_save.png" />
-        <!--<ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
-                     IconImageSource="icon_close.svg" />-->
+        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+                     IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <conv:StringToDateConverter x:Key="stringToDateConverter" />

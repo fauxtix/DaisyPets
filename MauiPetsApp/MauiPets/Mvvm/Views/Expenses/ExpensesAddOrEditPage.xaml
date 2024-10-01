@@ -9,6 +9,10 @@
              x:DataType="viewmodel:ExpenseAddOrEditViewModel"
              Title="">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <conv:StringToDateConverter x:Key="stringToDateConverter" />

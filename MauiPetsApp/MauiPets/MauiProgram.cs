@@ -234,12 +234,11 @@ namespace MauiPets
 
         private static void CopyDatabaseIfNeeded()
         {
+
             string destinationDatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PetsDB.db");
 
-            // Check if the destination file already exists
             if (!File.Exists(destinationDatabasePath))
             {
-                // Open and copy the embedded database file to the destination
                 try
                 {
                     using (var sourceStream = typeof(App).Assembly.GetManifestResourceStream("MauiPets.Database.PetsDB.db"))
@@ -250,7 +249,7 @@ namespace MauiPets
                         }
                     }
 
-                    Shell.Current.DisplayAlert("First run...", "Database copied to physical device", "Ok");
+                    Log.Error("First run...", "Database copied to physical device");
                 }
                 catch (Exception ex)
                 {

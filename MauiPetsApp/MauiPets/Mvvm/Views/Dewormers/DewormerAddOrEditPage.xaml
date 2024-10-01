@@ -7,11 +7,16 @@
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Dewormers"
              x:DataType="viewmodel:DewormerAddOrEditViewModel"
              Title="{Binding AddEditCaption}">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding SaveDewormerCommand}"
                      IconImageSource="icon_save.png" />
-        <!--<ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
-                     IconImageSource="icon_close.svg" />-->
+        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+                     IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <conv:NextDoseDateConverter x:Key="nextDoseDateConverter" />
@@ -54,7 +59,7 @@
                 StrokeThickness="2"
                 StrokeShape="RoundRectangle 22"
                 Background="#fff"
-                Padding="8,4"
+                Padding="8,4, 8, 25"
                 Margin="4"
                 HorizontalOptions="FillAndExpand">
 
@@ -67,12 +72,12 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="25" />
                 </Grid.RowDefinitions>
 
                 <Label Text="Movimento" 
                        Grid.Row="0"
+                       Margin="2,15,0,0"
                        FontSize="14"
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="TransactionDate"

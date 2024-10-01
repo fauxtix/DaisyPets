@@ -53,7 +53,7 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
         var petId = SelectedVaccine.IdPet;
         if (petId > 0)
         {
-            var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
+            var response = await _petService.GetPetVMAsync(petId);
 
             if (response is not null)
             {
@@ -88,9 +88,12 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
 
             if (SelectedVaccine.Id == 0)
             {
+                IsBusy = true;
+                await Task.Delay(100);
                 var insertedId = await _vaccinesService.InsertAsync(SelectedVaccine);
                 if (insertedId == -1)
                 {
+                    IsBusy = false;
                     await Shell.Current.DisplayAlert("Error while creating",
                         $"Please contact administrator..", "OK");
                     return;
@@ -98,10 +101,10 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
                 var vaccineCreated = await _vaccinesService.GetVacinaVMAsync(insertedId);
                 var petVM = await _petService.GetPetVMAsync(vaccineCreated.IdPet);
 
-                //IsBusy = false;
 
                 ShowToastMessage("Registo criado com sucesso");
                 UpdateNextDose();
+                IsBusy = false;
 
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
@@ -111,6 +114,9 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
             }
             else // Insert (Id > 0)
             {
+                IsBusy = true;
+                await Task.Delay(100);
+
                 var _vaccineId = SelectedVaccine.Id;
                 var _petId = SelectedVaccine.IdPet;
                 await _vaccinesService.UpdateAsync(_vaccineId, SelectedVaccine);
@@ -124,9 +130,9 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
                         {"PetVM", petVM}
                     });
 
-                //IsBusy = false;
                 ShowToastMessage("Registo atualizado com sucesso");
                 UpdateNextDose();
+                IsBusy = false;
 
             }
 

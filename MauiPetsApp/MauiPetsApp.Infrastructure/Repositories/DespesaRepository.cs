@@ -77,10 +77,9 @@ namespace MauiPetsApp.Infrastructure
             {
                 using (var connection = _context.CreateConnection())
                 {
-                    var updateOk = await connection.QueryFirstAsync<bool>(sb.ToString(), param: dynamicParameters);
-                    return updateOk;
+                    var updateOk = await connection.ExecuteAsync(sb.ToString(), param: dynamicParameters);
+                    return updateOk > 0;
                 }
-
             }
             catch (Exception ex)
             {

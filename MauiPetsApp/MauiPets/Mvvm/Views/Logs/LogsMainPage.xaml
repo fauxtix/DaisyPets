@@ -18,15 +18,15 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete All"
+        <ToolbarItem IsEnabled="{Binding WeHaveLogsToDisplay}" Text="Delete All"
                  Command="{Binding DeleteAllLogsCommand}" 
                  IconImageSource="delete_32.png" />
     </ContentPage.ToolbarItems>
 
     <ScrollView>
         <Grid RowDefinitions="Auto, Auto, *">
-            <StackLayout Padding="10" Grid.Row="0">
-                <SearchBar x:Name="searchBar" Placeholder="Search Logs" 
+            <StackLayout  IsVisible="{Binding WeHaveLogsToDisplay}" Padding="10" Grid.Row="0">
+                <SearchBar  x:Name="searchBar" Placeholder="Pesquisar" 
                            HorizontalOptions="Start"
                            WidthRequest="300">
                     <SearchBar.Behaviors>
@@ -34,10 +34,21 @@
                                                     Command="{Binding LoadFilteredLogsCommand}" 
                                                     CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
                     </SearchBar.Behaviors>
-
-
                 </SearchBar>
-                <CollectionView ItemsSource="{Binding Logs}" SelectionMode="Single">
+                <CollectionView Grid.Row="1" ItemsSource="{Binding Logs}" 
+                                SelectionMode="Single">
+                    <CollectionView.EmptyView>
+                        <StackLayout Margin="5, 10, 5, 0" Padding="10">
+                            <Image                                
+                                HorizontalOptions="FillAndExpand"
+                                HeightRequest="60"
+                                WidthRequest="60"
+                                Source="nopets.png"
+                                VerticalOptions="Center" />
+                            <Label HorizontalOptions="Center" Padding="10">Sem dados para mostar</Label>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
@@ -75,7 +86,7 @@
                 </CollectionView>
 
                 <!-- Page Information and Page Size Adjustments -->
-                <Grid Grid.Row="1" ColumnDefinitions="Auto, *">
+                <Grid IsVisible="{Binding WeHaveLogsToDisplay}" Grid.Row="2" ColumnDefinitions="Auto, *">
                     <StackLayout Grid.Column="0" HorizontalOptions="Start"
                                  VerticalOptions="Center">
                         <Grid ColumnDefinitions="Auto, 35, Auto, *">
