@@ -188,7 +188,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
 
         private void UpdatePageInfo()
         {
-            PageInfo = $"Page {CurrentPage} of {TotalPages}";
+            PageInfo = $"Pagª {CurrentPage} de {TotalPages}";
         }
 
         private bool CanNavigatePrevious() => CurrentPage > 1;

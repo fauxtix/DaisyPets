@@ -26,6 +26,7 @@ namespace MauiPets.Mvvm.ViewModels.Logs
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsPaginationVisible))]
+        [NotifyPropertyChangedFor(nameof(WeHaveLogsToDisplay))]
         private int _totalLogs;
 
         [ObservableProperty]
@@ -150,7 +151,16 @@ namespace MauiPets.Mvvm.ViewModels.Logs
                     TotalLogs = await _logRepository.GetLogCountAsync();
                 }
 
-                TotalPages = (int)Math.Ceiling((double)TotalLogs / PageSize);
+                if (TotalLogs > 0)
+                {
+                    TotalPages = (int)Math.Ceiling((double)TotalLogs / PageSize);
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Logs",
+                        "Sem registos para mostrar..", "OK");
+                    await Shell.Current.GoToAsync($"//{nameof(PetsPage)}");
+                }
             }
             catch (Exception ex)
             {
@@ -172,6 +182,11 @@ namespace MauiPets.Mvvm.ViewModels.Logs
         [RelayCommand]
         public async Task DeleteAllLogsAsync()
         {
+            if (TotalLogs == 0)
+            {
+                await ShowToastMessage("Sem registos para apagar");
+                return;
+            }
 
             var confirm = await Application.Current.MainPage.DisplayAlert("Confirme, p.f.", "Quer mesmo apagar todos os registos do Log?", "Sim", "Não");
             if (confirm)

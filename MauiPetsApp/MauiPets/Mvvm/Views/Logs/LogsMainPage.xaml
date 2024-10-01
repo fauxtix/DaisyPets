@@ -18,154 +18,158 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem IsEnabled="{Binding WeHaveLogsToDisplay}" Text="Delete All"
+        <ToolbarItem Text="Delete All"
                  Command="{Binding DeleteAllLogsCommand}" 
                  IconImageSource="delete_32.png" />
     </ContentPage.ToolbarItems>
 
-    <ScrollView>
-        <Grid RowDefinitions="Auto, Auto, *">
-            <StackLayout  IsVisible="{Binding WeHaveLogsToDisplay}" Padding="10" Grid.Row="0">
-                <SearchBar  x:Name="searchBar" Placeholder="Pesquisar" 
+    <Grid>
+        <ScrollView>
+            <Grid RowDefinitions="Auto, Auto, Auto">
+                <StackLayout  IsVisible="{Binding WeHaveLogsToDisplay}" Padding="10" Grid.Row="0">
+                    <SearchBar  x:Name="searchBar" Placeholder="Pesquisar" 
                            HorizontalOptions="Start"
                            WidthRequest="300">
-                    <SearchBar.Behaviors>
-                        <toolkit:EventToCommandBehavior EventName="TextChanged"
+                        <SearchBar.Behaviors>
+                            <toolkit:EventToCommandBehavior EventName="TextChanged"
                                                     Command="{Binding LoadFilteredLogsCommand}" 
                                                     CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
-                    </SearchBar.Behaviors>
-                </SearchBar>
-                <CollectionView Grid.Row="1" ItemsSource="{Binding Logs}" 
+                        </SearchBar.Behaviors>
+                    </SearchBar>
+                    <CollectionView Grid.Row="1" ItemsSource="{Binding Logs}" 
                                 SelectionMode="Single">
-                    <CollectionView.EmptyView>
-                        <StackLayout Margin="5, 10, 5, 0" Padding="10">
-                            <Image                                
+                        <CollectionView.EmptyView>
+                            <StackLayout Margin="5, 10, 5, 0" Padding="10">
+                                <Image                                
                                 HorizontalOptions="FillAndExpand"
                                 HeightRequest="60"
                                 WidthRequest="60"
                                 Source="nopets.png"
                                 VerticalOptions="Center" />
-                            <Label HorizontalOptions="Center" Padding="10">Sem dados para mostar</Label>
-                        </StackLayout>
-                    </CollectionView.EmptyView>
+                                <Label HorizontalOptions="Center" Padding="10">Sem dados para mostar</Label>
+                            </StackLayout>
+                        </CollectionView.EmptyView>
 
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="models:LogEntry">
-                            <SwipeView>
-                                <SwipeView.RightItems>
-                                    <SwipeItems SwipeBehaviorOnInvoked="Close">
-                                        <SwipeItem Text="Delete"
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:LogEntry">
+                                <SwipeView>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                            <SwipeItem Text="Delete"
                                                IconImageSource="icon_delete.svg" 
                                                BackgroundColor="LightPink"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LogViewModel}}, Path=DeleteLogByIdCommand}"
                                                CommandParameter="{Binding .}" />
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
-                                <StackLayout Padding="2" Margin="5,0" 
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <StackLayout Padding="2" Margin="5,0" 
                                                      BackgroundColor="LightGray">
-                                    <Frame CornerRadius="12">
-                                        <Frame.GestureRecognizers>
-                                            <TapGestureRecognizer
+                                        <Frame CornerRadius="12">
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LogViewModel}}, Path=ViewLogExceptionCommand}"
                                         CommandParameter="{Binding .}" />
-                                        </Frame.GestureRecognizers>
-                                        <Grid Padding="2" RowDefinitions="Auto, Auto, Auto, *" ColumnSpacing="10" Margin="0" RowSpacing="1">
-                                            <Label Grid.Row="0" Text="{Binding Message}" FontSize="12" FontAttributes="Bold" />
-                                            <Label Grid.Row="1" Text="{Binding Level}" FontSize="12" TextColor="Gray" />
-                                            <Label Grid.Row="2" Text="{Binding TimeStamp}" FontSize="10" />
-                                            <Label Grid.Row="3" Text="{Binding Exception}" FontSize="10" />
-                                        </Grid>
-                                    </Frame>
-                                </StackLayout>
-                            </SwipeView>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                            </Frame.GestureRecognizers>
+                                            <Grid Padding="2" RowDefinitions="Auto, Auto, Auto, *" ColumnSpacing="10" Margin="0" RowSpacing="1">
+                                                <Label Grid.Row="0" Text="{Binding Message}" FontSize="12" FontAttributes="Bold" />
+                                                <Label Grid.Row="1" Text="{Binding Level}" FontSize="12" TextColor="Gray" />
+                                                <Label Grid.Row="2" Text="{Binding TimeStamp}" FontSize="10" />
+                                                <Label Grid.Row="3" Text="{Binding Exception}" FontSize="10" />
+                                            </Grid>
+                                        </Frame>
+                                    </StackLayout>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
 
-                <!-- Page Information and Page Size Adjustments -->
-                <Grid IsVisible="{Binding WeHaveLogsToDisplay}" Grid.Row="2" ColumnDefinitions="Auto, *">
-                    <StackLayout Grid.Column="0" HorizontalOptions="Start"
+                    <!-- Page Information and Page Size Adjustments -->
+                    <Grid IsVisible="{Binding WeHaveLogsToDisplay}" Grid.Row="2" ColumnDefinitions="Auto, *">
+                        <StackLayout Grid.Column="0" HorizontalOptions="Start"
                                  VerticalOptions="Center">
-                        <Grid ColumnDefinitions="Auto, 35, Auto, *">
-                            <Label Text="Logs" Grid.Column="0"
+                            <Grid ColumnDefinitions="Auto, 35, Auto, *">
+                                <Label Text="Logs" Grid.Column="0"
                                    FontSize="12" 
                                    HorizontalOptions="Start" 
                                    Margin="5" />
-                            <Label Text="{Binding TotalLogs}" Grid.Column="1"
+                                <Label Text="{Binding TotalLogs}" Grid.Column="1"
                                    FontSize="12" 
                                    HorizontalOptions="Start" 
                                    VerticalOptions="Center"
                                    FontAttributes="Bold"
                                    Margin="5" />
-                            <Label Text="Reg/pagª: " 
+                                <Label Text="Reg/pagª: " 
                                    Grid.Column="2"
                                    Margin="20, 5"
                                    FontSize="12"
                                    VerticalOptions="Center" 
                                    HorizontalOptions="Center" />
-                            <Entry Grid.Column="3" Text="{Binding PageSize, Mode=TwoWay, Converter={StaticResource EntryToNullableIntConverter}}"  
+                                <Entry Grid.Column="3" Text="{Binding PageSize, Mode=TwoWay, Converter={StaticResource EntryToNullableIntConverter}}"  
                                    WidthRequest="30" 
                                    Keyboard="Numeric"  MaxLength="2"
                                    Margin="-20, -8"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center">
-                            </Entry>
-                        </Grid>
-                    </StackLayout>
+                                </Entry>
+                            </Grid>
+                        </StackLayout>
 
-                    <StackLayout Grid.Column="3" 
+                        <StackLayout Grid.Column="3" 
                                  Orientation="Horizontal" 
                                  HorizontalOptions="Center" Margin="10, 5, 10, 5">
-                        <Label Text="Pagª: " FontSize="12" />
-                        <Label Text="{Binding CurrentPage}" FontSize="12" FontAttributes="Bold" />
-                        <Label Text=" de " FontSize="12" />
-                        <Label Text="{Binding TotalPages}" FontSize="12" FontAttributes="Bold" />
-                    </StackLayout>
-                </Grid>
+                            <Label Text="Pagª: " FontSize="12" />
+                            <Label Text="{Binding CurrentPage}" FontSize="12" FontAttributes="Bold" />
+                            <Label Text=" de " FontSize="12" />
+                            <Label Text="{Binding TotalPages}" FontSize="12" FontAttributes="Bold" />
+                        </StackLayout>
+                    </Grid>
 
-                <StackLayout IsVisible="{Binding IsPaginationVisible}" Spacing="12" Orientation="Horizontal" 
+                    <StackLayout IsVisible="{Binding IsPaginationVisible}" Spacing="12" Orientation="Horizontal" 
                              HorizontalOptions="Center" Margin="10">
-                    <ImageButton Source="first_page.svg" 
+                        <ImageButton Source="first_page.svg" 
                                  BorderWidth="2" 
                                  BorderColor="Black" 
                                  Command="{Binding FirstPageCommand}" 
                                  CornerRadius="5" WidthRequest="50" HeightRequest="30" />
-                    <ImageButton Source="previous_page.svg" BorderWidth="2" 
+                        <ImageButton Source="previous_page.svg" BorderWidth="2" 
                                  BorderColor="Black" Command="{Binding LoadPreviousPageCommand}" 
                                  CornerRadius="5"
                                  IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" 
                                  WidthRequest="50" />
-                    <ImageButton Source="next_page.svg" BorderWidth="2"  WidthRequest="50"
+                        <ImageButton Source="next_page.svg" BorderWidth="2"  WidthRequest="50"
                                  BorderColor="Black" Command="{Binding LoadNextPageCommand}" CornerRadius="5">
-                        <ImageButton.IsEnabled>
-                            <MultiBinding>
-                                <Binding Path="CurrentPage" />
-                                <Binding Path="TotalPages" />
-                                <MultiBinding.Converter>
-                                    <conv:LessThanTotalPagesConverter/>
-                                </MultiBinding.Converter>
-                            </MultiBinding>
-                        </ImageButton.IsEnabled>
-                    </ImageButton>
-                    <ImageButton Source="last_page.svg" BorderWidth="2" 
+                            <ImageButton.IsEnabled>
+                                <MultiBinding>
+                                    <Binding Path="CurrentPage" />
+                                    <Binding Path="TotalPages" />
+                                    <MultiBinding.Converter>
+                                        <conv:LessThanTotalPagesConverter/>
+                                    </MultiBinding.Converter>
+                                </MultiBinding>
+                            </ImageButton.IsEnabled>
+                        </ImageButton>
+                        <ImageButton Source="last_page.svg" BorderWidth="2" 
                                  BorderColor="Black"
                                  Command="{Binding LastPageCommand}" 
                                  CornerRadius="5" WidthRequest="50"/>
-                </StackLayout>
+                    </StackLayout>
 
-            </StackLayout>
-            <Grid IsVisible="{Binding IsLoading}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
-              Grid.RowSpan="3">
-                <ActivityIndicator 
-                IsRunning="{Binding IsLoading}" 
-                HorizontalOptions="Center" 
-                VerticalOptions="Center" 
-                BackgroundColor="WhiteSmoke"
-                Color="Black"/>
+                </StackLayout>
+                <Grid IsVisible="{Binding IsLoading}" 
+                      HorizontalOptions="FillAndExpand" 
+                      VerticalOptions="Center"
+                      Grid.RowSpan="3">
+                    <ActivityIndicator 
+                        IsRunning="{Binding IsLoading}" 
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="WhiteSmoke"
+                        Color="Black"/>
+                </Grid>
             </Grid>
-        </Grid>
-    </ScrollView>
+        </ScrollView>
+    </Grid>
 </ContentPage>

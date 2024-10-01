@@ -44,7 +44,7 @@
     </ContentPage.ToolbarItems>
     <Grid>
         <ScrollView>
-            <Grid Margin="5, 0, 5, 5" Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, Auto, *, Auto, Auto, Auto">
+            <Grid Margin="5, 0, 5, 5" Padding="0" RowDefinitions="Auto, Auto,  *, Auto, Auto, Auto">
                 <VerticalStackLayout Padding="10">
                     <Frame CornerRadius="15"
                        VerticalOptions="Start" 
@@ -53,7 +53,7 @@
                        Padding="10"
                        HeightRequest="80"
                        BackgroundColor="WhiteSmoke"
-                       Grid.Row="1"
+                       Grid.Row="0"
                        Margin="10,10,10,10"
                        BorderColor="Transparent">
                         <Frame.Background>
@@ -89,28 +89,28 @@
                             Wrap="NoWrap"
                             Margin="0,0">
                             <Button Text="Este ano"
-                            Command="{Binding FilterExpensesByYearCommand}"
-                            BackgroundColor="#2ECC71"
-                            Style="{StaticResource ExpensesFilterButtonStyle}"
-                            WidthRequest="100"
-                            Margin="5,0" />
+                                Command="{Binding FilterExpensesByYearCommand}"
+                                BackgroundColor="#2ECC71"
+                                Style="{StaticResource ExpensesFilterButtonStyle}"
+                                WidthRequest="100"
+                                Margin="5,0" />
                             <Button Text="Este mês"
-                            Command="{Binding FilterExpensesByMonthCommand}"
-                            BackgroundColor="#3498db"
-                            Style="{StaticResource ExpensesFilterButtonStyle}"
-                            WidthRequest="100"
-                            Margin="5,0" />
+                                Command="{Binding FilterExpensesByMonthCommand}"
+                                BackgroundColor="#3498db"
+                                Style="{StaticResource ExpensesFilterButtonStyle}"
+                                WidthRequest="100"
+                                Margin="5,0" />
                             <Button Text="Todas"
-                        Command="{Binding GetExpensesCommand}"
-                        BackgroundColor="#f1c40f"
-                        Style="{StaticResource ExpensesFilterButtonStyle}"
-                        WidthRequest="100"
-                        Margin="5,0" />
+                                Command="{Binding GetExpensesCommand}"
+                                BackgroundColor="#f1c40f"
+                                Style="{StaticResource ExpensesFilterButtonStyle}"
+                                WidthRequest="100"
+                                Margin="5,0" />
                         </FlexLayout>
                     </Border>
 
                 </VerticalStackLayout>
-                <VerticalStackLayout Grid.Row="3">
+                <VerticalStackLayout Grid.Row="1">
                     <SearchBar x:Name="searchBar"
                                Placeholder="Pesquisar"                              
                                HorizontalOptions="Start"
@@ -130,8 +130,20 @@
                 <CollectionView x:Name="expensesView" 
                         ItemsSource="{Binding Expenses}" 
                         VerticalScrollBarVisibility="Always"
-                        Grid.Row="4"
+                        Grid.Row="2"
                         SelectionMode="Single">
+                    <CollectionView.EmptyView>
+                        <StackLayout Margin="5, 10, 5, 0" Padding="10">
+                            <Image                                
+                                HorizontalOptions="FillAndExpand"
+                                HeightRequest="60"
+                                WidthRequest="60"
+                                Source="nopets.png"
+                                VerticalOptions="Center" />
+                            <Label HorizontalOptions="Center" Padding="10">Sem dados para mostar</Label>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="2" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
@@ -162,24 +174,20 @@
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Column="0"
                                                Text="{Binding DataMovimento, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
-                                               FontFamily="PoppinsBold"
-                                               FontAttributes="Bold" />
+                                                   FontFamily="PoppinsSemiBold"
+                                                   FontSize="12" VerticalOptions="Center"
+                                                   FontAttributes="Bold" />
                                             <Label Grid.Column="1"
-                                               Text="{Binding DescricaoCategoriaDespesa, Mode=OneTime}"
-                                               FontFamily="PoppinsBold"
-                                               FontAttributes="Italic"
-                                               VerticalOptions="End" />
+                                                   Text="{Binding DescricaoTipoDespesa, Mode=OneTime}"
+                                                   FontFamily="PoppinsBold"
+                                                   FontSize="13"
+                                                   VerticalOptions="End" />
                                             <Label Grid.Column="2"
                                                Text="{Binding ValorPago, Mode=OneWay, StringFormat='{0:C2}'}"
-                                               FontFamily="PoppinsBold"
+                                               FontFamily="PoppinsSemiBold"
+                                                   FontSize="12" 
                                                HorizontalOptions="End"
                                                VerticalOptions="Start" />
-                                            <!--<Label Grid.Row="1" Grid.ColumnSpan="3"
-                                           FontFamily="Poppins"
-                                           FontSize="12" Margin="0, -7, 0, 0"
-                                           Text="{Binding DescricaoTipoDespesa, Mode=OneWay}"
-                                           HorizontalOptions="Start" 
-                                           VerticalOptions="Center" />-->
                                         </Grid>
                                     </Frame>
                                 </VerticalStackLayout>
@@ -187,19 +195,18 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <BoxView Grid.Row="5" HeightRequest="0.4" BackgroundColor="Gray" Margin="0,7,0,5"/>
+                <BoxView Grid.Row="3" HeightRequest="0.4" BackgroundColor="Gray" Margin="0,7,0,5"/>
 
                 <!-- Paginação -->
                 <StackLayout IsVisible="{Binding IsPaginationVisible}" Padding="1, 10, 1, 10" Spacing="12" 
                      HorizontalOptions="Center" Margin="0, 2, 1, 0"
                      VerticalOptions="Center" Orientation="Horizontal"
-                     Grid.Row="6">
+                     Grid.Row="4">
                     <ImageButton  Source="first_page.svg" BorderWidth="2" BorderColor="Black" 
                           Command="{Binding FirstPageCommand}" 
                           CornerRadius="5" WidthRequest="50" HeightRequest="30" />
                     <ImageButton Source="previous_page.svg" BorderWidth="2" BorderColor="Black" Command="{Binding PreviousPageCommand}" 
                          CornerRadius="5"
-                         Style="{StaticResource ExpensesFilterButtonStyle}"
                          IsEnabled="{Binding CurrentPage, 
                 Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="50" />
                     <ImageButton Source="next_page.svg" BorderWidth="2" BorderColor="Black" 
@@ -222,23 +229,23 @@
 
                 <!-- Informações da página -->
                 <Label Text="{Binding PageInfo}"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               FontSize="14"
-               FontAttributes="Bold"
-               Margin="0, 0, 0, 10"
-               Grid.Row="7" />
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   Margin="0, 0, 0, 10"
+                   Grid.Row="5" />
 
                 <!-- Indicador de atividade -->
-                <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" 
-              Grid.RowSpan="8" >
+                <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" 
+                      Grid.RowSpan="6" >
                     <ActivityIndicator                
-                x:Name="ai" 
-                IsRunning="{Binding IsBusy}" 
-                HorizontalOptions="Center" 
-                VerticalOptions="Center" 
-                BackgroundColor="WhiteSmoke"
-                Color="Black"/>
+                        x:Name="ai" 
+                        IsRunning="{Binding IsBusy}" 
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="WhiteSmoke"
+                        Color="Black"/>
                 </Grid>
             </Grid>
         </ScrollView>
