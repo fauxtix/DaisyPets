@@ -39,15 +39,12 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         [ObservableProperty]
         private bool isTypeExternal;
 
-        // New property for Picker options
         [ObservableProperty]
         private List<string> dewormerTypes;
 
         [ObservableProperty]
         private string _addEditCaption;
 
-
-        // Constructor or initialization method
         public DewormerBaseViewModel()
         {
             dewormerTypes = new List<string>

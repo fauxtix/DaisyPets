@@ -124,24 +124,6 @@
                         </Grid>
                     </Frame>
                 </Border>
-                <!--<Border>
-                <Frame>
-                    <Grid x:Name="GridTeste"
-                          ColumnDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" ColumnSpacing="10">
-                        <Image Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Source="bxs_dog.svg"/>
-                        <Label Grid.Row="10" Grid.Column="1" Text="Raça" FontSize="Header" FontAttributes="Bold"/>
-                        <Label Grid.Row="10" Grid.Column="1" Text="{Binding PetVM.RacaAnimal}" FontSize="14" />
-                        <Image Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" Source="male_icon.png"/>
-                        <Label Grid.Row="10" Grid.Column="3" Text="Género" FontSize="Header" FontAttributes="Bold"/>
-                        <Label Grid.Row="10" Grid.Column="3" Text="{Binding Gender}" FontSize="14" />
-                        <Image Grid.Row="9" Grid.Column="4" Grid.ColumnSpan="2" Source="schedule_icon.svg"/>
-                        <Label Grid.Row="10" Grid.Column="5" Text="Idade" FontSize="Header" FontAttributes="Bold"/>
-                        <Label Grid.Row="10" Grid.Column="5" Text="{Binding PetVM.DataNascimento}" FontSize="14" />
-                    </Grid>
-
-                </Frame>
-
-            </Border>-->
                 <Border Grid.Row="3" Stroke="#2B0B98"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 22"
@@ -168,7 +150,7 @@
                             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabel}" >Código Chip</Label>
                             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.NumeroChip}" />
                             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabel}" >Data Chip</Label>
-                            <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataChip}" />
+                            <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataChip, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}" />
                             <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="0" Style="{StaticResource MediumLabel}" >Esterilizado</Label>
                             <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Sterilized}" />
                             <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabel}" >Padrinho</Label>

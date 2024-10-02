@@ -55,7 +55,7 @@ namespace MauiPets
         {
             //DatabaseHelper.CopyDatabaseIfNeeded();
 
-            CultureInfo cultureInfo = new CultureInfo("pt-PT"); // For Portuguese culture
+            CultureInfo cultureInfo = new CultureInfo("pt-PT");
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
@@ -226,9 +226,9 @@ namespace MauiPets
             var dapperContext = serviceProvider.GetRequiredService<IDapperContext>();
 
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information() // Set the minimum level you want to capture
-                .WriteTo.Debug() // Outputs logs to debug output
-                .WriteTo.Sink(new SQLiteSink(dapperContext, null)) // Ensure this sink is implemented properly
+                .MinimumLevel.Information()
+                .WriteTo.Debug()
+                .WriteTo.Sink(new SQLiteSink(dapperContext, null))
                 .CreateLogger();
         }
 

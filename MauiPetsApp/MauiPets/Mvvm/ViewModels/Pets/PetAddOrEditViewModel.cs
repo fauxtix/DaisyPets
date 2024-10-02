@@ -164,6 +164,26 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
             await Shell.Current.DisplayAlert("Error while 'SavePetData", ex.Message, "Ok");
         }
     }
+
+    [RelayCommand]
+    public async Task DeletePet()
+    {
+        var petName = PetDto.Nome;
+        bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga o registo de {petName}?", "Sim", "Não");
+        if (okToDelete)
+        {
+            var response = await _petService.DeleteAsync(PetDto.Id);
+            if (!okToDelete)
+            {
+                await Shell.Current.DisplayAlert($"Apagar registo ({PetDto.Nome})", "Operação não permitida. Há registos associados. Verifique, p.f.", "Ok");
+            }
+            else
+            {
+                ShowToastMessage("Registo removido com sucesso");
+            }
+        }
+    }
+
     [RelayCommand]
     async Task GoBack()
     {
