@@ -43,21 +43,6 @@
         Dark={StaticResource DarkBackground}}">
         <Grid>
             <VerticalStackLayout >
-                <!--<Button
-                    x:Name="ImageSelect"
-                    Text="Select Photo"
-                    SemanticProperties.Hint="Select Image"
-                    Clicked="ImageSelect_Clicked"
-                    HorizontalOptions="Center" />
-                    <Label x:Name="outputText"
-                           Padding="10"/>
-                <Image
-                   
-                x:Name="petPhoto"
-                SemanticProperties.Description="Selected Photo"
-                HeightRequest="200"
-                HorizontalOptions="Center" />-->
-
                 <VerticalStackLayout>
                     <Border Stroke="#2B0B98"
                         StrokeThickness="2"

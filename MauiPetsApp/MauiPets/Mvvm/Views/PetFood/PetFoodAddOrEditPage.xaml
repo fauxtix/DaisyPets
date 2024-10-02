@@ -79,7 +79,6 @@
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="TransactionDate"
                            Date="{Binding SelectedPetFood.DataCompra, Converter={StaticResource stringToDateConverter}}"  
-                           Style="{StaticResource MediumLabelBold}"
                            Grid.Row="1"
                            FontSize = "14"
                            FontAttributes="Bold" 

@@ -232,7 +232,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
 
         private void UpdatePageInfo()
         {
-            PageInfo = $"Pagª {CurrentPage} de {TotalPages}";
+            PageInfo = TotalPages > 0 ? $"Pagª {CurrentPage} de {TotalPages}" : "";
         }
 
         [RelayCommand]

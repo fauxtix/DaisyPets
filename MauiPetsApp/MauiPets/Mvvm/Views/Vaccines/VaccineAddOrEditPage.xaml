@@ -81,7 +81,6 @@
                 </Label>
                 <DatePicker x:Name="TransactionDate"
 			               Date="{Binding SelectedVaccine.DataToma, Converter={StaticResource stringToDateConverter}}"  
-                           Style="{StaticResource MediumLabelBold}"
 			               Grid.Row="1" HorizontalOptions="Start"
                            FontAttributes="Bold" 
 			               VerticalOptions="Center"></DatePicker>

@@ -75,14 +75,12 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!-- Existing Fields -->
                 <Label Text="Consulta" 
                        Grid.Row="0"
                        FontSize = "14"
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="BuyDate"
                            Date="{Binding SelectedAppointment.DataConsulta, Converter={StaticResource stringToDateConverter}}"  
-                           Style="{StaticResource MediumLabelBold}"
                            Grid.Row="1"
                            FontAttributes="Bold" 
                            VerticalOptions="Center"/>

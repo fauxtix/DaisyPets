@@ -21,6 +21,7 @@
     <ContentPage.Resources>
         <conv:NextDoseDateConverter x:Key="nextDoseDateConverter" />
         <conv:StringToDateConverter x:Key="stringToDateConverter" />
+        
         <Style x:Key="MediumLabelBold" TargetType="Label">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontAttributes" Value="Bold"/>
@@ -82,7 +83,6 @@
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="TransactionDate"
                             Date="{Binding SelectedDewormer.DataAplicacao, Converter={StaticResource stringToDateConverter}}"  
-                            Style="{StaticResource MediumLabelBold}"
                             DateSelected="TransactionDate_DateSelected"
                             Grid.Row="1"
                             FontAttributes="Bold" 
@@ -103,7 +103,6 @@
                        VerticalOptions="Center"/>
                 <DatePicker x:Name="NextApplicationDate"
                            Date="{Binding SelectedDewormer.DataProximaAplicacao, Converter={StaticResource stringToDateConverter}}"  
-                           Style="{StaticResource MediumLabelBold}"
                            Grid.Row="5"
                            FontAttributes="Bold" 
                            VerticalOptions="Center"/>
