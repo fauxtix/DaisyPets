@@ -101,7 +101,6 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 await Task.Delay(100);
                 var expenses = (await _service.GetAllVMAsync()).ToList();
 
-                // Filtrar despesas com base no SearchText
                 if (!string.IsNullOrWhiteSpace(SearchText))
                 {
                     expenses = expenses

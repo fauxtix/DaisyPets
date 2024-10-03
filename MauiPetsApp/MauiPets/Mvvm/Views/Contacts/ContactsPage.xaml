@@ -35,7 +35,13 @@
                            Placeholder="Pesquisar contacto"
                            Margin="5, 5, 5, 25"
                            x:Name="searchBar"
-                           TextChanged="searchBar_TextChanged"/>
+                           WidthRequest="300">
+                    <SearchBar.Behaviors>
+                        <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                    Command="{Binding SearchContactsCommand}" 
+                                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                    </SearchBar.Behaviors>
+                </SearchBar>
                 <ListView x:Name="ContactsList" x:DataType="models:ContactoVM"
                           Grid.Row="2"
                           Grid.ColumnSpan="2"

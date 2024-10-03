@@ -32,10 +32,10 @@ namespace MauiPets.Mvvm.ViewModels.Settings
             FilteredLookupCollection = new ObservableCollection<LookupTableVM>();
         }
 
-        partial void OnSearchTextChanged(string value)
-        {
-            FilterLookupCollection();
-        }
+        //partial void OnSearchTextChanged(string value)
+        //{
+        //    FilterLookupCollection();
+        //}
 
         private void FilterLookupCollection()
         {
@@ -65,10 +65,17 @@ namespace MauiPets.Mvvm.ViewModels.Settings
 
                 var data = (await _service.GetLookupTableData(TableName)).ToList();
                 var mappedData = _mapper.Map<List<LookupTableVM>>(data);
-                if (data.Count != 0)
+
+                if (!string.IsNullOrWhiteSpace(SearchText))
                 {
-                    LookupCollection.Clear();
+                    mappedData = mappedData
+                        .Where(e =>
+                            e.Descricao.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
                 }
+
+
+                LookupCollection.Clear();
 
                 foreach (var item in mappedData)
                 {
@@ -168,6 +175,14 @@ namespace MauiPets.Mvvm.ViewModels.Settings
                     {"Title", Title},
                 });
         }
+
+        [RelayCommand]
+        private async Task SearchSettingsAsync(string searchText)
+        {
+            SearchText = searchText;
+            await GetLookupDataAsync();
+        }
+
 
         [RelayCommand]
         async Task GoBack()

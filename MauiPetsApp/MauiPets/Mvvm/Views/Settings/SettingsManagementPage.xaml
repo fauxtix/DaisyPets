@@ -5,6 +5,7 @@
              xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels.LookupTables;assembly=MauiPets.Core"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewmodel:SettingsViewModel"
              Shell.BackButtonBehavior="{Binding GoBackCommand}"
              Title="{Binding Title}">
 
@@ -21,12 +22,19 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <!-- Search Bar in the first row -->
-        <SearchBar Grid.Row="0"
-                   Placeholder="Descrição a pesquisar" 
-                   Text="{Binding SearchText}" 
-                   FontFamily="Poppins"
-                   FontSize="14"
-                   SearchCommand="{Binding GetLookupDataCommand}" />
+        <SearchBar x:Name="searchBar"
+                               Placeholder="Pesquisar"                              
+                               HorizontalOptions="Start"
+                               Margin=" 0, -15, 0, 0"
+                               WidthRequest="300">
+            <SearchBar.Behaviors>
+                <toolkit:EventToCommandBehavior EventName="TextChanged"
+                                                    Command="{Binding SearchSettingsCommand }" 
+                                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+            </SearchBar.Behaviors>
+
+        </SearchBar>
+            
         <BoxView Grid.Row="1"
                  HeightRequest="1"
                  BackgroundColor="Gray"
