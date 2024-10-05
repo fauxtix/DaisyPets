@@ -4,8 +4,12 @@
              x:Class="MauiPets.Mvvm.Views.Settings.SettingsAddOrEditPage"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              x:DataType="viewmodel:SettingsAddOrEditViewModel"
-             Shell.BackButtonBehavior="{Binding BackButtonBehavior}"
              Title="{Binding Title}">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="MediumLabelBold" TargetType="Label">

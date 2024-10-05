@@ -8,6 +8,7 @@ using MauiPets.Mvvm.Views.Settings;
 using MauiPets.Mvvm.Views.Todo;
 using MauiPets.Mvvm.Views.Vaccines;
 using MauiPets.Mvvm.Views.VetAppointments;
+using SendEmail.Views;
 
 namespace MauiPets
 {
@@ -49,6 +50,8 @@ namespace MauiPets
 
             Routes.Add(nameof(LogsMainPage), typeof(LogsMainPage));
             Routes.Add(nameof(LogViewExceptionPage), typeof(LogViewExceptionPage));
+
+            Routes.Add(nameof(EmailFormPage), typeof(EmailFormPage));
 
             foreach (var item in Routes)
             {

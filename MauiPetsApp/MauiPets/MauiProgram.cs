@@ -4,6 +4,7 @@ using FluentValidation;
 using MauiPets.Core.Application.Interfaces.Repositories.Logs;
 using MauiPets.Mvvm.ViewModels.Contacts;
 using MauiPets.Mvvm.ViewModels.Dewormers;
+using MauiPets.Mvvm.ViewModels.Email;
 using MauiPets.Mvvm.ViewModels.Expenses;
 using MauiPets.Mvvm.ViewModels.Logs;
 using MauiPets.Mvvm.ViewModels.PetFood;
@@ -43,6 +44,7 @@ using MauiPetsApp.Infrastructure.TodoManager;
 using MauiPetsApp.Infrastructure.Validators;
 using Microsoft.Extensions.Configuration;
 using Plugin.LocalNotification;
+using SendEmail.Views;
 using Serilog;
 using System.Globalization;
 using System.Reflection;
@@ -135,6 +137,7 @@ namespace MauiPets
             builder.Services.AddTransient<LogViewModel>();
             builder.Services.AddTransient<LogViewExceptionViewModel>();
 
+            builder.Services.AddTransient<EmailViewModel>();
 
             // Views
             builder.Services.AddSingleton<PetsPage>();
@@ -162,6 +165,9 @@ namespace MauiPets
 
             builder.Services.AddTransient<LogsMainPage>();
             builder.Services.AddTransient<LogViewExceptionPage>();
+
+            builder.Services.AddTransient<EmailFormPage>();
+
 
             // Database context
 

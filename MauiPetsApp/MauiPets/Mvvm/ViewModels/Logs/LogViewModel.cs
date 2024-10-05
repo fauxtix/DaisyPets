@@ -6,6 +6,7 @@ using MauiPets.Core.Application.Interfaces.Repositories.Logs;
 using MauiPets.Core.Application.ViewModels.Logs;
 using MauiPets.Mvvm.Views.Logs;
 using MauiPets.Mvvm.Views.Pets;
+using SendEmail.Views;
 using Serilog;
 using System.Collections.ObjectModel;
 
@@ -48,6 +49,7 @@ namespace MauiPets.Mvvm.ViewModels.Logs
         public LogViewModel(ILogRepository logRepository)
         {
             _logRepository = logRepository;
+
             InitializeAsync();
         }
 
@@ -125,6 +127,9 @@ namespace MauiPets.Mvvm.ViewModels.Logs
             {
                 IsLoading = true;
                 await Task.Delay(200);
+
+                Log.Information("Getting logs");
+
 
                 var logs = await _logRepository.GetLogsAsync(CurrentPage, PageSize);
 
@@ -220,6 +225,17 @@ namespace MauiPets.Mvvm.ViewModels.Logs
             }
         }
 
+        [RelayCommand]
+        public async Task NavigateToEmailPage(LogEntry response)
+        {
+            await Shell.Current.GoToAsync($"{nameof(EmailFormPage)}", true,
+                new Dictionary<string, object>
+                {
+                    {"SelectedLogEntry", response},
+                });
+        }
+
+
         private async Task NavigateToViewExceptionPage(LogEntry response)
         {
             await Shell.Current.GoToAsync($"{nameof(LogViewExceptionPage)}", true,
@@ -254,6 +270,8 @@ namespace MauiPets.Mvvm.ViewModels.Logs
                 }
             }
         }
+
+
 
         partial void OnPageSizeChanged(int value)
         {

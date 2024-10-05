@@ -20,7 +20,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Delete All"
                  Command="{Binding DeleteAllLogsCommand}" 
-                 IconImageSource="delete_32.png" />
+                 IconImageSource="icon_delete.svg" />
     </ContentPage.ToolbarItems>
 
     <Grid>
@@ -63,6 +63,11 @@
                                                BackgroundColor="LightPink"
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LogViewModel}}, Path=DeleteLogByIdCommand}"
                                                CommandParameter="{Binding .}" />
+                                            <SwipeItem Text="Enviar Email"
+                                                       IconImageSource="icon_email.png"
+                                                       BackgroundColor="LightBlue"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LogViewModel}}, Path=NavigateToEmailPageCommand}"
+                                                       CommandParameter="{Binding .}" />
                                         </SwipeItems>
                                     </SwipeView.RightItems>
                                     <StackLayout Padding="2" Margin="5,0" 
