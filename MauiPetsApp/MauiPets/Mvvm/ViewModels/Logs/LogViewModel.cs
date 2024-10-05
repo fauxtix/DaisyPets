@@ -128,9 +128,6 @@ namespace MauiPets.Mvvm.ViewModels.Logs
                 IsLoading = true;
                 await Task.Delay(200);
 
-                Log.Information("Getting logs");
-
-
                 var logs = await _logRepository.GetLogsAsync(CurrentPage, PageSize);
 
                 if (!string.IsNullOrEmpty(SearchText))

@@ -4,7 +4,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Core.Application.ViewModels.Email;
 using MauiPets.Core.Application.ViewModels.Logs;
-using MauiPets.Mvvm.Views.Logs;
 
 namespace MauiPets.Mvvm.ViewModels.Email
 {
@@ -21,7 +20,6 @@ namespace MauiPets.Mvvm.ViewModels.Email
         private EmailVM _logEmail;
         public EmailViewModel()
         {
-            LogEmail = new() { TO = "fauxtix.luix@hotmail.com", Subject = "Mensagem da App Daisy Pets / Logs" };
         }
 
         [RelayCommand]
@@ -51,7 +49,7 @@ namespace MauiPets.Mvvm.ViewModels.Email
 
                 var toast = Toast.Make($"Entrada no log de {SelectedLogEntry.TimeStamp} enviada com sucesso", ToastDuration.Short, 14);
                 await toast.Show();
-                await Shell.Current.GoToAsync($"{nameof(LogsMainPage)}", true);
+                await Shell.Current.GoToAsync("..", true);
             }
             catch (FeatureNotSupportedException fbsEx)
             {
@@ -63,10 +61,21 @@ namespace MauiPets.Mvvm.ViewModels.Email
             }
         }
 
+        [RelayCommand]
+        async Task GoBack()
+        {
+            await Shell.Current.GoToAsync($"..");
+        }
+
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             SelectedLogEntry = query[nameof(SelectedLogEntry)] as LogEntry;
-            LogEmail.Body = SelectedLogEntry.Message;
+            LogEmail = new()
+            {
+                TO = "fauxtix.luix@hotmail.com",
+                Subject = "Mensagem da App Daisy Pets / Logs",
+                Body = SelectedLogEntry.Message
+            };
         }
     }
 }

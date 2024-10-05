@@ -59,8 +59,8 @@
                                     <SwipeView.RightItems>
                                         <SwipeItems SwipeBehaviorOnInvoked="Close">
                                             <SwipeItem Text="Delete"
-                                               IconImageSource="icon_delete.svg" 
-                                               BackgroundColor="LightPink"
+                                               IconImageSource="delete_32.png" 
+                                               BackgroundColor="SteelBlue" 
                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LogViewModel}}, Path=DeleteLogByIdCommand}"
                                                CommandParameter="{Binding .}" />
                                             <SwipeItem Text="Enviar Email"

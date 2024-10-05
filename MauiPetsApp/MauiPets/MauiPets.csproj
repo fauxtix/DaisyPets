@@ -103,7 +103,7 @@
 		<MauiImage Update="Resources\Images\daisypetsbing.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
-		<MauiImage Update="Resources\Images\delete_32.png" Resize="True" tintColor="#FFFFFF">
+		<MauiImage Update="Resources\Images\delete_32.png" Resize="True" tintColor="#FF0000">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\dewormers.png">
@@ -145,7 +145,7 @@
 		<MauiImage Update="Resources\Images\icon_close.svg">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
-		<MauiImage Update="Resources\Images\icon_delete.svg">
+		<MauiImage Update="Resources\Images\delete_32.png" Resize="True" tintColor="#880808">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_edit.svg">

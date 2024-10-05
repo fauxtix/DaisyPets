@@ -306,7 +306,7 @@
 
                                 <!--Other Info-->
 
-                                <Grid Grid.Row="5" Grid.ColumnSpan="2" RowSpacing="1" Margin="0, -35">
+                                <Grid Grid.Row="5" Grid.ColumnSpan="2" RowSpacing="1" Margin="0,5, 0, 5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="40"/>
                                         <RowDefinition Height="40"/>
@@ -326,29 +326,33 @@
                                             HorizontalOptions="Start" 
                                             VerticalOptions="Center" />
 
-                                    <Label Grid.Row="1" VerticalOptions="Center" FontSize="11" Grid.Column="0">Código Chip</Label>
-                                    <Entry Grid.Row="1" VerticalOptions="Center" FontSize="12" Grid.Column="1" Text="{Binding PetDto.NumeroChip}" />
-                                    <Label Grid.Row="2" VerticalOptions="Center" FontSize="11" Grid.Column="0">Data Chip</Label>
+                                    <Label Grid.Row="1" VerticalOptions="Center" Margin="0, -25, 0, 0" FontSize="11" Grid.Column="0">Código Chip</Label>
+                                    <Entry Grid.Row="1" VerticalOptions="Center" Margin="0, -25, 0, 0" FontSize="12" Grid.Column="1" Text="{Binding PetDto.NumeroChip}" />
+                                    <Label Grid.Row="2" VerticalOptions="Center" Margin="0, -35, 0, 0" FontSize="11" Grid.Column="0">Data Chip</Label>
                                     <DatePicker x:Name="chipDatePicker" 
                                                 Date="{Binding PetDto.DataChip}"
                                                 Grid.Row="2"
                                                 FontSize="12"
                                                 Grid.Column="1"
+                                                Margin="0, -35, 0, 0"
                                                 VerticalOptions="Center"/>
-                                    <Label Grid.Row="3" VerticalOptions="Center" FontSize="11" Margin="0,5,0,0" Grid.Column="0">Esterilizado</Label>
+                                    <Label Grid.Row="3" VerticalOptions="Center" FontSize="11" Margin="0,-20, 0,0" Grid.Column="0">Esterilizado</Label>
                                     <Switch Grid.Row="3" Grid.Column="1"
                                             IsToggled="{Binding PetDto.Esterilizado}"
-                                            HorizontalOptions="Start" 
+                                            HorizontalOptions="Start" Margin="0, -20, 0, 0"
                                             VerticalOptions="Center" />
-                                    <Label Grid.Row="4" VerticalOptions="Center" FontSize="11" Grid.Column="0">Padrinho</Label>
+                                    <Label Grid.Row="4" VerticalOptions="Center"
+                                           Margin="0, -45, 0, 0" FontSize="11" Grid.Column="0">Padrinho</Label>
                                     <Switch Grid.Row="4" Grid.Column="1"
                                             IsToggled="{Binding PetDto.Padrinho}"
                                             HorizontalOptions="Start" 
+                                            Margin="0, -45, 0, 0"
                                             VerticalOptions="Center" />
 
                                     <Label Text="Observações"
                                            Grid.Row="5"
                                            Grid.Column="0"
+                                           Margin="0, -25, 0, 0"
                                            VerticalTextAlignment="Center"
                                            FontSize="11">
                                     </Label>
@@ -356,6 +360,7 @@
 			                            Text="{Binding PetDto.Observacoes}"
 			                            Grid.Row="5"
                                         Grid.Column="1"
+                                            Margin="0, -25, 0, 0"
                                         FontSize="12"   
                                         VerticalTextAlignment="Center"
                                         Keyboard="Text"

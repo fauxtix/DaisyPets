@@ -6,43 +6,62 @@
              x:DataType="viewModel:EmailViewModel"
              Title="Form Email">
 
-    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
-          ColumnDefinitions="Auto, *"
-          RowSpacing="20"
-          ColumnSpacing="20"
-          Margin="20"
-          VerticalOptions="CenterAndExpand">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
 
-        <Label Grid.Row="0"
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+                 IconImageSource="icon_close.svg" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,*,*"
+          ColumnDefinitions="Auto, *"
+          RowSpacing="15"
+          ColumnSpacing="10"
+          Margin="20,5, 20, 0"
+          VerticalOptions="Start">
+        <Border Stroke="#2B0B98"                
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 5,5,5,5"
+                Background="#fff"
+                Padding="12,8"
+                Grid.ColumnSpan="2"
+                Grid.Row="0"
+                BackgroundColor="LightSteelBlue"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+            <Label Grid.Row="0"
                Grid.ColumnSpan="2"
-               Text="Email log entries"
+               Text="Email de entradas no Log"
                TextDecorations="None"
                HorizontalTextAlignment="Center"
-               FontSize="14"
+               FontSize="20"
                FontAttributes="Bold" />
-
+        </Border>
+        
         <Label Grid.Row="1"
                Grid.ColumnSpan="2"
-               Margin="0,30"
-               Text="To add multiple email adresses, add a separator ';'"
-               HorizontalTextAlignment="Center"
+               Margin="0,10"
+               Text="Para adicionar vários endereços de e-mail, adicione um separador ';'"
+               HorizontalTextAlignment="Start"
                FontSize="14" />
 
         <Label Grid.Row="2"
                Grid.Column="0"
-               Text="TO"
+               Text="Para"
                FontSize="14"
                VerticalTextAlignment="Center" />
 
         <Entry Grid.Row="2"
                Grid.Column="1"
-               Placeholder="test@test.com"
+               Placeholder="teste@teste.com"
                FontSize="14"
                Keyboard="Email"
                Text="{Binding LogEmail.TO, Mode=TwoWay}"/>
 
         <BoxView HeightRequest="1"
-                 BackgroundColor="Black"
+                 BackgroundColor="LightGray"
                  Grid.ColumnSpan="2"
                  Grid.Row="3" />
 
@@ -54,55 +73,57 @@
 
         <Entry Grid.Row="4"
                Grid.Column="1"
-               Placeholder="test@test.com"
+               Placeholder="teste@teste.com"
                Keyboard="Email"
                FontSize="14"
                Text="{Binding LogEmail.CC, Mode=TwoWay}"/>
 
         <BoxView HeightRequest="1"
-                 BackgroundColor="Black"
+                 BackgroundColor="LightGray"
                  Grid.ColumnSpan="2"
                  Grid.Row="5" />
 
         <Label Grid.Row="6"
                Grid.Column="0"
-               Text="Subject"
+               Text="Assunto"
                FontSize="14"
-               VerticalTextAlignment="Start" />
+               VerticalTextAlignment="Start"
+               VerticalOptions="Start" />
 
-        <Editor Grid.Row="6"
+        <Label Grid.Row="6"
                Grid.Column="1"
-               Placeholder="Message from maui app"
+               VerticalOptions="Start"
+               FontAttributes="Bold"
                FontSize="14"
                Text="{Binding LogEmail.Subject, Mode=TwoWay}"/>
-
         <BoxView HeightRequest="1"
-                 BackgroundColor="Black"
+                 BackgroundColor="LightGray"
                  Grid.ColumnSpan="2"
                  Grid.Row="7" />
 
         <Label Grid.Row="8"
                Grid.Column="0"
-               Text="Body"
+               Text="Mensagem"
                FontSize="14"
-               VerticalTextAlignment="Start" />
+               VerticalOptions="Start"/>
 
-        <Editor Grid.Row="8"
-               Grid.Column="1"
-               Placeholder="Hello World !!!"
-                VerticalOptions="Start" HorizontalOptions="Start"
-               FontSize="14"
+        <Label Grid.Row="8"
+                Grid.Column="1"
+                VerticalOptions="Center" LineBreakMode="CharacterWrap"
+                FontAttributes="Bold"
+                FontSize="14"
                Text="{Binding LogEmail.Body, Mode=TwoWay}"/>
 
         <Button Margin="0,50,0,0"
                 Grid.Row="9"
                 Grid.ColumnSpan="2"
-                Text="Send"
+                Text="Enviar"
                 FontSize="14"
+                VerticalOptions="End"
                 FontAttributes="Bold"
                 TextTransform="Uppercase"
                 Command="{Binding SendMailCommand}" />
 
     </Grid>
-        
+
 </ContentPage>
