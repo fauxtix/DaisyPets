@@ -7,6 +7,7 @@ using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
+using Serilog;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
@@ -77,7 +78,6 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 
         EditCaption = query[nameof(EditCaption)] as string;
         IsEditing = (bool)query[nameof(IsEditing)];
-
     }
     private void ExecuteUpdateSelectedItem()
     {
@@ -242,25 +242,71 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         }
     }
 
+    //[RelayCommand]
+    //private async Task PickImageAsync()
+    //{
+    //    try
+    //    {
+    //        var result = await MediaPicker.PickPhotoAsync();
+    //        if (result != null)
+    //        {
+    //            Foto = result.FullPath;
+    //            var originalName = result.FileName;
+    //            SaveImage(result.FullPath, originalName);
+    //        }
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Log.Error("Erro ao selecionar imagem do Pet", ex.Message);
+    //    }
+    //}
+
     [RelayCommand]
     private async Task PickImageAsync()
     {
-        var result = await MediaPicker.PickPhotoAsync();
-        if (result != null)
+        try
         {
-            Foto = result.FullPath;
-            var originalName = result.FileName;
-            var customName = "My_" + originalName; // Change this as you like
-            SaveImage(result.FullPath, originalName);
+            var result = await MediaPicker.PickPhotoAsync();
+            if (result != null)
+            {
+                // O usuário escolheu uma imagem, atualiza a Foto
+                PetDto.Foto = result.FileName; // Atualiza para o nome do arquivo escolhido
+                SaveImage(result.FullPath, result.FileName); // Salva a imagem
+            }
+            else
+            {
+                // Se não escolher, mantém a imagem padrão
+                PetDto.Foto = "icon_nopet.png"; // Garantindo que a imagem padrão é usada
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Erro ao selecionar imagem do Pet", ex.Message);
+            // Aqui você pode querer garantir que a imagem padrão é usada
+            PetDto.Foto = "icon_nopet.png"; // Fallback para a imagem padrão
         }
     }
 
     private void SaveImage(string path, string selectedPhotoName)
     {
-        var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Resources", "Images");
-        Directory.CreateDirectory(folder);
-        var destinationPath = Path.Combine(folder, selectedPhotoName);
-        File.Copy(path, destinationPath, true);
+        try
+        {
+            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Resources", "Images");
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+
+            var destinationPath = Path.Combine(folder, selectedPhotoName);
+            File.Copy(path, destinationPath, true);
+            PetDto.Foto = selectedPhotoName;
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Erro ao gravar imagem do Pet", ex.Message);
+        }
     }
 
 
