@@ -77,7 +77,7 @@
                        VerticalOptions="Center">
 
                     <Image x:Name="PetPhoto"
-                           Source="{Binding PetDto.Foto}"
+                           Source="{Binding PetPhoto, Mode=TwoWay}"
                            Margin="0"
                            WidthRequest="150"
                            HeightRequest="150"

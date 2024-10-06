@@ -7,7 +7,6 @@ using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
-using Serilog;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
@@ -78,6 +77,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 
         EditCaption = query[nameof(EditCaption)] as string;
         IsEditing = (bool)query[nameof(IsEditing)];
+        PetPhoto = PetDto.Foto;
     }
     private void ExecuteUpdateSelectedItem()
     {
@@ -94,24 +94,6 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
                 break;
         }
     }
-    //public void RegisterPicker(Picker picker, Action<object> action)
-    //{
-    //    if (!pickerActions.ContainsKey(picker))
-    //    {
-    //        pickerActions[picker] = action;
-    //        PickerSelectionBehavior.SetCommand(picker, UpdateSelectedItemCommand);
-    //    }
-    //}
-
-    //public void UnregisterPicker(Picker picker)
-    //{
-    //    if (pickerActions.ContainsKey(picker))
-    //    {
-    //        pickerActions.Remove(picker);
-    //        PickerSelectionBehavior.SetCommand(picker, null);
-    //    }
-    //}
-
 
     [RelayCommand]
     async Task SavePetData()
@@ -125,6 +107,8 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
                     $"{errorMessages}", "OK");
                 return;
             }
+
+            PetDto.Foto = PetPhoto;
 
             if (PetDto.Id == 0)
             {
@@ -234,7 +218,6 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
                 }
             }
 
-            var xxx = PetDto;
         }
         catch (Exception ex)
         {
@@ -242,71 +225,34 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         }
     }
 
-    //[RelayCommand]
-    //private async Task PickImageAsync()
-    //{
-    //    try
-    //    {
-    //        var result = await MediaPicker.PickPhotoAsync();
-    //        if (result != null)
-    //        {
-    //            Foto = result.FullPath;
-    //            var originalName = result.FileName;
-    //            SaveImage(result.FullPath, originalName);
-    //        }
-
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        Log.Error("Erro ao selecionar imagem do Pet", ex.Message);
-    //    }
-    //}
-
     [RelayCommand]
     private async Task PickImageAsync()
     {
-        try
+        if (MediaPicker.Default.IsCaptureSupported)
         {
-            var result = await MediaPicker.PickPhotoAsync();
-            if (result != null)
+            FileResult myPhoto = await MediaPicker.Default.PickPhotoAsync();
+            if (myPhoto != null)
             {
-                // O usuário escolheu uma imagem, atualiza a Foto
-                PetDto.Foto = result.FileName; // Atualiza para o nome do arquivo escolhido
-                SaveImage(result.FullPath, result.FileName); // Salva a imagem
+                string localFilePath = Path.Combine(FileSystem.CacheDirectory, myPhoto.FileName);
+                using Stream sourceStream = await myPhoto.OpenReadAsync();
+                using FileStream localFileStream = File.OpenWrite(localFilePath);
+                await sourceStream.CopyToAsync(localFileStream);
+                PetPhoto = localFileStream.Name; ;
             }
             else
             {
-                // Se não escolher, mantém a imagem padrão
-                PetDto.Foto = "icon_nopet.png"; // Garantindo que a imagem padrão é usada
+                await Shell.Current.DisplayAlert("OOPS", "Your device isn't supported!", "OK");
             }
         }
-        catch (Exception ex)
-        {
-            Log.Error("Erro ao selecionar imagem do Pet", ex.Message);
-            // Aqui você pode querer garantir que a imagem padrão é usada
-            PetDto.Foto = "icon_nopet.png"; // Fallback para a imagem padrão
-        }
+
     }
 
     private void SaveImage(string path, string selectedPhotoName)
     {
-        try
-        {
-            var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Resources", "Images");
-            if (!Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
-
-            var destinationPath = Path.Combine(folder, selectedPhotoName);
-            File.Copy(path, destinationPath, true);
-            PetDto.Foto = selectedPhotoName;
-
-        }
-        catch (Exception ex)
-        {
-            Log.Error("Erro ao gravar imagem do Pet", ex.Message);
-        }
+        var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Resources", "Images");
+        Directory.CreateDirectory(folder);
+        var destinationPath = Path.Combine(folder, selectedPhotoName);
+        File.Copy(path, destinationPath, true);
     }
 
 
@@ -320,5 +266,4 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 
         await toast.Show(cancellationTokenSource.Token);
     }
-
 }

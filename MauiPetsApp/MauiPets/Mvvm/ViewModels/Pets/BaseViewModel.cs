@@ -69,7 +69,9 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         [ObservableProperty]
         public string _foto;
 
+        [ObservableProperty]
 
+        private string _petPhoto;
 
         [ObservableProperty]
         public PetVM _pet = new();
@@ -81,7 +83,7 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         [ObservableProperty]
         public RacaoDto _selectedPetFood = new();
         [ObservableProperty]
-        public ConsultaVeterinarioDto _selectedAppointment= new();
+        public ConsultaVeterinarioDto _selectedAppointment = new();
 
 
         [ObservableProperty]

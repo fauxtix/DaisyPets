@@ -35,6 +35,8 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
 
             PetPhoto = selectedPet.Foto;
             PetName = selectedPet.Nome;
+
+            selectedPet.Foto = selectedPet.Foto; ;
         }
 
         [RelayCommand]
