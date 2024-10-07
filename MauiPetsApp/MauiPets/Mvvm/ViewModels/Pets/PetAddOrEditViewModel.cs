@@ -62,6 +62,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     {
         _petService = petService;
         _lookupTablesService = lookupTablesService;
+
         SetupLookupTables();
     }
 

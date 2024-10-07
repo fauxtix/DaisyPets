@@ -44,7 +44,7 @@
     </ContentPage.ToolbarItems>
     <Grid>
         <ScrollView>
-            <Grid Margin="5, 0, 5, 5" Padding="0" RowDefinitions="Auto, Auto,  *, Auto, Auto, Auto">
+            <Grid Margin="5, 0, 5, 5" Padding="0" RowDefinitions="Auto, Auto,  *">
                 <VerticalStackLayout Padding="10">
                     <Frame CornerRadius="15"
                        VerticalOptions="Start" 
@@ -71,8 +71,6 @@
                            VerticalOptions="Center" />
                         </HorizontalStackLayout>
                     </Frame>
-
-                    <!-- Botões de filtro -->
                     <Border StrokeThickness="1"
                 Stroke="#dcdcdc"
                         BackgroundColor="White"
@@ -126,7 +124,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- CollectionView com rolagem automática -->
                 <CollectionView x:Name="expensesView" 
                         ItemsSource="{Binding Expenses}" 
                         VerticalScrollBarVisibility="Always"
@@ -194,51 +191,52 @@
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+                    <CollectionView.Footer>
+                        <Grid RowDefinitions="Auto, Auto">
+                            <StackLayout Grid.Row="0" IsVisible="{Binding IsPaginationVisible}" Padding="1, 10, 1, 10" Spacing="12" 
+                                 HorizontalOptions="Center" Margin="0, 2, 1, 0"
+                                 VerticalOptions="Center" Orientation="Horizontal">
+                                <ImageButton  Source="first_page.svg" BorderWidth="2" BorderColor="Black" 
+                                      Command="{Binding FirstPageCommand}" 
+                                      CornerRadius="5" WidthRequest="50" HeightRequest="30" />
+                                <ImageButton Source="previous_page.svg" BorderWidth="2" BorderColor="Black" Command="{Binding PreviousPageCommand}" 
+                                         CornerRadius="5"
+                                         IsEnabled="{Binding CurrentPage, 
+                                            Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="50" />
+                                                <ImageButton Source="next_page.svg" BorderWidth="2" BorderColor="Black" 
+                                                Command="{Binding NextPageCommand}" 
+                                                CornerRadius="5" WidthRequest="50">
+                                    <ImageButton.IsEnabled>
+                                        <MultiBinding>
+                                            <Binding Path="CurrentPage" />
+                                            <Binding Path="TotalPages" />
+                                            <MultiBinding.Converter>
+                                                <conv:LessThanTotalPagesConverter/>
+                                            </MultiBinding.Converter>
+                                        </MultiBinding>
+                                    </ImageButton.IsEnabled>
+                                </ImageButton>
+
+                                <ImageButton Source="last_page.svg" BorderWidth="2" BorderColor="Black"  
+                                         Command="{Binding LastPageCommand}" 
+                                         CornerRadius="5" WidthRequest="50"/>
+                            </StackLayout>
+
+                            <StackLayout Grid.Row="1">
+                                <Label Text="{Binding PageInfo}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   Margin="0, 0, 0, 10"/>
+                            </StackLayout>
+
+                        </Grid>
+                    </CollectionView.Footer>
                 </CollectionView>
-                <BoxView Grid.Row="3" HeightRequest="0.4" BackgroundColor="Gray" Margin="0,7,0,5"/>
 
-                <!-- Paginação -->
-                <StackLayout IsVisible="{Binding IsPaginationVisible}" Padding="1, 10, 1, 10" Spacing="12" 
-                     HorizontalOptions="Center" Margin="0, 2, 1, 0"
-                     VerticalOptions="Center" Orientation="Horizontal"
-                     Grid.Row="4">
-                    <ImageButton  Source="first_page.svg" BorderWidth="2" BorderColor="Black" 
-                          Command="{Binding FirstPageCommand}" 
-                          CornerRadius="5" WidthRequest="50" HeightRequest="30" />
-                    <ImageButton Source="previous_page.svg" BorderWidth="2" BorderColor="Black" Command="{Binding PreviousPageCommand}" 
-                         CornerRadius="5"
-                         IsEnabled="{Binding CurrentPage, 
-                Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="50" />
-                    <ImageButton Source="next_page.svg" BorderWidth="2" BorderColor="Black" 
-                    Command="{Binding NextPageCommand}" 
-                    CornerRadius="5" WidthRequest="50">
-                        <ImageButton.IsEnabled>
-                            <MultiBinding>
-                                <Binding Path="CurrentPage" />
-                                <Binding Path="TotalPages" />
-                                <MultiBinding.Converter>
-                                    <conv:LessThanTotalPagesConverter/>
-                                </MultiBinding.Converter>
-                            </MultiBinding>
-                        </ImageButton.IsEnabled>
-                    </ImageButton>
-
-                    <ImageButton Source="last_page.svg" BorderWidth="2" BorderColor="Black"  Command="{Binding LastPageCommand}" 
-                         CornerRadius="5" WidthRequest="50"/>
-                </StackLayout>
-
-                <!-- Informações da página -->
-                <Label Text="{Binding PageInfo}"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   FontSize="14"
-                   FontAttributes="Bold"
-                   Margin="0, 0, 0, 10"
-                   Grid.Row="5" />
-
-                <!-- Indicador de atividade -->
                 <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" 
-                      Grid.RowSpan="6" >
+                      Grid.RowSpan="3" >
                     <ActivityIndicator                
                         x:Name="ai" 
                         IsRunning="{Binding IsBusy}" 

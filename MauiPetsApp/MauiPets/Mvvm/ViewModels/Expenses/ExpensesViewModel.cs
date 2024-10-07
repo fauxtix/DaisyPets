@@ -19,7 +19,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         private bool _isBusy;
 
         [ObservableProperty]
-        private int _pageSize = 8;
+        private int _pageSize = 10;
 
         [ObservableProperty]
         private int _currentPage = 1;
