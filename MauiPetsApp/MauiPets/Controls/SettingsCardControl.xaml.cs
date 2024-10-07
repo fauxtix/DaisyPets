@@ -54,8 +54,8 @@ namespace MauiPets.Controls
         }
 
         public static readonly BindableProperty IconProperty = BindableProperty.Create(
-            nameof(Icon), 
-            typeof(string), 
+            nameof(Icon),
+            typeof(string),
             typeof(SettingsCardControl), string.Empty);
 
         public string Icon

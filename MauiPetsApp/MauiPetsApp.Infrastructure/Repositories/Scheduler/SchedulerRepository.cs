@@ -3,7 +3,6 @@ using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories.Scheduler;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels;
-using MauiPetsApp.Core.Application.ViewModels.Scheduler;
 using MauiPetsApp.Core.Domain.Scheduler;
 using Serilog;
 using System.Text;
@@ -197,16 +196,6 @@ namespace MauiPetsApp.Infrastructure.Scheduler
             }
         }
 
-        public async Task<IEnumerable<AppointmentDataDto>> GetAllVMAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<AppointmentDataDto>> GetAppointmentVMAsync(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
         private async Task<IEnumerable<AppointmentData>> GetVaccinesAppts()
         {
             List<AppointmentData> vaccinesList = new List<AppointmentData>();
@@ -291,7 +280,6 @@ namespace MauiPetsApp.Infrastructure.Scheduler
             sbDewordmers.Append("INNER JOIN Pet ON ");
             sbDewordmers.Append("Desparasitante.IdPet = Pet.Id ");
 
-            var readOnly = true;
             using (var connection = _context.CreateConnection())
             {
                 var dewormers = (await connection.QueryAsync<DesparasitanteVM>(sbDewordmers.ToString())).ToList();
@@ -338,7 +326,6 @@ namespace MauiPetsApp.Infrastructure.Scheduler
             sbAppts.Append("INNER JOIN Pet ON ");
             sbAppts.Append("ConsultaVeterinario.IdPet = Pet.Id");
 
-            var readOnly = true;
             using (var connection = _context.CreateConnection())
             {
                 var appts = (await connection.QueryAsync<ConsultaVeterinarioVM>(sbAppts.ToString())).ToList();
@@ -396,7 +383,7 @@ namespace MauiPetsApp.Infrastructure.Scheduler
                         todoList.Add(new AppointmentData
                         {
                             Id = appt.Id,
-                            StartTime = appt.StartDate,
+                            StartTime = appt.StartDate ?? DateTime.Now.ToShortDateString(),
                             EndTime = appt.StartDate,
                             Subject = "Todo event",
                             IsAllDay = 1,
@@ -404,8 +391,8 @@ namespace MauiPetsApp.Infrastructure.Scheduler
                             RecurrenceException = "",
                             RecurrenceID = 0,
                             RecurrenceRule = "",
-                            Location = appt.CategoryDescription,
-                            Description = appt.Description,
+                            Location = appt.CategoryDescription ?? "",
+                            Description = appt.Description ?? "",
                             AppointmentType = 4
                         });
                     }

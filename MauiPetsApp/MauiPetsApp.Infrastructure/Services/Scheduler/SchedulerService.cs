@@ -36,26 +36,6 @@ namespace MauiPetsApp.Infrastructure.Services.Scheduler
             return output;
         }
 
-        public async Task<IEnumerable<AppointmentDataDto>> GetAllVMAsync()
-        {
-            try
-            {
-                var appointmentsVM = await _repository.GetAllVMAsync();
-                return appointmentsVM;
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"Erro: {ex.Message}");
-                return Enumerable.Empty<AppointmentDataDto>();
-            }
-        }
-
-        public async Task<IEnumerable<AppointmentDataDto>> GetAppointmentVMAsync(int Id)
-        {
-            return await _repository.GetAppointmentVMAsync(Id);
-        }
-
         public async Task<int> InsertAsync(AppointmentDataDto appointment)
         {
             var appointmentIdentity = _mapper.Map<AppointmentData>(appointment);
@@ -68,7 +48,7 @@ namespace MauiPetsApp.Infrastructure.Services.Scheduler
             {
                 var appointmentEntity = await _repository.FindByIdAsync(Id);
                 if (appointmentEntity == null)
-                    throw new KeyNotFoundException("Contact not found");
+                    throw new KeyNotFoundException("Appointment not found");
 
                 var mappedModel = _mapper.Map(appointment, appointmentEntity);
 
@@ -77,7 +57,7 @@ namespace MauiPetsApp.Infrastructure.Services.Scheduler
             }
             catch (Exception ex)
             {
-                Log.Error(ex.Message, "Erro no update do contacto");
+                Log.Error(ex.Message, "Erro no update da marcação");
 
             }
         }

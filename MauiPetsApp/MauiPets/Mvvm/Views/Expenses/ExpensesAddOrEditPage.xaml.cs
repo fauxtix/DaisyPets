@@ -39,14 +39,14 @@ public partial class ExpensesAddOrEditPage : ContentPage
                         _viewModel.TipoDespesas.Clear();
                         foreach (var item in despesas_Categorias)
                         {
-                            _viewModel.TipoDespesasFiltradas. Add(new LookupTableVM { Id = item.Id, Descricao = item.Descricao });
+                            _viewModel.TipoDespesasFiltradas.Add(new LookupTableVM { Id = item.Id, Descricao = item.Descricao });
                         }
 
                         foreach (var item in _viewModel.TipoDespesasFiltradas)
                         {
                             _viewModel.TipoDespesas.Add(item);
                         }
-                        
+
                         _viewModel.IsEditing = true;
                     }
                     else

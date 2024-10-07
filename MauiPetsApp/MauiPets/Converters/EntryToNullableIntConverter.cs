@@ -5,11 +5,11 @@ namespace MauiPets.Converters
     public class EntryToNullableIntConverter : IValueConverter
     {
 
-        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (int?)value;
+            return (int)value;
         }
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
             {
@@ -20,7 +20,7 @@ namespace MauiPets.Converters
             {
                 return 0;
             }
-            return (int?)num;
+            return (int)num;
         }
     }
 }

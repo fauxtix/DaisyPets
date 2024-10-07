@@ -3,7 +3,7 @@ using MauiPetsApp.Core.Application.ViewModels;
 
 namespace MauiPets.Mvvm.ViewModels.VetAppointments
 {
-    public partial class VetAppointmentsBaseViewModel :ObservableObject
+    public partial class VetAppointmentsBaseViewModel : ObservableObject
     {
         [ObservableProperty]
         private int _id;

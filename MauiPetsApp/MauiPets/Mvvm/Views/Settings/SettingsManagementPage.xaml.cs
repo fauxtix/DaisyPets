@@ -10,9 +10,9 @@ public partial class SettingsManagementPage : ContentPage
 {
     public ILookupTableService _service { get; }
 
-    public SettingsManagementPage(SettingsViewModel viewModel, ILookupTableService service )
-	{
-		InitializeComponent();
+    public SettingsManagementPage(SettingsViewModel viewModel, ILookupTableService service)
+    {
+        InitializeComponent();
         BindingContext = viewModel;
         _service = service;
     }
@@ -24,7 +24,7 @@ public partial class SettingsManagementPage : ContentPage
         if (BindingContext is SettingsViewModel viewModel)
         {
             viewModel.GetLookupDataCommand.Execute(null);
-            
+
         }
     }
 

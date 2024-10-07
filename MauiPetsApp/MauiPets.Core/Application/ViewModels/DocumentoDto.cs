@@ -7,6 +7,6 @@
         public string? Description { get; set; } = string.Empty;
         public string? DocumentPath { get; set; }
         public string CreatedOn { get; set; } = string.Empty;
-        public int PetId { get; set; } 
+        public int PetId { get; set; }
     }
 }

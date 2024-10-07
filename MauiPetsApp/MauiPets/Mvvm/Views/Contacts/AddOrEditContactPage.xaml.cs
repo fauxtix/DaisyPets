@@ -8,8 +8,8 @@ public partial class AddOrEditContactPage : ContentPage
     private ContactAddOrEditViewModel _viewModel;
 
     public AddOrEditContactPage(ContactAddOrEditViewModel viewModel)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _viewModel = viewModel;
         BindingContext = _viewModel;
 
@@ -17,8 +17,8 @@ public partial class AddOrEditContactPage : ContentPage
 
     private void SelectedIndexChanged(object sender, EventArgs e)
     {
-		try
-		{
+        try
+        {
             if (BindingContext is ContactAddOrEditViewModel viewModel && sender is Picker picker)
             {
                 var sit = picker.SelectedItem as LookupTableVM;
@@ -27,7 +27,7 @@ public partial class AddOrEditContactPage : ContentPage
 
         }
         catch (Exception ex)
-		{
+        {
             Shell.Current.DisplayAlert("Error while 'SelectedIndexChanged", ex.Message, "Ok");
         }
     }

@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using MauiPetsApp.Core.Application.Exceptions;
 using MauiPetsApp.Core.Application.Interfaces.Application;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.ViewModels;
@@ -11,7 +10,6 @@ namespace MauiPetsApp.Infrastructure
 {
     public class PetRepository : IPetRepository
     {
-        DataAccessStatus dataAccessStatus = new DataAccessStatus();
         private readonly IDapperContext _context;
         public PetRepository(IDapperContext context)
         {

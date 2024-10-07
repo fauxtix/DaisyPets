@@ -1,7 +1,7 @@
 ﻿using Dapper;
-using MauiPetsApp.Core.Application.Exceptions;
 using MauiPetsApp.Core.Application.Interfaces;
 using MauiPetsApp.Infrastructure.Context;
+using Serilog;
 using System.Data;
 using System.Reflection;
 using System.Text;
@@ -10,7 +10,6 @@ namespace MauiPetsApp.Infrastructure
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        DataAccessStatus? dataAccessStatus = new DataAccessStatus();
         private readonly DapperContext _context;
 
         public BaseRepository(DapperContext context)
@@ -47,7 +46,7 @@ namespace MauiPetsApp.Infrastructure
 
                 return await GetLastId();
             }
-            catch (DataAccessException)
+            catch (Exception)
             {
                 return -1;
             }
@@ -64,7 +63,7 @@ namespace MauiPetsApp.Infrastructure
                     await connection.ExecuteAsync(query, entity);
                 }
             }
-            catch (DataAccessException)
+            catch (Exception)
             {
 
             }
@@ -83,9 +82,9 @@ namespace MauiPetsApp.Infrastructure
                     await connection.ExecuteAsync(query, entity);
                 }
             }
-            catch (DataAccessException)
+            catch (Exception ex)
             {
-
+                Log.Error(ex.Message, ex);
             }
         }
 
@@ -201,9 +200,9 @@ namespace MauiPetsApp.Infrastructure
                     await connection.ExecuteAsync(query, new { Id });
                 }
             }
-            catch (DataAccessException)
+            catch (Exception ex)
             {
-
+                Log.Error(ex.Message, ex);
             }
         }
 
@@ -218,9 +217,9 @@ namespace MauiPetsApp.Infrastructure
                     await connection.ExecuteAsync(query, new { Id });
                 }
             }
-            catch (DataAccessException)
+            catch (Exception ex)
             {
-
+                Log.Error($"Error {ex.Message}", ex);
             }
         }
     }

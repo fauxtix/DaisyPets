@@ -11,7 +11,7 @@ namespace MauiPets.Mvvm.Views.Todo
         {
             InitializeComponent();
             _service = service;
-            BindingContext = viewModel;        
+            BindingContext = viewModel;
         }
 
         private async void Switch_Toggled(object sender, ToggledEventArgs e)

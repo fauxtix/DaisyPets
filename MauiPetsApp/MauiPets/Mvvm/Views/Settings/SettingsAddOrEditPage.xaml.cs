@@ -8,8 +8,8 @@ public partial class SettingsAddOrEditPage : ContentPage
     private SettingsAddOrEditViewModel _viewModel;
 
     public SettingsAddOrEditPage(SettingsAddOrEditViewModel viewModel)
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
         _viewModel = viewModel;
         BindingContext = _viewModel;
     }

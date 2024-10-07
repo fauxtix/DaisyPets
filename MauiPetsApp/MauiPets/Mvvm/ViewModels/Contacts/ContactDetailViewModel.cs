@@ -80,7 +80,7 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
                 var _contact = await _contactService.GetContactVMAsync(ContactoVM.Id);
                 string contactName = _contact.Nome;
                 bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", $"Apaga o contacto {contactName}?", "Sim", "Não");
-                if(okToDelete)
+                if (okToDelete)
                 {
                     await _contactService.DeleteAsync(_contact.Id);
                     await ShowToastMessage($"Contacto {contactName} apagado com sucesso");

@@ -106,7 +106,7 @@
                                    VerticalOptions="Center"
                                    FontAttributes="Bold"
                                    Margin="5" />
-                                <Label Text="Reg/pagª: " 
+                                <Label Text="Reg/pagª: "
                                    Grid.Column="2"
                                    Margin="20, 5"
                                    FontSize="12"

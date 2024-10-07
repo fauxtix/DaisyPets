@@ -8,23 +8,23 @@ namespace MauiPets.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             object date = null;
-            if(culture.Name.ToLower().Contains("us"))
+            if (culture.Name.ToLower().Contains("us"))
                 culture = new CultureInfo("pt-PT");
 
-            if(value is string)
+            if (value is string)
             {
                 date = DateTime.Parse(value as string, culture).Date;
             }
-            else if(value is DateTime)
+            else if (value is DateTime)
             {
                 date = (DateTime)value;
             }
-                
+
 
             TimeSpan difference = (DateTime)date - DateTime.Now.Date;
             double days = difference.TotalDays;
-            
-            if(days < 0) // in the past, Black (standard)
+
+            if (days < 0) // in the past, Black (standard)
             {
                 return Color.FromArgb("000000");
             }

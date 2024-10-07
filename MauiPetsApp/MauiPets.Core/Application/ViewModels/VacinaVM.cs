@@ -23,7 +23,8 @@ namespace MauiPetsApp.Core.Application.ViewModels
         }
         public int DiasParaProximaToma
         {
-            get {
+            get
+            {
                 return !string.IsNullOrEmpty(DataToma) && DataFormat.IsValidDate(DataToma) ?
                     (int)(DateTime.Parse(DataToma).AddMonths(ProximaTomaEmMeses) - DateTime.Now).TotalDays :
                     (int)(DateTime.Parse(DataToma.Substring(3, 2) + "/" + DataToma.Substring(0, 2) + DataToma.Substring(5)) - DateTime.Now).TotalDays;

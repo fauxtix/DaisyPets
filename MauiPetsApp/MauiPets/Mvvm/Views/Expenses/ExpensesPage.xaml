@@ -191,6 +191,7 @@
                             </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+                    
                     <CollectionView.Footer>
                         <Grid RowDefinitions="Auto, Auto">
                             <StackLayout Grid.Row="0" IsVisible="{Binding IsPaginationVisible}" Padding="1, 10, 1, 10" Spacing="12" 
@@ -233,10 +234,11 @@
 
                         </Grid>
                     </CollectionView.Footer>
+                    
                 </CollectionView>
 
                 <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" 
-                      Grid.RowSpan="3" >
+                      Grid.RowSpan="3">
                     <ActivityIndicator                
                         x:Name="ai" 
                         IsRunning="{Binding IsBusy}" 

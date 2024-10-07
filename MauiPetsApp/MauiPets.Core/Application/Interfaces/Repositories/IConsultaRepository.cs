@@ -9,7 +9,7 @@ namespace MauiPetsApp.Core.Application.Interfaces.Repositories
         Task<ConsultaVeterinario> FindByIdAsync(int Id);
         Task<IEnumerable<ConsultaVeterinario>> GetAllAsync();
         Task<IEnumerable<ConsultaVeterinarioVM>> GetAllConsultaVMAsync();
-        Task<IEnumerable< ConsultaVeterinarioVM>> GetConsultaVMAsync(int Id);
+        Task<IEnumerable<ConsultaVeterinarioVM>> GetConsultaVMAsync(int Id);
         Task<int> InsertAsync(ConsultaVeterinario Consulta);
         Task UpdateAsync(int Id, ConsultaVeterinario Consulta);
     }

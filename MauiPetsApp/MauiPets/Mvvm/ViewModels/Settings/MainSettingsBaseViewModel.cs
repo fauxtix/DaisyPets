@@ -2,7 +2,7 @@
 
 namespace MauiPets.Mvvm.ViewModels.Settings
 {
-    public  partial class MainSettingsBaseViewModel : ObservableObject
+    public partial class MainSettingsBaseViewModel : ObservableObject
     {
         [ObservableProperty]
         private bool isBusy;

@@ -100,8 +100,8 @@
         public enum Tamanhos
         {
             Pequeno = 1,
-            Medio = 2, 
-            Grande = 3, 
+            Medio = 2,
+            Grande = 3,
             MuitoGrande = 4
         }
     }

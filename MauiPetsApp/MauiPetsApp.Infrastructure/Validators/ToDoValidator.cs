@@ -24,7 +24,7 @@ namespace MauiPetsApp.Infrastructure.Validators
 
             RuleFor(r => r.StartDate!)
                 .Must(NotUpdateStateInFuture)
-                .When(r=>r.Completed == 1)
+                .When(r => r.Completed == 1)
                 .WithMessage("Não pode dar tarefa como concluída.... está no futuro! Verifique, p.f.");
         }
 
@@ -47,7 +47,7 @@ namespace MauiPetsApp.Infrastructure.Validators
         protected bool NotUpdateStateInFuture(string? date)
         {
             var parsedDate = DateTime.Parse(date!);
-            if(parsedDate.Date > DateTime.Now.Date) return false;
+            if (parsedDate.Date > DateTime.Now.Date) return false;
 
             return true;
         }

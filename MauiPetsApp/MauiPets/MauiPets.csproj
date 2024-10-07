@@ -69,7 +69,9 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiIcon>
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\daisypetsbing.png" Color="#4682B4" BaseSize="128,128" />
