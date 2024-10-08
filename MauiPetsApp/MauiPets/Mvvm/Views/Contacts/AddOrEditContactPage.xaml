@@ -89,7 +89,6 @@
                     </Label>
                     <Editor x:Name="TxtName"
 			               Text="{Binding ContactoVM.Nome}" 
-                           Style="{StaticResource MediumEditorBold}"
 			               Grid.Row="1"
                            FontAttributes="Bold" 
 			               VerticalOptions="Center"></Editor>
@@ -99,7 +98,6 @@
 			                VerticalOptions="Center"></Label>
                     <Editor x:Name="TxtMorada"
 			                Text="{Binding ContactoVM.Morada}" 
-                            Style="{StaticResource MediumEditorBold}"
 			                Grid.Row="3"
 			                VerticalOptions="Center"></Editor>
                     <Label Text="Localidade" 

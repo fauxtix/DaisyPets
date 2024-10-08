@@ -157,12 +157,12 @@ namespace MauiPets.Mvvm.ViewModels.Logs
                 {
                     TotalPages = (int)Math.Ceiling((double)TotalLogs / PageSize);
                 }
-                else
-                {
-                    await Shell.Current.DisplayAlert("Logs",
-                        "Sem registos para mostrar..", "OK");
-                    await Shell.Current.GoToAsync($"//{nameof(PetsPage)}");
-                }
+                //else
+                //{
+                //    await Shell.Current.DisplayAlert("Logs",
+                //        "Sem registos para mostrar..", "OK");
+                //    await Shell.Current.GoToAsync($"//{nameof(PetsPage)}");
+                //}
             }
             catch (Exception ex)
             {

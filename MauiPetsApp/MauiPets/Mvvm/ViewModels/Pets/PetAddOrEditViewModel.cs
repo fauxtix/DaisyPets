@@ -7,6 +7,7 @@ using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
+using Serilog;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
@@ -46,8 +47,6 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     [ObservableProperty]
     private int _sizeSelectedIndex;
 
-
-
     private string selectedPickerName;
     public string SelectedPickerName
     {
@@ -68,17 +67,25 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        PetDto = query[nameof(PetDto)] as PetDto;
+        try
+        {
+            PetDto = query[nameof(PetDto)] as PetDto;
 
-        SpecieSelectedIndex = Species.FindIndex(item => item.Id == PetDto.IdEspecie);
-        BreedSelectedIndex = Breeds.FindIndex(item => item.Id == PetDto.IdRaca);
-        TemperamentSelectedIndex = Temperaments.FindIndex(item => item.Id == PetDto.IdTemperamento);
-        SituationSelectedIndex = Situations.FindIndex(item => item.Id == PetDto.IdSituacao);
-        SizeSelectedIndex = Sizes.FindIndex(item => item.Id == PetDto.IdTamanho);
+            SpecieSelectedIndex = Species.FindIndex(item => item.Id == PetDto.IdEspecie);
+            BreedSelectedIndex = Breeds.FindIndex(item => item.Id == PetDto.IdRaca);
+            TemperamentSelectedIndex = Temperaments.FindIndex(item => item.Id == PetDto.IdTemperamento);
+            SituationSelectedIndex = Situations.FindIndex(item => item.Id == PetDto.IdSituacao);
+            SizeSelectedIndex = Sizes.FindIndex(item => item.Id == PetDto.IdTamanho);
 
-        EditCaption = query[nameof(EditCaption)] as string;
-        IsEditing = (bool)query[nameof(IsEditing)];
-        PetPhoto = PetDto.Foto;
+            EditCaption = query[nameof(EditCaption)] as string;
+            IsEditing = (bool)query[nameof(IsEditing)];
+            PetPhoto = PetDto.Foto;
+
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex.Message, ex);
+        }
     }
     private void ExecuteUpdateSelectedItem()
     {
@@ -146,7 +153,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         }
         catch (Exception ex)
         {
-            await Shell.Current.DisplayAlert("Error while 'SavePetData", ex.Message, "Ok");
+            await Shell.Current.DisplayAlert("Error in 'SavePetData", ex.Message, "Ok");
         }
     }
 
@@ -234,11 +241,19 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
             FileResult myPhoto = await MediaPicker.Default.PickPhotoAsync();
             if (myPhoto != null)
             {
-                string localFilePath = Path.Combine(FileSystem.CacheDirectory, myPhoto.FileName);
-                using Stream sourceStream = await myPhoto.OpenReadAsync();
-                using FileStream localFileStream = File.OpenWrite(localFilePath);
-                await sourceStream.CopyToAsync(localFileStream);
-                PetPhoto = localFileStream.Name; ;
+                try
+                {
+                    string localFilePath = Path.Combine(FileSystem.CacheDirectory, myPhoto.FileName);
+                    using Stream sourceStream = await myPhoto.OpenReadAsync();
+                    using FileStream localFileStream = File.OpenWrite(localFilePath);
+                    await sourceStream.CopyToAsync(localFileStream);
+                    PetPhoto = localFileStream.Name;
+
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex.Message, ex);
+                }
             }
             else
             {
@@ -247,15 +262,6 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         }
 
     }
-
-    private void SaveImage(string path, string selectedPhotoName)
-    {
-        var folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Resources", "Images");
-        Directory.CreateDirectory(folder);
-        var destinationPath = Path.Combine(folder, selectedPhotoName);
-        File.Copy(path, destinationPath, true);
-    }
-
 
     private async void ShowToastMessage(string text)
     {

@@ -16,7 +16,6 @@ namespace MauiPetsApp.Infrastructure.Services
         private readonly IMapper _mapper;
         private readonly IValidator<PetDto> _validator;
 
-
         public PetService(IPetRepository repository,
                           IMapper mapper,
                           IValidator<PetDto> validator)
@@ -27,34 +26,70 @@ namespace MauiPetsApp.Infrastructure.Services
         }
         public async Task<bool> DeleteAsync(int Id)
         {
-            var okToDeletePet = await _repository.CanPetBeDeleted(Id);
-            if (okToDeletePet == false)
+            try
             {
+                var okToDeletePet = await _repository.CanPetBeDeleted(Id);
+                if (okToDeletePet == false)
+                {
+                    return false;
+                }
+
+                await _repository.DeleteAsync(Id);
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
                 return false;
             }
-
-            await _repository.DeleteAsync(Id);
-            return true;
         }
 
         public async Task<PetDto> FindByIdAsync(int Id)
         {
-            var resp = await _repository.FindByIdAsync(Id);
-            var output = _mapper.Map<PetDto>(resp);
-            return output;
+            try
+            {
+                var resp = await _repository.FindByIdAsync(Id);
+                var output = _mapper.Map<PetDto>(resp);
+                return output;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+                return new();
+            }
         }
 
         public async Task<IEnumerable<PetDto>> GetAllAsync()
         {
-            var resp = await _repository.GetAllAsync();
-            var output = _mapper.Map<IEnumerable<PetDto>>(resp);
-            return output;
+            try
+            {
+                var resp = await _repository.GetAllAsync();
+                var output = _mapper.Map<IEnumerable<PetDto>>(resp);
+                return output;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+                return Enumerable.Empty<PetDto>();
+            }
         }
 
         public async Task<IEnumerable<PetVM>> GetAllVMAsync()
         {
-            var petsVM = await _repository.GetAllVMAsync();
-            return petsVM;
+            try
+            {
+                var petsVM = await _repository.GetAllVMAsync();
+                return petsVM;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.Message);
+                return Enumerable.Empty<PetVM>();
+            }
         }
 
         public async Task<string> GetDescriptionBySizeAndMonths(int IdTamanho, int meses)
@@ -108,7 +143,17 @@ namespace MauiPetsApp.Infrastructure.Services
 
         public async Task<PetVM> GetPetVMAsync(int Id)
         {
-            return await _repository.GetPetVMAsync(Id);
+            try
+            {
+                return await _repository.GetPetVMAsync(Id);
+
+            }
+            catch (Exception ex)
+            {
+
+                Log.Error(ex.Message);
+                return new();
+            }
         }
 
         public async Task<int> InsertAsync(PetDto pet)
@@ -147,9 +192,9 @@ namespace MauiPetsApp.Infrastructure.Services
         }
 
         /// <summary>
-        /// Validação de contacto
+        /// Validação dos dados do Pet
         /// </summary>
-        /// <param name="contacto"></param>
+        /// <param name="pet"></param>
         /// <returns></returns>
         public string RegistoComErros(PetDto pet)
         {

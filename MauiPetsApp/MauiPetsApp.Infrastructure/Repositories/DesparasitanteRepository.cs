@@ -22,9 +22,11 @@ namespace MauiPetsApp.Infrastructure
         {
             var petName = await GetPetName(desparasitante.IdPet);
             var description = $"{petName} - Desparasitante {desparasitante.Marca}";
+            var applicationDate = desparasitante.DataAplicacao;
+            var nextApplicationDate = desparasitante.DataProximaAplicacao;
             var categoryId = await GetDewormerTodoCategoryId("Med");
-            var startDate = DateTime.Parse(desparasitante.DataAplicacao).ToShortDateString();
-            var endDate = DateTime.Parse(desparasitante.DataProximaAplicacao).ToShortDateString();
+            var startDate = !string.IsNullOrEmpty(applicationDate) ? DateTime.Parse(applicationDate).ToShortDateString() : DateTime.Now.ToShortDateString();
+            var endDate = !string.IsNullOrEmpty(nextApplicationDate) ? DateTime.Parse(nextApplicationDate).ToShortDateString() : DateTime.Now.ToShortDateString();
             int result;
 
             StringBuilder sb = new StringBuilder();

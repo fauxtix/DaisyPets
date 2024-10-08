@@ -119,7 +119,7 @@
                             <Label Grid.Row="6" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DoencaCronica}" />
                             <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Tamanho</Label>
                             <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TamanhoAnimal}" />
-                            <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource MediumLabel}" >Condição</Label>
+                            <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource MediumLabel}" >Situação</Label>
                             <Label Grid.Row="8" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.SituacaoAnimal}" />
                         </Grid>
                     </Frame>

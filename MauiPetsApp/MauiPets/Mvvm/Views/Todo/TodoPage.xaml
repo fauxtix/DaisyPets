@@ -35,70 +35,71 @@
                      CommandParameter="{Binding .}"
                      IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
-
-    <Grid Margin="0" Padding="0" RowDefinitions="Auto, Auto, Auto, *, Auto, Auto">
-        <Border Stroke="#C49B33" Margin="0, 2, 0, 0"
+    <Grid>
+        <ScrollView>
+            <Grid Margin="0" Padding="0" RowDefinitions="Auto, Auto, Auto,*">
+                <Border Stroke="#C49B33" Margin="0, 2, 0, 0"
                 StrokeThickness="1"
                 StrokeShape="RoundRectangle 15,15,15,15"
                 Background="Beige"
                 Padding="16,8"
                 HorizontalOptions="Center"
                 Grid.Row="0">
-            <Label Text="{Binding FilterText, Mode=TwoWay}"
+                    <Label Text="{Binding FilterText, Mode=TwoWay}"
                    TextColor="Black" WidthRequest="160" HorizontalTextAlignment="Center"
                    FontSize="16"
                    FontAttributes="None" />
-        </Border>
+                </Border>
 
-        <Frame HeightRequest="70" CornerRadius="12" HasShadow="True" Margin="10, 10, 10, 20" Padding="10"
+                <Frame HeightRequest="70" CornerRadius="12" HasShadow="True" Margin="10, 10, 10, 20" Padding="10"
                BackgroundColor="LightGray"
                Grid.Row="1">
-            <ScrollView Orientation="Horizontal">
-                <HorizontalStackLayout Spacing="5" Padding="3">
-                    <Button Text="Esta semana"
+                    <ScrollView Orientation="Horizontal">
+                        <HorizontalStackLayout Spacing="5" Padding="3">
+                            <Button Text="Esta semana"
                             Command="{Binding FilterThisWeekCommand}"
                             BackgroundColor="LightSkyBlue"
                             BorderColor="SkyBlue"
                             Style="{StaticResource CommonWeekMonthButtonStyle}" />
-                    <Button Text="Próx. semana"
+                            <Button Text="Próx. semana"
                             Command="{Binding FilterNextWeekCommand}"
                             BackgroundColor="LightSeaGreen"
                             BorderColor="SeaGreen"
                             Style="{StaticResource CommonWeekMonthButtonStyle}" />
-                    <Button Text="Este mês"
+                            <Button Text="Este mês"
                             Command="{Binding FilterThisMonthCommand}"
                             BackgroundColor="Coral"
                             BorderColor="DarkOrange"
                             Style="{StaticResource CommonWeekMonthButtonStyle}" />
-                    <Button Text="Próx. mês"
+                            <Button Text="Próx. mês"
                             Command="{Binding FilterNextMonthCommand}"
                             BackgroundColor="Goldenrod"
                             BorderColor="DarkGoldenrod"
                             Style="{StaticResource CommonWeekMonthButtonStyle}" />
-                </HorizontalStackLayout>
-            </ScrollView>
-        </Frame>
+                        </HorizontalStackLayout>
+                    </ScrollView>
+                </Frame>
 
-        <Frame HeightRequest="50" CornerRadius="10" HasShadow="True" Margin="2, 5, 2, 20" Padding="2"
+                <Frame HeightRequest="50" CornerRadius="10" HasShadow="True" Margin="2, 5, 2, 20" Padding="2"
                Grid.Row="2">
-            <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly">
-                <SearchBar x:Name="searchBar"
+                    <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceEvenly">
+                        <SearchBar x:Name="searchBar"
                            Placeholder="Pesquisar"
                            WidthRequest="200">
-                    <SearchBar.Behaviors>
-                        <toolkit:EventToCommandBehavior EventName="TextChanged"
+                            <SearchBar.Behaviors>
+                                <toolkit:EventToCommandBehavior EventName="TextChanged"
                                                         Command="{Binding SearchTodosCommand}"
                                                         CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
-                    </SearchBar.Behaviors>
-                </SearchBar>
-                <!--<ImageButton Command="{Binding FilterCompletedCommand}" Aspect="AspectFill"
+                            </SearchBar.Behaviors>
+                        </SearchBar>
+                        <!--<ImageButton Command="{Binding FilterCompletedCommand}" Aspect="AspectFill"
                              HorizontalOptions="Start" 
                              BorderWidth="2" BorderColor="Black" CornerRadius="10"
                              HeightRequest="30" 
                              WidthRequest="30"  
                              Source="schedule_icon.png"
                              VerticalOptions="Center" />-->
-                <ImageButton Command="{Binding FilterPendingCommand}"
+                        <ImageButton Command="{Binding FilterPendingCommand}"
                              HorizontalOptions="Start"
                              HeightRequest="30"
                              WidthRequest="30"
@@ -108,7 +109,7 @@
                              ToolTipProperties.Text="Pending"
                              Source="pending.png"
                              VerticalOptions="Center" />
-                <ImageButton Command="{Binding GetTodosCommand}"
+                        <ImageButton Command="{Binding GetTodosCommand}"
                              HorizontalOptions="Start"
                              HeightRequest="30"
                              BorderWidth="2" BorderColor="SteelBlue" CornerRadius="10"
@@ -118,116 +119,124 @@
                              ToolTipProperties.Text="All"
                              Source="check_all.png"
                              VerticalOptions="Center" />
-            </FlexLayout>
-        </Frame>
+                    </FlexLayout>
+                </Frame>
 
-        <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" 
+                <CollectionView x:Name="todoList"  ItemsSource="{Binding Todos}" 
                         ItemsUpdatingScrollMode="KeepItemsInView"
                         Grid.Row="3">
-            <!--<CollectionView.EmptyView>
+                    <!--<CollectionView.EmptyView>
                 <StackLayout Padding="10">
                     <Label HorizontalOptions="Center" Padding="10">No data to view</Label>
                 </StackLayout>
             </CollectionView.EmptyView>-->
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" />
-            </CollectionView.ItemsLayout>
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:ToDoDto">
-                    <VerticalStackLayout>
-                        <Frame CornerRadius="10" HasShadow="True" Margin="2, 1, 2, 1" VerticalOptions="Center"
-                               HeightRequest="50"
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:ToDoDto">
+                            <VerticalStackLayout>
+                                <Frame CornerRadius="10" HasShadow="True" Margin="2, 1, 2, 1" VerticalOptions="Center"
+                               HeightRequest="55"
                                Padding="0">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer 
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TodoViewModel}}, Path=EditTodoCommand}"
                                         CommandParameter="{Binding .}"/>
-                            </Frame.GestureRecognizers>
-                            <Grid Padding="1" ColumnSpacing="5" Margin="2" RowSpacing="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="40" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="60" />
-                                </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" FontSize="12"
+                                    </Frame.GestureRecognizers>
+                                    <Grid Padding="1" ColumnSpacing="5" Margin="2" RowSpacing="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="80" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="60" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" FontSize="12"
                                        Text="{Binding StartDate, Converter={StaticResource stringToDateConverter}, StringFormat='{0:dd/MM/yyyy}'}"
-                                        FontFamily="PoppinsBold"
+                                       FontFamily="PoppinsBold"
                                        HorizontalOptions="Center" 
                                        VerticalOptions="Start" 
                                        HorizontalTextAlignment="Center" />
-                                <Label Grid.Column="1" FontSize="12" 
+                                        <Label Grid.Column="1" FontSize="12" 
                                         FontFamily="PoppinsBold"
                                        Margin="0, -1, 0, 0"
                                        Text="{Binding Description, Mode=OneWay}"
                                        HorizontalOptions="Start"
-                                       VerticalOptions="Start" />
-                                <Switch Grid.Column="2" IsToggled="{Binding Completed}" 
+                                       VerticalOptions="StartAndExpand" />
+                                        <Switch Grid.Column="2" IsToggled="{Binding Completed}" 
                                         HorizontalOptions="Start"
                                         Margin="0,-5,0,10" 
                                         VerticalOptions="Start" />
-                            </Grid>
-                        </Frame>
-                    </VerticalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                                    </Grid>
+                                </Frame>
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.Footer>
+                        <Grid RowDefinitions="Auto, 40">
+                            <StackLayout IsVisible="{Binding IsPaginationVisible}" 
+                                 Grid.Row="0"
+                                 Padding="1, 10, 1, 10" 
+                                 Spacing="12" 
+                                 Margin="0, 2, 1, 0"
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center" Orientation="Horizontal" >
+                                <ImageButton Source="first_page.svg" BorderWidth="2" 
+                                 BorderColor="Black"
+                                 Command="{Binding FirstPageAsyncCommand}" 
+                                 CornerRadius="5" WidthRequest="50" HeightRequest="30" />
+                                <ImageButton Source="previous_page.svg" 
+                                 BorderWidth="2" BorderColor="Black" 
+                                 Command="{Binding PreviousPageAsyncCommand}" 
+                                 CornerRadius="5"
+                                 IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}"
+                                     WidthRequest="50" HeightRequest="30"/>
+                                <ImageButton Source="next_page.svg" BorderWidth="2" BorderColor="Black" 
+                                Command="{Binding NextPageAsyncCommand}"
+                                CornerRadius="5" WidthRequest="50" HeightRequest="30">
+                                    <ImageButton.IsEnabled>
+                                        <MultiBinding>
+                                            <Binding Path="CurrentPage" />
+                                            <Binding Path="TotalPages" />
+                                            <MultiBinding.Converter>
+                                                <conv:LessThanTotalPagesConverter/>
+                                            </MultiBinding.Converter>
+                                        </MultiBinding>
+                                    </ImageButton.IsEnabled>
+                                </ImageButton>
+                                <ImageButton Source="previous_page.svg" 
+                                     BorderWidth="2" BorderColor="Black" 
+                                     Command="{Binding LastPageAsyncCommand}" CornerRadius="5" 
+                                     WidthRequest="50" HeightRequest="30" />
+                            </StackLayout>
 
-        <StackLayout IsVisible="{Binding IsPaginationVisible}" 
-                     Grid.Row="4"
-                     Padding="1, 10, 1, 10" 
-                     Spacing="12" 
-                     Margin="0, 2, 1, 0"
-                     HorizontalOptions="Center" 
-                     VerticalOptions="Center" Orientation="Horizontal" >
-            <ImageButton Source="first_page.svg" BorderWidth="2" 
-                         BorderColor="Black"
-                         Command="{Binding FirstPageAsyncCommand}" 
-                         CornerRadius="5" WidthRequest="50" HeightRequest="30" />
-            <ImageButton Source="previous_page.svg" 
-                         BorderWidth="2" BorderColor="Black" 
-                         Command="{Binding PreviousPageAsyncCommand}" 
-                         CornerRadius="5"
-                         IsEnabled="{Binding CurrentPage, Converter={StaticResource GreaterThanOneConverter}}" WidthRequest="50"/>
-            <ImageButton Source="next_page.svg" BorderWidth="2" BorderColor="Black" 
-                    Command="{Binding NextPageAsyncCommand}"
-                    CornerRadius="5" WidthRequest="50">
-                <ImageButton.IsEnabled>
-                    <MultiBinding>
-                        <Binding Path="CurrentPage" />
-                        <Binding Path="TotalPages" />
-                        <MultiBinding.Converter>
-                            <conv:LessThanTotalPagesConverter/>
-                        </MultiBinding.Converter>
-                    </MultiBinding>
-                </ImageButton.IsEnabled>
-            </ImageButton>
+                            <!-- Page Info -->
+                            <StackLayout Grid.Row="1">
+                                <Label Text="{Binding PageInfo}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontSize="14"
+                                   FontAttributes="Bold"/>
+                            </StackLayout>
+                        </Grid>
+                    </CollectionView.Footer>
+                </CollectionView>
 
-            <ImageButton Source="previous_page.svg" BorderWidth="2" BorderColor="Black" 
-                         Command="{Binding LastPageAsyncCommand}" CornerRadius="5" WidthRequest="50" />
-        </StackLayout>
 
-        <!-- Page Info -->
-        <Label Text="{Binding PageInfo}"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               FontSize="14"
-               FontAttributes="Bold"
-               Margin="0, 0, 0, 10"
-               Grid.Row="5" />
-
-        <!-- Activity Indicator -->
-        <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.RowSpan="6" >
-            <ActivityIndicator 
+                <!-- Activity Indicator -->
+                <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.RowSpan="4" >
+                    <ActivityIndicator 
                 BackgroundColor="Orange" 
                 x:Name="ai" 
                 IsRunning="{Binding IsBusy}" 
                 HorizontalOptions="Center" 
                 VerticalOptions="Center" 
                 Color="White"/>
-        </Grid>
+                </Grid>
+            </Grid>
+        </ScrollView>
     </Grid>
 </ContentPage>
