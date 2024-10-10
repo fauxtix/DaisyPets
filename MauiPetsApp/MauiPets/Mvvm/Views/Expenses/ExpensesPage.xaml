@@ -237,7 +237,7 @@
                     
                 </CollectionView>
 
-                <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" 
+                <Grid HorizontalOptions="Center" VerticalOptions="Center" 
                       Grid.RowSpan="3">
                     <ActivityIndicator                
                         x:Name="ai" 

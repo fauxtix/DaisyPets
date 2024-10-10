@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MauiPets.Extensions;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
@@ -22,8 +23,8 @@ public partial class PetViewModel : BaseViewModel
     public PetViewModel(IPetService petService, IVacinasService petVaccinesService)
     {
         _petService = petService;
-        _petService = petService;
         _petVaccinesService = petVaccinesService;
+        Task.Run(GetPetsAsync);
     }
 
     [ObservableProperty]
@@ -38,19 +39,15 @@ public partial class PetViewModel : BaseViewModel
                 return;
 
             IsBusy = true;
-            await Task.Delay(100);
+            await Task.Yield();
+
             var pets = (await _petService.GetAllVMAsync()).ToList();
 
-            if (pets.Count != 0)
+            if (pets.Count > 0)
             {
                 Pets.Clear();
+                Pets.AddRange(pets);
             }
-
-            foreach (var pet in pets)
-            {
-                Pets.Add(pet);
-            }
-
         }
         catch (Exception ex)
         {
@@ -63,6 +60,7 @@ public partial class PetViewModel : BaseViewModel
             IsRefreshing = false;
         }
     }
+
 
     [RelayCommand]
     private async Task GetPetAsync()
@@ -98,7 +96,7 @@ public partial class PetViewModel : BaseViewModel
         try
         {
             IsBusy = true;
-            await Task.Delay(100);
+            await Task.Yield();
             await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                 new Dictionary<string, object>
                 {
@@ -221,8 +219,11 @@ public partial class PetViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            IsBusy = false;
             ShowToastMessage($"Error while creating Vaccine ({ex.Message})");
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
 

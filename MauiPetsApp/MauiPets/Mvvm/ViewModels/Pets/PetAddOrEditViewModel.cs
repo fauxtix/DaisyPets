@@ -182,54 +182,63 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         await Shell.Current.GoToAsync("..");
     }
 
-    private void SetupLookupTables()
+    private async Task SetupLookupTables()
     {
-        GetLookupData("Especie", AppEnums.Species);
-        GetLookupData("Raca", AppEnums.Breeds);
-        GetLookupData("Situacao", AppEnums.Situations);
-        GetLookupData("Tamanho", AppEnums.Sizes);
-        GetLookupData("Temperamento", AppEnums.Temperaments);
+        var lookupTasks = new List<Task>
+    {
+        GetLookupData("Especie", AppEnums.Species),
+        GetLookupData("Raca", AppEnums.Breeds),
+        GetLookupData("Situacao", AppEnums.Situations),
+        GetLookupData("Tamanho", AppEnums.Sizes),
+        GetLookupData("Temperamento", AppEnums.Temperaments)
+    };
+
+        await Task.WhenAll(lookupTasks);
     }
-    private void GetLookupData(string tableName, AppEnums option)
+    private async Task GetLookupData(string tableName, AppEnums option)
     {
         if (string.IsNullOrEmpty(tableName))
             return;
 
         try
         {
-            var result = _lookupTablesService.GetLookupTableData(tableName).Result;
+            var result = await _lookupTablesService.GetLookupTableData(tableName);
 
             if (result is null)
-            {
                 return;
-            }
 
-            foreach (var item in result)
+            List<LookupTableVM> itemsToAdd = new List<LookupTableVM>(result);
+
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 switch (option)
                 {
                     case AppEnums.Species:
-                        Species.Add(item);
+                        foreach (var item in itemsToAdd)
+                            Species.Add(item);
                         break;
                     case AppEnums.Breeds:
-                        Breeds.Add(item);
+                        foreach (var item in itemsToAdd)
+                            Breeds.Add(item);
                         break;
                     case AppEnums.Sizes:
-                        Sizes.Add(item);
+                        foreach (var item in itemsToAdd)
+                            Sizes.Add(item);
                         break;
                     case AppEnums.Temperaments:
-                        Temperaments.Add(item);
+                        foreach (var item in itemsToAdd)
+                            Temperaments.Add(item);
                         break;
                     case AppEnums.Situations:
-                        Situations.Add(item);
+                        foreach (var item in itemsToAdd)
+                            Situations.Add(item);
                         break;
                 }
-            }
-
+            });
         }
         catch (Exception ex)
         {
-            Shell.Current.DisplayAlert("Error while 'GetLookupData", ex.Message, "Ok");
+            await Shell.Current.DisplayAlert("Error while 'GetLookupData", ex.Message, "Ok");
         }
     }
 

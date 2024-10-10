@@ -74,19 +74,25 @@
                                                        CommandParameter="{Binding .}" />
                                         </SwipeItems>
                                     </SwipeView.RightItems>
-                                    <StackLayout Padding="2" Margin="5,0" 
-                                                     BackgroundColor="LightGray">
+                                    <StackLayout Padding="2" Margin="5,0">
                                         <Frame CornerRadius="12">
                                             <Frame.GestureRecognizers>
                                                 <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LogViewModel}}, Path=ViewLogExceptionCommand}"
-                                        CommandParameter="{Binding .}" />
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:LogViewModel}}, Path=ViewLogExceptionCommand}"
+                                                    CommandParameter="{Binding .}" />
                                             </Frame.GestureRecognizers>
-                                            <Grid Padding="2" RowDefinitions="Auto, Auto, Auto, *" ColumnSpacing="10" Margin="0" RowSpacing="1">
+
+                                            <Frame.Triggers>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding Level}" Value="Error">
+                                                    <Setter Property="BackgroundColor" Value="#E97451" />
+                                                </DataTrigger>
+                                            </Frame.Triggers>
+
+                                            <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, *" Margin="0" RowSpacing="1">
                                                 <Label Grid.Row="0" Text="{Binding Message}" FontSize="12" FontAttributes="Bold" />
-                                                <Label Grid.Row="1" Text="{Binding Level}" FontSize="12" TextColor="Gray" />
-                                                <Label Grid.Row="2" Text="{Binding TimeStamp}" FontSize="10" />
-                                                <Label Grid.Row="3" Text="{Binding Exception}" FontSize="10" />
+                                                <Label Grid.Row="1" Text="{Binding Level}" FontSize="12"/>
+                                                <Label Grid.Row="2" Text="{Binding TimeStamp}" FontSize="11" />
+                                                <Label Grid.Row="3" Text="{Binding Exception}" FontSize="11" />
                                             </Grid>
                                         </Frame>
                                     </StackLayout>
@@ -95,7 +101,6 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
 
-                    <!-- Page Information and Page Size Adjustments -->
                     <Grid IsVisible="{Binding WeHaveLogsToDisplay}" Grid.Row="2" ColumnDefinitions="Auto, *">
                         <StackLayout Grid.Column="0" HorizontalOptions="Start"
                                  VerticalOptions="Center">

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
-		<TargetFrameworks>net7.0-maccatalyst;net7.0-android</TargetFrameworks>
+		<TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+		<MauiVersion>8.0.3</MauiVersion>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
@@ -68,13 +68,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui.Core" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+	</ItemGroup>
+	
+	
+	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiIcon>
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\daisypetsbing.png" Color="#4682B4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\daisypetsbing_min.png" Color="#4682B4" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -90,9 +99,6 @@
 		<MauiImage Update="Resources\Images\capsules.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
-		<MauiImage Update="Resources\Images\che.jpg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</MauiImage>
 		<MauiImage Update="Resources\Images\check.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
@@ -102,8 +108,11 @@
 		<MauiImage Update="Resources\Images\contacts.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
-		<MauiImage Update="Resources\Images\daisypetsbing.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		<MauiImage Update="Resources\Images\daisypetsbing.png" Resize="True">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\daisypetsbing_min.png" Resize="True">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\delete_32.png" Resize="True" tintColor="#FF0000">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -124,9 +133,6 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\edit.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</MauiImage>
-		<MauiImage Update="Resources\Images\edit.svg">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\expense.png">
@@ -226,6 +232,11 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+	
+	
+	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\che.jpg" />
+	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="appsettings.Android.json" />
@@ -249,11 +260,11 @@
 	  <None Remove="Resources\Images\check_all.png" />
 	  <None Remove="Resources\Images\contacts.png" />
 	  <None Remove="Resources\Images\daisypetsbing.png" />
+	  <None Remove="Resources\Images\daisypetsbing_min.png" />
 	  <None Remove="Resources\Images\delete_32.png" />
 	  <None Remove="Resources\Images\DogAndCat.svg" />
 	  <None Remove="Resources\Images\doghouse.png" />
 	  <None Remove="Resources\Images\edit.png" />
-	  <None Remove="Resources\Images\edit.svg" />
 	  <None Remove="Resources\Images\expense.png" />
 	  <None Remove="Resources\Images\expenses.png" />
 	  <None Remove="Resources\Images\femenine_icon.png" />
@@ -305,10 +316,15 @@
 	  <EmbeddedResource Include="PetsDB.sqbpro">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\Images\che.jpg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiImage Include="Resources\Splash\daisypetsbing.png" />
+	  <!--<MauiImage Include="Resources\Splash\daisypetsbing.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>-->
 	  <MauiImage Include="Resources\Splash\dogandcat.svg" />
 	</ItemGroup>
 
@@ -320,17 +336,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-		<PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.1" />
 		<PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
-		<PackageReference Include="Serilog" Version="4.0.0" />
-		<PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
+		<PackageReference Include="Serilog" Version="4.0.2" />
+		<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
 		<PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
-		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
 		<PackageReference Include="System.Text.Json" Version="8.0.4" />
 	</ItemGroup>
 

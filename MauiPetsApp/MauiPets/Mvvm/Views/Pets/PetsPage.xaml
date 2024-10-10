@@ -3,14 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Pets.PetsPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
+             xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
              xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
              x:DataType="local:PetViewModel"
              Title="Daisy Pets">
 
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior Command="{Binding GetPetsCommand}" EventName="Appearing" />
-    </ContentPage.Behaviors>
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="MediumLabelBold" TargetType="Label">
@@ -23,7 +20,7 @@
             </Style>
             <Style x:Key="MediumBlueLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="12"/>
-                <Setter Property="FontAttributes" Value="Italic"></Setter>
+                <Setter Property="FontAttributes" Value="Italic"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="Blue"/>
             </Style>
@@ -33,130 +30,106 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Pet" Command="{Binding AddPetCommand  }"
-                 IconImageSource="add.png" />
+        <ToolbarItem Text="Add Pet" Command="{Binding AddPetCommand}" IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
-    <ScrollView>
-        <VerticalStackLayout>
-            <Grid RowDefinitions="Auto, Auto, Auto">
-                <Label Grid.Row="0"  Text="Daisy Pets"
-                       HorizontalOptions="Center" VerticalOptions="Center"
-                       Margin="5, 10"
-                       FontSize="30"></Label>
-                <Border Grid.Row="1" Margin="5, 5"  
-                        StrokeShape="RoundRectangle 0,0,50,50" 
-                        StrokeThickness="0" HeightRequest="160">
-                    <Border.Shadow>
-                        <Shadow  Brush="Black" Offset="-10,20" Radius="10" Opacity="0.4" />
-                    </Border.Shadow>
-                    <Image Margin="5, 5"
-                        Grid.Row="1" WidthRequest="250" 
-                        HeightRequest="200" Aspect="Fill"                    
-                        Source="daisypetsbing.png"/>
-                </Border>
-                <Border Grid.Row="2" Margin="15, 25, 15, 15"  
-                        StrokeShape="RoundRectangle 15,15,15,15" 
-                        StrokeThickness="0" HeightRequest="60">
-                    <Border.Shadow>
-                        <Shadow  Brush="Black" Offset="1,1" Radius="10" Opacity="0.2" />
-                    </Border.Shadow>
 
-                    <Label Margin="5, 2, 5, 3" 
-                       Padding="5, 0, 5, 0"
-                       FontSize="Header"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
-                       Grid.Row="2" Text="Selecione um dos Pets abaixo, para visualizar/alterar os dados."></Label>
-                </Border>
-            </Grid>
-            <CollectionView  x:Name="ColView1" ItemsSource="{Binding Pets }" SelectionMode="Single">
-                <CollectionView.EmptyView>
-                    <StackLayout>
-                        <Image
-                                    HorizontalOptions="Center"
-                                    HeightRequest="160"
-                                    WidthRequest="160"
-                                    Source="nopets.png"
-                                    VerticalOptions="Center" />
-                    </StackLayout>
-                </CollectionView.EmptyView>
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout>
+                <Grid RowDefinitions="Auto, Auto, Auto, *">
+                    <Label Grid.Row="0" Text="Daisy Pets"
+                           HorizontalOptions="Center" VerticalOptions="Center"
+                           Margin="5, 10"
+                           FontSize="30"/>
 
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="2"/>
-                </CollectionView.ItemsLayout>
+                    <Border Grid.Row="1" Margin="5, 5"  
+                            StrokeShape="RoundRectangle 0,0,50,50" 
+                            StrokeThickness="0" HeightRequest="160">
+                        <Border.Shadow>
+                            <Shadow Brush="Black" Offset="-10,20" Radius="10" Opacity="0.4" />
+                        </Border.Shadow>
+                        <Image Margin="5, 5"
+                               WidthRequest="250" 
+                               HeightRequest="200" Aspect="Fill"                    
+                               Source="daisypetsbing_min.png"/>
+                    </Border>
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:PetVM">
-                        <VerticalStackLayout Padding="5">
-                            <Frame CornerRadius="10" HasShadow="True" Padding="2">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer 
+                    <Border Grid.Row="2" Margin="5, 25, 5, 35"  
+                            StrokeShape="RoundRectangle 0,0,15,15" 
+                            StrokeThickness="0.5" HeightRequest="60">
+                        <Label Margin="5, 2, 5, 3" 
+                               Padding="5, 0, 5, 0"
+                               FontSize="14"
+                               FontFamily="sans-serif-medium"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               Text="Selecione um dos Pets abaixo, para visualizar/alterar os dados. Poderá criar novo registo, escolhendo a opção '+' no topo"/>
+                    </Border>
+
+                    <CollectionView Grid.Row="3" 
+                                    ItemsSource="{Binding Pets}" 
+                                    SelectionMode="Single">
+                        <CollectionView.EmptyView>
+                            <StackLayout Grid.ColumnSpan="2">
+                                <Image HorizontalOptions="Center"
+                                       HeightRequest="160"
+                                       WidthRequest="160"
+                                       Source="nopets.png"
+                                       VerticalOptions="Center" />
+                            </StackLayout>
+                        </CollectionView.EmptyView>
+
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="2"
+                                             HorizontalItemSpacing="10"
+                                             VerticalItemSpacing="10" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:PetVM">
+                                <VerticalStackLayout Margin="15, 0, 15, 0">
+                                    <Border Stroke="Black" 
+                                            StrokeThickness="2" 
+                                            HeightRequest="140" 
+                                            WidthRequest="200" 
+                                            StrokeShape="RoundRectangle 0,0,50,50" 
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center">
+                                        <Border.Shadow>
+                                            <Shadow Brush="Black" Offset="-10,20" Radius="10" Opacity="0.4" />
+                                        </Border.Shadow>
+                                        <Image Source="{Binding Foto}"
+                                               Aspect="AspectFill" 
+                                               HorizontalOptions="Fill"
+                                               VerticalOptions="Fill"
+                                               Margin="5, 0" />
+                                        <Border.GestureRecognizers>
+                                            <TapGestureRecognizer 
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:PetViewModel}}, Path=DisplayPetCommand}"
                                                 CommandParameter="{Binding .}"/>
-                                </Frame.GestureRecognizers>
-                                <Grid Padding="5" ColumnSpacing="0" 
-                                                RowSpacing="0" 
-                                                Margin="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <!--<Label Grid.Row="0" Text="{Binding Id}" 
-                                                      TextColor="Black" Padding="10" FontSize="Large"
-                                                      HorizontalTextAlignment="End" />-->
-                                    <Border StrokeShape="RoundRectangle 50"
-                                        Stroke="White"
-                                        StrokeThickness="6"
-                                        HeightRequest="160"
-                                        WidthRequest="220"
-                                        Margin="4,8,0,4"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center">
-                                        <Border.Shadow>
-                                            <Shadow  Brush="Black" Offset="1,1" Radius="10" Opacity="0.4" />
-                                        </Border.Shadow>
-
-                                        <Image Aspect="AspectFill"
-                                                HeightRequest="160"
-                                                HorizontalOptions="Center"
-                                                VerticalOptions="Center"
-                                                Source="{Binding Foto}"
-                                                WidthRequest="200"/>
+                                        </Border.GestureRecognizers>
                                     </Border>
-                                    <Label Grid.Row="2" Text="{Binding Nome}" 
-                                                      TextColor="Magenta" Padding="10" FontSize="18"
-                                                      HorizontalTextAlignment="Center" />
-                                </Grid>
-                            </Frame>
-                        </VerticalStackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Grid 
-                ColumnDefinitions="*,*"
-                ColumnSpacing="5"
-                RowDefinitions="*,Auto"
-                RowSpacing="0"
-                BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+                                    <Label Text="{Binding Nome}"
+                                           TextColor="Magenta"
+                                           Padding="10"
+                                           FontSize="18"
+                                           HorizontalTextAlignment="Center" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
 
-                <ActivityIndicator
-                    Grid.RowSpan="2"
-                    Grid.ColumnSpan="2"
-                    HorizontalOptions="Fill"
-                    IsRunning="{Binding IsBusy}"
-                    IsVisible="{Binding IsBusy}"
-                    Color="Orange"
-                    VerticalOptions="Center" />
-            </Grid>
-
-            <!--<StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center" Margin="10">
-                <Button  Text="Load All Pets" Command="{Binding GetPetsCommand}"
-                     IsEnabled="{Binding IsNotBusy}"
-                     Margin="20"
-                     Style="{StaticResource ButtonOutline}"/>
-            </StackLayout>-->
-
-        </VerticalStackLayout>
-    </ScrollView>
+                <Grid HorizontalOptions="Center" VerticalOptions="Center" 
+                      Grid.RowSpan="4">
+                    <ActivityIndicator                
+                        IsRunning="{Binding IsBusy}" 
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="WhiteSmoke"
+                        Color="Black"/>
+                </Grid>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

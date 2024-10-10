@@ -452,22 +452,54 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
 
         var petId = PetVM.Id;
 
-        PetVaccinesVM = new ObservableCollection<VacinaVM>(
-            await _petVaccinesService.GetPetVaccinesVMAsync(petId)
-        );
+        //PetVaccinesVM = new ObservableCollection<VacinaVM>(
+        //    await _petVaccinesService.GetPetVaccinesVMAsync(petId)
+        //);
 
-        PetDewormersVM = new ObservableCollection<DesparasitanteVM>(
-            await _petDewormersService.GetDesparasitanteVMAsync(petId)
-        );
+        //PetDewormersVM = new ObservableCollection<DesparasitanteVM>(
+        //    await _petDewormersService.GetDesparasitanteVMAsync(petId)
+        //);
 
-        PetFoodVM = new ObservableCollection<RacaoVM>(
-            await _petFoodService.GetRacaoVMAsync(petId)
-        );
+        //PetFoodVM = new ObservableCollection<RacaoVM>(
+        //    await _petFoodService.GetRacaoVMAsync(petId)
+        //);
 
-        PetConsultationsVM = new ObservableCollection<ConsultaVeterinarioVM>(
-            await _petVeterinaryAppointmentsService.GetConsultaVMAsync(petId)
-        );
+        //PetConsultationsVM = new ObservableCollection<ConsultaVeterinarioVM>(
+        //    await _petVeterinaryAppointmentsService.GetConsultaVMAsync(petId)
+        //);
 
+
+        var vaccinesTask = _petVaccinesService.GetPetVaccinesVMAsync(petId);
+        var dewormersTask = _petDewormersService.GetDesparasitanteVMAsync(petId);
+        var foodItemsTask = _petFoodService.GetRacaoVMAsync(petId);
+        var consultationsTask = _petVeterinaryAppointmentsService.GetConsultaVMAsync(petId);
+
+        await Task.WhenAll(vaccinesTask, dewormersTask, foodItemsTask, consultationsTask);
+
+        // Clear and repopulate existing collections
+        PetVaccinesVM.Clear();
+        foreach (var vaccine in await vaccinesTask)
+        {
+            PetVaccinesVM.Add(vaccine);
+        }
+
+        PetDewormersVM.Clear();
+        foreach (var dewormer in await dewormersTask)
+        {
+            PetDewormersVM.Add(dewormer);
+        }
+
+        PetFoodVM.Clear();
+        foreach (var food in await foodItemsTask)
+        {
+            PetFoodVM.Add(food);
+        }
+
+        PetConsultationsVM.Clear();
+        foreach (var consultation in await consultationsTask)
+        {
+            PetConsultationsVM.Add(consultation);
+        }
         Gender = PetVM.Genero == "M" ? "Macho" : "Fêmea";
         GodFather = PetVM.Padrinho ? "Sim" : "Não";
         Sterilized = PetVM.Esterilizado ? "Sim" : "Não";

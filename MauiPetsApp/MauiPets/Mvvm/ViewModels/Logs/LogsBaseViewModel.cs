@@ -8,6 +8,5 @@ namespace MauiPets.Mvvm.ViewModels.Logs
 
         [ObservableProperty]
         private LogEntry _selectedLogEntry;
-
     }
 }

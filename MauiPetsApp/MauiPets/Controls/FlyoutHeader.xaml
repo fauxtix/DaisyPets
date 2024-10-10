@@ -6,7 +6,7 @@
     <Grid BackgroundColor="Black"                
           Margin="0,0,0,5">
         <Image Aspect="AspectFill"
-               Source="daisypetsbing.png"
+               Source="daisypetsbing_min.png"
                Opacity="0.6" />
         <Label Text="Daisy Pets"
                TextColor="White"

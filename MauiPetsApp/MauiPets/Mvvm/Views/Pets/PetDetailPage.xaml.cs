@@ -1,6 +1,5 @@
 using MauiPets.Mvvm.ViewModels.Pets;
 using Plugin.LocalNotification;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MauiPets.Mvvm.Views.Pets;
 
@@ -13,18 +12,6 @@ public partial class PetDetailPage : ContentPage
         _viewModel = viewModel;
         BindingContext = _viewModel;
     }
-
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-        VaccinesView.ItemsSource = _viewModel.PetVaccinesVM;
-        DewormersView.ItemsSource = _viewModel.PetDewormersVM;
-        FoodView.ItemsSource = _viewModel.PetFoodVM;
-        ConsultationsView.ItemsSource = _viewModel.PetConsultationsVM;
-
-        HandleVaccinesNotifications();
-    }
-
 
     protected void HandleVaccinesNotifications()
     {
