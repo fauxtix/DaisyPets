@@ -35,7 +35,7 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         [ObservableProperty]
         private string _observacoes;
         [ObservableProperty]
-        private string _dataNascimento;
+        private string _dataNascimento = DateTime.Now.ToShortDateString();
         [ObservableProperty]
         private string _doencaCronica;
         [ObservableProperty]
@@ -57,7 +57,7 @@ namespace MauiPets.Mvvm.ViewModels.Pets
 
 
         [ObservableProperty]
-        private string _dataChip;
+        private string _dataChip = DateTime.Now.ToShortDateString();
         [ObservableProperty]
         private string _numeroChip;
         [ObservableProperty]

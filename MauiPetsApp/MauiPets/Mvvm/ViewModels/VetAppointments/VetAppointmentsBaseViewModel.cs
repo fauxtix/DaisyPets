@@ -10,7 +10,7 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
         [ObservableProperty]
         private int _idPet;
         [ObservableProperty]
-        private DateTime _dataConsulta;
+        private DateTime _dataConsulta = DateTime.Now;
         [ObservableProperty]
         private string _motivo;
         [ObservableProperty]

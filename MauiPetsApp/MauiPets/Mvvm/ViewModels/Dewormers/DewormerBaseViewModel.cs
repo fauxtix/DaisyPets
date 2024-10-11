@@ -15,9 +15,9 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         private string _tipo;
 
         [ObservableProperty]
-        private DateTime _dataAplicacao;
+        private DateTime _dataAplicacao = DateTime.Now;
         [ObservableProperty]
-        private DateTime _dataProximaAplicacao;
+        private DateTime _dataProximaAplicacao = DateTime.Now.AddMonths(3);
 
         [ObservableProperty]
         private string _nomePet;

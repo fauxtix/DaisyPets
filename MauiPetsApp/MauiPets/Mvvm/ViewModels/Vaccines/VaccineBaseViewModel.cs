@@ -12,13 +12,13 @@ namespace MauiPets.Mvvm.ViewModels.Vaccines
         [ObservableProperty]
         private string _marca;
         [ObservableProperty]
-        private string _dataToma;
+        private string _dataToma = DateTime.Now.ToShortDateString();
 
         [ObservableProperty]
         private int _dataProximaTomaEmMeses;
 
         [ObservableProperty]
-        private DateTime _dataProximaToma;
+        private DateTime _dataProximaToma = DateTime.Now.AddDays(1);
 
         [ObservableProperty]
         private int _diasParaProximaToma;

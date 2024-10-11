@@ -26,8 +26,8 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
 
 
         [ObservableProperty] public int _id;
-        [ObservableProperty] public string _dataCriacao;
-        [ObservableProperty] public string _dataMovimento;
+        [ObservableProperty] public string _dataCriacao = DateTime.Now.ToShortDateString();
+        [ObservableProperty] public string _dataMovimento = DateTime.Now.ToShortDateString();
         [ObservableProperty] public decimal _valorPago;
         [ObservableProperty] public string _descricao;
         [ObservableProperty] public int _idTipoDespesa;

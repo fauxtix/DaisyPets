@@ -34,7 +34,7 @@ namespace MauiPets.Mvvm.ViewModels.Todo
         string filterText = string.Empty;
 
         [ObservableProperty]
-        private int pageSize = 8;
+        private int pageSize = 14;
 
         [ObservableProperty]
         private int currentPage = 1;

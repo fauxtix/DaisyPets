@@ -1,6 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.Views.Todo;
 using MauiPetsApp.Core.Application.TodoManager;
 
 namespace MauiPets.Mvvm.ViewModels.Todo;
@@ -12,9 +10,9 @@ public partial class TodoBaseViewModel : ObservableObject
     [ObservableProperty]
     private string _description;
     [ObservableProperty]
-    private string _startDate;
+    private string _startDate = DateTime.Now.ToShortDateString();
     [ObservableProperty]
-    private string _endDate;
+    private string _endDate = DateTime.Now.ToShortDateString();
     [ObservableProperty]
     private int _completed;
     [ObservableProperty]
@@ -25,11 +23,6 @@ public partial class TodoBaseViewModel : ObservableObject
     private int _categoryId;
     [ObservableProperty]
     private string _categoryDescription;
-
-
-    //private DateTime _todoStartDate;
-    //private DateTime _todoEndDate;
-
 
     [ObservableProperty]
     ToDoDto _selectedTodo;

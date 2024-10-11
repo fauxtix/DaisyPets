@@ -61,8 +61,11 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     {
         _petService = petService;
         _lookupTablesService = lookupTablesService;
+    }
 
-        SetupLookupTables();
+    public async Task InitializeAsync()
+    {
+        await SetupLookupTables();
     }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)

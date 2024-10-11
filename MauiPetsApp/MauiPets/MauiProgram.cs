@@ -98,7 +98,7 @@ namespace MauiPets
             //builder.Logging.AddDebug();
 #endif
             builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
-            //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
             // ViewModels
             builder.Services.AddSingleton<PetViewModel>();

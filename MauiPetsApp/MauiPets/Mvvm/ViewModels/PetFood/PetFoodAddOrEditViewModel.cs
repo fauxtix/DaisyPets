@@ -15,6 +15,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         public IRacaoService _service { get; set; }
         public IPetService _petService { get; set; }
         public int SelectedPetFoodId { get; set; }
+
         [ObservableProperty]
         public string _petPhoto;
         [ObservableProperty]

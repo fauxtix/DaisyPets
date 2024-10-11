@@ -13,6 +13,15 @@ public partial class PetDetailPage : ContentPage
         BindingContext = _viewModel;
     }
 
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is PetAddOrEditViewModel viewModel)
+        {
+            await viewModel.InitializeAsync();
+        }
+    }
+
     protected void HandleVaccinesNotifications()
     {
         List<string> notificationMessages = new();

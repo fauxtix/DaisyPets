@@ -14,7 +14,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         [ObservableProperty]
         private string _tipo;
         [ObservableProperty]
-        private DateTime _dataCompra;
+        private DateTime _dataCompra = DateTime.Now;
         [ObservableProperty]
         private int _quantidadeDiaria;
 

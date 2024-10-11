@@ -207,7 +207,7 @@
                                         </MultiBinding>
                                     </ImageButton.IsEnabled>
                                 </ImageButton>
-                                <ImageButton Source="previous_page.svg" 
+                                <ImageButton Source="last_page.svg" 
                                      BorderWidth="2" BorderColor="Black" 
                                      Command="{Binding LastPageAsyncCommand}" CornerRadius="5" 
                                      WidthRequest="50" HeightRequest="30" />
