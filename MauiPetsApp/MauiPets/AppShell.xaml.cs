@@ -43,6 +43,7 @@ namespace MauiPets
             Routes.Add(nameof(ContactsPage), typeof(ContactsPage));
             Routes.Add(nameof(ContactDetailPage), typeof(ContactDetailPage));
             Routes.Add(nameof(AddOrEditContactPage), typeof(AddOrEditContactPage));
+            Routes.Add(nameof(LocationMapPage), typeof(LocationMapPage));
 
             Routes.Add(nameof(MainSettingsPage), typeof(MainSettingsPage));
             Routes.Add(nameof(SettingsAddOrEditPage), typeof(SettingsAddOrEditPage));

@@ -87,19 +87,20 @@
                            FontSize = "14"
 			               VerticalOptions="Center">
                     </Label>
-                    <Editor x:Name="TxtName"
+                    <Entry x:Name="TxtName"
 			               Text="{Binding ContactoVM.Nome}" 
 			               Grid.Row="1"
+                           FontFamily="Poppins"
                            FontAttributes="Bold" 
-			               VerticalOptions="Center"></Editor>
+			               VerticalOptions="Center"/>
                     <Label Text="Morada" 
                             Grid.Row="2"
                             FontSize = "14"
 			                VerticalOptions="Center"></Label>
-                    <Editor x:Name="TxtMorada"
+                    <Entry x:Name="TxtMorada"
 			                Text="{Binding ContactoVM.Morada}" 
 			                Grid.Row="3"
-			                VerticalOptions="Center"></Editor>
+			                VerticalOptions="Center"></Entry>
                     <Label Text="Localidade" 
                             Grid.Row="4"
                             FontSize = "14"

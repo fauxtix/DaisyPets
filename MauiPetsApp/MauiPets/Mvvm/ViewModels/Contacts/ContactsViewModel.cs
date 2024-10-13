@@ -24,7 +24,6 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         public ContactsViewModel(IContactService contactService)
         {
             _contactService = contactService;
-
         }
 
         [RelayCommand]
@@ -71,6 +70,5 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
             SearchText = searchText;
             await GetContactsAsync();
         }
-
     }
 }

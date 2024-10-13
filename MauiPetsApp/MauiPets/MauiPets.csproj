@@ -71,8 +71,9 @@
 		<PackageReference Include="AutoMapper" Version="12.0.0" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="8.0.1" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Mapsui.Maui" Version="4.1.7" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.91" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.91" />
 	</ItemGroup>
 	
 	
@@ -163,6 +164,9 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_log.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\icon_map.png" Resize="True" tintColor="#880808">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_nopet.png">
@@ -275,6 +279,7 @@
 	  <None Remove="Resources\Images\icon_email.png" />
 	  <None Remove="Resources\Images\icon_group_data.png" />
 	  <None Remove="Resources\Images\icon_log.png" />
+	  <None Remove="Resources\Images\icon_map.png" />
 	  <None Remove="Resources\Images\icon_save.png" />
 	  <None Remove="Resources\Images\last_page.svg" />
 	  <None Remove="Resources\Images\list.png" />
@@ -336,16 +341,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Maui.Controls.Maps" Version="8.0.91" />
+		<PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.91" />
 		<PackageReference Include="Plugin.LocalNotification" Version="10.1.8" />
 		<PackageReference Include="Serilog" Version="4.0.2" />
 		<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
 		<PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.8" />
+		<PackageReference Include="System.Net.Http.Json" Version="8.0.1" />
 		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 	</ItemGroup>
 
@@ -383,6 +392,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Contacts\ContactsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Contacts\LocationMapPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Dewormers\DewormerAddOrEditPage.xaml">

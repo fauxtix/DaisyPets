@@ -29,6 +29,15 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         public string _descricaoTipoContacto;
 
         [ObservableProperty]
+        public double _latitude;
+
+        [ObservableProperty]
+        public double _longitude;
+
+        [ObservableProperty]
+        private string _locationInfo;
+
+        [ObservableProperty]
         Contacto contacto = null;
 
         [ObservableProperty]

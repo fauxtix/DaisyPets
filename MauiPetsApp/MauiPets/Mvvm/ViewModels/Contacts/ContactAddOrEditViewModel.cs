@@ -14,7 +14,6 @@ namespace MauiPets.Mvvm.ViewModels.Contacts;
 
 public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributable
 {
-
     public List<LookupTableVM> ContactTypes { get; } = new();
 
     [ObservableProperty]
@@ -26,6 +25,7 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
     private int _contactTypeSelectedIndex;
 
     public IContactService _contactsService { get; set; }
+
     public ILookupTableService _lookupTablesService { get; set; }
 
     [ObservableProperty]
@@ -61,11 +61,21 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
         }
     }
 
+
+
     [RelayCommand]
     async Task SaveContactData()
     {
         try
         {
+
+            var morada = ContactoVM.Morada;
+            var localidade = ContactoVM.Localidade;
+            var (latitude, longitude) = await GetCoordinatesFromAddress(morada, localidade);
+
+            ContactoVM.Latitude = latitude;
+            ContactoVM.Longitude = longitude;
+
             if (ContactoVM.Id == 0)
             {
                 var insertedId = await _contactsService.InsertAsync(ContactoVM);
@@ -140,6 +150,8 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
         }
     }
 
+
+
     private async Task ShowToastMessage(string text)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
@@ -158,5 +170,30 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
         {
             ContactTypes.Add(contactType);
         }
+    }
+
+    private async Task<(double latitude, double longitude)> GetCoordinatesFromAddress(string morada, string localidade)
+    {
+        string address = $"{morada}, {localidade}";
+
+        try
+        {
+            var locations = await Geocoding.Default.GetLocationsAsync(address);
+
+            var location = locations?.FirstOrDefault();
+
+            if (location != null)
+            {
+                return (location.Latitude, location.Longitude);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Trate exceções, como falha ao acessar o serviço de geocodificação
+            Console.WriteLine($"Erro ao obter coordenadas: {ex.Message}");
+        }
+
+        // Retorna 0,0 caso não seja possível obter a localização
+        return (0.0, 0.0);
     }
 }

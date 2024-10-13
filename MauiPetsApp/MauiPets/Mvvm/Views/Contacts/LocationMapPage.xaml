@@ -1,0 +1,19 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mapsui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
+             x:Class="MauiPets.Mvvm.Views.Contacts.LocationMapPage"
+             Title="Localização">
+
+    <Grid RowDefinitions="*, 50">
+        
+        <mapsui:MapView x:Name="MapView" Grid.Row="0" />
+        <Button Margin="5, 5, 5,5"
+                Grid.Row="1"
+                FontSize="14"
+                VerticalOptions="End"
+                FontAttributes="Bold"
+                TextTransform="Uppercase" 
+                Text="Voltar"  Clicked="Button_Clicked"/>
+
+    </Grid>
+</ContentPage>

@@ -46,6 +46,7 @@ using Microsoft.Extensions.Configuration;
 using Plugin.LocalNotification;
 using SendEmail.Views;
 using Serilog;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 using System.Globalization;
 using System.Reflection;
 
@@ -76,7 +77,9 @@ namespace MauiPets
                 fonts.AddFont("MaterialIconsOutlined-Regular.otf", "Material");
             })
                 .UseMauiCommunityToolkit()
-                .UseLocalNotification();
+                .UseLocalNotification()
+                .UseSkiaSharp();
+
 
 
 
@@ -97,6 +100,8 @@ namespace MauiPets
 #if DEBUG
             //builder.Logging.AddDebug();
 #endif
+
+
             builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 
@@ -147,6 +152,7 @@ namespace MauiPets
             builder.Services.AddTransient<ContactsPage>();
             builder.Services.AddTransient<ContactDetailPage>();
             builder.Services.AddTransient<AddOrEditContactPage>();
+            builder.Services.AddTransient<LocationMapPage>();
 
             builder.Services.AddTransient<ExpensesPage>();
             builder.Services.AddTransient<ExpensesAddOrEditPage>();

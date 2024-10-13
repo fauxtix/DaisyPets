@@ -5,7 +5,6 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Contacts;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
-using MauiPetsApp.Core.Domain;
 
 namespace MauiPets.Mvvm.ViewModels.Contacts
 {
@@ -29,6 +28,9 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         {
 
             ContactoVM = query[nameof(ContactoVM)] as ContactoVM;
+            Latitude = ContactoVM.Latitude;
+            Longitude = ContactoVM.Longitude;
+
             OnPropertyChanged(nameof(ContactoVM));
 
         }
@@ -93,6 +95,23 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
                 await Shell.Current.GoToAsync($"{nameof(ContactsPage)}", true);
             }
         }
+
+        // Este comando será chamado quando o utilizador clicar no botão para visualizar o mapa
+        [RelayCommand]
+        public async Task ShowLocationOnMapAsync()
+        {
+            if (Latitude != 0 && Longitude != 0)
+            {
+                // Navega para a página do mapa passando as coordenadas de latitude e longitude
+                await Shell.Current.GoToAsync($"LocationMapPage?latitude={Latitude}&longitude={Longitude}");
+            }
+            else
+            {
+                // Mostra um alerta se não houver coordenadas
+                await App.Current.MainPage.DisplayAlert("Erro", "Localização não disponível.", "OK");
+            }
+        }
+
 
         private async Task ShowToastMessage(string text)
         {

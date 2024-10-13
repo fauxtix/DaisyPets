@@ -87,11 +87,11 @@ namespace MauiPetsApp.Infrastructure
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Contacto.Id, Nome, Morada, Localidade, Movel, EMail, ");
+            sb.Append("Latitude, Longitude, "); // new fields
             sb.Append("Notas, IdTipoContacto, TipoContacto.Descricao AS [DescricaoTipoContacto] ");
             sb.Append("FROM Contacto ");
             sb.Append("INNER JOIN TipoContacto ON ");
             sb.Append("Contacto.IdTipoContacto = TipoContacto.Id");
-
 
             using (var connection = _context.CreateConnection())
             {
@@ -111,6 +111,7 @@ namespace MauiPetsApp.Infrastructure
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Contacto.Id, Nome, Morada, Localidade, Movel, EMail, ");
+            sb.Append("Latitude, Longitude, "); // new fields
             sb.Append("Notas, IdTipoContacto, TipoContacto.Descricao AS [DescricaoTipoContacto] ");
             sb.Append("FROM Contacto ");
             sb.Append("INNER JOIN TipoContacto ON ");
@@ -137,9 +138,9 @@ namespace MauiPetsApp.Infrastructure
             StringBuilder sb = new StringBuilder();
 
             sb.Append("INSERT INTO Contacto (");
-            sb.Append("Nome, Morada, Localidade, Movel, eMail, Notas, IdTipoContacto) ");
+            sb.Append("Nome, Morada, Localidade, Movel, eMail, Notas, IdTipoContacto, Latitude, Longitude) ");
             sb.Append(" VALUES(");
-            sb.Append("@Nome, @Morada, @Localidade, @Movel, @eMail, @Notas,  @IdTipoContacto");
+            sb.Append("@Nome, @Morada, @Localidade, @Movel, @eMail, @Notas,  @IdTipoContacto, @Latitude, @Longitude");
             sb.Append(");");
             sb.Append("SELECT last_insert_rowid()");
 
@@ -170,6 +171,8 @@ namespace MauiPetsApp.Infrastructure
             dynamicParameters.Add("@Movel", contact.Movel);
             dynamicParameters.Add("@eMail", contact.eMail);
             dynamicParameters.Add("@Notas", contact.Notas);
+            dynamicParameters.Add("@Latitude", contact.Latitude);
+            dynamicParameters.Add("@Longitude", contact.Longitude);
             dynamicParameters.Add("@IdTipoContacto", contact.IdTipoContacto);
 
             StringBuilder sb = new StringBuilder();
@@ -180,6 +183,8 @@ namespace MauiPetsApp.Infrastructure
             sb.Append("Movel = @Movel, ");
             sb.Append("eMail = @eMail, ");
             sb.Append("Notas = @Notas, ");
+            sb.Append("Latitude = @Latitude, ");
+            sb.Append("Longitude = @Longitude, ");
             sb.Append("IdTipoContacto = @IdTipoContacto ");
             sb.Append("WHERE Id = @Id");
 
