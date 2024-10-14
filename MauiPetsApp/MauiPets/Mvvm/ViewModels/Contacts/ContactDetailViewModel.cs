@@ -30,6 +30,7 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
             ContactoVM = query[nameof(ContactoVM)] as ContactoVM;
             Latitude = ContactoVM.Latitude;
             Longitude = ContactoVM.Longitude;
+            ContactName = ContactoVM.Nome;
 
             OnPropertyChanged(nameof(ContactoVM));
 
@@ -103,7 +104,7 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
             if (Latitude != 0 && Longitude != 0)
             {
                 // Navega para a página do mapa passando as coordenadas de latitude e longitude
-                await Shell.Current.GoToAsync($"LocationMapPage?latitude={Latitude}&longitude={Longitude}");
+                await Shell.Current.GoToAsync($"LocationMapPage?latitude={Latitude}&longitude={Longitude}&contactname={ContactoVM.Nome}");
             }
             else
             {

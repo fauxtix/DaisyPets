@@ -145,7 +145,7 @@
 		<MauiImage Update="Resources\Images\femenine_icon.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
-		<MauiImage Update="Resources\Images\filter.png" Resize="True" tintColor="#FFFFFF">
+		<MauiImage Update="Resources\Images\filter.png" Resize="True" tintColor="#880808">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\gear.png">
@@ -164,9 +164,6 @@
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_log.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</MauiImage>
-		<MauiImage Update="Resources\Images\icon_map.png" Resize="True" tintColor="#880808">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_nopet.png">
@@ -279,7 +276,6 @@
 	  <None Remove="Resources\Images\icon_email.png" />
 	  <None Remove="Resources\Images\icon_group_data.png" />
 	  <None Remove="Resources\Images\icon_log.png" />
-	  <None Remove="Resources\Images\icon_map.png" />
 	  <None Remove="Resources\Images\icon_save.png" />
 	  <None Remove="Resources\Images\last_page.svg" />
 	  <None Remove="Resources\Images\list.png" />

@@ -2,10 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mapsui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
              x:Class="MauiPets.Mvvm.Views.Contacts.LocationMapPage"
-             Title="Localização">
+             Title="Local">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
 
     <Grid RowDefinitions="*, 50">
-        
+
         <mapsui:MapView x:Name="MapView" Grid.Row="0" />
         <Button Margin="5, 5, 5,5"
                 Grid.Row="1"

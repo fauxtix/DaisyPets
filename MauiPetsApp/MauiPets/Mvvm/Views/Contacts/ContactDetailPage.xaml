@@ -5,18 +5,13 @@
             xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Contacts"
             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-            x:DataType="viewmodel:ContactDetailViewModel"            
-            Title="">
+            x:DataType="viewmodel:ContactDetailViewModel">
 
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
     </Shell.BackButtonBehavior>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Ver no Mapa" 
-             Command="{Binding ShowLocationOnMapCommand}" 
-             IconImageSource="icon_map.png" />
-
         <ToolbarItem Text="Save data" Command="{Binding AddOrEditContactCommand  }"
                  IconImageSource="icon_edit.svg" />
         <ToolbarItem Text="Delete contact" Command="{Binding DeleteContactCommand  }"
@@ -88,28 +83,28 @@
                         <Grid RowDefinitions="Auto, Auto,Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto,Auto,*" 
                               RowSpacing="3"
                               HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
-                                <Label Grid.Row="0" Style="{StaticResource MediumLabel}">Morada</Label>
-                                <Label Grid.Row="1"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Morada}" />
-                                <Label Grid.Row="2" Style="{StaticResource MediumLabel}" Margin="0,5,0,0">Localidade</Label>
-                                <Label Grid.Row="3" Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Localidade}" />
+                            <Label Grid.Row="0" Style="{StaticResource MediumLabel}">Morada</Label>
+                            <Label Grid.Row="1"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Morada}" />
+                            <Label Grid.Row="2" Style="{StaticResource MediumLabel}" Margin="0,5,0,0">Localidade</Label>
+                            <Label Grid.Row="3" Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Localidade}" />
                             <BoxView Grid.Row="4" HeightRequest="1" Color="Black"></BoxView>
-                                <Label Grid.Row="5" Style="{StaticResource MediumLabel}">Móvel</Label>
-                                <Label Grid.Row="6"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Movel}" />
+                            <Label Grid.Row="5" Style="{StaticResource MediumLabel}">Móvel</Label>
+                            <Label Grid.Row="6"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Movel}" />
                             <Label Grid.Row="7" Style="{StaticResource MediumLabel}" Margin="0,5,0,0">e-Mail</Label>
-                                <Label Grid.Row="8" Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.eMail}" />
+                            <Label Grid.Row="8" Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.eMail}" />
                             <BoxView Grid.Row="9" HeightRequest="1" Color="Black"></BoxView>
 
                             <Label Grid.Row="10" Style="{StaticResource MediumLabel}" >Tipo Contacto</Label>
-                                <Label Grid.Row="11" Style="{StaticResource MediumBlueLabelBold}" Text="{Binding ContactoVM.DescricaoTipoContacto}" />
+                            <Label Grid.Row="11" Style="{StaticResource MediumBlueLabelBold}" Text="{Binding ContactoVM.DescricaoTipoContacto}" />
                             <Label Grid.Row="12" Style="{StaticResource MediumLabel}" Margin="0,5,0,0">Notas</Label>
-                                <Label Grid.Row="13"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Notas}" />
+                            <Label Grid.Row="13"  Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Notas}" />
                         </Grid>
                     </Frame>
                 </Border>
             </Grid>
 
         </ScrollView>
-        <Grid RowDefinitions="Auto, Auto" Margin="10, 10" Padding="0">
+        <Grid RowDefinitions="Auto, Auto, *" Margin="10, 10" Padding="0">
             <VerticalStackLayout Grid.Row="0">
                 <Label Text="Latitude" />
                 <Label  Text="{Binding Latitude}" FontSize="16" FontAttributes="Bold"/>
@@ -117,6 +112,16 @@
             <VerticalStackLayout Grid.Row="1">
                 <Label Text="Longitude" />
                 <Label  Text="{Binding Longitude}" FontSize="16" FontAttributes="Bold"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="2">
+                <Button Margin="5, 5, 5,5"
+                        FontSize="14"
+                        HorizontalOptions="End" CornerRadius="15"
+                        VerticalOptions="End"
+                        FontAttributes="Bold"
+                        Command="{Binding ShowLocationOnMapCommand}" 
+                        TextTransform="Uppercase" 
+                        Text="Ver no Mapa"/>
             </VerticalStackLayout>
         </Grid>
 
