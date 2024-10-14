@@ -42,7 +42,7 @@ public partial class ContactsPage : ContentPage
             await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
                 new Dictionary<string, object>
                 {
-                {"ContactoVM", item}
+                    {"ContactoVM", item}
                  });
 
         }

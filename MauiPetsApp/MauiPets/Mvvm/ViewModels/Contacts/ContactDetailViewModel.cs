@@ -26,12 +26,12 @@ namespace MauiPets.Mvvm.ViewModels.Contacts
         }
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-
             ContactoVM = query[nameof(ContactoVM)] as ContactoVM;
             Latitude = ContactoVM.Latitude;
             Longitude = ContactoVM.Longitude;
             ContactName = ContactoVM.Nome;
 
+            IsEditing = true;
             OnPropertyChanged(nameof(ContactoVM));
 
         }

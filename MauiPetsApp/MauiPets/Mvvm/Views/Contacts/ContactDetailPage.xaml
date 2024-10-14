@@ -5,7 +5,8 @@
             xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Contacts"
             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-            x:DataType="viewmodel:ContactDetailViewModel">
+            x:DataType="viewmodel:ContactDetailViewModel"
+             Title="Contacto">
 
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
@@ -44,7 +45,7 @@
         <VerticalStackLayout>
             <Border Stroke="#2B0B98"
                         StrokeThickness="2"
-                        StrokeShape="RoundRectangle 22"
+                        StrokeShape="RoundRectangle 8"
                         Background="#fff"
                         Padding="8,4"
                         Margin="4"
@@ -58,20 +59,20 @@
                                         VerticalOptions="Center"
                                         HorizontalOptions="Start"
                                         Margin="5,0,8,0"/>
-                    <Label VerticalTextAlignment="Center"
-                                    HorizontalTextAlignment="Center"
-                                    FontSize="16"
-                                    FontAttributes="Bold"
-                                    TextColor="Green"
-                                    Text="{Binding ContactoVM.Nome}"
-                                    HorizontalOptions="FillAndExpand"/>
+                    <Label VerticalTextAlignment="Center"                          
+                           HorizontalTextAlignment="Center"
+                           FontSize="15"
+                           FontFamily="PoppinsSemiBold"
+                           TextColor="ForestGreen"
+                           Text="{Binding ContactoVM.Nome}"
+                           HorizontalOptions="FillAndExpand"/>
                 </HorizontalStackLayout>
             </Border>
         </VerticalStackLayout>
 
         <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
-            <Grid RowDefinitions="Auto">
-                <Border Grid.Row="2" Stroke="#2B0B98"
+            <Grid>
+                <Border Stroke="#2B0B98"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 22"
                     Background="#fff"
@@ -104,26 +105,31 @@
             </Grid>
 
         </ScrollView>
-        <Grid RowDefinitions="Auto, Auto, *" Margin="10, 10" Padding="0">
-            <VerticalStackLayout Grid.Row="0">
-                <Label Text="Latitude" />
-                <Label  Text="{Binding Latitude}" FontSize="16" FontAttributes="Bold"/>
-            </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="1">
-                <Label Text="Longitude" />
-                <Label  Text="{Binding Longitude}" FontSize="16" FontAttributes="Bold"/>
-            </VerticalStackLayout>
-            <VerticalStackLayout Grid.Row="2">
-                <Button Margin="5, 5, 5,5"
-                        FontSize="14"
+        <Border Stroke="#2B0B98"
+                StrokeThickness="1"
+                IsVisible="{Binding IsEditing}"
+                StrokeShape="RoundRectangle 0,0, 20, 20"
+                Background="LightSkyBlue"
+                Padding="8,2,8,0"
+                Margin="5, 10"
+                HorizontalOptions="FillAndExpand">
+
+            <Grid RowDefinitions="Auto, Auto, *" ColumnDefinitions=".5*, .5*" Margin="10, 10" Padding="0">
+                <Label Text="Latitude" Grid.Row="0" Grid.Column="0"  TextColor="Yellow" FontSize="16"/>
+                <Label Text="Longitude" Grid.Row="0" Grid.Column="1" TextColor="Yellow" FontSize="16"/>
+                <Label  Text="{Binding Latitude}" Grid.Row="1" Grid.Column="0" FontSize="16" FontAttributes="Bold"/>
+                <Label  Text="{Binding Longitude}" Grid.Row="1" Grid.Column="1" FontSize="16" FontAttributes="Bold"/>
+                <Button Grid.Row="2" Margin="0,20, 0, 0"
+                        FontSize="12"
                         HorizontalOptions="End" CornerRadius="15"
                         VerticalOptions="End"
                         FontAttributes="Bold"
+                        Grid.ColumnSpan="2"
                         Command="{Binding ShowLocationOnMapCommand}" 
                         TextTransform="Uppercase" 
                         Text="Ver no Mapa"/>
-            </VerticalStackLayout>
-        </Grid>
+            </Grid>
+        </Border>
 
     </VerticalStackLayout>
 </ContentPage>
