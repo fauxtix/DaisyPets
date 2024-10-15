@@ -161,14 +161,16 @@
                        Grid.Row="8"
                        VerticalTextAlignment="Center"
                        FontSize = "14"/>
-                <Editor x:Name="TransactionNotes" AutoSize="TextChanges"
-			                        Text="{Binding DespesaDto.Notas}"
-			                        Grid.Row="9"
-                                    FontSize = "14"
-                                    Keyboard="Text"
+                <Editor x:Name="TransactionNotes" 
+			            Text="{Binding DespesaDto.Notas}"
+			            Grid.Row="9"
+                        AutoSize="TextChanges"
+                        IsSpellCheckEnabled="True"
+                        IsTextPredictionEnabled="True"
+                        FontSize = "14"
+                        Keyboard="Text"
                         VerticalTextAlignment="Start"
-                                    IsSpellCheckEnabled="false"
-			                        VerticalOptions="Start">
+                        VerticalOptions="Start">
                 </Editor>
 
             </Grid>

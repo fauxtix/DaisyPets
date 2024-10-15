@@ -3,45 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Name="this"
              x:Class="MauiPets.Controls.SettingsCardControl">
-    
-    <Frame CornerRadius="15"
-           HasShadow="True"
-           BackgroundColor="SteelBlue"
-           HeightRequest="105"
-           Margin="2">
-        <Frame.Shadow>
+
+    <Border BackgroundColor="SteelBlue"
+        HeightRequest="105"
+        Margin="2"
+        StrokeShape="RoundRectangle 15, 15, 15, 15">
+        <Border.Shadow>
             <Shadow Brush="LightGray"
-                    Offset="20,20"
-                    Radius="40"
-                    Opacity="0.8"/>
-        </Frame.Shadow>
-        <Frame.GestureRecognizers>
+                Offset="20,20"
+                Radius="40"
+                Opacity="0.8"/>
+        </Border.Shadow>
+
+        <Border.GestureRecognizers>
             <TapGestureRecognizer 
-                Command="{Binding ButtonCommand, Source={x:Reference this}}"
-                CommandParameter="{Binding CommandParameter, Source={x:Reference this}}"/>
-        </Frame.GestureRecognizers>
+            Command="{Binding ButtonCommand, Source={x:Reference this}}"
+            CommandParameter="{Binding CommandParameter, Source={x:Reference this}}"/>
+        </Border.GestureRecognizers>
+
         <Grid Padding="2" ColumnSpacing="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Image 
-                    Source="{Binding Icon, Source={x:Reference this}}" 
-                    Grid.Row="0"
-                    WidthRequest="32" 
-                    HeightRequest="32" 
-                    Margin="0,-5"                    
-                    BackgroundColor="Transparent"
-                    HorizontalOptions="Center" 
-                    VerticalOptions="StartAndExpand" />
+                Source="{Binding Icon, Source={x:Reference this}}" 
+                Grid.Row="0"
+                WidthRequest="40" 
+                HeightRequest="40" 
+                Margin="0,15"                    
+                BackgroundColor="Transparent"
+                HorizontalOptions="Center" 
+                VerticalOptions="StartAndExpand" />
             <Label Text="{Binding LabelText, Source={x:Reference this}}" 
-                       Grid.Row="1" 
-                       Padding="0, 15, 0, 00"
-                       TextColor="Yellow" 
-                       FontSize="14" 
-                       FontFamily="PoppinsSemiBold"
-                       HorizontalOptions="Center" 
-                       VerticalOptions="Center"/>
+               Grid.Row="1"  Margin="0, -10, 0, 0"
+               Padding="0, 0, 0, 0"
+               TextColor="Yellow" 
+               FontSize="14" 
+               FontFamily="PoppinsSemiBold"
+               HorizontalOptions="Center" 
+               VerticalOptions="Center"/>
         </Grid>
-    </Frame>
+    </Border>
 </ContentView>

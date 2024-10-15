@@ -86,6 +86,9 @@
                         <ColumnDefinition Width=".7*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>-->
                     <Editor x:Name="TableDescription" 
+                            AutoSize="TextChanges"
+                            IsSpellCheckEnabled="True"
+                            IsTextPredictionEnabled="True"
 			               Text="{Binding LookupRecordSelected.Descricao}" 
                            HorizontalOptions="FillAndExpand"                          
                            VerticalOptions="End">

@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using System.Windows.Input;
-using Microsoft.Maui.Controls;
 
 namespace MauiPets.Controls
 {
@@ -9,7 +7,7 @@ namespace MauiPets.Controls
         public SettingsCardControl()
         {
             InitializeComponent();
-            UpdateCommandParameter(); // Initialize CommandParameter with default values
+            UpdateCommandParameter();
         }
 
         // BindableProperty for LabelText
@@ -96,7 +94,7 @@ namespace MauiPets.Controls
             CommandParameter = new Dictionary<string, string>
             {
                 { "TableName", TableName },
-                { "Title", Title }
+                { "Title", Title  }
             };
         }
 
@@ -104,6 +102,11 @@ namespace MauiPets.Controls
         {
             var control = (SettingsCardControl)bindable;
             control.UpdateCommandParameter(); // Update CommandParameter on property change
+        }
+
+        private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+        {
+            var x = 0;
         }
     }
 }

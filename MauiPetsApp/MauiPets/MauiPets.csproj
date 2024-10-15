@@ -145,7 +145,7 @@
 		<MauiImage Update="Resources\Images\femenine_icon.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
-		<MauiImage Update="Resources\Images\filter.png" Resize="True" tintColor="#880808">
+		<MauiImage Update="Resources\Images\filter.png" Resize="True" tintColor="#FFFFFF">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\gear.png">

@@ -156,7 +156,10 @@
                                        Grid.Column="0"
                                        FontSize="12"   
 			                           VerticalOptions="Center"></Label>
-                                <Editor x:Name="PetDisease" AutoSize="TextChanges"
+                                <Editor x:Name="PetDisease" 
+                                        AutoSize="TextChanges"
+                                        IsSpellCheckEnabled="True"
+                                        IsTextPredictionEnabled="True"
 			                           Text="{Binding PetDto.DoencaCronica}"  
                                        Placeholder="Doenças"
 			                           Grid.Row="2"
@@ -357,15 +360,16 @@
                                            FontSize="11">
                                     </Label>
                                     <Editor x:Name="PetNotes" AutoSize="TextChanges"
-			                            Text="{Binding PetDto.Observacoes}"
-			                            Grid.Row="5"
-                                        Grid.Column="1"
+			                                Text="{Binding PetDto.Observacoes}"
+			                                Grid.Row="5"
+                                            Grid.Column="1"
                                             Margin="0, -25, 0, 0"
-                                        FontSize="12"   
-                                        VerticalTextAlignment="Center"
-                                        Keyboard="Text"
-                                        IsSpellCheckEnabled="false"
-			                            VerticalOptions="Start">
+                                            FontSize="12"   
+                                            VerticalTextAlignment="Center"
+                                            Keyboard="Text"
+                                            IsSpellCheckEnabled="false"
+                                            IsTextPredictionEnabled="True"
+			                                VerticalOptions="Start">
                                     </Editor>
                                 </Grid>
                             </Grid>

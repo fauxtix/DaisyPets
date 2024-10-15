@@ -89,13 +89,16 @@
                                        FontSize="14"
 			                           VerticalOptions="Center"></Label>
                 <Editor x:Name="VaccineBrand" 
+                        AutoSize="TextChanges"
+                        IsSpellCheckEnabled="True"
+                        IsTextPredictionEnabled="True"
 			            Text="{Binding SelectedVaccine.Marca}" 
 			            Grid.Row="3"
 			            VerticalOptions="Center">
                 </Editor>
                 <Label Text="Prx. toma em meses"
-                                       Grid.Row="4"
-                                       FontSize="14"/>
+                       Grid.Row="4"
+                       FontSize="14"/>
                 <Entry x:Name="NextPriodInMonths"
                         Keyboard="Numeric"
 			            Text="{Binding SelectedVaccine.ProximaTomaEmMeses}"

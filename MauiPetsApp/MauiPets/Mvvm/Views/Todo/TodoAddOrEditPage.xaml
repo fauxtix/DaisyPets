@@ -104,6 +104,9 @@
                         Text="{Binding SelectedTodo.Description}" 
 			            Grid.Row="3"
                         FontFamily="OpenSansSemibold"
+                        AutoSize="TextChanges"
+                        IsSpellCheckEnabled="True"
+                        IsTextPredictionEnabled="True"
                         FontSize = "14"
 			            VerticalOptions="Center"/>
 

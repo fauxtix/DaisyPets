@@ -127,6 +127,7 @@
                        VerticalOptions="Center"/>
                 <Editor x:Name="ApptNotes" 
                        Text="{Binding SelectedAppointment.Notas}" 
+                        IsTextPredictionEnabled="True"
                        Grid.Row="9" 
                         FontSize = "13"
                         Keyboard="Text"

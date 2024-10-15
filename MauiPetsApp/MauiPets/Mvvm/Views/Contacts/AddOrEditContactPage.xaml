@@ -150,6 +150,9 @@
 			                VerticalOptions="Start"></Label>
                     <Editor x:Name="TxtNotas"
 			                Text="{Binding ContactoVM.Notas}" 
+                            AutoSize="TextChanges"
+                            IsSpellCheckEnabled="True"
+                            IsTextPredictionEnabled="True"
 			                Grid.Row="13"
                             Keyboard="Plain"  
 			                VerticalOptions="StartAndExpand"></Editor>
