@@ -14,6 +14,12 @@ public partial class PetAddOrEditPage : ContentPage
         BindingContext = _viewModel;
     }
 
+    //protected override async void OnAppearing()
+    //{
+    //    await _viewModel.InitializeAsync();
+    //    base.OnAppearing();
+    //}
+
     private Picker GetSituationsPicker()
     {
         return SituationsPicker;

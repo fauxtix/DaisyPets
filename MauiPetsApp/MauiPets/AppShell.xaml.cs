@@ -5,6 +5,7 @@ using MauiPets.Mvvm.Views.Logs;
 using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Settings;
+using MauiPets.Mvvm.Views.Settings.Expenses;
 using MauiPets.Mvvm.Views.Todo;
 using MauiPets.Mvvm.Views.Vaccines;
 using MauiPets.Mvvm.Views.VetAppointments;
@@ -48,6 +49,7 @@ namespace MauiPets
             Routes.Add(nameof(MainSettingsPage), typeof(MainSettingsPage));
             Routes.Add(nameof(SettingsAddOrEditPage), typeof(SettingsAddOrEditPage));
             Routes.Add(nameof(SettingsManagementPage), typeof(SettingsManagementPage));
+            Routes.Add(nameof(ExpenseSettingsPage), typeof(ExpenseSettingsPage));
 
             Routes.Add(nameof(LogsMainPage), typeof(LogsMainPage));
             Routes.Add(nameof(LogViewExceptionPage), typeof(LogViewExceptionPage));

@@ -24,12 +24,12 @@
         <ResourceDictionary>
             <Style x:Key="MediumLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="15"/>
-                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="FontFamily" Value="Poppins"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
             </Style>
             <Style x:Key="MediumLabel" TargetType="Label">
                 <Setter Property="FontSize" Value="16"/>
-                <Setter Property="FontFamily" Value="PoppinsRegular"/>
+                <Setter Property="FontFamily" Value="Poppins"/>
                 <Setter Property="FontAttributes" Value="None"/>
             </Style>
             <Style x:Key="MediumBlueLabelBold" TargetType="Label">

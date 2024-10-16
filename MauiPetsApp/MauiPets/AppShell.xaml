@@ -11,6 +11,7 @@
     xmlns:todospage="clr-namespace:MauiPets.Mvvm.Views.Todo"
     xmlns:logsmainpage="clr-namespace:MauiPets.Mvvm.Views.Logs"
     xmlns:settingspage="clr-namespace:MauiPets.Mvvm.Views.Settings"
+    xmlns:expensesettingspage="clr-namespace:MauiPets.Mvvm.Views.Settings.Expenses"
     FlyoutWidth="200"
     FlyoutHeight="400"
     Shell.FlyoutBehavior="Flyout">
@@ -64,6 +65,11 @@
         Icon="gear.png" 
         ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
         Route="MainSettingsPage" />
+    <ShellContent
+        Title="Settings II"
+        Icon="gear.png" 
+        ContentTemplate="{DataTemplate expensesettingspage:ExpenseSettingsPage}"
+        Route="ExpenseSettingsPage" />
     <Shell.FlyoutFooter>
         <controls:FlyoutFooter />
     </Shell.FlyoutFooter>

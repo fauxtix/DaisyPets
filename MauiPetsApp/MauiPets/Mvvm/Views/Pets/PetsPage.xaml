@@ -5,11 +5,15 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
              xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
+              xmlns:converters="clr-namespace:MauiPets.Converters"
              x:DataType="local:PetViewModel"
              Title="Daisy Pets">
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            <converters:IdadeConverter x:Key="IdadeConverter" />
+            <converters:GenderConverter x:Key="GenderConverter" />
+            
             <Style x:Key="MediumLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="13"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
@@ -36,13 +40,8 @@
     <Grid>
         <ScrollView>
             <VerticalStackLayout>
-                <Grid RowDefinitions="Auto, Auto, Auto, *">
-                    <Label Grid.Row="0" Text="Daisy Pets"
-                           HorizontalOptions="Center" VerticalOptions="Center"
-                           Margin="5, 10"
-                           FontSize="30"/>
-
-                    <Border Grid.Row="1" Margin="5, 5"  
+                <Grid RowDefinitions="Auto, Auto, *">
+                    <Border Grid.Row="0" Margin="5, 5"  
                             StrokeShape="RoundRectangle 0,0,50,50" 
                             StrokeThickness="0" HeightRequest="160">
                         <Border.Shadow>
@@ -54,7 +53,7 @@
                                Source="daisypetsbing_min.png"/>
                     </Border>
 
-                    <Border Grid.Row="2" Margin="5, 25, 5, 35"  
+                    <Border Grid.Row="1" Margin="5, 25, 5, 35"  
                             StrokeShape="RoundRectangle 0,0,15,15" 
                             StrokeThickness="0.5" HeightRequest="60">
                         <Label Margin="5, 2, 5, 3" 
@@ -66,7 +65,7 @@
                                Text="Selecione um dos Pets abaixo, para visualizar/alterar os dados. Poderá criar novo registo, escolhendo a opção '+' no topo"/>
                     </Border>
 
-                    <CollectionView Grid.Row="3" 
+                    <CollectionView Grid.Row="2" 
                                     ItemsSource="{Binding Pets}" 
                                     SelectionMode="Single">
                         <CollectionView.EmptyView>
@@ -96,7 +95,7 @@
                                             HorizontalOptions="Center"
                                             VerticalOptions="Center">
                                         <Border.Shadow>
-                                            <Shadow Brush="Black" Offset="-10,20" Radius="10" Opacity="0.4" />
+                                            <Shadow Brush="Black" Offset="-5,5" Radius="10" Opacity="0.4" />
                                         </Border.Shadow>
                                         <Image Source="{Binding Foto}"
                                                Aspect="AspectFill" 
@@ -109,11 +108,46 @@
                                                 CommandParameter="{Binding .}"/>
                                         </Border.GestureRecognizers>
                                     </Border>
+                                    
                                     <Label Text="{Binding Nome}"
                                            TextColor="Magenta"
                                            Padding="10"
                                            FontSize="18"
                                            HorizontalTextAlignment="Center" />
+                                    <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, *">
+                                        <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" 
+                                                StrokeShape="RoundRectangle 5" Margin="5" Padding="5, 2">
+                                            <VerticalStackLayout>
+                                                <Label Text="Género" FontSize="10" TextColor="DarkGray" HorizontalTextAlignment="Center"/>
+                                                <Label Text="{Binding Genero, Converter={StaticResource GenderConverter}}"
+                                                       FontSize="12" TextColor="Gray"
+                                                       FontAttributes="Bold"
+                                                       HorizontalTextAlignment="Center" />
+                                            </VerticalStackLayout>
+                                        </Border>
+
+                                        <Border Grid.Row="0" Grid.Column="1" Stroke="LightGray" StrokeThickness="1" 
+                                                StrokeShape="RoundRectangle 5" Margin="5" Padding="5, 2">
+                                            <VerticalStackLayout>
+                                                <Label Text="Idade" FontSize="10" TextColor="DarkGray" HorizontalTextAlignment="Center" />
+                                                <Label Text="{Binding DataNascimento, Converter={StaticResource IdadeConverter}}"
+                                                       FontSize="12" TextColor="Gray" 
+                                                       FontAttributes="Bold"
+                                                       HorizontalTextAlignment="Center" />
+                                            </VerticalStackLayout>
+                                        </Border>
+
+                                        <Border Grid.Row="1" Grid.ColumnSpan="2" Stroke="LightGray" StrokeThickness="1" 
+                                                StrokeShape="RoundRectangle 5" Margin="5" Padding="5, 2">
+                                            <VerticalStackLayout>
+                                                <Label Text="Raça" FontSize="10" TextColor="DarkGray" />
+                                                <Label Text="{Binding RacaAnimal}"
+                                                       FontSize="12" TextColor="Gray" 
+                                                       FontAttributes="Bold"
+                                                       HorizontalTextAlignment="Start" />
+                                            </VerticalStackLayout>
+                                        </Border>
+                                    </Grid>
                                 </VerticalStackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>

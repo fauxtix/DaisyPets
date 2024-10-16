@@ -160,8 +160,8 @@
                                     <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" Padding="2">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel}}, Path=EditExpenseCommand}"
-                                        CommandParameter="{Binding .}" />
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesViewModel}}, Path=EditExpenseCommand}"
+                                                CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
                                         <Grid Padding="2" ColumnSpacing="5" Margin="4" RowSpacing="2">
                                             <Grid.ColumnDefinitions>

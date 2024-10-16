@@ -10,6 +10,12 @@ public class StringToDateConverter : IValueConverter
         object date = null;
         if (value is string)
         {
+            var dateTime = (string)value;
+            if (string.IsNullOrEmpty(dateTime))
+            {
+                return DateTime.Now;
+            }
+
             date = DataFormat.DateParse(value);
         }
         else if (value is DateTime)

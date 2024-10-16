@@ -35,7 +35,7 @@ namespace MauiPets.Mvvm.ViewModels.Pets
         [ObservableProperty]
         private string _observacoes;
         [ObservableProperty]
-        private string _dataNascimento = DateTime.Now.ToShortDateString();
+        private string _dataNascimento = DateTime.Now.ToString("yyyy-MM-dd");
         [ObservableProperty]
         private string _doencaCronica;
         [ObservableProperty]

@@ -20,6 +20,7 @@ using MauiPets.Mvvm.Views.Logs;
 using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Settings;
+using MauiPets.Mvvm.Views.Settings.Expenses;
 using MauiPets.Mvvm.Views.Todo;
 using MauiPets.Mvvm.Views.Vaccines;
 using MauiPets.Mvvm.Views.VetAppointments;
@@ -138,6 +139,7 @@ namespace MauiPets
             builder.Services.AddTransient<SettingsAddOrEditViewModel>();
             builder.Services.AddTransient<MainSettingsBaseViewModel>();
             builder.Services.AddTransient<MainSettingsViewModel>();
+            builder.Services.AddTransient<ExpensesSettingsViewModel>();
 
             builder.Services.AddTransient<LogViewModel>();
             builder.Services.AddTransient<LogViewExceptionViewModel>();
@@ -168,6 +170,7 @@ namespace MauiPets
             builder.Services.AddTransient<MainSettingsPage>();
             builder.Services.AddTransient<SettingsManagementPage>();
             builder.Services.AddTransient<SettingsAddOrEditPage>();
+            builder.Services.AddTransient<ExpenseSettingsPage>();
 
             builder.Services.AddTransient<LogsMainPage>();
             builder.Services.AddTransient<LogViewExceptionPage>();

@@ -7,9 +7,9 @@
             if (value is string gender)
             {
                 if (gender == "F")
-                    return "Female";
+                    return "Fêmea";
                 else if (gender == "M")
-                    return "Male";
+                    return "Macho";
             }
             return "Unknown";
         }
