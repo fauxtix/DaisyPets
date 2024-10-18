@@ -4,9 +4,9 @@ namespace MauiPets.Mvvm.Views.Settings.Expenses;
 
 public partial class CategoriesAddOrEditPage : ContentPage
 {
-    private ExpenseTypesSettingsViewModel _viewModel;
+    private ExpensesSettingsViewModel _viewModel;
 
-    public CategoriesAddOrEditPage(ExpenseTypesSettingsViewModel viewModel)
+    public CategoriesAddOrEditPage(ExpensesSettingsViewModel viewModel)
     {
         InitializeComponent();
         _viewModel = viewModel;

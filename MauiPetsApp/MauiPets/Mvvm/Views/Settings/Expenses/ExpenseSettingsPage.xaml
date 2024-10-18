@@ -65,25 +65,37 @@
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="models:LookupTableVM">
-                                        <VerticalStackLayout>
-                                            <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" Padding="2">
-                                                <Frame.GestureRecognizers>
-                                                    <TapGestureRecognizer
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=GetTiposDespesaCommand}"
-                                                CommandParameter="{Binding .}" />
-                                                </Frame.GestureRecognizers>
-                                                <Grid Padding="2" ColumnSpacing="2" Margin="4" ColumnDefinitions=".9*, .1*" RowSpacing="3">
-                                                    <Label Grid.Column="0" Text="{Binding Descricao}"
+                                        <SwipeView>
+                                            <SwipeView.RightItems>
+                                                <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                                    <SwipeItem Text="Delete"
+                                                               IconImageSource="icon_delete.svg"
+                                                               BackgroundColor="LightPink"
+                                                               Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=DeleteCategoryCommand}"
+                                                               CommandParameter="{Binding .}" />
+                                                </SwipeItems>
+                                            </SwipeView.RightItems>
+
+                                            <VerticalStackLayout>
+                                                <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" Padding="2">
+                                                    <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=GetTiposDespesaCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                    </Frame.GestureRecognizers>
+                                                    <Grid Padding="2" ColumnSpacing="2" Margin="4" ColumnDefinitions=".9*, .1*" RowSpacing="3">
+                                                        <Label Grid.Column="0" Text="{Binding Descricao}"
                                                            FontFamily="NotoSerifBold" Padding="3, 0, 0, 0"
                                                            FontSize="14" VerticalOptions="Center" />
-                                                    <ImageButton 
+                                                        <ImageButton 
                                                         Source="icon_edit.svg" 
                                                         Grid.Column="1" WidthRequest="25" HeightRequest="25"
                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=EditExpenseCategoryCommand}"
                                                         CommandParameter="{Binding .}" />
-                                                </Grid>
-                                            </Frame>
-                                        </VerticalStackLayout>
+                                                    </Grid>
+                                                </Frame>
+                                            </VerticalStackLayout>
+                                        </SwipeView>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
@@ -138,17 +150,29 @@
                                 </CollectionView.ItemsLayout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="models:LookupTableVM">
-                                        <VerticalStackLayout>
-                                            
-                                            <Frame CornerRadius="10" HasShadow="True" Margin="4, 5, 4, 6" Padding="2">
-                                                <Grid Padding="2" ColumnSpacing="2" Margin="4" ColumnDefinitions=".9*, .1*" RowSpacing="3">
-                                                    <Label Grid.Column="0" Text="{Binding Descricao}"
+                                        <SwipeView>
+                                            <SwipeView.RightItems>
+                                                <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                                    <SwipeItem Text="Delete"
+                                           IconImageSource="icon_delete.svg"
+                                           BackgroundColor="LightPink"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=DeleteCategoryTypeCommand}"
+                                           CommandParameter="{Binding .}" />
+                                                </SwipeItems>
+                                            </SwipeView.RightItems>
+                                            <VerticalStackLayout>
+                                                <Frame CornerRadius="10" HasShadow="True" Margin="4, 5, 4, 6" Padding="2">
+                                                    <Grid Padding="2" ColumnSpacing="2" Margin="4" ColumnDefinitions=".9*, .1*" RowSpacing="3">
+                                                        <Label Grid.Column="0" Text="{Binding Descricao}"
                                                            FontFamily="NotoSerifBold" Padding="3, 0, 0, 0"
                                                            FontSize="14" VerticalOptions="Center" />
-                                                    <ImageButton Source="icon_edit.svg" Grid.Column="1" WidthRequest="25" HeightRequest="25" />
-                                                </Grid>
-                                            </Frame>
-                                        </VerticalStackLayout>
+                                                        <ImageButton Source="icon_edit.svg" Grid.Column="1" WidthRequest="25" HeightRequest="25"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=EditExpenseCategoryTypeCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                    </Grid>
+                                                </Frame>
+                                            </VerticalStackLayout>
+                                        </SwipeView>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
