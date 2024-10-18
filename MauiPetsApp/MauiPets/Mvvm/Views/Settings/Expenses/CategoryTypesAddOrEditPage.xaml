@@ -1,44 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiPets.Mvvm.Views.Settings.SettingsAddOrEditPage"
+             x:Class="MauiPets.Mvvm.Views.Settings.Expenses.CategoryTypesAddOrEditPage"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
-             x:DataType="viewmodel:SettingsAddOrEditViewModel"
-             Title="{Binding Title}">
+             x:DataType="viewmodel:ExpenseTypesSettingsViewModel"
+             Title="{Binding DescricaoCategoria}">
 
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
     </Shell.BackButtonBehavior>
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style x:Key="MediumLabelBold" TargetType="Label">
-                <Setter Property="FontSize" Value="12"/>
-                <Setter Property="FontAttributes" Value="Bold"/>
-            </Style>
-            <Style x:Key="MediumBlueLabelBold" TargetType="Label">
-                <Setter Property="FontSize" Value="12"/>
-                <Setter Property="FontAttributes" Value="Italic"></Setter>
-                <Setter Property="FontAttributes" Value="Bold"/>
-                <Setter Property="TextColor" Value="Blue"/>
-            </Style>
-            <Style x:Key="InvalidEntryStyle" TargetType="Entry">
-                <Setter Property="TextColor" Value="Red" />
-            </Style>
-            <Style x:Key="ValidEntryStyle" TargetType="Entry">
-                <Setter Property="TextColor" Value="Green" />
-            </Style>
-            <Color x:Key="LightBackground">#FAF9F8</Color>
-            <Color x:Key="DarkBackground">Black</Color>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save data" Command="{Binding SaveLookupDataCommand  }"
+        <ToolbarItem Text="Save data" Command="{Binding SaveCategoryTypeCommand  }"
                  IconImageSource="icon_save.png" />
         <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
+
+
     <VerticalStackLayout Margin="2, 10, 0, 0">
         <VerticalStackLayout>
             <Border Stroke="#2B0B98"
@@ -51,7 +29,7 @@
                         HorizontalOptions="FillAndExpand">
                 <HorizontalStackLayout VerticalOptions="Center"
                                 Spacing="8">
-                    <Image Source="tasks.png"
+                    <Image Source="expenses.png"
                                         WidthRequest="24"  
                                         HeightRequest="24"
                                         VerticalOptions="Center"
@@ -67,6 +45,8 @@
                 </HorizontalStackLayout>
             </Border>
         </VerticalStackLayout>
+
+       
         <VerticalStackLayout>
             <Border Stroke="#2B0B98"
                     StrokeThickness="2"
@@ -77,10 +57,10 @@
                     HorizontalOptions="FillAndExpand">
                 <Grid Margin="4">
                     <Editor x:Name="TableDescription" 
-                            AutoSize="TextChanges"
+                            AutoSize="TextChanges" Placeholder="Descrição"
                             IsSpellCheckEnabled="True"
                             IsTextPredictionEnabled="True"
-			               Text="{Binding LookupRecordSelected.Descricao}" 
+			               Text="{Binding ExpenseTypeRecordSelected.Descricao}" 
                            HorizontalOptions="FillAndExpand"                          
                            VerticalOptions="End">
                     </Editor>

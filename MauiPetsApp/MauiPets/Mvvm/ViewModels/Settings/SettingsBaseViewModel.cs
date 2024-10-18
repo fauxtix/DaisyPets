@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 using System.Collections.ObjectModel;
 
@@ -10,6 +11,10 @@ namespace MauiPets.Mvvm.ViewModels.Settings
 
         [ObservableProperty]
         private LookupTableVM _lookupRecordSelected;
+
+        [ObservableProperty]
+        private TipoDespesaDto _expenseTypeRecordSelected;
+
         [ObservableProperty]
         private string _tableName;
         [ObservableProperty]
@@ -17,6 +22,9 @@ namespace MauiPets.Mvvm.ViewModels.Settings
 
         [ObservableProperty] public int _id;
         [ObservableProperty] public string _descricao;
+
+        [ObservableProperty] public int _IdCategoriaDespesa;
+
 
         [ObservableProperty]
         private bool isEditing;

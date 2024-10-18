@@ -77,6 +77,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
 
             if (tableName.ToLower() == "categoriadespesa")
             {
+                CategoriaDespesas.Clear();
                 CategoriaDespesas.AddRange(result);
             }
             else

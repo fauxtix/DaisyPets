@@ -52,7 +52,7 @@ namespace MauiPetsApp.Infrastructure
             paramCollection.Add("@Descricao", tableRecord.Descricao);
 
             StringBuilder sql = new StringBuilder();
-            sql.Append($"INSERT INTO {tableRecord.Tabela} ({descricao})");
+            sql.Append($"INSERT INTO {tableRecord.Tabela} ({descricao}) ");
             sql.Append("VALUES (@Descricao); ");
             sql.Append("SELECT last_insert_rowid()");
             try

@@ -40,19 +40,20 @@
                 </Grid.ColumnDefinitions>
                 <controls:SettingsCardControl 
                     Grid.Row="0" Grid.Column="0" Margin="0, 10, 0, 0"
+                    LabelText="Categoria"
+                    TableName="CategoriaDespesa"
+                    Title="Categorias despesas"
+                    Icon="expenses.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="1" Margin="0, 10, 0, 0"
                     LabelText="Tipo"
                     TableName="TipoDespesa"
                     Title="Tipos de despesa"
                     Icon="expenses.png"
                     ButtonCommand="{Binding NavigateToTableCommand}" />
 
-                <controls:SettingsCardControl 
-                    Grid.Row="0" Grid.Column="1" Margin="0, 10, 0, 0"
-                    LabelText="Categoria"
-                    TableName="CategoriaDespesa"
-                    Title="Categorias despesas"
-                    Icon="expenses.png"
-                    ButtonCommand="{Binding NavigateToTableCommand}" />
             </Grid>
             <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,8,0,8"/>
 

@@ -1,119 +1,161 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels.LookupTables;assembly=MauiPets.Core"
-            x:Class="MauiPets.Mvvm.Views.Settings.Expenses.ExpenseSettingsPage"
-            x:DataType="viewmodel:ExpensesSettingsViewModel"
-            Title="ExpenseSettingsPage">
-    <VerticalStackLayout>
-        <Border Stroke="#2B0B98"
+             x:Class="MauiPets.Mvvm.Views.Settings.Expenses.ExpenseSettingsPage"
+             x:DataType="viewmodel:ExpensesSettingsViewModel"
+            Title="Categorias de Despesas">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Border Stroke="#2B0B98"
                     StrokeThickness="2"
                     StrokeShape="RoundRectangle 22"
                     Background="#fff"
                     Padding="8,4"
                     Margin="4"
                     HorizontalOptions="FillAndExpand">
-            <Grid Margin="4">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                <!--<Label Text="Categoria" 
-                       Grid.Row="0" 
-                       VerticalTextAlignment="Center"
-                       FontSize = "14"/>
-                <Picker x:Name="PickerCategoriaTipoDespesa" 
-                        Title="Categoria" 
-                        Grid.Row="1" 
-                        FontSize = "14"
-                        VerticalTextAlignment="Center"
-                        ItemsSource="{Binding CategoriaDespesas}"
-                        SelectedItem="{Binding TipoCategoriaDespesaSelecionada}"
-                        SelectedIndex="{Binding IndiceCategoriaDespesa, Mode=TwoWay}"
-                        SelectedIndexChanged="SelectedCategoriaDespesaIndexChanged"
-                        ItemDisplayBinding="{Binding Descricao}">
-                </Picker>
-                <Label x:Name="LabelTipoDespesa" Text="Tipo"
-                        IsVisible="{Binding IsEditing}"
-                       Grid.Row="2" 
-                       VerticalTextAlignment="Center"
-                       FontSize = "14"></Label>
-                <Picker x:Name="PickerTipoDespesa" 
-                        IsVisible="{Binding IsEditing}"
-                        VerticalTextAlignment="Center"
-                        Title="Tipo" 
-                        FontSize = "14"
-                        Grid.Row="3" 
-                        ItemsSource="{Binding TipoDespesas}"
-                        SelectedItem="{Binding TipoDespesaSelecionada}"
-                        SelectedIndex="{Binding IndiceTipoDespesa, Mode=TwoWay}"
-                        SelectedIndexChanged="SelectedTipoDespesaIndexChanged"
-                        ItemDisplayBinding="{Binding Descricao}">
-                </Picker>-->
-                <VerticalStackLayout>
+                    <VerticalStackLayout>
+                        <Grid>
+                            <Button Text="Nova categoria" WidthRequest="180" Margin="10" 
+                                    Command="{Binding AddExpenseCategoryCommand}" ImageSource="add.png"
+                                                    HorizontalOptions="End" 
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"
+                                                    FontFamily="NotoSerifBold"
+                                                    FontSize="14"
+                                                    BorderWidth="0.8"
+                                                    BorderColor="Black"
+                                                    BackgroundColor="DarkSeaGreen"
+                                                    CornerRadius="10"/>
+                        </Grid>
 
-                    <Border Stroke="#2B0B98"
+                        <!--Categorias-->
+                        <Border Stroke="#2B0B98"
                             StrokeThickness="1"
-                            StrokeShape="RoundRectangle 40,0,0,40"
+                            StrokeShape="RoundRectangle 10,10,10,10"
                             Background="#fff"
                             Padding="8,2,8,0"
                             Margin="2"
                             HorizontalOptions="FillAndExpand">
-                        <CollectionView
-                            x:Name="SettingsCV"
-                            ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=CategoriaDespesas}" >
-                            <CollectionView.EmptyView>
-                                <StackLayout Grid.Column="1" 
+                            <CollectionView x:Name="CategoriiesCV"
+                                            ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=CategoriaDespesas}" >
+                                <CollectionView.EmptyView>
+                                    <StackLayout Grid.Column="1" 
                                              Padding="10">
-                                    <Image                                        
+                                        <Image                                        
                                         HorizontalOptions="Center"
                                         HeightRequest="80"
                                         WidthRequest="80"
                                         Source="nopets.png"
                                         VerticalOptions="Center" />
-                                    <Label HorizontalOptions="Center" Padding="10">No data to display r </Label>
-                                </StackLayout>
-                            </CollectionView.EmptyView>
-                            <CollectionView.ItemsLayout>
-                                <GridItemsLayout Orientation="Vertical" />
-                            </CollectionView.ItemsLayout>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="models:LookupTableVM">
-                                    <VerticalStackLayout>
-                                        <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" Padding="2">
-                                            <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer
+                                        <Label HorizontalOptions="Center" Padding="10">No data to display r</Label>
+                                    </StackLayout>
+                                </CollectionView.EmptyView>
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:LookupTableVM">
+                                        <VerticalStackLayout>
+                                            <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" Padding="2">
+                                                <Frame.GestureRecognizers>
+                                                    <TapGestureRecognizer
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=GetTiposDespesaCommand}"
                                                 CommandParameter="{Binding .}" />
-                                            </Frame.GestureRecognizers>
-                                            <Grid Padding="2" ColumnSpacing="10" Margin="4" RowSpacing="3">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*" />
-                                                </Grid.RowDefinitions>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Descricao}"
-                                                   FontFamily="NotoSerifBold" Padding="3, 0, 0, 0"
-                                                   FontSize="14" VerticalOptions="Center" />
-                                            </Grid>
-                                        </Frame>
+                                                </Frame.GestureRecognizers>
+                                                <Grid Padding="2" ColumnSpacing="2" Margin="4" ColumnDefinitions=".9*, .1*" RowSpacing="3">
+                                                    <Label Grid.Column="0" Text="{Binding Descricao}"
+                                                           FontFamily="NotoSerifBold" Padding="3, 0, 0, 0"
+                                                           FontSize="14" VerticalOptions="Center" />
+                                                    <ImageButton 
+                                                        Source="icon_edit.svg" 
+                                                        Grid.Column="1" WidthRequest="25" HeightRequest="25"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=EditExpenseCategoryCommand}"
+                                                        CommandParameter="{Binding .}" />
+                                                </Grid>
+                                            </Frame>
+                                        </VerticalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Border>
+                        <BoxView HeightRequest="5" Color="LightGray" Margin="0, 20, 0, 0"></BoxView>
+                        <Border Stroke="#2B0B98"
+                            StrokeThickness="1"
+                            IsVisible="{Binding Expand}"
+                            StrokeShape="RoundRectangle 10,10,10,10"
+                            Background="SteelBlue"
+                            Padding="8,2,8,0"
+                            Margin="2, 20"
+                            HorizontalOptions="FillAndExpand">
+
+                            <CollectionView
+                                x:Name="SettingsTypeCV"
+                                ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=TipoDespesas}" >
+                                <CollectionView.EmptyView>
+                                    <StackLayout Margin="0, 0, 0, 5">
+                                        <Image
+                                            HorizontalOptions="Center"
+                                            HeightRequest="48"
+                                            WidthRequest="48"
+                                            Source="nopets.png"
+                                            VerticalOptions="Center" />
+                                        <Label HorizontalOptions="Center" Padding="10">Sem dados...</Label>
+                                    </StackLayout>
+                                </CollectionView.EmptyView>
+                                <CollectionView.Header>
+                                    <VerticalStackLayout>
+                                        <Label Text="{Binding CategoriaDespesa}" 
+                                           TextColor="Yellow"
+                                           FontSize="18"
+                                           FontFamily="PoppinsSemiBold"/>
+                                        <Grid>
+                                            <Button Text="Novo Tipo" WidthRequest="150" Margin="10" 
+                                                    Command="{Binding AddExpenseCategoryTypeCommand}"  ImageSource="add.png"
+                                                    HorizontalOptions="End" 
+                                                    TextColor="Black"
+                                                    FontAttributes="Bold"
+                                                    FontFamily="NotoSerifBold"
+                                                    FontSize="14"
+                                                    BorderWidth="0.8"
+                                                    BorderColor="Black"
+                                                    BackgroundColor="DarkSeaGreen"
+                                                    CornerRadius="10"/>
+                                        </Grid>
                                     </VerticalStackLayout>
-
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-
-
-                        </CollectionView>
-                    </Border>
-                </VerticalStackLayout>
-
-
-            </Grid>
-        </Border>
-    </VerticalStackLayout>
+                                </CollectionView.Header>
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" />
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:LookupTableVM">
+                                        <VerticalStackLayout>
+                                            
+                                            <Frame CornerRadius="10" HasShadow="True" Margin="4, 5, 4, 6" Padding="2">
+                                                <Grid Padding="2" ColumnSpacing="2" Margin="4" ColumnDefinitions=".9*, .1*" RowSpacing="3">
+                                                    <Label Grid.Column="0" Text="{Binding Descricao}"
+                                                           FontFamily="NotoSerifBold" Padding="3, 0, 0, 0"
+                                                           FontSize="14" VerticalOptions="Center" />
+                                                    <ImageButton Source="icon_edit.svg" Grid.Column="1" WidthRequest="25" HeightRequest="25" />
+                                                </Grid>
+                                            </Frame>
+                                        </VerticalStackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Border>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

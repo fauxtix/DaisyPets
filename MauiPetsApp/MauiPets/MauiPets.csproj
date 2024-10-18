@@ -255,6 +255,7 @@
 	  <None Remove="Resources\Fonts\Poppins-SemiBold.ttf" />
 	  <None Remove="Resources\Images\add.png" />
 	  <None Remove="Resources\Images\appimage.png" />
+	  <None Remove="Resources\Images\arrdwn.png" />
 	  <None Remove="Resources\Images\bxs_dog.svg" />
 	  <None Remove="Resources\Images\Che.jpg" />
 	  <None Remove="Resources\Images\check.png" />
@@ -424,6 +425,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Pets\PetsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Settings\Expenses\CategoriesAddOrEditPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Mvvm\Views\Settings\Expenses\CategoryTypesAddOrEditPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Mvvm\Views\Settings\Expenses\ExpenseSettingsPage.xaml">
