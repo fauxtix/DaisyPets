@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Settings;
+using MauiPets.Mvvm.Views.Settings.Expenses;
+using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 
 namespace MauiPets.Mvvm.ViewModels.Settings
 {
@@ -11,18 +13,6 @@ namespace MauiPets.Mvvm.ViewModels.Settings
         }
 
         [RelayCommand]
-        public async Task NavigateToAdditionalPage1Async()
-        {
-            await Shell.Current.GoToAsync($"{nameof(SettingsPage2)}", true);
-        }
-
-        [RelayCommand]
-        public async Task NavigateToAdditionalPage2Async()
-        {
-            await Shell.Current.GoToAsync($"{nameof(SettingsPage2)}", true);
-        }
-
-        [RelayCommand]
         public async Task NavigateToTableAsync(Dictionary<string, string> parameters)
         {
             if (parameters == null || !parameters.ContainsKey("TableName") || !parameters.ContainsKey("Title"))
@@ -30,12 +20,28 @@ namespace MauiPets.Mvvm.ViewModels.Settings
 
             string tableName = parameters["TableName"];
             string title = parameters["Title"];
-
-            await Shell.Current.GoToAsync($"{nameof(SettingsManagementPage)}", true, new Dictionary<string, object>
+            if (tableName.ToLower() != "categoriadespesa")
             {
-                { "TableName", tableName },
-                { "Title", title }
-            });
+                await Shell.Current.GoToAsync($"{nameof(SettingsManagementPage)}", true, new Dictionary<string, object>
+                {
+                    { "TableName", tableName },
+                    { "Title", title }
+                });
+            }
+            else
+            {
+                LookupTableVM lookupTableVM = new LookupTableVM();
+                await Shell.Current.GoToAsync($"{nameof(ExpenseSettingsPage)}", true, new Dictionary<string, object>
+                {
+                    { "LookupRecordSelected", lookupTableVM },
+                    { "Title", title },
+                    { "EditCaption", "Teste"},
+                    { "IsEditing", false},
+                     { "TableName", tableName },
+
+                });
+
+            }
         }
     }
 }

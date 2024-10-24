@@ -4,6 +4,7 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Extensions;
+using MauiPets.Mvvm.Views.Settings;
 using MauiPets.Mvvm.Views.Settings.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -67,6 +68,7 @@ namespace MauiPets.Mvvm.ViewModels.Settings
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             LookupRecordSelected = query[nameof(LookupRecordSelected)] as LookupTableVM;
+
             EditCaption = query[nameof(EditCaption)] as string;
             IsEditing = (bool)query[nameof(IsEditing)];
             TableName = (string)query[nameof(TableName)];
@@ -232,9 +234,23 @@ namespace MauiPets.Mvvm.ViewModels.Settings
 
 
         [RelayCommand]
+        async Task GoBackToParent()
+        {
+            LookupTableVM lookupTableVM = new LookupTableVM();
+            await Shell.Current.GoToAsync($"{nameof(ExpenseSettingsPage)}", true, new Dictionary<string, object>
+                {
+                    { "LookupRecordSelected", lookupTableVM },
+                    { "Title", "" },
+                    { "EditCaption", "Teste"},
+                    { "IsEditing", false},
+                    { "TableName", "CategoriaDespesa" },
+
+                });
+        }
+        [RelayCommand]
         async Task GoBack()
         {
-            await Shell.Current.GoToAsync("..", true);
+            await Shell.Current.GoToAsync($"//{nameof(MainSettingsPage)}", true);
         }
 
         private async void ShowToastMessage(string text, ToastDuration duration = ToastDuration.Short)

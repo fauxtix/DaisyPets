@@ -106,7 +106,6 @@ namespace MauiPets.Controls
 
         private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
         {
-            var x = 0;
         }
     }
 }

@@ -4,12 +4,25 @@
              x:Class="MauiPets.Mvvm.Views.Settings.MainSettingsPage"
              xmlns:controls="clr-namespace:MauiPets.Controls"
              xmlns:viewModels="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
-             x:DataType="viewModels:MainSettingsViewModel"
-             Title="Settings">
+             x:DataType="viewModels:MainSettingsViewModel">
 
     <ScrollView>
         <StackLayout Padding="20">
-            <Label Text="Desparasitantes" FontSize="20" FontFamily="PoppinsBold"  Padding="0,5"/>
+            <Border Stroke="#2B0B98"
+                    StrokeThickness="2"
+                    StrokeShape="RoundRectangle 35,35,0,0"
+                    Background="#fff"
+                    Padding="6,8"
+                    Margin="4, 0, 0, 20"
+                    HorizontalOptions="FillAndExpand">
+                <Label Text="Tabelas auxiliares" HorizontalOptions="Center"
+                   FontSize="18"
+                   FontFamily="PoppinsBold"
+                   FontAttributes="Bold"></Label>
+            </Border>
+
+            <Label Text="Desparasitantes" FontSize="16" 
+                  FontAttributes="Bold" FontFamily="PoppinsBold"  Padding="5,5"/>
             <Grid ColumnSpacing="10" RowSpacing="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -32,30 +45,6 @@
                     ButtonCommand="{Binding NavigateToTableCommand}" />
             </Grid>
             <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,6,0,5"/>
-            <Label Text="Despesas" FontSize="20" Padding="0,2" FontFamily="PoppinsBold" />
-            <Grid ColumnSpacing="10" RowSpacing="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <controls:SettingsCardControl 
-                    Grid.Row="0" Grid.Column="0" Margin="0, 10, 0, 0"
-                    LabelText="Categoria"
-                    TableName="CategoriaDespesa"
-                    Title="Categorias despesas"
-                    Icon="expenses.png"
-                    ButtonCommand="{Binding NavigateToTableCommand}" />
-
-                <controls:SettingsCardControl 
-                    Grid.Row="0" Grid.Column="1" Margin="0, 10, 0, 0"
-                    LabelText="Tipo"
-                    TableName="TipoDespesa"
-                    Title="Tipos de despesa"
-                    Icon="expenses.png"
-                    ButtonCommand="{Binding NavigateToTableCommand}" />
-
-            </Grid>
-            <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,8,0,8"/>
 
             <Grid ColumnSpacing="10" RowSpacing="10">
                 <Grid.ColumnDefinitions>
@@ -123,6 +112,24 @@
                     Icon="tasks.png"
                     ButtonCommand="{Binding NavigateToTableCommand}" />
             </Grid>
+            <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,6,0,5"/>
+            <Grid ColumnSpacing="10" RowSpacing="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <controls:SettingsCardControl 
+                    Grid.Row="0" Grid.Column="0" 
+                    Margin="0, 10, 0, 0"
+                    LabelText="Despesas"
+                    TableName="CategoriaDespesa"
+                    Title="Despesas"
+                    Icon="expense.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+            </Grid>
+
         </StackLayout>
+        
     </ScrollView>
 </ContentPage>

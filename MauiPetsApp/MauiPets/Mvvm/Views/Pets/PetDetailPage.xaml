@@ -184,13 +184,11 @@
 
                             <Frame Grid.Row="4" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent" Padding="8">
                                 <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *">
-                                    <!-- New Row for Add Button -->
                                     <Button Text="Novo" 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddVaccineCommand}" 
                                                     Style="{StaticResource CommonAddButtonStyle}"
                                         Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
-                                    <!-- Existing Header Row -->
                                     <Grid ColumnDefinitions=".3*, .4*, .3*" 
                                           ColumnSpacing="1"
                                           Grid.Row="2">
@@ -200,7 +198,6 @@
                                     </Grid>
                                     <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
 
-                                    <!-- CollectionView Row -->
                                     <CollectionView Grid.Row="4"
                                             x:Name="VaccinesView"
                                             ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetVaccinesVM}" 

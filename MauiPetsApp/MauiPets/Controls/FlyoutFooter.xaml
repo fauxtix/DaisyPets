@@ -4,12 +4,16 @@
              xmlns:sys="clr-namespace:System;assembly=netstandard"
              x:Class="MauiPets.Controls.FlyoutFooter">
     <StackLayout>
-        <Label Text="MauiPetsApp"
-               TextColor="GhostWhite"
+        <BoxView HeightRequest="1" Color="LightGray" Margin="0, 0, 0, 10"/>
+        <Label Text="MauiPetsApp" 
+               FontSize="20"
+               FontFamily="PoppinsSemiBold"
+               TextColor="Black"
                HorizontalOptions="Center" />
-        <Label Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:dd MMMM, yyyy}'}"
-               TextColor="GhostWhite"
+        <Label Text="Fausto Luís 2024" Padding="0, 0, 0, 10"
+               TextColor="Black" 
                FontFamily="Poppins"
-               HorizontalOptions="Center" />
+               FontSize="14"
+               HorizontalOptions="Center"/>
     </StackLayout>
 </ContentView>

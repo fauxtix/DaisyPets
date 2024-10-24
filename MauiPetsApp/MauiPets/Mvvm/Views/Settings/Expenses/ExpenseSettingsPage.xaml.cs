@@ -18,13 +18,13 @@ public partial class ExpenseSettingsPage : ContentPage
         BindingContext = _viewModel;
     }
 
-    protected override void OnAppearing()
-    {
-        if (BindingContext is ExpensesSettingsViewModel viewModel)
-        {
-            base.OnAppearing();
-            _viewModel.RefreshLookupDataAsyncCommand.Execute(null);
-        }
-    }
+    //protected override void OnAppearing()
+    //{
+    //    if (BindingContext is ExpensesSettingsViewModel viewModel)
+    //    {
+    //        base.OnAppearing();
+    //        _viewModel.RefreshLookupDataAsyncCommand.Execute(null);
+    //    }
+    //}
 
 }

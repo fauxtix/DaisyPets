@@ -6,12 +6,7 @@
     <Grid BackgroundColor="Black"                
           Margin="0,0,0,5">
         <Image Aspect="AspectFill"
-               Source="daisypetsbing_min.png"
+               Source="dogfood.png"
                Opacity="0.6" />
-        <Label Text="Daisy Pets"
-               TextColor="White"
-               FontFamily="Poppins"
-               HorizontalTextAlignment="Center"
-               VerticalTextAlignment="Center" />
     </Grid>
 </ContentView>
