@@ -109,6 +109,8 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                             e.DescricaoTipoDespesa.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
                         .ToList();
                 }
+                else
+                    FilterText = "Despesas";
 
                 TotalGeralDespesas = expenses.Sum(c => c.ValorPago);
 

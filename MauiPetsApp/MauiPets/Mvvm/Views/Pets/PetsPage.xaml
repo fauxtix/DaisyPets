@@ -13,7 +13,7 @@
         <ResourceDictionary>
             <converters:IdadeConverter x:Key="IdadeConverter" />
             <converters:GenderConverter x:Key="GenderConverter" />
-            
+
             <Style x:Key="MediumLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="13"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
@@ -108,7 +108,7 @@
                                                 CommandParameter="{Binding .}"/>
                                         </Border.GestureRecognizers>
                                     </Border>
-                                    
+
                                     <Label Text="{Binding Nome}"
                                            TextColor="Magenta"
                                            Padding="10"
@@ -118,10 +118,11 @@
                                         <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" 
                                                 StrokeShape="RoundRectangle 5" Margin="5" Padding="5, 2">
                                             <VerticalStackLayout>
-                                                <Label Text="Género" FontSize="10" TextColor="DarkGray" HorizontalTextAlignment="Center"/>
+                                                <Label Text="Género"  FontAttributes="Bold"
+                                                       FontFamily="PoppinsBold"
+                                                       FontSize="12" TextColor="DarkGray" HorizontalTextAlignment="Center"/>
                                                 <Label Text="{Binding Genero, Converter={StaticResource GenderConverter}}"
-                                                       FontSize="12" TextColor="Gray"
-                                                       FontAttributes="Bold"
+                                                       FontSize="12" TextColor="Black"
                                                        HorizontalTextAlignment="Center" />
                                             </VerticalStackLayout>
                                         </Border>
@@ -129,10 +130,11 @@
                                         <Border Grid.Row="0" Grid.Column="1" Stroke="LightGray" StrokeThickness="1" 
                                                 StrokeShape="RoundRectangle 5" Margin="5" Padding="5, 2">
                                             <VerticalStackLayout>
-                                                <Label Text="Idade" FontSize="10" TextColor="DarkGray" HorizontalTextAlignment="Center" />
+                                                <Label Text="Idade" FontAttributes="Bold"
+                                                       FontFamily="PoppinsBold"
+                                                       FontSize="12" TextColor="DarkGray" HorizontalTextAlignment="Center" />
                                                 <Label Text="{Binding DataNascimento, Converter={StaticResource IdadeConverter}}"
-                                                       FontSize="12" TextColor="Gray" 
-                                                       FontAttributes="Bold"
+                                                       FontSize="12" TextColor="Black" 
                                                        HorizontalTextAlignment="Center" />
                                             </VerticalStackLayout>
                                         </Border>
@@ -140,10 +142,11 @@
                                         <Border Grid.Row="1" Grid.ColumnSpan="2" Stroke="LightGray" StrokeThickness="1" 
                                                 StrokeShape="RoundRectangle 5" Margin="5" Padding="5, 2">
                                             <VerticalStackLayout>
-                                                <Label Text="Raça" FontSize="10" TextColor="DarkGray" />
+                                                <Label Text="Raça" FontAttributes="Bold"
+                                                       FontFamily="PoppinsBold"
+                                                       FontSize="12" TextColor="Gray" />
                                                 <Label Text="{Binding RacaAnimal}"
-                                                       FontSize="12" TextColor="Gray" 
-                                                       FontAttributes="Bold"
+                                                       FontSize="12" TextColor="Black" 
                                                        HorizontalTextAlignment="Start" />
                                             </VerticalStackLayout>
                                         </Border>

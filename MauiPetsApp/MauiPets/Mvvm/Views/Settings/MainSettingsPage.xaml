@@ -8,22 +8,9 @@
 
     <ScrollView>
         <StackLayout Padding="20">
-            <Border Stroke="#2B0B98"
-                    StrokeThickness="2"
-                    StrokeShape="RoundRectangle 35,35,0,0"
-                    Background="#fff"
-                    Padding="6,8"
-                    Margin="4, 0, 0, 20"
-                    HorizontalOptions="FillAndExpand">
-                <Label Text="Tabelas auxiliares" HorizontalOptions="Center"
-                   FontSize="18"
-                   FontFamily="PoppinsBold"
-                   FontAttributes="Bold"></Label>
-            </Border>
-
             <Label Text="Desparasitantes" FontSize="16" 
                   FontAttributes="Bold" FontFamily="PoppinsBold"  Padding="5,5"/>
-            <Grid ColumnSpacing="10" RowSpacing="2">
+            <Grid ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -46,13 +33,13 @@
             </Grid>
             <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Black" Margin="0,6,0,5"/>
 
-            <Grid ColumnSpacing="10" RowSpacing="10">
+            <Grid ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <controls:SettingsCardControl 
-                    Grid.Row="0" Grid.Column="0" Margin="0, 0, 0, 10"
+                    Grid.Row="0" Grid.Column="0" Margin="0, 10, 0, 10"
                     LabelText="Raças"
                     TableName="Raca"
                     Title="Raças"
@@ -60,44 +47,21 @@
                     ButtonCommand="{Binding NavigateToTableCommand}" />
 
                 <controls:SettingsCardControl 
-                    Grid.Row="0" Grid.Column="1" Margin="0, 0, 0, 10"
+                    Grid.Column="1" Margin="0, 10, 0, 10"
                     LabelText="Situação"
                     TableName="Situacao"
                     Title="Situação"
                     Icon="peticon.png"
                     ButtonCommand="{Binding NavigateToTableCommand}" />
             </Grid>
-            <Grid ColumnSpacing="10" RowSpacing="10">
+            <Grid ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <controls:SettingsCardControl 
-                    Grid.Row="1" Grid.Column="0"
-                    LabelText="Medicação"
-                    TableName="Medicacao"
-                    Title="Medicamentos"
-                    Icon="capsules.png"
-                    ButtonCommand="{Binding NavigateToTableCommand}" />
-
-                <controls:SettingsCardControl 
-                    Grid.Row="1" Grid.Column="1"
-                    LabelText="Rações"
-                    TableName="MarcaRacao"
-                    Title="Rações"
-                    Icon="dogfood.png"
-                    ButtonCommand="{Binding NavigateToTableCommand}" />
-            </Grid>
-
-            <Grid ColumnSpacing="10" RowSpacing="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <controls:SettingsCardControl 
-                    Grid.Row="0" Grid.Column="0" Margin="0, 10, 0, 0"
+                    Grid.Column="0" Margin="0, 0, 0, 10"
                     LabelText="Temperamento"
                     TableName="Temperamento"
                     Title="Temperamentos"
@@ -105,7 +69,30 @@
                     ButtonCommand="{Binding NavigateToTableCommand}" />
 
                 <controls:SettingsCardControl 
-                    Grid.Row="0" Grid.Column="1" Margin="0, 10, 0, 0"
+                    Grid.Column="1" Margin="0, 0, 0, 10"
+                    LabelText="Rações"
+                    TableName="MarcaRacao"
+                    Title="Rações"
+                    Icon="dogfood.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+            </Grid>
+
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <controls:SettingsCardControl 
+                    Grid.Column="0" Margin="0, 0, 0, 10"
+                    LabelText="Medicação"
+                    TableName="Medicacao"
+                    Title="Medicamentos"
+                    Icon="capsules.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+
+                <controls:SettingsCardControl 
+                    Grid.Column="1" Margin="0, 0, 0, 10"
                     LabelText="Tipo Tarefas"
                     TableName="ToDoCategories"
                     Title="Tipo de Tarefas"

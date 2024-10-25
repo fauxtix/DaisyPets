@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using MauiPets.Mvvm.Views.Settings.Expenses;
+using MauiPets.Mvvm.Views.Settings;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 
 namespace MauiPets.Mvvm.ViewModels.Settings
@@ -20,12 +20,9 @@ namespace MauiPets.Mvvm.ViewModels.Settings
             string tableName = parameters["TableName"];
             string title = parameters["Title"];
             LookupTableVM lookupTableVM = new LookupTableVM();
-            await Shell.Current.GoToAsync($"{nameof(ExpenseSettingsPage)}", true, new Dictionary<string, object>
+            await Shell.Current.GoToAsync($"{nameof(SettingsManagementPage)}", true, new Dictionary<string, object>
                 {
-                    { "LookupRecordSelected", lookupTableVM },
                     { "Title", title },
-                    { "EditCaption", "Teste"},
-                    { "IsEditing", false},
                      { "TableName", tableName },
 
                 });

@@ -67,22 +67,27 @@
                                     </SwipeItems>
                                 </SwipeView.RightItems>
                                 <VerticalStackLayout>
-                                    <Frame CornerRadius="10" HasShadow="True" Margin="4, 2, 4, 6" Padding="2">
+                                    <Frame CornerRadius="10"
+                                           HasShadow="True"
+                                           BackgroundColor="AliceBlue"
+                                           Margin="4, 2, 4, 6" Padding="2">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SettingsViewModel}}, Path=EditLookupRecordCommand}"
                                                 CommandParameter="{Binding .}" />
                                         </Frame.GestureRecognizers>
-                                        <Grid Padding="2" ColumnSpacing="10" Margin="4" RowSpacing="3">
+                                        <Grid Padding="2" ColumnSpacing="10" Margin="4" RowSpacing="5">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Descricao}"
-                                                   FontFamily="NotoSerifBold" Padding="3, 0, 0, 0"
-                                                   FontSize="14" VerticalOptions="Center" />
+                                            <Label Grid.Row="0" Grid.Column="0" 
+                                                   TextColor="Black"
+                                                   Text="{Binding Descricao}"
+                                                   FontFamily="sans-serif-medium" Padding="3, 0, 0, 0"
+                                                   FontSize="16" VerticalOptions="Center" />
                                         </Grid>
                                     </Frame>
                                 </VerticalStackLayout>

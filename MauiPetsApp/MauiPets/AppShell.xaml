@@ -42,12 +42,12 @@
              Icon="gear.png">
             <ShellContent 
                     Title="Tabelas"
-                    Icon="gear.png" 
+                    Icon="list.png" 
                     ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
                     Route="MainSettingsPage" />
             <ShellContent 
                     Title="Despesas"
-                    Icon="gear.png" 
+                    Icon="expenses.png" 
                     ContentTemplate="{DataTemplate expensesettingspage:ExpenseSettingsPage}"
                     Route="ExpenseSettingsPage" />
         </Tab>

@@ -90,6 +90,9 @@
 		<MauiSplashScreen Include="Resources\Splash\daisypetsbing_min.png" Color="#4682B4" BaseSize="128,128">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiSplashScreen>
+		<!--<MauiSplashScreen Include="Resources\Splash\splash.svg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiSplashScreen>-->
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -303,6 +306,7 @@
 	  <None Remove="Resources\Images\shiva.jpg" />
 	  <None Remove="Resources\Images\tasks.png" />
 	  <None Remove="Resources\Splash\daisypetsbing.png" />
+	  <None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -333,7 +337,7 @@
 	  <!--<MauiImage Include="Resources\Splash\daisypetsbing.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </MauiImage>-->
-	  <MauiImage Include="Resources\Splash\dogandcat.svg" />
+	  <MauiSplashScreen Include="Resources\Splash\dogandcat.svg" />
 	</ItemGroup>
 
 	<ItemGroup>

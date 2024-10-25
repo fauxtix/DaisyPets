@@ -4,8 +4,7 @@
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels.LookupTables;assembly=MauiPets.Core"
              x:Class="MauiPets.Mvvm.Views.Settings.Expenses.ExpenseSettingsPage"
-             x:DataType="viewmodel:ExpensesSettingsViewModel"
-             Title="Configuração  - Despesas">
+             x:DataType="viewmodel:ExpensesSettingsViewModel">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
     </Shell.BackButtonBehavior>
