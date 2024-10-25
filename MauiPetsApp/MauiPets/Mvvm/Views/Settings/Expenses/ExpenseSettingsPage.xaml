@@ -4,14 +4,15 @@
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels.LookupTables;assembly=MauiPets.Core"
              x:Class="MauiPets.Mvvm.Views.Settings.Expenses.ExpenseSettingsPage"
-             x:DataType="viewmodel:ExpensesSettingsViewModel">
+             x:DataType="viewmodel:ExpensesSettingsViewModel"
+             Title="Configuração  - Despesas">
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
     </Shell.BackButtonBehavior>
-    <ContentPage.ToolbarItems>
+    <!--<ContentPage.ToolbarItems>
         <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
-    </ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>-->
 
     <ScrollView>
         <VerticalStackLayout>

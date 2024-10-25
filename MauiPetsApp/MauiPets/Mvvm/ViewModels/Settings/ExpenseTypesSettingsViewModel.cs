@@ -103,9 +103,15 @@ namespace MauiPets.Mvvm.ViewModels.Settings
                 {
                     try
                     {
-                        await _tipoDespesaService.Update(IdCategoriaDespesa, ExpenseTypeRecordSelected);
+                        var updateOk = await _tipoDespesaService.Update(IdCategoriaDespesa, ExpenseTypeRecordSelected);
+                        if (!updateOk)
+                        {
+                            await Shell.Current.DisplayAlert("Error while inserting record",
+                                $"Please contact administrator..", "OK");
+                            return;
+                        }
+
                         ShowToastMessage("Registo atualizado com sucesso");
-                        //GetLookupData(TableName);
 
                         await Shell.Current.GoToAsync("..", true);
                     }
@@ -118,6 +124,11 @@ namespace MauiPets.Mvvm.ViewModels.Settings
             catch (Exception ex)
             {
                 ShowToastMessage($"Erro na transação {ex.Message}");
+            }
+
+            finally
+            {
+                GetCategoriesAsync();
             }
         }
 

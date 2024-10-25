@@ -14,62 +14,52 @@
     xmlns:expensesettingspage="clr-namespace:MauiPets.Mvvm.Views.Settings.Expenses"
     FlyoutWidth="200"
     FlyoutHeight="450"
+    Shell.TabBarIsVisible="False"
     Shell.FlyoutBehavior="Flyout">
-    
-    <!--<Shell.FlyoutHeader>
-        <controls:FlyoutHeader />
-    </Shell.FlyoutHeader>-->
-    <Shell.FlyoutBackground>
-        <LinearGradientBrush StartPoint="0,0"
-                             EndPoint="1,1">
-            <GradientStop Color="#1aa4b8"
-                          Offset="0.1" />
-            <GradientStop Color="#1a9cb8"
-                          Offset="0.3" />
-            <GradientStop Color="#1a94b8"
-                          Offset="0.5" />
-            <GradientStop Color="#1a8cb8"
-                          Offset="0.8" />
-            <GradientStop Color="#1a84b8"
-                          Offset="1.0" />
-        </LinearGradientBrush>
-    </Shell.FlyoutBackground>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent
         Title="Início"
         Icon="doghouse.png"
         ContentTemplate="{DataTemplate petpage:PetsPage}"
         Route="PetsPage"/>
-    <ShellContent
+        <ShellContent
         Title="Despesas"
         Icon="expenses.png"
         ContentTemplate="{DataTemplate expensespage:ExpensesPage}"
         Route="ExpensesPage" />
-    <ShellContent
+        <ShellContent
         Title="Contactos"
         Icon="phone.png" 
         ContentTemplate="{DataTemplate contactspage:ContactsPage}"
         Route="ContactsPage" />
-    <ShellContent
+        <ShellContent
         Title="Tarefas"
         Icon="tasks.png" 
         ContentTemplate="{DataTemplate todospage:TodoPage}"
         Route="TodoPage" />
+        <Tab Title="Settings" 
+             Icon="gear.png">
+            <ShellContent 
+                    Title="Tabelas"
+                    Icon="gear.png" 
+                    ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
+                    Route="MainSettingsPage" />
+            <ShellContent 
+                    Title="Despesas"
+                    Icon="gear.png" 
+                    ContentTemplate="{DataTemplate expensesettingspage:ExpenseSettingsPage}"
+                    Route="ExpenseSettingsPage" />
+        </Tab>
+
+    </FlyoutItem>
+
     <ShellContent
         Title="Logs"
         Icon="icon_log.png" 
         ContentTemplate="{DataTemplate logsmainpage:LogsMainPage}"
         Route="LogsMainPage" />
 
-    <ShellContent
-        Title="Settings"
-        Icon="gear.png" 
-        ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
-        Route="MainSettingsPage" />
-    <ShellContent
-        Title="Despesas"
-        Icon="gear.png" 
-        ContentTemplate="{DataTemplate expensesettingspage:ExpenseSettingsPage}"
-        Route="ExpenseSettingsPage" />
     <Shell.FlyoutFooter>
         <controls:FlyoutFooter />
     </Shell.FlyoutFooter>

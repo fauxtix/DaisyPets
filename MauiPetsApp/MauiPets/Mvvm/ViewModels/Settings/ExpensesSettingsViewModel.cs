@@ -4,7 +4,6 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Extensions;
-using MauiPets.Mvvm.Views.Settings;
 using MauiPets.Mvvm.Views.Settings.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -127,8 +126,20 @@ namespace MauiPets.Mvvm.ViewModels.Settings
                         }
 
                         ShowToastMessage("Registo criado com sucesso");
-
                         await Shell.Current.GoToAsync("..", true);
+
+
+
+                        //LookupTableVM lookupTableVM = new LookupTableVM();
+                        //                        await Shell.Current.GoToAsync($"{nameof(ExpenseSettingsPage)}", true, new Dictionary<string, object>
+                        //                {
+                        //                    { "LookupRecordSelected", lookupTableVM },
+                        //                    { "Title", "" },
+                        //                    { "EditCaption", "Teste"},
+                        //                    { "IsEditing", false},
+                        //                    { "TableName", "CategoriaDespesa" },
+
+                        //                });
 
                     }
                     catch (Exception ex)
@@ -146,6 +157,7 @@ namespace MauiPets.Mvvm.ViewModels.Settings
                         GetLookupData(TableName);
 
                         await Shell.Current.GoToAsync("..", true);
+
                     }
                     catch (Exception ex)
                     {
@@ -188,7 +200,16 @@ namespace MauiPets.Mvvm.ViewModels.Settings
                     {
                         ShowToastMessage($"Erro ao apagar Categoria '{category.Descricao}'. Verifique log, p.f. ", ToastDuration.Long);
                     }
-                    await Shell.Current.GoToAsync("..", true);
+                    LookupTableVM lookupTableVM = new LookupTableVM();
+                    await Shell.Current.GoToAsync($"{nameof(ExpenseSettingsPage)}", true, new Dictionary<string, object>
+                {
+                    { "LookupRecordSelected", lookupTableVM },
+                    { "Title", "" },
+                    { "EditCaption", "Teste"},
+                    { "IsEditing", false},
+                    { "TableName", "CategoriaDespesa" },
+
+                });
                 }
 
             }
@@ -250,7 +271,7 @@ namespace MauiPets.Mvvm.ViewModels.Settings
         [RelayCommand]
         async Task GoBack()
         {
-            await Shell.Current.GoToAsync($"//{nameof(MainSettingsPage)}", true);
+            await Shell.Current.GoToAsync($"..");
         }
 
         private async void ShowToastMessage(string text, ToastDuration duration = ToastDuration.Short)
