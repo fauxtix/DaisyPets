@@ -312,7 +312,7 @@ namespace MauiPetsApp.Infrastructure
         private string GetPetsVM_Query()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Pet.Id, Pet.Nome, Pet.DoencaCronica, Pet.Observacoes, Pet.Foto, Pet.IdPeso, ");
+            sb.Append("SELECT Pet.Id, Pet.Nome, Pet.DoencaCronica, Pet.Observacoes, Pet.Foto, Pet.IdPeso, Pet.IdTamanho, ");
             sb.Append("Pet.Chip, Pet.Chipado, Pet.DataChip, Pet.NumeroChip,  Pet.Esterilizado, Pet.Padrinho, ");
             sb.Append("R.Descricao AS [RacaAnimal], Pet.Medicacao AS [MedicacaoAnimal], ");
             sb.Append("E.Descricao AS [EspecieAnimal], T.Descricao AS [TamanhoAnimal], ");

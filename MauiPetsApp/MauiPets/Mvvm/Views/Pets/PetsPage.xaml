@@ -116,7 +116,7 @@
                                            HorizontalTextAlignment="Center" />
                                     <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, *">
                                         <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" 
-                                                StrokeShape="RoundRectangle 5" Margin="5" Padding="5, 2">
+                                                StrokeShape="RoundRectangle 5" Margin="5,1" Padding="5, 2">
                                             <VerticalStackLayout>
                                                 <Label Text="Género"  FontAttributes="Bold"
                                                        FontFamily="PoppinsBold"
@@ -128,7 +128,7 @@
                                         </Border>
 
                                         <Border Grid.Row="0" Grid.Column="1" Stroke="LightGray" StrokeThickness="1" 
-                                                StrokeShape="RoundRectangle 5" Margin="5" Padding="5, 2">
+                                                StrokeShape="RoundRectangle 5" Margin="5, 1" Padding="5, 2">
                                             <VerticalStackLayout>
                                                 <Label Text="Idade" FontAttributes="Bold"
                                                        FontFamily="PoppinsBold"
@@ -140,7 +140,7 @@
                                         </Border>
 
                                         <Border Grid.Row="1" Grid.ColumnSpan="2" Stroke="LightGray" StrokeThickness="1" 
-                                                StrokeShape="RoundRectangle 5" Margin="5" Padding="5, 2">
+                                                StrokeShape="RoundRectangle 5" Padding="5, 2">
                                             <VerticalStackLayout>
                                                 <Label Text="Raça" FontAttributes="Bold"
                                                        FontFamily="PoppinsBold"

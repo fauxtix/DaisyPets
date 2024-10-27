@@ -96,7 +96,7 @@
                     HorizontalOptions="FillAndExpand">
 
                     <Frame Grid.Row="2" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
-                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" 
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" 
                           RowSpacing="5"
                           HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                             <Grid.ColumnDefinitions>
@@ -119,8 +119,11 @@
                             <Label Grid.Row="6" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DoencaCronica}" />
                             <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Tamanho</Label>
                             <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TamanhoAnimal}" />
-                            <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource MediumLabel}" >Situação</Label>
-                            <Label Grid.Row="8" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.SituacaoAnimal}" />
+                            <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource MediumLabel}" >Faixa Etária</Label>
+                            <Label Grid.Row="8" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding FaixaEtaria}" />
+
+                            <Label Grid.Row="9" Grid.Column="0" Style="{StaticResource MediumLabel}" >Situação</Label>
+                            <Label Grid.Row="9" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.SituacaoAnimal}" />
                         </Grid>
                     </Frame>
                 </Border>

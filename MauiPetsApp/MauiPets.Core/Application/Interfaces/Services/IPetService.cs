@@ -1,5 +1,4 @@
 ﻿using MauiPetsApp.Core.Application.ViewModels;
-using MauiPetsApp.Core.Domain;
 
 namespace MauiPetsApp.Core.Application.Interfaces.Services
 {

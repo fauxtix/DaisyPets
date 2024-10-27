@@ -27,5 +27,28 @@
         {
             return StartOfMonth(date).AddMonths(1).AddDays(-1);
         }
+
+        public static int NumberOfMonths(DateOnly startDate, DateOnly endDate)
+        {
+            if (startDate > endDate)
+            {
+                throw new ArgumentOutOfRangeException(nameof(startDate),
+                    "The start date must be before the end date.");
+            }
+
+            int months = (endDate.Year - startDate.Year) * 12 + endDate.Month - startDate.Month;
+
+            if (endDate.Day < startDate.Day - 1)
+            {
+                months--;
+            }
+
+            if (startDate.Day == 1 && DateTime.DaysInMonth(endDate.Year, endDate.Month) == endDate.Day)
+            {
+                months++;
+            }
+
+            return months;
+        }
     }
 }

@@ -84,7 +84,6 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
             EditCaption = query[nameof(EditCaption)] as string;
             IsEditing = (bool)query[nameof(IsEditing)];
             PetPhoto = PetDto.Foto;
-
         }
         catch (Exception ex)
         {

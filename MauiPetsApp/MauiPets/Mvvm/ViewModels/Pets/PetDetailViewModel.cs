@@ -46,6 +46,9 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
     public ObservableCollection<ConsultaVeterinarioVM> PetConsultationsVM { get; set; } = new();
 
     [ObservableProperty]
+    string faixaEtaria;
+
+    [ObservableProperty]
     bool isRefreshing;
 
     [RelayCommand]
@@ -500,10 +503,19 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         {
             PetConsultationsVM.Add(consultation);
         }
+
         Gender = PetVM.Genero == "M" ? "Macho" : "Fêmea";
         GodFather = PetVM.Padrinho ? "Sim" : "Não";
         Sterilized = PetVM.Esterilizado ? "Sim" : "Não";
         Chipped = PetVM.Chipado ? "Sim" : "Não";
+
+        var dNascimento = DateTime.Parse(PetVM.DataNascimento);
+        DateOnly startDate = DateOnly.FromDateTime(dNascimento);
+        DateOnly endDate = DateOnly.FromDateTime(DateTime.Today);
+        int meses = Extensions.DateTimeExtensions.NumberOfMonths(startDate, endDate);
+        var tamanho = PetVM.IdTamanho;
+        FaixaEtaria = await _petService.GetDescriptionBySizeAndMonths(tamanho, meses);
+
     }
 
     private async Task ShowToastMessage(string text)
