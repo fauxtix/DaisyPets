@@ -60,7 +60,7 @@
 
             <Border Stroke="#2B0B98"
                     StrokeThickness="2"
-                    StrokeShape="RoundRectangle 35,35,0,0"
+                    StrokeShape="RoundRectangle 15,15,15,15"
                     Background="#fff"
                     Padding="6,8"
                     Margin="4"

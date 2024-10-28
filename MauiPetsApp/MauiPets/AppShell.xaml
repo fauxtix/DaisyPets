@@ -17,6 +17,22 @@
     Shell.TabBarIsVisible="False"
     Shell.FlyoutBehavior="Flyout">
 
+    <Shell.FlyoutBackground>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="1,1">
+            <GradientStop Color="#93e4c1"
+                          Offset="0.1" />
+            <GradientStop Color="#1f6f78"
+                          Offset="0.3" />
+            <GradientStop Color="#3baea0"
+                          Offset="0.5" />
+            <GradientStop Color="#118a7e"
+                          Offset="0.8" />
+            <GradientStop Color="#2c5d63"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </Shell.FlyoutBackground>
+    
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent
         Title="Início"
@@ -44,7 +60,7 @@
                     Title="Tabelas"
                     Icon="list.png" 
                     ContentTemplate="{DataTemplate settingspage:MainSettingsPage}"
-                    Route="MainSettingsPage" />
+                    Route="MainSettingsPage"/>
             <ShellContent 
                     Title="Despesas"
                     Icon="expenses.png" 

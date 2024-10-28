@@ -159,10 +159,16 @@
 		<MauiImage Update="Resources\Images\gear.png">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
+		<MauiImage Update="Resources\Images\gear_white.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_close.svg">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\delete_32.png" Resize="True" tintColor="#880808">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\icon_delete.svg">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_edit.svg">
@@ -280,6 +286,7 @@
 	  <None Remove="Resources\Images\femenine_icon.png" />
 	  <None Remove="Resources\Images\filter.png" />
 	  <None Remove="Resources\Images\first_page.svg" />
+	  <None Remove="Resources\Images\gear_white.png" />
 	  <None Remove="Resources\Images\icon_close.svg" />
 	  <None Remove="Resources\Images\icon_edit.svg" />
 	  <None Remove="Resources\Images\icon_email.png" />

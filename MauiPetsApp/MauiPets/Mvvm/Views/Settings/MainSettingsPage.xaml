@@ -3,8 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Settings.MainSettingsPage"
              xmlns:controls="clr-namespace:MauiPets.Controls"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModels="clr-namespace:MauiPets.Mvvm.ViewModels.Settings"
              x:DataType="viewModels:MainSettingsViewModel">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="gear_white.png"/>
+    </ContentPage.ToolbarItems>
 
     <ScrollView>
         <StackLayout Padding="20">
@@ -97,6 +102,20 @@
                     TableName="ToDoCategories"
                     Title="Tipo de Tarefas"
                     Icon="tasks.png"
+                    ButtonCommand="{Binding NavigateToTableCommand}" />
+            </Grid>
+            <Grid ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <controls:SettingsCardControl 
+                    Grid.Column="0" Margin="0, 0, 0, 10"
+                    LabelText="Tipo Contacto"
+                    TableName="TipoContacto"
+                    Title="Tipo de Contacto"
+                    Icon="contacts.png"
                     ButtonCommand="{Binding NavigateToTableCommand}" />
             </Grid>
         </StackLayout>

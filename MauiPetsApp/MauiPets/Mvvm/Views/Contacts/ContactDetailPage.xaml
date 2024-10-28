@@ -33,7 +33,7 @@
                 <Setter Property="FontAttributes" Value="None"/>
             </Style>
             <Style x:Key="MediumBlueLabelBold" TargetType="Label">
-                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontSize" Value="16"/>
                 <Setter Property="FontAttributes" Value="Italic"></Setter>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="TextColor" Value="Blue"/>
@@ -43,9 +43,11 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <VerticalStackLayout Margin="2, 10, 0, 0">
-        <VerticalStackLayout>
-            <Border Stroke="#2B0B98"
+    <ScrollView 
+        BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+        <VerticalStackLayout Margin="2, 10, 0, 0">
+            <VerticalStackLayout>
+                <Border Stroke="#2B0B98"
                         StrokeThickness="2"
                         StrokeShape="RoundRectangle 8"
                         Background="#fff"
@@ -53,26 +55,25 @@
                         Margin="4"
                         HeightRequest="40"
                         HorizontalOptions="FillAndExpand">
-                <HorizontalStackLayout VerticalOptions="Center"
+                    <HorizontalStackLayout VerticalOptions="Center"
                                 Spacing="8">
-                    <Image Source="tasks.png"
+                        <Image Source="tasks.png"
                                         WidthRequest="24"  
                                         HeightRequest="24"
                                         VerticalOptions="Center"
                                         HorizontalOptions="Start"
                                         Margin="5,0,8,0"/>
-                    <Label VerticalTextAlignment="Center"                          
+                        <Label VerticalTextAlignment="Center"                          
                            HorizontalTextAlignment="Center"
                            FontSize="15"
                            FontFamily="PoppinsSemiBold"
                            TextColor="ForestGreen"
                            Text="{Binding ContactoVM.Nome}"
                            HorizontalOptions="FillAndExpand"/>
-                </HorizontalStackLayout>
-            </Border>
-        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+                </Border>
+            </VerticalStackLayout>
 
-        <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
             <Grid>
                 <Border Stroke="#2B0B98"
                     StrokeThickness="1"
@@ -84,43 +85,42 @@
 
 
                     <Frame CornerRadius="40" HasShadow="True" BorderColor="Transparent">
-                        <VerticalStackLayout Padding="1" Spacing="5" Margin="0">
+                        <VerticalStackLayout Padding="1" Spacing="3" Margin="0">
                             <Label Style="{StaticResource MediumLabel}">Morada</Label>
-                            <Label Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Morada}" />
-                            <Label Style="{StaticResource MediumLabel}" Margin="0,5,0,0">Localidade</Label>
-                            <Label Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Localidade}" />
+                            <Label Style="{StaticResource MediumLabelBold}" TextColor="Green" Text="{Binding ContactoVM.Morada}" />
+                            <Label Style="{StaticResource MediumLabel}" Margin="0,2,0,0">Localidade</Label>
+                            <Label Style="{StaticResource MediumLabelBold}" TextColor="Green" Text="{Binding ContactoVM.Localidade}" />
                             <BoxView HeightRequest="1" Color="Black"></BoxView>
                             <Label Style="{StaticResource MediumLabel}">Móvel</Label>
-                            <Label Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Movel}" />
-                            <Label Style="{StaticResource MediumLabel}" Margin="0,5,0,0">e-Mail</Label>
+                            <Label Style="{StaticResource MediumLabelBold}" TextColor="Green" Text="{Binding ContactoVM.Movel}" />
+                            <Label Style="{StaticResource MediumLabel}" Margin="0,2,0,0">e-Mail</Label>
                             <Label Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.eMail}" />
                             <BoxView HeightRequest="1" Color="Black"></BoxView>
                             <Label Style="{StaticResource MediumLabel}">Tipo Contacto</Label>
-                            <Label Style="{StaticResource MediumBlueLabelBold}" Text="{Binding ContactoVM.DescricaoTipoContacto}" />
-                            <Label Style="{StaticResource MediumLabel}" Margin="0,5,0,0">Notas</Label>
-                            <Label Style="{StaticResource MediumLabelBold}" Text="{Binding ContactoVM.Notas}" />
+                            <Label Style="{StaticResource MediumBlueLabelBold}" TextColor="DarkGreen" Text="{Binding ContactoVM.DescricaoTipoContacto}" />
+                            <Label Style="{StaticResource MediumLabel}" Margin="0,2,0,0">Notas</Label>
+                            <Label Style="{StaticResource MediumLabelBold}" TextColor="Green" Text="{Binding ContactoVM.Notas}" />
                         </VerticalStackLayout>
                     </Frame>
 
                 </Border>
             </Grid>
 
-        </ScrollView>
-        <Border Stroke="#2B0B98"
+            <Border Stroke="#2B0B98"
                 StrokeThickness="1"
                 IsVisible="{Binding IsEditing}"
                 StrokeShape="RoundRectangle 0,0, 20, 20"
                 Background="LightSkyBlue"
-                Padding="8,2,8,0"
+                Padding="4,2,4,0"
                 Margin="5, 10"
                 HorizontalOptions="FillAndExpand">
 
-            <Grid RowDefinitions="Auto, Auto, *" ColumnDefinitions=".5*, .5*" Margin="10, 10" Padding="0">
-                <Label Text="Latitude" Grid.Row="0" Grid.Column="0"  TextColor="Yellow" FontSize="16"/>
-                <Label Text="Longitude" Grid.Row="0" Grid.Column="1" TextColor="Yellow" FontSize="16"/>
-                <Label  Text="{Binding Latitude}" Grid.Row="1" Grid.Column="0" FontSize="16" FontAttributes="Bold"/>
-                <Label  Text="{Binding Longitude}" Grid.Row="1" Grid.Column="1" FontSize="16" FontAttributes="Bold"/>
-                <Button Grid.Row="2" Margin="0,20, 0, 0"
+                <Grid RowDefinitions="Auto, Auto, *" ColumnDefinitions=".5*, .5*" Margin="10, 10" Padding="0">
+                    <Label Text="Latitude" Grid.Row="0" Grid.Column="0"  TextColor="Yellow" FontSize="16"/>
+                    <Label Text="Longitude" Grid.Row="0" Grid.Column="1" TextColor="Yellow" FontSize="16"/>
+                    <Label  Text="{Binding Latitude}" Grid.Row="1" Grid.Column="0" FontSize="16" FontAttributes="Bold"/>
+                    <Label  Text="{Binding Longitude}" Grid.Row="1" Grid.Column="1" FontSize="16" FontAttributes="Bold"/>
+                    <Button Grid.Row="2" Margin="0,20, 0, 0"
                         FontSize="12"
                         HorizontalOptions="End" CornerRadius="15"
                         VerticalOptions="End"
@@ -129,8 +129,8 @@
                         Command="{Binding ShowLocationOnMapCommand}" 
                         TextTransform="Uppercase" 
                         Text="Ver no Mapa"/>
-            </Grid>
-        </Border>
-
-    </VerticalStackLayout>
+                </Grid>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

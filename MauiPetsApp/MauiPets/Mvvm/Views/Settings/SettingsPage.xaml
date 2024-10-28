@@ -17,10 +17,8 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <!-- Exibir o título da página -->
                     <Label Text="{Binding Title}" FontSize="20" HorizontalOptions="Center" />
 
-                    <!-- Exibir a página completa -->
                     <ContentView Grid.Row="1">
                         <ContentView.Content>
                             <ContentView Content="{Binding Page}" />

@@ -13,6 +13,10 @@
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>-->
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="gear_white.png"/>
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
         <VerticalStackLayout>
             <Border Stroke="#2B0B98"

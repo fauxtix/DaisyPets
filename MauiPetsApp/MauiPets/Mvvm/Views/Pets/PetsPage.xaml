@@ -90,8 +90,8 @@
                                     <Border Stroke="Black" 
                                             StrokeThickness="2" 
                                             HeightRequest="140" 
-                                            WidthRequest="200" 
-                                            StrokeShape="RoundRectangle 0,0,50,50" 
+                                            WidthRequest="160" 
+                                            StrokeShape="RoundRectangle 20" 
                                             HorizontalOptions="Center"
                                             VerticalOptions="Center">
                                         <Border.Shadow>
@@ -144,7 +144,7 @@
                                             <VerticalStackLayout>
                                                 <Label Text="Raça" FontAttributes="Bold"
                                                        FontFamily="PoppinsBold"
-                                                       FontSize="12" TextColor="Gray" />
+                                                       FontSize="12" TextColor="DarkGray" />
                                                 <Label Text="{Binding RacaAnimal}"
                                                        FontSize="12" TextColor="Black" 
                                                        HorizontalTextAlignment="Start" />
