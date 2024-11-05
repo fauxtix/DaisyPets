@@ -135,7 +135,7 @@
                            FontSize = "14"
 			               VerticalOptions="Center"/>
                     <Picker x:Name="ContactTypesPicker" 
-                            Title="Select a Contact Type" 
+                            Title="Tipo de Contacto" 
                             Grid.Row="11" 
                             Style="{StaticResource MediumBlueLabelBold}"
                             ItemsSource="{Binding ContactTypes}"

@@ -12,7 +12,6 @@ public partial class AddOrEditContactPage : ContentPage
         InitializeComponent();
         _viewModel = viewModel;
         BindingContext = _viewModel;
-
     }
 
     private void SelectedIndexChanged(object sender, EventArgs e)
