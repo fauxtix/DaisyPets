@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.Design;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace MauiPets.Converters
 {
@@ -13,7 +12,9 @@ namespace MauiPets.Converters
 
             if (value is string)
             {
-                date = DateTime.Parse(value as string, culture).Date;
+                if (!(string.IsNullOrEmpty(value.ToString())))
+                    date = DateTime.Parse(value as string, culture).Date;
+                else date = DateTime.Now.ToShortDateString());
             }
             else if (value is DateTime)
             {
@@ -38,7 +39,7 @@ namespace MauiPets.Converters
             }
             else
             {
-                return Color.FromArgb("4682B4"); // in the future, but not in the range to inspect (< 15, < 31) ==> steelblu
+                return Color.FromArgb("4682B4"); // in the future, but not in the range to inspect (< 15, < 31) => steelblue
             }
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

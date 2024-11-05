@@ -24,7 +24,7 @@ namespace MauiPets.Converters
             DateTime today = DateTime.Today;
             int age = today.Year - birthDate.Year;
 
-            // Verifica se já fez aniversário este ano
+            // Verifica se já houve aniversário este ano
             if (birthDate.Date > today.AddYears(-age)) age--;
 
             return age;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 
 namespace MauiPets.Converters
 {
@@ -16,7 +11,6 @@ namespace MauiPets.Converters
                 return false;
             }
 
-            // Adjust this condition based on your logic to determine visibility
             return value.ToString() == "Category";
         }
 
