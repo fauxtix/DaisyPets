@@ -39,21 +39,20 @@
         <ScrollView>
             <Grid Margin="0" Padding="0" RowDefinitions="Auto, Auto, Auto,*">
                 <Border Stroke="#C49B33" Margin="0, 2, 0, 0"
-                StrokeThickness="1"
-                StrokeShape="RoundRectangle 15,15,15,15"
-                Background="Beige"
-                Padding="16,8"
-                HorizontalOptions="Center"
-                Grid.Row="0">
-                    <Label Text="{Binding FilterText, Mode=TwoWay}"
-                   TextColor="Black" WidthRequest="160" HorizontalTextAlignment="Center"
-                   FontSize="16"
-                   FontAttributes="None" />
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 15,15,15,15"
+                        Background="Beige"
+                        Padding="16,8"
+                        HorizontalOptions="Center"
+                        Grid.Row="0">
+                    <Label Text="{Binding FilterText, Mode=TwoWay}"                           
+                           TextColor="Black" WidthRequest="160" HorizontalTextAlignment="Center"
+                           FontSize="16"
+                           FontAttributes="None" />
                 </Border>
 
                 <Frame HeightRequest="70" CornerRadius="12" HasShadow="True" Margin="10, 10, 10, 20" Padding="10"
-               BackgroundColor="LightGray"
-               Grid.Row="1">
+                       BackgroundColor="LightGray" Grid.Row="1">
                     <ScrollView Orientation="Horizontal">
                         <HorizontalStackLayout Spacing="5" Padding="3">
                             <Button Text="Esta semana"

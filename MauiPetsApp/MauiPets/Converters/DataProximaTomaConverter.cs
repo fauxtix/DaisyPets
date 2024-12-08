@@ -14,7 +14,7 @@ namespace MauiPets.Converters
             {
                 if (!(string.IsNullOrEmpty(value.ToString())))
                     date = DateTime.Parse(value as string, culture).Date;
-                else date = DateTime.Now.ToShortDateString());
+                else date = DateTime.Now.ToShortDateString();
             }
             else if (value is DateTime)
             {

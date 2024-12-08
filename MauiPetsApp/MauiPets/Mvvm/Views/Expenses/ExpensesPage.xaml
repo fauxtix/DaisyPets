@@ -72,7 +72,7 @@
                         </HorizontalStackLayout>
                     </Frame>
                     <Border StrokeThickness="1"
-                Stroke="#dcdcdc"
+                        Stroke="#dcdcdc"
                         BackgroundColor="White"
                         Padding="5,1"
                         Margin="1,5"

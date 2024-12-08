@@ -341,13 +341,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <!--<MauiImage Include="Resources\Splash\daisypetsbing.png">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </MauiImage>-->
-	  <MauiSplashScreen Include="Resources\Splash\dogandcat.svg" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <None Include="..\..\..\..\Users\User\OneDrive\Desktop\DaisyPets_Docs\Images\DaisyPetsPingImage.jpg">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>

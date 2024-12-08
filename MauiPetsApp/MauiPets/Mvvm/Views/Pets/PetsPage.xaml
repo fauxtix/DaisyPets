@@ -62,7 +62,7 @@
                                FontFamily="sans-serif-medium"
                                HorizontalOptions="Center"
                                VerticalOptions="Center"
-                               Text="Selecione um dos Pets abaixo, para visualizar/alterar os dados. Poderá criar novo registo, escolhendo a opção '+' no topo"/>
+                               Text="Selecione um dos Pets abaixo, para visualizar/alterar os dados"/>
                     </Border>
 
                     <CollectionView Grid.Row="2" 
@@ -114,15 +114,15 @@
                                            Padding="10"
                                            FontSize="18"
                                            HorizontalTextAlignment="Center" />
-                                    <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, *">
+                                    <Grid RowDefinitions="*, *" ColumnDefinitions="*, *">
                                         <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" 
-                                                StrokeShape="RoundRectangle 5" Margin="5,1" Padding="5, 2">
+                                                StrokeShape="RoundRectangle 5" Margin="5,1" Padding="5, 1">
                                             <VerticalStackLayout>
                                                 <Label Text="Género"  FontAttributes="Bold"
                                                        FontFamily="PoppinsBold"
-                                                       FontSize="12" TextColor="DarkGray" HorizontalTextAlignment="Center"/>
+                                                       FontSize="10" TextColor="DarkGray" HorizontalTextAlignment="Center"/>
                                                 <Label Text="{Binding Genero, Converter={StaticResource GenderConverter}}"
-                                                       FontSize="12" TextColor="Black"
+                                                       FontSize="11" TextColor="Black"
                                                        HorizontalTextAlignment="Center" />
                                             </VerticalStackLayout>
                                         </Border>
@@ -132,9 +132,9 @@
                                             <VerticalStackLayout>
                                                 <Label Text="Idade" FontAttributes="Bold"
                                                        FontFamily="PoppinsBold"
-                                                       FontSize="12" TextColor="DarkGray" HorizontalTextAlignment="Center" />
+                                                       FontSize="10" TextColor="DarkGray" HorizontalTextAlignment="Center" />
                                                 <Label Text="{Binding DataNascimento, Converter={StaticResource IdadeConverter}}"
-                                                       FontSize="12" TextColor="Black" 
+                                                       FontSize="11" TextColor="Black" 
                                                        HorizontalTextAlignment="Center" />
                                             </VerticalStackLayout>
                                         </Border>
@@ -144,9 +144,9 @@
                                             <VerticalStackLayout>
                                                 <Label Text="Raça" FontAttributes="Bold"
                                                        FontFamily="PoppinsBold"
-                                                       FontSize="12" TextColor="DarkGray" />
+                                                       FontSize="10" TextColor="DarkGray" />
                                                 <Label Text="{Binding RacaAnimal}"
-                                                       FontSize="12" TextColor="Black" 
+                                                       FontSize="11" TextColor="Black" 
                                                        HorizontalTextAlignment="Start" />
                                             </VerticalStackLayout>
                                         </Border>

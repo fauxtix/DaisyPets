@@ -10,7 +10,6 @@ namespace MauiPets.Controls
             UpdateCommandParameter();
         }
 
-        // BindableProperty for LabelText
         public static readonly BindableProperty LabelTextProperty = BindableProperty.Create(
             nameof(LabelText),
             typeof(string),
@@ -23,7 +22,6 @@ namespace MauiPets.Controls
             set => SetValue(LabelTextProperty, value);
         }
 
-        // BindableProperty for TableName
         public static readonly BindableProperty TableNameProperty = BindableProperty.Create(
             nameof(TableName),
             typeof(string),
@@ -37,7 +35,6 @@ namespace MauiPets.Controls
             set => SetValue(TableNameProperty, value);
         }
 
-        // BindableProperty for Title
         public static readonly BindableProperty TitleProperty = BindableProperty.Create(
             nameof(Title),
             typeof(string),
@@ -62,7 +59,6 @@ namespace MauiPets.Controls
             set => SetValue(IconProperty, value);
         }
 
-        // BindableProperty for ButtonCommand
         public static readonly BindableProperty ButtonCommandProperty = BindableProperty.Create(
             nameof(ButtonCommand),
             typeof(ICommand),
@@ -75,7 +71,6 @@ namespace MauiPets.Controls
             set => SetValue(ButtonCommandProperty, value);
         }
 
-        // BindableProperty for CommandParameter
         public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(
             nameof(CommandParameter),
             typeof(object),
@@ -88,7 +83,6 @@ namespace MauiPets.Controls
             set => SetValue(CommandParameterProperty, value);
         }
 
-        // Method to update CommandParameter based on TableName and Title
         private void UpdateCommandParameter()
         {
             CommandParameter = new Dictionary<string, string>

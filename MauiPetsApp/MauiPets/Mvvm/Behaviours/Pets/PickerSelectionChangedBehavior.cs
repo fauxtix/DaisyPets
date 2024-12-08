@@ -1,6 +1,4 @@
-﻿using MauiPets.Mvvm.Models;
-using MauiPetsApp.Core.Application.ViewModels.LookupTables;
-using System.Collections;
+﻿using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 using System.Windows.Input;
 
 namespace MauiPets.Mvvm.Behaviours.Pets;

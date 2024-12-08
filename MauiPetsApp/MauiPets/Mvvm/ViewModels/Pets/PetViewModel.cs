@@ -194,7 +194,7 @@ public partial class PetViewModel : BaseViewModel
                 await Shell.Current.GoToAsync($"//{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
                     {
-                    {"SelectedVaccine", vaccineDto}
+                        {"SelectedVaccine", vaccineDto}
                     });
 
 
@@ -209,7 +209,7 @@ public partial class PetViewModel : BaseViewModel
                 await Shell.Current.GoToAsync($"//{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
                     {
-                    {"SelectedVaccine", vaccineDto}
+                        {"SelectedVaccine", vaccineDto}
                     });
 
                 //IsBusy = false;

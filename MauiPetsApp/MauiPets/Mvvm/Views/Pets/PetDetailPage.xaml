@@ -81,7 +81,7 @@
                 <Frame Grid.Row="1" CornerRadius="30" HasShadow="True" Margin="0,5,0,5" BorderColor="Black" HeightRequest="65" WidthRequest="200">
                     <Label Style="{StaticResource LargeLabel}" 
                        FontAttributes="Bold"
-                       FontSize="18"
+                       FontSize="16"
                        TextColor="Black"
                        Text="{Binding PetVM.Nome}" 
                        HorizontalOptions="Center"

@@ -455,23 +455,6 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
 
         var petId = PetVM.Id;
 
-        //PetVaccinesVM = new ObservableCollection<VacinaVM>(
-        //    await _petVaccinesService.GetPetVaccinesVMAsync(petId)
-        //);
-
-        //PetDewormersVM = new ObservableCollection<DesparasitanteVM>(
-        //    await _petDewormersService.GetDesparasitanteVMAsync(petId)
-        //);
-
-        //PetFoodVM = new ObservableCollection<RacaoVM>(
-        //    await _petFoodService.GetRacaoVMAsync(petId)
-        //);
-
-        //PetConsultationsVM = new ObservableCollection<ConsultaVeterinarioVM>(
-        //    await _petVeterinaryAppointmentsService.GetConsultaVMAsync(petId)
-        //);
-
-
         var vaccinesTask = _petVaccinesService.GetPetVaccinesVMAsync(petId);
         var dewormersTask = _petDewormersService.GetDesparasitanteVMAsync(petId);
         var foodItemsTask = _petFoodService.GetRacaoVMAsync(petId);

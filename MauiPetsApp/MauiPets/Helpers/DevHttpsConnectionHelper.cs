@@ -4,6 +4,11 @@ namespace MauiPets.Helpers
 {
     public class DevHttpsConnectionHelper
     {
+        public int SslPort { get; }
+        public string DevServerRootUrl { get; }
+        private Lazy<HttpClient> LazyHttpClient;
+        public HttpClient HttpClient => LazyHttpClient.Value;
+
         public DevHttpsConnectionHelper(int sslPort)
         {
             SslPort = sslPort;
@@ -11,7 +16,6 @@ namespace MauiPets.Helpers
             LazyHttpClient = new Lazy<HttpClient>(() => new HttpClient(GetPlatformMessageHandler()));
         }
 
-        public int SslPort { get; }
 
         public string DevServerName =>
 #if WINDOWS
@@ -22,10 +26,6 @@ namespace MauiPets.Helpers
             throw new PlatformNotSupportedException("Only Windows and Android currently supported.");
 #endif
 
-        public string DevServerRootUrl { get; }
-
-        private Lazy<HttpClient> LazyHttpClient;
-        public HttpClient HttpClient => LazyHttpClient.Value;
 
         public HttpMessageHandler GetPlatformMessageHandler()
         {
