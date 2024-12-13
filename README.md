@@ -4,7 +4,7 @@
 
 A project for helping busy pet owners keep track of the daily, and long-term routine care of their pets.
 
-It uses C# as the development language, and was built using the .Net 7 platform.
+It uses C# as the development language, and was built using the .Net 8 platform.
 It comprises a web api that serves a desktop application (windows forms) and a web project (Blazor Server).
 
 It is up to the user to choose between the desktop (DaisyPets.UI), the web/blazor application (DaisyPets.Web.Blazor) or mobile app (DaisyPets.MauiPets).
