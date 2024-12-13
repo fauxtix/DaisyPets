@@ -9,7 +9,6 @@ It was designed with Microsoft .Net7 Maui technology
 
 ![SplashScreen](https://github.com/user-attachments/assets/26dc5f35-0b42-4f00-9265-c9cb3eff764c)
 ![HomePage](https://github.com/user-attachments/assets/cc01bcc7-bac6-46bb-b622-7679dc8f614a)
-![AppOptionsPage](https://github.com/user-attachments/assets/fcf7b839-2c81-4395-a9ae-d6926ed1188b)
 ![PetDetailPage_1](https://github.com/user-attachments/assets/dde659f8-e2ee-4bc4-9d01-8364d6fdf213)
 ![PetDetailPage_2](https://github.com/user-attachments/assets/f3cb8493-e8fe-4950-a1de-761633844abc)
 ![PetDetailPage_3](https://github.com/user-attachments/assets/4debeeb0-e81b-40e0-9e36-f4dfbdfaf575)
@@ -19,6 +18,8 @@ It was designed with Microsoft .Net7 Maui technology
 ![PetAddOrEditPage_2_2](https://github.com/user-attachments/assets/cac39949-5b9e-45df-8160-fbf1b4d5b973)
 ![PetAddOrEditPage_2_3](https://github.com/user-attachments/assets/2ba9c8fd-1372-442d-9e5f-e619fb6260fc)
 ![PetAddOrEditPage_2_4](https://github.com/user-attachments/assets/da6e8db0-6627-42c7-9207-75799f3bbefd)
+
+![AppOptionsPage](https://github.com/user-attachments/assets/fcf7b839-2c81-4395-a9ae-d6926ed1188b)
 
 ![ExpensesMainPage](https://github.com/user-attachments/assets/b5f368be-8b70-4452-a05c-97f9156bec76)
 ![ExpensesEditPage](https://github.com/user-attachments/assets/243bedb0-0c2c-4f6c-849a-521f8b6e9d54)
