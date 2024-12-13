@@ -4,6 +4,7 @@
              x:Class="MauiPets.Mvvm.Views.Pets.PetAddOrEditPage"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
              xmlns:behaviours="clr-namespace:MauiPets.Mvvm.Behaviours.Pickers"
+             xmlns:conv="clr-namespace:MauiPets.Converters"
               xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
               x:DataType="viewmodel:PetAddOrEditViewModel"
              Title="{Binding PetDto.Nome}">
@@ -142,15 +143,31 @@
                                 <Label Text="Data Nascº"
                                        Grid.Row="1"
                                        Grid.Column="0"
-                                       FontSize="12"   
+                                       FontSize="12"
 			                           VerticalOptions="Center"></Label>
-                                <DatePicker x:Name="dobPicker"
+
+                                    <DatePicker x:Name="dobPicker"
                                             Date="{Binding PetDto.DataNascimento}"
-                                            Grid.Row="1"
                                             FontSize="12"
                                             FontAttributes="Bold"
+                                            Grid.Row="1"
                                             Grid.Column="1"
                                             VerticalOptions="Center"/>
+
+                                <!--<Label Grid.Column="2"
+                                           FontSize="12"
+                                           VerticalOptions="Center">
+                                        <Label.Text>
+                                            <MultiBinding Converter="{StaticResource FormatIdadeConverter}">
+                                                <Binding Path="PetDto.DataNascimento" Converter="{StaticResource IdadeConverter}" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>-->
+                                <!--<Label Text="{Binding PetDto.DataNascimento, Converter={StaticResource IdadeConverter}}"
+                                           Grid.Column="2"
+                                           FontSize="12"   
+			                               VerticalOptions="Center"></Label>-->
+
                                 <Label Text="Doenças"
                                        Grid.Row="2"
                                        Grid.Column="0"
@@ -241,6 +258,7 @@
                                     <RowDefinition Height="40"></RowDefinition>
                                     <RowDefinition Height="40"></RowDefinition>
                                     <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="40"></RowDefinition>
                                     <RowDefinition Height="*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
@@ -262,9 +280,27 @@
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
 
-                                <Label Text="Situação" Grid.Row="1" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
+                                <Label VerticalOptions="Center" Grid.Row="1" Grid.Column="0"
+                                            FontSize="11" >Género</Label>
+                                <FlexLayout Grid.Row="1" Grid.Column="1" >
+                                    <RadioButton Grid.Column="0" x:Name="genderMale" Content="Macho" 
+                                                IsChecked="{Binding IsGenderMale, Mode=TwoWay}" FontSize="12"
+                                                GroupName="GenderType" 
+                                                CheckedChanged="GenderType_CheckedChanged"/>
+                                    <RadioButton Grid.Column="1" Content="Fêmea" 
+                                                x:Name="genderFemale"
+                                                     FontSize="12"
+                                                IsChecked="{Binding IsGenderFemale, Mode=TwoWay}"
+                                                GroupName="GenderType" 
+                                                CheckedChanged="GenderType_CheckedChanged"
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Start"/>
+                                </FlexLayout>
+
+
+                                <Label Text="Situação" Grid.Row="2" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="SituationsPicker"
-                                        Title="Escolha Situação" Grid.Row="1" Grid.Column="1"
+                                        Title="Escolha Situação" Grid.Row="2" Grid.Column="1"
                                         ItemsSource="{Binding Situations}"
                                         FontSize="12"
                                         VerticalTextAlignment="Center"
@@ -273,9 +309,9 @@
                                         SelectedIndexChanged="SelectedIndexChanged"
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
-                                <Label Text="Temperamento" Grid.Row="2" Grid.Column="0" FontSize="10"  VerticalTextAlignment="Center"></Label>
+                                <Label Text="Temperamento" Grid.Row="3" Grid.Column="0" FontSize="10"  VerticalTextAlignment="Center"></Label>
                                 <Picker x:Name="TemperamentsPicker"
-                                        Title="Escolha Temperamento" Grid.Row="2" Grid.Column="1"
+                                        Title="Escolha Temperamento" Grid.Row="3" Grid.Column="1"
                                         ItemsSource="{Binding Temperaments}" 
                                         FontSize="12"
                                         VerticalTextAlignment="Center"
@@ -285,9 +321,9 @@
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
 
-                                <Label Text="Raça" Grid.Row="3" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
+                                <Label Text="Raça" Grid.Row="4" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="BreedsPicker"
-                                        Title="Escolha Raça" Grid.Row="3" Grid.Column="1"
+                                        Title="Escolha Raça" Grid.Row="4" Grid.Column="1"
                                         ItemsSource="{Binding Breeds}"
                                         SelectedItem="{Binding SelectedBreed}"
                                         FontSize="12"
@@ -296,9 +332,9 @@
                                         SelectedIndexChanged="SelectedIndexChanged"
                                         ItemDisplayBinding="{Binding Descricao}">
                                 </Picker>
-                                <Label Text="Tamanho" Grid.Row="4" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
+                                <Label Text="Tamanho" Grid.Row="5" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="SizesPicker"
-                                        Title="Escolha Tamanho" Grid.Row="4" Grid.Column="1"
+                                        Title="Escolha Tamanho" Grid.Row="5" Grid.Column="1"
                                         ItemsSource="{Binding Sizes}" VerticalTextAlignment="Center"
                                         SelectedItem="{Binding SelectedSize}"
                                         FontSize="12"
@@ -309,7 +345,7 @@
 
                                 <!--Other Info-->
 
-                                <Grid Grid.Row="5" Grid.ColumnSpan="2" RowSpacing="1" Margin="0,5, 0, 5">
+                                <Grid Grid.Row="6" Grid.ColumnSpan="2" RowSpacing="1" Margin="0,5, 0, 5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="40"/>
                                         <RowDefinition Height="40"/>
@@ -339,33 +375,33 @@
                                                 Grid.Column="1"
                                                 Margin="0, -35, 0, 0"
                                                 VerticalOptions="Center"/>
-                                    <Label Grid.Row="3" VerticalOptions="Center" FontSize="11" Margin="0,-20, 0,0" Grid.Column="0">Esterilizado</Label>
+                                    <Label Grid.Row="3" VerticalOptions="Center" FontSize="11" 
+                                           Margin="0,-30, 0,0" Grid.Column="0">Esterilizado</Label>
                                     <Switch Grid.Row="3" Grid.Column="1"
                                             IsToggled="{Binding PetDto.Esterilizado}"
-                                            HorizontalOptions="Start" Margin="0, -20, 0, 0"
+                                            HorizontalOptions="Start" Margin="0, -30, 0, 0"
                                             VerticalOptions="Center" />
                                     <Label Grid.Row="4" VerticalOptions="Center"
-                                           Margin="0, -45, 0, 0" FontSize="11" Grid.Column="0">Padrinho</Label>
+                                           Margin="0, -60, 0, 0" FontSize="11" Grid.Column="0">Padrinho</Label>
                                     <Switch Grid.Row="4" Grid.Column="1"
                                             IsToggled="{Binding PetDto.Padrinho}"
                                             HorizontalOptions="Start" 
-                                            Margin="0, -45, 0, 0"
+                                            Margin="0, -60, 0, 0"
                                             VerticalOptions="Center" />
-
                                     <Label Text="Observações"
                                            Grid.Row="5"
                                            Grid.Column="0"
-                                           Margin="0, -25, 0, 0"
-                                           VerticalTextAlignment="Center"
+                                           Margin="0, -30, 0, 0"
+                                           VerticalTextAlignment="Start"
                                            FontSize="11">
                                     </Label>
                                     <Editor x:Name="PetNotes" AutoSize="TextChanges"
 			                                Text="{Binding PetDto.Observacoes}"
-			                                Grid.Row="5"
+			                                Grid.Row="6"
                                             Grid.Column="1"
-                                            Margin="0, -25, 0, 0"
+                                            Margin="0, -38, 0, 0"
                                             FontSize="12"   
-                                            VerticalTextAlignment="Center"
+                                            VerticalTextAlignment="Start"
                                             Keyboard="Text"
                                             IsSpellCheckEnabled="false"
                                             IsTextPredictionEnabled="True"

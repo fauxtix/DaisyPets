@@ -68,6 +68,23 @@ public partial class PetAddOrEditPage : ContentPage
         }
     }
 
+    private void GenderType_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (e.Value)
+        {
+            var selectedRadioButton = sender as RadioButton;
+
+            if (selectedRadioButton == genderMale)
+            {
+                _viewModel.Genero = "M";
+            }
+            else if (selectedRadioButton == genderFemale)
+            {
+                _viewModel.Genero = "F";
+            }
+        }
+    }
+
     private void ImageSelect_Clicked(object sender, EventArgs e)
     {
         //var images = await FilePicker.Default.PickAsync(new PickOptions

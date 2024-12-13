@@ -30,6 +30,7 @@ public partial class PetViewModel : BaseViewModel
     [ObservableProperty]
     bool isRefreshing;
 
+
     [RelayCommand]
     private async Task GetPetsAsync()
     {

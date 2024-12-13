@@ -14,7 +14,7 @@
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
     </Shell.BackButtonBehavior>
-    
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save data" Command="{Binding AddOrEditPetCommand  }"
                  IconImageSource="icon_edit.svg" />
@@ -26,6 +26,9 @@
     <ContentPage.Resources>
         <converters:NextDoseDateConverter x:Key="nextDoseDateConverter" />
         <converters:StringToDateConverter x:Key="stringToDateConverter"/>
+        <converters:IdadeConverter x:Key="IdadeConverter" />
+        <converters:FormatIdadeConverter x:Key="FormatIdadeConverter" />
+
         <ResourceDictionary>
             <Style x:Key="MediumLabelBold" TargetType="Label">
                 <Setter Property="FontSize" Value="12"/>
@@ -103,8 +106,25 @@
                                 <ColumnDefinition Width="120" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MediumLabel}" >Data Nascº</Label>
-                            <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}"  Text="{Binding PetVM.DataNascimento, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}" />
+
+                            <Grid Grid.Row="0" ColumnDefinitions="120, 120, 120">
+                                <Label Text="Data Nascº"
+                                       Style="{StaticResource MediumLabel}"/>
+                                <Label Grid.Column="1" 
+                                       Style="{StaticResource MediumLabelBold}"
+                                       Text="{Binding PetVM.DataNascimento, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}" />
+                                <Label Grid.Column="2"
+                                       FontSize="12" 
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center">
+                                    <Label.Text>
+                                        <MultiBinding Converter="{StaticResource FormatIdadeConverter}">
+                                            <Binding Path="PetVM.DataNascimento" Converter="{StaticResource IdadeConverter}" />
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </Grid>
+
                             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Espécie</Label>
                             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.EspecieAnimal}" />
                             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Género</Label>
@@ -153,7 +173,10 @@
                             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabel}" >Código Chip</Label>
                             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.NumeroChip}" />
                             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabel}" >Data Chip</Label>
-                            <Label Grid.Row="2" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DataChip, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}" />
+                            <Label Grid.Row="2" 
+                                   Grid.Column="1" 
+                                   Style="{StaticResource MediumLabelBold}" 
+                                   Text="{Binding PetVM.DataChip, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}" />
                             <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="0" Style="{StaticResource MediumLabel}" >Esterilizado</Label>
                             <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Sterilized}" />
                             <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabel}" >Padrinho</Label>
@@ -205,10 +228,10 @@
                                             x:Name="VaccinesView"
                                             ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=PetVaccinesVM}" 
                                             SelectionMode="Single">
-                                            <CollectionView.EmptyView>
-                                                <StackLayout Grid.Column="1" 
+                                        <CollectionView.EmptyView>
+                                            <StackLayout Grid.Column="1" 
                                                      Padding="10">
-                                                    <Image
+                                                <Image
                                                             HorizontalOptions="Center"
                                                             HeightRequest="80"
                                                             WidthRequest="80"

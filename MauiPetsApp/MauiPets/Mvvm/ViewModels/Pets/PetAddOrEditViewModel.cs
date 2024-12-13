@@ -53,6 +53,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
         get { return selectedPickerName; }
         set { SetProperty(ref selectedPickerName, value); }
     }
+
     public IPetService _petService { get; set; }
     public ILookupTableService _lookupTablesService { get; set; }
 
@@ -84,6 +85,10 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
             EditCaption = query[nameof(EditCaption)] as string;
             IsEditing = (bool)query[nameof(IsEditing)];
             PetPhoto = PetDto.Foto;
+
+            var genderType = PetDto.Genero;
+            IsGenderMale = genderType == "M";
+            IsGenderFemale = genderType == "F";
         }
         catch (Exception ex)
         {
@@ -119,10 +124,17 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
                 return;
             }
 
+            if (PetDto.Id == 0 && (IsGenderMale || IsGenderFemale))
+            {
+                PetDto.Genero = IsGenderMale ? "M" : "F";
+            }
+
             PetDto.Foto = PetPhoto;
 
             if (PetDto.Id == 0)
             {
+                PetDto.Genero = IsGenderMale ? "M" : "F";
+
                 var insertedId = await _petService.InsertAsync(PetDto);
                 if (insertedId == -1)
                 {
@@ -143,6 +155,8 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
             }
             else
             {
+                PetDto.Genero = IsGenderMale ? "M" : "F";
+
                 await _petService.UpdateAsync(PetDto.Id, PetDto);
                 var petVM = await _petService.GetPetVMAsync(PetDto.Id);
                 ShowToastMessage("Registo atualizado com sucesso");
