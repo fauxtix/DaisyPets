@@ -19,7 +19,7 @@ It was designed with Microsoft .Net 8 Maui technology
 ![PetAddOrEditPage_2_3](https://github.com/user-attachments/assets/2ba9c8fd-1372-442d-9e5f-e619fb6260fc)
 ![PetAddOrEditPage_2_4](https://github.com/user-attachments/assets/da6e8db0-6627-42c7-9207-75799f3bbefd)
 
-###### Opções da app
+##### Opções da app
 
 ![AppOptionsPage](https://github.com/user-attachments/assets/fcf7b839-2c81-4395-a9ae-d6926ed1188b)
 
