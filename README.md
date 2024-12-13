@@ -32,7 +32,7 @@ For the Blazor project, the syncfusion packages (community edition) were chosen.
   
 - Expenses management (with selection of categories and sub-categories);
 - Blog entries (web project) - user entries / from url's;
-- Todo lists (web project);
+- Todo lists;
 - Photo gallery (desktop project, for now);
 - Contacts management;
 - Scheduler/agenda (web project).
