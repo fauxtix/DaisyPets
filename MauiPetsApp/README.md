@@ -7,8 +7,7 @@ It was designed with Microsoft .Net7 Maui technology
 
 # Screenshots
 
-
-![AppLoading](https://github.com/fauxtix/DaisyPets/assets/49880538/500a3fa0-078c-4d5d-9f03-3861c2de1402)
+![SplashScreen](https://github.com/user-attachments/assets/26dc5f35-0b42-4f00-9265-c9cb3eff764c)
 ![HomePage](https://github.com/user-attachments/assets/cc01bcc7-bac6-46bb-b622-7679dc8f614a)
 ![AppOptionsPage](https://github.com/user-attachments/assets/fcf7b839-2c81-4395-a9ae-d6926ed1188b)
 ![PetDetailPage_1](https://github.com/user-attachments/assets/dde659f8-e2ee-4bc4-9d01-8364d6fdf213)
