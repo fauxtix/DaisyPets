@@ -16,7 +16,7 @@
         <ToolbarItem Text="Save data" Command="{Binding AddOrEditContactCommand  }"
                  IconImageSource="icon_edit.svg" />
         <ToolbarItem Text="Delete contact" Command="{Binding DeleteContactCommand  }"
-                 IconImageSource="icon_delete.svg" />
+                 IconImageSource="delete_32.png" />
         <ToolbarItem Text="Return" Command="{Binding GoBackCommand  }"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>

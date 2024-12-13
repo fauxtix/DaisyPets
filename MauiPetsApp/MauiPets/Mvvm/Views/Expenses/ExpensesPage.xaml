@@ -18,7 +18,7 @@
 
         <Style x:Key="ExpensesFilterButtonStyle" TargetType="Button">
             <Setter Property="FontSize" Value="11" />
-            <Setter Property="FontFamily" Value="Poppins" />
+            <Setter Property="FontFamily" Value="PoppinsSemiBold" />
             <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="30" />
             <Setter Property="WidthRequest" Value="100" />
@@ -100,7 +100,7 @@
                                 Margin="5,0" />
                             <Button Text="Todas"
                                 Command="{Binding GetExpensesCommand}"
-                                BackgroundColor="#f1c40f"
+                                BackgroundColor="#f1c40f" TextColor="Black"
                                 Style="{StaticResource ExpensesFilterButtonStyle}"
                                 WidthRequest="100"
                                 Margin="5,0" />

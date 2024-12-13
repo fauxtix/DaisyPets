@@ -4,7 +4,7 @@
              x:Class="SendEmail.Views.EmailFormPage"
              xmlns:viewModel="clr-namespace:MauiPets.Mvvm.ViewModels.Email"
              x:DataType="viewModel:EmailViewModel"
-             Title="Form Email">
+             Title="Logs">
 
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
