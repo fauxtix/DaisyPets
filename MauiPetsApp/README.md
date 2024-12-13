@@ -30,7 +30,7 @@ It was designed with Microsoft .Net 8 Maui technology
 ![ExpensesEdit_DeleteExpensePage](https://github.com/user-attachments/assets/8669fb15-cd88-47e8-bcf5-884c6d90f8ca)
 ![Expenses_Group_Page](https://github.com/user-attachments/assets/872c1632-6746-4d67-8baf-43f83c45520e)
 
-##### Contacts
+### Contacts
 
 ![ContactsMainPage](https://github.com/user-attachments/assets/e145f13b-6f82-415f-813a-39aadd3a2e7d)
 ![ContactsDetailPage](https://github.com/user-attachments/assets/ef499037-6d9d-44f9-a0ce-89afce54d34c)
@@ -38,20 +38,20 @@ It was designed with Microsoft .Net 8 Maui technology
 ![ContactsEditPage](https://github.com/user-attachments/assets/6f13f976-2712-4cbf-806a-ae574749e38f)
 ![ContactsEdit_Delete_Page](https://github.com/user-attachments/assets/4a718e6f-6de3-4367-93d3-94bd0028b916)
 
-##### ToDo List
+### ToDo List
 
 ![TodoListMainPage](https://github.com/user-attachments/assets/a173456e-e66f-4ab8-9bd7-34923f5b0d73)
 ![TodoListEditPage](https://github.com/user-attachments/assets/b54614d3-74c5-4af9-b831-ab78e035f81f)
 ![TodoListPendingPage](https://github.com/user-attachments/assets/8222bd72-1e9e-4e39-82ff-fe877c93fb05)
 
-##### Settings
+### Settings
 
 ![SettingsPage_1](https://github.com/user-attachments/assets/1bafe3dc-e6e3-4e4b-80ef-63ca8a95a574)
 ![SettingsPage_2](https://github.com/user-attachments/assets/4d9802c5-0802-4618-ab50-fb9418786677)
 ![SettingsPage_2_1](https://github.com/user-attachments/assets/bdd7b2ea-747d-407e-8804-1df772c28421)
 ![SettingsPage_2_2](https://github.com/user-attachments/assets/705060fc-4025-4cb2-a0ce-e3d314fd0c28)
 
-##### Logs
+### Logs
 
 ![LogsMainPage](https://github.com/user-attachments/assets/11b31434-366c-42e2-b7f1-82f044831403)
 ![Logs_2_Page](https://github.com/user-attachments/assets/f9ca7961-e558-4bd3-9a8b-5aa06956bc97)
