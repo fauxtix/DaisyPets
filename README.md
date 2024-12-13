@@ -35,13 +35,15 @@ For the Blazor project, the syncfusion packages (community edition) were chosen.
 - Todo lists;
 - Photo gallery (desktop project, for now);
 - Contacts management;
-- Scheduler/agenda (web project).
+- Scheduler/agenda (web project);
+- App Settings;
+- Logs management.
 
-# Screenshots (Windows forms)
-For the web project screenshots, please navigate to the DaisyPets.Web.Blazor project.
+# Screenshots 
+- For the web project screenshots, please navigate to the DaisyPets.Web.Blazor project.
+- For the Maui project screenshots, navigate to 'MauiPetsApp'.
 
-For the Maui project screenshots, navigate to 'MauiPetsApp'.
-
+# Windows forms
 ![main](https://github.com/fauxtix/DaisyPets/assets/49880538/54768f18-9e6d-44f3-8a27-c4cffb7bbae7)
 ![Pets](https://github.com/fauxtix/DaisyPets/assets/49880538/e9d904d9-1a33-415f-b12e-0833f17e8b85)
 ![PetDocuments](https://github.com/fauxtix/DaisyPets/assets/49880538/a6eebe33-7f55-4a86-a708-3152a895f176)
