@@ -2,7 +2,7 @@
 
 This is the front-end for the mobile project (work in progress).
 
-It was designed with Microsoft .Net7 Maui technology
+It was designed with Microsoft .Net8 Maui technology
 
 
 # Screenshots
