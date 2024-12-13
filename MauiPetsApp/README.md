@@ -56,6 +56,6 @@ It was designed with Microsoft .Net 8 Maui technology
 ![LogsMainPage](https://github.com/user-attachments/assets/11b31434-366c-42e2-b7f1-82f044831403)
 ![Logs_2_Page](https://github.com/user-attachments/assets/f9ca7961-e558-4bd3-9a8b-5aa06956bc97)
 ![Logs_3_Page](https://github.com/user-attachments/assets/047426d0-55dd-43e2-82a6-99bfeca6252e)
+![Logs_DeleteAll_Page](https://github.com/user-attachments/assets/b572309d-07f4-4069-a62a-e8ab53112d65)
 ![Logs_3_SendEmail_Android_Page](https://github.com/user-attachments/assets/6fd7a63a-b87d-478e-8e4b-4825af9c6e4b)
 ![Logs_3_GMail_Entry](https://github.com/user-attachments/assets/b84271c1-a1de-4fd8-8012-129e72cf7215)
-![Logs_DeleteAll_Page](https://github.com/user-attachments/assets/b572309d-07f4-4069-a62a-e8ab53112d65)
