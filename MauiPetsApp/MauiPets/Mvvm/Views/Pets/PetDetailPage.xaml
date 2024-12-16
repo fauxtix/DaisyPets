@@ -16,11 +16,11 @@
     </Shell.BackButtonBehavior>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save data" Command="{Binding AddOrEditPetCommand  }"
+        <ToolbarItem Command="{Binding AddOrEditPetCommand  }"
                  IconImageSource="icon_edit.svg" />
-        <ToolbarItem Text="Delete Pet" Command="{Binding DeletePetCommand  }"
+        <ToolbarItem Command="{Binding DeletePetCommand  }"
                  IconImageSource="icon_delete.svg" />
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand  }"
+        <ToolbarItem Command="{Binding GoBackCommand  }"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
@@ -107,7 +107,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <Grid Grid.Row="0" ColumnDefinitions="120, 120, 120">
+                            <Grid Grid.Row="0" ColumnDefinitions="120, 100, 140">
                                 <Label Text="Data Nascº"
                                        Style="{StaticResource MediumLabel}"/>
                                 <Label Grid.Column="1" 
@@ -196,7 +196,7 @@
                     HorizontalOptions="FillAndExpand">
 
                     <mct:Expander Padding="6" Margin="2"
-                                  IsExpanded="false"  >
+                                  IsExpanded="true"  >
                         <mct:Expander.Header>
                             <Frame 
                                     BorderColor="Black"
@@ -297,7 +297,7 @@
                     HorizontalOptions="FillAndExpand">
 
                     <mct:Expander Padding="6" Margin="2"
-                                  IsExpanded="false" IsClippedToBounds="True" >
+                                  IsExpanded="true" IsClippedToBounds="True" >
                         <mct:Expander.Header>
                             <Frame 
                             BorderColor="Black"
@@ -393,7 +393,7 @@
                     HorizontalOptions="FillAndExpand">
 
                     <mct:Expander Padding="6" Margin="2"
-                                  IsExpanded="false" IsClippedToBounds="True" >
+                                  IsExpanded="true" IsClippedToBounds="True" >
                         <mct:Expander.Header>
                             <Frame 
                                 BorderColor="Black"
@@ -483,7 +483,7 @@
                     Margin="2"
                     HorizontalOptions="FillAndExpand">
                     <mct:Expander Padding="6" Margin="2"
-                                  IsExpanded="false" IsClippedToBounds="True" >
+                                  IsExpanded="True" IsClippedToBounds="True" >
                         <mct:Expander.Header>
                             <Frame 
                                     BorderColor="Black"

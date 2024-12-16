@@ -34,7 +34,7 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Pet" Command="{Binding AddPetCommand}" IconImageSource="add.png" />
+        <ToolbarItem Command="{Binding AddPetCommand}" IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
 
     <Grid>

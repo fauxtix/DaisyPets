@@ -14,9 +14,9 @@
 
     <ContentPage.ToolbarItems>
         
-        <ToolbarItem Text="Save data" Command="{Binding SavePetFoodCommand}"                     
+        <ToolbarItem Command="{Binding SavePetFoodCommand}"                     
                      IconImageSource="icon_save.png" />
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+        <ToolbarItem Command="{Binding GoBackCommand}"
                      IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
     

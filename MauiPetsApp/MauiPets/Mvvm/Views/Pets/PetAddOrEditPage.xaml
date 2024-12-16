@@ -29,11 +29,11 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save data" Command="{Binding SavePetDataCommand  }"
+        <ToolbarItem  Command="{Binding SavePetDataCommand  }"
                  IconImageSource="icon_save.png" />
-        <ToolbarItem Text="Delete Pet" Command="{Binding DeletePetCommand  }"
+        <ToolbarItem Command="{Binding DeletePetCommand  }"
                  IconImageSource="icon_delete.svg" />
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand  }"
+        <ToolbarItem Command="{Binding GoBackCommand  }"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
 
@@ -239,7 +239,8 @@
                         Padding="8,4"
                         Margin="4"
                         HorizontalOptions="FillAndExpand">
-                    <mct:Expander Padding="10" Margin="3">
+                    <mct:Expander Padding="10" Margin="3"
+                                  IsExpanded="True">
                         <mct:Expander.Header>
                             <Frame 
                             BorderColor="Black"

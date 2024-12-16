@@ -34,11 +34,10 @@
     </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Grouped Expenses"
-                 Command="{Binding NavigateToGroupedExpensesCommand}" 
+        <ToolbarItem Command="{Binding NavigateToGroupedExpensesCommand}" 
                  IconImageSource="filter.png">
         </ToolbarItem>
-        <ToolbarItem Text="Add Expense" Command="{Binding AddExpenseCommand}" 
+        <ToolbarItem Command="{Binding AddExpenseCommand}" 
                      CommandParameter="{Binding .}" 
                      IconImageSource="add.png" />
     </ContentPage.ToolbarItems>

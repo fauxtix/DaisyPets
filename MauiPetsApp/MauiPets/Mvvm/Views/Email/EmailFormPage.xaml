@@ -11,7 +11,7 @@
     </Shell.BackButtonBehavior>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+        <ToolbarItem Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
 

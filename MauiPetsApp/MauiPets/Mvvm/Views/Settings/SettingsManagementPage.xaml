@@ -14,8 +14,8 @@
     </Shell.BackButtonBehavior>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add entry" Command="{Binding AddLookupTableDataCommand}" IconImageSource="add.png" />
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}" IconImageSource="icon_close.svg" />
+        <ToolbarItem Command="{Binding AddLookupTableDataCommand}" IconImageSource="add.png" />
+        <ToolbarItem Command="{Binding GoBackCommand}" IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
 
     <Grid Margin="5, 25, 5, 5" Padding="5">

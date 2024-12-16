@@ -28,7 +28,7 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<Copyright>2024 Fausto Luis</Copyright>
-		<PackageIcon>DaisyPetsPingImage.jpg</PackageIcon>
+		<PackageIcon>dogfood.png</PackageIcon>
 		<Description>Helping busy pet owners keep track of the daily care of their pets.</Description>
 		<PlatformTarget>AnyCPU</PlatformTarget>
 	</PropertyGroup>
@@ -341,13 +341,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="..\..\..\..\Users\User\OneDrive\Desktop\DaisyPets_Docs\Images\DaisyPetsPingImage.jpg">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.2" />
@@ -475,6 +468,10 @@
 	<ItemGroup>
 	  <None Update="PetsDB.db">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Resources\Images\dogfood.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
 	  </None>
 	</ItemGroup>
 

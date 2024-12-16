@@ -31,7 +31,7 @@
     </ContentPage.Behaviors>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="todoView" Text="Add Todo" Command="{Binding AddTodoCommand}"
+        <ToolbarItem x:Name="todoView" Command="{Binding AddTodoCommand}"
                      CommandParameter="{Binding .}"
                      IconImageSource="add.png" />
     </ContentPage.ToolbarItems>

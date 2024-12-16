@@ -18,8 +18,7 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete All"
-                 Command="{Binding DeleteAllLogsCommand}" 
+        <ToolbarItem Command="{Binding DeleteAllLogsCommand}" 
                  IconImageSource="icon_delete.svg" />
     </ContentPage.ToolbarItems>
 

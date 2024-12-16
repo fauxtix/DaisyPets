@@ -13,7 +13,7 @@
         <toolkit:EventToCommandBehavior Command="{Binding GetContactsCommand}" EventName="Appearing" />
     </ContentPage.Behaviors>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Contact" Command="{Binding AddContactCommand}"
+        <ToolbarItem Command="{Binding AddContactCommand}"
                  IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
 

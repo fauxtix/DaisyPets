@@ -10,9 +10,9 @@
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
     </Shell.BackButtonBehavior>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save data" Command="{Binding SaveCategoryTypeCommand  }"
+        <ToolbarItem Command="{Binding SaveCategoryTypeCommand  }"
                  IconImageSource="icon_save.png" />
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+        <ToolbarItem Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
 

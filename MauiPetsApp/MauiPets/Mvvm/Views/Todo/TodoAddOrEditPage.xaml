@@ -27,13 +27,12 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save" Command="{Binding SaveTodoCommand  }"
+        <ToolbarItem Command="{Binding SaveTodoCommand  }"
                  IconImageSource="icon_save.png" />
-        <ToolbarItem Text="Delete" 
-                     Command="{Binding DeleteTodoCommand  }"
+        <ToolbarItem Command="{Binding DeleteTodoCommand  }"
                      IsEnabled="{Binding IsEditing}"
                      IconImageSource="icon_delete.svg" />
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+        <ToolbarItem Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
 

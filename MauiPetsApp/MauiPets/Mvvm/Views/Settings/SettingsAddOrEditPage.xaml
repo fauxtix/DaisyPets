@@ -34,9 +34,9 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Save data" Command="{Binding SaveLookupDataCommand  }"
+        <ToolbarItem Command="{Binding SaveLookupDataCommand  }"
                  IconImageSource="icon_save.png" />
-        <ToolbarItem Text="Return" Command="{Binding GoBackCommand}"
+        <ToolbarItem Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
     <VerticalStackLayout Margin="2, 10, 0, 0">
