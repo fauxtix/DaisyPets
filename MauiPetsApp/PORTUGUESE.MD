@@ -31,7 +31,7 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 - **Serilog** - Biblioteca para log de informações de qualquer aplicação . NET, que trabalha com Sinks como base. 
   O Serilog em sí, é uma estrutura que nos permite guardar quaisquer tipos de informação, de forma organizada, durante a execução da aplicação;
 - **AutoMapper** - Biblioteca que realiza a tarefa de mapeamento de um objeto (classe) para outro;
-- **FluentValidation **- Biblioteca que permite criar validações de dados de forma simples e rápida para os programadores. 
+- **FluentValidation ** - Biblioteca que permite criar validações de dados de forma simples e rápida para os programadores. 
   Com ela, podemos usar expressões Lambda para “construir regras de validações” com retorno de mensagem de erro para cada propriedade das entidades.
 - Outras
 
