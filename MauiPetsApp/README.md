@@ -1,7 +1,7 @@
 # Daisy Pets / Mobile 🐶🐱
 
 
-- [Portuguese](./Portuguese.MD)
+- [Portuguese](./PORTUGUESE.MD)
 
 A project for helping busy pet owners keep track of the daily, and long-term routine care of their pets.
 
