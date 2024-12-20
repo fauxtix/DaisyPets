@@ -17,10 +17,10 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 - Registar vacinas, visitas ao veterinário, aplicação de desparasitantes e dosagem de alimentação (ração) ;
 - Alertas para vacinas e aplicação de desparasitantes, que possam ocorrer dentro de 15 ou 30 dias.
 - Gestão de despesas (com seleção de categorias e subcategorias);
-- Listas de tarefas;
-- Gestão de contactos;
-- Definições da app;
-- Gestão de Logs.
+- Gestão de lista de Tarefas - gerir compromissos importantes, como consultas veterinárias, administração de medicamentos, vacinas, compras de ração e produtos essenciais, entre outros;
+- Gestão de contactos, com opção de visualização em mapa;
+- Definições da app (tabelas de referência, categorias/sub-categorias de despesas);
+- Gestão de Logs (análise e resolução de problemas).
 
 # Tecnologias Utilizadas
 
