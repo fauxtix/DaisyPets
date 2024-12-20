@@ -11,23 +11,17 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 # Funcionalidades Principais
 
 - Fácil de usar
-- Simples de carregar documentos relacionados com o animal (registos médicos, por exemplo) e outros que possam ser aplicáveis;
-
-- Registar vacinas, visitas ao veterinário, vermífugos, dosagem de alimentação e documentos (relatórios de exames, análises de sangue e urina, entre outros que possam ser aplicáveis);
+- Registar vacinas, visitas ao veterinário, desparasitantes e dosagem de alimentação (ração) ;
 - Alertas para vacinas e aplicação de vermífugos, que possam ocorrer dentro de 15 ou 30 dias.
-  
 - Gestão de despesas (com seleção de categorias e subcategorias);
-- Publicações no blog (projeto web) - entradas do utilizador / de URLs;
 - Listas de tarefas;
-- Galeria de fotos (projeto de desktop, por enquanto);
 - Gestão de contactos;
-- Agendador/agenda (projeto web);
 - Definições da app;
 - Gestão de registos.
 
 ## 🌟 Contribuir
 
-As contribuições para o projeto Daisy Pets são bem-vindas! Se encontrar algum problema ou tiver sugestões de melhorias, por favor, abra uma issue no repositório do GitHub: https://github.com/fauxtix/DaisyPets/issues
+As contribuições para o projeto **MauiPets** são bem-vindas! Se encontrar algum problema ou tiver sugestões de melhorias, por favor, abra uma issue no repositório do GitHub: https://github.com/fauxtix/DaisyPets/issues
 
 Faça um fork do projeto (https://github.com/fauxtix/DaisyPets/fork)
 
