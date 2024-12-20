@@ -15,11 +15,10 @@ The ORM chosen to work with the database was Dapper, due to its ease of use and 
 # Key Features
 
 - Easy to use
-- Record vaccinations, visits to the vet, dewormers and feed dosage;
-- Alerts for vaccines and application of dewormers, that may be occurring within 15 or 30 days.
-  
+- Record vaccinations, visits to the vet, applying dewormers and feed dosage;
+- Alerts for vaccines and application of dewormers, that may be occurring within 15 or 30 days.  
 - Expenses management (with selection of categories and sub-categories);
-- Todo lists;
+- Todo lists management;
 - Contacts management;
 - App Settings;
 - Logs management.
