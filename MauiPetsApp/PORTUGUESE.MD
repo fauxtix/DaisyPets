@@ -22,6 +22,17 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 - Definições da app;
 - Gestão de Logs.
 
+# Tecnologias Utilizadas
+
+- C# 
+- .NET 8 MAUI - Framework para construir aplicações móveis multiplataforma para Android, iOS, MacOS e Windows;
+- SQLite - Base de dados local para armazenar os vários objetos/entidades usados na app;
+- CommunityToolkit.Maui/MVVM - Bibliotecas para simplificar o desenvolvimento de aplicações móveis com MAUI;
+- Serilog - Biblioteca para log de informações de qualquer aplicação . NET, que trabalha com Sinks como base. O Serilog em sí, é uma estrutura que nos permite guardar quaisquer tipos de informação, de forma organizada, durante a execução da aplicação;
+- AutoMapper - Biblioteca que realiza a tarefa de mapeamento de um objeto (classe) para outro;
+- FluentValidation - Biblioteca que permite criar validações de dados de forma simples e rápida para os programadores. Com ela, podemos usar expressões Lambda para “construir regras de validações” com retorno de mensagem de erro para cada propriedade das entidades.
+- Outras
+
 # Screenshots
 
 # Screenshots
