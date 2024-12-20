@@ -1,4 +1,4 @@
-# Daisy Pets 🐶🐱
+# Daisy Pets / Mobile 🐶🐱
 
 A project for helping busy pet owners keep track of the daily, and long-term routine care of their pets.
 
