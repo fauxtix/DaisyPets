@@ -24,8 +24,8 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 
 # Tecnologias Utilizadas
 
-- C# 
-- .NET 8 MAUI - Framework para construir aplicações móveis multiplataforma para Android, iOS, MacOS e Windows;
+- **C#**
+- **.NET 8 MAUI** - Framework para construir aplicações móveis multiplataforma para Android, iOS, MacOS e Windows;
 - SQLite - Base de dados local para armazenar os vários objetos/entidades usados na app;
 - CommunityToolkit.Maui/MVVM - Bibliotecas para simplificar o desenvolvimento de aplicações móveis com MAUI;
 - Serilog - Biblioteca para log de informações de qualquer aplicação . NET, que trabalha com Sinks como base. O Serilog em sí, é uma estrutura que nos permite guardar quaisquer tipos de informação, de forma organizada, durante a execução da aplicação;
