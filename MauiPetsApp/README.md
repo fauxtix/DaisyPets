@@ -1,5 +1,8 @@
 # Daisy Pets / Mobile 🐶🐱
 
+
+- [Portuguese](./Portuguese.MD)
+
 A project for helping busy pet owners keep track of the daily, and long-term routine care of their pets.
 
 It uses C# as the development language, and was built using the .Net 8 platform.
