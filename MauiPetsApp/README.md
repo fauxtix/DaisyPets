@@ -18,7 +18,8 @@ The ORM chosen to work with the database was Dapper, due to its ease of use and 
 - Record vaccinations, visits to the vet, applying dewormers and feed dosage;
 - Alerts for vaccines and application of dewormers, that may be occurring within 15 or 30 days.  
 - Expenses management (with selection of categories and sub-categories);
-- Todo lists management;
+- Todo lists managemen - This feature allows pet owners to organize and track all activities related to the care of their pets in a practical and efficient way.
+  Through task lists, you can manage important commitments such as vet appointments, medication administration, vaccinations, pet food and essential product purchases, and more;
 - Contacts management;
 - App Settings;
 - Logs management.
