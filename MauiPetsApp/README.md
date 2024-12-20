@@ -24,6 +24,17 @@ The ORM chosen to work with the database was Dapper, due to its ease of use and 
 - App Settings;
 - Logs management.
 
+# Technologies used
+
+- C# 
+- .NET 8 MAUI - Framework for building cross-platform mobile applications for Android, iOS, MacOS and Windows;
+- SQLite - Local database for storing the various objects/entities used in the app;
+- CommunityToolkit.Maui/MVVM - Libraries to simplify the development of mobile applications with MAUI;
+- Serilog - Library for logging information from any . NET application, which works with Sinks as a base. Serilog itself is a structure that allows us to store any type of information in an organised way during the execution of the application;
+- AutoMapper - Library that performs the task of mapping one object (class) to another;
+- FluentValidation - A library that allows programmers to create data validations quickly and easily. With it, we can use Lambda expressions to ‘build validation rules’ with error message returns for each property of the entities.
+- Other
+
 # Screenshots
 
 ![SplashScreen](https://github.com/user-attachments/assets/26dc5f35-0b42-4f00-9265-c9cb3eff764c)
