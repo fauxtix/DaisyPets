@@ -38,13 +38,13 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 
 As contribuições para o projeto **MauiPets** são bem-vindas! Se encontrar algum problema ou tiver sugestões de melhorias, por favor, abra uma issue no repositório do GitHub: https://github.com/fauxtix/DaisyPets/issues
 
-Faça um fork do projeto (https://github.com/fauxtix/DaisyPets/fork)
+Faça um fork do projeto (https://github.com/fauxtix/DaisyPets/MauiPetsApp/fork)
 
-Crie um ramo para a sua modificação (git checkout -b fauxtix/DaisyPets)
+Crie um ramo para a sua modificação (git checkout -b fauxtix/DaisyPets/MauiPetsApp(MauiPetsApp)
 
 Commit (git commit -am 'Adicionar algum fooBar')
 
-Push_ (git push origin fauxtix/DaisyPets)
+Push_ (git push origin fauxtix/DaisyPets/MauiPetsApp)
 
 Crie um novo Pull Request
 
