@@ -12,12 +12,12 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 
 - Fácil de usar
 - Registar vacinas, visitas ao veterinário, desparasitantes e dosagem de alimentação (ração) ;
-- Alertas para vacinas e aplicação de vermífugos, que possam ocorrer dentro de 15 ou 30 dias.
+- Alertas para vacinas e aplicação de desparasitantes, que possam ocorrer dentro de 15 ou 30 dias.
 - Gestão de despesas (com seleção de categorias e subcategorias);
 - Listas de tarefas;
 - Gestão de contactos;
 - Definições da app;
-- Gestão de registos.
+- Gestão de Logs.
 
 ## 🌟 Contribuir
 
