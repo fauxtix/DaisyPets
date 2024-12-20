@@ -156,6 +156,16 @@
 			                Grid.Row="13"
                             Keyboard="Plain"  
 			                VerticalOptions="StartAndExpand"></Editor>
+                    
+                    <Grid HorizontalOptions="Center" VerticalOptions="Center" 
+                      Grid.RowSpan="14">
+                        <ActivityIndicator                
+                            IsRunning="{Binding IsBusy}" 
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center" 
+                            BackgroundColor="Transparent"
+                            Color="#03b48b"/>
+                    </Grid>
                 </Grid>
             </Border>
         </VerticalStackLayout>

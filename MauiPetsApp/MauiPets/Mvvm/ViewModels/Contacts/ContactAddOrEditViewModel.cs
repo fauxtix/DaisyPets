@@ -66,6 +66,7 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
     [RelayCommand]
     async Task SaveContactData()
     {
+        IsBusy = true;
         try
         {
 
@@ -119,12 +120,15 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
         {
             await ShowToastMessage($"Error while creating Contact ({ex.Message})");
         }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     [RelayCommand]
     private void UpdateContactType(int contactId)
     {
-        // Verificar se a raça selecionada é diferente da anterior
         if (contactId != SelectedContactId)
         {
             SelectedContactId = contactId;
@@ -136,17 +140,26 @@ public partial class ContactAddOrEditViewModel : BaseViewModel, IQueryAttributab
     [RelayCommand]
     async Task GoBack()
     {
-        if (ContactoVM.Id > 0)
+        IsBusy = true;
+        try
         {
-            await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
-                new Dictionary<string, object>
-                {
-                {"ContactoVM", ContactoVM},
-                });
+            if (ContactoVM.Id > 0)
+            {
+                await Shell.Current.GoToAsync($"{nameof(ContactDetailPage)}", true,
+                    new Dictionary<string, object>
+                    {
+                        {"ContactoVM", ContactoVM},
+                    });
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"//{nameof(ContactsPage)}", true);
+            }
+
         }
-        else
+        finally
         {
-            await Shell.Current.GoToAsync($"//{nameof(ContactsPage)}", true);
+            IsBusy = false;
         }
     }
 

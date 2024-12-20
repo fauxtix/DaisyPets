@@ -4,7 +4,6 @@ using DaisyPets.Core.Application.ViewModels.LookupTables;
 using DaisyPets.Core.Application.ViewModels.Pdfs;
 using DaisyPets.UI.ApiServices;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Syncfusion.Windows.Forms;
 using System.Collections;
 using System.Configuration;
@@ -504,6 +503,7 @@ namespace DaisyPets.UI
             comboBox.Items.Clear();
             var lookupEndpoint = AccessSettingsService.LookupTablesEndpoint;
             string url = $"{lookupEndpoint}/GetAllRecords/{dataTable}";
+
             var response = httpClient.GetFromJsonAsync<IEnumerable<LookupTableVM>>(url).Result;
 
             if (response != null)

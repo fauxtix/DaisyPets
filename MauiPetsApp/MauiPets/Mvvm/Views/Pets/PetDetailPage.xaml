@@ -573,8 +573,8 @@
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Fill"
                     IsRunning="{Binding IsBusy}"
-                    IsVisible="{Binding IsBusy}"
-                    Color="{StaticResource Primary}"
+                    
+                    Color="#03b48b"
                     VerticalOptions="Center" />
     </Grid>
 </ContentPage>

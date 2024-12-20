@@ -43,21 +43,34 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         [RelayCommand]
         async Task GoBack()
         {
-            var petId = SelectedPetFood.IdPet;
-            if (petId > 0)
+            IsBusy = true;
+            try
             {
-                var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
-
-                if (response is not null)
+                var petId = SelectedPetFood.IdPet;
+                if (petId > 0)
                 {
-                    PetVM pet = response as PetVM;
+                    var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
 
-                    await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
-                        new Dictionary<string, object>
-                        {
+                    if (response is not null)
+                    {
+                        PetVM pet = response as PetVM;
+
+                        await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
+                            new Dictionary<string, object>
+                            {
                             {"PetVM", pet },
-                        });
+                            });
+                    }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error while 'GoBack (PetFoodAddOrEdit", ex.Message, "Ok");
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 

@@ -66,6 +66,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
 
     public async void GetLookupData(string tableName)
     {
+        IsBusy = true;
         try
         {
             var result = (await _lookupTablesService.GetLookupTableData(tableName)).ToList();
@@ -94,6 +95,7 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         }
         finally
         {
+            IsBusy = false;
         }
     }
 
@@ -186,7 +188,16 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
     [RelayCommand]
     async Task GoBack()
     {
-        await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}");
+        IsBusy = true;
+        try
+        {
+            await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}");
+
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     private async void ShowToastMessage(string text)

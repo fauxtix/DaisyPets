@@ -79,15 +79,12 @@
 	
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4">
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#CD9E03" BaseSize="128,128">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiIcon>
-		<MauiSplashScreen Include="Resources\Splash\daisypetsbing.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</MauiSplashScreen>
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\daisypetsbing_min.png" Color="#4682B4" BaseSize="128,128">
+		<MauiSplashScreen Include="Resources\Splash\daisypetsbing_min.png" Color="#1E9ACC" BaseSize="128,128">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiSplashScreen>
 		<!--<MauiSplashScreen Include="Resources\Splash\splash.svg">

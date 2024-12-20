@@ -456,9 +456,9 @@ namespace DaisyPets.UI
 
         }
 
-        private void btnInfo_Click(object sender, EventArgs e)
+        private async void btnInfo_Click(object sender, EventArgs e)
         {
-            var file = GetVaccines_InfoPdf();
+            var file = await GetVaccines_InfoPdf();
             if (!string.IsNullOrEmpty(file))
             {
                 FormParameters.NomePdf = file;
@@ -468,20 +468,23 @@ namespace DaisyPets.UI
             }
         }
 
-        private string GetVaccines_InfoPdf()
+        private async Task<string> GetVaccines_InfoPdf()
         {
             string url = $"{PetsVaccinesApiEndpoint}/Vaccines_Info_Pdf";
 
-            string urlLocal = $"https://localhost:7161/api/Vacinacao/Vaccines_Info_Pdf";
+            string urlLocal = $"https://localhost:7161/api/Vacinacao/Vaccines_Info_Pdf";  // Vaccines_Info_Pdf
             try
             {
-                var task = httpClient.GetStringAsync(url);
-                task.Wait();
+                var response = await httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+                //var task = httpClient.GetStringAsync(url);
+                //task.Wait();
 
-                var response = task.Result;
-                task.Dispose();
+                //var response = task.Result;
+                //task.Dispose();
 
-                return response;
+                var output = response.Content.ReadAsStringAsync().ToString() ?? "";
+                return output;
             }
             catch (Exception ex)
             {

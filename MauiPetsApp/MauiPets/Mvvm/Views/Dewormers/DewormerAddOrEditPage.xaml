@@ -126,6 +126,17 @@
                                  HorizontalOptions="Start"/>
                     </FlexLayout>
                 </Grid>
+
+                <Grid HorizontalOptions="Center" VerticalOptions="Center" 
+                      Grid.RowSpan="8">
+                    <ActivityIndicator                
+                        IsRunning="{Binding IsBusy}" 
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="Transparent"
+                        Color="#03b48b"/>
+                </Grid>
+
             </Grid>
         </Border>
     </VerticalStackLayout>

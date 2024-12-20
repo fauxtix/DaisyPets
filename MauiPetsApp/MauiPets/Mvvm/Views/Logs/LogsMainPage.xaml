@@ -179,7 +179,7 @@
                         IsRunning="{Binding IsLoading}" 
                         HorizontalOptions="Center" 
                         VerticalOptions="Center" 
-                        BackgroundColor="WhiteSmoke"
+                        BackgroundColor="Transparent"
                         Color="Black"/>
                 </Grid>
             </Grid>

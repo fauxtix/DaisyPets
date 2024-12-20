@@ -74,6 +74,8 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             return;
         }
 
+        IsBusy = true;
+
         IsEditing = true;
         EditCaption = "Edição de registo";
 
@@ -93,6 +95,10 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         catch (Exception ex)
         {
             await ShowToastMessage($"Erro ao editar Pet ({ex.Message})");
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
 
@@ -121,6 +127,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
     [RelayCommand]
     private async Task EditVaccineAsync(VacinaVM vaccine)
     {
+        IsBusy = true;
         try
         {
             var vaccineId = vaccine.Id;
@@ -150,36 +157,55 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             await Task.CompletedTask;
             await Shell.Current.DisplayAlert("Error while 'EditVaccineAsync", ex.Message, "Ok");
         }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     [RelayCommand]
     private async Task AddDewormer()
     {
         IsEditing = false;
-        SelectedDewormer = new()
+        IsBusy = true;
+        try
         {
-            DataAplicacao = DateTime.Now.Date.ToShortDateString(),
-            DataProximaAplicacao = DateTime.Now.Date.AddMonths(3).ToShortDateString(),
-            Tipo = "",
-            Marca = "",
-            IdPet = PetVM.Id
-        };
-
-        await Shell.Current.GoToAsync($"{nameof(DewormerAddOrEditPage)}", true,
-            new Dictionary<string, object>
+            SelectedDewormer = new()
             {
+                DataAplicacao = DateTime.Now.Date.ToShortDateString(),
+                DataProximaAplicacao = DateTime.Now.Date.AddMonths(3).ToShortDateString(),
+                Tipo = "",
+                Marca = "",
+                IdPet = PetVM.Id
+            };
+
+            await Shell.Current.GoToAsync($"{nameof(DewormerAddOrEditPage)}", true,
+                new Dictionary<string, object>
+                {
                 {"SelectedDewormer", SelectedDewormer},
                 {"IsEditing", IsEditing},
-            });
+                });
 
+        }
+        catch (Exception ex)
+        {
+            await Task.CompletedTask;
+            await Shell.Current.DisplayAlert("Error while 'AddDewormer", ex.Message, "Ok");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     [RelayCommand]
     private async Task EditDewormerAsync(DesparasitanteVM dewormer)
     {
+        IsEditing = true;
+        IsBusy = true;
+
         try
         {
-            IsEditing = true;
 
             var dewormerId = dewormer.Id;
             if (dewormerId > 0)
@@ -206,59 +232,92 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         {
             await Shell.Current.DisplayAlert("Error while 'EditDewormerAsync", ex.Message, "Ok");
         }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     [RelayCommand]
     private async Task AddPetFood()
     {
         IsEditing = false;
-        SelectedPetFood = new()
+        IsBusy = true;
+        try
         {
-            IdPet = PetVM.Id,
-            Marca = "",
-            DataCompra = DateTime.Now.Date.ToShortDateString(),
-            QuantidadeDiaria = 1
-        };
-
-        await Shell.Current.GoToAsync($"{nameof(PetFoodAddOrEditPage)}", true,
-            new Dictionary<string, object>
+            SelectedPetFood = new()
             {
+                IdPet = PetVM.Id,
+                Marca = "",
+                DataCompra = DateTime.Now.Date.ToShortDateString(),
+                QuantidadeDiaria = 1
+            };
+
+            await Shell.Current.GoToAsync($"{nameof(PetFoodAddOrEditPage)}", true,
+                new Dictionary<string, object>
+                {
                 {"SelectedPetFood", SelectedPetFood},
                 {"IsEditing", IsEditing},
-            });
+                });
 
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error while 'AddPetFood", ex.Message, "Ok");
+        }
+
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     [RelayCommand]
     private async Task AddVetAppointment()
     {
         IsEditing = false;
-        SelectedAppointment = new()
-        {
-            IdPet = PetVM.Id,
-            DataConsulta = DateTime.Now.Date.ToShortDateString(),
-            Motivo = string.Empty,
-            Diagnostico = string.Empty,
-            Tratamento = string.Empty,
-            Notas = string.Empty,
-        };
+        IsBusy = true;
 
-        await Shell.Current.GoToAsync($"{nameof(VetAppointmentAddOrEditPage)}", true,
-            new Dictionary<string, object>
+        try
+        {
+            SelectedAppointment = new()
             {
+                IdPet = PetVM.Id,
+                DataConsulta = DateTime.Now.Date.ToShortDateString(),
+                Motivo = string.Empty,
+                Diagnostico = string.Empty,
+                Tratamento = string.Empty,
+                Notas = string.Empty,
+            };
+
+            await Shell.Current.GoToAsync($"{nameof(VetAppointmentAddOrEditPage)}", true,
+                new Dictionary<string, object>
+                {
                 {"SelectedAppointment", SelectedAppointment},
                 {"IsEditing", IsEditing},
-            });
+                });
 
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error while 'AddVetAppointment", ex.Message, "Ok");
+        }
+
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
 
     [RelayCommand]
     private async Task EditPetFoodAsync(RacaoVM petFood)
     {
+        IsEditing = true;
+        IsBusy = true;
+
         try
         {
-            IsEditing = true;
 
             var petFoodId = petFood.Id;
             if (petFoodId > 0)
@@ -285,14 +344,19 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         {
             await Shell.Current.DisplayAlert("Error while 'EditPetFoodAsync", ex.Message, "Ok");
         }
+        finally
+        {
+            IsBusy = false;
+        }
     }
 
     [RelayCommand]
     private async Task EditVetAppointmentAsync(ConsultaVeterinarioVM petAppointment)
     {
+        IsBusy = true;
+        IsEditing = true;
         try
         {
-            IsEditing = true;
             var petApptId = petAppointment.Id;
             if (petApptId > 0)
             {
@@ -317,6 +381,10 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         catch (Exception ex)
         {
             await Shell.Current.DisplayAlert("Error while 'EditAddVetAppointmentAsync", ex.Message, "Ok");
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
 

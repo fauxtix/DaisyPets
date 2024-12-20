@@ -67,6 +67,18 @@
                             </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+
+                <Grid HorizontalOptions="Center" VerticalOptions="Center" 
+                      Grid.RowSpan="3">
+                    <ActivityIndicator                
+                        x:Name="ai" 
+                        IsRunning="{Binding IsBusy}" 
+                        HorizontalOptions="Center" 
+                        VerticalOptions="Center" 
+                        BackgroundColor="Transparent"
+                        Color="#03b48b"/>
+                </Grid>
+
             </Grid>
         </VerticalStackLayout>
     </ScrollView>

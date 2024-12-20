@@ -307,6 +307,7 @@ namespace MauiPets.Mvvm.ViewModels.Settings
 
         public async void GetLookupData(string tableName)
         {
+            IsBusy = true;
             try
             {
                 var result = (await _lookupTablesService.GetLookupTableData(tableName)).ToList();
@@ -327,6 +328,7 @@ namespace MauiPets.Mvvm.ViewModels.Settings
             }
             finally
             {
+                IsBusy = false;
             }
         }
 

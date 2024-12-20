@@ -243,8 +243,8 @@
                         IsRunning="{Binding IsBusy}" 
                         HorizontalOptions="Center" 
                         VerticalOptions="Center" 
-                        BackgroundColor="WhiteSmoke"
-                        Color="Black"/>
+                        BackgroundColor="Transparent"
+                        Color="#03b48b"/>
                 </Grid>
             </Grid>
         </ScrollView>

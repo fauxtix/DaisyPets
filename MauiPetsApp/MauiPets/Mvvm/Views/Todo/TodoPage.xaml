@@ -228,12 +228,12 @@
                 <!-- Activity Indicator -->
                 <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.RowSpan="4" >
                     <ActivityIndicator 
-                BackgroundColor="Orange" 
-                x:Name="ai" 
-                IsRunning="{Binding IsBusy}" 
-                HorizontalOptions="Center" 
-                VerticalOptions="Center" 
-                Color="White"/>
+                            BackgroundColor="Transparent" 
+                            x:Name="ai" 
+                            IsRunning="{Binding IsBusy}" 
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center" 
+                            Color="#03b48b"/>
                 </Grid>
             </Grid>
         </ScrollView>
