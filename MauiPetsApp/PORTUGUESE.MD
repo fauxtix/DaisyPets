@@ -1,5 +1,7 @@
 # Daisy Pets 🐶🐱
 
+- [Inglês](./README.md)
+
 Um projeto para ajudar os donos de animais atarefados a acompanhar os cuidados diários e a longo prazo dos seus animais.
 
 Utiliza C# como linguagem de desenvolvimento e foi construído usando a plataforma .Net 8.
