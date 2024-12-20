@@ -38,18 +38,18 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 ![PetAddOrEditPage_2_3](https://github.com/user-attachments/assets/2ba9c8fd-1372-442d-9e5f-e619fb6260fc)
 ![PetAddOrEditPage_2_4](https://github.com/user-attachments/assets/da6e8db0-6627-42c7-9207-75799f3bbefd)
 
-##### App options
+##### Opções da App
 
 ![AppOptionsPage](https://github.com/user-attachments/assets/fcf7b839-2c81-4395-a9ae-d6926ed1188b)
 
-##### Expenses
+##### Despesas
 
 ![ExpensesMainPage](https://github.com/user-attachments/assets/b5f368be-8b70-4452-a05c-97f9156bec76)
 ![ExpensesEditPage](https://github.com/user-attachments/assets/f2f5c0b8-806e-4da6-a8e2-aeafce2a4efe)
 ![ExpensesEdit_DeleteExpensePage](https://github.com/user-attachments/assets/8669fb15-cd88-47e8-bcf5-884c6d90f8ca)
 ![Expenses_Group_Page](https://github.com/user-attachments/assets/872c1632-6746-4d67-8baf-43f83c45520e)
 
-### Contacts
+### Contactos
 
 ![ContactsMainPage](https://github.com/user-attachments/assets/e145f13b-6f82-415f-813a-39aadd3a2e7d)
 ![ContactsDetailPage](https://github.com/user-attachments/assets/ef499037-6d9d-44f9-a0ce-89afce54d34c)
@@ -63,7 +63,7 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 ![TodoListEditPage](https://github.com/user-attachments/assets/b54614d3-74c5-4af9-b831-ab78e035f81f)
 ![TodoListPendingPage](https://github.com/user-attachments/assets/8222bd72-1e9e-4e39-82ff-fe877c93fb05)
 
-### Settings
+### Configuração
 
 ![SettingsPage_1](https://github.com/user-attachments/assets/1bafe3dc-e6e3-4e4b-80ef-63ca8a95a574)
 ![SettingsPage_2](https://github.com/user-attachments/assets/4d9802c5-0802-4618-ab50-fb9418786677)
