@@ -52,7 +52,7 @@ Ao contribuir com código, por favor siga o estilo de código existente e submet
 
 ## ⚖ Licença
 
-O projeto DaisyPets está licenciado sob a Licença MIT. Pode encontrar mais informações no ficheiro [LICENSE]((https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/LICENSE.md).
+O projeto MauiPetsApp está licenciado sob a Licença MIT. Pode encontrar mais informações no ficheiro [LICENSE]((https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/LICENSE.md).
 
 ## 📞 Contacto
 
