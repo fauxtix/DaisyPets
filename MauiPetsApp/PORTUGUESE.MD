@@ -20,7 +20,7 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 - Gestão de lista de Tarefas - gerir compromissos importantes, como consultas veterinárias, administração de medicamentos, vacinas, compras de ração e produtos essenciais, entre outros;
 - Gestão de contactos, com opção de visualização em mapa;
 - Definições da app (tabelas de referência, categorias/sub-categorias de despesas);
-- Gestão de Logs (análise e resolução de problemas).
+- Gestão de Logs (análise e resolução de problemas) - permite o envio de e-mail do erro/aviso gerado.
 
 # Tecnologias Utilizadas
 
