@@ -1,4 +1,4 @@
-# Daisy Pets 🐶🐱
+# Daisy Pets - Mobile 🐶🐱
 
 - [Inglês](./README.md)
 
