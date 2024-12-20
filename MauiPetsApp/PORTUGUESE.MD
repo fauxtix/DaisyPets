@@ -14,7 +14,7 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 # Funcionalidades Principais
 
 - Fácil de usar
-- Registar vacinas, visitas ao veterinário, desparasitantes e dosagem de alimentação (ração) ;
+- Registar vacinas, visitas ao veterinário, aplicação de desparasitantes e dosagem de alimentação (ração) ;
 - Alertas para vacinas e aplicação de desparasitantes, que possam ocorrer dentro de 15 ou 30 dias.
 - Gestão de despesas (com seleção de categorias e subcategorias);
 - Listas de tarefas;
