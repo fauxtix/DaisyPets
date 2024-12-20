@@ -2,7 +2,8 @@
 
 - [Inglês](./README.md)
 
-Um projeto para ajudar os donos de animais atarefados a acompanhar os cuidados diários e a longo prazo dos seus animais.
+Projeto para ajudar os donos de animais atarefados, a acompanhar os cuidados diários e a longo prazo dos seus animais.
+Poderá ser utilizado, também, caso se pretenda iniciar uma operação de resgate e acolher os mesmos como FAT (família de acolhimento temporário).
 
 Utiliza C# como linguagem de desenvolvimento e foi construído usando a plataforma .Net 8.
 
