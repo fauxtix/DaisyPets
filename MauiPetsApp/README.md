@@ -26,7 +26,7 @@ It was designed with Microsoft .Net 8 Maui technology
 ##### Expenses
 
 ![ExpensesMainPage](https://github.com/user-attachments/assets/b5f368be-8b70-4452-a05c-97f9156bec76)
-![ExpensesEditPage](https://github.com/user-attachments/assets/5a42cbad-bade-4351-a114-c5e932eb4d81)
+![ExpensesEditPage](https://github.com/user-attachments/assets/f2f5c0b8-806e-4da6-a8e2-aeafce2a4efe)
 ![ExpensesEdit_DeleteExpensePage](https://github.com/user-attachments/assets/8669fb15-cd88-47e8-bcf5-884c6d90f8ca)
 ![Expenses_Group_Page](https://github.com/user-attachments/assets/872c1632-6746-4d67-8baf-43f83c45520e)
 
