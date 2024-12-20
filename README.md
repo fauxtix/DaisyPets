@@ -40,8 +40,8 @@ For the Blazor project, the syncfusion packages (community edition) were chosen.
 - Logs management.
 
 # Screenshots 
-- For the web project screenshots, please navigate to the DaisyPets.Web.Blazor project.
-- For the Maui project screenshots, navigate to 'MauiPetsApp'.
+- For the web project screenshots, please navigate to the **DaisyPets.Web.Blazor** project.
+- For the Maui project screenshots, navigate to **MauiPetsApp**.
 
 ##### Windows forms
 ![main](https://github.com/fauxtix/DaisyPets/assets/49880538/54768f18-9e6d-44f3-8a27-c4cffb7bbae7)
