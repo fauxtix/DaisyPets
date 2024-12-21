@@ -19,7 +19,7 @@ The ORM chosen to work with the database was Dapper, due to its ease of use and 
 - Alerts for vaccinations and deworming treatments that are due within 15 or 30 days.
 - Expense management (with category and subcategory selection);
 - ToDo lists management - manage important commitments such as vet appointments, medication administration, vaccinations, food purchases, and essential products, among others;
-- Contact management, with an option to view on a map;
+- Contact management, with an option to view the location on a map;
 - App settings (reference tables, expense categories/subcategories);
 - Log management (analysis and problem resolution) - it allows sending an email of the generated error/alert.
 
