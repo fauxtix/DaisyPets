@@ -37,8 +37,6 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 
 # Screenshots
 
-# Screenshots
-
 ![SplashScreen](https://github.com/user-attachments/assets/26dc5f35-0b42-4f00-9265-c9cb3eff764c)
 ![HomePage](https://github.com/user-attachments/assets/cc01bcc7-bac6-46bb-b622-7679dc8f614a)
 ![PetDetailPage_1](https://github.com/user-attachments/assets/dde659f8-e2ee-4bc4-9d01-8364d6fdf213)
