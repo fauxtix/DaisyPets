@@ -110,7 +110,7 @@ When contributing code, please follow the existing code style and submit a pull 
 
 ## ⚖ License
 
-The DaisyPets project is licensed under the MIT License. You can find more information in the [LICENSE](https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/LICENSE.md)) file.
+The DaisyPets project is licensed under the MIT License. You can find more information in the [LICENSE](https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/LICENSE.md) file.
 
 ## 📞 Contact
 
