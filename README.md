@@ -43,7 +43,7 @@ For the Blazor project, the syncfusion packages (community edition) were chosen.
 
 ##### Windows forms
 
-- For the web project screenshots, please navigate to the - [Portuguese](./MauiPetsApp) **DaisyPets.Web.Blazor** project.
+- For the web project screenshots, please navigate to the - [DaisyPets.Web.Blazor](./DaisyPets.Web.Blazor) project.
 - For the Maui project screenshots, navigate to **MauiPetsApp**.
 
 ![main](https://github.com/fauxtix/DaisyPets/assets/49880538/54768f18-9e6d-44f3-8a27-c4cffb7bbae7)
