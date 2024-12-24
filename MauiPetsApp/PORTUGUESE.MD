@@ -7,7 +7,7 @@ Poderá ser utilizado, também, caso se pretenda iniciar uma operação de resga
 
 Utiliza C# como linguagem de desenvolvimento e foi construído usando a plataforma .Net 8.
 
-Devido à sua simplicidade, foi escolhida a base de dados SQLite para o armazenamento de dados ([Estrutura])(https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/MauiPets/PetsDB.db.sql).
+Devido à sua simplicidade, foi escolhida a base de dados SQLite para o armazenamento de dados ([Estrutura](./MauiPets/Database/PetsDB.db.sql)).
 
 O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua facilidade de utilização e rapidez, especialmente em consultas.
 
