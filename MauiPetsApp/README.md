@@ -8,7 +8,7 @@ It can also be used if you want to start a rescue operation and take them in as 
 
 It uses C# as the development language, and was built using the .Net 8 platform.
 
-Due to its simplicity, the SQLite database was chosen for data storage [Structure](./Database/PetsDB.db.sql). 
+Due to its simplicity, the SQLite database was chosen for data storage [Structure](./MauiPets/Database/PetsDB.db.sql). 
 
 The ORM chosen to work with the database was Dapper, due to its ease of use and speed, especially in queries.
 
