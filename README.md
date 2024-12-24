@@ -10,7 +10,7 @@ It comprises a web api that serves a desktop application (windows forms) and a w
 It is up to the user to choose between the desktop (DaisyPets.UI), the web/blazor application (DaisyPets.Web.Blazor) or mobile app (DaisyPets.MauiPets).
 Just start/run the Api first, and choose wich of the projects to use ('set as the startup project').
 
-Due to its simplicity, the SQLite database was chosen for data storage ([Structure])(https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/MauiPets/PetsDB.db.sql). 
+Due to its simplicity, the SQLite database was chosen for data storage ([Structure](./DaisyPets/PetsDB.db.sql)). 
 
 The ORM chosen to work with the database was Dapper, due to its ease of use and speed, especially in queries.
 
