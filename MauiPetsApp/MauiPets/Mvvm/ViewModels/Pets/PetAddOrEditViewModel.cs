@@ -62,10 +62,10 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     {
         _petService = petService;
         _lookupTablesService = lookupTablesService;
-        InitializeAsync();
+        //InitializeAsync();
     }
 
-    public async void InitializeAsync()
+    public async Task InitializeAsync()
     {
         await SetupLookupTables();
     }
@@ -145,7 +145,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 
                 var petVM = await _petService.GetPetVMAsync(insertedId);
 
-                ShowToastMessage("Registo criado com sucesso");
+                await ShowToastMessage("Registo criado com sucesso");
 
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
@@ -159,7 +159,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 
                 await _petService.UpdateAsync(PetDto.Id, PetDto);
                 var petVM = await _petService.GetPetVMAsync(PetDto.Id);
-                ShowToastMessage("Registo atualizado com sucesso");
+                await ShowToastMessage("Registo atualizado com sucesso");
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
                     {
@@ -188,7 +188,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
             }
             else
             {
-                ShowToastMessage("Registo removido com sucesso");
+                await ShowToastMessage("Registo removido com sucesso");
             }
         }
     }
@@ -289,7 +289,7 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 
     }
 
-    private async void ShowToastMessage(string text)
+    private async Task ShowToastMessage(string text)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         ToastDuration duration = ToastDuration.Short;

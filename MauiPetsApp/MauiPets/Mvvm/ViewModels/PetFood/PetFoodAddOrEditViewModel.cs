@@ -26,18 +26,30 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
             _service = service;
             _petService = petService;
         }
-        public async void ApplyQueryAttributes(IDictionary<string, object> query)
+
+
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            SelectedPetFood = query[nameof(SelectedPetFood)] as RacaoDto;
-            IsEditing = (bool)query[nameof(IsEditing)];
+            _ = ApplyQueryAttributesAsync(query);
+        }
 
-            EditCaption = IsEditing ? "Editar ração" : "Nova ração";
-            var selectedPet = await _petService.GetPetVMAsync(SelectedPetFood.IdPet);
+        private async Task ApplyQueryAttributesAsync(IDictionary<string, object> query)
+        {
+            try
+            {
+                SelectedPetFood = query[nameof(SelectedPetFood)] as RacaoDto;
+                IsEditing = (bool)query[nameof(IsEditing)];
 
-            PetPhoto = selectedPet.Foto;
-            PetName = selectedPet.Nome;
+                EditCaption = IsEditing ? "Editar ração" : "Nova ração";
+                var selectedPet = await _petService.GetPetVMAsync(SelectedPetFood.IdPet);
 
-            selectedPet.Foto = selectedPet.Foto; ;
+                PetPhoto = selectedPet.Foto;
+                PetName = selectedPet.Nome;
+            }
+            catch (Exception ex)
+            {
+                // Podes usar um logger ou DisplayAlert aqui se quiseres
+            }
         }
 
         [RelayCommand]
@@ -49,7 +61,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
                 var petId = SelectedPetFood.IdPet;
                 if (petId > 0)
                 {
-                    var response = await _petService.GetPetVMAsync(petId); // await http.GetAsync(devSslHelper.DevServerRootUrl + $"/api/Pets/PetVMById/{petId}");
+                    var response = await _petService.GetPetVMAsync(petId);
 
                     if (response is not null)
                     {
@@ -62,7 +74,6 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
                             });
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -89,7 +100,6 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
 
                 if (SelectedPetFood.Id == 0)
                 {
-
                     var insertedId = await _service.InsertAsync(SelectedPetFood);
                     if (insertedId == -1)
                     {
@@ -101,8 +111,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
                     var _petId = SelectedPetFood.IdPet;
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
-
-                    ShowToastMessage("Ração criada com sucesso");
+                    await ShowToastMessageAsync("Ração criada com sucesso");
 
                     await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                         new Dictionary<string, object>
@@ -118,28 +127,25 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
 
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
-
                     await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                         new Dictionary<string, object>
                         {
                             {"PetVM", petVM}
                         });
 
-                    //IsBusy = false;
-                    ShowToastMessage("Registo atualizado com sucesso");
-
+                    await ShowToastMessageAsync("Registo atualizado com sucesso");
                 }
             }
             catch (Exception ex)
             {
                 IsBusy = false;
-                ShowToastMessage($"Error while creating Vaccine ({ex.Message})");
+                await ShowToastMessageAsync($"Error while creating Vaccine ({ex.Message})");
             }
         }
 
-        private async void ShowToastMessage(string text)
+        private async Task ShowToastMessageAsync(string text)
         {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationTokenSource cancellationTokenSource = new();
             ToastDuration duration = ToastDuration.Short;
             double fontSize = 14;
 
@@ -147,6 +153,5 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
 
             await toast.Show(cancellationTokenSource.Token);
         }
-
     }
 }
