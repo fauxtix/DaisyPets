@@ -54,11 +54,6 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [ObservableProperty]
         private decimal totalGeralDespesas;
 
-        [ObservableProperty]
-        private LookupTableVM _tipoDespesaSelecionada;
-
-        [ObservableProperty]
-        private LookupTableVM _tipoCategoriaDespesaSelecionada;
 
         [ObservableProperty]
         private bool isEditing;
@@ -74,5 +69,6 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [ObservableProperty]
         private string editCaption;
     }
+
 }
 

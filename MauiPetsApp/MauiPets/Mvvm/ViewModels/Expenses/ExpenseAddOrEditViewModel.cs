@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
@@ -15,6 +16,13 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
     private readonly ITipoDespesaService _tipoDespesaService;
     private readonly ILookupTableService _lookupTablesService;
     private readonly IMapper _mapper;
+
+    [ObservableProperty]
+    private LookupTableVM _tipoDespesaSelecionada;
+
+    [ObservableProperty]
+    private LookupTableVM _tipoCategoriaDespesaSelecionada;
+
 
     public ExpenseAddOrEditViewModel(IDespesaService service,
                                      ILookupTableService lookupTablesService,
@@ -101,6 +109,9 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
 
     partial void OnTipoCategoriaDespesaSelecionadaChanged(LookupTableVM value)
     {
+        if (DespesaDto != null && value != null)
+            DespesaDto.IdCategoriaDespesa = value.Id;
+
         if (value == null)
         {
             TipoDespesas.Clear();
