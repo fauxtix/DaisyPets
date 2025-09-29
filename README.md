@@ -5,12 +5,12 @@
 A project for helping busy pet owners keep track of the daily, and long-term routine care of their pets.
 
 It uses C# as the development language, and was built using the .Net 8 platform.
-It comprises a web api that serves a desktop application (windows forms) and a web project (Blazor Server).
+It comprises a web api that serves a desktop application (windows forms) and a web project (Blazor Server). For the Maui project, the SQLite database was chosen for local data storage.
 
 It is up to the user to choose between the desktop (DaisyPets.UI), the web/blazor application (DaisyPets.Web.Blazor) or mobile app (DaisyPets.MauiPets).
 Just start/run the Api first, and choose wich of the projects to use ('set as the startup project').
 
-Due to its simplicity, the SQLite database was chosen for data storage ([Structure])(https://github.com/fauxtix/DaisyPets/blob/master/MauiPetsApp/MauiPets/PetsDB.db.sql). 
+Due to its simplicity, the SQLite database was chosen for data storage ([Structure](./DaisyPets/PetsDB.db.sql)). 
 
 The ORM chosen to work with the database was Dapper, due to its ease of use and speed, especially in queries.
 
@@ -39,11 +39,13 @@ For the Blazor project, the syncfusion packages (community edition) were chosen.
 - App Settings;
 - Logs management.
 
-# Screenshots 
-- For the web project screenshots, please navigate to the DaisyPets.Web.Blazor project.
-- For the Maui project screenshots, navigate to 'MauiPetsApp'.
+# Screenshots
 
-##### Windows forms
+- For the web project screenshots, please select the - [DaisyPets.Web.Blazor](./DaisyPets.Web.Blazor) project.
+- For the Maui project screenshots, select the [MauiPetsApp](./MauiPetsApp) project.
+
+  #### Windows forms
+
 ![main](https://github.com/fauxtix/DaisyPets/assets/49880538/54768f18-9e6d-44f3-8a27-c4cffb7bbae7)
 ![Pets](https://github.com/fauxtix/DaisyPets/assets/49880538/e9d904d9-1a33-415f-b12e-0833f17e8b85)
 ![PetDocuments](https://github.com/fauxtix/DaisyPets/assets/49880538/a6eebe33-7f55-4a86-a708-3152a895f176)
