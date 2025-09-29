@@ -7,54 +7,72 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
 {
     public partial class ExpensesBaseViewModel : ObservableObject
     {
-
-        public List<TipoDespesaDto> TipoDespesas_Categorias { get; set; } = new();
+        // For UI binding, use ObservableCollection
         public ObservableCollection<LookupTableVM> TipoDespesas { get; set; } = new();
-        public List<LookupTableVM> CategoriaDespesas { get; } = new();
+        public ObservableCollection<LookupTableVM> CategoriaDespesas { get; } = new();
+
+        // For internal logic, keep List as needed
+        public List<TipoDespesaDto> TipoDespesas_Categorias { get; set; } = new();
         public List<LookupTableVM> TipoDespesasFiltradas { get; set; } = new();
 
+        [ObservableProperty]
+        private int id;
+
+        [ObservableProperty]
+        private string dataCriacao = DateTime.Now.ToShortDateString();
+
+        [ObservableProperty]
+        private string dataMovimento = DateTime.Now.ToShortDateString();
+
+        [ObservableProperty]
+        private decimal valorPago;
+
+        [ObservableProperty]
+        private string descricao;
+
+        [ObservableProperty]
+        private int idTipoDespesa;
+
+        [ObservableProperty]
+        private int idCategoriaDespesa;
+
+        [ObservableProperty]
+        private string notas;
+
+        [ObservableProperty]
+        private string tipoMovimento = "S";
+
+        [ObservableProperty]
+        private DespesaVM despesaVM;
+
+        [ObservableProperty]
+        private DespesaDto despesaDto;
+
+        [ObservableProperty]
+        private decimal totalDespesas;
+
+        [ObservableProperty]
+        private decimal totalGeralDespesas;
 
         [ObservableProperty]
         private LookupTableVM _tipoDespesaSelecionada;
+
         [ObservableProperty]
         private LookupTableVM _tipoCategoriaDespesaSelecionada;
-
-        [ObservableProperty]
-        private int _indiceTipoDespesa;
-        [ObservableProperty]
-        private int _indiceCategoriaDespesa;
-
-
-        [ObservableProperty] public int _id;
-        [ObservableProperty] public string _dataCriacao = DateTime.Now.ToShortDateString();
-        [ObservableProperty] public string _dataMovimento = DateTime.Now.ToShortDateString();
-        [ObservableProperty] public decimal _valorPago;
-        [ObservableProperty] public string _descricao;
-        [ObservableProperty] public int _idTipoDespesa;
-        [ObservableProperty] public int _idCategoriaDespesa;
-        [ObservableProperty] public string _notas;
-        [ObservableProperty] public string _tipoMovimento = "S";
-
-        [ObservableProperty] public DespesaVM _despesaVM;
-        [ObservableProperty] public DespesaDto _despesaDto;
-
-        [ObservableProperty] public decimal _totalDespesas;
-        [ObservableProperty] public decimal _totalGeralDespesas;
 
         [ObservableProperty]
         private bool isEditing;
 
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
-        bool isBusy;
-        public bool IsNotBusy => !IsBusy;
+        private bool isBusy;
+        public bool IsNotBusy => !isBusy;
 
         [ObservableProperty]
         private string lookupDescription;
 
         [ObservableProperty]
-        private string _editCaption;
-
+        private string editCaption;
     }
 }
 

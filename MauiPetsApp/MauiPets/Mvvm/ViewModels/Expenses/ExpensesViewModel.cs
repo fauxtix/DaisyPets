@@ -66,7 +66,9 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
                 ValorPago = 0M,
                 Descricao = "",
                 Notas = "",
-                TipoMovimento = ""
+                TipoMovimento = "",
+                IdCategoriaDespesa = 0,
+                IdTipoDespesa = 0
             };
 
             await NavigateToEditPage(DespesaDto);

@@ -7,7 +7,7 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:conv="clr-namespace:MauiPets.Converters"
              x:DataType="viewmodel:ExpenseAddOrEditViewModel"
-             Title="">
+             Title="Despesas">
 
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="False" IsEnabled="False" />
@@ -34,7 +34,6 @@
                 <Setter Property="TextColor" Value="Green" />
             </Style>
 
-            <!-- Add other resources if needed -->
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -129,34 +128,28 @@
                        Grid.Row="4" 
                        VerticalTextAlignment="Center"
                        FontSize = "14"/>
-                <Picker x:Name="PickerCategoriaTipoDespesa" 
-                        Title="Categoria" 
-                        Grid.Row="5" 
-                        FontSize = "14"
-                        VerticalTextAlignment="Center"
-                        ItemsSource="{Binding CategoriaDespesas}"
-                        SelectedItem="{Binding TipoCategoriaDespesaSelecionada}"
-                        SelectedIndex="{Binding IndiceCategoriaDespesa, Mode=TwoWay}"
-                        SelectedIndexChanged="SelectedCategoriaDespesaIndexChanged"
-                        ItemDisplayBinding="{Binding Descricao}">
-                </Picker>
+                <Picker
+                    Title="Categoria"
+                    Grid.Row="5"
+                    FontSize="14"
+                    VerticalTextAlignment="Center"
+                    ItemsSource="{Binding CategoriaDespesas}"
+                    SelectedItem="{Binding TipoCategoriaDespesaSelecionada, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding Descricao}" />
                 <Label x:Name="LabelTipoDespesa" Text="Tipo"
                         IsVisible="{Binding IsEditing}"
                        Grid.Row="6" 
                        VerticalTextAlignment="Center"
                        FontSize = "14"></Label>
-                <Picker x:Name="PickerTipoDespesa" 
-                        IsVisible="{Binding IsEditing}"
-                        VerticalTextAlignment="Center"
-                        Title="Tipo" 
-                        FontSize = "14"
-                        Grid.Row="7" 
-                        ItemsSource="{Binding TipoDespesas}"
-                        SelectedItem="{Binding TipoDespesaSelecionada}"
-                        SelectedIndex="{Binding IndiceTipoDespesa, Mode=TwoWay}"
-                        SelectedIndexChanged="SelectedTipoDespesaIndexChanged"
-                        ItemDisplayBinding="{Binding Descricao}">
-                </Picker>
+                <Picker
+                    Title="Tipo"
+                    Grid.Row="7"
+                    FontSize="14"
+                    VerticalTextAlignment="Center"
+                    IsVisible="{Binding IsEditing}"
+                    ItemsSource="{Binding TipoDespesas}"
+                    SelectedItem="{Binding TipoDespesaSelecionada, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding Descricao}" />
                 <Label Text="Observações"
                        Grid.Row="8"
                        VerticalTextAlignment="Center"

@@ -1,19 +1,16 @@
 ﻿using AutoMapper;
-using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
+using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 
 namespace MauiPets.Mvvm.ViewModels.Expenses;
 
 [QueryProperty(nameof(DespesaDto), "DespesaDto")]
-
 public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAttributable
 {
-
     private readonly IDespesaService _service;
     private readonly ITipoDespesaService _tipoDespesaService;
     private readonly ILookupTableService _lookupTablesService;
@@ -26,42 +23,35 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
     {
         _service = service;
         _lookupTablesService = lookupTablesService;
-
-        SetupLookupTables();
         _mapper = mapper;
         _tipoDespesaService = tipoDespesaService;
+
+        SetupLookupTables();
     }
 
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        EditCaption = query[nameof(EditCaption)] as string;
-        IsEditing = (bool)query[nameof(IsEditing)];
+        EditCaption = query.TryGetValue(nameof(EditCaption), out var editCaptionObj) ? editCaptionObj as string : null;
+        DespesaDto = query.TryGetValue(nameof(DespesaDto), out var despesaDtoObj) ? despesaDtoObj as DespesaDto : null;
 
-        DespesaDto = query[nameof(DespesaDto)] as DespesaDto;
-
-        if (DespesaDto is null)
+        if (DespesaDto != null)
         {
-            IndiceCategoriaDespesa = 0;
-            IndiceTipoDespesa = 0;
+            TipoCategoriaDespesaSelecionada = CategoriaDespesas.FirstOrDefault(cd => cd.Id == DespesaDto.IdCategoriaDespesa);
+            await LoadTipoDespesasAsync(DespesaDto.IdCategoriaDespesa);
+            TipoDespesaSelecionada = TipoDespesas.FirstOrDefault(td => td.Id == DespesaDto.IdTipoDespesa);
         }
         else
         {
-            var idxCategoria = DespesaDto.IdCategoriaDespesa;
-            var idxTipo = DespesaDto.IdTipoDespesa;
-            IndiceCategoriaDespesa = CategoriaDespesas.FindIndex(cd => cd.Id == idxCategoria);
-            IndiceTipoDespesa = TipoDespesasFiltradas.FindIndex(td => td.Id == idxTipo);
+            TipoCategoriaDespesaSelecionada = null;
+            TipoDespesaSelecionada = null;
         }
     }
 
     private void SetupLookupTables()
     {
         IsBusy = true;
-
         GetLookupData("CategoriaDespesa");
-        GetLookupData("TipoDespesa");
-
         IsBusy = false;
-
     }
 
     public async void GetLookupData(string tableName)
@@ -69,29 +59,25 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         IsBusy = true;
         try
         {
-            var result = (await _lookupTablesService.GetLookupTableData(tableName)).ToList();
-            if (result is null)
+            var result = (await _lookupTablesService.GetLookupTableData(tableName))?.ToList();
+            if (result == null)
             {
                 IsBusy = false;
                 return;
             }
 
-            if (tableName.ToLower() == "categoriadespesa")
+            if (tableName.Equals("categoriadespesa", StringComparison.OrdinalIgnoreCase))
             {
                 CategoriaDespesas.Clear();
-                CategoriaDespesas.AddRange(result);
-            }
-            else
-            {
                 foreach (var item in result)
-                {
-                    TipoDespesas.Add(item);
-                }
+                    CategoriaDespesas.Add(item);
             }
-        }
-        catch (Exception ex)
-        {
-            await Shell.Current.DisplayAlert("Error while 'GetLookupData", ex.Message, "Ok");
+            else if (tableName.Equals("tipodespesa", StringComparison.OrdinalIgnoreCase))
+            {
+                TipoDespesas.Clear();
+                foreach (var item in result)
+                    TipoDespesas.Add(item);
+            }
         }
         finally
         {
@@ -99,10 +85,43 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         }
     }
 
+
+    private async Task LoadTipoDespesasAsync(int categoriaId)
+    {
+        var despesas = await _tipoDespesaService.GetTipoDespesa_ByCategoria(categoriaId) ?? new List<TipoDespesaDto>();
+        TipoDespesas.Clear();
+        foreach (var item in despesas)
+        {
+            TipoDespesas.Add(new LookupTableVM { Id = item.Id, Descricao = item.Descricao });
+        }
+        IsEditing = TipoDespesas.Count > 0;
+        IsBusy = false;
+    }
+
+
+    partial void OnTipoCategoriaDespesaSelecionadaChanged(LookupTableVM value)
+    {
+        if (value == null)
+        {
+            TipoDespesas.Clear();
+            TipoDespesaSelecionada = null;
+            IsEditing = false;
+            return;
+        }
+        IsBusy = true;
+        TipoDespesas.Clear();
+        _ = LoadTipoDespesasAsync(value.Id);
+    }
+
+    partial void OnTipoDespesaSelecionadaChanged(LookupTableVM value)
+    {
+        if (DespesaDto != null && value != null)
+            DespesaDto.IdTipoDespesa = value.Id;
+    }
+
     [RelayCommand]
     async Task SaveExpenseData()
     {
-
         try
         {
             IsBusy = true;
@@ -127,8 +146,6 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                         return;
                     }
 
-                    ShowToastMessage("Despesa criada com sucesso");
-
                     var expenseVM = _mapper.Map<DespesaVM>(await _service.GetVMByIdAsync(insertedId));
 
                     await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true,
@@ -136,26 +153,22 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                         {
                             {"DespesaVM", expenseVM}
                         });
-
                 }
                 catch (Exception ex)
                 {
-                    ShowToastMessage($"Erro ao inserir despesa {ex.Message}");
+                    await Shell.Current.DisplayAlert("Erro ao inserir despesa", ex.Message, "OK");
                 }
                 finally
                 {
                     IsBusy = false;
                 }
-
             }
-            else
+            else // Update existing record
             {
                 try
                 {
                     await Task.Delay(200);
                     await _service.UpdateAsync(DespesaDto.Id, DespesaDto);
-                    ShowToastMessage("Registo atualizado com sucesso");
-
 
                     await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}", true,
                         new Dictionary<string, object>
@@ -165,25 +178,23 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
                 }
                 catch (Exception ex)
                 {
-                    ShowToastMessage($"Erro ao atualizar registo {ex.Message}");
+                    await Shell.Current.DisplayAlert("Erro ao atualizar registo", ex.Message, "OK");
                 }
                 finally
                 {
                     IsBusy = false;
                 }
-
             }
         }
         catch (Exception ex)
         {
-            ShowToastMessage($"Erro na transação {ex.Message}");
+            await Shell.Current.DisplayAlert("Erro na transação", ex.Message, "OK");
         }
         finally
         {
             IsBusy = false;
         }
     }
-
 
     [RelayCommand]
     async Task GoBack()
@@ -192,22 +203,10 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         try
         {
             await Shell.Current.GoToAsync($"//{nameof(ExpensesPage)}");
-
         }
         finally
         {
             IsBusy = false;
         }
-    }
-
-    private async void ShowToastMessage(string text)
-    {
-        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-        ToastDuration duration = ToastDuration.Short;
-        double fontSize = 14;
-
-        var toast = Toast.Make(text, duration, fontSize);
-
-        await toast.Show(cancellationTokenSource.Token);
     }
 }

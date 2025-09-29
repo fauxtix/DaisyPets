@@ -72,6 +72,7 @@
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
 		<PackageReference Include="CommunityToolkit.Maui.Core" Version="8.0.1" />
 		<PackageReference Include="Mapsui.Maui" Version="4.1.7" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.18" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.91" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.91" />
 	</ItemGroup>
@@ -370,6 +371,11 @@
 	  <Compile Update="Mvvm\Views\VetAppointments\VetAppointmentAddOrEditPage.xaml.cs">
 	    <DependentUpon>VetAppointmentAddOrEditPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Resources\Languages\AppResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>AppResources.resx</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -474,6 +480,13 @@
 
 	<ItemGroup>
 	  <Folder Include="DataContexts\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\Languages\AppResources.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>

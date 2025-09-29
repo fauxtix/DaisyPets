@@ -81,6 +81,16 @@ namespace MauiPets
                 .UseLocalNotification()
                 .UseSkiaSharp();
 
+            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources/Languages");
+            var savedCulture = Preferences.Get("AppLanguage", null);
+            if (string.IsNullOrEmpty(savedCulture))
+            {
+                savedCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+                Preferences.Set("AppLanguage", savedCulture);
+            }
+            var culture = new System.Globalization.CultureInfo(savedCulture);
+            System.Globalization.CultureInfo.DefaultThreadCurrentCulture = culture;
+            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 
 
