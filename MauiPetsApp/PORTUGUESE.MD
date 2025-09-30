@@ -178,9 +178,9 @@ O projeto MauiPetsApp está licenciado sob a Licença MIT. Pode encontrar mais i
 
 ## 📞 Contacto
 
-Se tiver alguma dúvida ou precisar de mais assistência, pode contactar o mantenedor do projeto:
+Se tiver alguma dúvida ou precisar de mais assistência, pode contactar o gestor do projeto:
 
-- 👨‍💻 Mantenedor: Fausto Luís
+- 👨‍💻 Autor: Fausto Luís
 - ✉ E-mail: fauxtix.luix@hotmail.com
 
-Sinta-se à vontade para me contactar com qualquer feedback ou questão.
+Sinta-se à vontade para contactar-me com qualquer feedback ou questão.
