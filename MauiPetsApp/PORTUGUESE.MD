@@ -35,6 +35,85 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
   Com ela, podemos usar expressões Lambda para “construir regras de validações” com retorno de mensagem de erro para cada propriedade das entidades.
 - Outras
 
+## 🚀 3. Gerando o APK do Projeto MAUI (.NET MAUI)
+
+Siga estes passos para gerar o arquivo APK e instalar no seu dispositivo Android.
+
+---
+
+### 🛠️ **3.1 Selecionar Release e Plataforma Android**
+
+1. No Visual Studio, selecione o modo **Release** e a plataforma **Android** no topo da tela.
+
+   ![Selecionar Release e Android](/images/image5.png)
+
+---
+
+### 📦 **3.2 Publicar o APK**
+
+1. Clique com o botão direito no seu projeto MAUI no **Solution Explorer**.
+2. Selecione:  
+   **Publish** → **Publish to Folder**
+
+   ![Menu Publish to Folder](/images/image6.png)
+
+3. Escolha onde salvar o pacote (recomendo uma pasta fácil de localizar, como `C:\Publicacoes\`).
+
+4. Clique em **Finish** e aguarde o processo terminar.
+
+---
+
+### 🎯 **3.3 Localizando o APK gerado**
+
+- Após a publicação, o arquivo APK estará na pasta escolhida, geralmente dentro do caminho:
+  ```
+  /bin/Release/net8.0-android/publish/
+  ```
+- O nome será algo como `com.seuprojeto.apk` ou semelhante.
+
+  ![APK gerado na pasta de publicação](/images/image7.png)
+
+---
+
+## 📲 4. Instalando o APK no Android
+
+Siga os passos para instalar o APK no seu smartphone Android:
+
+---
+
+### 🔄 **4.1 Transferir o APK para o Dispositivo**
+
+- Use cabo USB, Bluetooth, e-mail ou serviço de nuvem para mover o arquivo APK para o seu dispositivo.
+
+---
+
+### ⚙️ **4.2 Permitir Instalação de Fontes Desconhecidas**
+
+1. No Android, acesse **Configurações** > **Segurança**.
+2. Ative **Permitir instalação de apps de fontes desconhecidas**.
+
+---
+
+### 📥 **4.3 Instalar o APK**
+
+1. Localize o arquivo APK transferido no seu gerenciador de arquivos.
+2. Toque no arquivo para iniciar a instalação.
+3. Siga as instruções na tela.
+
+---
+
+## ✅ **Pronto!**
+
+Ao abrir o app pela primeira vez, ele criará (usando seu código) o banco de dados vazio na pasta local do dispositivo.
+
+---
+
+> 💡 **Dica:**  
+> Para atualizar o aplicativo, basta repetir o processo e instalar a nova versão do APK!
+
+---
+
+
 # Screenshots
 
 ![SplashScreen](https://github.com/user-attachments/assets/26dc5f35-0b42-4f00-9265-c9cb3eff764c)
