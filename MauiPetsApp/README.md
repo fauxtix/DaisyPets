@@ -40,59 +40,109 @@ The ORM chosen to work with the database was Dapper, due to its ease of use and 
 
 Follow these steps to build the APK file and install it on your Android device.
 
----
+### 1️⃣ Prerequisites
 
-### 🛠️ **1.1 Select Release and Android Platform**
-
-1. In Visual Studio, choose **Release** mode and select the **Android** platform at the top of the window.
-
----
-
-### 📦 **1.2 Publish the APK**
-
-1. Right-click your MAUI project in the **Solution Explorer**.
-2. Choose:  
-   **Publish** → **Publish to Folder**
-
-3. Select the destination folder (recommend something easy to find, like `C:\Publications\`).
-
-4. Click **Finish** and wait for the process to complete.
+- Visual Studio 2022 or later
+- .NET MAUI project targeting Android
+- Android SDK and .NET MAUI workload installed
 
 ---
 
-### 🎯 **1.3 Locate the Generated APK**
+### 2️⃣ Step-by-Step Guide
 
-- After publishing, the APK file will be in the selected folder, usually under:
-  ```
-  /bin/Release/net8.0-android/publish/
-  ```
-- The file name will be something like `com.yourproject.apk`.
----
+#### 🟢 2.1 Ensure APK Package Format
 
-## 📲 2. Installing the APK on Android
-
-Follow these steps to install the APK on your Android phone:
+1. In Solution Explorer, right-click your main MAUI project (e.g., `MauiPets`).
+2. Select **Properties**.
+3. Go to **Android > Options** tab.
+4. In the **Release** field, select **apk** (default is aab).
+   - This ensures you’ll generate an APK (installable), not an AAB (for Play Store).
 
 ---
 
-### 🔄 **2.1 Transfer the APK to Your Device**
+#### 🟢 2.2 Choose Deployment Target
 
-- Use a USB cable, Bluetooth, email, or a cloud service to move the APK file to your phone.
-
----
-
-### ⚙️ **2.2 Allow Installation from Unknown Sources**
-
-1. On your Android device, go to **Settings** > **Security**.
-2. Enable **Install apps from unknown sources** (sometimes called “Allow unknown apps”).
+1. In the Visual Studio toolbar, use the **Debug Target** drop-down to select **Android Emulators** and then your preferred emulator (or leave it for a physical device).
 
 ---
 
-### 📥 **2.3 Install the APK**
+#### 🟢 2.3 Select Release Configuration
 
-1. Find the transferred APK file in your device’s file manager.
-2. Tap the file to start the installation.
-3. Follow the prompts on the screen.
+1. In the toolbar, use the **Solution Configuration** drop-down to switch from **Debug** to **Release**.
+
+---
+
+#### 🟢 2.4 Create Distribution Archive
+
+1. In Solution Explorer, right-click your main MAUI project.
+2. Select **Publish...**.
+3. Visual Studio will open the **Archive Manager** and begin archiving your APK.
+
+---
+
+#### 🟢 2.5 Once Archive is Created, Distribute the APK
+
+1. In **Archive Manager**, select the newly created archive when archiving is complete.
+2. Click the **Distribute...** button.
+3. In the **Distribute - Select Channel** dialog, select **Ad Hoc**.
+
+---
+
+#### 🟢 2.6 Signing Identity (Keystore)
+
+1. In the **Distribute - Signing Identity** dialog, click the **+** button to create a new signing identity (or **Import** to use an existing one).
+2. In the **Create Android Keystore** dialog:
+   - **Alias**: Enter a name for your key.
+   - **Password**: Create and confirm a secure password.
+   - **Validity**: Set how many years the key is valid.
+   - **Full Name, Organization Unit, Organization, City or Locality, State or Province, Country Code**: Fill in the organization/owner info.
+   - Click **Create**.
+3. The keystore is saved at:  
+   `C:\Users\{Username}\AppData\Local\Xamarin\Mono for Android\Keystore\{Alias}\{Alias}.keystore`
+
+> **Important:**  
+> The keystore and password are not saved with your Visual Studio solution. Back them up! Losing them means you can’t sign future versions with the same identity.
+
+---
+
+#### 🟢 2.7 Select Identity and Save APK
+
+1. Back in the **Distribute - Signing Identity** dialog, select your newly created signing identity.
+2. Click **Save As...** to choose the location and filename for the APK.
+3. Confirm the location and filename in the **Save As** dialog.
+
+---
+
+#### 🟢 2.8 Enter Signing Password
+
+1. When prompted by the **Signing Password** dialog, enter your keystore password and click **OK**.
+
+---
+
+#### 🟢 2.9 Open the Distribution Folder
+
+1. After publishing, in **Archive Manager**, click **Open Distribution** to open the folder containing your APK.
+
+---
+
+#### 🟢 2.10 Transfer and Install on Device
+
+1. Transfer the APK to your Android device (USB, email, cloud, etc.).
+2. On Android, go to **Settings > Security**.
+3. Enable **Install apps from unknown sources**.
+4. In your file manager, locate the APK and tap to install.
+5. Follow Android’s installation prompts.
+
+---
+
+### ⚠️ Important Notes
+
+- Ad-Hoc APK is for manual/test distribution outside Play Store.
+- Keystore and password are essential for future updates.
+- The same APK can be installed on multiple devices.
+- Always back up your keystore and password.
+
+---
 
 ---
 
