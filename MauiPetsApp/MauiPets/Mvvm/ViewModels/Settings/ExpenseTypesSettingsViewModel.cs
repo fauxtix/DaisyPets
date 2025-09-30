@@ -57,8 +57,13 @@ namespace MauiPets.Mvvm.ViewModels.Settings
 
         }
 
+        public void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            _ = ApplyQueryAttributesAsync(query);
+        }
 
-        public async void ApplyQueryAttributes(IDictionary<string, object> query)
+
+        public async Task ApplyQueryAttributesAsync(IDictionary<string, object> query)
         {
             ExpenseTypeRecordSelected = query[nameof(ExpenseTypeRecordSelected)] as TipoDespesaDto;
             var idxCategoria = ExpenseTypeRecordSelected.IdCategoriaDespesa;

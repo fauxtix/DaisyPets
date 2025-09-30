@@ -28,7 +28,12 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
         _vaccinesService = vacinnesService;
         _petService = petService;
     }
-    public async void ApplyQueryAttributes(IDictionary<string, object> query)
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        _ = ApplyQueryAttributesAsync(query);
+    }
+    public async Task ApplyQueryAttributesAsync(IDictionary<string, object> query)
     {
         IsBusy = true;
         await Task.Delay(100);

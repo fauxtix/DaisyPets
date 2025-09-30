@@ -37,7 +37,13 @@ public partial class ExpenseAddOrEditViewModel : ExpensesBaseViewModel, IQueryAt
         SetupLookupTables();
     }
 
-    public async void ApplyQueryAttributes(IDictionary<string, object> query)
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        _ = ApplyQueryAttributesAsync(query);
+    }
+
+
+    public async Task ApplyQueryAttributesAsync(IDictionary<string, object> query)
     {
         EditCaption = query.TryGetValue(nameof(EditCaption), out var editCaptionObj) ? editCaptionObj as string : null;
         DespesaDto = query.TryGetValue(nameof(DespesaDto), out var despesaDtoObj) ? despesaDtoObj as DespesaDto : null;
