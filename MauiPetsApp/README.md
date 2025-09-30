@@ -46,8 +46,6 @@ Follow these steps to build the APK file and install it on your Android device.
 
 1. In Visual Studio, choose **Release** mode and select the **Android** platform at the top of the window.
 
-   ![Select Release and Android](/images/image5.png)
-
 ---
 
 ### 📦 **1.2 Publish the APK**
@@ -55,8 +53,6 @@ Follow these steps to build the APK file and install it on your Android device.
 1. Right-click your MAUI project in the **Solution Explorer**.
 2. Choose:  
    **Publish** → **Publish to Folder**
-
-   ![Publish to Folder menu](/images/image6.png)
 
 3. Select the destination folder (recommend something easy to find, like `C:\Publications\`).
 
@@ -71,9 +67,6 @@ Follow these steps to build the APK file and install it on your Android device.
   /bin/Release/net8.0-android/publish/
   ```
 - The file name will be something like `com.yourproject.apk`.
-
-  ![APK in publish folder](/images/image7.png)
-
 ---
 
 ## 📲 2. Installing the APK on Android
@@ -93,8 +86,6 @@ Follow these steps to install the APK on your Android phone:
 1. On your Android device, go to **Settings** > **Security**.
 2. Enable **Install apps from unknown sources** (sometimes called “Allow unknown apps”).
 
-   ![Unknown sources setting on Android](/images/image8.png)
-
 ---
 
 ### 📥 **2.3 Install the APK**
@@ -102,8 +93,6 @@ Follow these steps to install the APK on your Android phone:
 1. Find the transferred APK file in your device’s file manager.
 2. Tap the file to start the installation.
 3. Follow the prompts on the screen.
-
-   ![Installing APK on Android](/images/image9.png)
 
 ---
 
