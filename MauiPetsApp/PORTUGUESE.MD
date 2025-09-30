@@ -35,124 +35,112 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
   Com ela, podemos usar expressões Lambda para “construir regras de validações” com retorno de mensagem de erro para cada propriedade das entidades.
 - Outras
 
-## 🚀 3. Criar o APK para o Projeto MAUI (.NET MAUI)
+# 📦 Guia Completo: Publicação Ad-Hoc de APK (.NET MAUI Android)
 
-Siga estes passos detalhados para gerar o ficheiro APK e instalar no seu dispositivo Android.
+## 🇵🇹 Português de Portugal
 
----
+### 1️⃣ Pré-requisitos
 
-### 🛠️ **3.1 Preparar o Projeto Android**
-
-1. No Visual Studio, certifique-se de que selecionou a configuração **Release** e a plataforma **Android** no topo do ecrã.
-
-   ![Selecionar Release e Android](/images/image5.png)
-
-2. No **Solution Explorer**, clique com o botão direito no projeto Android (exemplo: `MauiPets.Android`) e escolha **Propriedades**.
-
-   ![Propriedades do Projeto](/images/image10.png)
+- Visual Studio 2022 ou superior
+- Projeto .NET MAUI configurado para Android
+- Android SDK e workload .NET MAUI instalados
 
 ---
 
-### ⚙️ **3.2 Configurar as Propriedades do Projeto**
+### 2️⃣ Passos Detalhados
 
-1. No separador **Android Package Signing**:
-   - Ative a opção **Assinar o ficheiro .APK**.
-   - Crie ou selecione uma chave de assinatura (para uso pessoal, pode ser Ad-Hoc, para publicação deve ser Release).
-   - Escolha o modo de distribuição:  
-     - **Ad-Hoc**: Para instalação manual/testes  
-     - **Release**: Para publicação oficial (Google Play, etc.)
+#### 🟢 2.1 Garantir o Formato do Pacote APK
 
-   ![Configuração de Assinatura APK](/images/image11.png)
-
-2. No separador **Build**:
-   - Certifique-se que o **Output Type** está definido como **Android Application**.
-   - Em **Output**, selecione **APK** (e não AAB) se pretende um ficheiro para instalação manual.
-
-   ![Definir Output APK](/images/image12.png)
+1. No Solution Explorer, clique com o botão direito no projeto MAUI principal (ex: `MauiPets`).
+2. Selecione **Propriedades**.
+3. Navegue até ao separador **Android > Options**.
+4. No campo **Release**, selecione **apk** (por defeito está como aab).
+   - Isto garante que o ficheiro gerado será um APK (instalável), e não um AAB (usado para Play Store).
 
 ---
 
-### 📂 **3.3 Incluir Recursos Necessários**
+#### 🟢 2.2 Escolher o Destino de Implantação
 
-- Para ficheiros como a base de dados (`PetsDB.db`), garanta que a propriedade **Build Action** está definida como `Embedded Resource`.
-- Para imagens e outros recursos, utilize as propriedades adequadas.
-
-   ![Definir Build Action Embedded Resource](/images/image4.png)
+1. Na barra de ferramentas do Visual Studio, no drop-down **Debug Target**, selecione **Android Emulators** e depois o emulador pretendido (ou deixe selecionado para dispositivo físico, caso vá testar em telemóvel).
 
 ---
 
-### 📦 **3.4 Publicar o APK**
+#### 🟢 2.3 Selecionar a Configuração Release
 
-1. No Solution Explorer, clique com o botão direito no projeto Android.
-2. Selecione:  
-   **Publish** → **Publish to Folder**
-
-   ![Menu Publish to Folder](/images/image6.png)
-
-3. Escolha a pasta de destino (por exemplo, `C:\Publicacoes\`).
-4. Clique em **Finish** e aguarde o processo terminar.
+1. Na barra de ferramentas do Visual Studio, no drop-down **Solution Configuration**, altere de **Debug** para **Release**.
 
 ---
 
-### 🎯 **3.5 Localizar o APK Gerado**
+#### 🟢 2.4 Criar o Arquivo de Distribuição (Archive)
 
-- Após a publicação, o ficheiro APK estará na pasta escolhida, geralmente dentro do caminho:
-  ```
-  /bin/Release/net8.0-android/publish/
-  ```
-- O nome será algo como `com.seuprojeto.apk`.
-
-   ![APK gerado na pasta de publicação](/images/image7.png)
+1. No Solution Explorer, clique com o botão direito no projeto MAUI principal.
+2. Selecione **Publish...**.
+3. O Visual Studio abre o **Archive Manager** e começa a arquivar o pacote APK.
 
 ---
 
-## 📲 4. Instalar o APK no Android
+#### 🟢 2.5 Após Arquivo Criado, Distribuir o APK
 
-### 🔄 **4.1 Transferir o APK para o Dispositivo**
-
-- Use cabo USB, Bluetooth, e-mail ou serviço de nuvem para transferir o ficheiro APK para o telemóvel.
-
----
-
-### ⚙️ **4.2 Permitir Instalação de Fontes Desconhecidas**
-
-1. No Android, aceda a **Definições** > **Segurança**.
-2. Ative **Permitir instalação de apps de fontes desconhecidas**.
-
-   ![Fontes desconhecidas Android](/images/image8.png)
+1. No **Archive Manager**, após o processo terminar, selecione o arquivo gerado.
+2. Clique no botão **Distribute...**.
+3. Surge o diálogo **Distribute - Select Channel**.  
+   - Selecione **Ad Hoc**.
 
 ---
 
-### 📥 **4.3 Instalar o APK**
+#### 🟢 2.6 Identidade de Assinatura (Keystore)
 
-1. Localize o ficheiro APK transferido no gestor de ficheiros do dispositivo.
-2. Toque no ficheiro para iniciar a instalação.
-3. Siga as instruções apresentadas no ecrã.
+1. No diálogo **Distribute - Signing Identity**, clique no botão **+** para criar uma nova identidade de assinatura (ou **Import** para usar uma já existente).
+2. Surge o diálogo **Create Android Keystore**:
+   - **Alias**: Nome identificativo para a chave.
+   - **Password**: Crie e confirme uma password segura para proteger a chave.
+   - **Validity**: Defina a validade em anos.
+   - **Full Name, Organization Unit, Organization, City or Locality, State or Province, Country Code**: Preencha os dados do responsável/organização.
+   - Clique em **Create** para criar o keystore.
+3. O keystore será guardado em:  
+   `C:\Users\{Username}\AppData\Local\Xamarin\Mono for Android\Keystore\{Alias}\{Alias}.keystore`
 
-   ![Instalar APK no Android](/images/image9.png)
-
----
-
-## ✅ **Concluído!**
-
-Ao abrir a aplicação pela primeira vez, o código irá copiar a base de dados vazia para o dispositivo.
-
----
-
-> 💡 **Nota:**  
-> Para atualizar a aplicação, basta repetir este processo e instalar a nova versão do APK!
+> **Nota Importante:**  
+> O keystore e a password não ficam guardados na sua solução Visual Studio. Faça backup! Sem eles, não conseguirá assinar futuras versões com a mesma identidade.
 
 ---
 
-## 🖼️ **Imagens**
+#### 🟢 2.7 Selecionar Identidade e Guardar APK
 
-Coloque as capturas de ecrã na pasta `/images` do projeto e renomeie-as como indicado acima.
+1. De volta ao diálogo **Distribute - Signing Identity**, selecione a identidade de assinatura recém-criada.
+2. Clique em **Save As...** para escolher a localização e o nome do ficheiro APK.
+3. Confirme a localização e o nome no diálogo **Save As**.
 
 ---
 
-## 📝 **Adicionar ao README**
+#### 🟢 2.8 Introduzir a Password de Assinatura
 
-Copie este bloco para o README principal do seu projeto MauiPets ou crie um ficheiro dedicado, por exemplo, `Guia_Criacao_APK_MAUI.md`.
+1. Quando surgir o diálogo **Signing Password**, introduza a password definida para o keystore e clique em **OK**.
+
+---
+
+#### 🟢 2.9 Abrir a Pasta de Distribuição
+
+1. Após a publicação, no **Archive Manager**, clique em **Open Distribution** para abrir a pasta onde o APK foi guardado.
+
+---
+
+#### 🟢 2.10 Transferir e Instalar no Dispositivo
+
+1. Transfira o APK para o telemóvel (USB, email, nuvem, etc.).
+2. No Android, vá a **Definições > Segurança**.
+3. Ative **Instalar apps de fontes desconhecidas**.
+4. No gestor de ficheiros, localize o APK e toque para instalar.
+5. Siga as instruções do Android.
+
+---
+
+### ⚠️ Notas Importantes
+
+- O APK Ad-Hoc é para distribuição manual/testes fora da Play Store.
+- O keystore e password são essenciais para futuras atualizações.
+- O mesmo APK pode ser instalado em múltiplos dispositivos.
+- Faça sempre backup do keystore e password.
 
 ---
 
