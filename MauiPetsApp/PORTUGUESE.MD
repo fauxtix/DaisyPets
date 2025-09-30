@@ -37,13 +37,13 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 
 ## 🚀 1. Gerando o APK do Projeto MAUI (.NET MAUI)
 
-Siga estes passos para gerar o arquivo APK e instalar no seu dispositivo Android.
+Siga estes passos para gerar o ficheiro APK e instalar no seu dispositivo Android.
 
 ---
 
 ### 🛠️ **1.1 Selecionar Release e Plataforma Android**
 
-1. No Visual Studio, selecione o modo **Release** e a plataforma **Android** no topo da tela.
+1. No Visual Studio, selecione o modo **Release** e a plataforma **Android** no topo do ecrá.
 
 ---
 
@@ -52,14 +52,14 @@ Siga estes passos para gerar o arquivo APK e instalar no seu dispositivo Android
 1. Clique com o botão direito no seu projeto MAUI no **Solution Explorer**.
 2. Selecione:  
    **Publish** → **Publish to Folder**
-3. Escolha onde salvar o pacote (recomendo uma pasta fácil de localizar, como `C:\Publicacoes\`).
+3. Escolha onde salvar o pacote (recomenda-se uma pasta fácil de localizar, como `C:\Publicacoes\`).
 4. Clique em **Finish** e aguarde o processo terminar.
 
 ---
 
 ### 🎯 **1.3 Localizando o APK gerado**
 
-- Após a publicação, o arquivo APK estará na pasta escolhida, geralmente dentro do caminho:
+- Após a publicação, o ficheiro APK estará na pasta escolhida, geralmente dentro do caminho:
   ```
   /bin/Release/net8.0-android/publish/
   ```
@@ -75,28 +75,28 @@ Siga os passos para instalar o APK no seu smartphone Android:
 
 ### 🔄 **2.1 Transferir o APK para o Dispositivo**
 
-- Use cabo USB, Bluetooth, e-mail ou serviço de nuvem para mover o arquivo APK para o seu dispositivo.
+- Use cabo USB, Bluetooth, e-mail ou serviço na nuvem para mover o ficheiro APK para o seu dispositivo.
 
 ---
 
 ### ⚙️ **2.2 Permitir Instalação de Fontes Desconhecidas**
 
-1. No Android, acesse **Configurações** > **Segurança**.
+1. No Android, aceda a **Configurações** > **Segurança**.
 2. Ative **Permitir instalação de apps de fontes desconhecidas**.
 
 ---
 
 ### 📥 **2.3 Instalar o APK**
 
-1. Localize o arquivo APK transferido no seu gerenciador de arquivos.
-2. Toque no arquivo para iniciar a instalação.
-3. Siga as instruções na tela.
+1. Localize o focheiro APK transferido no seu gestor de arquivos.
+2. Toque no ficheiro para iniciar a instalação.
+3. Siga as instruções no ecrâ.
 
 ---
 
 ## ✅ **Pronto!**
 
-Ao abrir o app pela primeira vez, ele criará (usando seu código) o banco de dados vazio na pasta local do dispositivo.
+Ao abrir o app pela primeira vez, ele criará (usando o seu código) a base de  dados vazia na pasta local do dispositivo.
 
 ---
 
