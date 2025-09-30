@@ -35,68 +35,124 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
   Com ela, podemos usar expressões Lambda para “construir regras de validações” com retorno de mensagem de erro para cada propriedade das entidades.
 - Outras
 
-## 🚀 1. Gerando o APK do Projeto MAUI (.NET MAUI)
+## 🚀 3. Criar o APK para o Projeto MAUI (.NET MAUI)
 
-Siga estes passos para gerar o ficheiro APK e instalar no seu dispositivo Android.
-
----
-
-### 🛠️ **1.1 Selecionar Release e Plataforma Android**
-
-1. No Visual Studio, selecione o modo **Release** e a plataforma **Android** no topo do ecrá.
+Siga estes passos detalhados para gerar o ficheiro APK e instalar no seu dispositivo Android.
 
 ---
 
-### 📦 **1.2 Publicar o APK**
+### 🛠️ **3.1 Preparar o Projeto Android**
 
-1. Clique com o botão direito no seu projeto MAUI no **Solution Explorer**.
+1. No Visual Studio, certifique-se de que selecionou a configuração **Release** e a plataforma **Android** no topo do ecrã.
+
+   ![Selecionar Release e Android](/images/image5.png)
+
+2. No **Solution Explorer**, clique com o botão direito no projeto Android (exemplo: `MauiPets.Android`) e escolha **Propriedades**.
+
+   ![Propriedades do Projeto](/images/image10.png)
+
+---
+
+### ⚙️ **3.2 Configurar as Propriedades do Projeto**
+
+1. No separador **Android Package Signing**:
+   - Ative a opção **Assinar o ficheiro .APK**.
+   - Crie ou selecione uma chave de assinatura (para uso pessoal, pode ser Ad-Hoc, para publicação deve ser Release).
+   - Escolha o modo de distribuição:  
+     - **Ad-Hoc**: Para instalação manual/testes  
+     - **Release**: Para publicação oficial (Google Play, etc.)
+
+   ![Configuração de Assinatura APK](/images/image11.png)
+
+2. No separador **Build**:
+   - Certifique-se que o **Output Type** está definido como **Android Application**.
+   - Em **Output**, selecione **APK** (e não AAB) se pretende um ficheiro para instalação manual.
+
+   ![Definir Output APK](/images/image12.png)
+
+---
+
+### 📂 **3.3 Incluir Recursos Necessários**
+
+- Para ficheiros como a base de dados (`PetsDB.db`), garanta que a propriedade **Build Action** está definida como `Embedded Resource`.
+- Para imagens e outros recursos, utilize as propriedades adequadas.
+
+   ![Definir Build Action Embedded Resource](/images/image4.png)
+
+---
+
+### 📦 **3.4 Publicar o APK**
+
+1. No Solution Explorer, clique com o botão direito no projeto Android.
 2. Selecione:  
    **Publish** → **Publish to Folder**
-3. Escolha onde salvar o pacote (recomenda-se uma pasta fácil de localizar, como `C:\Publicacoes\`).
+
+   ![Menu Publish to Folder](/images/image6.png)
+
+3. Escolha a pasta de destino (por exemplo, `C:\Publicacoes\`).
 4. Clique em **Finish** e aguarde o processo terminar.
 
 ---
 
-### 🎯 **1.3 Localizando o APK gerado**
+### 🎯 **3.5 Localizar o APK Gerado**
 
 - Após a publicação, o ficheiro APK estará na pasta escolhida, geralmente dentro do caminho:
   ```
   /bin/Release/net8.0-android/publish/
   ```
-- O nome será algo como `com.seuprojeto.apk` ou semelhante.
+- O nome será algo como `com.seuprojeto.apk`.
+
+   ![APK gerado na pasta de publicação](/images/image7.png)
 
 ---
 
-## 📲 2. Instalando o APK no Android
+## 📲 4. Instalar o APK no Android
 
-Siga os passos para instalar o APK no seu smartphone Android:
+### 🔄 **4.1 Transferir o APK para o Dispositivo**
 
----
-
-### 🔄 **2.1 Transferir o APK para o Dispositivo**
-
-- Use cabo USB, Bluetooth, e-mail ou serviço na nuvem para mover o ficheiro APK para o seu dispositivo.
+- Use cabo USB, Bluetooth, e-mail ou serviço de nuvem para transferir o ficheiro APK para o telemóvel.
 
 ---
 
-### ⚙️ **2.2 Permitir Instalação de Fontes Desconhecidas**
+### ⚙️ **4.2 Permitir Instalação de Fontes Desconhecidas**
 
-1. No Android, aceda a **Configurações** > **Segurança**.
+1. No Android, aceda a **Definições** > **Segurança**.
 2. Ative **Permitir instalação de apps de fontes desconhecidas**.
 
+   ![Fontes desconhecidas Android](/images/image8.png)
+
 ---
 
-### 📥 **2.3 Instalar o APK**
+### 📥 **4.3 Instalar o APK**
 
-1. Localize o focheiro APK transferido no seu gestor de arquivos.
+1. Localize o ficheiro APK transferido no gestor de ficheiros do dispositivo.
 2. Toque no ficheiro para iniciar a instalação.
-3. Siga as instruções no ecrâ.
+3. Siga as instruções apresentadas no ecrã.
+
+   ![Instalar APK no Android](/images/image9.png)
 
 ---
 
-## ✅ **Pronto!**
+## ✅ **Concluído!**
 
-Ao abrir o app pela primeira vez, ele criará (usando o seu código) a base de  dados vazia na pasta local do dispositivo.
+Ao abrir a aplicação pela primeira vez, o código irá copiar a base de dados vazia para o dispositivo.
+
+---
+
+> 💡 **Nota:**  
+> Para atualizar a aplicação, basta repetir este processo e instalar a nova versão do APK!
+
+---
+
+## 🖼️ **Imagens**
+
+Coloque as capturas de ecrã na pasta `/images` do projeto e renomeie-as como indicado acima.
+
+---
+
+## 📝 **Adicionar ao README**
+
+Copie este bloco para o README principal do seu projeto MauiPets ou crie um ficheiro dedicado, por exemplo, `Guia_Criacao_APK_MAUI.md`.
 
 ---
 
