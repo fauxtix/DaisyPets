@@ -36,6 +36,83 @@ The ORM chosen to work with the database was Dapper, due to its ease of use and 
   With it, we can use Lambda expressions to ‘build validation rules’ with error message returns for each property of the entities.
 - Others
 
+- ## 🚀 1. Building the APK for your MAUI Project (.NET MAUI)
+
+Follow these steps to build the APK file and install it on your Android device.
+
+---
+
+### 🛠️ **1.1 Select Release and Android Platform**
+
+1. In Visual Studio, choose **Release** mode and select the **Android** platform at the top of the window.
+
+   ![Select Release and Android](/images/image5.png)
+
+---
+
+### 📦 **1.2 Publish the APK**
+
+1. Right-click your MAUI project in the **Solution Explorer**.
+2. Choose:  
+   **Publish** → **Publish to Folder**
+
+   ![Publish to Folder menu](/images/image6.png)
+
+3. Select the destination folder (recommend something easy to find, like `C:\Publications\`).
+
+4. Click **Finish** and wait for the process to complete.
+
+---
+
+### 🎯 **1.3 Locate the Generated APK**
+
+- After publishing, the APK file will be in the selected folder, usually under:
+  ```
+  /bin/Release/net8.0-android/publish/
+  ```
+- The file name will be something like `com.yourproject.apk`.
+
+  ![APK in publish folder](/images/image7.png)
+
+---
+
+## 📲 2. Installing the APK on Android
+
+Follow these steps to install the APK on your Android phone:
+
+---
+
+### 🔄 **2.1 Transfer the APK to Your Device**
+
+- Use a USB cable, Bluetooth, email, or a cloud service to move the APK file to your phone.
+
+---
+
+### ⚙️ **2.2 Allow Installation from Unknown Sources**
+
+1. On your Android device, go to **Settings** > **Security**.
+2. Enable **Install apps from unknown sources** (sometimes called “Allow unknown apps”).
+
+   ![Unknown sources setting on Android](/images/image8.png)
+
+---
+
+### 📥 **2.3 Install the APK**
+
+1. Find the transferred APK file in your device’s file manager.
+2. Tap the file to start the installation.
+3. Follow the prompts on the screen.
+
+   ![Installing APK on Android](/images/image9.png)
+
+---
+
+## ✅ **Done!**
+
+When you open the app for the first time, it will copy the empty database file to your device, as set up in your code.
+
+---
+
 # Screenshots
 
 ![SplashScreen](https://github.com/user-attachments/assets/26dc5f35-0b42-4f00-9265-c9cb3eff764c)
