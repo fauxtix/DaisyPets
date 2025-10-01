@@ -125,6 +125,9 @@
 		<MauiImage Update="Resources\Images\capsules.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
+		<MauiImage Update="Resources\Images\che.jpg">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiImage>
 		<MauiImage Update="Resources\Images\check.png">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
@@ -265,11 +268,6 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-
-	<ItemGroup>
-		<MauiImage Remove="Resources\Images\che.jpg" />
-	</ItemGroup>
-
 	<ItemGroup>
 		<None Remove="appsettings.Android.json" />
 		<None Remove="appsettings.Windows.json" />
@@ -345,9 +343,6 @@
 		</EmbeddedResource>
 		<EmbeddedResource Include="PetsDB.sqbpro">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</EmbeddedResource>
-		<EmbeddedResource Include="Resources\Images\che.jpg">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</EmbeddedResource>
 	</ItemGroup>
 
