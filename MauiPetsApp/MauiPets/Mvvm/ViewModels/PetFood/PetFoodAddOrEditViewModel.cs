@@ -12,7 +12,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
 
     public partial class PetFoodAddOrEditViewModel : PetFoodBaseViewModel, IQueryAttributable
     {
-        public IRacaoService _service { get; set; }
+        public IRacaoService _petFoodService { get; set; }
         public IPetService _petService { get; set; }
         public int SelectedPetFoodId { get; set; }
 
@@ -21,9 +21,9 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         [ObservableProperty]
         public string _petName;
 
-        public PetFoodAddOrEditViewModel(IRacaoService service, IPetService petService)
+        public PetFoodAddOrEditViewModel(IRacaoService petFoodservice, IPetService petService)
         {
-            _service = service;
+            _petFoodService = petFoodservice;
             _petService = petService;
         }
 
@@ -90,7 +90,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         {
             try
             {
-                var errorMessages = _service.RegistoComErros(SelectedPetFood);
+                var errorMessages = _petFoodService.RegistoComErros(SelectedPetFood);
                 if (!string.IsNullOrEmpty(errorMessages))
                 {
                     await Shell.Current.DisplayAlert("Verifique entradas, p.f.",
@@ -100,7 +100,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
 
                 if (SelectedPetFood.Id == 0)
                 {
-                    var insertedId = await _service.InsertAsync(SelectedPetFood);
+                    var insertedId = await _petFoodService.InsertAsync(SelectedPetFood);
                     if (insertedId == -1)
                     {
                         await Shell.Current.DisplayAlert("Error while updating",
@@ -123,7 +123,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
                 {
                     var _petFoodId = SelectedPetFood.Id;
                     var _petId = SelectedPetFood.IdPet;
-                    await _service.UpdateAsync(_petFoodId, SelectedPetFood);
+                    await _petFoodService.UpdateAsync(_petFoodId, SelectedPetFood);
 
                     var petVM = await _petService.GetPetVMAsync(_petId);
 

@@ -27,44 +27,63 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
-		<Copyright>2024 Fausto Luis</Copyright>
+		<Copyright>2025 Fausto Luis</Copyright>
 		<PackageIcon>dogfood.png</PackageIcon>
 		<Description>Helping busy pet owners keep track of the daily care of their pets.</Description>
-		<PlatformTarget>AnyCPU</PlatformTarget>
+		<PlatformTarget>anycpu</PlatformTarget>
+		<Title>DaisyPets</Title>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android33.0|AnyCPU'">
-	  <AndroidPackageFormat>apk</AndroidPackageFormat>
-	  <ApplicationId>com.FLSystems.mauipets</ApplicationId>
-	  <RunAOTCompilation>False</RunAOTCompilation>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+		<ApplicationId>com.FLSystems.mauipets</ApplicationId>
+		<RunAOTCompilation>False</RunAOTCompilation>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-maccatalyst|AnyCPU'">
-	  <ApplicationId>com.FLSystems.mauipets</ApplicationId>
-	  <ApplicationTitle>DaisyPets</ApplicationTitle>
+		<ApplicationId>com.FLSystems.mauipets</ApplicationId>
+		<ApplicationTitle>DaisyPets</ApplicationTitle>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android33.0|AnyCPU'">
-	  <ApplicationId>com.FLSystems.mauipets</ApplicationId>
+		<ApplicationId>com.FLSystems.mauipets</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-maccatalyst|AnyCPU'">
-	  <ApplicationId>com.FLSystems.mauipets</ApplicationId>
-	  <ApplicationTitle>DaisyPets</ApplicationTitle>
+		<ApplicationId>com.FLSystems.mauipets</ApplicationId>
+		<ApplicationTitle>DaisyPets</ApplicationTitle>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-android|AnyCPU'">
-	  <ApplicationTitle>DaisyPets</ApplicationTitle>
-	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-	  <RunAOTCompilation>False</RunAOTCompilation>
-	  <ApplicationId>com.FLSystems.mauipets</ApplicationId>
+		<ApplicationTitle>DaisyPets</ApplicationTitle>
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<RunAOTCompilation>False</RunAOTCompilation>
+		<ApplicationId>com.FLSystems.mauipets</ApplicationId>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
-	  <ApplicationTitle>DaisyPets</ApplicationTitle>
-	  <RunAOTCompilation>True</RunAOTCompilation>
-	  <AndroidPackageFormat>apk</AndroidPackageFormat>
-	  <ApplicationId>com.FLSystems.mauipets</ApplicationId>
+		<ApplicationTitle>DaisyPets</ApplicationTitle>
+		<RunAOTCompilation>True</RunAOTCompilation>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+		<ApplicationId>com.FLSystems.mauipets</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+		<ApplicationId>com.FLSystems.mauipets</ApplicationId>
+		<MauiLinkMode>Full</MauiLinkMode>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android|AnyCPU'">
+		<ApplicationId>com.FLSystems.mauipets</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-ios|AnyCPU'">
+		<ApplicationId>com.FLSystems.mauipets</ApplicationId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-ios|AnyCPU'">
+		<ApplicationId>com.FLSystems.mauipets</ApplicationId>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -76,17 +95,17 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.91" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.91" />
 	</ItemGroup>
-	
-	
+
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#CD9E03" BaseSize="128,128">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiIcon>
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\daisypetsbing_min.png" Color="#1E9ACC" BaseSize="128,128">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiSplashScreen>
 		<!--<MauiSplashScreen Include="Resources\Splash\splash.svg">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -95,25 +114,25 @@
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\add.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\appimage.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\bxs_dog.svg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\capsules.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\check.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\check_all.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\contacts.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\daisypetsbing.png" Resize="True">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -122,121 +141,121 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\delete_32.png" Resize="True" tintColor="#FF0000">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\dewormers.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\dogfeed.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\dogfood.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\doghouse.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\edit.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\expense.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\expenses.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\femenine_icon.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\filter.png" Resize="True" tintColor="#FFFFFF">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\gear.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\gear_white.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_close.svg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\delete_32.png" Resize="True" tintColor="#880808">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_delete.svg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_edit.svg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_group_data.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_log.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_nopet.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\icon_save.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\list.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\male_icon.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\money_preview.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\nodata.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\nopets.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\olie.jpg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\paymentlist.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\pending.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\people.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\peticon.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\pets.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\phone.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\pitbull.jpg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\schedule_icon.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\settings.jpg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\shiva.jpg">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\syringe.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 		<MauiImage Update="Resources\Images\tasks.png">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 
 		<!-- Custom Fonts -->
@@ -245,91 +264,91 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
-	
-	
+
+
 	<ItemGroup>
-	  <MauiImage Remove="Resources\Images\che.jpg" />
+		<MauiImage Remove="Resources\Images\che.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="appsettings.Android.json" />
-	  <None Remove="appsettings.Windows.json" />
-	  <None Remove="Database\PetsDB.db" />
-	  <None Remove="Database\PetsDB.db.sql" />
-	  <None Remove="Database\PetsDB.sqbpro" />
-	  <None Remove="PetsDB.db.sql" />
-	  <None Remove="PetsDB.sqbpro" />
-	  <None Remove="Resources\Images\add.png" />
-	  <None Remove="Resources\Images\appimage.png" />
-	  <None Remove="Resources\Images\arrdwn.png" />
-	  <None Remove="Resources\Images\bxs_dog.svg" />
-	  <None Remove="Resources\Images\Che.jpg" />
-	  <None Remove="Resources\Images\check.png" />
-	  <None Remove="Resources\Images\check_all.png" />
-	  <None Remove="Resources\Images\contacts.png" />
-	  <None Remove="Resources\Images\daisypetsbing.png" />
-	  <None Remove="Resources\Images\daisypetsbing_min.png" />
-	  <None Remove="Resources\Images\delete_32.png" />
-	  <None Remove="Resources\Images\DogAndCat.svg" />
-	  <None Remove="Resources\Images\doghouse.png" />
-	  <None Remove="Resources\Images\edit.png" />
-	  <None Remove="Resources\Images\expense.png" />
-	  <None Remove="Resources\Images\expenses.png" />
-	  <None Remove="Resources\Images\femenine_icon.png" />
-	  <None Remove="Resources\Images\filter.png" />
-	  <None Remove="Resources\Images\first_page.svg" />
-	  <None Remove="Resources\Images\gear_white.png" />
-	  <None Remove="Resources\Images\icon_close.svg" />
-	  <None Remove="Resources\Images\icon_edit.svg" />
-	  <None Remove="Resources\Images\icon_email.png" />
-	  <None Remove="Resources\Images\icon_group_data.png" />
-	  <None Remove="Resources\Images\icon_log.png" />
-	  <None Remove="Resources\Images\icon_save.png" />
-	  <None Remove="Resources\Images\last_page.svg" />
-	  <None Remove="Resources\Images\list.png" />
-	  <None Remove="Resources\Images\male_icon.png" />
-	  <None Remove="Resources\Images\money_preview.png" />
-	  <None Remove="Resources\Images\next_page.svg" />
-	  <None Remove="Resources\Images\nodata.png" />
-	  <None Remove="Resources\Images\nopets.png" />
-	  <None Remove="Resources\Images\Olie.jpg" />
-	  <None Remove="Resources\Images\PaymentList.png" />
-	  <None Remove="Resources\Images\pending.png" />
-	  <None Remove="Resources\Images\people.png" />
-	  <None Remove="Resources\Images\peticon.png" />
-	  <None Remove="Resources\Images\pets.png" />
-	  <None Remove="Resources\Images\phone.png" />
-	  <None Remove="Resources\Images\pitbull.jpg" />
-	  <None Remove="Resources\Images\previous_page.svg" />
-	  <None Remove="Resources\Images\schedule_icon.png" />
-	  <None Remove="Resources\Images\shiva.jpg" />
-	  <None Remove="Resources\Images\tasks.png" />
-	  <None Remove="Resources\Splash\daisypetsbing.png" />
-	  <None Remove="Resources\Splash\splash.svg" />
+		<None Remove="appsettings.Android.json" />
+		<None Remove="appsettings.Windows.json" />
+		<None Remove="Database\PetsDB.db" />
+		<None Remove="Database\PetsDB.db.sql" />
+		<None Remove="Database\PetsDB.sqbpro" />
+		<None Remove="PetsDB.db.sql" />
+		<None Remove="PetsDB.sqbpro" />
+		<None Remove="Resources\Images\add.png" />
+		<None Remove="Resources\Images\appimage.png" />
+		<None Remove="Resources\Images\arrdwn.png" />
+		<None Remove="Resources\Images\bxs_dog.svg" />
+		<None Remove="Resources\Images\Che.jpg" />
+		<None Remove="Resources\Images\check.png" />
+		<None Remove="Resources\Images\check_all.png" />
+		<None Remove="Resources\Images\contacts.png" />
+		<None Remove="Resources\Images\daisypetsbing.png" />
+		<None Remove="Resources\Images\daisypetsbing_min.png" />
+		<None Remove="Resources\Images\delete_32.png" />
+		<None Remove="Resources\Images\DogAndCat.svg" />
+		<None Remove="Resources\Images\doghouse.png" />
+		<None Remove="Resources\Images\edit.png" />
+		<None Remove="Resources\Images\expense.png" />
+		<None Remove="Resources\Images\expenses.png" />
+		<None Remove="Resources\Images\femenine_icon.png" />
+		<None Remove="Resources\Images\filter.png" />
+		<None Remove="Resources\Images\first_page.svg" />
+		<None Remove="Resources\Images\gear_white.png" />
+		<None Remove="Resources\Images\icon_close.svg" />
+		<None Remove="Resources\Images\icon_edit.svg" />
+		<None Remove="Resources\Images\icon_email.png" />
+		<None Remove="Resources\Images\icon_group_data.png" />
+		<None Remove="Resources\Images\icon_log.png" />
+		<None Remove="Resources\Images\icon_save.png" />
+		<None Remove="Resources\Images\last_page.svg" />
+		<None Remove="Resources\Images\list.png" />
+		<None Remove="Resources\Images\male_icon.png" />
+		<None Remove="Resources\Images\money_preview.png" />
+		<None Remove="Resources\Images\next_page.svg" />
+		<None Remove="Resources\Images\nodata.png" />
+		<None Remove="Resources\Images\nopets.png" />
+		<None Remove="Resources\Images\Olie.jpg" />
+		<None Remove="Resources\Images\PaymentList.png" />
+		<None Remove="Resources\Images\pending.png" />
+		<None Remove="Resources\Images\people.png" />
+		<None Remove="Resources\Images\peticon.png" />
+		<None Remove="Resources\Images\pets.png" />
+		<None Remove="Resources\Images\phone.png" />
+		<None Remove="Resources\Images\pitbull.jpg" />
+		<None Remove="Resources\Images\previous_page.svg" />
+		<None Remove="Resources\Images\schedule_icon.png" />
+		<None Remove="Resources\Images\shiva.jpg" />
+		<None Remove="Resources\Images\tasks.png" />
+		<None Remove="Resources\Splash\daisypetsbing.png" />
+		<None Remove="Resources\Splash\splash.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Include="appsettings.Android.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="appsettings.Windows.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Database\PetsDB.db">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Database\PetsDB.sqbpro">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="PetsDB.db.sql">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="PetsDB.sqbpro">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\Images\che.jpg">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </EmbeddedResource>
+		<EmbeddedResource Include="appsettings.Android.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="appsettings.Windows.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Database\PetsDB.db">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Database\PetsDB.sqbpro">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="PetsDB.db.sql">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="PetsDB.sqbpro">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Resources\Images\che.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -351,136 +370,136 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\MauiPets.Core\MauiPets.Core.csproj" />
-	  <ProjectReference Include="..\MauiPetsApp.Infrastructure\MauiPetsApp.Infrastructure.csproj" />
+		<ProjectReference Include="..\MauiPets.Core\MauiPets.Core.csproj" />
+		<ProjectReference Include="..\MauiPetsApp.Infrastructure\MauiPetsApp.Infrastructure.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Mvvm\Views\Logs\LogViewExceptionPage.xaml.cs">
-	    <DependentUpon>LogViewExceptionPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Mvvm\Views\Pets\PetAddOrEditPage.xaml.cs">
-	    <DependentUpon>PetAddOrEditPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Mvvm\Views\VetAppointments\VetAppointmentAddOrEditPage.xaml.cs">
-	    <DependentUpon>VetAppointmentAddOrEditPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Resources\Languages\AppResources.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>AppResources.resx</DependentUpon>
-	  </Compile>
+		<Compile Update="Mvvm\Views\Logs\LogViewExceptionPage.xaml.cs">
+			<DependentUpon>LogViewExceptionPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Mvvm\Views\Pets\PetAddOrEditPage.xaml.cs">
+			<DependentUpon>PetAddOrEditPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Mvvm\Views\VetAppointments\VetAppointmentAddOrEditPage.xaml.cs">
+			<DependentUpon>VetAppointmentAddOrEditPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Languages\AppResources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AppResources.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Controls\FlyoutFooter.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Controls\FlyoutHeader.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Controls\SettingsCardControl.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Contacts\AddOrEditContactPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Contacts\ContactDetailPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Contacts\ContactsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Contacts\LocationMapPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Dewormers\DewormerAddOrEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Email\EmailFormPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Expenses\ExpensesAddOrEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Expenses\ExpensesPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Expenses\GroupedExpensesPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Logs\LogsMainPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Logs\LogViewExceptionPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\PetFood\PetFoodAddOrEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Pets\PetAddOrEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Pets\PetDetailPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Pets\PetsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Settings\Expenses\CategoriesAddOrEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Settings\Expenses\CategoryTypesAddOrEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Settings\Expenses\ExpenseSettingsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Settings\MainSettingsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Settings\SettingsAddOrEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Settings\SettingsManagementPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Settings\SettingsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Todo\TodoAddOrEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Todo\TodoPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\Vaccines\VaccineAddOrEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Mvvm\Views\VetAppointments\VetAppointmentAddOrEditPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Controls\FlyoutFooter.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\FlyoutHeader.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Controls\SettingsCardControl.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Contacts\AddOrEditContactPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Contacts\ContactDetailPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Contacts\ContactsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Contacts\LocationMapPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Dewormers\DewormerAddOrEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Email\EmailFormPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Expenses\ExpensesAddOrEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Expenses\ExpensesPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Expenses\GroupedExpensesPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Logs\LogsMainPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Logs\LogViewExceptionPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\PetFood\PetFoodAddOrEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Pets\PetAddOrEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Pets\PetDetailPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Pets\PetsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Settings\Expenses\CategoriesAddOrEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Settings\Expenses\CategoryTypesAddOrEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Settings\Expenses\ExpenseSettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Settings\MainSettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Settings\SettingsAddOrEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Settings\SettingsManagementPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Settings\SettingsPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Todo\TodoAddOrEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Todo\TodoPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Vaccines\VaccineAddOrEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\VetAppointments\VetAppointmentAddOrEditPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="PetsDB.db">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Resources\Images\dogfood.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Update="PetsDB.db">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</None>
+		<None Update="Resources\Images\dogfood.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="DataContexts\" />
+		<Folder Include="DataContexts\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Resources\Languages\AppResources.resx">
-	    <Generator>PublicResXFileCodeGenerator</Generator>
-	    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
+		<EmbeddedResource Update="Resources\Languages\AppResources.resx">
+			<Generator>PublicResXFileCodeGenerator</Generator>
+			<LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 	</ItemGroup>
 
 </Project>
