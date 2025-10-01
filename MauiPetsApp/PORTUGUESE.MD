@@ -35,6 +35,115 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
   Com ela, podemos usar expressões Lambda para “construir regras de validações” com retorno de mensagem de erro para cada propriedade das entidades.
 - Outras
 
+# 📦 Guia Completo: Publicação Ad-Hoc de APK (.NET MAUI Android)
+
+## 🇵🇹 Português de Portugal
+
+### 1️⃣ Pré-requisitos
+
+- Visual Studio 2022 ou superior
+- Projeto .NET MAUI configurado para Android
+- Android SDK e workload .NET MAUI instalados
+
+---
+
+### 2️⃣ Passos Detalhados
+
+#### 🟢 2.1 Garantir o Formato do Pacote APK
+
+1. No Solution Explorer, clique com o botão direito no projeto MAUI principal (ex: `MauiPets`).
+2. Selecione **Propriedades**.
+3. Navegue até ao separador **Android > Options**.
+4. No campo **Release**, selecione **apk** (por defeito está como aab).
+   - Isto garante que o ficheiro gerado será um APK (instalável), e não um AAB (usado para Play Store).
+
+---
+
+#### 🟢 2.2 Escolher o Destino de Implantação
+
+1. Na barra de ferramentas do Visual Studio, no drop-down **Debug Target**, selecione **Android Emulators** e depois o emulador pretendido (ou deixe selecionado para dispositivo físico, caso vá testar em telemóvel).
+
+---
+
+#### 🟢 2.3 Selecionar a Configuração Release
+
+1. Na barra de ferramentas do Visual Studio, no drop-down **Solution Configuration**, altere de **Debug** para **Release**.
+
+---
+
+#### 🟢 2.4 Criar o Arquivo de Distribuição (Archive)
+
+1. No Solution Explorer, clique com o botão direito no projeto MAUI principal.
+2. Selecione **Publish...**.
+3. O Visual Studio abre o **Archive Manager** e começa a arquivar o pacote APK.
+
+---
+
+#### 🟢 2.5 Após Arquivo Criado, Distribuir o APK
+
+1. No **Archive Manager**, após o processo terminar, selecione o arquivo gerado.
+2. Clique no botão **Distribute...**.
+3. Surge o diálogo **Distribute - Select Channel**.  
+   - Selecione **Ad Hoc**.
+
+---
+
+#### 🟢 2.6 Identidade de Assinatura (Keystore)
+
+1. No diálogo **Distribute - Signing Identity**, clique no botão **+** para criar uma nova identidade de assinatura (ou **Import** para usar uma já existente).
+2. Surge o diálogo **Create Android Keystore**:
+   - **Alias**: Nome identificativo para a chave.
+   - **Password**: Crie e confirme uma password segura para proteger a chave.
+   - **Validity**: Defina a validade em anos.
+   - **Full Name, Organization Unit, Organization, City or Locality, State or Province, Country Code**: Preencha os dados do responsável/organização.
+   - Clique em **Create** para criar o keystore.
+3. O keystore será guardado em:  
+   `C:\Users\{Username}\AppData\Local\Xamarin\Mono for Android\Keystore\{Alias}\{Alias}.keystore`
+
+> **Nota Importante:**  
+> O keystore e a password não ficam guardados na sua solução Visual Studio. Faça backup! Sem eles, não conseguirá assinar futuras versões com a mesma identidade.
+
+---
+
+#### 🟢 2.7 Selecionar Identidade e Guardar APK
+
+1. De volta ao diálogo **Distribute - Signing Identity**, selecione a identidade de assinatura recém-criada.
+2. Clique em **Save As...** para escolher a localização e o nome do ficheiro APK.
+3. Confirme a localização e o nome no diálogo **Save As**.
+
+---
+
+#### 🟢 2.8 Introduzir a Password de Assinatura
+
+1. Quando surgir o diálogo **Signing Password**, introduza a password definida para o keystore e clique em **OK**.
+
+---
+
+#### 🟢 2.9 Abrir a Pasta de Distribuição
+
+1. Após a publicação, no **Archive Manager**, clique em **Open Distribution** para abrir a pasta onde o APK foi guardado.
+
+---
+
+#### 🟢 2.10 Transferir e Instalar no Dispositivo
+
+1. Transfira o APK para o telemóvel (USB, email, nuvem, etc.).
+2. No Android, vá a **Definições > Segurança**.
+3. Ative **Instalar apps de fontes desconhecidas**.
+4. No gestor de ficheiros, localize o APK e toque para instalar.
+5. Siga as instruções do Android.
+
+---
+
+### ⚠️ Notas Importantes
+
+- O APK Ad-Hoc é para distribuição manual/testes fora da Play Store.
+- O keystore e password são essenciais para futuras atualizações.
+- O mesmo APK pode ser instalado em múltiplos dispositivos.
+- Faça sempre backup do keystore e password.
+
+---
+
 # Screenshots
 
 ![SplashScreen](https://github.com/user-attachments/assets/26dc5f35-0b42-4f00-9265-c9cb3eff764c)
@@ -113,9 +222,9 @@ O projeto MauiPetsApp está licenciado sob a Licença MIT. Pode encontrar mais i
 
 ## 📞 Contacto
 
-Se tiver alguma dúvida ou precisar de mais assistência, pode contactar o mantenedor do projeto:
+Se tiver alguma dúvida ou precisar de mais assistência, pode contactar o gestor do projeto:
 
-- 👨‍💻 Mantenedor: Fausto Luís
+- 👨‍💻 Autor: Fausto Luís
 - ✉ E-mail: fauxtix.luix@hotmail.com
 
-Sinta-se à vontade para me contactar com qualquer feedback ou questão.
+Sinta-se à vontade para contactar-me com qualquer feedback ou questão.
