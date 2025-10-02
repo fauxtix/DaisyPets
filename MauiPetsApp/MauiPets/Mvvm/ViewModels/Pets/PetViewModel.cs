@@ -6,13 +6,14 @@ using MauiPets.Extensions;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
-using Serilog;
+using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
 public partial class PetViewModel : BaseViewModel
 {
+    private readonly ILogger<PetViewModel> _logger;
 
     public ObservableCollection<PetVM> Pets { get; } = new();
 
@@ -20,11 +21,12 @@ public partial class PetViewModel : BaseViewModel
     private readonly IPetService _petService;
 
     private readonly IVacinasService _petVaccinesService;
-    public PetViewModel(IPetService petService, IVacinasService petVaccinesService)
+    public PetViewModel(IPetService petService, IVacinasService petVaccinesService, ILogger<PetViewModel> logger)
     {
         _petService = petService;
         _petVaccinesService = petVaccinesService;
         Task.Run(GetPetsAsync);
+        _logger = logger;
     }
 
     [ObservableProperty]
@@ -52,7 +54,7 @@ public partial class PetViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
-            Log.Error($"Erro ao ler ficheiro de Pets. {ex.Message}");
+            _logger.LogError($"Erro ao ler ficheiro de Pets. {ex.Message}");
             await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
         }
         finally
@@ -106,6 +108,7 @@ public partial class PetViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
+            _logger.LogError($"Erro ao abrir detalhe do Pet. {ex.Message}");
             await Shell.Current.DisplayAlert("Error!", ex.Message, "OK");
         }
         finally
@@ -220,6 +223,7 @@ public partial class PetViewModel : BaseViewModel
         }
         catch (Exception ex)
         {
+            _logger.LogError($"Error in SaveVaccine: {ex.Message}");
             ShowToastMessage($"Error while creating Vaccine ({ex.Message})");
         }
         finally

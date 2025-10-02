@@ -65,7 +65,7 @@
                                                Text="{Binding Nome}" 
                                                TextColor="Black"
                                                FontFamily="PoppinsBold" 
-                                               FontSize="16"
+                                               FontSize="14"
                                                LineBreakMode="WordWrap"
                                                MaxLines="2"
                                                VerticalOptions="Center"
@@ -75,7 +75,6 @@
                                                Text="{Binding Movel}" 
                                                FontSize="12" 
                                                TextColor="Green"
-                                               FontAttributes="Bold"
                                                FontFamily="PoppinsBold" 
                                                CharacterSpacing="2.2"/>
                                     </Grid>

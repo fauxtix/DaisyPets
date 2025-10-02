@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace MauiPets.Mvvm.ViewModels.PetFood
 {
@@ -12,6 +13,8 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
 
     public partial class PetFoodAddOrEditViewModel : PetFoodBaseViewModel, IQueryAttributable
     {
+
+        private readonly ILogger<PetFoodAddOrEditViewModel> _logger;
         public IRacaoService _petFoodService { get; set; }
         public IPetService _petService { get; set; }
         public int SelectedPetFoodId { get; set; }
@@ -21,10 +24,13 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
         [ObservableProperty]
         public string _petName;
 
-        public PetFoodAddOrEditViewModel(IRacaoService petFoodservice, IPetService petService)
+
+
+        public PetFoodAddOrEditViewModel(IRacaoService petFoodservice, IPetService petService, ILogger<PetFoodAddOrEditViewModel> logger)
         {
             _petFoodService = petFoodservice;
             _petService = petService;
+            _logger = logger;
         }
 
 
@@ -48,7 +54,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
             }
             catch (Exception ex)
             {
-                // Podes usar um logger ou DisplayAlert aqui se quiseres
+                _logger.LogError($"Error in ApplyQueryAttributesAsync: {ex.Message}");
             }
         }
 
@@ -77,6 +83,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Error in GoBack (PetFoodAddOrEdit): {ex.Message}");
                 await Shell.Current.DisplayAlert("Error while 'GoBack (PetFoodAddOrEdit", ex.Message, "Ok");
             }
             finally
@@ -138,6 +145,7 @@ namespace MauiPets.Mvvm.ViewModels.PetFood
             }
             catch (Exception ex)
             {
+                _logger.LogError($"Error in SavePetFood: {ex.Message}");
                 IsBusy = false;
                 await ShowToastMessageAsync($"Error while creating Vaccine ({ex.Message})");
             }

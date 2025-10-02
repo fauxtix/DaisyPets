@@ -261,9 +261,6 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</MauiImage>
 
-		<!-- Custom Fonts -->
-		<MauiFont Include="Resources\Fonts\*" />
-
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
@@ -495,6 +492,17 @@
 			<Generator>PublicResXFileCodeGenerator</Generator>
 			<LastGenOutput>AppResources.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiFont Include="Resources/Fonts/OpenSans-Regular.ttf" Alias="OpenSansRegular" />
+		<MauiFont Include="Resources/Fonts/OpenSans-Semibold.ttf" Alias="OpenSansSemibold" />
+		<MauiFont Include="Resources/Fonts/OpenSans-Medium.ttf" Alias="OpenSansMedium" />
+		<MauiFont Include="Resources/Fonts/NotoSerif-Bold.ttf" Alias="NotoSerifBold" />
+		<MauiFont Include="Resources/Fonts/Poppins-Bold.ttf" Alias="PoppinsBold" />
+		<MauiFont Include="Resources/Fonts/Poppins-SemiBold.ttf" Alias="PoppinsSemiBold" />
+		<MauiFont Include="Resources/Fonts/Poppins-Regular.ttf" Alias="Poppins" />
+		<MauiFont Include="Resources/Fonts/MaterialIconsOutlined-Regular.otf" Alias="Material" />
 	</ItemGroup>
 
 </Project>
