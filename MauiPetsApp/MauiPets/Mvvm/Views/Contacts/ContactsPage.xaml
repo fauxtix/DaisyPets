@@ -2,11 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Contacts.ContactsPage"
-             xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
+             xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Contacts"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:resx="clr-namespace:MauiPets.Resources.Languages"
-
              xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Contacts"
              x:DataType="local:ContactsViewModel"
              Title="Contactos">
@@ -16,63 +15,79 @@
     </ContentPage.Behaviors>
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding AddContactCommand}"
-                 IconImageSource="add.png" />
+                     IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
 
     <ScrollView>
         <VerticalStackLayout>
-            <Grid RowDefinitions="*, *,*" ColumnDefinitions=".70*, .30*">
-                <Border Grid.Row="0" HorizontalOptions="Center" Grid.ColumnSpan="2"
+            <Grid RowDefinitions="Auto,Auto,*,Auto" ColumnDefinitions="0.70*,0.30*">
+                <Border Grid.Row="0" Grid.ColumnSpan="2"
                         StrokeShape="RoundRectangle 22,22,22,22" 
-                        StrokeThickness="1" HeightRequest="90">
-                    <Image Margin="5, 5"
-                        Grid.Row="0" WidthRequest="80" 
-                        HeightRequest="80" Aspect="AspectFill" 
-                        Source="contacts.png"/>
+                        StrokeThickness="1" HeightRequest="90"
+                        HorizontalOptions="Center">
+                    <Image Margin="5,5"
+                           WidthRequest="80" HeightRequest="80"
+                           Aspect="AspectFill"
+                           Source="contacts.png"/>
                 </Border>
 
-                <SearchBar Grid.Row="1"
-                           Grid.Column="0"
+                <SearchBar Grid.Row="1" Grid.Column="0"
                            FontSize="14"
-                           Text="{resx:Localize Key=TituloPesquisarContacto}"
-                           Margin="5, 5, 5, 25"
+                           Placeholder="{resx:Localize Key=TituloPesquisarContacto}"
+                           Margin="5,5,5,25"
                            x:Name="searchBar"
                            WidthRequest="300">
                     <SearchBar.Behaviors>
                         <toolkit:EventToCommandBehavior EventName="TextChanged"
-                                                    Command="{Binding SearchContactsCommand}" 
-                                                    CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
+                                                        Command="{Binding SearchContactsCommand}" 
+                                                        CommandParameter="{Binding Text, Source={x:Reference searchBar}}"/>
                     </SearchBar.Behaviors>
                 </SearchBar>
+
                 <ListView x:Name="ContactsList" x:DataType="models:ContactoVM"
                           Grid.Row="2"
                           Grid.ColumnSpan="2"
                           BackgroundColor="Transparent"
+                          SeparatorColor="Green"
                           ItemSelected="OnItemSelected"
-                          SeparatorColor="Green" 
-                          SelectionMode="Single">
+                          SelectionMode="Single"
+                          HasUnevenRows="True">
                     <ListView.ItemTemplate>
-                        <DataTemplate >
+                        <DataTemplate>
                             <ViewCell>
-                                <StackLayout Margin="20,0,0,0" Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="Start" >
-                                        <Label Text="{Binding Nome}" FontFamily="PoppinsBold" 
-                                             FontSize="12"/>
-                                        <Label Margin="0, 0, 0, 15" Text="{Binding Movel}" 
-                                               FontSize="10" 
-                                               TextColor="DarkMagenta"
+                                <Border Stroke="LightGray" StrokeThickness="1" Margin="8,4">
+                                    <Grid Padding="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" 
+                                               Text="{Binding Nome}" 
+                                               TextColor="Black"
                                                FontFamily="PoppinsBold" 
-                                               CharacterSpacing="1.8"/>
-                                    </StackLayout>
-                                </StackLayout>
+                                               FontSize="16"
+                                               LineBreakMode="WordWrap"
+                                               MaxLines="2"
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Start"/>
+                                        <Label Grid.Row="1"
+                                               Margin="0,5,0,0"
+                                               Text="{Binding Movel}" 
+                                               FontSize="12" 
+                                               TextColor="Green"
+                                               FontAttributes="Bold"
+                                               FontFamily="PoppinsBold" 
+                                               CharacterSpacing="2.2"/>
+                                    </Grid>
+                                </Border>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Grid HorizontalOptions="Center" VerticalOptions="Center" 
-                      Grid.RowSpan="3">
-                    <ActivityIndicator                
+                <Grid Grid.Row="3" Grid.ColumnSpan="2"
+                      HorizontalOptions="Center" VerticalOptions="Center">
+                    <ActivityIndicator
                         x:Name="ai" 
                         IsRunning="{Binding IsBusy}" 
                         HorizontalOptions="Center" 
@@ -80,7 +95,6 @@
                         BackgroundColor="Transparent"
                         Color="#03b48b"/>
                 </Grid>
-
             </Grid>
         </VerticalStackLayout>
     </ScrollView>

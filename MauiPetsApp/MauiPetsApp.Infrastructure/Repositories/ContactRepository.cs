@@ -3,7 +3,7 @@ using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using Serilog;
+using Microsoft.Extensions.Logging;
 using System.Text;
 
 namespace MauiPetsApp.Infrastructure
@@ -11,9 +11,11 @@ namespace MauiPetsApp.Infrastructure
     public class ContactRepository : IContactRepository
     {
         private readonly IDapperContext _context;
-        public ContactRepository(IDapperContext context)
+        private ILogger<ContactRepository> _logger;
+        public ContactRepository(IDapperContext context, ILogger<ContactRepository> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task DeleteAsync(int Id)
@@ -31,7 +33,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                Log.Error(ex.ToString());
+                _logger.LogError(ex.ToString());
             }
 
         }
@@ -60,7 +62,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                Log.Error(ex.ToString(), ex);
+                _logger.LogError(ex.ToString(), ex);
                 return new Contacto();
             }
         }
@@ -85,25 +87,34 @@ namespace MauiPetsApp.Infrastructure
 
         public async Task<IEnumerable<ContactoVM>> GetAllContactVMAsync()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Contacto.Id, Nome, Morada, Localidade, Movel, EMail, ");
-            sb.Append("Latitude, Longitude, "); // new fields
-            sb.Append("Notas, IdTipoContacto, TipoContacto.Descricao AS [DescricaoTipoContacto] ");
-            sb.Append("FROM Contacto ");
-            sb.Append("INNER JOIN TipoContacto ON ");
-            sb.Append("Contacto.IdTipoContacto = TipoContacto.Id");
-
-            using (var connection = _context.CreateConnection())
+            try
             {
-                var contactsVM = await connection.QueryAsync<ContactoVM>(sb.ToString());
-                if (contactsVM != null)
+                StringBuilder sb = new StringBuilder();
+                sb.Append("SELECT Contacto.Id, Nome, Morada, Localidade, Movel, EMail, ");
+                sb.Append("Latitude, Longitude, "); // new fields
+                sb.Append("Notas, IdTipoContacto, TipoContacto.Descricao AS [DescricaoTipoContacto] ");
+                sb.Append("FROM Contacto ");
+                sb.Append("INNER JOIN TipoContacto ON ");
+                sb.Append("Contacto.IdTipoContacto = TipoContacto.Id");
+
+                using (var connection = _context.CreateConnection())
                 {
-                    return contactsVM;
+                    var contactsVM = await connection.QueryAsync<ContactoVM>(sb.ToString());
+                    if (contactsVM != null)
+                    {
+                        return contactsVM;
+                    }
+                    else
+                    {
+                        return Enumerable.Empty<ContactoVM>();
+                    }
                 }
-                else
-                {
-                    return Enumerable.Empty<ContactoVM>();
-                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return Enumerable.Empty<ContactoVM>();
             }
         }
 
@@ -155,7 +166,7 @@ namespace MauiPetsApp.Infrastructure
             }
             catch (Exception ex)
             {
-                Log.Error(ex.ToString());
+                _logger.LogError(ex.ToString());
                 return -1;
             }
 

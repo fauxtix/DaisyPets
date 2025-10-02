@@ -8,51 +8,35 @@ using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.LookupTables;
 using Serilog;
+using System.Collections.ObjectModel;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
 
 [QueryProperty(nameof(PetDto), "PetDto")]
-
 public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
 {
-
-    public List<LookupTableVM> Species { get; } = new();
-    public List<LookupTableVM> Breeds { get; } = new();
-    public List<LookupTableVM> Situations { get; } = new();
-    public List<LookupTableVM> Sizes { get; } = new();
-    public List<LookupTableVM> Temperaments { get; } = new();
+    public ObservableCollection<LookupTableVM> Species { get; } = new();
+    public ObservableCollection<LookupTableVM> Breeds { get; } = new();
+    public ObservableCollection<LookupTableVM> Situations { get; } = new();
+    public ObservableCollection<LookupTableVM> Sizes { get; } = new();
+    public ObservableCollection<LookupTableVM> Temperaments { get; } = new();
 
     [ObservableProperty]
     private string descricao;
 
-    [ObservableProperty]
-    private LookupTableVM _selectedSpecie;
-    [ObservableProperty]
-    private LookupTableVM _selectedTemperament;
-    [ObservableProperty]
-    private LookupTableVM _selectedSituation;
-    [ObservableProperty]
-    private LookupTableVM _selectedBreed;
-    [ObservableProperty]
-    private LookupTableVM _selectedSize;
+    [ObservableProperty] private LookupTableVM selectedSpecie;
+    [ObservableProperty] private LookupTableVM selectedTemperament;
+    [ObservableProperty] private LookupTableVM selectedSituation;
+    [ObservableProperty] private LookupTableVM selectedBreed;
+    [ObservableProperty] private LookupTableVM selectedSize;
 
-    [ObservableProperty]
-    private int _specieSelectedIndex;
-    [ObservableProperty]
-    private int _situationSelectedIndex;
-    [ObservableProperty]
-    private int _temperamentSelectedIndex;
-    [ObservableProperty]
-    private int _breedSelectedIndex;
-    [ObservableProperty]
-    private int _sizeSelectedIndex;
-
-    private string selectedPickerName;
-    public string SelectedPickerName
-    {
-        get { return selectedPickerName; }
-        set { SetProperty(ref selectedPickerName, value); }
-    }
+    // Propriedades auxiliares para sincronização correta dos Pickers
+    private int? _pendingSpecieId;
+    private int? _pendingBreedId;
+    private int? _pendingTemperamentId;
+    private int? _pendingSituationId;
+    private int? _pendingSizeId;
+    private bool _pickersPendingSync = false;
 
     public IPetService _petService { get; set; }
     public ILookupTableService _lookupTablesService { get; set; }
@@ -62,26 +46,26 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     {
         _petService = petService;
         _lookupTablesService = lookupTablesService;
-        //InitializeAsync();
+        // Inicialização das lookup tables é feita em OnAppearing do code-behind
     }
 
     public async Task InitializeAsync()
     {
         await SetupLookupTables();
+        TrySyncPickersWithDto();
     }
+
+    partial void OnSelectedSpecieChanged(LookupTableVM value) => PetDto.IdEspecie = value?.Id ?? 0;
+    partial void OnSelectedTemperamentChanged(LookupTableVM value) => PetDto.IdTemperamento = value?.Id ?? 0;
+    partial void OnSelectedSituationChanged(LookupTableVM value) => PetDto.IdSituacao = value?.Id ?? 0;
+    partial void OnSelectedBreedChanged(LookupTableVM value) => PetDto.IdRaca = value?.Id ?? 0;
+    partial void OnSelectedSizeChanged(LookupTableVM value) => PetDto.IdTamanho = value?.Id ?? 0;
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         try
         {
             PetDto = query[nameof(PetDto)] as PetDto;
-
-            SpecieSelectedIndex = Species.FindIndex(item => item.Id == PetDto.IdEspecie);
-            BreedSelectedIndex = Breeds.FindIndex(item => item.Id == PetDto.IdRaca);
-            TemperamentSelectedIndex = Temperaments.FindIndex(item => item.Id == PetDto.IdTemperamento);
-            SituationSelectedIndex = Situations.FindIndex(item => item.Id == PetDto.IdSituacao);
-            SizeSelectedIndex = Sizes.FindIndex(item => item.Id == PetDto.IdTamanho);
-
             EditCaption = query[nameof(EditCaption)] as string;
             IsEditing = (bool)query[nameof(IsEditing)];
             PetPhoto = PetDto.Foto;
@@ -89,25 +73,103 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
             var genderType = PetDto.Genero;
             IsGenderMale = genderType == "M";
             IsGenderFemale = genderType == "F";
+
+            // Em vez de atribuir diretamente, guarda os IDs para sincronizar mais tarde
+            _pendingSpecieId = PetDto.IdEspecie;
+            _pendingBreedId = PetDto.IdRaca;
+            _pendingTemperamentId = PetDto.IdTemperamento;
+            _pendingSituationId = PetDto.IdSituacao;
+            _pendingSizeId = PetDto.IdTamanho;
+            _pickersPendingSync = true;
+
+            TrySyncPickersWithDto();
         }
         catch (Exception ex)
         {
             Log.Error(ex.Message, ex);
         }
     }
-    private void ExecuteUpdateSelectedItem()
+
+    private void TrySyncPickersWithDto()
     {
-        switch (SelectedPickerName)
+        // Só sincroniza se ainda estiver pendente e se todas as coleções tiverem dados
+        if (!_pickersPendingSync)
+            return;
+        if (Species.Count == 0 || Breeds.Count == 0 || Temperaments.Count == 0 || Situations.Count == 0 || Sizes.Count == 0)
+            return;
+
+        SelectedSpecie = Species.FirstOrDefault(item => item.Id == _pendingSpecieId);
+        SelectedBreed = Breeds.FirstOrDefault(item => item.Id == _pendingBreedId);
+        SelectedTemperament = Temperaments.FirstOrDefault(item => item.Id == _pendingTemperamentId);
+        SelectedSituation = Situations.FirstOrDefault(item => item.Id == _pendingSituationId);
+        SelectedSize = Sizes.FirstOrDefault(item => item.Id == _pendingSizeId);
+
+        _pickersPendingSync = false;
+    }
+
+    private async Task SetupLookupTables()
+    {
+        var lookupTasks = new List<Task>
         {
-            case "SpeciesPicker":
-                //IdEspecie = SelectedSpecieId;
-                break;
-            case "TemperamentsPicker":
-                //IdTemperamento = SelectedTemperamentId;
-                break;
-            case "SituationsPicker":
-                //IdSituacao = SelectedSituationId;
-                break;
+            GetLookupData("Especie", AppEnums.Species),
+            GetLookupData("Raca", AppEnums.Breeds),
+            GetLookupData("Situacao", AppEnums.Situations),
+            GetLookupData("Tamanho", AppEnums.Sizes),
+            GetLookupData("Temperamento", AppEnums.Temperaments)
+        };
+
+        await Task.WhenAll(lookupTasks);
+
+        // Tenta sincronizar os pickers após carregar as coleções
+        TrySyncPickersWithDto();
+    }
+
+    private async Task GetLookupData(string tableName, AppEnums option)
+    {
+        if (string.IsNullOrEmpty(tableName))
+            return;
+
+        try
+        {
+            var result = await _lookupTablesService.GetLookupTableData(tableName);
+
+            if (result is null)
+                return;
+
+            List<LookupTableVM> itemsToAdd = new List<LookupTableVM>(result);
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                switch (option)
+                {
+                    case AppEnums.Species:
+                        foreach (var item in itemsToAdd)
+                            Species.Add(item);
+                        break;
+                    case AppEnums.Breeds:
+                        foreach (var item in itemsToAdd)
+                            Breeds.Add(item);
+                        break;
+                    case AppEnums.Sizes:
+                        foreach (var item in itemsToAdd)
+                            Sizes.Add(item);
+                        break;
+                    case AppEnums.Temperaments:
+                        foreach (var item in itemsToAdd)
+                            Temperaments.Add(item);
+                        break;
+                    case AppEnums.Situations:
+                        foreach (var item in itemsToAdd)
+                            Situations.Add(item);
+                        break;
+                }
+                // Tenta sincronizar os pickers sempre que uma coleção é atualizada
+                TrySyncPickersWithDto();
+            });
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error while 'GetLookupData", ex.Message, "Ok");
         }
     }
 
@@ -197,66 +259,6 @@ public partial class PetAddOrEditViewModel : BaseViewModel, IQueryAttributable
     async Task GoBack()
     {
         await Shell.Current.GoToAsync("..");
-    }
-
-    private async Task SetupLookupTables()
-    {
-        var lookupTasks = new List<Task>
-    {
-        GetLookupData("Especie", AppEnums.Species),
-        GetLookupData("Raca", AppEnums.Breeds),
-        GetLookupData("Situacao", AppEnums.Situations),
-        GetLookupData("Tamanho", AppEnums.Sizes),
-        GetLookupData("Temperamento", AppEnums.Temperaments)
-    };
-
-        await Task.WhenAll(lookupTasks);
-    }
-    private async Task GetLookupData(string tableName, AppEnums option)
-    {
-        if (string.IsNullOrEmpty(tableName))
-            return;
-
-        try
-        {
-            var result = await _lookupTablesService.GetLookupTableData(tableName);
-
-            if (result is null)
-                return;
-
-            List<LookupTableVM> itemsToAdd = new List<LookupTableVM>(result);
-
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                switch (option)
-                {
-                    case AppEnums.Species:
-                        foreach (var item in itemsToAdd)
-                            Species.Add(item);
-                        break;
-                    case AppEnums.Breeds:
-                        foreach (var item in itemsToAdd)
-                            Breeds.Add(item);
-                        break;
-                    case AppEnums.Sizes:
-                        foreach (var item in itemsToAdd)
-                            Sizes.Add(item);
-                        break;
-                    case AppEnums.Temperaments:
-                        foreach (var item in itemsToAdd)
-                            Temperaments.Add(item);
-                        break;
-                    case AppEnums.Situations:
-                        foreach (var item in itemsToAdd)
-                            Situations.Add(item);
-                        break;
-                }
-            });
-        }
-        catch (Exception ex)
-        {
-            await Shell.Current.DisplayAlert("Error while 'GetLookupData", ex.Message, "Ok");
-        }
     }
 
     [RelayCommand]

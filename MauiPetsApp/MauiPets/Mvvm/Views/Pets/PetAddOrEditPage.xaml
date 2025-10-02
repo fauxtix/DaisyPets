@@ -146,7 +146,7 @@
                                        FontSize="12"
 			                           VerticalOptions="Center"></Label>
 
-                                    <DatePicker x:Name="dobPicker"
+                                <DatePicker x:Name="dobPicker"
                                             Date="{Binding PetDto.DataNascimento}"
                                             FontSize="12"
                                             FontAttributes="Bold"
@@ -268,18 +268,15 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="Espécie" Grid.Row="0" Grid.Column="0" FontSize="11"  VerticalTextAlignment="Center" ></Label>
-                                <Picker x:Name="SpeciesPicker" 
-                                        Title="Escolha Espécie" 
-                                        Grid.Row="0" 
-                                        Grid.Column="1"
-                                        FontSize="12"
-                                        VerticalTextAlignment="Center"
-                                        ItemsSource="{Binding Species}"
-                                        SelectedItem="{Binding SelectedSpecie}"
-                                        SelectedIndex="{Binding SpecieSelectedIndex}"
-                                        SelectedIndexChanged="SelectedIndexChanged"
-                                        ItemDisplayBinding="{Binding Descricao}">
-                                </Picker>
+                                <Picker x:Name="SpeciesPicker"
+        Title="Escolha Espécie" 
+        Grid.Row="0" 
+        Grid.Column="1"
+        FontSize="12"
+        VerticalTextAlignment="Center"
+        ItemsSource="{Binding Species}" 
+        SelectedItem="{Binding SelectedSpecie, Mode=TwoWay}"
+        ItemDisplayBinding="{Binding Descricao}" />
 
                                 <Label VerticalOptions="Center" Grid.Row="1" Grid.Column="0"
                                             FontSize="11" >Género</Label>
@@ -301,48 +298,39 @@
 
                                 <Label Text="Situação" Grid.Row="2" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="SituationsPicker"
-                                        Title="Escolha Situação" Grid.Row="2" Grid.Column="1"
-                                        ItemsSource="{Binding Situations}"
-                                        FontSize="12"
-                                        VerticalTextAlignment="Center"
-                                        SelectedItem="{Binding SelectedSituation}"
-                                        SelectedIndex="{Binding SituationSelectedIndex}"
-                                        SelectedIndexChanged="SelectedIndexChanged"
-                                        ItemDisplayBinding="{Binding Descricao}">
-                                </Picker>
+        Title="Escolha Situação" Grid.Row="2" Grid.Column="1"
+        ItemsSource="{Binding Situations}"
+        FontSize="12"
+        VerticalTextAlignment="Center"
+        SelectedItem="{Binding SelectedSituation, Mode=TwoWay}"
+        ItemDisplayBinding="{Binding Descricao}" />
+
                                 <Label Text="Temperamento" Grid.Row="3" Grid.Column="0" FontSize="10"  VerticalTextAlignment="Center"></Label>
                                 <Picker x:Name="TemperamentsPicker"
-                                        Title="Escolha Temperamento" Grid.Row="3" Grid.Column="1"
-                                        ItemsSource="{Binding Temperaments}" 
-                                        FontSize="12"
-                                        VerticalTextAlignment="Center"
-                                        SelectedItem="{Binding SelectedTemperament}"
-                                        SelectedIndex="{Binding TemperamentSelectedIndex}"
-                                        SelectedIndexChanged="SelectedIndexChanged"
-                                        ItemDisplayBinding="{Binding Descricao}">
-                                </Picker>
+        Title="Escolha Temperamento" Grid.Row="3" Grid.Column="1"
+        ItemsSource="{Binding Temperaments}" 
+        FontSize="12"
+        VerticalTextAlignment="Center"
+        SelectedItem="{Binding SelectedTemperament, Mode=TwoWay}"
+        ItemDisplayBinding="{Binding Descricao}" />
 
                                 <Label Text="Raça" Grid.Row="4" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="BreedsPicker"
-                                        Title="Escolha Raça" Grid.Row="4" Grid.Column="1"
-                                        ItemsSource="{Binding Breeds}"
-                                        SelectedItem="{Binding SelectedBreed}"
-                                        FontSize="12"
-                                        VerticalTextAlignment="Center"
-                                        SelectedIndex="{Binding BreedSelectedIndex}"
-                                        SelectedIndexChanged="SelectedIndexChanged"
-                                        ItemDisplayBinding="{Binding Descricao}">
-                                </Picker>
+        Title="Escolha Raça" Grid.Row="4" Grid.Column="1"
+        ItemsSource="{Binding Breeds}"
+        SelectedItem="{Binding SelectedBreed, Mode=TwoWay}" 
+        FontSize="12"
+        VerticalTextAlignment="Center"
+        ItemDisplayBinding="{Binding Descricao}" />
+
                                 <Label Text="Tamanho" Grid.Row="5" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="SizesPicker"
-                                        Title="Escolha Tamanho" Grid.Row="5" Grid.Column="1"
-                                        ItemsSource="{Binding Sizes}" VerticalTextAlignment="Center"
-                                        SelectedItem="{Binding SelectedSize}"
-                                        FontSize="12"
-                                        SelectedIndex="{Binding SizeSelectedIndex}"
-                                        SelectedIndexChanged="SelectedIndexChanged"
-                                        ItemDisplayBinding="{Binding Descricao}">
-                                </Picker>
+        Title="Escolha Tamanho" Grid.Row="5" Grid.Column="1"
+        ItemsSource="{Binding Sizes}"
+        SelectedItem="{Binding SelectedSize, Mode=TwoWay}"
+        FontSize="12"
+        VerticalTextAlignment="Center"
+        ItemDisplayBinding="{Binding Descricao}" />
 
                                 <!--Other Info-->
 
