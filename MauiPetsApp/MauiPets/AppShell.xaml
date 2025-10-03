@@ -11,6 +11,7 @@
     xmlns:todospage="clr-namespace:MauiPets.Mvvm.Views.Todo"
     xmlns:logsmainpage="clr-namespace:MauiPets.Mvvm.Views.Logs"
     xmlns:settingspage="clr-namespace:MauiPets.Mvvm.Views.Settings"
+    xmlns:utilitypage="clr-namespace:MauiPets.Mvvm.Views.Utilities"
     xmlns:expensesettingspage="clr-namespace:MauiPets.Mvvm.Views.Settings.Expenses"
     FlyoutWidth="200"
     FlyoutHeight="450"
@@ -50,10 +51,16 @@
         ContentTemplate="{DataTemplate contactspage:ContactsPage}"
         Route="ContactsPage" />
         <ShellContent
-        Title="Tarefas"
-        Icon="tasks.png" 
-        ContentTemplate="{DataTemplate todospage:TodoPage}"
-        Route="TodoPage" />
+            Title="Tarefas"
+            Icon="tasks.png" 
+            ContentTemplate="{DataTemplate todospage:TodoPage}"
+            Route="TodoPage" />
+        <ShellContent
+            Title="Backup"
+            Icon="backup_icon.png"
+            ContentTemplate="{DataTemplate utilitypage:BackupPage}"
+            Route="BackupPage" />
+
         <Tab Title="Settings" 
              Icon="gear.png">
             <ShellContent 

@@ -465,6 +465,9 @@
 		<MauiXaml Update="Mvvm\Views\Todo\TodoPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Utilities\BackupPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Mvvm\Views\Vaccines\VaccineAddOrEditPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

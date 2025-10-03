@@ -1,0 +1,120 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Utilities"
+             x:Class="MauiPets.Mvvm.Views.Utilities.BackupPage"
+             xmlns:converters="clr-namespace:MauiPets.Converters"
+             Title="Backup e Restore">
+
+    <ContentPage.Resources>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding GoBackCommand}" IconImageSource="icon_close.svg" />
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="24">
+            <Button 
+            Text="Backup da Base de Dados"
+            Command="{Binding BackupDatabaseCommand}" 
+            IsEnabled="{Binding ShowRestorePanel, Converter={StaticResource InverseBoolConverter}}"
+            BackgroundColor="#118a7e"
+            TextColor="White"
+            FontSize="18"
+            CornerRadius="8"/>
+
+            <Button 
+            Text="Restaurar Base de Dados"
+            Command="{Binding RestoreDatabaseCommand}"
+            BackgroundColor="#b71c1c"
+            TextColor="White"
+            FontSize="18"
+            CornerRadius="8"/>
+
+            <!-- Painel informação do último backup -->
+            <Frame BackgroundColor="#f3f3f3" Padding="16" Margin="0,12,0,0">
+                <VerticalStackLayout>
+                    <Label Text="Informação do último backup" FontAttributes="Bold" FontSize="14"/>
+                    <Label IsVisible="{Binding HasBackup}" Text="{Binding SelectedBackupName}" FontSize="13"/>
+                    <Label IsVisible="{Binding HasBackup}" Text="{Binding SelectedBackupDate, StringFormat='Data do backup: {0:dd/MM/yyyy HH:mm}'}" FontSize="12" TextColor="Gray"/>
+                    <Label IsVisible="{Binding HasBackup}" Text="{Binding SelectedBackupPath, StringFormat='Caminho: {0}'}" FontSize="12" TextColor="Gray"/>
+                    <Label IsVisible="{Binding HasBackup, Converter={StaticResource InverseBoolConverter}}" 
+                           Text="Nenhum backup efetuado até agora." FontSize="13" TextColor="#b71c1c" FontAttributes="Italic"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Painel de restore (aparece só após escolher restaurar) -->
+            <Frame BackgroundColor="#f3f3f3" Padding="16" Margin="0,12,0,0" IsVisible="{Binding ShowRestorePanel}">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="{Binding SelectedBackupName}" FontAttributes="Bold" FontSize="14"/>
+                    <Label Text="{Binding SelectedBackupDate, StringFormat='Data do backup: {0:dd/MM/yyyy HH:mm}'}" FontSize="12" TextColor="Gray"/>
+                    <!--<Label Text="{Binding ResumoAlteracoes}" FontSize="14" TextColor="#b71c1c" Margin="0,8,0,0"/>-->
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Painel de comparação (só tabelas alteradas) -->
+            <ScrollView>
+                <Grid IsVisible="{Binding ShowRestorePanel}" Padding="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Frame Grid.Column="0" BackgroundColor="#e3fcec" CornerRadius="16" Padding="16" Margin="8" HasShadow="True">
+                        <VerticalStackLayout>
+                            <Label Text="Base de Dados Atual" FontSize="20" FontAttributes="Bold" TextColor="#118a7e" />
+                            <Label Text="Registos alterados:" FontSize="12" FontAttributes="Bold" Margin="0,10,0,0"/>
+                            <!-- Cabeçalho da grid -->
+                            <Grid ColumnDefinitions="*,Auto" Padding="2" Margin="0,0,0,4">
+                                <Label Text="Tabela" FontAttributes="Bold" Grid.Column="0"/>
+                                <Label Text="Registos" FontAttributes="Bold" Grid.Column="1"/>
+                            </Grid>
+                            <!-- Grelha dos dados -->
+                            <CollectionView ItemsSource="{Binding AlteredCurrentTableCounts}" Margin="0,0,0,10">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnDefinitions="*,Auto" Padding="2">
+                                            <Label Grid.Column="0" Text="{Binding Key}" VerticalTextAlignment="Center"/>
+                                            <Label Grid.Column="1" Text="{Binding Value}" TextColor="#118a7e" VerticalTextAlignment="Center"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame Grid.Column="1" BackgroundColor="#fce3e3" CornerRadius="16" Padding="16" Margin="8" HasShadow="True">
+                        <VerticalStackLayout>
+                            <Label Text="Backup Selecionado" FontSize="20" FontAttributes="Bold" TextColor="#b71c1c" />
+                            <Label Text="Registos alterados:" FontSize="12" FontAttributes="Bold" Margin="0,10,0,0"/>
+                            <!-- Cabeçalho da grid -->
+                            <Grid ColumnDefinitions="*,Auto" Padding="2" Margin="0,0,0,4">
+                                <Label Text="Tabela" FontAttributes="Bold" Grid.Column="0"/>
+                                <Label Text="Registos" FontAttributes="Bold" Grid.Column="1"/>
+                            </Grid>
+                            <!-- Grelha dos dados -->
+                            <CollectionView ItemsSource="{Binding AlteredBackupTableCounts}" Margin="0,0,0,10">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid ColumnDefinitions="*,Auto" Padding="2">
+                                            <Label Grid.Column="0" Text="{Binding Key}" VerticalTextAlignment="Center"/>
+                                            <Label Grid.Column="1" Text="{Binding Value}" TextColor="#b71c1c" VerticalTextAlignment="Center"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+            </ScrollView>
+
+            <Button 
+            Text="Confirmar Restore"
+            IsVisible="{Binding ShowRestorePanel}"
+            Command="{Binding ConfirmRestoreCommand}"
+            BackgroundColor="#b71c1c"
+            TextColor="White"
+            FontSize="18"
+            CornerRadius="8"
+            Margin="0,16,0,0"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

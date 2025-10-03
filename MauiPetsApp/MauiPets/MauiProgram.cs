@@ -11,6 +11,7 @@ using MauiPets.Mvvm.ViewModels.PetFood;
 using MauiPets.Mvvm.ViewModels.Pets;
 using MauiPets.Mvvm.ViewModels.Settings;
 using MauiPets.Mvvm.ViewModels.Todo;
+using MauiPets.Mvvm.ViewModels.Utilities;
 using MauiPets.Mvvm.ViewModels.Vaccines;
 using MauiPets.Mvvm.ViewModels.VetAppointments;
 using MauiPets.Mvvm.Views.Contacts;
@@ -22,6 +23,7 @@ using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Settings;
 using MauiPets.Mvvm.Views.Settings.Expenses;
 using MauiPets.Mvvm.Views.Todo;
+using MauiPets.Mvvm.Views.Utilities;
 using MauiPets.Mvvm.Views.Vaccines;
 using MauiPets.Mvvm.Views.VetAppointments;
 using MauiPetsApp.Application.Interfaces.Repositories;
@@ -242,6 +244,9 @@ namespace MauiPets
             builder.Services.AddTransient<ILogRepository, LogRepository>();
 
             builder.Services.AddTransient<LocalNotificationCenter>();
+
+            builder.Services.AddTransient<BackupViewModel>();
+            builder.Services.AddTransient<BackupPage>();
 
             SetupSerilog(builder);
 
