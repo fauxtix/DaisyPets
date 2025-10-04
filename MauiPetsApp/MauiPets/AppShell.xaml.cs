@@ -29,6 +29,7 @@ namespace MauiPets
             Routes.Add(nameof(MainPage), typeof(MainPage));
             Routes.Add(nameof(PetDetailPage), typeof(PetDetailPage));
             Routes.Add(nameof(PetAddOrEditPage), typeof(PetAddOrEditPage));
+            Routes.Add(nameof(PetGalleryPage), typeof(PetGalleryPage));
 
             Routes.Add(nameof(VaccineAddOrEditPage), typeof(VaccineAddOrEditPage));
             Routes.Add(nameof(DewormerAddOrEditPage), typeof(DewormerAddOrEditPage));

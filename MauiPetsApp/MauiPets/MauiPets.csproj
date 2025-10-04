@@ -435,6 +435,9 @@
 		<MauiXaml Update="Mvvm\Views\Pets\PetDetailPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Pets\PetGalleryPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Mvvm\Views\Pets\PetsPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

@@ -232,6 +232,12 @@ public partial class PetViewModel : BaseViewModel
         }
     }
 
+    [RelayCommand]
+    async Task OpenGallery(int petId)
+    {
+        await Shell.Current.GoToAsync($"PetGalleryPage?PetId={petId}");
+    }
+
     private async void ShowToastMessage(string text)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();

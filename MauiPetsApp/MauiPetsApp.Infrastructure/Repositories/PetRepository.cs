@@ -142,6 +142,22 @@ namespace MauiPetsApp.Infrastructure
             }
         }
 
+
+        public async Task CreatePetPhotoTable()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("CREATE TABLE PetPhoto(");
+            sb.Append("Id INTEGER PRIMARY KEY AUTOINCREMENT,");
+            sb.Append("PetId INTEGER NOT NULL,");
+            sb.Append("PhotoPath TEXT NOT NULL,");
+            sb.Append("DateAdded TEXT NOT NULL");
+            sb.Append(");");
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(sb.ToString());
+            }
+
+        }
         public async Task<bool> CanPetBeDeleted(int Id)
         {
             try

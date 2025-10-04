@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Maui;
 using DaisyPets.WebApi.Helpers;
 using FluentValidation;
+using MauiPets.Core.Application.Interfaces.Repositories;
 using MauiPets.Core.Application.Interfaces.Repositories.Logs;
+using MauiPets.Core.Application.Interfaces.Services;
 using MauiPets.Mvvm.ViewModels.Contacts;
 using MauiPets.Mvvm.ViewModels.Dewormers;
 using MauiPets.Mvvm.ViewModels.Email;
@@ -40,6 +42,7 @@ using MauiPetsApp.Core.Application.ViewModels.Despesas;
 using MauiPetsApp.Core.Application.ViewModels.Scheduler;
 using MauiPetsApp.Infrastructure;
 using MauiPetsApp.Infrastructure.Context;
+using MauiPetsApp.Infrastructure.Repositories;
 using MauiPetsApp.Infrastructure.Repositories.Logs;
 using MauiPetsApp.Infrastructure.Services;
 using MauiPetsApp.Infrastructure.Services.ToDoManager;
@@ -122,6 +125,7 @@ namespace MauiPets
             builder.Services.AddSingleton<PetViewModel>();
             builder.Services.AddTransient<PetDetailViewModel>();
             builder.Services.AddTransient<PetAddOrEditViewModel>();
+            builder.Services.AddTransient<PetGalleryViewModel>();
 
             builder.Services.AddTransient<ContactsViewModel>();
             builder.Services.AddTransient<ContactDetailViewModel>();
@@ -160,10 +164,14 @@ namespace MauiPets
 
             builder.Services.AddTransient<EmailViewModel>();
 
+            builder.Services.AddTransient<BackupViewModel>();
+
+
             // Views
             builder.Services.AddSingleton<PetsPage>();
             builder.Services.AddTransient<PetDetailPage>();
             builder.Services.AddTransient<PetAddOrEditPage>();
+            builder.Services.AddTransient<PetGalleryPage>();
 
             builder.Services.AddTransient<ContactsPage>();
             builder.Services.AddTransient<ContactDetailPage>();
@@ -193,7 +201,7 @@ namespace MauiPets
             builder.Services.AddTransient<LogViewExceptionPage>();
 
             builder.Services.AddTransient<EmailFormPage>();
-
+            builder.Services.AddTransient<BackupPage>();
 
             // Database context
 
@@ -225,12 +233,14 @@ namespace MauiPets
             builder.Services.AddTransient<IConsultaService, ConsultaService>();
             builder.Services.AddTransient<IContactService, ContactService>();
             builder.Services.AddTransient<IToDoService, ToDoService>();
+            builder.Services.AddTransient<IPetPhotoService, PetPhotoService>();
 
             builder.Services.AddTransient<ILookupTableService, LookupTableService>();
             builder.Services.AddTransient<ITipoDespesaService, TipoDespesaService>();
 
             // repositories
             builder.Services.AddTransient<IPetRepository, PetRepository>();
+            builder.Services.AddTransient<IPetPhotoRepository, PetPhotoRepository>();
             builder.Services.AddTransient<IDespesaRepository, DespesaRepository>();
             builder.Services.AddTransient<IVacinasRepository, VacinasRepository>();
             builder.Services.AddTransient<IDesparasitanteRepository, DesparasitanteRepository>();
@@ -245,8 +255,7 @@ namespace MauiPets
 
             builder.Services.AddTransient<LocalNotificationCenter>();
 
-            builder.Services.AddTransient<BackupViewModel>();
-            builder.Services.AddTransient<BackupPage>();
+
 
             SetupSerilog(builder);
 

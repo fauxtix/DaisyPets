@@ -23,10 +23,6 @@ namespace MauiPetsApp.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public async Task DeleteAsync(int Id)
-        {
-            await _repository.DeleteAsync(Id);
-        }
 
         public async Task<GaleriaFotosDto> FindByIdAsync(int Id)
         {
@@ -89,5 +85,12 @@ namespace MauiPetsApp.Infrastructure.Services
 
             }
         }
+
+        public async Task DeletePhotoAsync(int photoId)
+        {
+            await _repository.DeleteAsync(photoId);
+        }
+
+
     }
 }

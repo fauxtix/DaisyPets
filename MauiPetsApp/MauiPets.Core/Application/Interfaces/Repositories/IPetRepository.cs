@@ -15,5 +15,6 @@ namespace MauiPetsApp.Core.Application.Interfaces.Application
         Task<IEnumerable<Peso>> GetPesos();
         Task<string> GetDescriptionBySizeAndMonths(int IdTamanho, int meses);
         Task<bool> CanPetBeDeleted(int Id);
+        Task CreatePetPhotoTable();
     }
 }
