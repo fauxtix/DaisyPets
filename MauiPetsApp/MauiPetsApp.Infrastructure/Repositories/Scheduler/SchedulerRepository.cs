@@ -272,17 +272,17 @@ namespace MauiPetsApp.Infrastructure.Scheduler
         private async Task<IEnumerable<AppointmentData>> GetDewormersAppts()
         {
             List<AppointmentData> dewormersList = new List<AppointmentData>();
-            StringBuilder sbDewordmers = new StringBuilder();
+            StringBuilder sbDewormers = new StringBuilder();
 
-            sbDewordmers.Append("SELECT Desparasitante.Id, DataAplicacao, DataProximaAplicacao, ");
-            sbDewordmers.Append("Marca, Tipo, IdPet, Pet.Nome AS [NomePet] ");
-            sbDewordmers.Append("FROM Desparasitante ");
-            sbDewordmers.Append("INNER JOIN Pet ON ");
-            sbDewordmers.Append("Desparasitante.IdPet = Pet.Id ");
+            sbDewormers.Append("SELECT Desparasitante.Id, DataAplicacao, DataProximaAplicacao, ");
+            sbDewormers.Append("Marca, Tipo, IdPet, Pet.Nome AS [NomePet] ");
+            sbDewormers.Append("FROM Desparasitante ");
+            sbDewormers.Append("INNER JOIN Pet ON ");
+            sbDewormers.Append("Desparasitante.IdPet = Pet.Id ");
 
             using (var connection = _context.CreateConnection())
             {
-                var dewormers = (await connection.QueryAsync<DesparasitanteVM>(sbDewordmers.ToString())).ToList();
+                var dewormers = (await connection.QueryAsync<DesparasitanteVM>(sbDewormers.ToString())).ToList();
                 if (dewormers.Any())
                 {
                     foreach (var dewormer in dewormers)

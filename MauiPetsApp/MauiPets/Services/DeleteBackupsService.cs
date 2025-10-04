@@ -4,7 +4,6 @@
     {
         public static async Task<int> DeleteAllBackupsAsync()
         {
-            // Caminho da pasta Downloads (Android)
             string downloadsPath = "/storage/emulated/0/Download";
             int deletedCount = 0;
 
@@ -26,7 +25,6 @@
                 }
             }
 
-            // Opcional: Mostra o resultado ao utilizador
             await Shell.Current.DisplayAlert("Apagar Backups", $"{deletedCount} backups apagados.", "OK");
             return deletedCount;
         }

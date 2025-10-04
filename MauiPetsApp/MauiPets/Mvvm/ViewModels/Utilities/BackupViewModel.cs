@@ -55,8 +55,6 @@ namespace MauiPets.Mvvm.ViewModels.Utilities
             AlteredCurrentTableCounts = new();
             AlteredBackupTableCounts = new();
 
-            // Não carregar info do backup ao abrir a página!
-            //LoadLastBackupInfo();
         }
 
         public void ClearState()
@@ -230,8 +228,6 @@ namespace MauiPets.Mvvm.ViewModels.Utilities
 
                 await Shell.Current.DisplayAlert("Backup", $"Backup criado em:\n{destPath}", "OK");
 
-                // Não carregar info do backup ao abrir a página!
-                //LoadLastBackupInfo();
             }
             catch (Exception ex)
             {
@@ -249,7 +245,7 @@ namespace MauiPets.Mvvm.ViewModels.Utilities
             IsBusy = true;
             try
             {
-                LoadLastBackupInfo(); // Carrega info do backup
+                LoadLastBackupInfo();
 
                 if (!HasBackup)
                 {
@@ -261,7 +257,6 @@ namespace MauiPets.Mvvm.ViewModels.Utilities
                     return;
                 }
 
-                // ATUALIZA a base de dados atual ANTES da comparação!
                 CurrentDb = GetDatabaseInfo(dbPath, tablesToCount);
                 CurrentDbTableCounts = new ObservableCollection<KeyValuePair<string, long>>(CurrentDb.TableCounts ?? new Dictionary<string, long>());
 

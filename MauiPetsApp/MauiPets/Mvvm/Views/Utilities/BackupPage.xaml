@@ -31,7 +31,6 @@
             FontSize="18"
             CornerRadius="8"/>
 
-            <!-- Painel informação do último backup -->
             <Frame BackgroundColor="#f3f3f3" Padding="16" Margin="0,12,0,0">
                 <VerticalStackLayout>
                     <Label Text="Informação do último backup" FontAttributes="Bold" FontSize="14"/>
@@ -43,7 +42,6 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Painel de restore (aparece só após escolher restaurar) -->
             <Frame BackgroundColor="#f3f3f3" Padding="16" Margin="0,12,0,0" IsVisible="{Binding ShowRestorePanel}">
                 <VerticalStackLayout Spacing="4">
                     <Label Text="{Binding SelectedBackupName}" FontAttributes="Bold" FontSize="14"/>
@@ -52,7 +50,6 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Painel de comparação (só tabelas alteradas) -->
             <ScrollView>
                 <Grid IsVisible="{Binding ShowRestorePanel}" Padding="0">
                     <Grid.ColumnDefinitions>
@@ -63,12 +60,10 @@
                         <VerticalStackLayout>
                             <Label Text="Base de Dados Atual" FontSize="20" FontAttributes="Bold" TextColor="#118a7e" />
                             <Label Text="Registos alterados:" FontSize="12" FontAttributes="Bold" Margin="0,10,0,0"/>
-                            <!-- Cabeçalho da grid -->
                             <Grid ColumnDefinitions="*,Auto" Padding="2" Margin="0,0,0,4">
                                 <Label Text="Tabela" FontAttributes="Bold" Grid.Column="0"/>
                                 <Label Text="Registos" FontAttributes="Bold" Grid.Column="1"/>
                             </Grid>
-                            <!-- Grelha dos dados -->
                             <CollectionView ItemsSource="{Binding AlteredCurrentTableCounts}" Margin="0,0,0,10">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
@@ -85,12 +80,10 @@
                         <VerticalStackLayout>
                             <Label Text="Backup Selecionado" FontSize="20" FontAttributes="Bold" TextColor="#b71c1c" />
                             <Label Text="Registos alterados:" FontSize="12" FontAttributes="Bold" Margin="0,10,0,0"/>
-                            <!-- Cabeçalho da grid -->
                             <Grid ColumnDefinitions="*,Auto" Padding="2" Margin="0,0,0,4">
                                 <Label Text="Tabela" FontAttributes="Bold" Grid.Column="0"/>
                                 <Label Text="Registos" FontAttributes="Bold" Grid.Column="1"/>
                             </Grid>
-                            <!-- Grelha dos dados -->
                             <CollectionView ItemsSource="{Binding AlteredBackupTableCounts}" Margin="0,0,0,10">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
