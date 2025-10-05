@@ -6,7 +6,7 @@ namespace MauiPets.Core.Application.Interfaces.Repositories
     {
         Task AddPhotoAsync(int petId, string filePath);
         Task DeletePhotoAsync(int photoId);
-        Task<List<PetPhoto>> GetPhotosAsync(int petId);
+        Task<List<PetPhotoDto>> GetPhotosAsync(int petId);
 
     }
 }

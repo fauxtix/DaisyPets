@@ -14,10 +14,10 @@ public partial class PetGalleryViewModel : ObservableObject, IQueryAttributable
     private readonly IPetPhotoService _photoService;
 
     [ObservableProperty]
-    ObservableCollection<PetPhoto> photos = new();
+    ObservableCollection<PetPhotoDto> photos = new();
 
     [ObservableProperty]
-    PetPhoto selectedPhoto;
+    PetPhotoDto selectedPhoto;
 
     [ObservableProperty]
     int petId;
@@ -55,12 +55,12 @@ public partial class PetGalleryViewModel : ObservableObject, IQueryAttributable
             await stream.CopyToAsync(file);
 
             await _photoService.AddPhotoAsync(PetId, localPath);
-            Photos.Insert(0, new PetPhoto { PetId = PetId, PhotoPath = localPath, DateAdded = DateTime.Now });
+            Photos.Insert(0, new PetPhotoDto { PetId = PetId, PhotoPath = localPath, DateAdded = DateTime.Now });
         }
     }
 
     [RelayCommand]
-    public void ShowPhoto(PetPhoto photo)
+    public void ShowPhoto(PetPhotoDto photo)
     {
         SelectedPhoto = photo;
         var popup = new PhotoPopup(photo.PhotoPath);
@@ -68,13 +68,26 @@ public partial class PetGalleryViewModel : ObservableObject, IQueryAttributable
     }
 
     [RelayCommand]
-    public async Task DeletePhotoAsync(PetPhoto photo)
+    public async Task DeletePhotoAsync(PetPhotoDto photo)
     {
-        if (File.Exists(photo.PhotoPath)) File.Delete(photo.PhotoPath);
+        bool confirm = await Application.Current.MainPage.DisplayAlert(
+            "Confirmação",
+            "Deseja realmente apagar esta foto?",
+            "Sim",
+            "Não"
+        );
+        if (!confirm)
+            return;
+
         await _photoService.DeletePhotoAsync(photo.Id);
         Photos.Remove(photo);
     }
 
+    [RelayCommand]
+    public void ClearPhotos()
+    {
+        Photos.Clear();
+    }
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         if (query.TryGetValue("PetId", out var petIdObj) && int.TryParse(petIdObj?.ToString(), out int petId))

@@ -1,14 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Pets.PetGalleryPage"
+             xmlns:conv="clr-namespace:MauiPets.Converters"
              Title="Galeria de Fotos"
              x:Name="GalleryPage">
-    <VerticalStackLayout Padding="18,12" Spacing="18">
-        <Label Text="Galeria de Fotos" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center"/>
-        <Button Text="Adicionar Foto"
+
+    <ContentPage.Resources>
+        <conv:StringToDateConverter x:Key="IsZeroConverter" />
+    </ContentPage.Resources>
+
+    <Grid Padding="18,12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--<Label Grid.Row="0" 
+               Text="Galeria de Fotos" 
+               FontSize="28" 
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>-->
+        <Button Grid.Row="1"
+                Margin="0, 5, 0, 5"
+                CornerRadius="15"
+                Text="Adicionar Foto"
                 Command="{Binding AddPhotoCommand}" />
-        <CollectionView ItemsSource="{Binding Photos}" SelectionMode="None"
-                        EmptyView="Sem fotos adicionadas ainda.">
+        <CollectionView Grid.Row="2" 
+                        ItemsSource="{Binding Photos}" 
+                        SelectionMode="None" 
+                        EmptyView="Sem fotos para mostrar...">
+            <!--<CollectionView.EmptyView>
+                <StackLayout Margin="5,10,5,0" Padding="10">
+                    <Image Source="nopets.png"
+                   HeightRequest="60"
+                   WidthRequest="60"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+                    <Label HorizontalOptions="Center" Padding="10">Sem fotos para mostrar</Label>
+                </StackLayout>
+            </CollectionView.EmptyView>-->
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="3"/>
             </CollectionView.ItemsLayout>
@@ -16,31 +48,42 @@
                 <DataTemplate>
                     <Frame Padding="4" Margin="5" BackgroundColor="#fff" CornerRadius="18" 
                            HasShadow="True" BorderColor="#C5E1A5">
-                        <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, 60">
-                            <Image Grid.Row="0" Grid.Column="0" 
-                                   Source="{Binding PhotoPath}" Aspect="AspectFill" HeightRequest="120" WidthRequest="120">
+                        <Grid RowDefinitions="Auto,Auto, Auto" ColumnDefinitions="*,Auto">
+                            <Image Grid.Row="0" Grid.Column="0"
+                                   Source="{Binding PhotoPath}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="140"
+                                   WidthRequest="140"
+                                   Margin="0,0,10,0">
                                 <Image.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                            Command="{Binding Source={x:Reference GalleryPage}, Path=BindingContext.ShowPhotoCommand}" 
-                                            CommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={x:Reference GalleryPage}, Path=BindingContext.ShowPhotoCommand}"
+                                        CommandParameter="{Binding .}" />
                                 </Image.GestureRecognizers>
                             </Image>
-                            <Button Grid.Row="0" Grid.Column="1" Text="🗑"
-                                    Command="{Binding Source={x:Reference GalleryPage}, 
-                                            Path=BindingContext.DeletePhotoCommand}"
-                                    CommandParameter="{Binding .}"
-                                    BackgroundColor="Transparent"
-                                    HorizontalOptions="End" VerticalOptions="Start"
-                                    WidthRequest="28" HeightRequest="28"/>
-                            <Label Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding DateAdded, StringFormat='Adicionada em: {0:dd/MM/yyyy}'}"
-                                   FontSize="11" TextColor="Gray"
+                            <ImageButton Grid.Row="0" Grid.Column="1" Padding="2"
+                                         Source="icon_delete.svg"
+                                         Command="{Binding Source={x:Reference GalleryPage}, Path=BindingContext.DeletePhotoCommand}"
+                                         CommandParameter="{Binding .}"
+                                         BackgroundColor="Transparent"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="Start"
+                                         WidthRequest="32"
+                                         HeightRequest="32"
+                                         />
+
+                            <Label Grid.Row="1" Grid.ColumnSpan="2"
+                                   Text="{Binding DateAdded, StringFormat='Adicionada em: {0:dd/MM/yyyy}'}"
+                                   FontSize="11"
+                                   TextColor="Gray"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
-                                   Margin="0,6,0,0"/>
+                                   Margin="0,6,0,0"
+                                   LineBreakMode="WordWrap" />
                         </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

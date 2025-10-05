@@ -23,7 +23,7 @@ namespace MauiPetsApp.Infrastructure.Services
             await _petPhotoRepository.DeletePhotoAsync(photoId);
         }
 
-        public Task<List<PetPhoto>> GetPhotosAsync(int petId)
+        public Task<List<PetPhotoDto>> GetPhotosAsync(int petId)
         {
             return _petPhotoRepository.GetPhotosAsync(petId);
         }

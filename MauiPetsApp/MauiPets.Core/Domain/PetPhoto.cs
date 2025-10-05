@@ -1,4 +1,4 @@
-﻿namespace MauiPets.Core.Application.ViewModels
+﻿namespace MauiPetsApp.Core.Domain
 {
     public class PetPhoto
     {

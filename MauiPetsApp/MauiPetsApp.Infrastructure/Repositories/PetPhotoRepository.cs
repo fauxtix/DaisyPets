@@ -21,11 +21,11 @@ namespace MauiPetsApp.Infrastructure.Repositories
             await connection.ExecuteAsync(sql, new { PetId = petId, Path = filePath, DateAdded = DateTime.Now });
         }
 
-        public async Task<List<PetPhoto>> GetPhotosAsync(int petId)
+        public async Task<List<PetPhotoDto>> GetPhotosAsync(int petId)
         {
             string sql = "SELECT * FROM PetPhoto WHERE PetId = @PetId ORDER BY DateAdded DESC";
             using var connection = _db.CreateConnection();
-            var result = await connection.QueryAsync<PetPhoto>(sql, new { PetId = petId });
+            var result = await connection.QueryAsync<PetPhotoDto>(sql, new { PetId = petId });
             return result.ToList();
         }
         public async Task DeletePhotoAsync(int photoId)
