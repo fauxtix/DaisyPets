@@ -1,4 +1,4 @@
-﻿using MauiPets.Core.Application.ViewModels;
+﻿using MauiPetsApp.Core.Domain;
 
 namespace MauiPets.Core.Application.Interfaces.Repositories
 {
@@ -6,7 +6,7 @@ namespace MauiPets.Core.Application.Interfaces.Repositories
     {
         Task AddPhotoAsync(int petId, string filePath);
         Task DeletePhotoAsync(int photoId);
-        Task<List<PetPhotoDto>> GetPhotosAsync(int petId);
+        Task<List<PetPhoto>> GetPhotosAsync(int petId);
 
     }
 }

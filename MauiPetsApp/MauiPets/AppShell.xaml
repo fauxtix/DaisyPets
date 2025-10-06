@@ -56,7 +56,7 @@
             ContentTemplate="{DataTemplate todospage:TodoPage}"
             Route="TodoPage" />
         <ShellContent
-            Title="Backup"
+            Title="Segurança"
             Icon="backup_icon.png"
             ContentTemplate="{DataTemplate utilitypage:BackupPage}"
             Route="BackupPage" />

@@ -1,4 +1,5 @@
-﻿using MauiPets.Core.Application.Interfaces.Repositories;
+﻿using AutoMapper;
+using MauiPets.Core.Application.Interfaces.Repositories;
 using MauiPets.Core.Application.Interfaces.Services;
 using MauiPets.Core.Application.ViewModels;
 
@@ -7,10 +8,12 @@ namespace MauiPetsApp.Infrastructure.Services
     public class PetPhotoService : IPetPhotoService
     {
         private readonly IPetPhotoRepository _petPhotoRepository;
+        private readonly IMapper _mapper;
 
-        public PetPhotoService(IPetPhotoRepository petPhotoRepository)
+        public PetPhotoService(IPetPhotoRepository petPhotoRepository, IMapper mapper)
         {
             _petPhotoRepository = petPhotoRepository;
+            _mapper = mapper;
         }
 
         public Task AddPhotoAsync(int petId, string filePath)
@@ -23,9 +26,11 @@ namespace MauiPetsApp.Infrastructure.Services
             await _petPhotoRepository.DeletePhotoAsync(photoId);
         }
 
-        public Task<List<PetPhotoDto>> GetPhotosAsync(int petId)
+        public async Task<List<PetPhotoDto>> GetPhotosAsync(int petId)
         {
-            return _petPhotoRepository.GetPhotosAsync(petId);
+            var resp = await _petPhotoRepository.GetPhotosAsync(petId);
+
+            return _mapper.Map<List<PetPhotoDto>>(resp);
         }
     }
 }

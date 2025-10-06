@@ -1,6 +1,7 @@
 namespace DaisyPets.WebApi.Helpers;
 
 using AutoMapper;
+using MauiPets.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
@@ -81,6 +82,9 @@ public class AutoMapperProfile : Profile
 
         // ToDo's
         CreateMap<ToDo, ToDoDto>().ReverseMap();
+
+        // Pet Photos
+        CreateMap<PetPhoto, PetPhotoDto>().ReverseMap();
 
 
         // scheduler
