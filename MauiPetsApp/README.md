@@ -42,7 +42,7 @@ The ORM chosen to work with the database was Dapper, due to its ease of use and 
   With it, we can use Lambda expressions to ‘build validation rules’ with error message returns for each property of the entities.
 - Others
 
-- ## 🚀 1. Building the APK for your MAUI Project (.NET MAUI)
+ ## 🚀 1. Building the APK for your MAUI Project (.NET MAUI)
 
 Follow these steps to build the APK file and install it on your Android device.
 
