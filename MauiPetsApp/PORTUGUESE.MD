@@ -35,6 +35,14 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
   Com ela, podemos usar expressões Lambda para “construir regras de validações” com retorno de mensagem de erro para cada propriedade das entidades.
 - Outras
 
+# Novas Funcionalidades – DaisyPets
+
+Este documento resume as principais funcionalidades adicionadas recentemente, com base nos ficheiros **PetGalleryPage**, **BackupPage** e **PetFichaPdfService**.
+
+[English version](NEW_FEATURES_EN_2025-10.md)
+
+---
+
 # 📦 Guia Completo: Publicação Ad-Hoc de APK (.NET MAUI Android)
 
 ## 🇵🇹 Português de Portugal
