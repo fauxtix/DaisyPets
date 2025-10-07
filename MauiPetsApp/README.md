@@ -25,7 +25,7 @@ The ORM chosen to work with the database was Dapper, due to its ease of use and 
 
   ## New Features (Oct/2025) & Documentation
 
-- [What's New](NEW_FEATURES_EN_2025-10.md)
+- [What's New](NEW_FEATURES_EN_2025-10_Version2.md)
 
 # Technologies used
 
