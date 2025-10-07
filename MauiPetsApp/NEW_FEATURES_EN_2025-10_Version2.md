@@ -1,10 +1,10 @@
 # New Features – DaisyPets
 
-This document summarizes the main features recently added, based on the files **PetGalleryPage**, **BackupPage**, and **PetFichaPdfService**.
+This document summarizes the main features recently added (Oct/2025).
 
 ---
 
-## 📸 Pet Photo Gallery (`PetGalleryPage`)
+## 📸 Pet Photo Gallery
 
 - **Per-Pet Photo Gallery**
   - Each pet now has an associated photo gallery.
@@ -44,14 +44,10 @@ This document summarizes the main features recently added, based on the files **
   - Create a comprehensive PDF file for any pet, including:
     - Main data (name, species, breed, age, chip, etc.)
     - Vaccination, deworming, food, and vet consultation history.
-    - Consistent formatting for dates and fields.
-    - Diagnosis and treatment in consultations are displayed with wrapping and on separate lines.
-    - If possible, include the pet’s photo(s).
-  - Age is calculated automatically from the birth date.
-
+    - Reason, Diagnosis and Treatment in consultations.
+  
 - **Easy Sharing**
-  - The PDF can be shared directly through the device’s native share options (email, WhatsApp, etc.).
-  - Option to save the PDF locally for later use.
+  - The PDF can be shared directly through the device’s native share options (email, WhatsApp, etc.).  
 
 ---
 
@@ -67,4 +63,4 @@ This document summarizes the main features recently added, based on the files **
 
 ---
 
-*For more details on each feature, see the technical documentation or explore the app interface.*
+*For more details on each feature, explore the app interface.*
