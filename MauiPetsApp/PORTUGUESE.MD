@@ -42,7 +42,7 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 
 ---
 
-## 📦 Guia Completo: Publicação Ad-Hoc de APK (.NET MAUI Android)
+## 📦 Publicação Ad-Hoc de APK (.NET MAUI Android)
 
 ### 1️⃣ Pré-requisitos
 
