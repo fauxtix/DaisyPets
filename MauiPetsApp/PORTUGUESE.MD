@@ -22,7 +22,7 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 - Definições da app (tabelas de referência, categorias/sub-categorias de despesas);
 - Gestão de Logs (análise e resolução de problemas) - permite o envio de e-mail do erro/aviso gerado.
 
-## Novas Funcionalidades (Out/2025):
+### Novas Funcionalidades (Out/2025):
 
     [O que há de novo](NEW_FEATURES_2025-10_Version2.md)
 
