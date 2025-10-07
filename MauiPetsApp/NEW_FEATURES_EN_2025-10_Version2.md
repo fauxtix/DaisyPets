@@ -1,4 +1,4 @@
-# New Features – DaisyPets
+# New Features – MauiPets
 
 This document summarizes the main features recently added (Oct/2025).
 
@@ -44,7 +44,6 @@ This document summarizes the main features recently added (Oct/2025).
   - Create a comprehensive PDF file for any pet, including:
     - Main data (name, species, breed, age, chip, etc.)
     - Vaccination, deworming, food, and vet consultation history.
-    - Reason, Diagnosis and Treatment in consultations.
   
 - **Easy Sharing**
   - The PDF can be shared directly through the device’s native share options (email, WhatsApp, etc.).  
