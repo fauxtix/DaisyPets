@@ -22,6 +22,13 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 - Definições da app (tabelas de referência, categorias/sub-categorias de despesas);
 - Gestão de Logs (análise e resolução de problemas) - permite o envio de e-mail do erro/aviso gerado.
 
+# Novas Funcionalidades
+
+Pprincipais funcionalidades adicionadas recentemente (Out/2025).
+
+[O que há de novo](NEW_FEATURES_2025-10_Version2.md)
+
+---
 # Tecnologias Utilizadas
 
 - **C#**
@@ -34,12 +41,6 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 - **FluentValidation** - Biblioteca que permite criar validações de dados de forma simples e rápida. 
   Com ela, podemos usar expressões Lambda para “construir regras de validações” com retorno de mensagem de erro para cada propriedade das entidades.
 - Outras
-
-# Novas Funcionalidades – DaisyPets
-
-Este documento resume as principais funcionalidades adicionadas recentemente, com base nos ficheiros **PetGalleryPage**, **BackupPage** e **PetFichaPdfService**.
-
-[Novas funcionalidades](NEW_FEATURES_2025-10_Version2.md)
 
 ---
 
