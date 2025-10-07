@@ -20,6 +20,9 @@
                  IconImageSource="icon_edit.svg" />
         <ToolbarItem Command="{Binding DeletePetCommand  }"
                  IconImageSource="icon_delete.svg" />
+        <ToolbarItem Text="Exportar PDF"
+                     IconImageSource="share_file.png"
+                     Command="{Binding ExportarFichaPetPdfCommand}" />
         <ToolbarItem Command="{Binding GoBackCommand  }"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>

@@ -4,7 +4,6 @@ using FluentValidation;
 using MauiPets.Core.Application.Interfaces.Repositories;
 using MauiPets.Core.Application.Interfaces.Repositories.Logs;
 using MauiPets.Core.Application.Interfaces.Services;
-using MauiPets.Core.Application.Interfaces.Services.QuestPdf;
 using MauiPets.Mvvm.ViewModels.Contacts;
 using MauiPets.Mvvm.ViewModels.Dewormers;
 using MauiPets.Mvvm.ViewModels.Email;
@@ -29,6 +28,7 @@ using MauiPets.Mvvm.Views.Todo;
 using MauiPets.Mvvm.Views.Utilities;
 using MauiPets.Mvvm.Views.Vaccines;
 using MauiPets.Mvvm.Views.VetAppointments;
+using MauiPets.Services;
 using MauiPetsApp.Application.Interfaces.Repositories;
 using MauiPetsApp.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Application;
@@ -46,7 +46,6 @@ using MauiPetsApp.Infrastructure.Context;
 using MauiPetsApp.Infrastructure.Repositories;
 using MauiPetsApp.Infrastructure.Repositories.Logs;
 using MauiPetsApp.Infrastructure.Services;
-using MauiPetsApp.Infrastructure.Services.QuestPdf;
 using MauiPetsApp.Infrastructure.Services.ToDoManager;
 using MauiPetsApp.Infrastructure.TodoManager;
 using MauiPetsApp.Infrastructure.Validators;
@@ -55,6 +54,7 @@ using Plugin.LocalNotification;
 using SendEmail.Views;
 using Serilog;
 using SkiaSharp.Views.Maui.Controls.Hosting;
+using Syncfusion.Licensing;
 using System.Globalization;
 using System.Reflection;
 
@@ -65,6 +65,8 @@ namespace MauiPets
         public static MauiApp CreateMauiApp()
         {
             //DatabaseHelper.CopyDatabaseIfNeeded();
+
+            SyncfusionLicenseProvider.RegisterLicense("NDA2ODYzOUAzMjM4MmUzMDJlMzBURGVydGp4M24zbTRiVUVIRjcwQyt6SmcweVliUWJCUHlOODZTcWtnV1IwPQ==");
 
             CultureInfo cultureInfo = new CultureInfo("pt-PT");
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
@@ -241,8 +243,7 @@ namespace MauiPets
             builder.Services.AddTransient<ITipoDespesaService, TipoDespesaService>();
 
             // Local services
-            builder.Services.AddTransient<IPetExportService, PetExportService>();
-
+            builder.Services.AddSingleton<IPetFichaPdfService, PetFichaPdfService>();
 
             // repositories
             builder.Services.AddTransient<IPetRepository, PetRepository>();

@@ -126,24 +126,6 @@
                                             HorizontalOptions="Center"/>
                                     <Grid RowDefinitions="*, *" ColumnDefinitions="*, *">
 
-                                        <HorizontalStackLayout Spacing="8" HorizontalOptions="Center">
-                                            <Button Text="PDF"
-                                                    Command="{Binding Source={x:Reference PetsPageRoot}, Path=BindingContext.SharePetPdfCommand}"
-                                                    CommandParameter="{Binding .}"
-                                                    BackgroundColor="#BBDEFB"
-                                                    TextColor="Black"
-                                                    FontSize="13"
-                                                    WidthRequest="70"
-                                                    CornerRadius="7"/>
-                                            <Button Text="JSON"
-                                                    Command="{Binding Source={x:Reference PetsPageRoot}, Path=BindingContext.SharePetJsonCommand}"
-                                                    CommandParameter="{Binding .}"
-                                                    BackgroundColor="#FFE0B2"
-                                                    TextColor="Black"
-                                                    FontSize="13"
-                                                    WidthRequest="70"
-                                                    CornerRadius="7"/>
-                                        </HorizontalStackLayout>
                                         <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" 
                                                 StrokeShape="RoundRectangle 5" Margin="5,1" Padding="5, 1">
                                             <VerticalStackLayout>

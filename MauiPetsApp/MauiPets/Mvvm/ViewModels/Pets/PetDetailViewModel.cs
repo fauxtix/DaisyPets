@@ -7,6 +7,7 @@ using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Vaccines;
 using MauiPets.Mvvm.Views.VetAppointments;
+using MauiPets.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using System.Collections.ObjectModel;
@@ -23,17 +24,21 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
     private readonly IDesparasitanteService _petDewormersService;
     private readonly IRacaoService _petFoodService;
     private readonly IConsultaService _petVeterinaryAppointmentsService;
+
+    private readonly IPetFichaPdfService _petFichaPdfService;
     public PetDetailViewModel(IPetService petService,
                               IVacinasService petVaccinesService,
                               IDesparasitanteService petDewormersService,
                               IRacaoService petFoodService,
-                              IConsultaService petVeterinaryAppointmentsService)
+                              IConsultaService petVeterinaryAppointmentsService,
+                              IPetFichaPdfService petFichaPdfService)
     {
         _petService = petService;
         _petVaccinesService = petVaccinesService;
         _petDewormersService = petDewormersService;
         _petFoodService = petFoodService;
         _petVeterinaryAppointmentsService = petVeterinaryAppointmentsService;
+        _petFichaPdfService = petFichaPdfService;
     }
 
 
@@ -513,6 +518,47 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         catch (Exception ex)
         {
             await ShowToastMessage($"Erro ao apagar consulta ({ex.Message})");
+        }
+    }
+
+    [RelayCommand]
+    public async Task ExportarFichaPetPdfAsync()
+    {
+        if (PetVM is null)
+            return;
+
+        try
+        {
+            IsBusy = true;
+            var pdfStream = await _petFichaPdfService.GenerateFichaPetPdfAsync(
+                PetVM,
+                PetVaccinesVM?.Any() == true ? PetVaccinesVM : Enumerable.Empty<VacinaVM>(),
+                PetDewormersVM?.Any() == true ? PetDewormersVM : Enumerable.Empty<DesparasitanteVM>(),
+                PetFoodVM?.Any() == true ? PetFoodVM : Enumerable.Empty<RacaoVM>(),
+                PetConsultationsVM?.Any() == true ? PetConsultationsVM : Enumerable.Empty<ConsultaVeterinarioVM>()
+    );
+
+            var filePath = Path.Combine(FileSystem.CacheDirectory, $"Ficha_{PetVM.Nome}.pdf");
+            using (var file = File.Create(filePath))
+            {
+                pdfStream.Seek(0, SeekOrigin.Begin);
+                await pdfStream.CopyToAsync(file);
+            }
+
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                Title = $"Ficha de {PetVM.Nome}",
+                File = new ShareFile(filePath)
+            });
+
+        }
+        catch (Exception ex)
+        {
+            await ShowToastMessage($"Erro na partilha de Pdf ({ex.Message})");
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
 
