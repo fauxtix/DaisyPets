@@ -1,6 +1,6 @@
-# Novas Funcionalidades – DaisyPets
+# Novas Funcionalidades – MauiPets
 
-Este documento resume as principais funcionalidades adicionadas recentemente, com base nos ficheiros **PetGalleryPage**, **BackupPage** e **PetFichaPdfService**.
+Este documento resume as principais funcionalidades adicionadas recentemente (Out/2025).
 
 ---
 
