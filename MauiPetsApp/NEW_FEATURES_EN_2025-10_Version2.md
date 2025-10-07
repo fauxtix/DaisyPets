@@ -22,7 +22,7 @@ This document summarizes the main features recently added (Oct/2025).
 
 ---
 
-## 🔐 Data Backup and Restore (`BackupPage`)
+## 🔐 Data Backup and Restore
 
 - **Manual Backup**
   - Ability to create backups of the app's local database via the interface.
@@ -38,7 +38,7 @@ This document summarizes the main features recently added (Oct/2025).
 
 ---
 
-## 📄 Pet Profile PDF Export & Sharing (`PetFichaPdfService`)
+## 📄 Pet Profile PDF Export & Sharing
 
 - **Generate Detailed Pet Profile PDF**
   - Create a comprehensive PDF file for any pet, including:
