@@ -44,14 +44,12 @@ Este documento resume as principais funcionalidades adicionadas recentemente (Ou
   - Criação de um ficheiro PDF detalhado para cada pet, contendo:
     - Dados principais (nome, espécie, raça, idade, chip, etc.)
     - Historial de vacinas, desparasitantes, rações e consultas veterinárias.
-    - Formatação consistente de datas e campos.
-    - Diagnóstico e tratamento de consultas apresentados com wrap e em linhas separadas.
-    - Se possível, inclusão da(s) foto(s) do animal.
-  - Idade calculada automaticamente a partir da data de nascimento.
+    - Historial de consultas (Veterinário, ...).
+  
+  
 
 - **Partilha Simplificada**
   - O PDF pode ser partilhado diretamente através das opções nativas do dispositivo (e-mail, WhatsApp, etc.).
-  - Possibilidade de guardar o PDF localmente para posterior utilização.
 
 ---
 
@@ -67,4 +65,4 @@ Este documento resume as principais funcionalidades adicionadas recentemente (Ou
 
 ---
 
-*Para mais detalhes sobre cada funcionalidade, consulte a documentação técnica ou explore a interface da aplicação.*
+*Para mais detalhes sobre cada funcionalidade, explore a interface da aplicação.*
