@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MauiPets.Core.Application.Interfaces.Services.QuestPdf;
 using MauiPets.Extensions;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -21,16 +22,23 @@ public partial class PetViewModel : BaseViewModel
     private readonly IPetService _petService;
 
     private readonly IVacinasService _petVaccinesService;
-    public PetViewModel(IPetService petService, IVacinasService petVaccinesService, ILogger<PetViewModel> logger)
+    private readonly IPetExportService _petExportService;
+    public PetViewModel(IPetService petService,
+                        IVacinasService petVaccinesService,
+                        ILogger<PetViewModel> logger,
+                        IPetExportService petExportService)
     {
         _petService = petService;
         _petVaccinesService = petVaccinesService;
         Task.Run(GetPetsAsync);
         _logger = logger;
+        _petExportService = petExportService;
     }
 
     [ObservableProperty]
     bool isRefreshing;
+
+    [ObservableProperty] string shareStatus;
 
 
     [RelayCommand]
@@ -236,6 +244,35 @@ public partial class PetViewModel : BaseViewModel
     async Task OpenGallery(int petId)
     {
         await Shell.Current.GoToAsync($"PetGalleryPage?PetId={petId}");
+    }
+
+    // Export service 
+    [RelayCommand]
+    public async Task SharePetPdfAsync(PetVM pet)
+    {
+        ShareStatus = "A gerar PDF...";
+        var pdfPath = await _petExportService.ExportToPdfAsync(pet);
+        ShareStatus = "A partilhar...";
+        await Share.RequestAsync(new ShareFileRequest
+        {
+            Title = $"Ficha de {pet.Nome}",
+            File = new ShareFile(pdfPath)
+        });
+        ShareStatus = "PDF partilhado!";
+    }
+
+    [RelayCommand]
+    public async Task SharePetJsonAsync(PetVM pet)
+    {
+        ShareStatus = "A gerar JSON...";
+        var jsonPath = await _petExportService.ExportToJsonAsync(pet);
+        ShareStatus = "A partilhar...";
+        await Share.RequestAsync(new ShareFileRequest
+        {
+            Title = $"Ficha de {pet.Nome}",
+            File = new ShareFile(jsonPath)
+        });
+        ShareStatus = "JSON partilhado!";
     }
 
     private async void ShowToastMessage(string text)

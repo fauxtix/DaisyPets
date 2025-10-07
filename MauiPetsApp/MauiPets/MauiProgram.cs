@@ -4,6 +4,7 @@ using FluentValidation;
 using MauiPets.Core.Application.Interfaces.Repositories;
 using MauiPets.Core.Application.Interfaces.Repositories.Logs;
 using MauiPets.Core.Application.Interfaces.Services;
+using MauiPets.Core.Application.Interfaces.Services.QuestPdf;
 using MauiPets.Mvvm.ViewModels.Contacts;
 using MauiPets.Mvvm.ViewModels.Dewormers;
 using MauiPets.Mvvm.ViewModels.Email;
@@ -45,6 +46,7 @@ using MauiPetsApp.Infrastructure.Context;
 using MauiPetsApp.Infrastructure.Repositories;
 using MauiPetsApp.Infrastructure.Repositories.Logs;
 using MauiPetsApp.Infrastructure.Services;
+using MauiPetsApp.Infrastructure.Services.QuestPdf;
 using MauiPetsApp.Infrastructure.Services.ToDoManager;
 using MauiPetsApp.Infrastructure.TodoManager;
 using MauiPetsApp.Infrastructure.Validators;
@@ -237,6 +239,10 @@ namespace MauiPets
 
             builder.Services.AddTransient<ILookupTableService, LookupTableService>();
             builder.Services.AddTransient<ITipoDespesaService, TipoDespesaService>();
+
+            // Local services
+            builder.Services.AddTransient<IPetExportService, PetExportService>();
+
 
             // repositories
             builder.Services.AddTransient<IPetRepository, PetRepository>();
