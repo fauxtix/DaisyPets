@@ -39,7 +39,7 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 
 Este documento resume as principais funcionalidades adicionadas recentemente, com base nos ficheiros **PetGalleryPage**, **BackupPage** e **PetFichaPdfService**.
 
-[English version](NEW_FEATURES_EN_2025-10.md)
+[Novas funcionalidades](NEW_FEATURES_2025-10_Version2.md)
 
 ---
 
