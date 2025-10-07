@@ -24,7 +24,7 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 
 ### Novas Funcionalidades (Out/2025):
 
-    [O que há de novo](NEW_FEATURES_2025-10_Version2.md)
+[O que há de novo](NEW_FEATURES_2025-10_Version2.md)
 
 ---
 # Tecnologias Utilizadas
