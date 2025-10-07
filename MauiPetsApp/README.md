@@ -23,6 +23,10 @@ The ORM chosen to work with the database was Dapper, due to its ease of use and 
 - App settings (reference tables, expense categories/subcategories);
 - Log management (analysis and problem resolution) - with options to delete and send an e-mail with the generated error/alert.
 
+  ## New Features (Oct/2025) & Documentation
+
+- [What's New](NEW_FEATURES_EN_2025-10.md)
+
 # Technologies used
 
 - **C#**
