@@ -31,7 +31,6 @@ Destina-se a mensagens do sistema, lembretes de eventos, tarefas pendentes ou qu
 **O que aparece na página:**  
 - Um ícone de sino é apresentado no canto superior direito da página principal.
 - Quando existem notificações ainda não assinaladas como lidas, surge um badge vermelho sobre o sino, mostrando o número de notificações pendentes.
-- O badge apresenta uma animação subtil para captar a atenção do utilizador, mas só enquanto existirem notificações não tratadas.
 - Ao tocar no sino, o utilizador acede à lista de notificações.
 - Cada notificação pode ser marcada individualmente como lida/tratada pelo utilizador, desaparecendo assim do contador do badge.
 - Apenas as notificações ainda não assinaladas como lidas (não tratadas) são contabilizadas e apresentadas; notificações já lidas não são consideradas.
