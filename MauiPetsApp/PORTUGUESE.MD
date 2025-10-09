@@ -22,6 +22,11 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
 - Definições da app (tabelas de referência, categorias/sub-categorias de despesas);
 - Gestão de Logs (análise e resolução de problemas) - permite o envio de e-mail do erro/aviso gerado.
 
+### Novas Funcionalidades (Out/2025):
+
+[O que há de novo](NEW_FEATURES_2025-10_Version2.md)
+
+---
 # Tecnologias Utilizadas
 
 - **C#**
@@ -35,9 +40,9 @@ O ORM escolhido para trabalhar com a base de dados foi o Dapper, devido à sua f
   Com ela, podemos usar expressões Lambda para “construir regras de validações” com retorno de mensagem de erro para cada propriedade das entidades.
 - Outras
 
-# 📦 Guia Completo: Publicação Ad-Hoc de APK (.NET MAUI Android)
+---
 
-## 🇵🇹 Português de Portugal
+## 📦 Publicação Ad-Hoc de APK (.NET MAUI Android)
 
 ### 1️⃣ Pré-requisitos
 
