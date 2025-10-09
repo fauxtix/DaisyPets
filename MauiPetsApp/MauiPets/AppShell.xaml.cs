@@ -2,6 +2,7 @@
 using MauiPets.Mvvm.Views.Dewormers;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPets.Mvvm.Views.Logs;
+using MauiPets.Mvvm.Views.Notifications;
 using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Settings;
@@ -22,6 +23,7 @@ namespace MauiPets
             InitializeComponent();
             RegisterRoutes();
             BindingContext = this;
+
         }
 
         void RegisterRoutes()
@@ -61,6 +63,7 @@ namespace MauiPets
 
             Routes.Add(nameof(EmailFormPage), typeof(EmailFormPage));
             Routes.Add(nameof(BackupPage), typeof(BackupPage));
+            Routes.Add(nameof(NotificationsPage), typeof(NotificationsPage));
 
             foreach (var item in Routes)
             {

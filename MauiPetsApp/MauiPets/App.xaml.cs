@@ -1,47 +1,29 @@
-﻿using MauiPets.Mvvm.ViewModels.Pets;
-using MauiPetsApp.Core.Application.Interfaces.Services;
-using Plugin.LocalNotification;
-using Plugin.LocalNotification.EventArgs;
+﻿using MauiPets.Core.Application.Interfaces.Services.Notifications;
 
-namespace MauiPets
+
+namespace MauiPets;
+public partial class App : Application
 {
-    public partial class App : Application
+    private readonly INotificationsSyncService _syncService;
+
+    public static IServiceProvider Services { get; private set; }
+
+    public App(INotificationsSyncService syncService, IServiceProvider serviceProvider)
     {
-        public App(IServiceProvider serviceProvider)
-        {
-            LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationActionTapped;
-            MainPage = new AppShell();
-        }
+        InitializeComponent();
 
+        Services = serviceProvider;
 
-        private void OnNotificationActionTapped(NotificationActionEventArgs e)
-        {
-            if (e.IsDismissed)
-            {
-                // your code goes here
-                return;
-            }
-            if (e.IsTapped)
-            {
-                // your code goes here
-                return;
-            }
-            // if Notification Action are setup
-            //switch (e.ActionId)
-            //{
+        _syncService = syncService;
 
-            //}
-        }
+        MainPage = new AppShell();
 
-        public static class ViewModelFactory
-        {
-            public static PetAddOrEditViewModel CreatePetAddOrEditViewModel()
-            {
-                var petService = DependencyService.Get<IPetService>();
-                var lookupTablesService = DependencyService.Get<ILookupTableService>();
+        // Não é possível await no construtor, mas podes iniciar assim:
+        Task.Run(AtualizarNotificacoesEBadgeAsync);
+    }
 
-                return new PetAddOrEditViewModel(petService, lookupTablesService);
-            }
-        }
+    private async Task AtualizarNotificacoesEBadgeAsync()
+    {
+        await _syncService.SyncNotificationsAsync();
     }
 }

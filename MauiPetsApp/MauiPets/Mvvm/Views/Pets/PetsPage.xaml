@@ -35,149 +35,183 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
+        <!-- Apenas o botão de adicionar pet permanece na toolbar -->
         <ToolbarItem Command="{Binding AddPetCommand}" IconImageSource="add.png" />
     </ContentPage.ToolbarItems>
 
-    <Grid>
-        <ScrollView>
-            <VerticalStackLayout>
-                <Grid RowDefinitions="Auto, Auto, *">
-                    <Border Grid.Row="0" Margin="5, 5"  
-                            StrokeShape="RoundRectangle 0,0,50,50" 
-                            StrokeThickness="0" HeightRequest="160">
-                        <Border.Shadow>
-                            <Shadow Brush="Black" Offset="-10,20" Radius="10" Opacity="0.4" />
-                        </Border.Shadow>
-                        <Image Margin="5, 5"
-                               WidthRequest="250" 
-                               HeightRequest="200" Aspect="Fill"                    
-                               Source="daisypetsbing_min.png"/>
-                    </Border>
-
-                    <Border Grid.Row="1" Margin="5, 25, 5, 35"  
-                            StrokeShape="RoundRectangle 0,0,15,15" 
-                            StrokeThickness="0.5" HeightRequest="60">
-                        <Label Margin="5, 2, 5, 3" 
-                               Padding="5, 0, 5, 0"
-                               FontSize="14"
-                               FontFamily="sans-serif-medium"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               Text="Selecione um dos Pets abaixo, para visualizar/alterar os dados"/>
-                    </Border>
-
-                    <CollectionView Grid.Row="2" 
-                                    ItemsSource="{Binding Pets}" 
-                                    SelectionMode="Single">
-                        <CollectionView.EmptyView>
-                            <StackLayout Grid.ColumnSpan="2">
-                                <Image HorizontalOptions="Center"
-                                       HeightRequest="160"
-                                       WidthRequest="160"
-                                       Source="nopets.png"
-                                       VerticalOptions="Center" />
-                            </StackLayout>
-                        </CollectionView.EmptyView>
-
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout Orientation="Vertical" Span="2"
-                                             HorizontalItemSpacing="10"
-                                             VerticalItemSpacing="10" />
-                        </CollectionView.ItemsLayout>
-
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="models:PetVM">
-                                <VerticalStackLayout Margin="15, 0, 15, 0">
-                                    <Border Stroke="Black" 
-                                            StrokeThickness="2" 
-                                            HeightRequest="140" 
-                                            WidthRequest="160" 
-                                            StrokeShape="RoundRectangle 20" 
-                                            HorizontalOptions="Center"
-                                            VerticalOptions="Center">
-                                        <Border.Shadow>
-                                            <Shadow Brush="Black" Offset="-5,5" Radius="10" Opacity="0.4" />
-                                        </Border.Shadow>
-                                        <Image Source="{Binding Foto}"
-                                               Aspect="AspectFill" 
-                                               HorizontalOptions="Fill"
-                                               VerticalOptions="Fill"
-                                               Margin="5, 0" />
-                                        <Border.GestureRecognizers>
-                                            <TapGestureRecognizer 
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:PetViewModel}}, Path=DisplayPetCommand}"
-                                                CommandParameter="{Binding .}"/>
-                                        </Border.GestureRecognizers>
-                                    </Border>
-
-                                    <Label Text="{Binding Nome}"
-                                           TextColor="Magenta"
-                                           Padding="10"
-                                           FontSize="18"
-                                           HorizontalTextAlignment="Center" />
-
-                                    <Button Text="Galeria de Fotos"
-                                            Command="{Binding Source={x:Reference PetsPageRoot}, Path=BindingContext.OpenGalleryCommand}"
-                                            CommandParameter="{Binding Id}"
-                                            Margin="0,5"
-                                            BackgroundColor="#C5E1A5"
-                                            TextColor="Black"
-                                            FontSize="13"
-                                            HorizontalOptions="Center"/>
-                                    <Grid RowDefinitions="*, *" ColumnDefinitions="*, *">
-
-                                        <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" 
-                                                StrokeShape="RoundRectangle 5" Margin="5,1" Padding="5, 1">
-                                            <VerticalStackLayout>
-                                                <Label Text="Género"  FontAttributes="Bold"
-                                                       FontFamily="PoppinsBold"
-                                                       FontSize="10" TextColor="DarkGray" HorizontalTextAlignment="Center"/>
-                                                <Label Text="{Binding Genero, Converter={StaticResource GenderConverter}}"
-                                                       FontSize="11" TextColor="Black"
-                                                       HorizontalTextAlignment="Center" />
-                                            </VerticalStackLayout>
+    <AbsoluteLayout>
+        <!-- Conteúdo principal da página -->
+        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <ScrollView>
+                <VerticalStackLayout>
+                    <!-- ... todo o conteúdo da página igual ao original ... -->
+                    <Grid RowDefinitions="Auto, Auto, *">
+                        <Border Grid.Row="0" Margin="5, 5"  
+                                StrokeShape="RoundRectangle 0,0,50,50" 
+                                StrokeThickness="0" HeightRequest="160">
+                            <Border.Shadow>
+                                <Shadow Brush="Black" Offset="-10,20" Radius="10" Opacity="0.4" />
+                            </Border.Shadow>
+                            <Image Margin="5, 5"
+                                   WidthRequest="250" 
+                                   HeightRequest="200" Aspect="Fill"                    
+                                   Source="daisypetsbing_min.png"/>
+                        </Border>
+                        <Border Grid.Row="1" Margin="5, 25, 5, 35"  
+                                StrokeShape="RoundRectangle 0,0,15,15" 
+                                StrokeThickness="0.5" HeightRequest="60">
+                            <Label Margin="5, 2, 5, 3" 
+                                   Padding="5, 0, 5, 0"
+                                   FontSize="14"
+                                   FontFamily="sans-serif-medium"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   Text="Selecione um dos Pets abaixo, para visualizar/alterar os dados"/>
+                        </Border>
+                        <CollectionView Grid.Row="2" 
+                                        ItemsSource="{Binding Pets}" 
+                                        SelectionMode="Single">
+                            <CollectionView.EmptyView>
+                                <StackLayout Grid.ColumnSpan="2">
+                                    <Image HorizontalOptions="Center"
+                                           HeightRequest="160"
+                                           WidthRequest="160"
+                                           Source="nopets.png"
+                                           VerticalOptions="Center" />
+                                </StackLayout>
+                            </CollectionView.EmptyView>
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" Span="2"
+                                                 HorizontalItemSpacing="10"
+                                                 VerticalItemSpacing="10" />
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:PetVM">
+                                    <VerticalStackLayout Margin="15, 0, 15, 0">
+                                        <Border Stroke="Black" 
+                                                StrokeThickness="2" 
+                                                HeightRequest="140" 
+                                                WidthRequest="160" 
+                                                StrokeShape="RoundRectangle 20" 
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center">
+                                            <Border.Shadow>
+                                                <Shadow Brush="Black" Offset="-5,5" Radius="10" Opacity="0.4" />
+                                            </Border.Shadow>
+                                            <Image Source="{Binding Foto}"
+                                                   Aspect="AspectFill" 
+                                                   HorizontalOptions="Fill"
+                                                   VerticalOptions="Fill"
+                                                   Margin="5, 0" />
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:PetViewModel}}, Path=DisplayPetCommand}"
+                                                    CommandParameter="{Binding .}"/>
+                                            </Border.GestureRecognizers>
                                         </Border>
+                                        <Label Text="{Binding Nome}"
+                                               TextColor="Magenta"
+                                               Padding="10"
+                                               FontSize="18"
+                                               HorizontalTextAlignment="Center" />
+                                        <Button Text="Galeria de Fotos"
+                                                Command="{Binding Source={x:Reference PetsPageRoot}, Path=BindingContext.OpenGalleryCommand}"
+                                                CommandParameter="{Binding Id}"
+                                                Margin="0,5"
+                                                BackgroundColor="#C5E1A5"
+                                                TextColor="Black"
+                                                FontSize="13"
+                                                HorizontalOptions="Center"/>
+                                        <Grid RowDefinitions="*, *" ColumnDefinitions="*, *">
+                                            <Border Grid.Row="0" Grid.Column="0" Stroke="LightGray" StrokeThickness="1" 
+                                                    StrokeShape="RoundRectangle 5" Margin="5,1" Padding="5, 1">
+                                                <VerticalStackLayout>
+                                                    <Label Text="Género"  FontAttributes="Bold"
+                                                           FontFamily="PoppinsBold"
+                                                           FontSize="10" TextColor="DarkGray" HorizontalTextAlignment="Center"/>
+                                                    <Label Text="{Binding Genero, Converter={StaticResource GenderConverter}}"
+                                                           FontSize="11" TextColor="Black"
+                                                           HorizontalTextAlignment="Center" />
+                                                </VerticalStackLayout>
+                                            </Border>
+                                            <Border Grid.Row="0" Grid.Column="1" Stroke="LightGray" StrokeThickness="1" 
+                                                    StrokeShape="RoundRectangle 5" Margin="5, 1" Padding="5, 2">
+                                                <VerticalStackLayout>
+                                                    <Label Text="Idade" FontAttributes="Bold"
+                                                           FontFamily="PoppinsBold"
+                                                           FontSize="10" TextColor="DarkGray" HorizontalTextAlignment="Center" />
+                                                    <Label Text="{Binding DataNascimento, Converter={StaticResource IdadeConverter}}"
+                                                           FontSize="11" TextColor="Black" 
+                                                           HorizontalTextAlignment="Center" />
+                                                </VerticalStackLayout>
+                                            </Border>
+                                            <Border Grid.Row="1" Grid.ColumnSpan="2" Stroke="LightGray" StrokeThickness="1" 
+                                                    StrokeShape="RoundRectangle 5" Padding="5, 2">
+                                                <VerticalStackLayout>
+                                                    <Label Text="Raça" FontAttributes="Bold"
+                                                           FontFamily="PoppinsBold"
+                                                           FontSize="10" TextColor="DarkGray" />
+                                                    <Label Text="{Binding RacaAnimal}"
+                                                           FontSize="11" TextColor="Black" 
+                                                           HorizontalTextAlignment="Start" />
+                                                </VerticalStackLayout>
+                                            </Border>
+                                        </Grid>
+                                    </VerticalStackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                    <Grid HorizontalOptions="Center" VerticalOptions="Center" Grid.RowSpan="4">
+                        <ActivityIndicator                
+                            IsRunning="{Binding IsBusy}" 
+                            HorizontalOptions="Center" 
+                            VerticalOptions="Center" 
+                            BackgroundColor="Transparent"
+                            Color="Black"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
 
-                                        <Border Grid.Row="0" Grid.Column="1" Stroke="LightGray" StrokeThickness="1" 
-                                                StrokeShape="RoundRectangle 5" Margin="5, 1" Padding="5, 2">
-                                            <VerticalStackLayout>
-                                                <Label Text="Idade" FontAttributes="Bold"
-                                                       FontFamily="PoppinsBold"
-                                                       FontSize="10" TextColor="DarkGray" HorizontalTextAlignment="Center" />
-                                                <Label Text="{Binding DataNascimento, Converter={StaticResource IdadeConverter}}"
-                                                       FontSize="11" TextColor="Black" 
-                                                       HorizontalTextAlignment="Center" />
-                                            </VerticalStackLayout>
-                                        </Border>
-
-                                        <Border Grid.Row="1" Grid.ColumnSpan="2" Stroke="LightGray" StrokeThickness="1" 
-                                                StrokeShape="RoundRectangle 5" Padding="5, 2">
-                                            <VerticalStackLayout>
-                                                <Label Text="Raça" FontAttributes="Bold"
-                                                       FontFamily="PoppinsBold"
-                                                       FontSize="10" TextColor="DarkGray" />
-                                                <Label Text="{Binding RacaAnimal}"
-                                                       FontSize="11" TextColor="Black" 
-                                                       HorizontalTextAlignment="Start" />
-                                            </VerticalStackLayout>
-                                        </Border>
-                                    </Grid>
-                                </VerticalStackLayout>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </Grid>
-
-                <Grid HorizontalOptions="Center" VerticalOptions="Center" 
-                      Grid.RowSpan="4">
-                    <ActivityIndicator                
-                        IsRunning="{Binding IsBusy}" 
-                        HorizontalOptions="Center" 
-                        VerticalOptions="Center" 
-                        BackgroundColor="Transparent"
-                        Color="Black"/>
-                </Grid>
-            </VerticalStackLayout>
-        </ScrollView>
-    </Grid>
+        <!-- Sino e badge flutuantes um pouco mais para a esquerda -->
+        <Grid
+    AbsoluteLayout.LayoutBounds="0.93,0,50,50" 
+            AbsoluteLayout.LayoutFlags="PositionProportional">
+            <!-- Ícone do sino -->
+            <Image Source="bell.png"
+           WidthRequest="32"
+           HeightRequest="32"
+           VerticalOptions="Start"
+           HorizontalOptions="End"
+           Margin="0,2,7,0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding OpenNotificationsCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <!-- Badge sobreposto -->
+            <Frame
+                IsVisible="{Binding HasUnreadNotifications}"
+                CornerRadius="10"
+                BackgroundColor="Red"
+                Padding="0"
+                HasShadow="False"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                HeightRequest="20"
+                WidthRequest="20"
+                TranslationX="8" 
+                TranslationY="2">
+            
+                <Label
+                        Text="{Binding UnreadNotificationsCount}"
+                        TextColor="White"
+                        FontSize="12"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+            </Frame>
+        </Grid>
+    </AbsoluteLayout>
 </ContentPage>

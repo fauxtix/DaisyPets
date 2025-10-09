@@ -3,12 +3,15 @@ using DaisyPets.WebApi.Helpers;
 using FluentValidation;
 using MauiPets.Core.Application.Interfaces.Repositories;
 using MauiPets.Core.Application.Interfaces.Repositories.Logs;
+using MauiPets.Core.Application.Interfaces.Repositories.Notifications;
 using MauiPets.Core.Application.Interfaces.Services;
+using MauiPets.Core.Application.Interfaces.Services.Notifications;
 using MauiPets.Mvvm.ViewModels.Contacts;
 using MauiPets.Mvvm.ViewModels.Dewormers;
 using MauiPets.Mvvm.ViewModels.Email;
 using MauiPets.Mvvm.ViewModels.Expenses;
 using MauiPets.Mvvm.ViewModels.Logs;
+using MauiPets.Mvvm.ViewModels.Notifications;
 using MauiPets.Mvvm.ViewModels.PetFood;
 using MauiPets.Mvvm.ViewModels.Pets;
 using MauiPets.Mvvm.ViewModels.Settings;
@@ -20,6 +23,7 @@ using MauiPets.Mvvm.Views.Contacts;
 using MauiPets.Mvvm.Views.Dewormers;
 using MauiPets.Mvvm.Views.Expenses;
 using MauiPets.Mvvm.Views.Logs;
+using MauiPets.Mvvm.Views.Notifications;
 using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPets.Mvvm.Views.Settings;
@@ -45,12 +49,13 @@ using MauiPetsApp.Infrastructure;
 using MauiPetsApp.Infrastructure.Context;
 using MauiPetsApp.Infrastructure.Repositories;
 using MauiPetsApp.Infrastructure.Repositories.Logs;
+using MauiPetsApp.Infrastructure.Repositories.Notifications;
 using MauiPetsApp.Infrastructure.Services;
+using MauiPetsApp.Infrastructure.Services.Notifications;
 using MauiPetsApp.Infrastructure.Services.ToDoManager;
 using MauiPetsApp.Infrastructure.TodoManager;
 using MauiPetsApp.Infrastructure.Validators;
 using Microsoft.Extensions.Configuration;
-using Plugin.LocalNotification;
 using SendEmail.Views;
 using Serilog;
 using SkiaSharp.Views.Maui.Controls.Hosting;
@@ -87,7 +92,6 @@ namespace MauiPets
                 fonts.AddFont("MaterialIconsOutlined-Regular.otf", "Material");
             })
                 .UseMauiCommunityToolkit()
-                .UseLocalNotification()
                 .UseSkiaSharp();
 
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources/Languages");
@@ -170,6 +174,9 @@ namespace MauiPets
 
             builder.Services.AddTransient<BackupViewModel>();
 
+            builder.Services.AddTransient<NotificationsViewModel>();
+
+
 
             // Views
             builder.Services.AddSingleton<PetsPage>();
@@ -207,6 +214,9 @@ namespace MauiPets
             builder.Services.AddTransient<EmailFormPage>();
             builder.Services.AddTransient<BackupPage>();
 
+            builder.Services.AddTransient<NotificationsPage>();
+
+
             // Database context
 
             builder.Services.AddTransient<IDapperContext, DapperContext>();
@@ -242,6 +252,9 @@ namespace MauiPets
             builder.Services.AddTransient<ILookupTableService, LookupTableService>();
             builder.Services.AddTransient<ITipoDespesaService, TipoDespesaService>();
 
+            builder.Services.AddSingleton<INotificationsSyncService, NotificationsSyncService>();
+
+
             // Local services
             builder.Services.AddSingleton<IPetFichaPdfService, PetFichaPdfService>();
 
@@ -260,8 +273,7 @@ namespace MauiPets
             builder.Services.AddTransient<ITipoDespesaRepository, TipoDespesaRepository>();
             builder.Services.AddTransient<ILogRepository, LogRepository>();
 
-            builder.Services.AddTransient<LocalNotificationCenter>();
-
+            builder.Services.AddSingleton<INotificationRepository, NotificationRepository>();
 
 
             SetupSerilog(builder);

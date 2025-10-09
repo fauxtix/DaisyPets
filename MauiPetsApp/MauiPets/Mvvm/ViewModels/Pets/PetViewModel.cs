@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MauiPets.Core.Application.Interfaces.Services.Notifications;
 using MauiPets.Extensions;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -17,18 +18,21 @@ public partial class PetViewModel : BaseViewModel
 
     public ObservableCollection<PetVM> Pets { get; } = new();
 
-
     private readonly IPetService _petService;
-
     private readonly IVacinasService _petVaccinesService;
+    private readonly INotificationsSyncService? _notificationService; // Adapta ao teu serviço real
+
     public PetViewModel(IPetService petService,
                         IVacinasService petVaccinesService,
-                        ILogger<PetViewModel> logger)
+                        ILogger<PetViewModel> logger,
+                        INotificationsSyncService? notificationService = null)
     {
         _petService = petService;
         _petVaccinesService = petVaccinesService;
-        Task.Run(GetPetsAsync);
         _logger = logger;
+        _notificationService = notificationService;
+        Task.Run(GetPetsAsync);
+        Task.Run(UpdateUnreadNotificationsAsync); // Atualiza badge ao iniciar
     }
 
     [ObservableProperty]
@@ -36,6 +40,39 @@ public partial class PetViewModel : BaseViewModel
 
     [ObservableProperty] string shareStatus;
 
+    // === PROPRIEDADES DO BADGE ===
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasUnreadNotifications))]
+    int unreadNotificationsCount;
+
+    public bool HasUnreadNotifications => UnreadNotificationsCount > 0;
+
+    [RelayCommand]
+    private async Task OpenNotificationsAsync()
+    {
+        await Shell.Current.GoToAsync("NotificationsPage"); // Ajusta ao nome real
+        // Se quiseres limpar o badge ao abrir notificações:
+        // UnreadNotificationsCount = 0;
+    }
+
+    public async Task UpdateUnreadNotificationsAsync()
+    {
+        if (_notificationService is not null)
+        {
+            try
+            {
+                UnreadNotificationsCount = await _notificationService.GetActiveNotificationsCountAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao obter notificações: {ex.Message}");
+            }
+        }
+        else
+        {
+            UnreadNotificationsCount = 0;
+        }
+    }
 
     [RelayCommand]
     private async Task GetPetsAsync()
@@ -68,7 +105,6 @@ public partial class PetViewModel : BaseViewModel
         }
     }
 
-
     [RelayCommand]
     private async Task GetPetAsync()
     {
@@ -98,7 +134,6 @@ public partial class PetViewModel : BaseViewModel
         {
             return;
         }
-
 
         try
         {
@@ -173,7 +208,6 @@ public partial class PetViewModel : BaseViewModel
 
             }
         }
-
     }
 
     [RelayCommand]
@@ -181,9 +215,6 @@ public partial class PetViewModel : BaseViewModel
     {
         try
         {
-            //if(IsNotBusy)
-            //    IsBusy = true;
-
             if (SelectedVaccine.Id == 0)
             {
                 var insertedId = await _petVaccinesService.InsertAsync(SelectedVaccine);
@@ -195,7 +226,6 @@ public partial class PetViewModel : BaseViewModel
                 }
 
                 var vaccineDto = await _petVaccinesService.GetPetVaccinesVMAsync(insertedId);
-                //IsBusy = false;
 
                 ShowToastMessage("Registo criado com sucesso");
 
@@ -204,7 +234,6 @@ public partial class PetViewModel : BaseViewModel
                     {
                         {"SelectedVaccine", vaccineDto}
                     });
-
 
             }
             else // Insert (Id > 0)
@@ -220,9 +249,7 @@ public partial class PetViewModel : BaseViewModel
                         {"SelectedVaccine", vaccineDto}
                     });
 
-                //IsBusy = false;
                 ShowToastMessage("Registo atualizado com sucesso");
-
             }
         }
         catch (Exception ex)
@@ -242,7 +269,6 @@ public partial class PetViewModel : BaseViewModel
         await Shell.Current.GoToAsync($"PetGalleryPage?PetId={petId}");
     }
 
-
     private async void ShowToastMessage(string text)
     {
         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
@@ -253,6 +279,4 @@ public partial class PetViewModel : BaseViewModel
 
         await toast.Show(cancellationTokenSource.Token);
     }
-
 }
-

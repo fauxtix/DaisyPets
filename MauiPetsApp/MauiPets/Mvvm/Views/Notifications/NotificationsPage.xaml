@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiPets.Mvvm.Views.Notifications.NotificationsPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
+             xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Notifications"
+             xmlns:converters="clr-namespace:MauiPets.Converters"
+             x:DataType="local:NotificationsViewModel"
+             Title="Notificações"
+             x:Name="NotificationsPageRoot">
+
+    <ContentPage.Content>
+        <RefreshView IsRefreshing="{Binding IsBusy}" 
+                     Command="{Binding LoadNotificationsCommand}">
+            <CollectionView ItemsSource="{Binding Notifications}">
+                <CollectionView.EmptyView>
+                    <StackLayout Grid.ColumnSpan="2" Margin="0, 10, 0, 0">
+                        <Image HorizontalOptions="Center"
+                               HeightRequest="160"
+                               WidthRequest="160"
+                               Source="tasks.png"
+                               VerticalOptions="Center" />
+                        <Label HorizontalOptions="Center"
+                               Margin="10,10,10,0"
+                               FontSize="Body"
+                               FontFamily="NotoSerifBold"
+                               Text="Nenhuma notificação encontrada"
+                               VerticalOptions="Center" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="5" Padding="10" BorderColor="Gray">
+                            <StackLayout>
+                                <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                <Label Text="{Binding Description}" />
+                                <Label Text="{Binding ScheduledFor, StringFormat='Data: {0:dd/MM/yyyy}'}" FontSize="Small" />
+                                <Button Text="Marcar como lida"
+                                        Command="{Binding BindingContext.MarkAsReadCommand, Source={x:Reference NotificationsPageRoot}}"
+                                        CommandParameter="{Binding .}" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>
