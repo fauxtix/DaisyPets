@@ -31,7 +31,6 @@ It is suitable for system messages, event reminders, pending tasks, or any alert
 **What appears on the page:**  
 - A bell icon is displayed at the top right of the main page.
 - When there are notifications not yet marked as read, a red badge appears over the bell, showing the number of pending notifications.
-- The badge features a subtle animation to attract the user's attention, but only while unread notifications exist.
 - By tapping the bell, the user accesses the list of notifications.
 - Each notification can be individually marked as read/processed by the user, removing it from the badge count.
 - Only notifications not yet marked as read (unprocessed) are counted and shown; read notifications are not considered.
