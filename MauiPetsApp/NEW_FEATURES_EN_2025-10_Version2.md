@@ -3,6 +3,8 @@
 This document summarizes the main features recently added (Oct/2025).
 
 ---
+<img width="388" height="800" alt="Update_10_2025" src="https://github.com/user-attachments/assets/af31e042-ea8f-4f18-9416-01e1e79e3b6f" />
+---
 
 ## 📸 Pet Photo Gallery
 
