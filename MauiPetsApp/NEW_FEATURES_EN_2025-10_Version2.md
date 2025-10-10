@@ -22,6 +22,27 @@ This document summarizes the main features recently added (Oct/2025).
 
 ---
 
+### 📢 Notifications
+
+**Purpose:**  
+This feature aims to alert users to the existence of notifications within the application that have not yet been marked as read or processed.  
+It is suitable for system messages, event reminders, pending tasks, or any alert requiring user attention.
+
+**What appears on the page:**  
+- A bell icon is displayed at the top right of the main page.
+- When there are notifications not yet marked as read, a red badge appears over the bell, showing the number of pending notifications.
+- By tapping the bell, the user accesses the list of notifications.
+- Each notification can be individually marked as read/processed by the user, removing it from the badge count.
+- Only notifications not yet marked as read (unprocessed) are counted and shown; read notifications are not considered.
+
+**Types of notifications supported:**  
+- Event or appointment reminders.
+- Alerts for pending tasks.
+- System warning messages.
+- Other internal communications requiring user action.
+
+---
+
 ## 🔐 Data Backup and Restore
 
 - **Manual Backup**
