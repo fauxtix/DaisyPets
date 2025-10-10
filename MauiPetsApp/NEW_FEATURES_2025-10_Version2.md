@@ -5,7 +5,7 @@ Este documento resume as principais funcionalidades adicionadas recentemente (Ou
 <img width="388" height="800" alt="Update_10_2025" src="https://github.com/user-attachments/assets/0a97ebb2-073a-40a1-a790-0d52840691b4" />
 ---
 
-## 📸 Galeria de Fotos do Pet (`PetGalleryPage`)
+## 📸 Galeria de Fotos do Pet
 
 - **Gestão de Galeria por Animal**
   - Cada pet tem agora uma galeria de fotos associada.
@@ -44,7 +44,7 @@ Destina-se a mensagens do sistema, lembretes de eventos, tarefas pendentes ou qu
 
 ---
 
-## 🔐 Backup e Restauração de Dados (`BackupPage`)
+## 🔐 Backup e Restauração de Dados 
 
 - **Backup Manual**
   - Possibilidade de criar backups da base de dados local da aplicação via interface.
@@ -60,7 +60,7 @@ Destina-se a mensagens do sistema, lembretes de eventos, tarefas pendentes ou qu
 
 ---
 
-## 📄 Exportação e Partilha de Ficha PDF (`PetFichaPdfService`)
+## 📄 Exportação e Partilha de Ficha PDF 
 
 - **Geração de PDF com Ficha Completa do Animal**
   - Criação de um ficheiro PDF detalhado para cada pet, contendo:
