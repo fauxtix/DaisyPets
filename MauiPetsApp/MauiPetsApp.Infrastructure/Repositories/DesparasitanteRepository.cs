@@ -3,7 +3,6 @@ using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using MauiPetsApp.Core.Domain.TodoManager;
 using Serilog;
 using System.Text;
 
@@ -40,21 +39,21 @@ namespace MauiPetsApp.Infrastructure
             sb.Append(");");
             sb.Append("SELECT last_insert_rowid()");
 
-            sbTodoList.Append("INSERT INTO ToDo( ");
-            sbTodoList.Append("Description, StartDate, EndDate, Completed, CategoryId) ");
-            sbTodoList.Append(" VALUES(");
-            sbTodoList.Append("@Description, @StartDate, @EndDate, @Completed, @CategoryId");
-            sbTodoList.Append(");");
+            //sbTodoList.Append("INSERT INTO ToDo( ");
+            //sbTodoList.Append("Description, StartDate, EndDate, Completed, CategoryId) ");
+            //sbTodoList.Append(" VALUES(");
+            //sbTodoList.Append("@Description, @StartDate, @EndDate, @Completed, @CategoryId");
+            //sbTodoList.Append(");");
 
-            ToDo toDo = new ToDo()
-            {
-                CategoryId = categoryId,
-                Description = description,
-                StartDate = startDate,
-                EndDate = endDate,
-                Completed = 0,
-                Generated = 1
-            };
+            //ToDo toDo = new ToDo()
+            //{
+            //    CategoryId = categoryId,
+            //    Description = description,
+            //    StartDate = startDate,
+            //    EndDate = endDate,
+            //    Completed = 0,
+            //    Generated = 1
+            //};
 
             using (var connection = _context.CreateConnection())
             {
@@ -63,7 +62,7 @@ namespace MauiPetsApp.Infrastructure
                 {
                     try
                     {
-                        await connection.ExecuteAsync(sbTodoList.ToString(), param: toDo, transaction: transaction);
+                        //await connection.ExecuteAsync(sbTodoList.ToString(), param: toDo, transaction: transaction);
 
                         result = await connection.QueryFirstAsync<int>(sb.ToString(), param: desparasitante);
                         transaction.Commit();

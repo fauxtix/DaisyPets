@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiPets.Mvvm.Views.Notifications.NotificationsPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
+             xmlns:models="clr-namespace:MauiPets.Core.Domain.Notifications;assembly=MauiPets.Core"
              xmlns:local="clr-namespace:MauiPets.Mvvm.ViewModels.Notifications"
              xmlns:converters="clr-namespace:MauiPets.Converters"
              x:DataType="local:NotificationsViewModel"
@@ -31,7 +31,7 @@
                 </CollectionView.EmptyView>
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:Notification">
                         <Frame Margin="5" Padding="10" BorderColor="Gray">
                             <StackLayout>
                                 <Label Text="{Binding Title}" FontAttributes="Bold" />

@@ -2,6 +2,9 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiPets.Core.Application.Interfaces.Services.Notifications;
+using MauiPets.Core.Application.ViewModels.Messages;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
@@ -12,6 +15,8 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
 
     public partial class DewormerAddOrEditViewModel : DewormerBaseViewModel, IQueryAttributable
     {
+        private readonly INotificationsSyncService _notificationsSyncService;
+
         public IDesparasitanteService _service { get; set; }
         public IPetService _petService { get; set; }
         public int SelectedDewormerId { get; set; }
@@ -22,10 +27,11 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
         public string _petName;
 
 
-        public DewormerAddOrEditViewModel(IDesparasitanteService service, IPetService petService)
+        public DewormerAddOrEditViewModel(IDesparasitanteService service, IPetService petService, INotificationsSyncService notificationsSyncService)
         {
             _service = service;
             _petService = petService;
+            _notificationsSyncService = notificationsSyncService;
         }
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -123,13 +129,16 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
 
                     ShowToastMessage("Desparasitante criado com sucesso");
 
+                    await _notificationsSyncService.SyncNotificationsAsync();
+                    WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+
                     await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                         new Dictionary<string, object>
                         {
                             {"PetVM", petVM}
                         });
                 }
-                else // Insert (Id > 0)
+                else // Update (Id > 0)
                 {
                     var _dewormerId = SelectedDewormer.Id;
                     var _petId = SelectedDewormer.IdPet;
@@ -139,6 +148,8 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
                     SelectedDewormer.DataProximaAplicacao = DateTime.Parse(SelectedDewormer.DataAplicacao).AddMonths(3).ToShortDateString();
+                    await _notificationsSyncService.SyncNotificationsAsync();
+                    WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
 
                     await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                         new Dictionary<string, object>

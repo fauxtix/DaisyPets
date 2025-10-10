@@ -14,12 +14,12 @@ namespace MauiPets.Mvvm.ViewModels.Notifications
 
         [ObservableProperty]
         private bool isBusy;
-        [ObservableProperty]
-        private bool title;
-        [ObservableProperty]
-        private bool description;
-        [ObservableProperty]
-        private bool scheduledFor;
+        //[ObservableProperty]
+        //private bool title;
+        //[ObservableProperty]
+        //private bool description;
+        //[ObservableProperty]
+        //private bool scheduledFor;
 
 
 

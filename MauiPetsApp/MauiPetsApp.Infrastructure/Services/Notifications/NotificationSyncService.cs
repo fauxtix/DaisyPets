@@ -39,13 +39,16 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             try
             {
                 const string query = @"
-                    SELECT V.Id, P.Nome as Nome, V.DataToma, V.ProximaTomaEmMeses
-                    FROM Vacina V
-                    INNER JOIN Pet P ON V.IdPet = P.Id";
+            SELECT V.Id, P.Nome as Nome, V.DataToma, V.ProximaTomaEmMeses
+            FROM Vacina V
+            INNER JOIN Pet P ON V.IdPet = P.Id";
                 using var connection = _db.CreateConnection();
-                var items = await connection.QueryAsync(query);
+
+                // Carrega os items como lista dinâmica (se não usares DTOs)
+                var items = (await connection.QueryAsync(query)).ToList();
 
                 int typeId = await GetNotificationTypeIdAsync("vaccine");
+                var validVaccineIds = new List<int>();
 
                 foreach (var item in items)
                 {
@@ -63,7 +66,9 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
 
                         if (dataProximaToma >= inicio && dataProximaToma <= fim)
                         {
-                            await InsertNotificationIfNotExistsAsync(
+                            validVaccineIds.Add(id);
+
+                            await InsertOrUpdateNotificationAsync(
                                 connection,
                                 $"Vacina para {nome}",
                                 $"Vacina marcada para {dataProximaToma:dd/MM/yyyy}",
@@ -78,25 +83,42 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                         _logger.LogError(ex, $"Erro ao processar vacina Id {item?.Id}");
                     }
                 }
+
+                // Limpa notificações órfãs (fora do prazo)
+                // Atenção: para evitar erro com lista vazia, podes proteger o bloco de DELETE como segue:
+                if (validVaccineIds.Count > 0)
+                {
+                    await connection.ExecuteAsync(
+                        @"DELETE FROM Notification 
+                  WHERE NotificationTypeId = @typeId 
+                    AND RelatedItemId NOT IN @validVaccineIds",
+                        new { typeId, validVaccineIds });
+                }
+                else
+                {
+                    await connection.ExecuteAsync(
+                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId",
+                        new { typeId });
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro em SyncVaccineNotificationsAsync");
             }
         }
-
         private async Task SyncDewormerNotificationsAsync(DateTime inicio, DateTime fim)
         {
             try
             {
                 const string query = @"
-                    SELECT D.Id, P.Nome as Nome, D.DataProximaAplicacao
-                    FROM Desparasitante D
-                    INNER JOIN Pet P ON D.IdPet = P.Id";
+            SELECT D.Id, P.Nome as Nome, D.DataAplicacao, D.DataProximaAplicacao
+            FROM Desparasitante D
+            INNER JOIN Pet P ON D.IdPet = P.Id";
                 using var connection = _db.CreateConnection();
-                var items = await connection.QueryAsync(query);
+                var items = (await connection.QueryAsync(query)).ToList();
 
                 int typeId = await GetNotificationTypeIdAsync("dewormer");
+                var validDewormerIds = new List<int>();
 
                 foreach (var item in items)
                 {
@@ -105,16 +127,19 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                         int id = Convert.ToInt32(item.Id);
                         string nome = Convert.ToString(item.Nome);
                         string strDataProximaAplicacao = Convert.ToString(item.DataProximaAplicacao);
+                        string strDataAplicacao = Convert.ToString(item.DataAplicacao);
 
                         if (!DateTime.TryParse(strDataProximaAplicacao, out DateTime dataProximaAplicacao))
                             continue;
 
                         if (dataProximaAplicacao >= inicio && dataProximaAplicacao <= fim)
                         {
-                            await InsertNotificationIfNotExistsAsync(
+                            validDewormerIds.Add(id);
+
+                            await InsertOrUpdateNotificationAsync(
                                 connection,
                                 $"Desparasitante: {nome}",
-                                $"Aplicação para {dataProximaAplicacao:dd/MM/yyyy}",
+                                $"Aplicado em {strDataAplicacao:dd/MM/yyyy}",
                                 dataProximaAplicacao,
                                 typeId,
                                 id
@@ -126,24 +151,40 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                         _logger.LogError(ex, $"Erro ao processar desparasitante Id {item?.Id}");
                     }
                 }
+
+                // Limpa notificações órfãs (fora do prazo)
+                if (validDewormerIds.Count > 0)
+                {
+                    await connection.ExecuteAsync(
+                        @"DELETE FROM Notification 
+                  WHERE NotificationTypeId = @typeId 
+                    AND RelatedItemId NOT IN @validDewormerIds",
+                        new { typeId, validDewormerIds });
+                }
+                else
+                {
+                    await connection.ExecuteAsync(
+                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId",
+                        new { typeId });
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro em SyncDewormerNotificationsAsync");
             }
         }
-
         private async Task SyncTaskNotificationsAsync(DateTime inicio, DateTime fim)
         {
             try
             {
                 const string query = @"
-                    SELECT Id, Description as Nome, EndDate
-                    FROM Todo";
+            SELECT Id, Description as Nome, StartDate
+            FROM Todo";
                 using var connection = _db.CreateConnection();
-                var items = await connection.QueryAsync(query);
+                var items = (await connection.QueryAsync(query)).ToList();
 
                 int typeId = await GetNotificationTypeIdAsync("task");
+                var validTaskIds = new List<int>();
 
                 foreach (var item in items)
                 {
@@ -151,18 +192,20 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     {
                         int id = Convert.ToInt32(item.Id);
                         string nome = Convert.ToString(item.Nome);
-                        string strEndDate = Convert.ToString(item.EndDate);
+                        string strStartDate = Convert.ToString(item.StartDate);
 
-                        if (!DateTime.TryParse(strEndDate, out DateTime endDate))
+                        if (!DateTime.TryParse(strStartDate, out DateTime startDate))
                             continue;
 
-                        if (endDate >= inicio && endDate <= fim)
+                        if (startDate >= inicio && startDate <= fim)
                         {
-                            await InsertNotificationIfNotExistsAsync(
+                            validTaskIds.Add(id);
+
+                            await InsertOrUpdateNotificationAsync(
                                 connection,
                                 $"Tarefa: {nome}",
-                                $"Prazo: {endDate:dd/MM/yyyy}",
-                                endDate,
+                                $"Data: {startDate:dd/MM/yyyy}",
+                                startDate,
                                 typeId,
                                 id
                             );
@@ -173,13 +216,97 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                         _logger.LogError(ex, $"Erro ao processar tarefa Id {item?.Id}");
                     }
                 }
+
+                // Limpa notificações órfãs (fora do prazo)
+                if (validTaskIds.Count > 0)
+                {
+                    await connection.ExecuteAsync(
+                        @"DELETE FROM Notification 
+                  WHERE NotificationTypeId = @typeId 
+                    AND RelatedItemId NOT IN @validTaskIds",
+                        new { typeId, validTaskIds });
+                }
+                else
+                {
+                    await connection.ExecuteAsync(
+                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId",
+                        new { typeId });
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro em SyncTaskNotificationsAsync");
             }
         }
+        private async Task InsertOrUpdateNotificationAsync(
+            System.Data.IDbConnection connection,
+            string title,
+            string desc,
+            DateTime scheduledFor,
+            int typeId,
+            int relatedItemId)
+        {
+            try
+            {
+                var existing = await connection.QueryFirstOrDefaultAsync(
+                    "SELECT Id, ScheduledFor FROM Notification WHERE RelatedItemId = @relatedItemId AND NotificationTypeId = @typeId",
+                    new { relatedItemId, typeId }
+                );
 
+                if (existing == null)
+                {
+                    // Não existe: inserir
+                    await connection.ExecuteAsync(
+                        @"INSERT INTO Notification (Title, Description, ScheduledFor, NotificationTypeId, IsRead, RelatedItemId)
+                  VALUES (@Title, @Description, @ScheduledFor, @NotificationTypeId, @IsRead, @RelatedItemId)",
+                        new
+                        {
+                            Title = title,
+                            Description = desc,
+                            ScheduledFor = scheduledFor,
+                            NotificationTypeId = typeId,
+                            RelatedItemId = relatedItemId,
+                            IsRead = false
+                        }
+                    );
+                }
+                else
+                {
+                    // Tenta converter ScheduledFor para DateTime
+                    DateTime existingDate;
+                    var scheduledForObj = ((IDictionary<string, object>)existing)["ScheduledFor"];
+                    if (scheduledForObj is DateTime dt)
+                        existingDate = dt;
+                    else if (!DateTime.TryParse(scheduledForObj?.ToString(), out existingDate))
+                        existingDate = DateTime.MinValue;
+
+                    if (existingDate != scheduledFor)
+                    {
+                        // Atualiza se a data for diferente
+                        var idObj = ((IDictionary<string, object>)existing)["Id"];
+                        int existingId = Convert.ToInt32(idObj);
+
+                        await connection.ExecuteAsync(
+                            @"UPDATE Notification 
+                      SET ScheduledFor = @ScheduledFor, Title = @Title, Description = @Description, IsRead = 0
+                      WHERE Id = @Id",
+                            new
+                            {
+                                ScheduledFor = scheduledFor,
+                                Title = title,
+                                Description = desc,
+                                Id = existingId
+                            }
+                        );
+                    }
+                    // Se for igual, não faz nada
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Erro ao inserir/atualizar notificação para item {relatedItemId} ({title})");
+            }
+        }
         private async Task InsertNotificationIfNotExistsAsync(
             System.Data.IDbConnection connection,
             string title,
@@ -231,6 +358,23 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             {
                 _logger.LogError(ex, $"Erro ao obter NotificationTypeId para '{description}'");
                 return -1;
+            }
+        }
+
+        public async Task DeleteNotificationsForRelatedItemAsync(int relatedItemId, string notificationType)
+        {
+            try
+            {
+                using var connection = _db.CreateConnection();
+                int typeId = await GetNotificationTypeIdAsync(notificationType);
+                await connection.ExecuteAsync(
+                    "DELETE FROM Notification WHERE RelatedItemId = @relatedItemId AND NotificationTypeId = @typeId",
+                    new { relatedItemId, typeId }
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao apagar notificações associadas ao item");
             }
         }
 

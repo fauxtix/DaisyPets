@@ -3,7 +3,6 @@ using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using MauiPetsApp.Core.Domain.TodoManager;
 using Serilog;
 using System.Text;
 
@@ -26,15 +25,15 @@ namespace MauiPetsApp.Infrastructure
             var endDate = DateTime.Parse(vacina.DataToma).AddMonths(vacina.ProximaTomaEmMeses).ToShortDateString();
             int result;
 
-            ToDo toDo = new ToDo()
-            {
-                CategoryId = categoryId,
-                Description = description,
-                StartDate = startDate,
-                EndDate = endDate,
-                Completed = 0,
-                Generated = 1
-            };
+            //ToDo toDo = new ToDo()
+            //{
+            //    CategoryId = categoryId,
+            //    Description = description,
+            //    StartDate = startDate,
+            //    EndDate = endDate,
+            //    Completed = 0,
+            //    Generated = 1
+            //};
 
             StringBuilder sb = new StringBuilder();
             StringBuilder sbTodoList = new StringBuilder();
@@ -60,7 +59,7 @@ namespace MauiPetsApp.Infrastructure
                 {
                     try
                     {
-                        await connection.ExecuteAsync(sbTodoList.ToString(), param: toDo, transaction: transaction);
+                        //await connection.ExecuteAsync(sbTodoList.ToString(), param: toDo, transaction: transaction);
 
                         result = await connection.QueryFirstAsync<int>(sb.ToString(), param: vacina, transaction: transaction);
 

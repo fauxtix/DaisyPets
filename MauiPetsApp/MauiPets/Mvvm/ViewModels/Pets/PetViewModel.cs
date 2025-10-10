@@ -2,7 +2,9 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using MauiPets.Core.Application.Interfaces.Services.Notifications;
+using MauiPets.Core.Application.ViewModels.Messages;
 using MauiPets.Extensions;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -33,6 +35,10 @@ public partial class PetViewModel : BaseViewModel
         _notificationService = notificationService;
         Task.Run(GetPetsAsync);
         Task.Run(UpdateUnreadNotificationsAsync); // Atualiza badge ao iniciar
+        WeakReferenceMessenger.Default.Register<UpdateUnreadNotificationsMessage>(this, async (r, m) =>
+        {
+            await UpdateUnreadNotificationsAsync();
+        });
     }
 
     [ObservableProperty]

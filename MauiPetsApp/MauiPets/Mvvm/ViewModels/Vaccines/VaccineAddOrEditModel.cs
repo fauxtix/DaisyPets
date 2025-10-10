@@ -2,6 +2,9 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiPets.Core.Application.Interfaces.Services.Notifications;
+using MauiPets.Core.Application.ViewModels.Messages;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Formatting;
 using MauiPetsApp.Core.Application.Interfaces.Services;
@@ -13,6 +16,7 @@ namespace MauiPets.Mvvm.ViewModels.Vaccines;
 
 public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttributable
 {
+    private readonly INotificationsSyncService _notificationsSyncService;
     public IVacinasService _vaccinesService { get; set; }
     public IPetService _petService { get; set; }
     public int SelectedVaccineId { get; set; }
@@ -23,10 +27,11 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
     public string _petName;
 
 
-    public VaccineAddOrEditModel(IVacinasService vacinnesService, IPetService petService)
+    public VaccineAddOrEditModel(IVacinasService vacinnesService, IPetService petService, INotificationsSyncService notificationsSyncService)
     {
         _vaccinesService = vacinnesService;
         _petService = petService;
+        _notificationsSyncService = notificationsSyncService;
     }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -120,13 +125,16 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
                 UpdateNextDose();
                 IsBusy = false;
 
+                await _notificationsSyncService.SyncNotificationsAsync();
+                WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>
                     {
                         {"PetVM", petVM}
                     });
             }
-            else // Insert (Id > 0)
+            else // Update (Id > 0)
             {
                 IsBusy = true;
                 await Task.Delay(100);
@@ -137,6 +145,8 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
 
                 var petVM = await _petService.GetPetVMAsync(_petId);
 
+                await _notificationsSyncService.SyncNotificationsAsync();
+                WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
 
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                     new Dictionary<string, object>

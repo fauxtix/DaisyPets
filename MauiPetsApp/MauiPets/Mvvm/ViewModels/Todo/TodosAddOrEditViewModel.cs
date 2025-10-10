@@ -2,6 +2,9 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiPets.Core.Application.Interfaces.Services.Notifications;
+using MauiPets.Core.Application.ViewModels.Messages;
 using MauiPets.Mvvm.Views.Todo;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.Interfaces.Services.TodoManager;
@@ -16,9 +19,8 @@ namespace MauiPets.Mvvm.ViewModels.Todo;
 
 public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttributable
 {
-
-    public IToDoService _todosService { get; set; }
-    public ILookupTableService _lookupTablesService { get; set; }
+    private readonly INotificationsSyncService _notificationsSyncService;
+    private readonly IToDoService _todosService;
 
     public List<LookupTableVM> TodoCategories;
     [ObservableProperty]
@@ -36,9 +38,10 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
 
 
 
-    public TodosAddOrEditViewModel(IToDoService todosService, ILookupTableService lookupTablesService)
+    public TodosAddOrEditViewModel(IToDoService todosService, ILookupTableService lookupTablesService, INotificationsSyncService notificationsSyncService)
     {
         _todosService = todosService;
+        _notificationsSyncService = notificationsSyncService;
     }
 
     [RelayCommand]
@@ -103,15 +106,22 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
                 //var todoDto = await _todosService.GetToDoVM_ByIdAsync(insertedId);
                 //IsBusy = false;
 
+                await _notificationsSyncService.SyncNotificationsAsync();
+                WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+
                 await ShowToastMessage("Tarefa criada com sucesso");
                 await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true);
             }
-            else // Insert (Id > 0)
+            else // update (Id > 0)
             {
                 if (errorsFound) return;
 
                 var _todoId = SelectedTodo.Id;
                 await _todosService.UpdateAsync(_todoId, SelectedTodo);
+
+                await _notificationsSyncService.SyncNotificationsAsync();
+                WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+
                 await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true);
                 await ShowToastMessage("Tarefa atualizada com sucesso");
             }
@@ -144,6 +154,10 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
                     {
                         await _todosService.DeleteAsync(SelectedTodo.Id);
                         await ShowToastMessage($"Registo  apagado com sucesso");
+
+                        await _notificationsSyncService.DeleteNotificationsForRelatedItemAsync(SelectedTodo.Id, "task");
+                        WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+
                         await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true);
 
                     }

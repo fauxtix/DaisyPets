@@ -2,6 +2,9 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiPets.Core.Application.Interfaces.Services.Notifications;
+using MauiPets.Core.Application.ViewModels.Messages;
 using MauiPets.Mvvm.Views.Dewormers;
 using MauiPets.Mvvm.Views.PetFood;
 using MauiPets.Mvvm.Views.Pets;
@@ -24,6 +27,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
     private readonly IDesparasitanteService _petDewormersService;
     private readonly IRacaoService _petFoodService;
     private readonly IConsultaService _petVeterinaryAppointmentsService;
+    private readonly INotificationsSyncService _notificationsSyncService;
 
     private readonly IPetFichaPdfService _petFichaPdfService;
     public PetDetailViewModel(IPetService petService,
@@ -31,7 +35,8 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
                               IDesparasitanteService petDewormersService,
                               IRacaoService petFoodService,
                               IConsultaService petVeterinaryAppointmentsService,
-                              IPetFichaPdfService petFichaPdfService)
+                              IPetFichaPdfService petFichaPdfService,
+                              INotificationsSyncService notificationsSyncService)
     {
         _petService = petService;
         _petVaccinesService = petVaccinesService;
@@ -39,6 +44,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         _petFoodService = petFoodService;
         _petVeterinaryAppointmentsService = petVeterinaryAppointmentsService;
         _petFichaPdfService = petFichaPdfService;
+        _notificationsSyncService = notificationsSyncService;
     }
 
 
@@ -441,7 +447,12 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             if (deletionConfirmed)
             {
                 await _petVaccinesService.DeleteAsync(vaccine.Id);
+
                 await ShowToastMessage($"Vacina do dia  {vaccine.DataToma} apagada com sucesso");
+
+                await _notificationsSyncService.DeleteNotificationsForRelatedItemAsync(vaccine.Id, "vaccine");
+                WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+
                 PetVaccinesVM.Remove(vaccine);
             }
         }
@@ -466,6 +477,10 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
                 await _petDewormersService.DeleteAsync(dewormer.Id);
                 await ShowToastMessage($"Aplicação do desparasitante no dia  {dewormer.DataAplicacao} apagado com sucesso");
                 PetDewormersVM.Remove(dewormer);
+
+                await _notificationsSyncService.DeleteNotificationsForRelatedItemAsync(dewormer.Id, "dewormer");
+                WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+
             }
         }
         catch (Exception ex)

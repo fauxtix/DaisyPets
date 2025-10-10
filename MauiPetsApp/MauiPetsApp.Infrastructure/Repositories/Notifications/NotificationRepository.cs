@@ -14,22 +14,23 @@ namespace MauiPetsApp.Infrastructure.Repositories.Notifications
             _db = db;
         }
 
-        public async Task<IEnumerable<Notification>> GetAllAsync()
+        public async Task<IEnumerable<Notification>> GetAllAsync(bool includeRead = false)
         {
             using var connection = _db.CreateConnection();
 
             var sql = @"SELECT n.*, t.Id, t.Description 
-                      FROM Notification n
-                      INNER JOIN NotificationType t ON n.NotificationTypeId = t.Id
-                      WHERE n.IsRead = 0
-                      ORDER BY n.ScheduledFor ASC";
+                FROM Notification n
+                INNER JOIN NotificationType t ON n.NotificationTypeId = t.Id";
+            if (!includeRead)
+                sql += " WHERE n.IsRead = 0";
+            sql += " ORDER BY n.ScheduledFor ASC";
+
             var result = await connection.QueryAsync<Notification, NotificationType, Notification>(
                 sql,
                 (n, t) => { n.Type = t; return n; }
             );
             return result;
         }
-
         public async Task MarkAsReadAsync(int notificationId)
         {
             using var connection = _db.CreateConnection();

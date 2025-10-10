@@ -4,7 +4,7 @@ namespace MauiPets.Core.Application.Interfaces.Repositories.Notifications
 {
     public interface INotificationRepository
     {
-        Task<IEnumerable<Notification>> GetAllAsync();
+        Task<IEnumerable<Notification>> GetAllAsync(bool includeRead = false);
         Task MarkAsReadAsync(int notificationId);
     }
 }
