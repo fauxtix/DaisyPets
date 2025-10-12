@@ -10,6 +10,15 @@
              Title="Notificações"
              x:Name="NotificationsPageRoot">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding GoBackCommand  }"
+                 IconImageSource="icon_close.svg" />
+    </ContentPage.ToolbarItems>
+
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
@@ -34,8 +43,8 @@
                                                    IsVisible="{Binding IsRead, Converter={StaticResource InverseBoolConverter}}" />
                                         <SwipeItem 
                                                    IconImageSource="icon_delete2.svg"
-                                                   
-                                                   Command="{Binding BindingContext.DeleteNotificationCommand, Source={x:Reference NotificationsPageRoot}}"
+
+                                                   Command="{Binding BindingContext.DiscardNotificationCommand, Source={x:Reference NotificationsPageRoot}}"
                                                    CommandParameter="{Binding .}"
                                                    IsVisible="{Binding IsRead}" />
                                     </SwipeItems>

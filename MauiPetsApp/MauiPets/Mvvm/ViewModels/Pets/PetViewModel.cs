@@ -22,7 +22,7 @@ public partial class PetViewModel : BaseViewModel
 
     private readonly IPetService _petService;
     private readonly IVacinasService _petVaccinesService;
-    private readonly INotificationsSyncService? _notificationService; // Adapta ao teu serviço real
+    private readonly INotificationsSyncService? _notificationService;
 
     public PetViewModel(IPetService petService,
                         IVacinasService petVaccinesService,

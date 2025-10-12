@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using MauiPets.Core.Application.Interfaces.Repositories.Notifications;
 using MauiPets.Core.Application.ViewModels.Messages;
 using MauiPets.Core.Domain.Notifications;
+using MauiPets.Mvvm.Views.Pets;
 using System.Collections.ObjectModel;
 
 namespace MauiPets.Mvvm.ViewModels.Notifications
@@ -44,6 +45,13 @@ namespace MauiPets.Mvvm.ViewModels.Notifications
         }
 
         [RelayCommand]
+        async Task GoBack()
+        {
+            await Shell.Current.GoToAsync($"//{nameof(PetsPage)}");
+        }
+
+
+        [RelayCommand]
         public async Task MarkAsReadAsync(Notification notification)
         {
             if (notification.IsRead) return;
@@ -70,14 +78,14 @@ namespace MauiPets.Mvvm.ViewModels.Notifications
         }
 
         [RelayCommand]
-        public async Task DeleteNotificationAsync(Notification notification)
+        public async Task DiscardNotificationAsync(Notification notification)
         {
             if (notification == null) return;
 
-            bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", "Apagar notificação", "Ok", "Cancelar");
+            bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", "Descartar notificação", "Ok", "Cancelar");
             if (okToDelete)
             {
-                await _notificationRepository.DeleteAsync(notification.Id);
+                await _notificationRepository.DiscardAsync(notification.Id);
                 Notifications.Remove(notification);
                 WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
             }

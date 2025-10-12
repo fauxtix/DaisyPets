@@ -1,4 +1,6 @@
-﻿namespace MauiPets.Core.Domain.Notifications
+﻿using MauiPets.Core.Application.Enums;
+
+namespace MauiPets.Core.Domain.Notifications
 {
     public class Notification
     {
@@ -9,6 +11,7 @@
         public int NotificationTypeId { get; set; }
         public bool IsRead { get; set; }
         public int? RelatedItemId { get; set; }
+        public NotificationStatus Status { get; set; }
         public NotificationType Type { get; set; } = new NotificationType();
     }
 }
