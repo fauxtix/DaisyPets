@@ -10,41 +10,84 @@
              Title="Notificações"
              x:Name="NotificationsPageRoot">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
-        <RefreshView IsRefreshing="{Binding IsBusy}" 
-                     Command="{Binding LoadNotificationsCommand}">
-            <CollectionView ItemsSource="{Binding Notifications}">
-                <CollectionView.EmptyView>
-                    <StackLayout Grid.ColumnSpan="2" Margin="0, 10, 0, 0">
-                        <Image HorizontalOptions="Center"
-                               HeightRequest="160"
-                               WidthRequest="160"
-                               Source="tasks.png"
-                               VerticalOptions="Center" />
-                        <Label HorizontalOptions="Center"
-                               Margin="10,10,10,0"
-                               FontSize="Body"
-                               FontFamily="NotoSerifBold"
-                               Text="Nenhuma notificação encontrada"
-                               VerticalOptions="Center" />
-                    </StackLayout>
-                </CollectionView.EmptyView>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Notification">
-                        <Frame Margin="5" Padding="10" BorderColor="Gray">
-                            <StackLayout>
-                                <Label Text="{Binding Title}" FontAttributes="Bold" />
-                                <Label Text="{Binding Description}" />
-                                <Label Text="{Binding ScheduledFor, StringFormat='Data: {0:dd/MM/yyyy}'}" FontSize="Small" />
-                                <Button Text="Marcar como lida"
-                                        Command="{Binding BindingContext.MarkAsReadCommand, Source={x:Reference NotificationsPageRoot}}"
-                                        CommandParameter="{Binding .}" />
-                            </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
+        <Grid>
+            <RefreshView IsRefreshing="{Binding IsBusy}" 
+                         Command="{Binding LoadNotificationsCommand}">
+                <CollectionView ItemsSource="{Binding Notifications}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Notification">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                        <SwipeItem Text="Concluída" 
+                                                   IconImageSource="check.png"
+                                                   BackgroundColor="LightGreen"
+                                                   Command="{Binding BindingContext.MarkAsReadCommand, Source={x:Reference NotificationsPageRoot}}"
+                                                   CommandParameter="{Binding .}"
+                                                   IsVisible="{Binding IsRead, Converter={StaticResource InverseBoolConverter}}" />
+                                        <SwipeItem 
+                                                   IconImageSource="icon_delete2.svg"
+                                                   
+                                                   Command="{Binding BindingContext.DeleteNotificationCommand, Source={x:Reference NotificationsPageRoot}}"
+                                                   CommandParameter="{Binding .}"
+                                                   IsVisible="{Binding IsRead}" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Frame Margin="5" Padding="10" BorderColor="Gray">
+                                    <StackLayout>
+                                        <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                        <Label Text="{Binding Description}" />
+                                        <Label Text="{Binding ScheduledFor, StringFormat='Data: {0:dd/MM/yyyy}'}" FontSize="Small" />
+                                    </StackLayout>
+                                </Frame>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <!--<CollectionView.Footer>
+                        <Button Text="Apagar todas as notificações"
+                                Command="{Binding DeleteAllNotificationsCommand}"
+                                IsVisible="{Binding Notifications.Count, Converter={StaticResource GreaterThanZeroConverter}}"
+                                Margin="10"/>
+                    </CollectionView.Footer>-->
+                    <CollectionView.EmptyView>
+                        <StackLayout Margin="0, 10, 0, 0">
+                            <Image HorizontalOptions="Center"
+                                   HeightRequest="160"
+                                   WidthRequest="160"
+                                   Source="tasks.png"
+                                   VerticalOptions="Center" />
+                            <Label HorizontalOptions="Center"
+                                   Margin="10,10,10,0"
+                                   FontSize="Body"
+                                   FontFamily="NotoSerifBold"
+                                   Text="Nenhuma notificação encontrada"
+                                   VerticalOptions="Center" />
+                            <Button Text="Mostrar todas as notificações"
+                                Command="{Binding ShowAllNotificationsCommand}"
+                                Margin="10,20,10,0"
+                                HorizontalOptions="Center" />
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </RefreshView>
+            <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#80000000"  
+                  VerticalOptions="Fill" HorizontalOptions="Fill"
+                  ZIndex="10">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                                   IsVisible="{Binding IsBusy}" 
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   Color="White"
+                                   WidthRequest="64"
+                                   HeightRequest="64" />
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

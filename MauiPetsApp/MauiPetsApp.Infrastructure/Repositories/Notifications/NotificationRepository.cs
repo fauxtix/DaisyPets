@@ -31,11 +31,21 @@ namespace MauiPetsApp.Infrastructure.Repositories.Notifications
             );
             return result;
         }
+
+
         public async Task MarkAsReadAsync(int notificationId)
         {
             using var connection = _db.CreateConnection();
 
             await connection.ExecuteAsync("UPDATE Notification SET IsRead = 1 WHERE Id = @id", new { id = notificationId });
         }
+
+        public async Task DeleteAsync(int notificationId)
+        {
+            using var connection = _db.CreateConnection();
+
+            await connection.ExecuteAsync("DELETE FROM Notification WHERE Id = @id", new { id = notificationId });
+        }
+
     }
 }

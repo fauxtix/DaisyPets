@@ -56,9 +56,7 @@ public partial class PetViewModel : BaseViewModel
     [RelayCommand]
     private async Task OpenNotificationsAsync()
     {
-        await Shell.Current.GoToAsync("NotificationsPage"); // Ajusta ao nome real
-        // Se quiseres limpar o badge ao abrir notificações:
-        // UnreadNotificationsCount = 0;
+        await Shell.Current.GoToAsync("NotificationsPage");
     }
 
     public async Task UpdateUnreadNotificationsAsync()

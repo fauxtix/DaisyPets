@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using MauiPets.Core.Application.Interfaces.Repositories.Notifications;
+using MauiPets.Core.Application.ViewModels.Messages;
 using MauiPets.Core.Domain.Notifications;
 using System.Collections.ObjectModel;
 
@@ -14,14 +16,9 @@ namespace MauiPets.Mvvm.ViewModels.Notifications
 
         [ObservableProperty]
         private bool isBusy;
-        //[ObservableProperty]
-        //private bool title;
-        //[ObservableProperty]
-        //private bool description;
-        //[ObservableProperty]
-        //private bool scheduledFor;
 
-
+        private bool _showAll = false;
+        public bool HasNotifications => Notifications.Count > 0;
 
         public NotificationsViewModel(INotificationRepository notificationRepository)
         {
@@ -36,7 +33,7 @@ namespace MauiPets.Mvvm.ViewModels.Notifications
             {
                 IsBusy = true;
                 Notifications.Clear();
-                var notifications = await _notificationRepository.GetAllAsync();
+                var notifications = await _notificationRepository.GetAllAsync(_showAll);
                 foreach (var notification in notifications)
                     Notifications.Add(notification);
             }
@@ -50,7 +47,47 @@ namespace MauiPets.Mvvm.ViewModels.Notifications
         public async Task MarkAsReadAsync(Notification notification)
         {
             if (notification.IsRead) return;
-            await _notificationRepository.MarkAsReadAsync(notification.Id);
+
+            if (notification.ScheduledFor.Date > DateTime.Now.Date)
+            {
+                bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", "Data no futuro", "Ok", "Cancelar");
+                if (okToDelete)
+                {
+                    await _notificationRepository.MarkAsReadAsync(notification.Id);
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                await _notificationRepository.MarkAsReadAsync(notification.Id);
+            }
+
+            await LoadNotificationsAsync();
+            WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+        }
+
+        [RelayCommand]
+        public async Task DeleteNotificationAsync(Notification notification)
+        {
+            if (notification == null) return;
+
+            bool okToDelete = await Shell.Current.DisplayAlert("Confirme, por favor", "Apagar notificação", "Ok", "Cancelar");
+            if (okToDelete)
+            {
+                await _notificationRepository.DeleteAsync(notification.Id);
+                Notifications.Remove(notification);
+                WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+            }
+        }
+
+        [RelayCommand]
+        public async Task ShowAllNotificationsAsync()
+        {
+            if (IsBusy) return;
+            _showAll = true;
             await LoadNotificationsAsync();
         }
     }

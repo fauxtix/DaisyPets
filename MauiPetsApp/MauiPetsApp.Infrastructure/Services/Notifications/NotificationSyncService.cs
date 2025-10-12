@@ -26,7 +26,6 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                 await SyncVaccineNotificationsAsync(hoje, daquiA7);
                 await SyncDewormerNotificationsAsync(hoje, daquiA7);
                 await SyncTaskNotificationsAsync(hoje, daquiA7);
-                // Adiciona outros handlers conforme necessário
             }
             catch (Exception ex)
             {
@@ -44,7 +43,6 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             INNER JOIN Pet P ON V.IdPet = P.Id";
                 using var connection = _db.CreateConnection();
 
-                // Carrega os items como lista dinâmica (se não usares DTOs)
                 var items = (await connection.QueryAsync(query)).ToList();
 
                 int typeId = await GetNotificationTypeIdAsync("vaccine");
@@ -84,8 +82,6 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     }
                 }
 
-                // Limpa notificações órfãs (fora do prazo)
-                // Atenção: para evitar erro com lista vazia, podes proteger o bloco de DELETE como segue:
                 if (validVaccineIds.Count > 0)
                 {
                     await connection.ExecuteAsync(
@@ -152,7 +148,6 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     }
                 }
 
-                // Limpa notificações órfãs (fora do prazo)
                 if (validDewormerIds.Count > 0)
                 {
                     await connection.ExecuteAsync(
@@ -217,7 +212,6 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     }
                 }
 
-                // Limpa notificações órfãs (fora do prazo)
                 if (validTaskIds.Count > 0)
                 {
                     await connection.ExecuteAsync(
@@ -255,7 +249,6 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
 
                 if (existing == null)
                 {
-                    // Não existe: inserir
                     await connection.ExecuteAsync(
                         @"INSERT INTO Notification (Title, Description, ScheduledFor, NotificationTypeId, IsRead, RelatedItemId)
                   VALUES (@Title, @Description, @ScheduledFor, @NotificationTypeId, @IsRead, @RelatedItemId)",
@@ -272,7 +265,6 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                 }
                 else
                 {
-                    // Tenta converter ScheduledFor para DateTime
                     DateTime existingDate;
                     var scheduledForObj = ((IDictionary<string, object>)existing)["ScheduledFor"];
                     if (scheduledForObj is DateTime dt)
@@ -282,7 +274,6 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
 
                     if (existingDate != scheduledFor)
                     {
-                        // Atualiza se a data for diferente
                         var idObj = ((IDictionary<string, object>)existing)["Id"];
                         int existingId = Convert.ToInt32(idObj);
 
@@ -299,7 +290,6 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                             }
                         );
                     }
-                    // Se for igual, não faz nada
                 }
             }
             catch (Exception ex)
