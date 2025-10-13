@@ -11,7 +11,7 @@ Este documento resume as principais funcionalidades adicionadas recentemente (Ou
   - Cada pet tem agora uma galeria de fotos associada.
   - É possível:
     - Adicionar fotos (usando a câmara ou galeria do dispositivo).
-    - Visualizar fotos em modo de galeria/carrossel.
+    - Visualizar fotos em modo de galeria.
     - Eliminar fotos individuais.
     - Ampliar/visualizar foto em popup.
   - As fotos são guardadas localmente na app e associadas ao animal.
