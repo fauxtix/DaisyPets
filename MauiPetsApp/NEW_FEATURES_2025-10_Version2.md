@@ -1,7 +1,5 @@
 # Novas Funcionalidades – MauiPets
 
-Este documento resume as principais funcionalidades adicionadas recentemente (Out/2025).
----
 <img width="388" height="800" alt="Update_10_2025" src="https://github.com/user-attachments/assets/0a97ebb2-073a-40a1-a790-0d52840691b4" />
 ---
 
