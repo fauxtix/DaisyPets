@@ -41,6 +41,8 @@ public partial class PetGalleryViewModel : ObservableObject, IQueryAttributable
         IsBusy = false;
     }
 
+
+
     [RelayCommand]
     public async Task AddPhotoAsync()
     {
