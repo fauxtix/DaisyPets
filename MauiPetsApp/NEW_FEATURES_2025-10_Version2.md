@@ -1,7 +1,5 @@
 # Novas Funcionalidades – MauiPets
 
-Este documento resume as principais funcionalidades adicionadas recentemente (Out/2025).
----
 <img width="388" height="800" alt="Update_10_2025" src="https://github.com/user-attachments/assets/0a97ebb2-073a-40a1-a790-0d52840691b4" />
 ---
 
@@ -11,7 +9,7 @@ Este documento resume as principais funcionalidades adicionadas recentemente (Ou
   - Cada pet tem agora uma galeria de fotos associada.
   - É possível:
     - Adicionar fotos (usando a câmara ou galeria do dispositivo).
-    - Visualizar fotos em modo de galeria/carrossel.
+    - Visualizar fotos em modo de galeria.
     - Eliminar fotos individuais.
     - Ampliar/visualizar foto em popup.
   - As fotos são guardadas localmente na app e associadas ao animal.

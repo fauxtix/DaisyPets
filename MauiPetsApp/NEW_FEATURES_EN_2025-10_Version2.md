@@ -12,7 +12,7 @@ This document summarizes the main features recently added (Oct/2025).
   - Each pet now has an associated photo gallery.
   - Features include:
     - Add photos (using device camera or gallery).
-    - View photos in a gallery/carousel mode.
+    - View photos in a gallery mode.
     - Delete individual photos.
     - Enlarge/view a photo in a popup.
   - Photos are stored locally in the app and linked to the respective pet.
