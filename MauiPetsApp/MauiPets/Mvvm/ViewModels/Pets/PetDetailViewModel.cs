@@ -526,6 +526,10 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
             if (deletionConfirmed)
             {
                 await _petVeterinaryAppointmentsService.DeleteAsync(petAppt.Id);
+
+                await _notificationsSyncService.DeleteNotificationsForRelatedItemAsync(petAppt.Id, "vet_appointment");
+                WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+
                 await ShowToastMessage($"Consulta de  {petAppt.DataConsulta} apagada com sucesso");
                 PetConsultationsVM.Remove(petAppt);
             }

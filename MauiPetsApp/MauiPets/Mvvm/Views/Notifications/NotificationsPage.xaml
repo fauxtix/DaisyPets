@@ -79,9 +79,9 @@
                                    Text="Nenhuma notificação encontrada"
                                    VerticalOptions="Center" />
                             <Button Text="Mostrar todas as notificações"
-                                Command="{Binding ShowAllNotificationsCommand}"
-                                Margin="10,20,10,0"
-                                HorizontalOptions="Center" />
+                                    Command="{Binding ShowAllNotificationsCommand}"
+                                    Margin="10,20,10,0"
+                                    HorizontalOptions="Center" />
                         </StackLayout>
                     </CollectionView.EmptyView>
                 </CollectionView>

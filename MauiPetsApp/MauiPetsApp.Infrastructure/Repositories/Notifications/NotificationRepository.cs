@@ -38,6 +38,8 @@ namespace MauiPetsApp.Infrastructure.Repositories.Notifications
         {
             using var connection = _db.CreateConnection();
 
+            var testResult = await connection.QueryAsync<Notification>("SELECT * FROM Notification");
+
             var sql = @"SELECT n.*, t.Id, t.Description 
                 FROM Notification n
                 INNER JOIN NotificationType t ON n.NotificationTypeId = t.Id";

@@ -2,6 +2,9 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using MauiPets.Core.Application.Interfaces.Services.Notifications;
+using MauiPets.Core.Application.ViewModels.Messages;
 using MauiPets.Mvvm.Views.Pets;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
@@ -12,6 +15,8 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
 
     public partial class VetAppointmentsAddOrEditViewModel : VetAppointmentsBaseViewModel, IQueryAttributable
     {
+        private readonly INotificationsSyncService _notificationsSyncService;
+
         public IConsultaService _service { get; set; }
         public IPetService _petService { get; set; }
         public int SelectedAppointmentId { get; set; }
@@ -22,10 +27,11 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
         public string _petName;
 
 
-        public VetAppointmentsAddOrEditViewModel(IConsultaService service, IPetService petService)
+        public VetAppointmentsAddOrEditViewModel(IConsultaService service, IPetService petService, INotificationsSyncService notificationsSyncService)
         {
             _service = service;
             _petService = petService;
+            _notificationsSyncService = notificationsSyncService;
         }
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
@@ -111,6 +117,9 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
                     var _petId = SelectedAppointment.IdPet;
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
+                    await _notificationsSyncService.SyncNotificationsAsync();
+                    WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+
                     ShowToastMessage("Consulta criada com sucesso");
 
                     await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
@@ -127,6 +136,10 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
 
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
+                    await _notificationsSyncService.SyncNotificationsAsync();
+                    WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
+
+                    ShowToastMessage("Registo atualizado com sucesso");
 
                     await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
                         new Dictionary<string, object>
@@ -135,7 +148,6 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
                         });
 
                     //IsBusy = false;
-                    ShowToastMessage("Registo atualizado com sucesso");
 
                 }
             }
