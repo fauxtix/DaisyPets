@@ -128,7 +128,7 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
                             {"PetVM", petVM}
                         });
                 }
-                else // Insert (Id > 0)
+                else // Update (Id > 0)
                 {
                     var _petApptId = SelectedAppointment.Id;
                     var _petId = SelectedAppointment.IdPet;

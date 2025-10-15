@@ -29,6 +29,10 @@ namespace MauiPets.Converters
             {
                 return Color.FromArgb("000000");
             }
+            if (days == 0) // Today, Green
+            {
+                return Color.FromArgb("008000");
+            }
             else if (days < 15) // Orange
             {
                 return Color.FromArgb("FFA500");

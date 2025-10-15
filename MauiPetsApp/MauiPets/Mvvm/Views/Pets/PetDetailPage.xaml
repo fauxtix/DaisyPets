@@ -31,6 +31,7 @@
         <converters:StringToDateConverter x:Key="stringToDateConverter"/>
         <converters:IdadeConverter x:Key="IdadeConverter" />
         <converters:FormatIdadeConverter x:Key="FormatIdadeConverter" />
+        <converters:NextDoseDateBorderConverter x:Key="NextDoseDateBorderConverter" />
 
         <ResourceDictionary>
             <Style x:Key="MediumLabelBold" TargetType="Label">
@@ -99,12 +100,12 @@
                     Background="#fff"
                     Padding="8,2,8,0"
                     Margin="5"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
 
                     <Frame Grid.Row="2" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent">
                         <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" 
                           RowSpacing="5"
-                          HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                          HorizontalOptions="Fill" VerticalOptions="Fill">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="120" />
                                 <ColumnDefinition Width="*" />
@@ -156,9 +157,9 @@
                     Background="#fff"
                     Padding="8,2,8,0"
                     Margin="5"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
                     <Frame Grid.Row="3" CornerRadius="40" HasShadow="False" BorderColor="Transparent">
-                        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="1">
+                        <Grid HorizontalOptions="Fill" VerticalOptions="Fill" RowSpacing="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -196,7 +197,7 @@
                     Background="#fff"
                     Padding="8,2,8,0"
                     Margin="2"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
 
                     <mct:Expander Padding="6" Margin="2"
                                   IsExpanded="true"  >
@@ -297,15 +298,15 @@
                     Background="#fff"
                     Padding="8,4"
                     Margin="2"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
 
                     <mct:Expander Padding="6" Margin="2"
                                   IsExpanded="true" IsClippedToBounds="True" >
                         <mct:Expander.Header>
                             <Frame 
-                            BorderColor="Black"
-                            BackgroundColor="LightSteelBlue"
-                            CornerRadius="10">
+                                BorderColor="Black"
+                                BackgroundColor="LightSteelBlue"
+                                CornerRadius="10">
                                 <Label Text="Desparasitantes" FontSize="14" 
                                        FontAttributes="Bold" TextColor="Black"/>
                             </Frame>
@@ -340,7 +341,7 @@
                                                 WidthRequest="80"
                                                 Source="nopets.png"
                                                 VerticalOptions="Center" />
-                                                <Label HorizontalOptions="Center" Padding="10">No data for Dewormers</Label>
+                                                <Label HorizontalOptions="Center" Padding="10">Sem dados para mostrar</Label>
                                             </StackLayout>
                                         </CollectionView.EmptyView>
                                         <CollectionView.ItemsLayout>
@@ -352,10 +353,10 @@
                                                     <SwipeView.RightItems>
                                                         <SwipeItems SwipeBehaviorOnInvoked="Close">
                                                             <SwipeItem Text="Apagar"
-                                                       IconImageSource="icon_delete.svg" 
-                                                       BackgroundColor="Transparent"
-                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel }}, Path=DeleteDesparasitanteCommand}" 
-                                                       CommandParameter="{Binding .}"/>
+                                                                   IconImageSource="icon_delete.svg" 
+                                                                   BackgroundColor="Transparent"
+                                                                   Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel }}, Path=DeleteDesparasitanteCommand}" 
+                                                                   CommandParameter="{Binding .}"/>
                                                         </SwipeItems>
                                                     </SwipeView.RightItems>
                                                     <VerticalStackLayout>
@@ -372,9 +373,19 @@
                                                             <Grid ColumnSpacing="1" ColumnDefinitions=".3*, .4*, .3*" Margin="0, 1, 0, 2">
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="0" Text="{Binding DataAplicacao}" HorizontalOptions="Center" />
                                                                 <Label FontAttributes="Bold" FontSize="10" Grid.Column="1" Text="{Binding Marca}"/>
-                                                                <Label FontAttributes="Bold" FontSize="10" Grid.Column="2" Text="{Binding DataProximaAplicacao}"
-                                                                       TextColor="{Binding DataProximaAplicacao, Converter={StaticResource nextDoseDateConverter}}" 
-                                                                       HorizontalOptions="Center"/>
+                                                                <Frame Padding="4"
+       CornerRadius="6"
+       HasShadow="False"
+       BorderColor="{Binding DataProximaAplicacao, Converter={StaticResource nextDoseDateBorderConverter}}"
+       BackgroundColor="Transparent"
+       Grid.Column="2"
+       HorizontalOptions="Center">
+                                                                    <Label FontAttributes="Bold" 
+           FontSize="10"
+           Text="{Binding DataProximaAplicacao}"
+           TextColor="{Binding DataProximaAplicacao, Converter={StaticResource nextDoseDateConverter}}"
+           HorizontalOptions="Center"/>
+                                                                </Frame>
                                                             </Grid>
                                                         </Frame>
                                                     </VerticalStackLayout>

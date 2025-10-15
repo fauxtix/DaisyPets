@@ -23,12 +23,11 @@
         <ResourceDictionary>
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
             <converters:GreaterThanZeroConverter x:Key="GreaterThanZeroConverter" />
+            <converters:NotificationTypeToPortugueseDescriptionConverter x:Key="NotificationTypeToPortugueseDescriptionConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
-            <RefreshView IsRefreshing="{Binding IsBusy}" 
-                         Command="{Binding LoadNotificationsCommand}">
                 <CollectionView ItemsSource="{Binding Notifications}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:Notification">
@@ -43,7 +42,6 @@
                                                    IsVisible="{Binding IsRead, Converter={StaticResource InverseBoolConverter}}" />
                                         <SwipeItem 
                                                    IconImageSource="icon_delete2.svg"
-
                                                    Command="{Binding BindingContext.DiscardNotificationCommand, Source={x:Reference NotificationsPageRoot}}"
                                                    CommandParameter="{Binding .}"
                                                    IsVisible="{Binding IsRead}" />
@@ -51,9 +49,22 @@
                                 </SwipeView.RightItems>
                                 <Frame Margin="5" Padding="10" BorderColor="Gray">
                                     <StackLayout>
-                                        <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                        <Frame
+                                            Padding="6,4"
+                                            BorderColor="#FFD700"
+                                            BackgroundColor="#FFFBE6"
+                                            CornerRadius="8"
+                                            HasShadow="False"
+                                            HorizontalOptions="Start">
+                                            <Label
+                                                Text="{Binding Type.Description, Converter={StaticResource NotificationTypeToPortugueseDescriptionConverter}}"
+                                                FontSize="Medium"
+                                                FontFamily="PoppinsSemiBold"
+                                                TextColor="#8C7700"/>
+                                        </Frame>
+                                        <Label Text="{Binding Title}" />
                                         <Label Text="{Binding Description}" />
-                                        <Label Text="{Binding ScheduledFor, StringFormat='Data: {0:dd/MM/yyyy}'}" FontSize="Small" />
+                                        <Label Text="{Binding ScheduledFor, StringFormat='Data: {0:dd/MM/yyyy}'}" />
                                     </StackLayout>
                                 </Frame>
                             </SwipeView>
@@ -85,7 +96,6 @@
                         </StackLayout>
                     </CollectionView.EmptyView>
                 </CollectionView>
-            </RefreshView>
             <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#80000000"  
                   VerticalOptions="Fill" HorizontalOptions="Fill"
                   ZIndex="10">

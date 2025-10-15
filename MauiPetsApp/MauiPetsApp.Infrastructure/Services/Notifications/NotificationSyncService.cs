@@ -30,6 +30,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                 await SyncVaccineNotificationsAsync(hoje, daquiA7);
                 await SyncDewormerNotificationsAsync(hoje, daquiA7);
                 await SyncTaskNotificationsAsync(hoje, daquiA7);
+                await SyncVetAppointmentsNotificationsAsync(hoje, daquiA7);
             }
             catch (Exception ex)
             {
@@ -77,7 +78,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             try
             {
                 const string query = @"
-                    SELECT V.Id, P.Nome as Nome, V.DataToma, V.ProximaTomaEmMeses
+                    SELECT V.Id, P.Nome as Nome, Marca, V.DataToma, V.ProximaTomaEmMeses
                     FROM Vacina V
                     INNER JOIN Pet P ON V.IdPet = P.Id";
                 using var connection = _db.CreateConnection();
@@ -93,6 +94,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     {
                         int id = Convert.ToInt32(item.Id);
                         string nome = Convert.ToString(item.Nome);
+                        string marca = Convert.ToString(item.Marca);
                         string strDataToma = Convert.ToString(item.DataToma);
                         int proximaTomaEmMeses = item.ProximaTomaEmMeses != null ? Convert.ToInt32(item.ProximaTomaEmMeses) : 0;
 
@@ -112,8 +114,8 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
 
                             await InsertOrUpdateNotificationAsync(
                                 connection,
-                                $"Vacina para {nome}",
-                                $"Vacina marcada para {dataProximaToma:dd/MM/yyyy}",
+                                $"Pet: {nome}",
+                                $"Marca {marca}",
                                 dataProximaToma,
                                 typeId,
                                 id
@@ -152,7 +154,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             try
             {
                 const string query = @"
-                    SELECT D.Id, P.Nome as Nome, D.DataAplicacao, D.DataProximaAplicacao
+                    SELECT D.Id, D.Marca, P.Nome as Nome, D.DataAplicacao, D.DataProximaAplicacao
                     FROM Desparasitante D
                     INNER JOIN Pet P ON D.IdPet = P.Id";
                 using var connection = _db.CreateConnection();
@@ -167,6 +169,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     {
                         int id = Convert.ToInt32(item.Id);
                         string nome = Convert.ToString(item.Nome);
+                        string marca = Convert.ToString(item.Marca);
                         string strDataProximaAplicacao = Convert.ToString(item.DataProximaAplicacao);
                         string strDataAplicacao = Convert.ToString(item.DataAplicacao);
 
@@ -184,8 +187,8 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
 
                             await InsertOrUpdateNotificationAsync(
                                 connection,
-                                $"Desparasitante: {nome}",
-                                $"Aplicado em {strDataAplicacao:dd/MM/yyyy}",
+                                $"Pet: {nome}",
+                                $"Marca: {marca}",
                                 dataProximaAplicacao,
                                 typeId,
                                 id
@@ -224,8 +227,10 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             try
             {
                 const string query = @"
-                    SELECT Id, Description as Nome, StartDate
-                    FROM Todo";
+                    SELECT T.Id, T.Description, P.Nome as Nome, StartDate
+                    FROM Todo T
+                    INNER JOIN Pet P ON T.IdPet = P.Id
+                    WHERE T.Completed = 0";
                 using var connection = _db.CreateConnection();
                 var items = (await connection.QueryAsync(query)).ToList();
 
@@ -237,7 +242,8 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     try
                     {
                         int id = Convert.ToInt32(item.Id);
-                        string nome = Convert.ToString(item.Nome);
+                        string description = Convert.ToString(item.Description);
+                        string nomePet = Convert.ToString(item.Nome);
                         string strStartDate = Convert.ToString(item.StartDate);
 
                         if (!DateTime.TryParse(strStartDate, out DateTime startDate))
@@ -254,8 +260,8 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
 
                             await InsertOrUpdateNotificationAsync(
                                 connection,
-                                $"Tarefa: {nome}",
-                                $"Data: {startDate:dd/MM/yyyy}",
+                                $"Pet: {nomePet}",
+                                $"Tarefa: {description}",
                                 startDate,
                                 typeId,
                                 id
@@ -288,6 +294,76 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                 _logger.LogError(ex, "Erro em SyncTaskNotificationsAsync");
             }
         }
+        private async Task SyncVetAppointmentsNotificationsAsync(DateTime inicio, DateTime fim)
+        {
+            try
+            {
+                const string query = @"
+                    SELECT C.Id, C.Motivo, P.Nome as Nome, C.DataConsulta as StartDate
+                    FROM ConsultaVeterinario C Inner Join Pet P on C.IdPet = P.Id";
+                using var connection = _db.CreateConnection();
+                var items = (await connection.QueryAsync(query)).ToList();
+
+                int typeId = await GetNotificationTypeIdAsync("vet_appointment");
+                var validAppointmentIds = new List<int>();
+
+                foreach (var item in items)
+                {
+                    try
+                    {
+                        int id = Convert.ToInt32(item.Id);
+                        string motivo = item.Motivo;
+                        string nome = Convert.ToString(item.Nome);
+                        string strStartDate = Convert.ToString(item.StartDate);
+
+                        if (!DateTime.TryParse(strStartDate, out DateTime startDate))
+                            continue;
+
+                        if (await _notificationRepository.ExistsDiscardedNotificationAsync(typeId, id))
+                        {
+                            continue;
+                        }
+
+                        if (startDate >= inicio && startDate <= fim)
+                        {
+                            validAppointmentIds.Add(id);
+
+                            await InsertOrUpdateNotificationAsync(
+                                connection,
+                                $"Pet: {nome}",
+                                $"Motivo: {motivo}",
+                                startDate,
+                                typeId,
+                                id
+                            );
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, $"Erro ao processar consulta Id {item?.Id}");
+                    }
+                }
+
+                if (validAppointmentIds.Count > 0)
+                {
+                    await connection.ExecuteAsync(
+                        @"DELETE FROM Notification 
+                          WHERE NotificationTypeId = @typeId 
+                            AND RelatedItemId NOT IN @validAppointmentIds",
+                        new { typeId, validAppointmentIds });
+                }
+                else
+                {
+                    await connection.ExecuteAsync(
+                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId",
+                        new { typeId });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro em SyncVetAppointmentsNotificationsAsync");
+            }
+        }
 
         private async Task InsertOrUpdateNotificationAsync(
             System.Data.IDbConnection connection,
@@ -299,9 +375,9 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
         {
             try
             {
-                // Busca também o status atual!
+
                 var existing = await connection.QueryFirstOrDefaultAsync(
-                    "SELECT Id, ScheduledFor, Status FROM Notification WHERE RelatedItemId = @relatedItemId AND NotificationTypeId = @typeId",
+                    "SELECT Id, ScheduledFor, Status, Title, Description FROM Notification WHERE RelatedItemId = @relatedItemId AND NotificationTypeId = @typeId",
                     new { relatedItemId, typeId }
                 );
 
@@ -340,7 +416,10 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     else if (!DateTime.TryParse(scheduledForObj?.ToString(), out existingDate))
                         existingDate = DateTime.MinValue;
 
-                    if (existingDate != scheduledFor)
+                    string? existingTitle = ((IDictionary<string, object>)existing)["Title"] as string;
+                    string? existingDescription = ((IDictionary<string, object>)existing)["Description"] as string;
+
+                    if (existingTitle != title || existingDescription != desc || existingDate != scheduledFor)
                     {
                         var idObj = ((IDictionary<string, object>)existing)["Id"];
                         int existingId = Convert.ToInt32(idObj);
