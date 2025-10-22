@@ -124,5 +124,22 @@ namespace MauiPetsApp.Infrastructure.Services
             return "";
         }
 
+        public async Task<IEnumerable<TipoVacinaDto>> GetTipoVacinasAsync(int specie)
+        {
+            try
+            {
+                var resp = await _repository.GetTipoVacinasAsync(specie);
+                var output = _mapper.Map<IEnumerable<TipoVacinaDto>>(resp);
+
+                return output;
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Erro: {ex.Message}");
+                return Enumerable.Empty<TipoVacinaDto>();
+            }
+
+        }
     }
 }

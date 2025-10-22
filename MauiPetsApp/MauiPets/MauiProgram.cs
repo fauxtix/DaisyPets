@@ -149,6 +149,7 @@ namespace MauiPets
 
             builder.Services.AddTransient<VaccineViewModel>();
             builder.Services.AddTransient<VaccineAddOrEditModel>();
+            builder.Services.AddTransient<TipoVacinasViewModel>();
 
             builder.Services.AddTransient<DewormerViewModel>();
             builder.Services.AddTransient<DewormerAddOrEditViewModel>();
@@ -196,6 +197,8 @@ namespace MauiPets
             builder.Services.AddTransient<TodoAddOrEditPage>();
 
             builder.Services.AddTransient<VaccineAddOrEditPage>();
+            builder.Services.AddTransient<VaccineTypesPage>();
+
             builder.Services.AddTransient<DewormerAddOrEditPage>();
             builder.Services.AddTransient<PetFoodAddOrEditPage>();
             builder.Services.AddTransient<VetAppointmentAddOrEditPage>();
@@ -306,6 +309,12 @@ namespace MauiPets
                 {
                     using (var sourceStream = typeof(App).Assembly.GetManifestResourceStream("MauiPets.Database.PetsDB.db"))
                     {
+                        if (sourceStream == null)
+                        {
+                            Log.Error("Embedded database resource 'MauiPets.Database.PetsDB.db' not found.");
+                            return;
+                        }
+
                         using (var destinationStream = File.Create(destinationDatabasePath))
                         {
                             sourceStream.CopyTo(destinationStream);
@@ -318,6 +327,15 @@ namespace MauiPets
                 {
                     Shell.Current.DisplayAlert("Error while 'CopyDatabaseIfNeeded", ex.Message, "Ok");
                     Log.Error(ex.Message);
+                    try
+                    {
+                        if (File.Exists(destinationDatabasePath))
+                            File.Delete(destinationDatabasePath);
+                    }
+                    catch (Exception cleanupEx)
+                    {
+                        Log.Error(cleanupEx, cleanupEx.Message);
+                    }
                 }
             }
             else

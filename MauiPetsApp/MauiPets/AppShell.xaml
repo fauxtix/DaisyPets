@@ -9,12 +9,13 @@
     xmlns:contactspage="clr-namespace:MauiPets.Mvvm.Views.Contacts"
     xmlns:expensespage="clr-namespace:MauiPets.Mvvm.Views.Expenses"
     xmlns:todospage="clr-namespace:MauiPets.Mvvm.Views.Todo"
+    xmlns:vaccinetypespage="clr-namespace:MauiPets.Mvvm.Views.Vaccines"
     xmlns:logsmainpage="clr-namespace:MauiPets.Mvvm.Views.Logs"
     xmlns:settingspage="clr-namespace:MauiPets.Mvvm.Views.Settings"
     xmlns:utilitypage="clr-namespace:MauiPets.Mvvm.Views.Utilities"
     xmlns:expensesettingspage="clr-namespace:MauiPets.Mvvm.Views.Settings.Expenses"
     FlyoutWidth="200"
-    FlyoutHeight="450"
+    FlyoutHeight="500"
     Shell.TabBarIsVisible="False"
     Shell.FlyoutBehavior="Flyout">
 
@@ -55,6 +56,11 @@
             Icon="tasks.png" 
             ContentTemplate="{DataTemplate todospage:TodoPage}"
             Route="TodoPage" />
+        <ShellContent
+            Title="Tipo de vacinas"
+            Icon="tasks.png" 
+            ContentTemplate="{DataTemplate vaccinetypespage:VaccineTypesPage}"
+            Route="VaccineTypesPage" />
         <ShellContent
             Title="Segurança"
             Icon="backup_icon.png"

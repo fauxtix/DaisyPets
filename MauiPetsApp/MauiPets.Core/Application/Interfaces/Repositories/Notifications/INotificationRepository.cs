@@ -8,6 +8,7 @@ namespace MauiPets.Core.Application.Interfaces.Repositories.Notifications
         Task<bool> ExistsDiscardedNotificationAsync(int notificationTypeId, int relatedItemId);
         Task<IEnumerable<Notification>> GetAllAsync(bool includeRead = false);
         Task MarkAsReadAsync(int notificationId);
+        Task EnsureTablesExistAsync();
 
         // Opcional: limpeza real de notificações antigas
         // Task DeletePermanentlyAsync(int notificationId);

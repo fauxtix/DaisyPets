@@ -478,6 +478,9 @@
 		<MauiXaml Update="Mvvm\Views\Vaccines\VaccineAddOrEditPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
+		<MauiXaml Update="Mvvm\Views\Vaccines\VaccineTypesPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="Mvvm\Views\VetAppointments\VetAppointmentAddOrEditPage.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

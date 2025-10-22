@@ -31,12 +31,10 @@
             }
         }
 
-        // Helper method to determine the source database path
         private static string GetSourceDatabasePath()
         {
             // The source database path on the disk drive
             string sourceDatabasePath = Path.Combine(FileSystem.Current.AppDataDirectory, "Database", "PetsDb.db");
-            //string sourceDatabasePath = "C:\\NewProjects\\DaisyPets\\MauiPetsApp\\MauiPets\\Database\\PetsDB.db";
 
             if (File.Exists(sourceDatabasePath))
             {

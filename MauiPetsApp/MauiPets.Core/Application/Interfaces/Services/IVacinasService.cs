@@ -14,5 +14,6 @@ namespace MauiPetsApp.Core.Application.Interfaces.Services
         Task UpdateAsync(int Id, VacinaDto Vacina);
         Task<IEnumerable<VacinaVM>> GetPetVaccinesVMAsync(int petId);
         Task<VacinaDto> FindDtoByIdAsync(int Id);
+        Task<IEnumerable<TipoVacinaDto>> GetTipoVacinasAsync(int specie);
     }
 }

@@ -2,6 +2,7 @@ namespace DaisyPets.WebApi.Helpers;
 
 using AutoMapper;
 using MauiPets.Core.Application.ViewModels;
+using MauiPets.Core.Domain;
 using MauiPetsApp.Core.Application.TodoManager;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Application.ViewModels.Despesas;
@@ -42,6 +43,8 @@ public class AutoMapperProfile : Profile
 
         CreateMap<VacinaDto, Vacina>().ReverseMap();
         CreateMap<VacinaVM, Vacina>().ReverseMap();
+
+        CreateMap<TipoVacinaDto, TipoVacina>().ReverseMap();
 
         CreateMap<TipoDespesaDto, TipoDespesa>().ReverseMap();
         CreateMap<TipoDespesaVM, TipoDespesa>().ReverseMap();

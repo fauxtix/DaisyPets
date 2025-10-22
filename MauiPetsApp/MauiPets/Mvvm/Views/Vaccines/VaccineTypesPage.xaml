@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiPets.Mvvm.Views.Vaccines.VaccineTypesPage"
+             xmlns:models="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
+             xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Vaccines"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="viewmodel:TipoVacinasViewModel"
+             Title="Lista de Vacinas">
+
+    <VerticalStackLayout>
+        <CollectionView ItemsSource="{Binding TipoVacinas}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:TipoVacinaDto">
+                    <Frame Margin="5" Padding="10" CornerRadius="5" BorderColor="LightGray">
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame"
+                         Binding="{Binding Categoria}"
+                         Value="Essencial">
+                                <Setter Property="BorderColor" Value="Red" />
+                            </DataTrigger>
+                        </Frame.Triggers>
+                        <Grid ColumnDefinitions="Auto, *"
+                              RowDefinitions="Auto, Auto, Auto, Auto"
+                              RowSpacing="5"
+                              ColumnSpacing="10">
+
+                            <!-- Vacina -->
+                            <Label Grid.Row="0" Grid.Column="0" Text="Vacina:" FontAttributes="Bold" />
+                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Vacina}" TextColor="Steelblue"
+                                   FontSize="16" 
+                                   FontAttributes="Bold"
+                                   LineBreakMode="WordWrap" />
+
+                            <!-- Categoria com DataTrigger -->
+                            <Label Grid.Row="1" Grid.Column="0" Text="Categoria:" FontAttributes="Bold" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Categoria}" LineBreakMode="WordWrap">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                 Binding="{Binding Categoria}"
+                                 Value="Essencial">
+                                        <Setter Property="FontAttributes" Value="Bold" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+
+                            <!-- Prevenção -->
+                            <Label Grid.Row="2" Grid.Column="0" Text="Prevenção:" FontAttributes="Bold" />
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Prevencao}" LineBreakMode="WordWrap" />
+
+                            <!-- Notas -->
+                            <Label Grid.Row="3" Grid.Column="0" Text="Notas:" FontAttributes="Bold" />
+                            <Label Grid.Row="3" Grid.Column="1" Text="{Binding Notas}" LineBreakMode="WordWrap" />
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+
+</ContentPage>

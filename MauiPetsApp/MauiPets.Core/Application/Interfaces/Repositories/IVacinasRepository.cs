@@ -1,10 +1,6 @@
-﻿using MauiPetsApp.Core.Application.ViewModels;
+﻿using MauiPets.Core.Domain;
+using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MauiPetsApp.Core.Application.Interfaces.Repositories
 {
@@ -19,5 +15,6 @@ namespace MauiPetsApp.Core.Application.Interfaces.Repositories
         Task<VacinaVM> GetVacinaVMAsync(int Id);
         Task<IEnumerable<VacinaVM>> GetAllVacinasVMAsync();
         Task<IEnumerable<VacinaVM>> GetPetVaccinesVMAsync(int petId);
+        Task<IEnumerable<TipoVacina>> GetTipoVacinasAsync(int specie);
     }
 }

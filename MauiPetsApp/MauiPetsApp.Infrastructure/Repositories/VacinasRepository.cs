@@ -1,8 +1,10 @@
 ﻿using Dapper;
+using MauiPets.Core.Domain;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using MauiPetsApp.Core.Application.Interfaces.Repositories;
 using MauiPetsApp.Core.Application.ViewModels;
 using MauiPetsApp.Core.Domain;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Text;
 
@@ -11,9 +13,11 @@ namespace MauiPetsApp.Infrastructure
     public class VacinasRepository : IVacinasRepository
     {
         private readonly IDapperContext _context;
-        public VacinasRepository(IDapperContext context)
+        private readonly ILogger<VacinasRepository> _logger;
+        public VacinasRepository(IDapperContext context, ILogger<VacinasRepository> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<int> InsertAsync(Vacina vacina)
@@ -292,6 +296,40 @@ namespace MauiPetsApp.Infrastructure
                 return 0;
             }
         }
+
+        public async Task<IEnumerable<TipoVacina>> GetTipoVacinasAsync(int specie)
+        {
+            try
+            {
+                using (var connection = _context.CreateConnection())
+                {
+                    DynamicParameters paramCollection = new DynamicParameters();
+                    paramCollection.Add("@specie", specie);
+
+                    var sql = @"
+                SELECT 
+                    tv.Categoria, 
+                    tv.Vacina, 
+                    tv.Prevencao, 
+                    tv.Notas
+                FROM TipoVacinas tv
+                WHERE tv.Id_Especie = @specie
+            ";
+
+                    var vacinas = await connection.QueryAsync<TipoVacina>(
+                        sql, param: paramCollection);
+
+                    return vacinas.ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return Enumerable.Empty<TipoVacina>();
+            }
+        }
+
 
     }
 }

@@ -18,7 +18,6 @@ public partial class App : Application
 
         MainPage = new AppShell();
 
-        // Não é possível await no construtor, mas podes iniciar assim:
         Task.Run(AtualizarNotificacoesEBadgeAsync);
     }
 
