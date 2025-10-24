@@ -6,9 +6,11 @@ using CommunityToolkit.Mvvm.Messaging;
 using MauiPets.Core.Application.Interfaces.Services.Notifications;
 using MauiPets.Core.Application.ViewModels.Messages;
 using MauiPets.Mvvm.Views.Pets;
+using MauiPets.Mvvm.Views.Vaccines;
 using MauiPetsApp.Core.Application.Formatting;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace MauiPets.Mvvm.ViewModels.Vaccines;
 
@@ -20,6 +22,12 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
     public IVacinasService _vaccinesService { get; set; }
     public IPetService _petService { get; set; }
     public int SelectedVaccineId { get; set; }
+
+    [ObservableProperty]
+    private TipoVacinaDto _tipoVacinaSelecionada;
+
+
+    public ObservableCollection<TipoVacinaDto> TipoVacinas { get; } = new();
 
     [ObservableProperty]
     public string _petPhoto;
@@ -34,6 +42,8 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
         _notificationsSyncService = notificationsSyncService;
     }
 
+    partial void OnTipoVacinaSelecionadaChanged(TipoVacinaDto value) => SelectedVaccine.IdTipoVacina = value?.Id ?? 0;
+
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         _ = ApplyQueryAttributesAsync(query);
@@ -43,6 +53,10 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
         IsBusy = true;
         await Task.Delay(100);
         SelectedVaccine = query[nameof(SelectedVaccine)] as VacinaDto;
+
+        await FillVaccinesTypes_ByCurrentSpecie();
+
+        TipoVacinaSelecionada = TipoVacinas.FirstOrDefault(tp => tp.Id == SelectedVaccine.IdTipoVacina);
 
         IsEditing = (bool)query[nameof(IsEditing)];
         AddEditCaption = IsEditing ? "Editar vacina" : "Nova vacina";
@@ -56,6 +70,21 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
 
         IsBusy = false;
     }
+
+    [RelayCommand]
+    async Task ShowVaccinesInfo()
+    {
+        IsBusy = true;
+        try
+        {
+            await Shell.Current.GoToAsync($"{nameof(VaccineTypesPage)}", true);
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
+
 
     [RelayCommand]
     async Task GoBack()
@@ -165,6 +194,17 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
         {
             IsBusy = false;
             ShowToastMessage($"Error while creating Vaccine ({ex.Message})");
+        }
+    }
+
+    private async Task FillVaccinesTypes_ByCurrentSpecie()
+    {
+        var petId = SelectedVaccine.IdPet;
+        var petSpecie = (await _petService.FindByIdAsync(petId)).IdEspecie;
+        var result = await _vaccinesService.GetTipoVacinasAsync(petSpecie);
+        foreach (var vaccineType in result)
+        {
+            TipoVacinas.Add(vaccineType);
         }
     }
 

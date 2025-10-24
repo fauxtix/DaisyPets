@@ -2,6 +2,7 @@
 using MauiPets.Core.Application.Enums;
 using MauiPets.Core.Application.Interfaces.Repositories.Notifications;
 using MauiPets.Core.Application.Interfaces.Services.Notifications;
+using MauiPets.Core.Domain.Notifications;
 using MauiPetsApp.Core.Application.Interfaces.DapperContext;
 using Microsoft.Extensions.Logging;
 
@@ -78,14 +79,20 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             try
             {
                 const string query = @"
-                    SELECT V.Id, P.Nome as Nome, Marca, V.DataToma, V.ProximaTomaEmMeses
+                    SELECT V.Id, P.Nome as Nome, Marca, V.DataToma, V.ProximaTomaEmMeses, TV.Vacina AS TipoVacina
                     FROM Vacina V
-                    INNER JOIN Pet P ON V.IdPet = P.Id";
+                    INNER JOIN Pet P ON V.IdPet = P.Id
+                    INNER JOIN TipoVacinas TV ON V.IdTipoVacina = TV.Id";
                 using var connection = _db.CreateConnection();
 
                 var items = (await connection.QueryAsync(query)).ToList();
 
+                if (items.Count == 0) return;
+
                 int typeId = await GetNotificationTypeIdAsync("vaccine");
+
+                if (typeId == -1) return;
+
                 var validVaccineIds = new List<int>();
 
                 foreach (var item in items)
@@ -94,7 +101,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     {
                         int id = Convert.ToInt32(item.Id);
                         string nome = Convert.ToString(item.Nome);
-                        string marca = Convert.ToString(item.Marca);
+                        string tipoVacina = Convert.ToString(item.TipoVacina);
                         string strDataToma = Convert.ToString(item.DataToma);
                         int proximaTomaEmMeses = item.ProximaTomaEmMeses != null ? Convert.ToInt32(item.ProximaTomaEmMeses) : 0;
 
@@ -114,8 +121,8 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
 
                             await InsertOrUpdateNotificationAsync(
                                 connection,
-                                $"Pet: {nome}",
-                                $"Marca {marca}",
+                                nome,
+                                tipoVacina,
                                 dataProximaToma,
                                 typeId,
                                 id
@@ -145,7 +152,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro em SyncVaccineNotificationsAsync");
+                _logger.LogInformation("Vacinas - sem dados para criar notificações");
             }
         }
 
@@ -160,7 +167,11 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                 using var connection = _db.CreateConnection();
                 var items = (await connection.QueryAsync(query)).ToList();
 
+                if (items.Count == 0) return;
+
                 int typeId = await GetNotificationTypeIdAsync("dewormer");
+                if (typeId == -1) return;
+
                 var validDewormerIds = new List<int>();
 
                 foreach (var item in items)
@@ -216,9 +227,9 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                         new { typeId });
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Erro em SyncDewormerNotificationsAsync");
+                _logger.LogInformation("Desparasitantes - sem dados para criar notificações");
             }
         }
 
@@ -232,9 +243,14 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     INNER JOIN Pet P ON T.IdPet = P.Id
                     WHERE T.Completed = 0";
                 using var connection = _db.CreateConnection();
+
                 var items = (await connection.QueryAsync(query)).ToList();
 
+                if (items.Count == 0) return;
+
                 int typeId = await GetNotificationTypeIdAsync("task");
+                if (typeId == -1) return;
+
                 var validTaskIds = new List<int>();
 
                 foreach (var item in items)
@@ -289,9 +305,9 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                         new { typeId });
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Erro em SyncTaskNotificationsAsync");
+                _logger.LogInformation("Tarefas - sem dados para criar notificações");
             }
         }
         private async Task SyncVetAppointmentsNotificationsAsync(DateTime inicio, DateTime fim)
@@ -304,7 +320,11 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                 using var connection = _db.CreateConnection();
                 var items = (await connection.QueryAsync(query)).ToList();
 
+                if (items.Count == 0) return;
+
                 int typeId = await GetNotificationTypeIdAsync("vet_appointment");
+                if (typeId == .1) return;
+
                 var validAppointmentIds = new List<int>();
 
                 foreach (var item in items)
@@ -359,9 +379,9 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                         new { typeId });
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _logger.LogError(ex, "Erro em SyncVetAppointmentsNotificationsAsync");
+                _logger.LogInformation("Marcações no veterinário - sem dados para criar notificações");
             }
         }
 
@@ -507,13 +527,18 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             try
             {
                 using var connection = _db.CreateConnection();
-                return await connection.QuerySingleAsync<int>(
+                var test = await connection.QueryAsync<NotificationType>(
+                    "SELECT * FROM NotificationType");
+
+                var output = await connection.QuerySingleAsync<int>(
                     "SELECT Id FROM NotificationType WHERE Description = @desc",
                     new { desc = description });
+
+                return output;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Erro ao obter NotificationTypeId para '{description}'");
+                _logger.LogInformation($"Tipo de notificação não devolveu dados para '{description}'", ex.Message);
                 return -1;
             }
         }

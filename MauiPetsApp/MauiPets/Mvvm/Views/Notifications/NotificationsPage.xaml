@@ -47,7 +47,7 @@
                                                    IsVisible="{Binding IsRead}" />
                                     </SwipeItems>
                                 </SwipeView.RightItems>
-                                <Frame Margin="5" Padding="10" BorderColor="Gray">
+                                <Frame Margin="2" Padding="10" BorderColor="Gray">
                                     <StackLayout>
                                         <Frame
                                             Padding="6,4"
@@ -58,14 +58,19 @@
                                             HorizontalOptions="Start">
                                             <Label
                                                 Text="{Binding Type.Description, Converter={StaticResource NotificationTypeToPortugueseDescriptionConverter}}"
-                                                FontSize="Medium"
+                                                FontSize="Medium"                                               
                                                 FontFamily="PoppinsSemiBold"
                                                 TextColor="#8C7700"/>
                                         </Frame>
-                                        <Label Text="{Binding Title}" />
-                                        <Label Text="{Binding Description}" />
-                                        <Label Text="{Binding ScheduledFor, StringFormat='Data: {0:dd/MM/yyyy}'}" />
-                                    </StackLayout>
+                                    <Grid RowDefinitions="Auto, Auto"  ColumnDefinitions="220, 120" Margin="0, 10, 0, 0">
+                                        <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Title}" FontAttributes="Bold" FontFamily="Poppins" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding Description}" FontAttributes="Bold" FontFamily="Poppins" />
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding ScheduledFor, StringFormat=' {0:dd/MM/yyyy}'}" 
+                                               FontFamily="PoppinsSemiBold"
+                                               HorizontalTextAlignment="End"
+                                               TextColor="Green" />
+                                    </Grid>
+                                </StackLayout>
                                 </Frame>
                             </SwipeView>
                         </DataTemplate>

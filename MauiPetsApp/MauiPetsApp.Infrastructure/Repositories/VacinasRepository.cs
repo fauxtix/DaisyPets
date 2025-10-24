@@ -43,9 +43,9 @@ namespace MauiPetsApp.Infrastructure
             StringBuilder sbTodoList = new StringBuilder();
 
             sb.Append("INSERT INTO Vacina (");
-            sb.Append("IdPet, DataToma, Marca, ProximaTomaEmMeses) ");
+            sb.Append("IdPet, IdTipoVacina,  DataToma, Marca, ProximaTomaEmMeses) ");
             sb.Append(" VALUES(");
-            sb.Append("@IdPet, @DataToma, @Marca, @ProximaTomaEmMeses");
+            sb.Append("@IdPet, @IdTipoVacina, @DataToma, @Marca, @ProximaTomaEmMeses");
             sb.Append(");");
             sb.Append("SELECT last_insert_rowid()");
 
@@ -86,6 +86,7 @@ namespace MauiPetsApp.Infrastructure
             DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("@Id", vacina.Id);
             dynamicParameters.Add("@IdPet", vacina.IdPet);
+            dynamicParameters.Add("@IdTipoVacina", vacina.IdTipoVacina);
             dynamicParameters.Add("@DataToma", vacina.DataToma);
             dynamicParameters.Add("@Marca", vacina.Marca);
             dynamicParameters.Add("@ProximaTomaEmMeses", vacina.ProximaTomaEmMeses);
@@ -93,6 +94,7 @@ namespace MauiPetsApp.Infrastructure
             StringBuilder sb = new StringBuilder();
             sb.Append("UPDATE Vacina SET ");
             sb.Append("IdPet = @IdPet, ");
+            sb.Append("IdTipoVacina = @IdTipoVacina, ");
             sb.Append("DataToma = @DataToma, ");
             sb.Append("Marca = @Marca, ");
             sb.Append("ProximaTomaEmMeses = @ProximaTomaEmMeses ");
@@ -173,70 +175,97 @@ namespace MauiPetsApp.Infrastructure
 
         public async Task<IEnumerable<VacinaVM>> GetAllVacinasVMAsync()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Vacina.Id, Vacina.IdPet, Vacina.DataToma, Vacina.Marca, ");
-            sb.Append("Vacina.ProximaTomaEmMeses, Vacina.ProximaTomaEmMeses, ");
-            sb.Append("Pet.Nome AS [NomePet] ");
-            sb.Append("FROM Vacina ");
-            sb.Append("INNER JOIN Pet ON ");
-            sb.Append("Vacina.IdPet = Pet.Id");
-
-
-            using (var connection = _context.CreateConnection())
+            try
             {
-                var vacinasVM = await connection.QueryAsync<VacinaVM>(sb.ToString());
-                if (vacinasVM != null)
+                StringBuilder sb = new StringBuilder();
+                sb.Append("SELECT Vacina.Id, Vacina.IdPet, Vacina.DataToma, Vacina.Marca, ");
+                sb.Append("Vacina.ProximaTomaEmMeses, ");
+                sb.Append("Pet.Nome AS [NomePet], ");
+                sb.Append("TipoVacinas.Vacina AS [NomeTipoVacina] ");
+                sb.Append("FROM Vacina ");
+                sb.Append("INNER JOIN Pet ON ");
+                sb.Append("Vacina.IdPet = Pet.Id ");
+                sb.Append("INNER JOIN TipoVacinas ON ");
+                sb.Append("Vacina.IdTipoVacina = TipoVacinas.Id");
+
+
+                using (var connection = _context.CreateConnection())
                 {
-                    return vacinasVM;
+                    var vacinasVM = await connection.QueryAsync<VacinaVM>(sb.ToString());
+                    if (vacinasVM != null)
+                    {
+                        return vacinasVM;
+                    }
+                    else
+                    {
+                        return Enumerable.Empty<VacinaVM>();
+                    }
                 }
-                else
-                {
-                    return Enumerable.Empty<VacinaVM>();
-                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString(), ex);
+                return Enumerable.Empty<VacinaVM>();
             }
         }
 
         public async Task<IEnumerable<VacinaVM>> GetPetVaccinesVMAsync(int petId)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT Vacina.Id, Vacina.IdPet, Vacina.DataToma, Vacina.Marca, ");
-            sb.Append("Vacina.ProximaTomaEmMeses, ");
-            sb.Append("Pet.Nome AS [NomePet] ");
-            sb.Append("FROM Vacina ");
-            sb.Append("INNER JOIN Pet ON ");
-            sb.Append("Vacina.IdPet = Pet.Id ");
-            sb.Append("WHERE Vacina.IdPet = @PetId");
-
-
-            using (var connection = _context.CreateConnection())
+            try
             {
-                var vacinasVM = await connection.QueryAsync<VacinaVM>(sb.ToString(), new { PetId = petId });
-                if (vacinasVM != null)
+                StringBuilder sb = new StringBuilder();
+                sb.Append("SELECT Vacina.Id, Vacina.IdPet, Vacina.DataToma, Vacina.Marca, ");
+                sb.Append("Vacina.ProximaTomaEmMeses, ");
+                sb.Append("Pet.Nome AS [NomePet], ");
+                sb.Append("TipoVacinas.Vacina AS [NomeTipoVacina] ");
+                sb.Append("FROM Vacina ");
+                sb.Append("INNER JOIN Pet ON ");
+                sb.Append("Vacina.IdPet = Pet.Id ");
+                sb.Append("INNER JOIN TipoVacinas ON ");
+                sb.Append("Vacina.IdTipoVacina = TipoVacinas.Id ");
+                sb.Append("WHERE Vacina.IdPet = @PetId");
+
+
+                using (var connection = _context.CreateConnection())
                 {
-                    return vacinasVM;
+                    var vacinasVM = await connection.QueryAsync<VacinaVM>(sb.ToString(), new { PetId = petId });
+                    if (vacinasVM != null)
+                    {
+                        return vacinasVM;
+                    }
+                    else
+                    {
+                        return Enumerable.Empty<VacinaVM>();
+                    }
                 }
-                else
-                {
-                    return Enumerable.Empty<VacinaVM>();
-                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex.ToString(), ex);
+                return Enumerable.Empty<VacinaVM>();
             }
         }
 
 
-        public async Task<VacinaVM> GetVacinaVMAsync(int Id)
+        public async Task<VacinaVM> GetVacinaVMAsync(int vaccineId)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("SELECT Vacina.Id, Vacina.IdPet, Vacina.DataToma, Vacina.Marca, ");
-            sb.Append("Vacina.ProximaTomaEmMeses, Vacina.ProximaTomaEmMeses, ");
-            sb.Append("Pet.Nome AS [NomePet] ");
+            sb.Append("Vacina.ProximaTomaEmMeses, ");
+            sb.Append("Pet.Nome AS [NomePet], ");
+            sb.Append("TipoVacinas.Vacina AS [NomeTipoVacina] ");
             sb.Append("FROM Vacina ");
             sb.Append("INNER JOIN Pet ON ");
             sb.Append("Vacina.IdPet = Pet.Id ");
-            sb.Append("WHERE Vacina.Id = @Id");
+            sb.Append("INNER JOIN TipoVacinas ON ");
+            sb.Append("Vacina.IdTipoVacina = TipoVacinas.Id ");
+            sb.Append("WHERE Vacina.Id = @VaccineId");
 
             using (var connection = _context.CreateConnection())
             {
-                var vacinaVM = await connection.QueryFirstOrDefaultAsync<VacinaVM>(sb.ToString(), new { Id });
+                var vacinaVM = await connection.QueryFirstOrDefaultAsync<VacinaVM>(sb.ToString(), new { VaccineId = vaccineId });
                 if (vacinaVM != null)
                 {
                     return vacinaVM;
@@ -297,27 +326,19 @@ namespace MauiPetsApp.Infrastructure
             }
         }
 
-        public async Task<IEnumerable<TipoVacina>> GetTipoVacinasAsync(int specie)
+        public async Task<IEnumerable<TipoVacina>> GetTipoVacinasAsync(int specieId)
         {
             try
             {
                 using (var connection = _context.CreateConnection())
                 {
-                    DynamicParameters paramCollection = new DynamicParameters();
-                    paramCollection.Add("@specie", specie);
-
-                    var sql = @"
-                SELECT 
-                    tv.Categoria, 
-                    tv.Vacina, 
-                    tv.Prevencao, 
-                    tv.Notas
-                FROM TipoVacinas tv
-                WHERE tv.Id_Especie = @specie
-            ";
+                    StringBuilder sb = new();
+                    sb.Append("SELECT Id, Id_Especie,  Categoria, Vacina, Prevencao, Notas ");
+                    sb.Append("FROM TipoVacinas  ");
+                    sb.Append("WHERE Id_Especie = @Specie");
 
                     var vacinas = await connection.QueryAsync<TipoVacina>(
-                        sql, param: paramCollection);
+                        sb.ToString(), new { Specie = specieId });
 
                     return vacinas.ToList();
                 }

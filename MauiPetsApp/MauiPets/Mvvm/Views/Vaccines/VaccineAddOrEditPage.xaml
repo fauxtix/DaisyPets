@@ -15,6 +15,8 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{Binding SaveVaccineCommand  }"
                  IconImageSource="icon_save.png" />
+        <ToolbarItem Command="{Binding ShowVaccinesInfoCommand}"
+                 IconImageSource="syringe.png" />
         <ToolbarItem Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>
@@ -71,6 +73,9 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
 
@@ -84,25 +89,41 @@
 			               Grid.Row="1" HorizontalOptions="Start"
                            FontAttributes="Bold" 
 			               VerticalOptions="Center"></DatePicker>
-                <Label Text="Marca"
+                <Label Text="Tipo"
                                        Grid.Row="2"
                                        FontSize="14"
+			                           VerticalOptions="Center"/>
+
+                <Picker
+                    Title="Tipo de vacina"
+                    Grid.Row="3"
+                    FontSize="14"
+                    VerticalTextAlignment="Center"
+                    ItemsSource="{Binding TipoVacinas}"
+                    SelectedItem="{Binding TipoVacinaSelecionada, Mode=TwoWay}"
+                    ItemDisplayBinding="{Binding Vacina}" />
+
+                <Label Text="Marca"
+                                       Grid.Row="4"
+                                       FontSize="14"
 			                           VerticalOptions="Center"></Label>
+                
                 <Editor x:Name="VaccineBrand" 
                         AutoSize="TextChanges"
                         IsSpellCheckEnabled="True"
                         IsTextPredictionEnabled="True"
 			            Text="{Binding SelectedVaccine.Marca}" 
-			            Grid.Row="3"
+			            Grid.Row="5"
 			            VerticalOptions="Center">
                 </Editor>
+
                 <Label Text="Prx. toma em meses"
-                       Grid.Row="4"
+                       Grid.Row="6"
                        FontSize="14"/>
                 <Entry x:Name="NextPriodInMonths"
                         Keyboard="Numeric"
 			            Text="{Binding SelectedVaccine.ProximaTomaEmMeses}"
-			            Grid.Row="5"
+			            Grid.Row="7"
                         FontSize="14" HorizontalOptions="Start"
                         IsSpellCheckEnabled="false"
 			            VerticalOptions="Start">
@@ -110,7 +131,7 @@
 
                 <Label Text="Data Prx. toma"
                        IsVisible="{Binding IsEditing}"
-                       Grid.Row="6"
+                       Grid.Row="8"
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Start"
                        FontSize="14"/>
@@ -118,14 +139,14 @@
                 <Label FontAttributes="Bold" 
                        IsVisible="{Binding IsEditing}"
                        FontSize="14"
-                       Grid.Row="7"
+                       Grid.Row="9"
                        Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
                        TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" 
                        HorizontalOptions="Start"
                        VerticalOptions="Center"/>
 
                 <Grid HorizontalOptions="Center" VerticalOptions="Center" 
-                      Grid.RowSpan="8">
+                      Grid.RowSpan="10">
                     <ActivityIndicator                
                         IsRunning="{Binding IsBusy}" 
                         HorizontalOptions="Center" 

@@ -6,11 +6,12 @@ namespace MauiPetsApp.Core.Application.ViewModels
     {
         public int Id { get; set; }
         public int IdPet { get; set; }
+        public int IdTipoVacina { get; set; }
         public string DataToma { get; set; } = string.Empty;
         public string Marca { get; set; } = string.Empty;
         public int ProximaTomaEmMeses { get; set; }
         public string NomePet { get; set; } = string.Empty;
-        //private DateTime dummy = Formatting.DataFormat.IsValidDate(DataToma)? DataToma.Substring(3,2) + "/" +  DataToma.Substring(0,2) + DataToma.Substring(5):DataToma;
+        public string NomeTipoVacina { get; set; } = string.Empty;
 
         public DateTime DataProximaToma
         {

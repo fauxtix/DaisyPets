@@ -300,10 +300,10 @@ namespace MauiPets
 
         private static void CopyDatabaseIfNeeded()
         {
-
+            var forceCopy = false;
             string destinationDatabasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PetsDB.db");
 
-            if (!File.Exists(destinationDatabasePath))
+            if (!File.Exists(destinationDatabasePath) || forceCopy)
             {
                 try
                 {

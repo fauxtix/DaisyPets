@@ -223,7 +223,7 @@
                                           ColumnSpacing="1"
                                           Grid.Row="2">
                                         <Label FontAttributes="Bold" FontSize="12" Text="Toma" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
-                                        <Label FontAttributes="Bold" FontSize="12" Text="Marca" Grid.Row="0" Grid.Column="1"/>
+                                        <Label FontAttributes="Bold" FontSize="12" Text="Vacina" Grid.Row="0" Grid.Column="1"/>
                                         <Label FontAttributes="Bold" FontSize="12" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" />
                                     </Grid>
                                     <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
@@ -276,7 +276,7 @@
 
                                                             <Grid ColumnDefinitions=".3*, .4*, .3*" Margin="0,4">
                                                                 <Label FontAttributes="Bold" FontSize="11"  Grid.Column="0"  Text="{Binding DataTomaFormatada}" HorizontalOptions="Center"/>
-                                                                <Label FontAttributes="Bold" FontSize="11" LineBreakMode="WordWrap" MaxLines="3" Grid.Column="1" Text="{Binding Marca}"/>
+                                                                <Label FontAttributes="Bold" FontSize="11" LineBreakMode="WordWrap" MaxLines="3" Grid.Column="1" Text="{Binding NomeTipoVacina}"/>
                                                                 <Label FontAttributes="Bold" FontSize="11" Grid.Column="2" Text="{Binding DataProximaToma, StringFormat='{0:dd/MM/yyyy}' }" 
                                                                        TextColor="{Binding DataProximaToma, Converter={StaticResource nextDoseDateConverter}}" 
                                                                        HorizontalOptions="End" Margin="0,0,12,0"/>

@@ -16,19 +16,17 @@ namespace MauiPetsApp.Infrastructure.Validators
         {
             RuleFor(p => p.ProximaTomaEmMeses)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha 'Prx. toma em meses, p.f.")
+                .NotEmpty().WithMessage("Preencha 'Prx. toma em meses.")
                 .GreaterThan(0).WithMessage("'Meses' deve ser positivo");
 
-
-            RuleFor(p => p.Marca)
+            RuleFor(p => p.IdTipoVacina)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha Marca, p.f.")
-                .Length(3, 60).WithMessage("(Tamanho entre 3 e 60 caracteres)");
+                .GreaterThan(0).WithMessage("Preencha Tipo de vacina.");
 
             RuleFor(p => p.DataToma)
                 .NotNull()
-                .NotEmpty().WithMessage("Preencha 'Data da toma', p.f.")
-                .Must(BeAValidDate).WithMessage("'Data inválida (no futuro)");
+                .NotEmpty().WithMessage("Preencha 'Data da toma'.")
+                .Must(BeAValidDate).WithMessage("'Data inválida / ou no futuro");
 
         }
 
@@ -48,7 +46,6 @@ namespace MauiPetsApp.Infrastructure.Validators
                 return false;
             else if (parsedDate.Date > DateTime.Now.Date)
                 return false;
-
 
             return true;
         }
