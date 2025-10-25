@@ -6,7 +6,7 @@ namespace MauiPets.Services;
 
 public class PetFichaPdfService : IPetFichaPdfService
 {
-    public async Task<MemoryStream> GenerateFichaPetPdfAsync(
+    public MemoryStream GenerateFichaPetPdfAsync(
         PetVM pet,
         IEnumerable<VacinaVM> vacinas,
         IEnumerable<DesparasitanteVM> desparasitantes,
@@ -182,7 +182,7 @@ public class PetFichaPdfService : IPetFichaPdfService
         return stream;
     }
 
-    private string FormatDate(string? raw)
+    private string FormatDate(string raw)
     {
         if (string.IsNullOrWhiteSpace(raw)) return "";
         // Extrai só a parte da data se vier com hora (ex: 2024-05-06T00:00:00)

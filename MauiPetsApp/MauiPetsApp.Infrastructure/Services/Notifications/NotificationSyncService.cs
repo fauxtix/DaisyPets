@@ -14,24 +14,25 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
         private readonly ILogger<NotificationsSyncService> _logger;
         private readonly INotificationRepository _notificationRepository;
 
+        private readonly DateTime hoje = DateTime.Today;
+        private readonly DateTime daquiA7;
+
         public NotificationsSyncService(IDapperContext db, ILogger<NotificationsSyncService> logger, INotificationRepository notificationRepository)
         {
             _db = db;
             _logger = logger;
             _notificationRepository = notificationRepository;
+            daquiA7 = hoje.AddDays(7);
         }
 
         public async Task SyncNotificationsAsync()
         {
             try
             {
-                DateTime hoje = DateTime.Today;
-                DateTime daquiA7 = hoje.AddDays(7);
-
-                await SyncVaccineNotificationsAsync(hoje, daquiA7);
-                await SyncDewormerNotificationsAsync(hoje, daquiA7);
-                await SyncTaskNotificationsAsync(hoje, daquiA7);
-                await SyncVetAppointmentsNotificationsAsync(hoje, daquiA7);
+                await SyncVaccineNotificationsAsync();
+                await SyncDewormerNotificationsAsync();
+                await SyncTaskNotificationsAsync();
+                await SyncVetAppointmentsNotificationsAsync();
             }
             catch (Exception ex)
             {
@@ -74,7 +75,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             }
         }
 
-        private async Task SyncVaccineNotificationsAsync(DateTime inicio, DateTime fim)
+        public async Task SyncVaccineNotificationsAsync()
         {
             try
             {
@@ -115,7 +116,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
 
                         DateTime dataProximaToma = dataToma.AddMonths(proximaTomaEmMeses);
 
-                        if (dataProximaToma >= inicio && dataProximaToma <= fim)
+                        if (dataProximaToma >= hoje && dataProximaToma <= daquiA7)
                         {
                             validVaccineIds.Add(id);
 
@@ -150,13 +151,13 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                         new { typeId });
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 _logger.LogInformation("Vacinas - sem dados para criar notificações");
             }
         }
 
-        private async Task SyncDewormerNotificationsAsync(DateTime inicio, DateTime fim)
+        public async Task SyncDewormerNotificationsAsync()
         {
             try
             {
@@ -192,7 +193,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                             continue;
                         }
 
-                        if (dataProximaAplicacao >= inicio && dataProximaAplicacao <= fim)
+                        if (dataProximaAplicacao >= hoje && dataProximaAplicacao <= daquiA7)
                         {
                             validDewormerIds.Add(id);
 
@@ -233,14 +234,13 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             }
         }
 
-        private async Task SyncTaskNotificationsAsync(DateTime inicio, DateTime fim)
+        public async Task SyncTaskNotificationsAsync()
         {
             try
             {
                 const string query = @"
-                    SELECT T.Id, T.Description, P.Nome as Nome, StartDate
+                    SELECT Id, Description, StartDate
                     FROM Todo T
-                    INNER JOIN Pet P ON T.IdPet = P.Id
                     WHERE T.Completed = 0";
                 using var connection = _db.CreateConnection();
 
@@ -270,14 +270,13 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                             continue;
                         }
 
-                        if (startDate >= inicio && startDate <= fim)
+                        if (startDate >= hoje && startDate <= daquiA7)
                         {
                             validTaskIds.Add(id);
 
                             await InsertOrUpdateNotificationAsync(
-                                connection,
-                                $"Pet: {nomePet}",
-                                $"Tarefa: {description}",
+                                connection, "",
+                                description,
                                 startDate,
                                 typeId,
                                 id
@@ -305,12 +304,12 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                         new { typeId });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                _logger.LogInformation("Tarefas - sem dados para criar notificações");
+                _logger.LogInformation(ex, "Tarefas - sem dados para criar notificações");
             }
         }
-        private async Task SyncVetAppointmentsNotificationsAsync(DateTime inicio, DateTime fim)
+        public async Task SyncVetAppointmentsNotificationsAsync()
         {
             try
             {
@@ -344,7 +343,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                             continue;
                         }
 
-                        if (startDate >= inicio && startDate <= fim)
+                        if (startDate >= hoje && startDate <= daquiA7)
                         {
                             validAppointmentIds.Add(id);
 

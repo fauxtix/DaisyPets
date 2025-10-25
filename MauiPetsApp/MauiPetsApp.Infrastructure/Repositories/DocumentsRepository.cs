@@ -141,7 +141,7 @@ namespace MauiPetsApp.Infrastructure
                 {
                     var output = await connection.QueryFirstOrDefaultAsync<Documento>(sb.ToString(),
                         param: new { Id = id });
-                    return output;
+                    return output ?? new();
                 }
 
             }

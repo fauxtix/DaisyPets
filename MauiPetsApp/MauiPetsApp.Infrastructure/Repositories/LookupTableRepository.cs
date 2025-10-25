@@ -40,7 +40,7 @@ namespace MauiPetsApp.Infrastructure
             using (var connection = _context.CreateConnection())
             {
                 var result = await connection.QueryFirstOrDefaultAsync<string>(sql.ToString());
-                return result;
+                return result ?? "";
             }
         }
 
@@ -259,7 +259,8 @@ namespace MauiPetsApp.Infrastructure
             {
                 using (var connection = _context.CreateConnection())
                 {
-                    return await connection.QueryFirstOrDefaultAsync<string>(Query, paramCollection);
+                    var result = await connection.QueryFirstOrDefaultAsync<string>(Query, paramCollection);
+                    return result ?? string.Empty;
                 }
             }
             catch (Exception ex)
@@ -426,13 +427,13 @@ namespace MauiPetsApp.Infrastructure
                 using (var connection = _context.CreateConnection())
                 {
                     var record = await connection.QueryFirstOrDefaultAsync<LookUp>(sb.ToString(), param: paramCollection);
-                    return record;
+                    return record ?? new LookUp { Id = 0, Descricao = string.Empty, Tabela = tableName };
                 }
             }
             catch (Exception ex)
             {
                 Log.Error(ex.Message);
-                return (LookUp)Enumerable.Empty<LookUp>();
+                return new LookUp { Id = 0, Descricao = string.Empty, Tabela = tableName };
             }
         }
 

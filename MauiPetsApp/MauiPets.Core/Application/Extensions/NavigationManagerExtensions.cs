@@ -5,7 +5,7 @@ namespace MauiPetsApp.Core.Application.Extensions
 {
     public static class NavigationManagerExtensions
     {
-        public static bool TryGetQueryString<T>(this NavigationManager navManager, string key, out T value)
+        public static bool TryGetQueryString<T>(this NavigationManager navManager, string key, out T? value)
         {
             var uri = navManager.ToAbsoluteUri(navManager.Uri);
 

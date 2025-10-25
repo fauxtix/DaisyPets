@@ -103,10 +103,7 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
                     return;
                 }
 
-                //var todoDto = await _todosService.GetToDoVM_ByIdAsync(insertedId);
-                //IsBusy = false;
-
-                await _notificationsSyncService.SyncNotificationsAsync();
+                await _notificationsSyncService.SyncTaskNotificationsAsync();
                 WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
 
                 await ShowToastMessage("Tarefa criada com sucesso");
@@ -119,7 +116,7 @@ public partial class TodosAddOrEditViewModel : TodoBaseViewModel, IQueryAttribut
                 var _todoId = SelectedTodo.Id;
                 await _todosService.UpdateAsync(_todoId, SelectedTodo);
 
-                await _notificationsSyncService.SyncNotificationsAsync();
+                await _notificationsSyncService.SyncTaskNotificationsAsync();
                 WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
 
                 await Shell.Current.GoToAsync($"//{nameof(TodoPage)}", true);

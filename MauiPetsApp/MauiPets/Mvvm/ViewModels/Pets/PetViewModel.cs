@@ -22,12 +22,12 @@ public partial class PetViewModel : BaseViewModel
 
     private readonly IPetService _petService;
     private readonly IVacinasService _petVaccinesService;
-    private readonly INotificationsSyncService? _notificationService;
+    private readonly INotificationsSyncService _notificationService;
 
     public PetViewModel(IPetService petService,
                         IVacinasService petVaccinesService,
                         ILogger<PetViewModel> logger,
-                        INotificationsSyncService? notificationService = null)
+                        INotificationsSyncService notificationService = null)
     {
         _petService = petService;
         _petVaccinesService = petVaccinesService;

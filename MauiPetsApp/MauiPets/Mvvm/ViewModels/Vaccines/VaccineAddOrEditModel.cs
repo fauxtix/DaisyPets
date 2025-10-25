@@ -154,7 +154,7 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
                 UpdateNextDose();
                 IsBusy = false;
 
-                await _notificationsSyncService.SyncNotificationsAsync();
+                await _notificationsSyncService.SyncVaccineNotificationsAsync();
                 WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
 
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
@@ -174,7 +174,7 @@ public partial class VaccineAddOrEditModel : VaccineBaseViewModel, IQueryAttribu
 
                 var petVM = await _petService.GetPetVMAsync(_petId);
 
-                await _notificationsSyncService.SyncNotificationsAsync();
+                await _notificationsSyncService.SyncVaccineNotificationsAsync();
                 WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
 
                 await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,

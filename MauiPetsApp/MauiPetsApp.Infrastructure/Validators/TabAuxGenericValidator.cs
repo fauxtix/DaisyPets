@@ -23,18 +23,32 @@ namespace MauiPetsApp.Infrastructure.Validators
 
         private string ItemTextValue(T Item, string sDescription)
         {
-            if (Item is ExpandoObject)
+            if (Item is ExpandoObject expando)
             {
-                IDictionary<string, object> dictionary_object = Item as ExpandoObject;
-                return (string)dictionary_object[sDescription];
+                var dictionary_object = expando as IDictionary<string, object>;
+                if (dictionary_object != null && dictionary_object.TryGetValue(sDescription, out var value))
+                {
+                    return value as string ?? string.Empty;
+                }
+                return string.Empty;
             }
             else
             {
                 string? DescriptionField = GetFieldNames()[1];
 
-                var output = Item.GetType()
-                .GetProperty(DescriptionField)
-                .GetValue(Item, null);
+                var itemType = Item?.GetType();
+                if (itemType == null)
+                {
+                    return string.Empty;
+                }
+
+                var propertyInfo = itemType.GetProperty(DescriptionField);
+                if (propertyInfo == null)
+                {
+                    return string.Empty;
+                }
+
+                var output = propertyInfo.GetValue(Item, null);
 
                 string? sRet = output == null ? "" : output.ToString();
                 return sRet!;

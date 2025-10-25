@@ -20,7 +20,7 @@ namespace MauiPetsApp.Infrastructure
             sb.Append("SELECT CultureName FROM AppSettings ");
             using (var connection = _context.CreateConnection())
             {
-                return await connection.QuerySingleOrDefaultAsync<string>(sb.ToString());
+                return await connection.QuerySingleOrDefaultAsync<string>(sb.ToString()) ?? "pt-PT";
             }
 
         }

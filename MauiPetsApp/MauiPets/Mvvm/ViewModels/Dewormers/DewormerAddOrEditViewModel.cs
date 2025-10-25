@@ -129,7 +129,7 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
 
                     ShowToastMessage("Desparasitante criado com sucesso");
 
-                    await _notificationsSyncService.SyncNotificationsAsync();
+                    await _notificationsSyncService.SyncDewormerNotificationsAsync();
                     WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
 
                     await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,
@@ -148,7 +148,7 @@ namespace MauiPets.Mvvm.ViewModels.Dewormers
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
                     SelectedDewormer.DataProximaAplicacao = DateTime.Parse(SelectedDewormer.DataAplicacao).AddMonths(3).ToShortDateString();
-                    await _notificationsSyncService.SyncNotificationsAsync();
+                    await _notificationsSyncService.SyncDewormerNotificationsAsync();
                     WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
 
                     await Shell.Current.GoToAsync($"{nameof(PetDetailPage)}", true,

@@ -54,7 +54,7 @@ namespace MauiPets.Helpers
 
             private sealed class CustomHostnameVerifier : Java.Lang.Object, Javax.Net.Ssl.IHostnameVerifier
             {
-                public bool Verify(string? hostname, Javax.Net.Ssl.ISSLSession? session)
+                public bool Verify(string hostname, Javax.Net.Ssl.ISSLSession session)
                 {
                     return
                         Javax.Net.Ssl.HttpsURLConnection.DefaultHostnameVerifier.Verify(hostname, session)

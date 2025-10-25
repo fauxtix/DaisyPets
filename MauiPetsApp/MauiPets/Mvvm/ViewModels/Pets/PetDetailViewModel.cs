@@ -549,7 +549,7 @@ public partial class PetDetailViewModel : BaseViewModel, IQueryAttributable
         try
         {
             IsBusy = true;
-            var pdfStream = await _petFichaPdfService.GenerateFichaPetPdfAsync(
+            var pdfStream = _petFichaPdfService.GenerateFichaPetPdfAsync(
                 PetVM,
                 PetVaccinesVM?.Any() == true ? PetVaccinesVM : Enumerable.Empty<VacinaVM>(),
                 PetDewormersVM?.Any() == true ? PetDewormersVM : Enumerable.Empty<DesparasitanteVM>(),

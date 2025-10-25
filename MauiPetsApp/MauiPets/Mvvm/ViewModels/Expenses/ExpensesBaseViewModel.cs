@@ -61,7 +61,7 @@ namespace MauiPets.Mvvm.ViewModels.Expenses
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(IsNotBusy))]
         private bool isBusy;
-        public bool IsNotBusy => !isBusy;
+        public bool IsNotBusy => !IsBusy;
 
         [ObservableProperty]
         private string lookupDescription;

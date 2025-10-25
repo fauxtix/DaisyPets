@@ -1,4 +1,6 @@
-﻿namespace MauiPets.Services
+﻿using Serilog;
+
+namespace MauiPets.Services
 {
     public static class DeleteBackupsService
     {
@@ -20,7 +22,7 @@
                     }
                     catch (Exception ex)
                     {
-                        // Opcional: log ex.Message
+                        Log.Error(ex.Message, ex);
                     }
                 }
             }

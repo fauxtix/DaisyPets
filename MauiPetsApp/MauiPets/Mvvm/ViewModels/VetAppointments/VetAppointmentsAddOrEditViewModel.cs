@@ -117,7 +117,7 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
                     var _petId = SelectedAppointment.IdPet;
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
-                    await _notificationsSyncService.SyncNotificationsAsync();
+                    await _notificationsSyncService.SyncVetAppointmentsNotificationsAsync();
                     WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
 
                     ShowToastMessage("Consulta criada com sucesso");
@@ -136,7 +136,7 @@ namespace MauiPets.Mvvm.ViewModels.VetAppointments
 
                     var petVM = await _petService.GetPetVMAsync(_petId);
 
-                    await _notificationsSyncService.SyncNotificationsAsync();
+                    await _notificationsSyncService.SyncVetAppointmentsNotificationsAsync();
                     WeakReferenceMessenger.Default.Send(new UpdateUnreadNotificationsMessage());
 
                     ShowToastMessage("Registo atualizado com sucesso");
