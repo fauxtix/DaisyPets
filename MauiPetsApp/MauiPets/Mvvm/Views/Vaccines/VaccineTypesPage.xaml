@@ -25,14 +25,12 @@
                               RowSpacing="5"
                               ColumnSpacing="10">
 
-                            <!-- Vacina -->
                             <Label Grid.Row="0" Grid.Column="0" Text="Vacina:" FontAttributes="Bold" />
                             <Label Grid.Row="0" Grid.Column="1" Text="{Binding Vacina}" TextColor="Steelblue"
                                    FontSize="16" 
                                    FontAttributes="Bold"
                                    LineBreakMode="WordWrap" />
 
-                            <!-- Categoria com DataTrigger -->
                             <Label Grid.Row="1" Grid.Column="0" Text="Categoria:" FontAttributes="Bold" />
                             <Label Grid.Row="1" Grid.Column="1" Text="{Binding Categoria}" LineBreakMode="WordWrap">
                                 <Label.Triggers>
@@ -44,11 +42,9 @@
                                 </Label.Triggers>
                             </Label>
 
-                            <!-- Prevenção -->
                             <Label Grid.Row="2" Grid.Column="0" Text="Prevenção:" FontAttributes="Bold" />
                             <Label Grid.Row="2" Grid.Column="1" Text="{Binding Prevencao}" LineBreakMode="WordWrap" />
 
-                            <!-- Notas -->
                             <Label Grid.Row="3" Grid.Column="0" Text="Notas:" FontAttributes="Bold" />
                             <Label Grid.Row="3" Grid.Column="1" Text="{Binding Notas}" LineBreakMode="WordWrap" />
 

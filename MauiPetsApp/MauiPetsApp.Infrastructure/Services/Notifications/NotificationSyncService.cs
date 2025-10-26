@@ -46,9 +46,11 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
             {
                 using var connection = _db.CreateConnection();
                 int typeId = await GetNotificationTypeIdAsync(notificationType);
+
+                // REMARK: changed from DELETE to marking as Discarded so user-discarded history is preserved
                 await connection.ExecuteAsync(
-                    "DELETE FROM Notification WHERE RelatedItemId = @relatedItemId AND NotificationTypeId = @typeId",
-                    new { relatedItemId, typeId }
+                    "UPDATE Notification SET Status = @Status WHERE RelatedItemId = @relatedItemId AND NotificationTypeId = @typeId",
+                    new { Status = (int)NotificationStatus.Descartada, relatedItemId, typeId }
                 );
             }
             catch (Exception ex)
@@ -138,17 +140,20 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
 
                 if (validVaccineIds.Count > 0)
                 {
+                    // REMARK: only delete non-discarded notifications for this type that are no longer valid
                     await connection.ExecuteAsync(
                         @"DELETE FROM Notification 
                           WHERE NotificationTypeId = @typeId 
-                            AND RelatedItemId NOT IN @validVaccineIds",
-                        new { typeId, validVaccineIds });
+                            AND RelatedItemId NOT IN @validVaccineIds
+                            AND Status <> @Discarded",
+                        new { typeId, validVaccineIds, Discarded = (int)NotificationStatus.Descartada });
                 }
                 else
                 {
+                    // REMARK: only delete non-discarded notifications for this type
                     await connection.ExecuteAsync(
-                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId",
-                        new { typeId });
+                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId AND Status <> @Discarded",
+                        new { typeId, Discarded = (int)NotificationStatus.Descartada });
                 }
             }
             catch (Exception)
@@ -218,14 +223,15 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     await connection.ExecuteAsync(
                         @"DELETE FROM Notification 
                           WHERE NotificationTypeId = @typeId 
-                            AND RelatedItemId NOT IN @validDewormerIds",
-                        new { typeId, validDewormerIds });
+                            AND RelatedItemId NOT IN @validDewormerIds
+                            AND Status <> @Discarded",
+                        new { typeId, validDewormerIds, Discarded = (int)NotificationStatus.Descartada });
                 }
                 else
                 {
                     await connection.ExecuteAsync(
-                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId",
-                        new { typeId });
+                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId AND Status <> @Discarded",
+                        new { typeId, Discarded = (int)NotificationStatus.Descartada });
                 }
             }
             catch (Exception)
@@ -294,14 +300,15 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     await connection.ExecuteAsync(
                         @"DELETE FROM Notification 
                           WHERE NotificationTypeId = @typeId 
-                            AND RelatedItemId NOT IN @validTaskIds",
-                        new { typeId, validTaskIds });
+                            AND RelatedItemId NOT IN @validTaskIds
+                            AND Status <> @Discarded",
+                        new { typeId, validTaskIds, Discarded = (int)NotificationStatus.Descartada });
                 }
                 else
                 {
                     await connection.ExecuteAsync(
-                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId",
-                        new { typeId });
+                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId AND Status <> @Discarded",
+                        new { typeId, Discarded = (int)NotificationStatus.Descartada });
                 }
             }
             catch (Exception ex)
@@ -322,7 +329,7 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                 if (items.Count == 0) return;
 
                 int typeId = await GetNotificationTypeIdAsync("vet_appointment");
-                if (typeId == .1) return;
+                if (typeId == -1) return; // REMARK: fixed wrong check (was '== .1')
 
                 var validAppointmentIds = new List<int>();
 
@@ -368,14 +375,15 @@ namespace MauiPetsApp.Infrastructure.Services.Notifications
                     await connection.ExecuteAsync(
                         @"DELETE FROM Notification 
                           WHERE NotificationTypeId = @typeId 
-                            AND RelatedItemId NOT IN @validAppointmentIds",
-                        new { typeId, validAppointmentIds });
+                            AND RelatedItemId NOT IN @validAppointmentIds
+                            AND Status <> @Discarded",
+                        new { typeId, validAppointmentIds, Discarded = (int)NotificationStatus.Descartada });
                 }
                 else
                 {
                     await connection.ExecuteAsync(
-                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId",
-                        new { typeId });
+                        @"DELETE FROM Notification WHERE NotificationTypeId = @typeId AND Status <> @Discarded",
+                        new { typeId, Discarded = (int)NotificationStatus.Descartada });
                 }
             }
             catch (Exception)
