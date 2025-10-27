@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.WebApi", "DaisyPets.WebApi\DaisyPets.WebApi.csproj", "{24B9C1D2-2230-4082-8CC6-4F025A02C8FD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.Web.React", "DaisyPets.Web.React\DaisyPets.Web.React.csproj", "{D5266F9A-6E0B-4A25-8409-2181F689C5DD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DaisyPets.Web.Blazor", "DaisyPets.Web.Blazor\DaisyPets.Web.Blazor.csproj", "{9A6622E7-B51A-409E-BF14-3195A5E5704C}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{24B9C1D2-2230-4082-8CC6-4F025A02C8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24B9C1D2-2230-4082-8CC6-4F025A02C8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24B9C1D2-2230-4082-8CC6-4F025A02C8FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5266F9A-6E0B-4A25-8409-2181F689C5DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5266F9A-6E0B-4A25-8409-2181F689C5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5266F9A-6E0B-4A25-8409-2181F689C5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5266F9A-6E0B-4A25-8409-2181F689C5DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A6622E7-B51A-409E-BF14-3195A5E5704C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A6622E7-B51A-409E-BF14-3195A5E5704C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A6622E7-B51A-409E-BF14-3195A5E5704C}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -3,9 +3,12 @@
 @using DaisyPets.Web.Blazor.Components.Cards
 <h3>Lookup Tables Main</h3>
 
-@foreach (var card in CardImages)
+@if (CardImages is not null)
 {
-    <LookupTableComponent CardImage="card" />
+    foreach (var card in CardImages)
+    {
+        <LookupTableComponent CardImage="card" />
+    }
 }
 @code {
     private List<LookupCardImage>? CardImages { get; set; }
@@ -14,10 +17,6 @@
     {
         CardImages = GetCardsData();
     }
-    //protected List<string> LookupTablesImages = new List<string>()
-    //{
-    //  "aninal_breed.jpg" , "deworming-cat-dog-medical-bottles,jpg", "dog-temperament.jpg", "gog-food.jpg", "situation.jpg"
-    //};
 
     protected List<LookupCardImage> GetCardsData()
     {
