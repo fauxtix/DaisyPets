@@ -42,7 +42,7 @@
         <BoxView Grid.Row="1"
                  HeightRequest="1"
                  BackgroundColor="Gray"
-                 HorizontalOptions="FillAndExpand"
+                 HorizontalOptions="Fill"
                  Margin="0,10,0,10" />
         <ScrollView Grid.Row="2">
             <VerticalStackLayout Padding="10">

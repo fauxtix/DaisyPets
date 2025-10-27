@@ -244,6 +244,16 @@ CREATE TABLE IF NOT EXISTS "TipoDespesa" (
 	"IdCategoriaDespesa"	INTEGER NOT NULL,
 	PRIMARY KEY("Id" AUTOINCREMENT)
 );
+CREATE TABLE IF NOT EXISTS "TipoVacinas" (
+	"Id"	INTEGER,
+	"Id_Especie"	INTEGER NOT NULL,
+	"Categoria"	TEXT NOT NULL,
+	"Vacina"	TEXT NOT NULL,
+	"Prevencao"	TEXT NOT NULL,
+	"Notas"	TEXT,
+	PRIMARY KEY("Id" AUTOINCREMENT),
+	FOREIGN KEY("Id_Especie") REFERENCES "Especie"("Id")
+);
 CREATE TABLE IF NOT EXISTS "ToDoCategories" (
 	"Id"	INTEGER NOT NULL UNIQUE,
 	"Descricao"	TEXT NOT NULL,
@@ -265,7 +275,10 @@ CREATE TABLE IF NOT EXISTS "Vacina" (
 	"DataToma"	TEXT NOT NULL,
 	"ProximaTomaEmMeses"	INTEGER NOT NULL,
 	"Marca"	TEXT NOT NULL,
-	PRIMARY KEY("Id" AUTOINCREMENT)
+	"IdTipoVacina"	INTEGER NOT NULL,
+	PRIMARY KEY("Id" AUTOINCREMENT),
+	FOREIGN KEY("IdPet") REFERENCES "Pet"("Id"),
+	FOREIGN KEY("IdTipoVacina") REFERENCES "TipoVacinas"("Id")
 );
 INSERT INTO "AppSettings" ("CultureName") VALUES ('fr');
 INSERT INTO "AppSettings" ("CultureName") VALUES ('en-US');
@@ -426,6 +439,10 @@ INSERT INTO "Medicacao" ("Id","Descricao") VALUES (3,'Pipetas repelentes naturai
 INSERT INTO "Medicacao" ("Id","Descricao") VALUES (4,'ALIZIN');
 INSERT INTO "Medicacao" ("Id","Descricao") VALUES (5,'BOVIGEN SCOUR');
 INSERT INTO "Medicacao" ("Id","Descricao") VALUES (6,'CANIGEN CHPL');
+INSERT INTO "NotificationType" ("Id","Description") VALUES (1,'dewormer');
+INSERT INTO "NotificationType" ("Id","Description") VALUES (2,'task');
+INSERT INTO "NotificationType" ("Id","Description") VALUES (3,'vet_appointment');
+INSERT INTO "NotificationType" ("Id","Description") VALUES (4,'vaccine');
 INSERT INTO "Peso" ("Id","De","A","Descricao") VALUES (1,1,15,'Pequeno');
 INSERT INTO "Peso" ("Id","De","A","Descricao") VALUES (2,16,25,'Médio');
 INSERT INTO "Peso" ("Id","De","A","Descricao") VALUES (3,26,45,'Grande');
@@ -496,6 +513,14 @@ INSERT INTO "TipoDespesa" ("Id","Descricao","IdCategoriaDespesa") VALUES (16,'Pa
 INSERT INTO "TipoDespesa" ("Id","Descricao","IdCategoriaDespesa") VALUES (17,'Amaciador',5);
 INSERT INTO "TipoDespesa" ("Id","Descricao","IdCategoriaDespesa") VALUES (18,'Escova',5);
 INSERT INTO "TipoDespesa" ("Id","Descricao","IdCategoriaDespesa") VALUES (21,'Sr. José Sobral - Cascais',10);
+INSERT INTO "TipoVacinas" ("Id","Id_Especie","Categoria","Vacina","Prevencao","Notas") VALUES (1,1,'Essencial','Polivalente (L4)','Parvovirose, esgana, hepatite infeciosa, adenovirose, leptospirose','Fortemente recomendada para todos os cães.');
+INSERT INTO "TipoVacinas" ("Id","Id_Especie","Categoria","Vacina","Prevencao","Notas") VALUES (2,1,'Essencial','Raiva','Raiva','Obrigatória por lei em Portugal.');
+INSERT INTO "TipoVacinas" ("Id","Id_Especie","Categoria","Vacina","Prevencao","Notas") VALUES (3,1,'Não Essencial','Leishmaniose','Leishmaniose','Aconselhada para cães que vivam ou viajem para zonas de risco.');
+INSERT INTO "TipoVacinas" ("Id","Id_Especie","Categoria","Vacina","Prevencao","Notas") VALUES (4,1,'Não Essencial','Tosse do Canil','Traqueobronquite infeciosa (tosse do canil)','Aconselhada para cães com contacto frequente com outros cães.');
+INSERT INTO "TipoVacinas" ("Id","Id_Especie","Categoria","Vacina","Prevencao","Notas") VALUES (5,2,'Essencial','Trivalente Felina (V3 ou V4)','Panleucopénia felina, herpesvírus felino (rinotraqueíte) e calicivírus felino','Recomendada para todos os gatos, mesmo os que não saem de casa.');
+INSERT INTO "TipoVacinas" ("Id","Id_Especie","Categoria","Vacina","Prevencao","Notas") VALUES (6,2,'Essencial','Leucemia Felina (FeLV)','Leucemia felina','Essencial para gatos com acesso ao exterior.');
+INSERT INTO "TipoVacinas" ("Id","Id_Especie","Categoria","Vacina","Prevencao","Notas") VALUES (7,2,'Essencial','Raiva','Raiva','Embora não obrigatória em Portugal para gatos, é considerada essencial para gatos com acesso ao exterior.');
+INSERT INTO "TipoVacinas" ("Id","Id_Especie","Categoria","Vacina","Prevencao","Notas") VALUES (8,2,'Não Essencial','Clamidiose','Chlamydophila felis','Aconselhada em situações específicas.');
 INSERT INTO "ToDoCategories" ("Id","Descricao") VALUES (1,'Consulta no Veterinário');
 INSERT INTO "ToDoCategories" ("Id","Descricao") VALUES (2,'Comprar medicamentos');
 INSERT INTO "ToDoCategories" ("Id","Descricao") VALUES (3,'Chipagem');
@@ -504,8 +529,8 @@ INSERT INTO "ToDoCategories" ("Id","Descricao") VALUES (5,'Medicação');
 INSERT INTO "ToDoCategories" ("Id","Descricao") VALUES (6,'Tratamentos');
 INSERT INTO "ToDoCategories" ("Id","Descricao") VALUES (7,'Alimentação');
 INSERT INTO "ToDoCategories" ("Id","Descricao") VALUES (9,'Vacinação');
-INSERT INTO "Vacina" ("Id","IdPet","DataToma","ProximaTomaEmMeses","Marca") VALUES (45,18,'24/07/2023',3,'Parvovirose');
-INSERT INTO "Vacina" ("Id","IdPet","DataToma","ProximaTomaEmMeses","Marca") VALUES (50,17,'01/06/2023',18,'Raiva');
+INSERT INTO "Vacina" ("Id","IdPet","DataToma","ProximaTomaEmMeses","Marca","IdTipoVacina") VALUES (45,18,'24/07/2023',3,'Parvovirose',1);
+INSERT INTO "Vacina" ("Id","IdPet","DataToma","ProximaTomaEmMeses","Marca","IdTipoVacina") VALUES (50,17,'01/06/2023',18,'Raiva',2);
 CREATE INDEX IF NOT EXISTS "FK_Especie" ON "Pet" (
 	"IdEspecie"
 );

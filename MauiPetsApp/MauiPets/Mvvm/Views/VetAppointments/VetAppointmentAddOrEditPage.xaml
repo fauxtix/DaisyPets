@@ -59,7 +59,7 @@
                 Background="#fff"
                 Padding="8,4"
                 Margin="4"
-                HorizontalOptions="FillAndExpand">
+                HorizontalOptions="Fill">
 
             <Grid Margin="4" ColumnSpacing="2">
                 <Grid.RowDefinitions>
@@ -88,7 +88,7 @@
                 <Label Text="Motivo"
                        Grid.Row="2"
                        FontSize = "14"
-                       VerticalOptions="CenterAndExpand"/>
+                       VerticalOptions="Center"/>
                 <Editor x:Name="ApptReason" 
                        Text="{Binding SelectedAppointment.Motivo}" 
                        Grid.Row="3"

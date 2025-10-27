@@ -12,7 +12,7 @@
         <StackLayout Padding="10">
             <Frame CornerRadius="15"
                VerticalOptions="Start" 
-               HorizontalOptions="CenterAndExpand"
+               HorizontalOptions="Center"
                HasShadow="True"
                Padding="10"
                HeightRequest="80"
@@ -50,7 +50,7 @@
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <StackLayout Orientation="Horizontal" Spacing="10">
-                                            <Label Text="{Binding Descricao}" HorizontalOptions="StartAndExpand" FontSize="13" FontAttributes="Bold" />
+                                            <Label Text="{Binding Descricao}" HorizontalOptions="Start" FontSize="13" FontAttributes="Bold" />
                                             <Label Text="{Binding SubTotal, StringFormat='{0:C}'}" 
                                                    HorizontalOptions="End" 
                                                    VerticalOptions="Center" />
@@ -60,7 +60,7 @@
                             </CollectionView>
 
                             <!-- Subtotal para a categoria -->
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Margin="0,5,0,0">
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="End" Margin="0,5,0,0">
                                 <Label Text="{Binding SubTotal, StringFormat='Subtotal: {0:C}'}" 
                                        FontSize="14" 
                                        FontAttributes="Bold"

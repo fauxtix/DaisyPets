@@ -164,7 +164,7 @@
                                        Margin="0, -1, 0, 0"
                                        Text="{Binding Description, Mode=OneWay}"
                                        HorizontalOptions="Start"
-                                       VerticalOptions="StartAndExpand" />
+                                       VerticalOptions="Start" />
                                         <Switch Grid.Column="2" IsToggled="{Binding Completed}" 
                                         HorizontalOptions="Start"
                                         Margin="0,-5,0,10" 
@@ -226,7 +226,7 @@
 
 
                 <!-- Activity Indicator -->
-                <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Grid.RowSpan="4" >
+                <Grid IsVisible="{Binding IsBusy}" HorizontalOptions="Fill" VerticalOptions="Fill" Grid.RowSpan="4" >
                     <ActivityIndicator 
                             BackgroundColor="Transparent" 
                             x:Name="ai" 

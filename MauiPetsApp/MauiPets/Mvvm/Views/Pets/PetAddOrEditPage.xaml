@@ -52,7 +52,7 @@
                         Padding="8,4"
                         Margin="4"
                         HeightRequest="40"
-                        HorizontalOptions="FillAndExpand">
+                        HorizontalOptions="Fill">
                         <HorizontalStackLayout VerticalOptions="Center"
                                 Spacing="8">
                             <Image Source="tasks.png"
@@ -67,7 +67,7 @@
                                     FontAttributes="Bold"
                                     TextColor="Green"
                                     Text="{Binding EditCaption}"
-                                    HorizontalOptions="FillAndExpand"/>
+                                    HorizontalOptions="Fill"/>
                         </HorizontalStackLayout>
                     </Border>
                 </VerticalStackLayout>
@@ -102,7 +102,7 @@
                     Background="#fff"
                     Padding="8,4"
                         Margin="4"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
 
                     <mct:Expander Padding="10" Margin="3"
                                   IsExpanded="True" IsClippedToBounds="True" >
@@ -238,7 +238,7 @@
                         Background="#fff"
                         Padding="8,4"
                         Margin="4"
-                        HorizontalOptions="FillAndExpand">
+                        HorizontalOptions="Fill">
                     <mct:Expander Padding="10" Margin="3"
                                   IsExpanded="True">
                         <mct:Expander.Header>

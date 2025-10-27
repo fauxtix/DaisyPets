@@ -47,7 +47,7 @@
                 <VerticalStackLayout Padding="10">
                     <Frame CornerRadius="15"
                        VerticalOptions="Start" 
-                       HorizontalOptions="CenterAndExpand"
+                       HorizontalOptions="Center"
                        HasShadow="True"
                        Padding="10"
                        HeightRequest="80"
@@ -131,7 +131,7 @@
                     <CollectionView.EmptyView>
                         <StackLayout Margin="5, 10, 5, 0" Padding="10">
                             <Image                                
-                                HorizontalOptions="FillAndExpand"
+                                HorizontalOptions="Fill"
                                 HeightRequest="60"
                                 WidthRequest="60"
                                 Source="nopets.png"

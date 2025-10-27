@@ -13,7 +13,7 @@
                     Background="#fff"
                     Padding="8,4"
                     Margin="10, 4"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
             <Grid RowDefinitions="60, *">
                 <Label Grid.Row="0" Text="{Binding SelectedLogEntry.Message}"></Label>
                 <Label Grid.Row="1" Text="{Binding SelectedLogEntry.Exception}"></Label>

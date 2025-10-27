@@ -6,6 +6,15 @@
              Title="Galeria de Fotos"
              x:Name="GalleryPage">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding GoBackCommand  }"
+                 IconImageSource="icon_close.svg" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Resources>
         <conv:StringToDateConverter x:Key="IsZeroConverter" />
         <conv:InverseBoolConverter x:Key="InverseBoolConverter" />
@@ -18,23 +27,18 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--<Label Grid.Row="0" 
-               Text="Galeria de Fotos" 
-               FontSize="28" 
-               FontAttributes="Bold"
-               HorizontalOptions="Center"/>-->
         <Button Grid.Row="1"
                 Margin="0, 5, 0, 5"
                 CornerRadius="15"
                 Text="Adicionar Foto"
                 Command="{Binding AddPhotoCommand}" />
-        <CollectionView Grid.Row="2" 
+        <CollectionView Grid.Row="2"
                         ItemsSource="{Binding Photos}" 
                         SelectionMode="None" 
                         EmptyView="Sem fotos para mostrar..."
                         IsVisible="{Binding IsCarousel, Converter={StaticResource InverseBoolConverter}}">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="3"/>
+                <GridItemsLayout Orientation="Vertical" Span="2"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -44,8 +48,8 @@
                             <Image Grid.Row="0" Grid.Column="0"
                                    Source="{Binding PhotoPath}"
                                    Aspect="AspectFill"
-                                   HeightRequest="140"
-                                   WidthRequest="140"
+                                   HeightRequest="80"
+                                   WidthRequest="80"
                                    Margin="0,0,10,0">
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer
@@ -77,51 +81,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <!-- FIM DA ALTERAÇÃO DO CollectionView -->
-
-        <!-- INCLUA ESTE CarouselView LOGO ABAIXO DO CollectionView, NO MESMO Grid.Row="2" -->
-        <CarouselView Grid.Row="2"
-                      ItemsSource="{Binding Photos}"
-                      IsVisible="{Binding IsCarousel}">
-            <CarouselView.ItemTemplate>
-                <DataTemplate>
-                    <Frame Padding="4" Margin="5" BackgroundColor="#fff" CornerRadius="18" 
-                           HasShadow="True" BorderColor="#C5E1A5">
-                        <Grid RowDefinitions="Auto,Auto, Auto" ColumnDefinitions="*,Auto">
-                            <Image Grid.Row="0" Grid.Column="0"
-                                   Source="{Binding PhotoPath}"
-                                   Aspect="AspectFill"
-                                   HeightRequest="200"
-                                   WidthRequest="200"
-                                   Margin="0,0,10,0">
-                                <Image.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        Command="{Binding Source={x:Reference GalleryPage}, Path=BindingContext.ShowPhotoCommand}"
-                                        CommandParameter="{Binding .}" />
-                                </Image.GestureRecognizers>
-                            </Image>
-                            <ImageButton Grid.Row="0" Grid.Column="1" Padding="2"
-                                         Source="icon_delete.svg"
-                                         Command="{Binding Source={x:Reference GalleryPage}, Path=BindingContext.DeletePhotoCommand}"
-                                         CommandParameter="{Binding .}"
-                                         BackgroundColor="Transparent"
-                                         HorizontalOptions="End"
-                                         VerticalOptions="Start"
-                                         WidthRequest="32"
-                                         HeightRequest="32"
-                                         />
-
-                            <Label Grid.Row="1" Grid.ColumnSpan="2"
-                                   Text="{Binding DateAdded, StringFormat='Adicionada em: {0:dd/MM/yyyy}'}"
-                                   FontSize="11"
-                                   TextColor="Gray"
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"
-                                   Margin="0,6,0,0"
-                                   LineBreakMode="WordWrap" />
-                        </Grid>
-                    </Frame>
-                </DataTemplate>
-            </CarouselView.ItemTemplate>
-        </CarouselView>    </Grid>
+    </Grid>
 </ContentPage>

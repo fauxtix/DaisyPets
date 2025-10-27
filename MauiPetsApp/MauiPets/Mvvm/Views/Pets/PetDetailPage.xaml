@@ -404,7 +404,7 @@
                     Background="#fff"
                     Padding="8,4"
                     Margin="2"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
 
                     <mct:Expander Padding="6" Margin="2"
                                   IsExpanded="true" IsClippedToBounds="True" >
@@ -495,7 +495,7 @@
                     Background="#fff"
                     Padding="8,2,8,0"
                     Margin="2"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
                     <mct:Expander Padding="6" Margin="2"
                                   IsExpanded="True" IsClippedToBounds="True" >
                         <mct:Expander.Header>

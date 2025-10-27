@@ -48,7 +48,7 @@
                         Padding="8,4"
                         Margin="4"
                         HeightRequest="40"
-                        HorizontalOptions="FillAndExpand">
+                        HorizontalOptions="Fill">
                 <HorizontalStackLayout VerticalOptions="Center"
                                 Spacing="8">
                     <Image Source="tasks.png"
@@ -63,7 +63,7 @@
                                     FontAttributes="Bold"
                                     TextColor="Green"
                                     Text="{Binding EditCaption}"
-                                    HorizontalOptions="FillAndExpand"/>
+                                    HorizontalOptions="Fill"/>
                 </HorizontalStackLayout>
             </Border>
         </VerticalStackLayout>
@@ -74,14 +74,14 @@
                     Background="#fff"
                     Padding="8,4"
                     Margin="4"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
                 <Grid Margin="4">
                     <Editor x:Name="TableDescription" 
                             AutoSize="TextChanges"
                             IsSpellCheckEnabled="True"
                             IsTextPredictionEnabled="True"
 			               Text="{Binding LookupRecordSelected.Descricao}" 
-                           HorizontalOptions="FillAndExpand"                          
+                           HorizontalOptions="Fill"                          
                            VerticalOptions="End">
                     </Editor>
                 </Grid>

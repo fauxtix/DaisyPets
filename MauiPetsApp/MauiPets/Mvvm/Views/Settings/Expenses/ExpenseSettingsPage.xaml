@@ -21,7 +21,7 @@
                     Background="#fff"
                     Padding="8,4"
                     Margin="4"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
                 <Grid Margin="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -52,7 +52,7 @@
                             Background="#fff"
                             Padding="8,2,8,0"
                             Margin="2"
-                            HorizontalOptions="FillAndExpand">
+                            HorizontalOptions="Fill">
                             <CollectionView x:Name="CategoriiesCV"
                                             ItemsSource="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ExpensesSettingsViewModel}}, Path=CategoriaDespesas}" >
                                 <CollectionView.EmptyView>
@@ -115,7 +115,7 @@
                             Background="SteelBlue"
                             Padding="8,2,8,0"
                             Margin="2, 20"
-                            HorizontalOptions="FillAndExpand">
+                            HorizontalOptions="Fill">
 
                             <CollectionView
                                 x:Name="SettingsTypeCV"

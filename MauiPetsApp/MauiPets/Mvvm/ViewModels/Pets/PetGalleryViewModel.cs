@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using MauiPets.Controls;
 using MauiPets.Core.Application.Interfaces.Services;
 using MauiPets.Core.Application.ViewModels;
+using MauiPets.Mvvm.Views.Pets;
 using System.Collections.ObjectModel;
 
 namespace MauiPets.Mvvm.ViewModels.Pets;
@@ -90,6 +91,13 @@ public partial class PetGalleryViewModel : ObservableObject, IQueryAttributable
     {
         Photos.Clear();
     }
+
+    [RelayCommand]
+    async Task GoBack()
+    {
+        await Shell.Current.GoToAsync($"//{nameof(PetsPage)}");
+    }
+
     public async void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         if (query.TryGetValue("PetId", out var petIdObj) && int.TryParse(petIdObj?.ToString(), out int petId))

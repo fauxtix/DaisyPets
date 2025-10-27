@@ -64,7 +64,7 @@
                     Background="#fff"
                     Padding="6,8"
                     Margin="4"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
                 <Grid Margin="15,5" RowSpacing="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -155,7 +155,7 @@
                             IsTextPredictionEnabled="True"
 			                Grid.Row="13"
                             Keyboard="Plain"  
-			                VerticalOptions="StartAndExpand"></Editor>
+			                VerticalOptions="Start"></Editor>
                     
                     <Grid HorizontalOptions="Center" VerticalOptions="Center" 
                       Grid.RowSpan="14">

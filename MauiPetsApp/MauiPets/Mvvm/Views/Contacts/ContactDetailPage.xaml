@@ -54,7 +54,7 @@
                         Padding="8,4"
                         Margin="4"
                         HeightRequest="40"
-                        HorizontalOptions="FillAndExpand">
+                        HorizontalOptions="Fill">
                     <HorizontalStackLayout VerticalOptions="Center"
                                 Spacing="8">
                         <Image Source="tasks.png"
@@ -69,7 +69,7 @@
                            FontFamily="PoppinsSemiBold"
                            TextColor="ForestGreen"
                            Text="{Binding ContactoVM.Nome}"
-                           HorizontalOptions="FillAndExpand"/>
+                           HorizontalOptions="Fill"/>
                     </HorizontalStackLayout>
                 </Border>
             </VerticalStackLayout>
@@ -81,7 +81,7 @@
                     Background="#fff"
                     Padding="8,2,8,0"
                     Margin="5, 0"
-                    HorizontalOptions="FillAndExpand">
+                    HorizontalOptions="Fill">
 
 
                     <Frame CornerRadius="40" HasShadow="True" BorderColor="Transparent">
@@ -113,7 +113,7 @@
                 Background="LightSkyBlue"
                 Padding="4,2,4,0"
                 Margin="5, 10"
-                HorizontalOptions="FillAndExpand">
+                HorizontalOptions="Fill">
 
                 <Grid RowDefinitions="Auto, Auto, *" ColumnDefinitions=".5*, .5*" Margin="10, 10" Padding="0">
                     <Label Text="Latitude" Grid.Row="0" Grid.Column="0"  TextColor="Yellow" FontSize="16"/>

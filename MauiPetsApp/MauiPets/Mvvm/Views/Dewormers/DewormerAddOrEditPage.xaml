@@ -62,7 +62,7 @@
                 Background="#fff"
                 Padding="8,4, 8, 25"
                 Margin="4"
-                HorizontalOptions="FillAndExpand">
+                HorizontalOptions="Fill">
 
             <Grid Margin="4" RowSpacing="1">
                 <Grid.RowDefinitions>

@@ -11,6 +11,10 @@
              Title="Notificações"
              x:Name="NotificationsPageRoot">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
@@ -23,6 +27,12 @@
             <converters:IsPendingAndNotDiscardedConverter x:Key="IsPendingAndNotDiscardedConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding GoBackCommand}"
+                 IconImageSource="icon_close.svg" />
+    </ContentPage.ToolbarItems>
+
 
     <ContentPage.Content>
         <Grid Padding="8">
