@@ -16,7 +16,7 @@
         <ToolbarItem Command="{Binding SaveVaccineCommand  }"
                  IconImageSource="icon_save.png" />
         <ToolbarItem Command="{Binding ShowVaccinesInfoCommand}"
-                 IconImageSource="syringe.png" />
+                 IconImageSource="help.png" />
         <ToolbarItem Command="{Binding GoBackCommand}"
                  IconImageSource="icon_close.svg" />
     </ContentPage.ToolbarItems>

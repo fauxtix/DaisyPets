@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MauiPetsApp.Core.Application.Interfaces.Services;
 using MauiPetsApp.Core.Application.ViewModels;
 using System.Collections.ObjectModel;
@@ -41,4 +42,11 @@ public partial class TipoVacinasViewModel : ObservableObject
             IsBusy = false;
         }
     }
+
+    [RelayCommand]
+    async Task GoBack()
+    {
+        await Shell.Current.GoToAsync("..");
+    }
+
 }
