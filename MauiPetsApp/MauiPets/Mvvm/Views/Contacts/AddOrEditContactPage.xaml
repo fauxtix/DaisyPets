@@ -5,6 +5,7 @@
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Contacts"
              xmlns:behaviours="clr-namespace:MauiPets.Mvvm.Behaviours.Pickers"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:resx="clr-namespace:MauiPets.Resources.Languages"
              x:DataType="viewmodel:ContactAddOrEditViewModel"
              Title="{Binding EditCaption}">
 
@@ -82,7 +83,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Label Text="Nome" 
+                    <Label Text="{resx:Localize Key=TituloNome}" 
                            Grid.Row="0"
                            FontSize = "14"
 			               VerticalOptions="Center">
@@ -135,7 +136,7 @@
                            FontSize = "14"
 			               VerticalOptions="Center"/>
                     <Picker x:Name="ContactTypesPicker" 
-                            Title="Tipo de Contacto" 
+                            Title="{resx:Localize Key=TituloTipoContacto}" 
                             Grid.Row="11" 
                             Style="{StaticResource MediumBlueLabelBold}"
                             ItemsSource="{Binding ContactTypes}"
@@ -144,7 +145,7 @@
                             SelectedIndexChanged="SelectedIndexChanged"
                             ItemDisplayBinding="{Binding Descricao}">
                     </Picker>
-                    <Label Text="Notas" 
+                    <Label Text="{resx:Localize Key=TituloNotas}" 
                             Grid.Row="12"
                             FontSize = "14"
 			                VerticalOptions="Start"></Label>

@@ -117,7 +117,190 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Sair" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Gravar" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="TituloPesquisarContacto" xml:space="preserve">
     <value>Search contact</value>
+  </data>
+  <data name="EditMsg" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="DadosEmFalta" xml:space="preserve">
+    <value>Invalid operation /  Invalid data or missing</value>
+  </data>
+  <data name="Nao" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NewMsg" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="Pet_Brand" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Pet_Breed" xml:space="preserve">
+    <value>Breed</value>
+  </data>
+  <data name="Pet_Consultations" xml:space="preserve">
+    <value>Consultations</value>
+  </data>
+  <data name="Pet_Dewormers" xml:space="preserve">
+    <value>Dewormers</value>
+  </data>
+  <data name="Pet_Food" xml:space="preserve">
+    <value>Pet food</value>
+  </data>
+  <data name="Pet_Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Pet_Sterilised" xml:space="preserve">
+    <value>Sterilised</value>
+  </data>
+  <data name="Pet_Title" xml:space="preserve">
+    <value>Pets</value>
+  </data>
+  <data name="Pet_Vaccines" xml:space="preserve">
+    <value>Vaccines</value>
+  </data>
+  <data name="Pet_Vaccine_Brand" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="Pet_Vaccine_Date" xml:space="preserve">
+    <value>Vaccination</value>
+  </data>
+  <data name="Pet_Vaccine_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="RegistoAnuladoSucesso" xml:space="preserve">
+    <value>Record successfully deleted</value>
+  </data>
+  <data name="RegistoCriadoSucesso" xml:space="preserve">
+    <value>Record successfully inserted.</value>
+  </data>
+  <data name="RegistoGravadoSucesso" xml:space="preserve">
+    <value>Record successfully updated</value>
+  </data>
+  <data name="Sim" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="TituloContactos" xml:space="preserve">
+    <value>Contacts</value>
+  </data>
+  <data name="SuccessDelete" xml:space="preserve">
+    <value>Record deleted successfully</value>
+  </data>
+  <data name="SuccessInsert" xml:space="preserve">
+    <value>Record Inserted successfully</value>
+  </data>
+  <data name="SuccessUpdate" xml:space="preserve">
+    <value>Record Updated successfully</value>
+  </data>
+  <data name="SuccessUpdates" xml:space="preserve">
+    <value>Update operation terminated with success</value>
+  </data>
+  <data name="TituloDataFim" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="TituloDataInicio" xml:space="preserve">
+    <value>Starting date</value>
+  </data>
+  <data name="TituloDespesa" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="TituloDespesas" xml:space="preserve">
+    <value>Expenses</value>
+  </data>
+  <data name="TituloDespesasPorCategoria" xml:space="preserve">
+    <value>Expenses by Categorie</value>
+  </data>
+  <data name="TituloDespesasTodasDespesas" xml:space="preserve">
+    <value>All the expenses</value>
+  </data>
+  <data name="TituloDoencaCronica" xml:space="preserve">
+    <value>Chronic Disease</value>
+  </data>
+  <data name="TituloDtNascimento" xml:space="preserve">
+    <value>Date of Birth</value>
+  </data>
+  <data name="TituloDuracao" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="TituloEspecie" xml:space="preserve">
+    <value>Species</value>
+  </data>
+  <data name="TituloEstado" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TituloFeminino" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="TituloFim" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="TituloFoto" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="TituloGestaoTabelas" xml:space="preserve">
+    <value>Lookup tables</value>
+  </data>
+  <data name="TituloIdiomaIngles" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="TituloIdiomaPortugues" xml:space="preserve">
+    <value>Portuguese</value>
+  </data>
+  <data name="TituloImagem" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="TituloMarca" xml:space="preserve">
+    <value>Brand</value>
+  </data>
+  <data name="TituloMasculino" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="TituloMedicacao" xml:space="preserve">
+    <value>Medication</value>
+  </data>
+  <data name="TituloNome" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="TituloNotas" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="TituloPadrinho" xml:space="preserve">
+    <value>Godfather</value>
+  </data>
+  <data name="TituloPendente" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="TituloPendentes" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="TituloPrazoEmMeses" xml:space="preserve">
+    <value>Term in months</value>
+  </data>
+  <data name="TituloQtdDiaria" xml:space="preserve">
+    <value>Qty per day</value>
+  </data>
+  <data name="TituloQuantidadeAbr" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="TituloSexo" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="TituloSituacao" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TituloTarefa" xml:space="preserve">
+    <value>Task</value>
+  </data>
+  <data name="TituloTemperamento" xml:space="preserve">
+    <value>Temperament</value>
+  </data>
+  <data name="TituloTipoContacto" xml:space="preserve">
+    <value>Contact type</value>
   </data>
 </root>

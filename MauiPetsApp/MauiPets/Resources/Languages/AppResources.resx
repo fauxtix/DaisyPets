@@ -117,7 +117,190 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Sair" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="Gravar" xml:space="preserve">
+    <value>Gravar</value>
+  </data>
   <data name="TituloPesquisarContacto" xml:space="preserve">
-    <value>Pesquisar contacto</value>
+    <value>Pesquisar</value>
+  </data>
+  <data name="EditMsg" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="DadosEmFalta" xml:space="preserve">
+    <value>Operação inválida / Dados inválidos ou em falta</value>
+  </data>
+  <data name="Nao" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="NewMsg" xml:space="preserve">
+    <value>Novo</value>
+  </data>
+  <data name="Pet_Brand" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="Pet_Breed" xml:space="preserve">
+    <value>Raça</value>
+  </data>
+  <data name="Pet_Consultations" xml:space="preserve">
+    <value>Consultas</value>
+  </data>
+  <data name="Pet_Dewormers" xml:space="preserve">
+    <value>Desparasitantes</value>
+  </data>
+  <data name="Pet_Food" xml:space="preserve">
+    <value>Ração</value>
+  </data>
+  <data name="Pet_Size" xml:space="preserve">
+    <value>Tamanho</value>
+  </data>
+  <data name="Pet_Sterilised" xml:space="preserve">
+    <value>Esterilizado</value>
+  </data>
+  <data name="Pet_Title" xml:space="preserve">
+    <value>Pets</value>
+  </data>
+  <data name="Pet_Vaccines" xml:space="preserve">
+    <value>Vacinas</value>
+  </data>
+  <data name="Pet_Vaccine_Brand" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+  <data name="Pet_Vaccine_Date" xml:space="preserve">
+    <value>Toma</value>
+  </data>
+  <data name="Pet_Vaccine_Next" xml:space="preserve">
+    <value>Próxima</value>
+  </data>
+  <data name="RegistoAnuladoSucesso" xml:space="preserve">
+    <value>Registo anulado com sucesso</value>
+  </data>
+  <data name="RegistoCriadoSucesso" xml:space="preserve">
+    <value>Registo inserido com sucesso</value>
+  </data>
+  <data name="RegistoGravadoSucesso" xml:space="preserve">
+    <value>Registo atualizado com sucesso</value>
+  </data>
+  <data name="Sim" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="TituloContactos" xml:space="preserve">
+    <value>Contactos</value>
+  </data>
+  <data name="SuccessDelete" xml:space="preserve">
+    <value>Registo foi eliminado com sucesso.</value>
+  </data>
+  <data name="SuccessInsert" xml:space="preserve">
+    <value>Registo foi criado com sucesso.</value>
+  </data>
+  <data name="SuccessUpdate" xml:space="preserve">
+    <value>Registo foi gravado com sucesso.</value>
+  </data>
+  <data name="SuccessUpdates" xml:space="preserve">
+    <value>Registo(s) atualizado(s) com sucesso.</value>
+  </data>
+  <data name="TituloDataFim" xml:space="preserve">
+    <value>Data fim</value>
+  </data>
+  <data name="TituloDataInicio" xml:space="preserve">
+    <value>Data início</value>
+  </data>
+  <data name="TituloDespesa" xml:space="preserve">
+    <value>Despesa</value>
+  </data>
+  <data name="TituloDespesas" xml:space="preserve">
+    <value>Despesas</value>
+  </data>
+  <data name="TituloDespesasPorCategoria" xml:space="preserve">
+    <value>Despesas por Categoria</value>
+  </data>
+  <data name="TituloDespesasTodasDespesas" xml:space="preserve">
+    <value>Todas as despesas</value>
+  </data>
+  <data name="TituloDoencaCronica" xml:space="preserve">
+    <value>Doença Crónica</value>
+  </data>
+  <data name="TituloDtNascimento" xml:space="preserve">
+    <value>Dt. Nascº</value>
+  </data>
+  <data name="TituloDuracao" xml:space="preserve">
+    <value>Duração</value>
+  </data>
+  <data name="TituloEspecie" xml:space="preserve">
+    <value>Espécie</value>
+  </data>
+  <data name="TituloEstado" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="TituloFeminino" xml:space="preserve">
+    <value>Fèmea</value>
+  </data>
+  <data name="TituloFim" xml:space="preserve">
+    <value>Fim</value>
+  </data>
+  <data name="TituloFoto" xml:space="preserve">
+    <value>Foto</value>
+  </data>
+  <data name="TituloGestaoTabelas" xml:space="preserve">
+    <value>Tabelas auxiliares</value>
+  </data>
+  <data name="TituloIdiomaIngles" xml:space="preserve">
+    <value>Inglês</value>
+  </data>
+  <data name="TituloIdiomaPortugues" xml:space="preserve">
+    <value>Português</value>
+  </data>
+  <data name="TituloImagem" xml:space="preserve">
+    <value>Imagem</value>
+  </data>
+  <data name="TituloMarca" xml:space="preserve">
+    <value>Marca</value>
+  </data>
+  <data name="TituloMasculino" xml:space="preserve">
+    <value>Macho</value>
+  </data>
+  <data name="TituloMedicacao" xml:space="preserve">
+    <value>Medicação</value>
+  </data>
+  <data name="TituloNome" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="TituloNotas" xml:space="preserve">
+    <value>Observações</value>
+  </data>
+  <data name="TituloPadrinho" xml:space="preserve">
+    <value>Padrinho</value>
+  </data>
+  <data name="TituloPendente" xml:space="preserve">
+    <value>Pendente</value>
+  </data>
+  <data name="TituloPendentes" xml:space="preserve">
+    <value>Pendentes</value>
+  </data>
+  <data name="TituloPrazoEmMeses" xml:space="preserve">
+    <value>Prazo em meses</value>
+  </data>
+  <data name="TituloQtdDiaria" xml:space="preserve">
+    <value>Qtd. diária</value>
+  </data>
+  <data name="TituloQuantidadeAbr" xml:space="preserve">
+    <value>Qtd</value>
+  </data>
+  <data name="TituloSexo" xml:space="preserve">
+    <value>Género</value>
+  </data>
+  <data name="TituloSituacao" xml:space="preserve">
+    <value>Situação</value>
+  </data>
+  <data name="TituloTarefa" xml:space="preserve">
+    <value>Tarefa</value>
+  </data>
+  <data name="TituloTemperamento" xml:space="preserve">
+    <value>Temperamento</value>
+  </data>
+  <data name="TituloTipoContacto" xml:space="preserve">
+    <value>Tipo de contacto</value>
   </data>
 </root>

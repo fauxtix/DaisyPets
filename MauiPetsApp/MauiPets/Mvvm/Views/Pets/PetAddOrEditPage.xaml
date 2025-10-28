@@ -4,6 +4,7 @@
              x:Class="MauiPets.Mvvm.Views.Pets.PetAddOrEditPage"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
              xmlns:behaviours="clr-namespace:MauiPets.Mvvm.Behaviours.Pickers"
+             xmlns:resx="clr-namespace:MauiPets.Resources.Languages"
              xmlns:conv="clr-namespace:MauiPets.Converters"
               xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
               x:DataType="viewmodel:PetAddOrEditViewModel"
@@ -130,17 +131,18 @@
                                     <ColumnDefinition Width=".3*"></ColumnDefinition>
                                     <ColumnDefinition Width=".7*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <Label Text="Nome" 
+                                <Label Text="{resx:Localize Key=TituloNome}" 
                                        Grid.Row="0"
                                        Grid.Column="0"
                                        FontSize="12"   
 			                           VerticalOptions="Center"></Label>
                                 <Entry x:Name="PetName"
 			                           Text="{Binding PetDto.Nome}" 
+                                       FontAttributes="Bold"
 			                           Grid.Row="0"
                                        Grid.Column="1"
 			                           VerticalOptions="Center"></Entry>
-                                <Label Text="Data Nascº"
+                                <Label Text="{resx:Localize Key=TituloDtNascimento}"
                                        Grid.Row="1"
                                        Grid.Column="0"
                                        FontSize="12"
@@ -178,7 +180,7 @@
                                         IsSpellCheckEnabled="True"
                                         IsTextPredictionEnabled="True"
 			                           Text="{Binding PetDto.DoencaCronica}"  
-                                       Placeholder="Doenças"
+                                       Placeholder="{resx:Localize Key=TituloDoencaCronica}"
 			                           Grid.Row="2"
                                        Grid.Column="1"
                                        FontSize="12"   
@@ -215,7 +217,7 @@
                                        Grid.Column="1"
                                        FontSize="12"
 			                           VerticalOptions="Center"></Entry>
-                                <Label Text="Medicação"
+                                <Label Text="{resx:Localize Key=TituloMedicacao}"
                                        Grid.Row="5"
                                        Grid.Column="0"
                                        FontSize="12"   
@@ -267,28 +269,31 @@
                                     <ColumnDefinition Width=".7*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="Espécie" Grid.Row="0" Grid.Column="0" FontSize="11"  VerticalTextAlignment="Center" ></Label>
+                                <Label Text="{resx:Localize Key=TituloEspecie}" Grid.Row="0" Grid.Column="0" FontSize="11"  VerticalTextAlignment="Center" ></Label>
                                 <Picker x:Name="SpeciesPicker"
-        Title="Escolha Espécie" 
-        Grid.Row="0" 
-        Grid.Column="1"
-        FontSize="12"
-        VerticalTextAlignment="Center"
-        ItemsSource="{Binding Species}" 
-        SelectedItem="{Binding SelectedSpecie, Mode=TwoWay}"
-        ItemDisplayBinding="{Binding Descricao}" />
+                                    Title="Escolha Espécie" 
+                                    Grid.Row="0" 
+                                    Grid.Column="1"
+                                    FontSize="12"
+                                    VerticalTextAlignment="Center"
+                                    ItemsSource="{Binding Species}" 
+                                    SelectedItem="{Binding SelectedSpecie, Mode=TwoWay}"
+                                    ItemDisplayBinding="{Binding Descricao}" />
 
-                                <Label VerticalOptions="Center" Grid.Row="1" Grid.Column="0"
-                                            FontSize="11" >Género</Label>
+                                <Label 
+                                    VerticalOptions="Center" 
+                                    Grid.Row="1" Grid.Column="0" 
+                                    Text="{resx:Localize Key=TituloSexo}"
+                                    FontSize="11" />
                                 <FlexLayout Grid.Row="1" Grid.Column="1" >
-                                    <RadioButton Grid.Column="0" x:Name="genderMale" Content="Macho" 
+                                    <RadioButton Grid.Column="0" x:Name="genderMale" Content="{resx:Localize Key=TituloMasculino}" 
                                                 IsChecked="{Binding IsGenderMale, Mode=TwoWay}" FontSize="12"
                                                 GroupName="GenderType" 
                                                 CheckedChanged="GenderType_CheckedChanged"/>
-                                    <RadioButton Grid.Column="1" Content="Fêmea" 
-                                                x:Name="genderFemale"
-                                                     FontSize="12"
-                                                IsChecked="{Binding IsGenderFemale, Mode=TwoWay}"
+                                    <RadioButton Grid.Column="1" Content="{resx:Localize Key=TituloFeminino}"
+                                                 x:Name="genderFemale"
+                                                 FontSize="12"
+                                                 IsChecked="{Binding IsGenderFemale, Mode=TwoWay}"
                                                 GroupName="GenderType" 
                                                 CheckedChanged="GenderType_CheckedChanged"
                                                 VerticalOptions="Center"
@@ -296,41 +301,41 @@
                                 </FlexLayout>
 
 
-                                <Label Text="Situação" Grid.Row="2" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
+                                <Label Text="{resx:Localize Key=TituloSituacao}" Grid.Row="2" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="SituationsPicker"
-        Title="Escolha Situação" Grid.Row="2" Grid.Column="1"
-        ItemsSource="{Binding Situations}"
-        FontSize="12"
-        VerticalTextAlignment="Center"
-        SelectedItem="{Binding SelectedSituation, Mode=TwoWay}"
-        ItemDisplayBinding="{Binding Descricao}" />
+                                    Title="Escolha Situação" Grid.Row="2" Grid.Column="1"
+                                    ItemsSource="{Binding Situations}"
+                                    FontSize="12"
+                                    VerticalTextAlignment="Center"
+                                    SelectedItem="{Binding SelectedSituation, Mode=TwoWay}"
+                                    ItemDisplayBinding="{Binding Descricao}" />
 
-                                <Label Text="Temperamento" Grid.Row="3" Grid.Column="0" FontSize="10"  VerticalTextAlignment="Center"></Label>
+                                <Label Text="{resx:Localize Key=TituloTemperamento}" Grid.Row="3" Grid.Column="0" FontSize="10"  VerticalTextAlignment="Center"></Label>
                                 <Picker x:Name="TemperamentsPicker"
-        Title="Escolha Temperamento" Grid.Row="3" Grid.Column="1"
-        ItemsSource="{Binding Temperaments}" 
-        FontSize="12"
-        VerticalTextAlignment="Center"
-        SelectedItem="{Binding SelectedTemperament, Mode=TwoWay}"
-        ItemDisplayBinding="{Binding Descricao}" />
+                                        Title="Escolha Temperamento" Grid.Row="3" Grid.Column="1"
+                                        ItemsSource="{Binding Temperaments}" 
+                                        FontSize="12"
+                                        VerticalTextAlignment="Center"
+                                        SelectedItem="{Binding SelectedTemperament, Mode=TwoWay}"
+                                        ItemDisplayBinding="{Binding Descricao}" />
 
-                                <Label Text="Raça" Grid.Row="4" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
+                                <Label Text="{resx:Localize Key=Pet_Breed}" Grid.Row="4" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="BreedsPicker"
-        Title="Escolha Raça" Grid.Row="4" Grid.Column="1"
-        ItemsSource="{Binding Breeds}"
-        SelectedItem="{Binding SelectedBreed, Mode=TwoWay}" 
-        FontSize="12"
-        VerticalTextAlignment="Center"
-        ItemDisplayBinding="{Binding Descricao}" />
+                                        Title="Escolha Raça" Grid.Row="4" Grid.Column="1"
+                                        ItemsSource="{Binding Breeds}"
+                                        SelectedItem="{Binding SelectedBreed, Mode=TwoWay}" 
+                                        FontSize="12"
+                                        VerticalTextAlignment="Center"
+                                        ItemDisplayBinding="{Binding Descricao}" />
 
-                                <Label Text="Tamanho" Grid.Row="5" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
+                                <Label Text="{resx:Localize Key=Pet_Size}" Grid.Row="5" Grid.Column="0" FontSize="11" VerticalTextAlignment="Center"  ></Label>
                                 <Picker x:Name="SizesPicker"
-        Title="Escolha Tamanho" Grid.Row="5" Grid.Column="1"
-        ItemsSource="{Binding Sizes}"
-        SelectedItem="{Binding SelectedSize, Mode=TwoWay}"
-        FontSize="12"
-        VerticalTextAlignment="Center"
-        ItemDisplayBinding="{Binding Descricao}" />
+                                        Title="Escolha Tamanho" Grid.Row="5" Grid.Column="1"
+                                        ItemsSource="{Binding Sizes}"
+                                        SelectedItem="{Binding SelectedSize, Mode=TwoWay}"
+                                        FontSize="12"
+                                        VerticalTextAlignment="Center"
+                                        ItemDisplayBinding="{Binding Descricao}" />
 
                                 <!--Other Info-->
 
@@ -365,19 +370,20 @@
                                                 Margin="0, -35, 0, 0"
                                                 VerticalOptions="Center"/>
                                     <Label Grid.Row="3" VerticalOptions="Center" FontSize="11" 
-                                           Margin="0,-30, 0,0" Grid.Column="0">Esterilizado</Label>
+                                           Text="{resx:Localize Key=Pet_Sterilised}"
+                                           Margin="0,-30, 0,0" Grid.Column="0"/>
                                     <Switch Grid.Row="3" Grid.Column="1"
                                             IsToggled="{Binding PetDto.Esterilizado}"
                                             HorizontalOptions="Start" Margin="0, -30, 0, 0"
                                             VerticalOptions="Center" />
                                     <Label Grid.Row="4" VerticalOptions="Center"
-                                           Margin="0, -60, 0, 0" FontSize="11" Grid.Column="0">Padrinho</Label>
+                                           Margin="0, -60, 0, 0" FontSize="11" Grid.Column="0" Text="{resx:Localize Key=TituloPadrinho}"/>
                                     <Switch Grid.Row="4" Grid.Column="1"
                                             IsToggled="{Binding PetDto.Padrinho}"
                                             HorizontalOptions="Start" 
                                             Margin="0, -60, 0, 0"
                                             VerticalOptions="Center" />
-                                    <Label Text="Observações"
+                                    <Label Text="{resx:Localize Key=TituloNotas}"
                                            Grid.Row="5"
                                            Grid.Column="0"
                                            Margin="0, -30, 0, 0"

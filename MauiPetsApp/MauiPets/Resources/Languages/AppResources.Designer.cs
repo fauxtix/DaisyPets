@@ -61,11 +61,560 @@ namespace MauiPets.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pesquisar contacto.
+        ///   Looks up a localized string similar to Operação inválida / Dados inválidos ou em falta.
+        /// </summary>
+        public static string DadosEmFalta {
+            get {
+                return ResourceManager.GetString("DadosEmFalta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar.
+        /// </summary>
+        public static string EditMsg {
+            get {
+                return ResourceManager.GetString("EditMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gravar.
+        /// </summary>
+        public static string Gravar {
+            get {
+                return ResourceManager.GetString("Gravar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não.
+        /// </summary>
+        public static string Nao {
+            get {
+                return ResourceManager.GetString("Nao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Novo.
+        /// </summary>
+        public static string NewMsg {
+            get {
+                return ResourceManager.GetString("NewMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo.
+        /// </summary>
+        public static string Pet_Brand {
+            get {
+                return ResourceManager.GetString("Pet_Brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raça.
+        /// </summary>
+        public static string Pet_Breed {
+            get {
+                return ResourceManager.GetString("Pet_Breed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Consultas.
+        /// </summary>
+        public static string Pet_Consultations {
+            get {
+                return ResourceManager.GetString("Pet_Consultations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desparasitantes.
+        /// </summary>
+        public static string Pet_Dewormers {
+            get {
+                return ResourceManager.GetString("Pet_Dewormers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ração.
+        /// </summary>
+        public static string Pet_Food {
+            get {
+                return ResourceManager.GetString("Pet_Food", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tamanho.
+        /// </summary>
+        public static string Pet_Size {
+            get {
+                return ResourceManager.GetString("Pet_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esterilizado.
+        /// </summary>
+        public static string Pet_Sterilised {
+            get {
+                return ResourceManager.GetString("Pet_Sterilised", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pets.
+        /// </summary>
+        public static string Pet_Title {
+            get {
+                return ResourceManager.GetString("Pet_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Marca.
+        /// </summary>
+        public static string Pet_Vaccine_Brand {
+            get {
+                return ResourceManager.GetString("Pet_Vaccine_Brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toma.
+        /// </summary>
+        public static string Pet_Vaccine_Date {
+            get {
+                return ResourceManager.GetString("Pet_Vaccine_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Próxima.
+        /// </summary>
+        public static string Pet_Vaccine_Next {
+            get {
+                return ResourceManager.GetString("Pet_Vaccine_Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vacinas.
+        /// </summary>
+        public static string Pet_Vaccines {
+            get {
+                return ResourceManager.GetString("Pet_Vaccines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registo anulado com sucesso.
+        /// </summary>
+        public static string RegistoAnuladoSucesso {
+            get {
+                return ResourceManager.GetString("RegistoAnuladoSucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registo inserido com sucesso.
+        /// </summary>
+        public static string RegistoCriadoSucesso {
+            get {
+                return ResourceManager.GetString("RegistoCriadoSucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registo atualizado com sucesso.
+        /// </summary>
+        public static string RegistoGravadoSucesso {
+            get {
+                return ResourceManager.GetString("RegistoGravadoSucesso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sair.
+        /// </summary>
+        public static string Sair {
+            get {
+                return ResourceManager.GetString("Sair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sim.
+        /// </summary>
+        public static string Sim {
+            get {
+                return ResourceManager.GetString("Sim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registo foi eliminado com sucesso..
+        /// </summary>
+        public static string SuccessDelete {
+            get {
+                return ResourceManager.GetString("SuccessDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registo foi criado com sucesso..
+        /// </summary>
+        public static string SuccessInsert {
+            get {
+                return ResourceManager.GetString("SuccessInsert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registo foi gravado com sucesso..
+        /// </summary>
+        public static string SuccessUpdate {
+            get {
+                return ResourceManager.GetString("SuccessUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registo(s) atualizado(s) com sucesso..
+        /// </summary>
+        public static string SuccessUpdates {
+            get {
+                return ResourceManager.GetString("SuccessUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contactos.
+        /// </summary>
+        public static string TituloContactos {
+            get {
+                return ResourceManager.GetString("TituloContactos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data fim.
+        /// </summary>
+        public static string TituloDataFim {
+            get {
+                return ResourceManager.GetString("TituloDataFim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data início.
+        /// </summary>
+        public static string TituloDataInicio {
+            get {
+                return ResourceManager.GetString("TituloDataInicio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Despesa.
+        /// </summary>
+        public static string TituloDespesa {
+            get {
+                return ResourceManager.GetString("TituloDespesa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Despesas.
+        /// </summary>
+        public static string TituloDespesas {
+            get {
+                return ResourceManager.GetString("TituloDespesas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Despesas por Categoria.
+        /// </summary>
+        public static string TituloDespesasPorCategoria {
+            get {
+                return ResourceManager.GetString("TituloDespesasPorCategoria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Todas as despesas.
+        /// </summary>
+        public static string TituloDespesasTodasDespesas {
+            get {
+                return ResourceManager.GetString("TituloDespesasTodasDespesas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doença Crónica.
+        /// </summary>
+        public static string TituloDoencaCronica {
+            get {
+                return ResourceManager.GetString("TituloDoencaCronica", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dt. Nascº.
+        /// </summary>
+        public static string TituloDtNascimento {
+            get {
+                return ResourceManager.GetString("TituloDtNascimento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duração.
+        /// </summary>
+        public static string TituloDuracao {
+            get {
+                return ResourceManager.GetString("TituloDuracao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Espécie.
+        /// </summary>
+        public static string TituloEspecie {
+            get {
+                return ResourceManager.GetString("TituloEspecie", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estado.
+        /// </summary>
+        public static string TituloEstado {
+            get {
+                return ResourceManager.GetString("TituloEstado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fèmea.
+        /// </summary>
+        public static string TituloFeminino {
+            get {
+                return ResourceManager.GetString("TituloFeminino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fim.
+        /// </summary>
+        public static string TituloFim {
+            get {
+                return ResourceManager.GetString("TituloFim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foto.
+        /// </summary>
+        public static string TituloFoto {
+            get {
+                return ResourceManager.GetString("TituloFoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tabelas auxiliares.
+        /// </summary>
+        public static string TituloGestaoTabelas {
+            get {
+                return ResourceManager.GetString("TituloGestaoTabelas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inglês.
+        /// </summary>
+        public static string TituloIdiomaIngles {
+            get {
+                return ResourceManager.GetString("TituloIdiomaIngles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Português.
+        /// </summary>
+        public static string TituloIdiomaPortugues {
+            get {
+                return ResourceManager.GetString("TituloIdiomaPortugues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imagem.
+        /// </summary>
+        public static string TituloImagem {
+            get {
+                return ResourceManager.GetString("TituloImagem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Marca.
+        /// </summary>
+        public static string TituloMarca {
+            get {
+                return ResourceManager.GetString("TituloMarca", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Macho.
+        /// </summary>
+        public static string TituloMasculino {
+            get {
+                return ResourceManager.GetString("TituloMasculino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medicação.
+        /// </summary>
+        public static string TituloMedicacao {
+            get {
+                return ResourceManager.GetString("TituloMedicacao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome.
+        /// </summary>
+        public static string TituloNome {
+            get {
+                return ResourceManager.GetString("TituloNome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Observações.
+        /// </summary>
+        public static string TituloNotas {
+            get {
+                return ResourceManager.GetString("TituloNotas", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Padrinho.
+        /// </summary>
+        public static string TituloPadrinho {
+            get {
+                return ResourceManager.GetString("TituloPadrinho", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pendente.
+        /// </summary>
+        public static string TituloPendente {
+            get {
+                return ResourceManager.GetString("TituloPendente", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pendentes.
+        /// </summary>
+        public static string TituloPendentes {
+            get {
+                return ResourceManager.GetString("TituloPendentes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pesquisar.
         /// </summary>
         public static string TituloPesquisarContacto {
             get {
                 return ResourceManager.GetString("TituloPesquisarContacto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prazo em meses.
+        /// </summary>
+        public static string TituloPrazoEmMeses {
+            get {
+                return ResourceManager.GetString("TituloPrazoEmMeses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qtd. diária.
+        /// </summary>
+        public static string TituloQtdDiaria {
+            get {
+                return ResourceManager.GetString("TituloQtdDiaria", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qtd.
+        /// </summary>
+        public static string TituloQuantidadeAbr {
+            get {
+                return ResourceManager.GetString("TituloQuantidadeAbr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Género.
+        /// </summary>
+        public static string TituloSexo {
+            get {
+                return ResourceManager.GetString("TituloSexo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Situação.
+        /// </summary>
+        public static string TituloSituacao {
+            get {
+                return ResourceManager.GetString("TituloSituacao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tarefa.
+        /// </summary>
+        public static string TituloTarefa {
+            get {
+                return ResourceManager.GetString("TituloTarefa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Temperamento.
+        /// </summary>
+        public static string TituloTemperamento {
+            get {
+                return ResourceManager.GetString("TituloTemperamento", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo de contacto.
+        /// </summary>
+        public static string TituloTipoContacto {
+            get {
+                return ResourceManager.GetString("TituloTipoContacto", resourceCulture);
             }
         }
     }
