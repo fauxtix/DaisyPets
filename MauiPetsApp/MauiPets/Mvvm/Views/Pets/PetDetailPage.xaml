@@ -5,6 +5,7 @@
              xmlns:models ="clr-namespace:MauiPetsApp.Core.Application.ViewModels;assembly=MauiPets.Core"
              xmlns:viewmodel="clr-namespace:MauiPets.Mvvm.ViewModels.Pets"
              xmlns:viewmodelVaccine="clr-namespace:MauiPets.Mvvm.ViewModels.Vaccines"
+             xmlns:resx="clr-namespace:MauiPets.Resources.Languages"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters ="clr-namespace:MauiPets.Converters"
               x:DataType="viewmodel:PetDetailViewModel"
@@ -20,7 +21,7 @@
                  IconImageSource="icon_edit.svg" />
         <ToolbarItem Command="{Binding DeletePetCommand  }"
                  IconImageSource="icon_delete.svg" />
-        <ToolbarItem Text="Exportar PDF"
+        <ToolbarItem Text="{resx:Localize Key=TituloExportarPdf}"
                      IconImageSource="share_file.png"
                      Command="{Binding ExportarFichaPetPdfCommand}" />
         <ToolbarItem Command="{Binding GoBackCommand  }"
@@ -112,7 +113,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid Grid.Row="0" ColumnDefinitions="120, 100, 140">
-                                <Label Text="Data Nascº"
+                                <Label Text="{resx:Localize Key=TituloDtNascimento}"
                                        Style="{StaticResource MediumLabel}"/>
                                 <Label Grid.Column="1" 
                                        Style="{StaticResource MediumLabelBold}"
@@ -129,24 +130,24 @@
                                 </Label>
                             </Grid>
 
-                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Espécie</Label>
+                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=TituloEspecie}"/>
                             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.EspecieAnimal}" />
-                            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Género</Label>
+                            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabel}"  Text="{resx:Localize Key=TituloSexo}"/>
                             <Label Grid.Row="2" Grid.Column="1"  Style="{StaticResource MediumLabelBold}" Text="{Binding Gender}" />
-                            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource MediumLabel}" >Raça</Label>
+                            <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=Pet_Breed}"/>
                             <Label Grid.Row="3" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.RacaAnimal}" />
-                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabel}" >Temperamento</Label>
+                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=TituloTemperamento}"/>
                             <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TemperamentoAnimal}" />
-                            <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource MediumLabel}" >Medicação</Label>
+                            <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=TituloMedicacao}"/>
                             <Label Grid.Row="5" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.MedicacaoAnimal}" />
-                            <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Doença crónica</Label>
+                            <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource MediumLabel}"  Text="{resx:Localize Key=TituloDoencas}"/>
                             <Label Grid.Row="6" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.DoencaCronica}" />
-                            <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource MediumLabel}"  >Tamanho</Label>
+                            <Label Grid.Row="7" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=Pet_Size}" />
                             <Label Grid.Row="7" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.TamanhoAnimal}" />
-                            <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource MediumLabel}" >Faixa Etária</Label>
+                            <Label Grid.Row="8" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=TituloFaixaEtaria}" />
                             <Label Grid.Row="8" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding FaixaEtaria}" />
 
-                            <Label Grid.Row="9" Grid.Column="0" Style="{StaticResource MediumLabel}" >Situação</Label>
+                            <Label Grid.Row="9" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=TituloSituacao}" />
                             <Label Grid.Row="9" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.SituacaoAnimal}" />
                         </Grid>
                     </Frame>
@@ -172,20 +173,20 @@
                                 <ColumnDefinition Width="120" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MediumLabel}" >Chipado</Label>
+                            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=TituloChipado}" />
                             <Label Grid.Row="0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Chipped}" />
-                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabel}" >Código Chip</Label>
+                            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=TituloCodigoChip}" />
                             <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.NumeroChip}" />
-                            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabel}" >Data Chip</Label>
+                            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=TituloDataChip}" />
                             <Label Grid.Row="2" 
                                    Grid.Column="1" 
                                    Style="{StaticResource MediumLabelBold}" 
                                    Text="{Binding PetVM.DataChip, Converter={StaticResource stringToDateConverter},  StringFormat='{0:dd/MM/yyyy}'}" />
-                            <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="0" Style="{StaticResource MediumLabel}" >Esterilizado</Label>
+                            <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=Pet_Sterilised}" />
                             <Label Grid.Row="3" Margin="0,5,0,0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding Sterilized}" />
-                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabel}" >Padrinho</Label>
+                            <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=TituloPadrinho}"/>
                             <Label Grid.Row="4" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding GodFather}" />
-                            <Label Grid.Row="5"  Margin="0,5,0,0" Grid.Column="0" Style="{StaticResource MediumLabel}" >Notas</Label>
+                            <Label Grid.Row="5"  Margin="0,5,0,0" Grid.Column="0" Style="{StaticResource MediumLabel}" Text="{resx:Localize Key=TituloNotas}"/>
                             <Label Grid.Row="5"  Margin="0,5,0,0" Grid.Column="1" Style="{StaticResource MediumLabelBold}" Text="{Binding PetVM.Observacoes}" />
                         </Grid>
                     </Frame>
@@ -206,7 +207,7 @@
                                     BorderColor="Black"
                                     BackgroundColor="LightSteelBlue"
                                     CornerRadius="10">
-                                <Label Text="Vacinas" FontSize="14" 
+                                <Label Text="{resx:Localize Key=Pet_Vaccines}" FontSize="14" 
                                        FontAttributes="Bold" TextColor="Black"/>
                             </Frame>
                         </mct:Expander.Header>
@@ -214,7 +215,7 @@
 
                             <Frame Grid.Row="4" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent" Padding="8">
                                 <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *">
-                                    <Button Text="Novo" 
+                                    <Button Text="{resx:Localize Key=NewMsg}" 
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddVaccineCommand}" 
                                                     Style="{StaticResource CommonAddButtonStyle}"
                                         Grid.Row="0" />
@@ -222,9 +223,9 @@
                                     <Grid ColumnDefinitions=".3*, .4*, .3*" 
                                           ColumnSpacing="1"
                                           Grid.Row="2">
-                                        <Label FontAttributes="Bold" FontSize="12" Text="Toma" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
-                                        <Label FontAttributes="Bold" FontSize="12" Text="Vacina" Grid.Row="0" Grid.Column="1"/>
-                                        <Label FontAttributes="Bold" FontSize="12" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" />
+                                        <Label FontAttributes="Bold" FontSize="12" Text="{resx:Localize Key=Pet_Vaccine_Date}" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
+                                        <Label FontAttributes="Bold" FontSize="12" Text="{resx:Localize Key=Pet_Vaccine_Name}" Grid.Row="0" Grid.Column="1"/>
+                                        <Label FontAttributes="Bold" FontSize="12" Text="{resx:Localize Key=Pet_Vaccine_Next_Dose}" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" />
                                     </Grid>
                                     <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
 
@@ -254,7 +255,7 @@
                                                 <SwipeView>
                                                     <SwipeView.RightItems>
                                                         <SwipeItems SwipeBehaviorOnInvoked="Close">
-                                                            <SwipeItem Text="Apagar"
+                                                            <SwipeItem Text="{resx:Localize Key=DeleteMsg}"
                                                                    IconImageSource="icon_delete.svg" 
                                                                    BackgroundColor="Transparent"
                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel }}, Path=DeleteVacinaCommand}" 
@@ -307,7 +308,7 @@
                                 BorderColor="Black"
                                 BackgroundColor="LightSteelBlue"
                                 CornerRadius="10">
-                                <Label Text="Desparasitantes" FontSize="14" 
+                                <Label Text="{resx:Localize Key=Pet_Dewormers}" FontSize="14" 
                                        FontAttributes="Bold" TextColor="Black"/>
                             </Frame>
                         </mct:Expander.Header>
@@ -316,16 +317,16 @@
                             <Frame Grid.Row="5" CornerRadius="40" 
                                    HasShadow="False" Margin="0" BorderColor="Transparent" Padding="8">
                                 <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *">
-                                    <Button Text="Novo" 
+                                    <Button Text="{resx:Localize Key=NewMsg}" 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddDewormerCommand}" 
                                             Style="{StaticResource CommonAddButtonStyle}"
                                             Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <Grid ColumnDefinitions=".3*, .4*, .3*" ColumnSpacing="1"
                                           Grid.Row="2">
-                                        <Label FontAttributes="Bold" FontSize="10" Text="Toma" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
-                                        <Label FontAttributes="Bold" FontSize="10" Text="Marca" Grid.Row="0" Grid.Column="1"/>
-                                        <Label FontAttributes="Bold" FontSize="10" Text="Prx. Toma" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" />
+                                        <Label FontAttributes="Bold" FontSize="10" Text="{resx:Localize Key=Pet_Vaccine_Date}" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
+                                        <Label FontAttributes="Bold" FontSize="10" Text="{resx:Localize Key=Pet_Vaccine_Brand}" Grid.Row="0" Grid.Column="1"/>
+                                        <Label FontAttributes="Bold" FontSize="10" Text="{resx:Localize Key=Pet_Vaccine_Next}" Grid.Row="0" Grid.Column="2" HorizontalOptions="Center" />
                                     </Grid>
                                     <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <CollectionView Grid.Row="4" 
@@ -352,7 +353,7 @@
                                                 <SwipeView>
                                                     <SwipeView.RightItems>
                                                         <SwipeItems SwipeBehaviorOnInvoked="Close">
-                                                            <SwipeItem Text="Apagar"
+                                                            <SwipeItem Text="{resx:Localize Key=DeleteMsg}"
                                                                    IconImageSource="icon_delete.svg" 
                                                                    BackgroundColor="Transparent"
                                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel }}, Path=DeleteDesparasitanteCommand}" 
@@ -413,23 +414,23 @@
                                 BorderColor="Black"
                                 BackgroundColor="LightSteelBlue"
                                 CornerRadius="10">
-                                <Label Text="Ração" FontSize="14" 
+                                <Label Text="{resx:Localize Key=Pet_Food}" FontSize="14" 
                                       FontAttributes="Bold" TextColor="Black"/>
                             </Frame>
                         </mct:Expander.Header>
                         <mct:Expander.Content>
                             <Frame Grid.Row="6" CornerRadius="40" HasShadow="False" Margin="0" BorderColor="Transparent" Padding="8">
                                 <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *">
-                                    <Button Text="Novo" 
+                                    <Button Text="{resx:Localize Key=NewMsg}" 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddPetFoodCommand}" 
                                             Style="{StaticResource CommonAddButtonStyle}"
                                             Grid.Row="0" />
                                     <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <Grid ColumnDefinitions=".3*, .4*, .3*" ColumnSpacing="1"
                                           Grid.Row="2">
-                                        <Label FontSize="10" Text="Compra" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center"  />
-                                        <Label FontSize="10" Text="Marca" Grid.Row="0" Grid.Column="1"/>
-                                        <Label FontSize="10" Text="Qtd. diária" Grid.Row="0" HorizontalOptions="Center" Grid.Column="2" />
+                                        <Label FontSize="10" Text="{resx:Localize Key=TituloCompra}" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center"  />
+                                        <Label FontSize="10" Text="{resx:Localize Key=TituloMarca}" Grid.Row="0" Grid.Column="1"/>
+                                        <Label FontSize="10" Text="{resx:Localize Key=TituloQtdDiaria}" Grid.Row="0" HorizontalOptions="Center" Grid.Column="2" />
                                     </Grid>
                                     <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <CollectionView Grid.Row="4"
@@ -455,7 +456,7 @@
                                                 <SwipeView>
                                                     <SwipeView.RightItems>
                                                         <SwipeItems SwipeBehaviorOnInvoked="Close">
-                                                            <SwipeItem Text="Apagar"
+                                                            <SwipeItem Text="{resx:Localize Key=DeleteMsg}"
                                                        IconImageSource="icon_delete.svg" 
                                                        BackgroundColor="Transparent"
                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel }}, Path=DeletePetFoodCommand}" 
@@ -503,7 +504,7 @@
                                     BorderColor="Black"
                                     BackgroundColor="LightSteelBlue"
                                     CornerRadius="10">
-                                <Label Text="Consultas no veterinário" FontSize="14" 
+                                <Label Text="{resx:Localize Key=TituloConsultasVeterinario}" FontSize="14" 
                                        FontAttributes="Bold" TextColor="Black"/>
                             </Frame>
                         </mct:Expander.Header>
@@ -511,7 +512,7 @@
 
                             <Frame Grid.Row="7" CornerRadius="40" HasShadow="False" Margin="5" BorderColor="Transparent" Padding="8">
                                 <Grid Padding="0" RowDefinitions="Auto, Auto, Auto, Auto, *">
-                                    <Button Text="Novo" 
+                                    <Button Text="{resx:Localize Key=NewMsg}" 
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel}}, Path=AddVetAppointmentCommand}" 
                                             Style="{StaticResource CommonAddButtonStyle}"
                                             Grid.Row="0" />
@@ -519,8 +520,8 @@
 
                                     <Grid ColumnDefinitions=".3*, .7*" ColumnSpacing="4"
                                           Grid.Row="2">
-                                        <Label FontSize="10" Text="Visita" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
-                                        <Label FontSize="10" Text="Motivo" Grid.Row="0" Grid.Column="1"/>
+                                        <Label FontSize="10" Text="{resx:Localize Key=TituloVisita}" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
+                                        <Label FontSize="10" Text="{resx:Localize Key=TituloMotivo}" Grid.Row="0" Grid.Column="1"/>
                                     </Grid>
                                     <BoxView Grid.Row="3" HeightRequest="1" BackgroundColor="Gray" Margin="0,1,0,2"/>
                                     <CollectionView Grid.Row="4" 
@@ -546,7 +547,7 @@
                                                 <SwipeView>
                                                     <SwipeView.RightItems>
                                                         <SwipeItems SwipeBehaviorOnInvoked="Close">
-                                                            <SwipeItem Text="Apagar"
+                                                            <SwipeItem Text="{resx:Localize Key=DeleteMsg}"
                                                        IconImageSource="icon_delete.svg" 
                                                        BackgroundColor="Transparent"
                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PetDetailViewModel }}, Path=DeletePetAppointmentCommand}" 

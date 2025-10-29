@@ -219,8 +219,8 @@
   <data name="TituloDespesasTodasDespesas" xml:space="preserve">
     <value>Todas as despesas</value>
   </data>
-  <data name="TituloDoencaCronica" xml:space="preserve">
-    <value>Doença Crónica</value>
+  <data name="TituloDoencasCronicas" xml:space="preserve">
+    <value>Doenças Crónicas</value>
   </data>
   <data name="TituloDtNascimento" xml:space="preserve">
     <value>Dt. Nascº</value>
@@ -302,5 +302,86 @@
   </data>
   <data name="TituloTipoContacto" xml:space="preserve">
     <value>Tipo de contacto</value>
+  </data>
+  <data name="TituloMorada" xml:space="preserve">
+    <value>Morada</value>
+  </data>
+  <data name="TituloLocalidade" xml:space="preserve">
+    <value>Localidade</value>
+  </data>
+  <data name="TituloMovel" xml:space="preserve">
+    <value>Telemóvel</value>
+  </data>
+  <data name="TituloEmail" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="TituloDoencas" xml:space="preserve">
+    <value>Doenças</value>
+  </data>
+  <data name="TituloPeso" xml:space="preserve">
+    <value>Peso</value>
+  </data>
+  <data name="TituloCor" xml:space="preserve">
+    <value>Cor</value>
+  </data>
+  <data name="TituloOutrosDados" xml:space="preserve">
+    <value>Outros dados</value>
+  </data>
+  <data name="TituloEscolhaEspecie" xml:space="preserve">
+    <value>Escolha espécie</value>
+  </data>
+  <data name="TituloEscolhaSituacao" xml:space="preserve">
+    <value>Escolha situacao</value>
+  </data>
+  <data name="TituloEscolhaTemperamento" xml:space="preserve">
+    <value>Escolha temperamento</value>
+  </data>
+  <data name="TituloEscolhaRaca" xml:space="preserve">
+    <value>Escolha raça</value>
+  </data>
+  <data name="TituloEscolhaTamanho" xml:space="preserve">
+    <value>Escolha tamanho</value>
+  </data>
+  <data name="TituloChipado" xml:space="preserve">
+    <value>Chipado</value>
+  </data>
+  <data name="TituloCodigoChip" xml:space="preserve">
+    <value>Código do chip</value>
+  </data>
+  <data name="TituloDataChip" xml:space="preserve">
+    <value>Data da colocação</value>
+  </data>
+  <data name="TituloDadosBiograficos" xml:space="preserve">
+    <value>Dados Biográficos</value>
+  </data>
+  <data name="TituloEscolhaImagem" xml:space="preserve">
+    <value>Escolha foto</value>
+  </data>
+  <data name="DeleteMsg" xml:space="preserve">
+    <value>Apagar</value>
+  </data>
+  <data name="TituloCompra" xml:space="preserve">
+    <value>Compra</value>
+  </data>
+  <data name="TituloConsultasVeterinario" xml:space="preserve">
+    <value>Consultas no veterinário</value>
+  </data>
+  <data name="TituloMotivo" xml:space="preserve">
+    <value>Motivo</value>
+  </data>
+  <data name="TituloVisita" xml:space="preserve">
+    <value>Visita</value>
+  </data>
+  <data name="TituloExportarPdf" xml:space="preserve">
+    <value>Exportar para Pdf</value>
+  </data>
+  <data name="TituloFaixaEtaria" xml:space="preserve">
+    <value>Faixa etária</value>
+  </data>
+  <data name="Pet_Vaccine_Name" xml:space="preserve">
+    <value>Vacina</value>
+  </data>
+  <data name="Pet_Vaccine_Next_Dose" xml:space="preserve">
+    <value>Próxima toma</value>
   </data>
 </root>

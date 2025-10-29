@@ -94,7 +94,7 @@
                            FontFamily="Poppins"
                            FontAttributes="Bold" 
 			               VerticalOptions="Center"/>
-                    <Label Text="Morada" 
+                    <Label Text="{resx:Localize Key=TituloMorada}" 
                             Grid.Row="2"
                             FontSize = "14"
 			                VerticalOptions="Center"></Label>
@@ -102,7 +102,7 @@
 			                Text="{Binding ContactoVM.Morada}" 
 			                Grid.Row="3"
 			                VerticalOptions="Center"></Entry>
-                    <Label Text="Localidade" 
+                    <Label Text="{resx:Localize Key=TituloLocalidade}" 
                             Grid.Row="4"
                             FontSize = "14"
 			                VerticalOptions="Center"></Label>
@@ -111,7 +111,7 @@
                             Style="{StaticResource MediumLabelBold}"
 			                Grid.Row="5"
 			                VerticalOptions="Center"></Entry>
-                    <Label Text="Móvel" 
+                    <Label Text="{resx:Localize Key=TituloMovel}" 
                             Grid.Row="6"
                             FontSize = "14"
 			                VerticalOptions="Center"/>
@@ -121,7 +121,7 @@
 			                Grid.Row="7"
                             Keyboard="Telephone"
 			                VerticalOptions="Center"></Entry>
-                    <Label Text="E-Mail" 
+                    <Label Text="{resx:Localize Key=TituloEmail}" 
                             Grid.Row="8"
                             FontSize = "14"
 			                VerticalOptions="Center"/>
@@ -131,7 +131,7 @@
   		                   Grid.Row="9"
                            Keyboard="Email"
 			               VerticalOptions="Center"></Entry>
-                    <Label Text="Tipo Contacto" 
+                    <Label Text="{resx:Localize Key=TituloTipoContacto}" 
                            Grid.Row="10"
                            FontSize = "14"
 			               VerticalOptions="Center"/>
